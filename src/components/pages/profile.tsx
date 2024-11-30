@@ -110,7 +110,7 @@ export default function ProfilePage() {
                       )}
                     />
                     <Button
-                      type="submit"
+                      type="button"
                       variant="outline"
                       className="mt-4 w-full border-destructive bg-transparent text-destructive hover:bg-destructive/5 hover:text-destructive"
                       disabled={signOutMutation.isPending}

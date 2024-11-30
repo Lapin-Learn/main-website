@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import { Input } from "@/components/ui/input";
-import { useSignIn } from "@/hooks/react-query/useAuth";
+import { useSignIn, useSignInWithGoogle } from "@/hooks/react-query/useAuth";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -33,6 +33,7 @@ export default function LogInPage() {
     resolver: zodResolver(formSchema),
   });
   const signInMutation = useSignIn();
+  const signInWithGoogleMutation = useSignInWithGoogle();
 
   function onSubmit(data: FormInputs) {
     signInMutation.mutate(data);
@@ -99,8 +100,14 @@ export default function LogInPage() {
               )}
               Log in
             </Button>
-            <p>Or</p>
-            <Button variant="outline">Sign in with Google</Button>
+            <p className="w-full text-center">Or</p>
+            <Button
+              variant="outline"
+              type="button"
+              onClick={() => signInWithGoogleMutation.mutate()}
+            >
+              Sign in with Google
+            </Button>
             <div className="text-center text-sm">
               Don't have account?&nbsp;
               <Link to="/sign-up" className="font-bold">

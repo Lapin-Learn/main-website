@@ -1,3 +1,14 @@
+import {
+  getAuth,
+  GoogleAuthProvider,
+  OAuthCredential,
+  signInWithCredential,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut as signOutFirebase,
+} from "firebase/auth";
+
+import { auth } from "@/firebaseConfig";
 import { FetchingData } from "@/lib/types";
 import { AccountIdentifier } from "@/lib/types/user.type";
 import { generateSearchParams } from "@/lib/utils";
@@ -41,13 +52,11 @@ export const signUp = async (payload: SignUpPayload) => {
   return data;
 };
 
-export const signOut = () => {
-  return new Promise((resolve) =>
-    setTimeout(() => {
-      localStorage.clear();
-      resolve(void 0);
-    }, delay)
-  );
+export const signOut = async () => {
+  const auth = getAuth();
+  await signOutFirebase(auth);
+  localStorage.clear();
+  return;
 };
 
 type VerifyOtpPayload = {
@@ -84,7 +93,6 @@ export const refreshToken = async () => {
         .json<FetchingData<AuthInfo>>()
     ).data;
     localStorage.setItem(localStorageTokenKey, JSON.stringify(data));
-    console.log("Success");
     return data;
   }
   throw new Error("No refresh token founded.");
@@ -92,4 +100,26 @@ export const refreshToken = async () => {
 
 export const getAccountIdentifier = async () => {
   return (await api.get("users/account").json<FetchingData<AccountIdentifier>>()).data;
+};
+
+// FIREBASE
+export const signInWithGoogle = async () => {
+  const provider = new GoogleAuthProvider();
+  const userCredential = await signInWithPopup(auth, provider);
+  const credential = GoogleAuthProvider.credentialFromResult(userCredential);
+  if (!credential) return;
+
+  const data = (
+    await apiAuth
+      .post("auth/provider", {
+        json: {
+          credential: credential.idToken,
+          provider: provider.providerId,
+        },
+      })
+      .json<FetchingData<AuthInfo>>()
+  ).data;
+
+  localStorage.setItem(localStorageTokenKey, JSON.stringify(data));
+  return data;
 };
