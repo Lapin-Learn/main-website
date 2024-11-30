@@ -114,6 +114,9 @@ export default function ProfilePage() {
                       variant="outline"
                       className="mt-4 w-full border-destructive bg-transparent text-destructive hover:bg-destructive/5 hover:text-destructive"
                       disabled={signOutMutation.isPending}
+                      onClick={() => {
+                        signOutMutation.mutate();
+                      }}
                     >
                       {signOutMutation.isPending && (
                         <Loader2 className="mr-1 size-5 animate-spin text-white" />
