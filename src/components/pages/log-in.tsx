@@ -99,6 +99,8 @@ export default function LogInPage() {
               )}
               Log in
             </Button>
+            <p>Or</p>
+            <Button variant="outline">Sign in with Google</Button>
             <div className="text-center text-sm">
               Don't have account?&nbsp;
               <Link to="/sign-up" className="font-bold">

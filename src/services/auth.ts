@@ -4,7 +4,7 @@ import { generateSearchParams } from "@/lib/utils";
 import api, { apiAuth } from "@/services/kyInstance";
 
 const delay = 500;
-const localStorageTokenKey = "auth_client_token";
+export const localStorageTokenKey = "auth_client_token";
 
 export type AuthInfo = {
   accessToken: string;
@@ -73,14 +73,21 @@ export const resetPassword = async (payload: ResetPasswordPayload) => {
     .data;
 };
 
-export const refreshToken = async (refreshToken: string) => {
-  const data = (
-    await api.post("auth/refresh", {
-      json: { refreshToken },
-    })
-  ).json<FetchingData<AuthInfo>>();
-  localStorage.setItem(localStorageTokenKey, JSON.stringify(data));
-  return data;
+export const refreshToken = async () => {
+  const authInfo = getAuthValueFromStorage();
+  if (authInfo?.refreshToken) {
+    const data = (
+      await apiAuth
+        .post("auth/refresh", {
+          json: { refreshToken: authInfo.refreshToken },
+        })
+        .json<FetchingData<AuthInfo>>()
+    ).data;
+    localStorage.setItem(localStorageTokenKey, JSON.stringify(data));
+    console.log("Success");
+    return data;
+  }
+  throw new Error("No refresh token founded.");
 };
 
 export const getAccountIdentifier = async () => {
