@@ -39,3 +39,8 @@ export enum EnumRank {
   diamond = "diamond",
   master = "master",
 }
+
+export enum EnumGender {
+  MALE = "male",
+  FEMALE = "female",
+}

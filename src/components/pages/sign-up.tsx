@@ -19,7 +19,6 @@ import { useSignUp } from "@/hooks/react-query/useAuth";
 
 const formSchema = z
   .object({
-    username: z.string().min(1, "Username is required"),
     email: z.string().email(),
     password: z.string().min(8, "Password must be at least 8 characters long"),
     confirmPassword: z.string().min(8, "Password must be at least 8 characters long"),
@@ -40,7 +39,6 @@ type FormInputs = z.infer<typeof formSchema>;
 export default function SignUpPage() {
   const form = useForm<FormInputs>({
     defaultValues: {
-      username: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -51,7 +49,6 @@ export default function SignUpPage() {
 
   function onSubmit(data: FormInputs) {
     signUpMutation.mutate({
-      username: data.username,
       email: data.email,
       password: data.password,
     });
@@ -68,27 +65,6 @@ export default function SignUpPage() {
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-2">
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    Username<span className="text-destructive">*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      placeholder="ngantruc"
-                      error={Boolean(form.formState.errors.username)}
-                      {...field}
-                      onChange={field.onChange}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <FormField
               control={form.control}
               name="email"

@@ -1,7 +1,7 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 
-import { getUser, signIn, signOut, signUp } from "@/services/auth";
+import { signIn, signOut, signUp } from "@/services/auth";
 
 import { useToast } from "../use-toast";
 import { useAuthStore } from "../useAuthStore";
@@ -18,10 +18,7 @@ export const useSignIn = () => {
   return useMutation({
     mutationFn: signIn,
     onSuccess: (data) => {
-      // const authUser = getAuthUser();
-      // queryClient.setQueryData(authKeys.detail(), authUser);
       setAccessToken(data.accessToken);
-      console.log(data);
       navigate({ to: "/" });
       toast({
         title: "Success",
@@ -81,13 +78,5 @@ export const useSignOut = () => {
         variant: "destructive",
       });
     },
-  });
-};
-
-export const useUserProfile = () => {
-  return useQuery({
-    queryFn: getUser,
-    queryKey: authKeys.detail(),
-    retry: false,
   });
 };
