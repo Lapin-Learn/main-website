@@ -1,5 +1,4 @@
 import { Button } from "@components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@components/ui/card";
 import {
   Form,
   FormControl,
@@ -10,10 +9,11 @@ import {
 } from "@components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "@tanstack/react-router";
-import { Loader2 } from "lucide-react";
+import { KeyRound, Loader2, Mail } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
+import GoogleLogo from "@/assets/GoogleLogo";
 import { Input } from "@/components/ui/input";
 import { useSignIn, useSignInWithGoogle } from "@/hooks/react-query/useAuth";
 
@@ -42,16 +42,16 @@ export default function LogInPage() {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-center">Welcome back</CardTitle>
-        <CardDescription className="text-center">
-          Enter your account information here, and click Log in.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
+    <>
+      <div className="flex flex-col items-center gap-10">
+        <div>
+          <div className="mb-3 text-center text-3xl font-bold">Welcome Back!</div>
+          <div className="text-center text-sm">
+            Enter your email and password to access your account.
+          </div>
+        </div>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-2">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-80 flex-col gap-2">
             <FormField
               control={form.control}
               name="email"
@@ -65,6 +65,7 @@ export default function LogInPage() {
                       error={Boolean(form.formState.errors.email)}
                       {...field}
                       onChange={field.onChange}
+                      StartIcon={Mail}
                     />
                   </FormControl>
                   <FormMessage />
@@ -84,45 +85,56 @@ export default function LogInPage() {
                       {...field}
                       type="password"
                       onChange={field.onChange}
+                      StartIcon={KeyRound}
                     />
                   </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button
-              type="submit"
-              variant="default"
-              className="mt-4 w-full bg-primary"
-              disabled={signInMutation.isPending}
-            >
-              {signInMutation.isPending && (
-                <Loader2 className="mr-1 size-5 animate-spin text-white" />
-              )}
-              Log in
-            </Button>
-            <div className="flex w-full flex-row items-center gap-2">
-              <Separator orientation="horizontal" className="flex-1" />
-              <p>or</p>
-              <Separator orientation="horizontal" className="flex-1" />
-            </div>
-            <Button
-              variant="outline"
-              type="button"
-              onClick={() => signInWithGoogleMutation.mutate()}
-            >
-              Sign in with Google
-            </Button>
-            <div className="text-center text-sm">
-              Don't have account?&nbsp;
-              <Link to="/sign-up" className="font-bold">
-                Sign up
-              </Link>
+            <Link to="/log-in" className="text-right text-sm hover:underline">
+              Forgot password?
+            </Link>
+            <div className="flex flex-col gap-2">
+              <Button
+                type="submit"
+                variant="default"
+                size="lg"
+                className="mt-4 w-full bg-primary"
+                disabled={signInMutation.isPending}
+              >
+                {signInMutation.isPending && (
+                  <Loader2 className="mr-1 size-5 animate-spin text-white" />
+                )}
+                Log in
+              </Button>
+              <div className="flex w-full flex-row items-center gap-2">
+                <Separator orientation="horizontal" className="flex-1" />
+                <p>or</p>
+                <Separator orientation="horizontal" className="flex-1" />
+              </div>
+              <Button
+                variant="outline"
+                type="button"
+                size="lg"
+                className="inline-flex flex-row items-center"
+                onClick={() => signInWithGoogleMutation.mutate()}
+              >
+                Sign in with&nbsp;
+                <span>
+                  <GoogleLogo />
+                </span>
+              </Button>
             </div>
           </form>
         </Form>
-      </CardContent>
-    </Card>
+      </div>
+      <div className="text-center text-sm">
+        Don't have account?&nbsp;
+        <Link to="/sign-up" className="font-bold">
+          Sign up
+        </Link>
+      </div>
+    </>
   );
 }

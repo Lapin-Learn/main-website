@@ -1,5 +1,4 @@
 import { Button } from "@components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "@tanstack/react-router";
@@ -21,6 +20,11 @@ const formSchema = z.object({
 });
 
 type FormInputs = z.infer<typeof formSchema>;
+
+const formatEmail = (email: string) => {
+  const parts = email.split("@");
+  return parts[0][0] + "*****" + parts[0].slice(-1) + "@" + parts[1];
+};
 
 export default function VerifyOtpPage() {
   const form = useForm<FormInputs>({
@@ -44,20 +48,17 @@ export default function VerifyOtpPage() {
   }, [email, navigate]);
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-center">Verify your OTP</CardTitle>
-        <CardDescription className="text-center">
-          <p>An OTP has been sent to your email {email}.</p>
-          <p>Enter the 6-digit code to the input below.</p>
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="grid place-items-center">
+    <>
+      <div className="flex flex-col items-center gap-10">
+        <div>
+          <div className="mb-3 text-center text-3xl font-bold">Verification Code</div>
+          <div className="max-w-96 text-center text-sm">
+            Verification code has been sent via email to &nbsp;
+            <span className="text-orange-700">{formatEmail(email)}</span>.
+          </div>
+        </div>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex w-full flex-col items-center gap-2"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-80 flex-col gap-2">
             <FormField
               control={form.control}
               name="otp"
@@ -83,6 +84,7 @@ export default function VerifyOtpPage() {
               type="submit"
               variant="default"
               className="mt-4 w-full bg-primary"
+              size="lg"
               disabled={verifyOtpMutation.isPending}
             >
               {verifyOtpMutation.isPending && (
@@ -90,7 +92,7 @@ export default function VerifyOtpPage() {
               )}
               Verify OTP
             </Button>
-            <div className="text-center text-sm">
+            <div className="mt-1 text-center text-sm">
               Don't receive OTP?&nbsp;
               <a
                 className="font-bold hover:cursor-pointer"
@@ -108,7 +110,8 @@ export default function VerifyOtpPage() {
             </div>
           </form>
         </Form>
-      </CardContent>
-    </Card>
+      </div>
+      <div />
+    </>
   );
 }
