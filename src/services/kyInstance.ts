@@ -41,6 +41,13 @@ const api = ky.create({
             await signOut();
             redirect({ to: "/log-in" });
           }
+        } else {
+          if (!response.ok) {
+            const body: {
+              message: string;
+            } = await response.json();
+            throw new Error(body.message);
+          }
         }
         return response;
       },

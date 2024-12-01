@@ -15,7 +15,9 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import { Input } from "@/components/ui/input";
-import { useSignUp } from "@/hooks/react-query/useAuth";
+import { useSignUp, useSignUpWithGoogle } from "@/hooks/react-query/useAuth";
+
+import { Separator } from "../ui/separator";
 
 const formSchema = z
   .object({
@@ -46,6 +48,7 @@ export default function SignUpPage() {
     resolver: zodResolver(formSchema),
   });
   const signUpMutation = useSignUp();
+  const signUpWithGoogleMutation = useSignUpWithGoogle();
 
   function onSubmit(data: FormInputs) {
     signUpMutation.mutate({
@@ -140,6 +143,18 @@ export default function SignUpPage() {
                 <Loader2 className="mr-1 size-5 animate-spin text-white" />
               )}
               Sign up
+            </Button>
+            <div className="flex w-full flex-row items-center gap-2">
+              <Separator orientation="horizontal" className="flex-1" />
+              <p>or</p>
+              <Separator orientation="horizontal" className="flex-1" />
+            </div>
+            <Button
+              variant="outline"
+              type="button"
+              onClick={() => signUpWithGoogleMutation.mutate()}
+            >
+              Sign up with Google
             </Button>
             <div className="text-center text-sm">
               Already had an account?&nbsp;

@@ -17,6 +17,8 @@ import * as z from "zod";
 import { Input } from "@/components/ui/input";
 import { useSignIn, useSignInWithGoogle } from "@/hooks/react-query/useAuth";
 
+import { Separator } from "../ui";
+
 const formSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8, "Password must be at least 8 characters long"),
@@ -100,7 +102,11 @@ export default function LogInPage() {
               )}
               Log in
             </Button>
-            <p className="w-full text-center">Or</p>
+            <div className="flex w-full flex-row items-center gap-2">
+              <Separator orientation="horizontal" className="flex-1" />
+              <p>or</p>
+              <Separator orientation="horizontal" className="flex-1" />
+            </div>
             <Button
               variant="outline"
               type="button"

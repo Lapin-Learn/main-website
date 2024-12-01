@@ -7,5 +7,7 @@ export const getUserProfile = async () => {
 };
 
 export const updateUserProfile = async (payload: Partial<UserProfile>) => {
-  return (await api.put("users/profile", { json: payload }).json<FetchingData<UserProfile>>()).data;
+  return (
+    await api.put("users/profile", { json: { body: payload } }).json<FetchingData<UserProfile>>()
+  ).data;
 };
