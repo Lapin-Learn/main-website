@@ -1,5 +1,4 @@
 import { Button } from "@components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@components/ui/card";
 import {
   Form,
   FormControl,
@@ -12,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "@tanstack/react-router";
 import { KeyRound, Loader2, Mail } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import * as z from "zod";
 
 import GoogleLogo from "@/assets/GoogleLogo";
@@ -40,6 +40,7 @@ const formSchema = z
 type FormInputs = z.infer<typeof formSchema>;
 
 export default function SignUpPage() {
+  const { t } = useTranslation("auth");
   const form = useForm<FormInputs>({
     defaultValues: {
       email: "",
@@ -62,10 +63,8 @@ export default function SignUpPage() {
     <>
       <div className="flex flex-col items-center gap-10">
         <div>
-          <div className="mb-3 text-center text-3xl font-bold">Hello new friend!</div>
-          <div className="text-center text-sm">
-            Enter your account information here, and click Sign up.
-          </div>
+          <div className="mb-3 text-center text-3xl font-bold">{t("signUp.title")}</div>
+          <div className="text-center text-sm">{t("signUp.description")}</div>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-80 flex-col gap-2">
@@ -75,7 +74,8 @@ export default function SignUpPage() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Email<span className="text-destructive">*</span>
+                    {t("email", { ns: "common" })}
+                    <span className="text-destructive">*</span>
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -97,7 +97,8 @@ export default function SignUpPage() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Password<span className="text-destructive">*</span>
+                    {t("password", { ns: "common" })}
+                    <span className="text-destructive">*</span>
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -120,7 +121,8 @@ export default function SignUpPage() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Confirm password<span className="text-destructive">*</span>
+                    {t("confirmPassword", { ns: "common" })}
+                    <span className="text-destructive">*</span>
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -148,7 +150,7 @@ export default function SignUpPage() {
                 {signUpMutation.isPending && (
                   <Loader2 className="mr-1 size-5 animate-spin text-white" />
                 )}
-                Sign up
+                {t("signUp.signUpBtn")}
               </Button>
               <div className="flex w-full flex-row items-center gap-2">
                 <Separator orientation="horizontal" className="flex-1" />
@@ -162,7 +164,7 @@ export default function SignUpPage() {
                 size="lg"
                 onClick={() => signUpWithGoogleMutation.mutate()}
               >
-                Sign up with&nbsp;
+                {t("signUp.anotherSignUp")}&nbsp;
                 <span>
                   <GoogleLogo />
                 </span>
@@ -172,9 +174,9 @@ export default function SignUpPage() {
         </Form>
       </div>
       <div className="text-center text-sm">
-        Already had an account?&nbsp;
+        {t("signUp.alreadyHadAccount")}&nbsp;
         <Link to="/log-in" className="font-bold">
-          Log in
+          {t("logIn.logInBtn")}
         </Link>
       </div>
     </>

@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "@tanstack/react-router";
 import { KeyRound, Loader2, Mail } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import * as z from "zod";
 
 import GoogleLogo from "@/assets/GoogleLogo";
@@ -27,6 +28,7 @@ const formSchema = z.object({
 type FormInputs = z.infer<typeof formSchema>;
 
 export default function LogInPage() {
+  const { t } = useTranslation("auth");
   const form = useForm<FormInputs>({
     defaultValues: {
       email: "",
@@ -45,10 +47,8 @@ export default function LogInPage() {
     <>
       <div className="flex flex-col items-center gap-10">
         <div>
-          <div className="mb-3 text-center text-3xl font-bold">Welcome Back!</div>
-          <div className="text-center text-sm">
-            Enter your email and password to access your account.
-          </div>
+          <div className="mb-3 text-center text-3xl font-bold">{t("logIn.title")}</div>
+          <div className="text-center text-sm">{t("logIn.description")}</div>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-80 flex-col gap-2">
@@ -57,7 +57,7 @@ export default function LogInPage() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t("email", { ns: "common" })}</FormLabel>
                   <FormControl>
                     <Input
                       type="text"
@@ -77,7 +77,7 @@ export default function LogInPage() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t("password", { ns: "common" })}</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Password"
@@ -93,7 +93,7 @@ export default function LogInPage() {
               )}
             />
             <Link to="/log-in" className="text-right text-sm hover:underline">
-              Forgot password?
+              {t("logIn.forgotPassword")}
             </Link>
             <div className="flex flex-col gap-2">
               <Button
@@ -106,11 +106,11 @@ export default function LogInPage() {
                 {signInMutation.isPending && (
                   <Loader2 className="mr-1 size-5 animate-spin text-white" />
                 )}
-                Log in
+                {t("logIn.logInBtn")}
               </Button>
               <div className="flex w-full flex-row items-center gap-2">
                 <Separator orientation="horizontal" className="flex-1" />
-                <p>or</p>
+                <p>{t("or")}</p>
                 <Separator orientation="horizontal" className="flex-1" />
               </div>
               <Button
@@ -120,7 +120,7 @@ export default function LogInPage() {
                 className="inline-flex flex-row items-center"
                 onClick={() => signInWithGoogleMutation.mutate()}
               >
-                Sign in with&nbsp;
+                {t("logIn.anotherLogIn")}&nbsp;
                 <span>
                   <GoogleLogo />
                 </span>
@@ -130,9 +130,9 @@ export default function LogInPage() {
         </Form>
       </div>
       <div className="text-center text-sm">
-        Don't have account?&nbsp;
+        {t("logIn.noAccount")}&nbsp;
         <Link to="/sign-up" className="font-bold">
-          Sign up
+          {t("signUp.signUpBtn")}
         </Link>
       </div>
     </>
