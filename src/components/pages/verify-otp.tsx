@@ -1,7 +1,7 @@
 import { Button } from "@components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { Loader2, MoveLeft } from "lucide-react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -10,7 +10,6 @@ import * as z from "zod";
 
 import { useGetOtp, useVerifyOtp } from "@/hooks/react-query/useAuth";
 import useCountdown from "@/hooks/use-countdown";
-import { useOTPPayloadStore } from "@/hooks/useOTPPayloadStore";
 
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
 
@@ -35,14 +34,20 @@ export default function VerifyOtpPage() {
     },
     resolver: zodResolver(formSchema),
   });
-  const { email, action } = useOTPPayloadStore();
+  const { email, action } = useSearch({
+    strict: false,
+  });
   const verifyOtpMutation = useVerifyOtp();
   const getOtp = useGetOtp();
   const navigate = useNavigate();
   const { time, timeLeft, restart } = useCountdown(5 * 60);
 
   const onSubmit = (data: FormInputs) => {
-    verifyOtpMutation.mutate(data.otp);
+    verifyOtpMutation.mutate({
+      email,
+      otp: data.otp,
+      action,
+    });
   };
 
   useEffect(() => {
@@ -58,7 +63,7 @@ export default function VerifyOtpPage() {
             className="inline-flex items-center gap-2 text-muted-foreground transition-colors duration-150 ease-in hover:cursor-pointer hover:text-black"
           >
             <MoveLeft size={16} />
-            <p className="text-sm font-medium"> Back to Log in</p>
+            <p className="text-sm font-medium">{t("backBtn")}</p>
           </Link>
         </div>
         <div>
