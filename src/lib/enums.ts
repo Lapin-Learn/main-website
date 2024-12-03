@@ -60,3 +60,8 @@ export enum TestRecordStatus {
   Completed = "Completed",
   NotStarted = "Not Started",
 }
+
+export enum EnumAction {
+  DAILY_STREAK = "daily_streak",
+  FREEZE_STREAK = "freeze_streak",
+}
