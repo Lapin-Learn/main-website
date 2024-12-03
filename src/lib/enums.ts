@@ -50,6 +50,11 @@ export enum EnumActionOTP {
   verifyEmail = "verify-mail",
 }
 
+export enum EnumAction {
+  DAILY_STREAK = "daily_streak",
+  FREEZE_STREAK = "freeze_streak",
+}
+
 export enum TestRecordStatus {
   InProgress = "In Progress",
   Completed = "Completed",

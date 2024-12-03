@@ -34,6 +34,7 @@ module.exports = {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
           "700": "#A9421C",
+          "900": "#642711",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -69,10 +70,22 @@ module.exports = {
         neutral: {
           "50": "#EFEFEF",
           "100": "#CCCCCC",
+          "100": "#CCCCCC",
           "200": "#B4B4B4",
           "300": "#929292",
+          "400": "#7D7D7D",
+          "500": "#5C5C5C",
+          "600": "#545454",
+          "700": "#414141",
+          "800": "#272727",
+          "900": "#272727",
         },
-        "supporting-text": "#CCCCCC",
+        blue: {
+          DEFAULT: "#37AEFF",
+          200: "#A3DAFF",
+          500: "#37AEFF",
+          700: "#277CB5",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
