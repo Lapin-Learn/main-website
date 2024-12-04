@@ -12,6 +12,8 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import { Input } from "@/components/ui/input";
+import { useTranslation } from "react-i18next";
+import { useUpdateUserPassword } from "@/hooks/react-query/useUsers";
 
 const formSchema = z
   .object({
@@ -35,8 +37,26 @@ export default function ChangePasswordPage() {
   const form = useForm<FormInputs>({
     resolver: zodResolver(formSchema),
   });
+  const updatePassword = useUpdateUserPassword();
+  const { t } = useTranslation("profile");
 
-  function onSubmit(_: FormInputs) {}
+  const onSubmit = (data: FormInputs) => {
+    updatePassword.mutate(
+      {
+        oldPassword: data.oldPassword,
+        newPassword: data.newPassword,
+      },
+      {
+        onSuccess: () => {
+          form.reset({
+            oldPassword: "",
+            newPassword: "",
+            confirmPassword: "",
+          });
+        },
+      }
+    );
+  };
 
   return (
     <div className="flex flex-col items-center justify-center gap-2 overflow-hidden">
@@ -48,11 +68,11 @@ export default function ChangePasswordPage() {
               name="oldPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Current password</FormLabel>
+                  <FormLabel>{t("formUpdatePassword.oldPassword.label")}</FormLabel>
                   <FormControl>
                     <Input
                       type="password"
-                      placeholder="Current password"
+                      placeholder={t("formUpdatePassword.oldPassword.placeholder")}
                       error={Boolean(form.formState.errors.oldPassword)}
                       {...field}
                       onChange={field.onChange}
@@ -68,14 +88,17 @@ export default function ChangePasswordPage() {
               name="newPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>New password</FormLabel>
+                  <FormLabel>{t("formUpdatePassword.newPassword.label")}</FormLabel>
                   <FormControl>
                     <Input
                       type="password"
-                      placeholder="Enter your new password"
+                      placeholder={t("formUpdatePassword.newPassword.placeholder")}
                       error={Boolean(form.formState.errors.newPassword)}
                       {...field}
-                      onChange={field.onChange}
+                      onChange={(value) => {
+                        field.onChange(value);
+                        form.trigger("confirmPassword");
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
@@ -87,22 +110,32 @@ export default function ChangePasswordPage() {
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Confirm new password</FormLabel>
+                  <FormLabel>{t("formUpdatePassword.confirmPassword.label")}</FormLabel>
                   <FormControl>
                     <Input
                       type="password"
-                      placeholder="Re-type your new password"
+                      placeholder={t("formUpdatePassword.confirmPassword.placeholder")}
                       error={Boolean(form.formState.errors.confirmPassword)}
                       {...field}
-                      onChange={field.onChange}
+                      onChange={(value) => {
+                        field.onChange(value);
+                        form.trigger("confirmPassword");
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button disabled className="w-fit" size="lg">
-              Lưu thay đổi
+            <Button
+              disabled={
+                updatePassword.isPending || !form.formState.isDirty || !form.formState.isValid
+              }
+              className="w-fit"
+              size="lg"
+              isLoading={updatePassword.isPending}
+            >
+              {t("saveBtn")}
             </Button>
           </form>
         </Form>

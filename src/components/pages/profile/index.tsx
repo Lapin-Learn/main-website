@@ -14,10 +14,11 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import { Input } from "@/components/ui/input";
-import { useUserProfile } from "@/hooks/react-query/useUsers";
+import { useUpdateUserProfile, useUserProfile } from "@/hooks/react-query/useUsers";
 import { EnumGender } from "@/lib/enums";
 import { FormDatePicker } from "@/components/mocules/form-inputs/form-date-picker";
 import FormSelect from "@/components/mocules/form-inputs/form-select";
+import { useTranslation } from "react-i18next";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -34,12 +35,19 @@ export default function ProfilePage() {
     resolver: zodResolver(formSchema),
   });
   const { data, isLoading, isSuccess } = useUserProfile();
+  const updateProfile = useUpdateUserProfile();
+  const { t } = useTranslation("profile");
 
-  function onSubmit(_: FormInputs) {}
+  const onSubmit = (data: FormInputs) => {
+    updateProfile.mutate({
+      ...data,
+      dob: new Date(data.dob),
+    });
+  };
 
   useEffect(() => {
     if (isSuccess && data) {
-      console.log(data.gender);
+      console.log("reset", data);
       form.reset({
         email: data.email,
         fullName: data.fullName ?? "",
@@ -53,85 +61,99 @@ export default function ProfilePage() {
   return (
     <div className="flex flex-col items-center justify-center gap-2 overflow-hidden">
       <div className="z-10 w-full">
-        {isLoading ? (
-          <Loader2 className="mx-auto size-12 animate-spin" />
-        ) : (
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Username"
-                        error={Boolean(form.formState.errors.username)}
-                        {...field}
-                        onChange={field.onChange}
-                      />
-                    </FormControl>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("formProfile.username.label")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={t("formProfile.username.placeholder")}
+                      error={Boolean(form.formState.errors.username)}
+                      {...field}
+                      onChange={field.onChange}
+                      loading={isLoading}
+                    />
+                  </FormControl>
 
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="fullName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Full name</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="text"
-                        placeholder="Enter your full name"
-                        error={Boolean(form.formState.errors.fullName)}
-                        {...field}
-                        onChange={field.onChange}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem className="col-span-full">
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="text"
-                        placeholder="example@gmail.com"
-                        error={Boolean(form.formState.errors.email)}
-                        {...field}
-                        onChange={field.onChange}
-                        disabled
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormDatePicker name="dob" label="Ngày sinh" />
-              <FormSelect
-                name="gender"
-                label="Giới tính"
-                placeholder="Chọn giới tính"
-                options={Object.values(EnumGender).map((item) => ({
-                  label: item.charAt(0).toUpperCase() + item.slice(1),
-                  value: item,
-                }))}
-              />
-              <Button disabled className="w-fit" size="lg">
-                Lưu thay đổi
-              </Button>
-            </form>
-          </Form>
-        )}
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="fullName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("formProfile.fullName.label")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder={t("formProfile.fullName.placeholder")}
+                      error={Boolean(form.formState.errors.fullName)}
+                      {...field}
+                      onChange={field.onChange}
+                      loading={isLoading}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem className="col-span-full">
+                  <FormLabel>{t("formProfile.email.label")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder={t("formProfile.email.placeholder")}
+                      error={Boolean(form.formState.errors.email)}
+                      {...field}
+                      onChange={field.onChange}
+                      disabled
+                      loading={isLoading}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormDatePicker
+              name="dob"
+              label={t("formProfile.dob.label")}
+              placeholder={t("formProfile.dob.placeholder")}
+            />
+            <FormSelect
+              name="gender"
+              label="Giới tính"
+              placeholder="Chọn giới tính"
+              options={Object.values(EnumGender).map((item) => ({
+                label: t(`formProfile.gender.options.${item}`),
+                value: item,
+              }))}
+              loading={isLoading}
+            />
+            <Button
+              disabled={
+                updateProfile.isPending ||
+                isLoading ||
+                !form.formState.isDirty ||
+                !form.formState.isValid
+              }
+              className="w-fit"
+              size="lg"
+              isLoading={updateProfile.isPending}
+            >
+              {t("saveBtn")}
+            </Button>
+          </form>
+        </Form>
       </div>
     </div>
   );

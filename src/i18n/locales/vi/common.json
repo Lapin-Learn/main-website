@@ -1,5 +1,14 @@
 {
     "email": "Email",
     "password": "Mật khẩu",
-    "confirmPassword": "Nhập lại mật khẩu"
+    "confirmPassword": "Nhập lại mật khẩu",
+    "error": {
+        "INVALID_PASSWORD": "Mật khẩu không đúng"
+    },
+    "toast": {
+        "update": {
+            "success": "Cập nhật {{item, lowercase}} thành công",
+            "error": "Cập nhật {{item, lowercase}} thất bại"
+        }
+    }
 }

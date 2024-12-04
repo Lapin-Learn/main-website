@@ -11,11 +11,8 @@ const AuthenticatedPage = () => {
         <SideBar />
       </div>
 
-      <main className="grid flex-1 grid-cols-12 overflow-y-auto">
-        <div className="col-span-8">
-          <Outlet />
-        </div>
-        <div className="col-span-4">Other component</div>
+      <main className="flex-1 overflow-y-auto">
+        <Outlet />
       </main>
     </div>
   );

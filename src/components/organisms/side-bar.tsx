@@ -1,4 +1,4 @@
-import { LogOut } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 
 import MissionsIcon from "@/assets/icons/missions";
 import PracticeIcon from "@/assets/icons/practice";
@@ -9,6 +9,8 @@ import { SideBarFeature, SideBarFeatureProps } from "./side-bar-feature";
 import { Separator } from "../ui";
 import { useSignOut } from "@/hooks/react-query/useAuth";
 import { useUserProfile } from "@/hooks/react-query/useUsers";
+import { Link } from "@tanstack/react-router";
+import { Skeleton } from "../ui/skeleton";
 
 const features: SideBarFeatureProps[] = [
   {
@@ -38,25 +40,38 @@ export default function SideBar() {
           </div>
           <div className="flex flex-col gap-4 p-2">
             <Separator />
-            <div className="flex flex-row items-center justify-between gap-2">
-              <div className="flex flex-row items-center justify-center gap-2">
-                <img
-                  src={user?.avatar?.url ? user?.avatar?.url : AppIcon}
-                  className="size-10 rounded-sm"
-                />
-                <div className="w-full">
-                  <p className="text-small font-semibold text-black">
-                    {user?.fullName ? user.fullName : "LapinLearn"}
-                  </p>
-                  <p className="text-supporting-text truncate text-xs">
-                    {user?.email ? user.email : "LapinLearn"}
-                  </p>
+            <Link to="/profile">
+              <div className="flex flex-row items-center justify-between gap-2">
+                <div className="flex flex-row items-center justify-center gap-2">
+                  {user?.avatar?.url ? (
+                    <img
+                      src={user?.avatar?.url ? user?.avatar?.url : AppIcon}
+                      className="size-10 rounded-sm"
+                    />
+                  ) : (
+                    <div className="grid size-10 place-items-center rounded-sm bg-neutral-100 text-white">
+                      <User size={20} />
+                    </div>
+                  )}
+                  <div className="flex h-10 w-full flex-col justify-between">
+                    {user ? (
+                      <>
+                        <p className="text-small font-semibold text-black">{user.fullName}</p>
+                        <p className="text-supporting-text truncate text-xs">{user.email}</p>
+                      </>
+                    ) : (
+                      <>
+                        <Skeleton className="h-[17px] w-20" />
+                        <Skeleton className="w-22 h-[17px]" />
+                      </>
+                    )}
+                  </div>
                 </div>
+                <button onClick={() => signOut.mutate()}>
+                  <LogOut size={20} />
+                </button>
               </div>
-              <button onClick={() => signOut.mutate()}>
-                <LogOut size={20} />
-              </button>
-            </div>
+            </Link>
           </div>
         </nav>
       </div>

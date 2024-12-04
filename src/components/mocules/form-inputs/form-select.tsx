@@ -25,6 +25,7 @@ export type FormSelectProps = {
   }[];
   placeholder?: string;
   className?: string;
+  loading?: boolean;
 };
 
 export default function FormSelect({
@@ -33,6 +34,7 @@ export default function FormSelect({
   className,
   placeholder,
   options = [],
+  loading = false,
 }: FormSelectProps) {
   const { control } = useFormContext();
   return (
@@ -40,11 +42,15 @@ export default function FormSelect({
       control={control}
       name={name}
       render={({ field }) => {
-        console.log(field.value);
         return (
           <FormItem className={className}>
             <FormLabel>{label}</FormLabel>
-            <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
+            <Select
+              onValueChange={field.onChange}
+              defaultValue={field.value}
+              value={field.value}
+              disabled={loading}
+            >
               <FormControl>
                 <SelectTrigger>
                   <SelectValue placeholder={placeholder} />

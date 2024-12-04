@@ -20,9 +20,16 @@ export type FormDatePickerProps = {
   label?: string;
   className?: string;
   description?: string;
+  placeholder?: string;
 };
 
-export function FormDatePicker({ name, label, className, description }: FormDatePickerProps) {
+export function FormDatePicker({
+  name,
+  label,
+  className,
+  description,
+  placeholder,
+}: FormDatePickerProps) {
   const { control } = useFormContext();
   return (
     <FormField
@@ -41,7 +48,7 @@ export function FormDatePicker({ name, label, className, description }: FormDate
                     !field.value && "text-muted-foreground"
                   )}
                 >
-                  {field.value ? format(field.value, "dd/MM/yyyy") : <span>Pick a date</span>}
+                  {field.value ? format(field.value, "dd/MM/yyyy") : <span>{placeholder}</span>}
                   <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                 </Button>
               </FormControl>

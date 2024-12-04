@@ -1,5 +1,14 @@
 {
     "email": "Email",
     "password": "Password",
-    "confirmPassword": "Confirm password"
+    "confirmPassword": "Confirm password",
+    "error": {
+        "INVALID_PASSWORD": "Password incorrect"
+    },
+    "toast": {
+        "update": {
+            "success": "Update {{item, lowercase}} successfully",
+            "error": "Update {{item, lowercase}} failed"
+        }
+    }
 }
