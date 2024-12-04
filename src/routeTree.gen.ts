@@ -20,21 +20,22 @@ import { Route as AuthenticationResetPasswordImport } from './routes/_authentica
 import { Route as AuthenticationLogInImport } from './routes/_authentication/log-in'
 import { Route as AuthenticationForgotPasswordImport } from './routes/_authentication/forgot-password'
 import { Route as AuthenticatedProfileImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedPracticeImport } from './routes/_authenticated/practice'
 
 // Create/Update Routes
 
 const AuthenticationRoute = AuthenticationImport.update({
-  id: "/_authentication",
+  id: '/_authentication',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const AuthenticatedRoute = AuthenticatedImport.update({
-  id: "/_authenticated",
+  id: '/_authenticated',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const AuthenticatedIndexRoute = AuthenticatedIndexImport.update({
-  path: "/",
+  path: '/',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 
@@ -66,13 +67,18 @@ const AuthenticationForgotPasswordRoute =
   } as any)
 
 const AuthenticatedProfileRoute = AuthenticatedProfileImport.update({
-  path: "/profile",
+  path: '/profile',
   getParentRoute: () => AuthenticatedRoute,
-} as any);
+} as any)
+
+const AuthenticatedPracticeRoute = AuthenticatedPracticeImport.update({
+  path: '/practice',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/_authenticated': {
       id: '/_authenticated'
@@ -87,6 +93,13 @@ declare module "@tanstack/react-router" {
       fullPath: ''
       preLoaderRoute: typeof AuthenticationImport
       parentRoute: typeof rootRoute
+    }
+    '/_authenticated/practice': {
+      id: '/_authenticated/practice'
+      path: '/practice'
+      fullPath: '/practice'
+      preLoaderRoute: typeof AuthenticatedPracticeImport
+      parentRoute: typeof AuthenticatedImport
     }
     '/_authenticated/profile': {
       id: '/_authenticated/profile'
@@ -143,18 +156,20 @@ declare module "@tanstack/react-router" {
 // Create and export the route tree
 
 interface AuthenticatedRouteChildren {
-  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute;
-  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute;
+  AuthenticatedPracticeRoute: typeof AuthenticatedPracticeRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedPracticeRoute: AuthenticatedPracticeRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
-};
+}
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
-  AuthenticatedRouteChildren
-);
+  AuthenticatedRouteChildren,
+)
 
 interface AuthenticationRouteChildren {
   AuthenticationForgotPasswordRoute: typeof AuthenticationForgotPasswordRoute
@@ -173,11 +188,12 @@ const AuthenticationRouteChildren: AuthenticationRouteChildren = {
 }
 
 const AuthenticationRouteWithChildren = AuthenticationRoute._addFileChildren(
-  AuthenticationRouteChildren
-);
+  AuthenticationRouteChildren,
+)
 
 export interface FileRoutesByFullPath {
   '': typeof AuthenticationRouteWithChildren
+  '/practice': typeof AuthenticatedPracticeRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/forgot-password': typeof AuthenticationForgotPasswordRoute
   '/log-in': typeof AuthenticationLogInRoute
@@ -189,6 +205,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '': typeof AuthenticationRouteWithChildren
+  '/practice': typeof AuthenticatedPracticeRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/forgot-password': typeof AuthenticationForgotPasswordRoute
   '/log-in': typeof AuthenticationLogInRoute
@@ -202,6 +219,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/_authentication': typeof AuthenticationRouteWithChildren
+  '/_authenticated/practice': typeof AuthenticatedPracticeRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authentication/forgot-password': typeof AuthenticationForgotPasswordRoute
   '/_authentication/log-in': typeof AuthenticationLogInRoute
@@ -215,6 +233,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | ''
+    | '/practice'
     | '/profile'
     | '/forgot-password'
     | '/log-in'
@@ -225,6 +244,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
+    | '/practice'
     | '/profile'
     | '/forgot-password'
     | '/log-in'
@@ -236,6 +256,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_authenticated'
     | '/_authentication'
+    | '/_authenticated/practice'
     | '/_authenticated/profile'
     | '/_authentication/forgot-password'
     | '/_authentication/log-in'
@@ -247,18 +268,18 @@ export interface FileRouteTypes {
 }
 
 export interface RootRouteChildren {
-  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren;
-  AuthenticationRoute: typeof AuthenticationRouteWithChildren;
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  AuthenticationRoute: typeof AuthenticationRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AuthenticationRoute: AuthenticationRouteWithChildren,
-};
+}
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
 /* prettier-ignore-end */
 
@@ -275,6 +296,7 @@ export const routeTree = rootRoute
     "/_authenticated": {
       "filePath": "_authenticated.tsx",
       "children": [
+        "/_authenticated/practice",
         "/_authenticated/profile",
         "/_authenticated/"
       ]
@@ -288,6 +310,10 @@ export const routeTree = rootRoute
         "/_authentication/sign-up",
         "/_authentication/verify-otp"
       ]
+    },
+    "/_authenticated/practice": {
+      "filePath": "_authenticated/practice.tsx",
+      "parent": "/_authenticated"
     },
     "/_authenticated/profile": {
       "filePath": "_authenticated/profile.tsx",

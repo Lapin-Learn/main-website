@@ -35,7 +35,7 @@ export type ExamCardProps = {
   tests: TestProps[];
 };
 
-export const ExamCard = ({ name, description, tags, tests, ...props }: ExamCardProps) => {
+export const ExamCard = ({ name, description, tags, tests }: ExamCardProps) => {
   const totalQuestions = tests.length;
   const completedQuestions = tests.reduce((acc, test) => {
     if (test.record.status === TestRecordStatus.Completed && test.record.score !== null) {
@@ -97,7 +97,7 @@ export const TestItem = ({ test_name, record }: TestProps) => {
       <Button variant="ghost" className="w-full p-0" onClick={handleExam}>
         <div className="flex w-full flex-col gap-2">
           <div className="flex flex-row items-center justify-between gap-2 py-1">
-            <p className="text-small grow-0 truncate text-neutral-900">{test_name}</p>
+            <p className="grow-0 truncate text-small text-neutral-900">{test_name}</p>
             <ExamItemScore score={record.score ?? null} status={record.status} />
           </div>
         </div>

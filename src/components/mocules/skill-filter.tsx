@@ -1,12 +1,11 @@
 import { Dispatch, SetStateAction } from "react";
-import clsx from "clsx";
-import { Pen } from "lucide-react";
 import ListeningIcon from "@/assets/icons/skills/listening";
 import ReadingIcon from "@/assets/icons/skills/reading";
 import SpeakingIcon from "@/assets/icons/skills/speaking";
 import WritingIcon from "@/assets/icons/skills/writing";
 import AllSkillsIcon from "@/assets/icons/skills/all";
 import { cn } from "@/lib/utils";
+import { Button } from "../ui";
 
 export type Skills = "Tất cả kỹ năng" | "Reading" | "Listening" | "Writing" | "Speaking";
 
@@ -28,7 +27,7 @@ const SkillsFilter = ({
   return (
     <div className="flex gap-4">
       {skillsList.map(({ label, Icon }) => (
-        <button
+        <Button
           key={label}
           onClick={() => setSkill(label)}
           className={cn(
@@ -36,12 +35,9 @@ const SkillsFilter = ({
             label === skill ? "bg-[#FCE3B4] text-orange-700" : "bg-neutral-50 text-gray-700"
           )}
         >
-          <Icon
-            className={cn("h-5 w-5", label === skill ? "text-orange-700" : "text-gray-700")}
-            fill={label === skill ? "#A9421C" : "#929292"}
-          />
+          <Icon className={cn("h-5 w-5")} fill={label === skill ? "#c2410c" : "#374151"} />
           <span className="hidden md:inline">{label}</span>
-        </button>
+        </Button>
       ))}
     </div>
   );

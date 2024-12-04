@@ -11,16 +11,16 @@ import { Separator } from "../ui";
 const features: SideBarFeatureProps[] = [
   {
     to: "/practice",
-    icon: <PracticeIcon fill="#A9421C" />,
+    icon: <PracticeIcon />,
     label: "Practice",
   },
-  { to: "/missions", icon: <MissionsIcon fill="#A9421C" />, label: "Mission" },
+  { to: "/missions", icon: <MissionsIcon />, label: "Mission" },
 ];
 
 export default function SideBar() {
   return (
-    <aside>
-      <div className="relative flex h-screen w-full flex-col border-r py-[36px]">
+    <aside className="h-full w-[280px] shrink-0 border-r">
+      <div className="relative flex h-full flex-col py-[36px]">
         <nav className="flex h-screen w-full flex-col justify-between">
           <div>
             <img src={Logo} className="ml-5 h-6" />

@@ -1,11 +1,14 @@
 import { z } from "zod";
 import { ExamCard, ExamCardProps } from "./exam-card";
-import { Form, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Search } from "lucide-react";
 import SkillsFilter, { Skills } from "../skill-filter";
 import { useState } from "react";
 import { TestRecordStatus } from "@/lib/enums";
+import SearchFilter from "../search-filter";
+import { FormControl, FormField, FormItem, Input, Form } from "@/components/ui";
+import { useTranslation } from "react-i18next";
+import { useForm } from "react-hook-form";
 
 const sampleData: ExamCardProps[] = [
   {
@@ -104,39 +107,68 @@ const sampleData: ExamCardProps[] = [
 
 const formSchema = z.object({
   search: z.string().optional(),
+  filter: z.string().optional(),
 });
 
-type FormInputs = z.input<typeof formSchema>;
+type FormInputs = z.infer<typeof formSchema>;
 
 export const ExamList = () => {
+  const [skill, setSkill] = useState<Skills>("Tất cả kỹ năng");
+  const { t } = useTranslation("practice");
+
   const form = useForm<FormInputs>({
     defaultValues: {
       search: "",
+      filter: "newest",
     },
     resolver: zodResolver(formSchema),
   });
 
-  const [skill, setSkill] = useState<Skills>("Tất cả kỹ năng");
+  function onSubmit(data: FormInputs) {
+    console.log(data);
+  }
+
   return (
     <div className="container flex flex-col items-center gap-8">
       <SkillsFilter skill={skill} setSkill={setSkill} />
       <div className="flex w-full items-center justify-between">
-        <h2 className="text-heading-3 font-semibold">Danh sách các bộ đề</h2>
+        <h2 className="text-heading-5 font-semibold md:text-heading-3">{t("exam-list.title")}</h2>
         <Form {...form}>
-          <form className="flex items-center gap-7">
-            <div className="grow-1 flex items-center gap-2.5 rounded-lg border bg-white px-3 py-2.5 focus-within:ring-2 focus-within:ring-blue-500">
-              <Search size={24} className="text-neutral-300" />
-              <input
-                type="text"
-                placeholder="Tìm kiếm"
-                className="w-full border-none bg-transparent text-neutral-300 placeholder:text-neutral-300 focus:outline-none"
-                aria-label="Search"
-              />
-            </div>
-            <select className="rounded-lg border bg-white px-3 py-2.5 text-gray-600">
-              <option value="newest">Mới nhất</option>
-              <option value="oldest">Cũ nhất</option>
-            </select>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex items-center gap-7">
+            <FormField
+              control={form.control}
+              name="search"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder={t("search.placeholder")}
+                      className="w-full border-none bg-transparent text-neutral-300 placeholder:text-neutral-300 focus:outline-none"
+                      StartIcon={Search}
+                      {...field}
+                      onBlur={() => form.handleSubmit(onSubmit)()}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="filter"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <SearchFilter
+                      value={field.value ?? ""}
+                      onChange={(value) => {
+                        field.onChange(value);
+                        form.handleSubmit(onSubmit)();
+                      }}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
           </form>
         </Form>
       </div>
