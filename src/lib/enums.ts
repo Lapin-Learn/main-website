@@ -49,3 +49,9 @@ export enum EnumActionOTP {
   resetPassword = "reset-password",
   verifyEmail = "verify-mail",
 }
+
+export enum TestRecordStatus {
+  InProgress = "In Progress",
+  Completed = "Completed",
+  NotStarted = "Not Started",
+}

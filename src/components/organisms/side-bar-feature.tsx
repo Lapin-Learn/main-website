@@ -40,7 +40,7 @@ export const SideBarFeature = (props: {
       >
         <div
           className={cn(
-            "flex h-10 rounded-lg transition-all duration-300",
+            "flex h-10 gap-2.5 rounded-lg transition-all duration-300",
             isExpanded && "mx-2",
             isActive
               ? "bg-neutral-200 hover:bg-neutral-300/50"
@@ -62,7 +62,7 @@ export const SideBarFeature = (props: {
             <span
               className={cn(
                 "absolute bottom-0 left-0 right-0 top-0 flex flex-1 select-none items-center text-nowrap text-sm duration-300",
-                isActive ? "text-grey" : "text-grey"
+                isActive ? "text-orange-700" : "text-neutral-200"
               )}
             >
               {label}

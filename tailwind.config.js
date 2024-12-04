@@ -13,6 +13,17 @@ module.exports = {
       sans: ["Inter", "sans-serif"],
     },
     extend: {
+      fontSize: {
+        "heading-1": ["48px", "58px"],
+        "heading-2": ["36px", "44px"],
+        "heading-3": ["30px", "36px"],
+        "heading-4": ["24px", "32px"],
+        "heading-5": ["20px", "24px"],
+        "heading-6": ["18px", "22px"],
+        body: ["16px", "19px"],
+        small: ["14px", "17px"],
+        xs: ["12px", "15px"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -59,6 +70,7 @@ module.exports = {
           "200": "#B4B4B4",
           "300": "#929292",
         },
+        "supporting-text": "#CCCCCC",
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -24,17 +24,17 @@ import { Route as AuthenticatedProfileImport } from './routes/_authenticated/pro
 // Create/Update Routes
 
 const AuthenticationRoute = AuthenticationImport.update({
-  id: '/_authentication',
+  id: "/_authentication",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const AuthenticatedRoute = AuthenticatedImport.update({
-  id: '/_authenticated',
+  id: "/_authenticated",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const AuthenticatedIndexRoute = AuthenticatedIndexImport.update({
-  path: '/',
+  path: "/",
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 
@@ -66,13 +66,13 @@ const AuthenticationForgotPasswordRoute =
   } as any)
 
 const AuthenticatedProfileRoute = AuthenticatedProfileImport.update({
-  path: '/profile',
+  path: "/profile",
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
     '/_authenticated': {
       id: '/_authenticated'
@@ -143,18 +143,18 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface AuthenticatedRouteChildren {
-  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
-  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute;
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute;
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
-}
+};
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
-  AuthenticatedRouteChildren,
-)
+  AuthenticatedRouteChildren
+);
 
 interface AuthenticationRouteChildren {
   AuthenticationForgotPasswordRoute: typeof AuthenticationForgotPasswordRoute
@@ -173,8 +173,8 @@ const AuthenticationRouteChildren: AuthenticationRouteChildren = {
 }
 
 const AuthenticationRouteWithChildren = AuthenticationRoute._addFileChildren(
-  AuthenticationRouteChildren,
-)
+  AuthenticationRouteChildren
+);
 
 export interface FileRoutesByFullPath {
   '': typeof AuthenticationRouteWithChildren
@@ -247,18 +247,18 @@ export interface FileRouteTypes {
 }
 
 export interface RootRouteChildren {
-  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
-  AuthenticationRoute: typeof AuthenticationRouteWithChildren
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren;
+  AuthenticationRoute: typeof AuthenticationRouteWithChildren;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AuthenticationRoute: AuthenticationRouteWithChildren,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* prettier-ignore-end */
 
