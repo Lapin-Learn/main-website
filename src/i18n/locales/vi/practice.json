@@ -1,0 +1,13 @@
+{
+    "filter": {
+        "newest": "Mới nhất",
+        "oldest": "Cũ nhất"
+    },
+    "search": {
+        "placeholder": "Tìm kiếm",
+        "noResults": "Không tìm thấy kết quả"
+    },
+    "exam-list": {
+        "title": "Danh sách các bộ đề"
+    }
+}
