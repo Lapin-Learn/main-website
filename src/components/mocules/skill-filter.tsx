@@ -29,10 +29,14 @@ const SkillsFilter = ({
       {skillsList.map(({ label, Icon }) => (
         <Button
           key={label}
+          variant="ghost"
+          size="lg"
           onClick={() => setSkill(label)}
           className={cn(
             "flex items-center gap-2.5 rounded-lg px-4 py-3 text-sm font-semibold transition-all",
-            label === skill ? "bg-[#FCE3B4] text-orange-700" : "bg-neutral-50 text-gray-700"
+            label === skill
+              ? "bg-[#FCE3B4] text-orange-700 hover:bg-[#FCE3B4]/80 hover:text-orange-700"
+              : "bg-neutral-50 text-gray-700 hover:bg-neutral-100/50 hover:text-gray-800"
           )}
         >
           <Icon className={cn("h-5 w-5")} fill={label === skill ? "#c2410c" : "#374151"} />

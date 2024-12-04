@@ -7,20 +7,24 @@ import Logo from "@/assets/logo.svg";
 
 import { SideBarFeature, SideBarFeatureProps } from "./side-bar-feature";
 import { Separator } from "../ui";
+import { useSignOut } from "@/hooks/react-query/useAuth";
+import { useUserProfile } from "@/hooks/react-query/useUsers";
 
 const features: SideBarFeatureProps[] = [
   {
     to: "/practice",
     icon: <PracticeIcon />,
-    label: "Practice",
+    label: "Luyện tập",
   },
-  { to: "/missions", icon: <MissionsIcon />, label: "Mission" },
+  { to: "/missions", icon: <MissionsIcon />, label: "Nhiệm vụ" },
 ];
 
 export default function SideBar() {
+  const signOut = useSignOut();
+  const { data: user } = useUserProfile();
   return (
-    <aside className="h-full w-[280px] shrink-0 border-r">
-      <div className="relative flex h-full flex-col py-[36px]">
+    <aside className="h-full w-[280px] shrink-0 border-r bg-white">
+      <div className="relative flex h-full flex-col px-4 pb-4 pt-9">
         <nav className="flex h-screen w-full flex-col justify-between">
           <div>
             <img src={Logo} className="ml-5 h-6" />
@@ -32,17 +36,26 @@ export default function SideBar() {
               })}
             </ul>
           </div>
-          <div className="flex flex-col gap-2 p-2">
+          <div className="flex flex-col gap-4 p-2">
             <Separator />
             <div className="flex flex-row items-center justify-between gap-2">
               <div className="flex flex-row items-center justify-center gap-2">
-                <img src={AppIcon} className="size-10 rounded-sm" />
+                <img
+                  src={user?.avatar?.url ? user?.avatar?.url : AppIcon}
+                  className="size-10 rounded-sm"
+                />
                 <div className="w-full">
-                  <p className="text-small font-semibold text-black">Lapin Learn</p>
-                  <p className="truncate text-xs text-supporting-text">lapinlearn@gmail.com</p>
+                  <p className="text-small font-semibold text-black">
+                    {user?.fullName ? user.fullName : "LapinLearn"}
+                  </p>
+                  <p className="text-supporting-text truncate text-xs">
+                    {user?.email ? user.email : "LapinLearn"}
+                  </p>
                 </div>
               </div>
-              <LogOut className="size-5" />
+              <button onClick={() => signOut.mutate()}>
+                <LogOut size={20} />
+              </button>
             </div>
           </div>
         </nav>
