@@ -1,9 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
+import { HistoryState, useNavigate } from "@tanstack/react-router";
 
 import { EnumActionOTP } from "@/lib/enums";
 import {
   getOtp,
+  resetPassword,
   signIn,
   signInWithGoogle,
   signOut,
@@ -14,7 +15,6 @@ import {
 
 import { useToast } from "../use-toast";
 import { useAuthStore } from "../useAuthStore";
-import { useOTPPayloadStore } from "../useOTPPayloadStore";
 
 export const authKeys = {
   key: ["authUser"] as const,
@@ -25,13 +25,17 @@ export const useSignIn = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const { setAccessToken } = useAuthStore();
-  const { setPayload } = useOTPPayloadStore();
   return useMutation({
     mutationFn: signIn,
     onSuccess: (data, variables) => {
       if (!data) {
-        setPayload({ email: variables.email, action: EnumActionOTP.verifyEmail });
-        navigate({ to: "/verify-otp" });
+        navigate({
+          to: "/verify-otp",
+          search: {
+            email: variables.email,
+            action: EnumActionOTP.verifyEmail,
+          },
+        });
       } else {
         setAccessToken(data.accessToken);
         navigate({ to: "/" });
@@ -55,12 +59,16 @@ export const useSignIn = () => {
 export const useSignUp = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { setPayload } = useOTPPayloadStore();
   return useMutation({
     mutationFn: signUp,
     onSuccess: (_, variables) => {
-      setPayload({ email: variables.email, action: EnumActionOTP.verifyEmail });
-      navigate({ to: "/verify-otp" });
+      navigate({
+        to: "/verify-otp",
+        search: {
+          email: variables.email,
+          action: EnumActionOTP.verifyEmail,
+        },
+      });
       toast({
         title: "Success",
         description: "Please verify your email",
@@ -170,32 +178,63 @@ export const useSignUpWithGoogle = () => {
 };
 
 export const useGetOtp = () => {
+  const { toast } = useToast();
   return useMutation({
     mutationFn: getOtp,
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
   });
 };
 
+type OTPState = HistoryState & { accessToken: string };
 export const useVerifyOtp = () => {
-  const payload = useOTPPayloadStore();
   const { toast } = useToast();
   const navigate = useNavigate();
   return useMutation({
-    mutationFn: (otp: string) => verifyOtp({ ...payload, otp }),
-    onSuccess: () => {
-      // TODO: add reset password handler
-      if (payload.action == EnumActionOTP.verifyEmail) {
+    mutationFn: verifyOtp,
+    onSuccess: (data, variables) => {
+      if (variables.action == EnumActionOTP.verifyEmail) {
         toast({
           variant: "default",
           title: "Verify email successfully!",
         });
+        navigate({ to: "/log-in" });
+      } else {
+        navigate({ to: "/reset-password", state: { accessToken: data.accessToken } as OTPState });
       }
-      navigate({ to: "/log-in" });
-      payload.clearPayload();
     },
     onError: () => {
       toast({
         variant: "destructive",
         title: "Error verifying OTP",
+      });
+    },
+  });
+};
+
+export const useUpdatePassword = () => {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  return useMutation({
+    mutationFn: resetPassword,
+    onSuccess: () => {
+      navigate({ to: "/log-in" });
+      toast({
+        title: "Success",
+        description: "You have successfully reset your password",
+        variant: "default",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
       });
     },
   });

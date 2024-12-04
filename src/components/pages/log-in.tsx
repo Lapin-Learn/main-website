@@ -80,7 +80,7 @@ export default function LogInPage() {
                   <FormLabel>{t("password", { ns: "common" })}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Password"
+                      placeholder={t("password", { ns: "common" })}
                       error={Boolean(form.formState.errors.password)}
                       {...field}
                       type="password"
@@ -92,7 +92,7 @@ export default function LogInPage() {
                 </FormItem>
               )}
             />
-            <Link to="/log-in" className="text-right text-sm hover:underline">
+            <Link to="/forgot-password" className="text-right text-sm hover:underline">
               {t("logIn.forgotPassword")}
             </Link>
             <div className="flex flex-col gap-2">

@@ -1,8 +1,8 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
+import AppLogo from "@/assets/AppLogo";
 import Auth from "@/assets/images/auth-bg.jpg";
 import { getAuthValueFromStorage } from "@/services";
-import AppLogo from "@/assets/AppLogo";
 
 export const Route = createFileRoute("/_authentication")({
   beforeLoad: async () => {
@@ -21,9 +21,12 @@ export const Route = createFileRoute("/_authentication")({
 
 export default function AuthLayout() {
   return (
-    <div className="flex h-screen w-screen flex-row items-center justify-center gap-6 overflow-auto bg-white p-6">
-      <img src={Auth} className="size-full flex-1 rounded-3xl object-cover" />
-      <div className="relative flex h-full flex-1 flex-col items-center justify-between">
+    <div className="flex h-screen w-screen flex-col items-center justify-center gap-6 overflow-auto bg-white pb-6 sm:flex-row sm:p-6">
+      <img
+        src={Auth}
+        className="h-40 w-full rounded-none object-cover sm:h-full sm:flex-1 md:rounded-3xl"
+      />
+      <div className="relative flex h-full flex-col items-center justify-between md:flex-1">
         <AppLogo />
         <Outlet />
       </div>
