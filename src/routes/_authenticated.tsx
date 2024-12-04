@@ -2,9 +2,23 @@ import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 import ErrorFallback from "@/components/ErrorFallback";
 import { getAuthValueFromStorage } from "@/services";
+import SideBar from "@/components/organisms/side-bar";
 
 const AuthenticatedPage = () => {
-  return <Outlet />;
+  return (
+    <div className="flex h-screen bg-[#F8F8F8]">
+      <div className="sticky top-0 h-screen">
+        <SideBar />
+      </div>
+
+      <main className="grid flex-1 grid-cols-12 overflow-y-auto">
+        <div className="col-span-8">
+          <Outlet />
+        </div>
+        <div className="col-span-4">Other component</div>
+      </main>
+    </div>
+  );
 };
 
 export const Route = createFileRoute("/_authenticated")({
@@ -13,8 +27,8 @@ export const Route = createFileRoute("/_authenticated")({
       if (!getAuthValueFromStorage()) {
         return redirect({ to: "/log-in" });
       }
-      if (location.pathname === "/log-in" || location.pathname === "/sign-up") {
-        return redirect({ to: "/" });
+      if (location.pathname === "/") {
+        return redirect({ to: "/practice" });
       }
       return true;
     } catch (e) {

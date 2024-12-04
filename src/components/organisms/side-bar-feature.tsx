@@ -40,17 +40,24 @@ export const SideBarFeature = (props: {
       >
         <div
           className={cn(
-            "flex h-10 rounded-lg transition-all duration-300",
+            "flex h-fit items-center gap-2.5 rounded-lg p-4 transition-all duration-300",
             isExpanded && "mx-2",
-            isActive
-              ? "bg-neutral-200 hover:bg-neutral-300/50"
-              : "bg-transparent hover:bg-neutral-100",
+            isActive ? "bg-[#FCE3B4] hover:bg-[#FCE3B4]/80" : "bg-transparent hover:bg-neutral-100",
             isChild && !isExpanded && "bg-transparent hover:bg-transparent",
             !isExpanded && isSelectChild && "bg-neutral-100"
           )}
         >
           <div className="relative h-full w-10 items-center justify-center">
-            <div className="flex h-full flex-1 items-center justify-center">{icon}</div>
+            <div className="flex h-full flex-1 items-center justify-center text-blue-500">
+              {
+                <>
+                  {React.cloneElement(
+                    icon as React.ReactElement,
+                    isActive ? { fill: "#c2410c" } : { fill: "#B4B4B4" }
+                  )}
+                </>
+              }
+            </div>
           </div>
 
           <div
@@ -61,8 +68,8 @@ export const SideBarFeature = (props: {
           >
             <span
               className={cn(
-                "absolute bottom-0 left-0 right-0 top-0 flex flex-1 select-none items-center text-nowrap text-sm duration-300",
-                isActive ? "text-grey" : "text-grey"
+                "text-small absolute bottom-0 left-0 right-0 top-0 flex flex-1 select-none items-center text-nowrap font-semibold duration-300",
+                isActive ? "text-orange-700" : "text-neutral-200"
               )}
             >
               {label}

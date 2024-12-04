@@ -43,3 +43,7 @@ export const fromPageToOffset = (value: PagingSchema) => {
     limit: value.pageSize,
   };
 };
+
+export const splitTextSpace = (text: string) => {
+  return text.split(/(\s+)/).filter((part) => part !== "");
+};

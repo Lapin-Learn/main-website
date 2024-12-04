@@ -6,10 +6,12 @@ import authEn from "./locales/en/auth.json";
 import commonEn from "./locales/en/common.json";
 import authVi from "./locales/vi/auth.json";
 import commonVi from "./locales/vi/common.json";
+import practiceEn from "./locales/en/practice.json";
+import practiceVi from "./locales/vi/practice.json";
 
 const resources = {
-  en: { common: commonEn, auth: authEn },
-  vi: { common: commonVi, auth: authVi },
+  en: { common: commonEn, auth: authEn, practice: practiceEn },
+  vi: { common: commonVi, auth: authVi, practice: practiceVi },
 };
 
 const languageDetectorOptions = {

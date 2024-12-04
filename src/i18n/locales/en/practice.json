@@ -1,0 +1,13 @@
+{
+    "filter": {
+        "newest": "Newest",
+        "oldest": "Oldest"
+    },
+    "search": {
+        "placeholder": "Search",
+        "noResults": "No results found"
+    },
+    "exam-list": {
+        "title": "List of exams"
+    }
+}
