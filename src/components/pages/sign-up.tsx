@@ -102,7 +102,7 @@ export default function SignUpPage() {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Password"
+                      placeholder={t("password", { ns: "common" })}
                       error={Boolean(form.formState.errors.password)}
                       {...field}
                       type="password"
@@ -126,7 +126,7 @@ export default function SignUpPage() {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Password"
+                      placeholder={t("confirmPassword", { ns: "common" })}
                       error={Boolean(form.formState.errors.confirmPassword)}
                       {...field}
                       type="password"

@@ -45,7 +45,9 @@ type SignUpPayload = {
 export const signUp = async (payload: SignUpPayload) => {
   const data = (await apiAuth.post("auth/signup", { json: payload }).json<FetchingData<AuthInfo>>())
     .data;
-  localStorage.setItem(localStorageTokenKey, JSON.stringify(data));
+  if (data.accessToken) {
+    localStorage.setItem(localStorageTokenKey, JSON.stringify(data));
+  }
   return data;
 };
 
@@ -79,9 +81,16 @@ export const forgotPassword = async (payload: ForgotPasswordPayload) => {
 type ResetPasswordPayload = {
   newPassword: string;
 };
-export const resetPassword = async (payload: ResetPasswordPayload) => {
-  return (await api.post("auth/password-update", { json: payload }).json<FetchingData<AuthInfo>>())
-    .data;
+export const resetPassword = async (
+  payload: ResetPasswordPayload & {
+    accessToken: string;
+  }
+) => {
+  return (
+    await apiCustomToken(payload.accessToken)
+      .post("auth/password-update", { json: { newPassword: payload.newPassword } })
+      .json<FetchingData<AuthInfo>>()
+  ).data;
 };
 
 export const refreshToken = async () => {
