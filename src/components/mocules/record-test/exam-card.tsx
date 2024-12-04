@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 
 import ExamItemInProgressIcon from "@/assets/icons/exam/inprogress";
 import { TestRecordStatus } from "@/lib/enums";
-import { splitTextSpace } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 import { Separator } from "../../ui/separator";
 import { Skeleton } from "../../ui/skeleton";
@@ -49,9 +49,9 @@ export const ExamCard = ({ name, description, tags, tests, ...props }: ExamCardP
       <div className="flex w-full flex-col gap-6 py-4">
         <div className="flex h-fit w-full flex-row items-start justify-between gap-8">
           <div className="flex flex-col gap-y-2">
-            <span className="flex flex-row flex-wrap items-center gap-x-4">
-              <h3 className="flex-row text-lg font-semibold">{splitTextSpace(name)}</h3>
-              <span className="flex gap-2">
+            <div>
+              <span className="mr-2 text-lg font-semibold leading-8">{name}</span>
+              <span className="inline-flex items-center gap-2 align-text-bottom">
                 {tags.map((skill, index) => (
                   <span
                     key={index}
@@ -61,7 +61,8 @@ export const ExamCard = ({ name, description, tags, tests, ...props }: ExamCardP
                   </span>
                 ))}
               </span>
-            </span>
+            </div>
+
             <p className="line-clamp-1 truncate text-wrap text-sm font-normal text-neutral-400 sm:line-clamp-2 md:line-clamp-3">
               {description}
             </p>
@@ -70,7 +71,14 @@ export const ExamCard = ({ name, description, tags, tests, ...props }: ExamCardP
             <span className="text-nowrap text-sm text-[#A9421C]">{`${completedQuestions}/${totalQuestions} đề`}</span>
           </div>
         </div>
-        <div className="grid grid-cols-2 flex-wrap items-center justify-between gap-x-8 gap-y-3 pr-10">
+        <div
+          className={cn(
+            "grid grid-cols-2 items-center justify-between gap-x-8 gap-y-1.5 pr-10",
+            tests.length % 2 == 0
+              ? "[&>*:nth-last-child(-n+2)>span]:hidden"
+              : "[&>*:nth-last-child(-n+1)>span]:hidden"
+          )}
+        >
           {tests.map((test, index) => (
             <TestItem key={index} {...test} />
           ))}
@@ -85,15 +93,19 @@ export const TestItem = ({ test_name, record }: TestProps) => {
     console.log("exam clicked");
   };
   return (
-    <Button variant="ghost" className="p-0" onClick={handleExam}>
-      <div className="flex w-full flex-col gap-2">
-        <div className="flex flex-row items-center justify-between gap-2 py-1">
-          <p className="grow-0 truncate text-small text-neutral-900">{test_name}</p>
-          <ExamItemScore score={record.score ?? null} status={record.status} />
+    <div>
+      <Button variant="ghost" className="w-full p-0" onClick={handleExam}>
+        <div className="flex w-full flex-col gap-2">
+          <div className="flex flex-row items-center justify-between gap-2 py-1">
+            <p className="text-small grow-0 truncate text-neutral-900">{test_name}</p>
+            <ExamItemScore score={record.score ?? null} status={record.status} />
+          </div>
         </div>
-        <Separator />
-      </div>
-    </Button>
+      </Button>
+      <span>
+        <Separator className="mt-1.5" />
+      </span>
+    </div>
   );
 };
 
