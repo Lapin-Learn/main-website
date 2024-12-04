@@ -1,5 +1,71 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { Button } from "@/components/ui";
+import { useSignOut } from "@/hooks/react-query/useAuth";
+import { cn } from "@/lib/utils";
+import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
+import { Loader2, LogOut } from "lucide-react";
 
+type ProfileTabItemProps = {
+  label: string;
+  to: string;
+  active?: boolean;
+};
+
+const ProfileTabItem = ({ label, to, active = false }: ProfileTabItemProps) => {
+  return (
+    <Link
+      to={to}
+      className={cn(
+        "border-l-primary-700 flex h-9 items-center border-l-2 pl-4 font-semibold transition-colors duration-200",
+        active
+          ? "text-primary-700 hover:border-l-primary hover:text-primary"
+          : "border-l-transparent text-neutral-300 hover:border-l-neutral-400 hover:text-neutral-400"
+      )}
+    >
+      <button>{label}</button>
+    </Link>
+  );
+};
+
+const ProfileTab = ({ items }: { items: ProfileTabItemProps[] }) => {
+  const location = useLocation();
+  const signOutMutation = useSignOut();
+
+  return (
+    <nav className="flex flex-col gap-4 border-r py-8">
+      {items.map((item) => (
+        <ProfileTabItem key={item.to} {...item} active={location.href == item.to} />
+      ))}
+      <Button
+        type="button"
+        variant="link"
+        className="mt-4 w-fit border-destructive bg-transparent text-destructive hover:bg-destructive/5 hover:text-destructive"
+        disabled={signOutMutation.isPending}
+        onClick={() => {
+          signOutMutation.mutate();
+        }}
+      >
+        {signOutMutation.isPending && <Loader2 className="mr-1 size-5 animate-spin text-white" />}
+        Log out
+        <LogOut className="ml-2 size-4" />
+      </Button>
+    </nav>
+  );
+};
+
+const profileTabItems = [
+  {
+    label: "Lịch sử học tập",
+    to: "/profile/history",
+  },
+  {
+    label: "Thông tin cá nhân",
+    to: "/profile",
+  },
+  {
+    label: "Đổi mật khẩu",
+    to: "/profile/change-password",
+  },
+];
 const ProfileLayout = () => {
   return (
     <div className="grid grid-cols-4 bg-[#F8F8F8]">
@@ -11,8 +77,8 @@ const ProfileLayout = () => {
             className="h-52 w-full object-cover"
             src="https://images.unsplash.com/photo-1513077202514-c511b41bd4c7?q=80&w=1769&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           />
-          <div className="grid grid-cols-4 gap-8 px-4 pt-4">
-            <nav className="border-r"></nav>
+          <div className="grid grid-cols-4 gap-8 px-8 pt-4">
+            <ProfileTab items={profileTabItems} />
             <div className="relative col-span-3 pt-16">
               <div className="absolute top-0 -mt-4 flex -translate-y-1/2 flex-row items-end gap-4">
                 <img

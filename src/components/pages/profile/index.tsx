@@ -8,17 +8,16 @@ import {
   FormMessage,
 } from "@components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2, LogOut } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import { Input } from "@/components/ui/input";
-import { useSignOut } from "@/hooks/react-query/useAuth";
 import { useUserProfile } from "@/hooks/react-query/useUsers";
 import { EnumGender } from "@/lib/enums";
-import { FormDatePicker } from "../mocules/form-inputs/form-date-picker";
-import FormSelect from "../mocules/form-inputs/form-select";
+import { FormDatePicker } from "@/components/mocules/form-inputs/form-date-picker";
+import FormSelect from "@/components/mocules/form-inputs/form-select";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -34,12 +33,9 @@ export default function ProfilePage() {
   const form = useForm<FormInputs>({
     resolver: zodResolver(formSchema),
   });
-  const signOutMutation = useSignOut();
   const { data, isLoading, isSuccess } = useUserProfile();
 
-  function onSubmit(_: FormInputs) {
-    signOutMutation.mutate();
-  }
+  function onSubmit(_: FormInputs) {}
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -132,21 +128,6 @@ export default function ProfilePage() {
               />
               <Button disabled className="w-fit" size="lg">
                 Lưu thay đổi
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                className="mt-4 w-full border-destructive bg-transparent text-destructive hover:bg-destructive/5 hover:text-destructive"
-                disabled={signOutMutation.isPending}
-                onClick={() => {
-                  signOutMutation.mutate();
-                }}
-              >
-                {signOutMutation.isPending && (
-                  <Loader2 className="mr-1 size-5 animate-spin text-white" />
-                )}
-                Log out
-                <LogOut className="ml-2 size-4" />
               </Button>
             </form>
           </Form>
