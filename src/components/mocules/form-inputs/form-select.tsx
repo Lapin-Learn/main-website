@@ -23,36 +23,46 @@ export type FormSelectProps = {
     value: string;
     label: string;
   }[];
+  placeholder?: string;
   className?: string;
 };
 
-export default function FormSelect({ name, label, className, options = [] }: FormSelectProps) {
+export default function FormSelect({
+  name,
+  label,
+  className,
+  placeholder,
+  options = [],
+}: FormSelectProps) {
   const { control } = useFormContext();
   return (
     <FormField
       control={control}
       name={name}
-      render={({ field }) => (
-        <FormItem className={className}>
-          <FormLabel>{label}</FormLabel>
-          <Select onValueChange={field.onChange} defaultValue={field.value}>
-            <FormControl>
-              <SelectTrigger>
-                <SelectValue placeholder="Select a content type" />
-              </SelectTrigger>
-            </FormControl>
-            <SelectContent>
-              {options.map(({ value, label }) => (
-                <SelectItem key={value} value={value}>
-                  {label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <FormDescription />
-          <FormMessage />
-        </FormItem>
-      )}
+      render={({ field }) => {
+        console.log(field.value);
+        return (
+          <FormItem className={className}>
+            <FormLabel>{label}</FormLabel>
+            <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder={placeholder} />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                {options.map(({ value, label }) => (
+                  <SelectItem key={value} value={value}>
+                    {label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <FormDescription />
+            <FormMessage />
+          </FormItem>
+        );
+      }}
     />
   );
 }

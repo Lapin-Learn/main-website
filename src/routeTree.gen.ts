@@ -10,173 +10,208 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as AuthenticationImport } from './routes/_authentication'
-import { Route as AuthenticatedImport } from './routes/_authenticated'
-import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index'
-import { Route as AuthenticationVerifyOtpImport } from './routes/_authentication/verify-otp'
-import { Route as AuthenticationSignUpImport } from './routes/_authentication/sign-up'
-import { Route as AuthenticationResetPasswordImport } from './routes/_authentication/reset-password'
-import { Route as AuthenticationLogInImport } from './routes/_authentication/log-in'
-import { Route as AuthenticationForgotPasswordImport } from './routes/_authentication/forgot-password'
-import { Route as AuthenticatedProfileImport } from './routes/_authenticated/profile'
-import { Route as AuthenticatedPracticeImport } from './routes/_authenticated/practice'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as AuthenticationImport } from "./routes/_authentication";
+import { Route as AuthenticatedImport } from "./routes/_authenticated";
+import { Route as AuthenticatedIndexImport } from "./routes/_authenticated/index";
+import { Route as AuthenticationVerifyOtpImport } from "./routes/_authentication/verify-otp";
+import { Route as AuthenticationSignUpImport } from "./routes/_authentication/sign-up";
+import { Route as AuthenticationResetPasswordImport } from "./routes/_authentication/reset-password";
+import { Route as AuthenticationLogInImport } from "./routes/_authentication/log-in";
+import { Route as AuthenticationForgotPasswordImport } from "./routes/_authentication/forgot-password";
+import { Route as AuthenticatedProfileImport } from "./routes/_authenticated/profile";
+import { Route as AuthenticatedPracticeImport } from "./routes/_authenticated/practice";
 
 // Create/Update Routes
 
 const AuthenticationRoute = AuthenticationImport.update({
-  id: '/_authentication',
+  id: "/_authentication",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const AuthenticatedRoute = AuthenticatedImport.update({
-  id: '/_authenticated',
+  id: "/_authenticated",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const AuthenticatedIndexRoute = AuthenticatedIndexImport.update({
-  path: '/',
+  path: "/",
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 
 const AuthenticationVerifyOtpRoute = AuthenticationVerifyOtpImport.update({
-  path: '/verify-otp',
+  path: "/verify-otp",
   getParentRoute: () => AuthenticationRoute,
-} as any)
+} as any);
 
 const AuthenticationSignUpRoute = AuthenticationSignUpImport.update({
-  path: '/sign-up',
+  path: "/sign-up",
   getParentRoute: () => AuthenticationRoute,
-} as any)
+} as any);
 
-const AuthenticationResetPasswordRoute =
-  AuthenticationResetPasswordImport.update({
-    path: '/reset-password',
-    getParentRoute: () => AuthenticationRoute,
-  } as any)
+const AuthenticationResetPasswordRoute = AuthenticationResetPasswordImport.update({
+  path: "/reset-password",
+  getParentRoute: () => AuthenticationRoute,
+} as any);
 
 const AuthenticationLogInRoute = AuthenticationLogInImport.update({
-  path: '/log-in',
+  path: "/log-in",
   getParentRoute: () => AuthenticationRoute,
-} as any)
+} as any);
 
-const AuthenticationForgotPasswordRoute =
-  AuthenticationForgotPasswordImport.update({
-    path: '/forgot-password',
-    getParentRoute: () => AuthenticationRoute,
-  } as any)
+const AuthenticationForgotPasswordRoute = AuthenticationForgotPasswordImport.update({
+  path: "/forgot-password",
+  getParentRoute: () => AuthenticationRoute,
+} as any);
 
 const AuthenticatedProfileRoute = AuthenticatedProfileImport.update({
-  path: '/profile',
+  id: "/_profile",
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 
 const AuthenticatedPracticeRoute = AuthenticatedPracticeImport.update({
-  path: '/practice',
+  path: "/practice",
   getParentRoute: () => AuthenticatedRoute,
-} as any)
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AuthenticatedImport
-      parentRoute: typeof rootRoute
-    }
-    '/_authentication': {
-      id: '/_authentication'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AuthenticationImport
-      parentRoute: typeof rootRoute
-    }
-    '/_authenticated/practice': {
-      id: '/_authenticated/practice'
-      path: '/practice'
-      fullPath: '/practice'
-      preLoaderRoute: typeof AuthenticatedPracticeImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/_authenticated/profile': {
-      id: '/_authenticated/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof AuthenticatedProfileImport
-      parentRoute: typeof AuthenticatedImport
-    }
-    '/_authentication/forgot-password': {
-      id: '/_authentication/forgot-password'
-      path: '/forgot-password'
-      fullPath: '/forgot-password'
-      preLoaderRoute: typeof AuthenticationForgotPasswordImport
-      parentRoute: typeof AuthenticationImport
-    }
-    '/_authentication/log-in': {
-      id: '/_authentication/log-in'
-      path: '/log-in'
-      fullPath: '/log-in'
-      preLoaderRoute: typeof AuthenticationLogInImport
-      parentRoute: typeof AuthenticationImport
-    }
-    '/_authentication/reset-password': {
-      id: '/_authentication/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof AuthenticationResetPasswordImport
-      parentRoute: typeof AuthenticationImport
-    }
-    '/_authentication/sign-up': {
-      id: '/_authentication/sign-up'
-      path: '/sign-up'
-      fullPath: '/sign-up'
-      preLoaderRoute: typeof AuthenticationSignUpImport
-      parentRoute: typeof AuthenticationImport
-    }
-    '/_authentication/verify-otp': {
-      id: '/_authentication/verify-otp'
-      path: '/verify-otp'
-      fullPath: '/verify-otp'
-      preLoaderRoute: typeof AuthenticationVerifyOtpImport
-      parentRoute: typeof AuthenticationImport
-    }
-    '/_authenticated/': {
-      id: '/_authenticated/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedIndexImport
-      parentRoute: typeof AuthenticatedImport
-    }
+    "/_authenticated": {
+      id: "/_authenticated";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof AuthenticatedImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_authentication": {
+      id: "/_authentication";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof AuthenticationImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_authenticated/practice": {
+      id: "/_authenticated/practice";
+      path: "/practice";
+      fullPath: "/practice";
+      preLoaderRoute: typeof AuthenticatedPracticeImport;
+      parentRoute: typeof AuthenticatedImport;
+    };
+    "/_authenticated/profile": {
+      id: "/_authenticated/profile";
+      path: "/profile";
+      fullPath: "/profile";
+      preLoaderRoute: typeof AuthenticatedProfileImport;
+      parentRoute: typeof AuthenticatedImport;
+    };
+    "/_authentication/forgot-password": {
+      id: "/_authentication/forgot-password";
+      path: "/forgot-password";
+      fullPath: "/forgot-password";
+      preLoaderRoute: typeof AuthenticationForgotPasswordImport;
+      parentRoute: typeof AuthenticationImport;
+    };
+    "/_authentication/log-in": {
+      id: "/_authentication/log-in";
+      path: "/log-in";
+      fullPath: "/log-in";
+      preLoaderRoute: typeof AuthenticationLogInImport;
+      parentRoute: typeof AuthenticationImport;
+    };
+    "/_authentication/reset-password": {
+      id: "/_authentication/reset-password";
+      path: "/reset-password";
+      fullPath: "/reset-password";
+      preLoaderRoute: typeof AuthenticationResetPasswordImport;
+      parentRoute: typeof AuthenticationImport;
+    };
+    "/_authentication/sign-up": {
+      id: "/_authentication/sign-up";
+      path: "/sign-up";
+      fullPath: "/sign-up";
+      preLoaderRoute: typeof AuthenticationSignUpImport;
+      parentRoute: typeof AuthenticationImport;
+    };
+    "/_authentication/verify-otp": {
+      id: "/_authentication/verify-otp";
+      path: "/verify-otp";
+      fullPath: "/verify-otp";
+      preLoaderRoute: typeof AuthenticationVerifyOtpImport;
+      parentRoute: typeof AuthenticationImport;
+    };
+    "/_authenticated/": {
+      id: "/_authenticated/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof AuthenticatedIndexImport;
+      parentRoute: typeof AuthenticatedImport;
+    };
+    "/_authenticated/_profile/profile/change-password": {
+      id: "/_authenticated/_profile/profile/change-password";
+      path: "/profile/change-password";
+      fullPath: "/profile/change-password";
+      preLoaderRoute: typeof AuthenticatedProfileProfileChangePasswordImport;
+      parentRoute: typeof AuthenticatedProfileImport;
+    };
+    "/_authenticated/_profile/profile/history": {
+      id: "/_authenticated/_profile/profile/history";
+      path: "/profile/history";
+      fullPath: "/profile/history";
+      preLoaderRoute: typeof AuthenticatedProfileProfileHistoryImport;
+      parentRoute: typeof AuthenticatedProfileImport;
+    };
+    "/_authenticated/_profile/profile/": {
+      id: "/_authenticated/_profile/profile/";
+      path: "/profile";
+      fullPath: "/profile";
+      preLoaderRoute: typeof AuthenticatedProfileProfileIndexImport;
+      parentRoute: typeof AuthenticatedProfileImport;
+    };
   }
 }
 
 // Create and export the route tree
 
+interface AuthenticatedProfileRouteChildren {
+  AuthenticatedProfileProfileChangePasswordRoute: typeof AuthenticatedProfileProfileChangePasswordRoute;
+  AuthenticatedProfileProfileHistoryRoute: typeof AuthenticatedProfileProfileHistoryRoute;
+  AuthenticatedProfileProfileIndexRoute: typeof AuthenticatedProfileProfileIndexRoute;
+}
+
+const AuthenticatedProfileRouteChildren: AuthenticatedProfileRouteChildren = {
+  AuthenticatedProfileProfileChangePasswordRoute: AuthenticatedProfileProfileChangePasswordRoute,
+  AuthenticatedProfileProfileHistoryRoute: AuthenticatedProfileProfileHistoryRoute,
+  AuthenticatedProfileProfileIndexRoute: AuthenticatedProfileProfileIndexRoute,
+};
+
+const AuthenticatedProfileRouteWithChildren = AuthenticatedProfileRoute._addFileChildren(
+  AuthenticatedProfileRouteChildren
+);
+
 interface AuthenticatedRouteChildren {
-  AuthenticatedPracticeRoute: typeof AuthenticatedPracticeRoute
-  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
-  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedPracticeRoute: typeof AuthenticatedPracticeRoute;
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute;
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute;
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedPracticeRoute: AuthenticatedPracticeRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
-}
+};
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
-  AuthenticatedRouteChildren,
-)
+  AuthenticatedRouteChildren
+);
 
 interface AuthenticationRouteChildren {
-  AuthenticationForgotPasswordRoute: typeof AuthenticationForgotPasswordRoute
-  AuthenticationLogInRoute: typeof AuthenticationLogInRoute
-  AuthenticationResetPasswordRoute: typeof AuthenticationResetPasswordRoute
-  AuthenticationSignUpRoute: typeof AuthenticationSignUpRoute
-  AuthenticationVerifyOtpRoute: typeof AuthenticationVerifyOtpRoute
+  AuthenticationForgotPasswordRoute: typeof AuthenticationForgotPasswordRoute;
+  AuthenticationLogInRoute: typeof AuthenticationLogInRoute;
+  AuthenticationResetPasswordRoute: typeof AuthenticationResetPasswordRoute;
+  AuthenticationSignUpRoute: typeof AuthenticationSignUpRoute;
+  AuthenticationVerifyOtpRoute: typeof AuthenticationVerifyOtpRoute;
 }
 
 const AuthenticationRouteChildren: AuthenticationRouteChildren = {
@@ -185,101 +220,119 @@ const AuthenticationRouteChildren: AuthenticationRouteChildren = {
   AuthenticationResetPasswordRoute: AuthenticationResetPasswordRoute,
   AuthenticationSignUpRoute: AuthenticationSignUpRoute,
   AuthenticationVerifyOtpRoute: AuthenticationVerifyOtpRoute,
-}
+};
 
 const AuthenticationRouteWithChildren = AuthenticationRoute._addFileChildren(
-  AuthenticationRouteChildren,
-)
+  AuthenticationRouteChildren
+);
 
 export interface FileRoutesByFullPath {
-  '': typeof AuthenticationRouteWithChildren
-  '/practice': typeof AuthenticatedPracticeRoute
-  '/profile': typeof AuthenticatedProfileRoute
-  '/forgot-password': typeof AuthenticationForgotPasswordRoute
-  '/log-in': typeof AuthenticationLogInRoute
-  '/reset-password': typeof AuthenticationResetPasswordRoute
-  '/sign-up': typeof AuthenticationSignUpRoute
-  '/verify-otp': typeof AuthenticationVerifyOtpRoute
-  '/': typeof AuthenticatedIndexRoute
+  "": typeof AuthenticationRouteWithChildren;
+  "/practice": typeof AuthenticatedPracticeRoute;
+  "/profile": typeof AuthenticatedProfileRoute;
+  "/forgot-password": typeof AuthenticationForgotPasswordRoute;
+  "/log-in": typeof AuthenticationLogInRoute;
+  "/reset-password": typeof AuthenticationResetPasswordRoute;
+  "/sign-up": typeof AuthenticationSignUpRoute;
+  "/verify-otp": typeof AuthenticationVerifyOtpRoute;
+  "/": typeof AuthenticatedIndexRoute;
+  "/profile/change-password": typeof AuthenticatedProfileProfileChangePasswordRoute;
+  "/profile/history": typeof AuthenticatedProfileProfileHistoryRoute;
+  "/profile": typeof AuthenticatedProfileProfileIndexRoute;
 }
 
 export interface FileRoutesByTo {
-  '': typeof AuthenticationRouteWithChildren
-  '/practice': typeof AuthenticatedPracticeRoute
-  '/profile': typeof AuthenticatedProfileRoute
-  '/forgot-password': typeof AuthenticationForgotPasswordRoute
-  '/log-in': typeof AuthenticationLogInRoute
-  '/reset-password': typeof AuthenticationResetPasswordRoute
-  '/sign-up': typeof AuthenticationSignUpRoute
-  '/verify-otp': typeof AuthenticationVerifyOtpRoute
-  '/': typeof AuthenticatedIndexRoute
+  "": typeof AuthenticationRouteWithChildren;
+  "/practice": typeof AuthenticatedPracticeRoute;
+  "/profile": typeof AuthenticatedProfileRoute;
+  "/forgot-password": typeof AuthenticationForgotPasswordRoute;
+  "/log-in": typeof AuthenticationLogInRoute;
+  "/reset-password": typeof AuthenticationResetPasswordRoute;
+  "/sign-up": typeof AuthenticationSignUpRoute;
+  "/verify-otp": typeof AuthenticationVerifyOtpRoute;
+  "/": typeof AuthenticatedIndexRoute;
+  "/profile/change-password": typeof AuthenticatedProfileProfileChangePasswordRoute;
+  "/profile/history": typeof AuthenticatedProfileProfileHistoryRoute;
+  "/profile": typeof AuthenticatedProfileProfileIndexRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/_authenticated': typeof AuthenticatedRouteWithChildren
-  '/_authentication': typeof AuthenticationRouteWithChildren
-  '/_authenticated/practice': typeof AuthenticatedPracticeRoute
-  '/_authenticated/profile': typeof AuthenticatedProfileRoute
-  '/_authentication/forgot-password': typeof AuthenticationForgotPasswordRoute
-  '/_authentication/log-in': typeof AuthenticationLogInRoute
-  '/_authentication/reset-password': typeof AuthenticationResetPasswordRoute
-  '/_authentication/sign-up': typeof AuthenticationSignUpRoute
-  '/_authentication/verify-otp': typeof AuthenticationVerifyOtpRoute
-  '/_authenticated/': typeof AuthenticatedIndexRoute
+  __root__: typeof rootRoute;
+  "/_authenticated": typeof AuthenticatedRouteWithChildren;
+  "/_authentication": typeof AuthenticationRouteWithChildren;
+  "/_authenticated/practice": typeof AuthenticatedPracticeRoute;
+  "/_authenticated/profile": typeof AuthenticatedProfileRoute;
+  "/_authentication/forgot-password": typeof AuthenticationForgotPasswordRoute;
+  "/_authentication/log-in": typeof AuthenticationLogInRoute;
+  "/_authentication/reset-password": typeof AuthenticationResetPasswordRoute;
+  "/_authentication/sign-up": typeof AuthenticationSignUpRoute;
+  "/_authentication/verify-otp": typeof AuthenticationVerifyOtpRoute;
+  "/_authenticated/": typeof AuthenticatedIndexRoute;
+  "/_authenticated/_profile/profile/change-password": typeof AuthenticatedProfileProfileChangePasswordRoute;
+  "/_authenticated/_profile/profile/history": typeof AuthenticatedProfileProfileHistoryRoute;
+  "/_authenticated/_profile/profile/": typeof AuthenticatedProfileProfileIndexRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | ''
-    | '/practice'
-    | '/profile'
-    | '/forgot-password'
-    | '/log-in'
-    | '/reset-password'
-    | '/sign-up'
-    | '/verify-otp'
-    | '/'
-  fileRoutesByTo: FileRoutesByTo
+    | ""
+    | "/practice"
+    | "/profile"
+    | "/forgot-password"
+    | "/log-in"
+    | "/reset-password"
+    | "/sign-up"
+    | "/verify-otp"
+    | "/"
+    | "/profile/change-password"
+    | "/profile/history"
+    | "/profile";
+  fileRoutesByTo: FileRoutesByTo;
   to:
-    | ''
-    | '/practice'
-    | '/profile'
-    | '/forgot-password'
-    | '/log-in'
-    | '/reset-password'
-    | '/sign-up'
-    | '/verify-otp'
-    | '/'
+    | ""
+    | "/practice"
+    | "/profile"
+    | "/forgot-password"
+    | "/log-in"
+    | "/reset-password"
+    | "/sign-up"
+    | "/verify-otp"
+    | "/"
+    | "/profile/change-password"
+    | "/profile/history"
+    | "/profile";
   id:
-    | '__root__'
-    | '/_authenticated'
-    | '/_authentication'
-    | '/_authenticated/practice'
-    | '/_authenticated/profile'
-    | '/_authentication/forgot-password'
-    | '/_authentication/log-in'
-    | '/_authentication/reset-password'
-    | '/_authentication/sign-up'
-    | '/_authentication/verify-otp'
-    | '/_authenticated/'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/_authenticated"
+    | "/_authentication"
+    | "/_authenticated/practice"
+    | "/_authenticated/profile"
+    | "/_authentication/forgot-password"
+    | "/_authentication/log-in"
+    | "/_authentication/reset-password"
+    | "/_authentication/sign-up"
+    | "/_authentication/verify-otp"
+    | "/_authenticated/"
+    | "/_authenticated/_profile/profile/change-password"
+    | "/_authenticated/_profile/profile/history"
+    | "/_authenticated/_profile/profile/";
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
-  AuthenticationRoute: typeof AuthenticationRouteWithChildren
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren;
+  AuthenticationRoute: typeof AuthenticationRouteWithChildren;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AuthenticationRoute: AuthenticationRouteWithChildren,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* prettier-ignore-end */
 
@@ -342,6 +395,18 @@ export const routeTree = rootRoute
     "/_authenticated/": {
       "filePath": "_authenticated/index.tsx",
       "parent": "/_authenticated"
+    },
+    "/_authenticated/_profile/profile/change-password": {
+      "filePath": "_authenticated/_profile/profile/change-password.tsx",
+      "parent": "/_authenticated/_profile"
+    },
+    "/_authenticated/_profile/profile/history": {
+      "filePath": "_authenticated/_profile/profile/history.tsx",
+      "parent": "/_authenticated/_profile"
+    },
+    "/_authenticated/_profile/profile/": {
+      "filePath": "_authenticated/_profile/profile/index.tsx",
+      "parent": "/_authenticated/_profile"
     }
   }
 }
