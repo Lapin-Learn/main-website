@@ -39,6 +39,5 @@ export const deleteFile = async (id: string) => {
 export const uploadFileToCloud = async ({ file, url }: { file: File; url: string }) => {
   const arrayBuffer = await file.arrayBuffer();
   const kyInstance = ky.create({});
-  console.log("uploadFileToCloud -> url", url);
   await kyInstance.put(url, { body: arrayBuffer, headers: { "Content-Type": file.type } });
 };

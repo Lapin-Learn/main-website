@@ -25,7 +25,6 @@ export default function Avatar() {
   const handleChangeImage = (files: File[]) => {
     const file: File = files[0];
     if (avatar) {
-      console.log(file);
       updateBucket.mutate(
         {
           id: avatar.id,
@@ -49,7 +48,6 @@ export default function Avatar() {
       });
     }
   };
-  console.log(avatar?.url);
   return (
     <ChangeImageDialog onSubmit={handleChangeImage}>
       <div
