@@ -9,9 +9,10 @@ import commonVi from "./locales/vi/common.json";
 import practiceEn from "./locales/en/practice.json";
 import practiceVi from "./locales/vi/practice.json";
 import profileVi from "./locales/vi/profile.json";
+import profileEn from "./locales/en/profile.json";
 
 const resources = {
-  en: { common: commonEn, auth: authEn, practice: practiceEn },
+  en: { common: commonEn, auth: authEn, practice: practiceEn, profile: profileEn },
   vi: { common: commonVi, auth: authVi, practice: practiceVi, profile: profileVi },
 };
 

@@ -4,11 +4,13 @@ import { getAccountIdentifier } from "@/services";
 import { getUserProfile, updateUserPassword, updateUserProfile } from "@/services/user";
 import { useToast } from "../use-toast";
 import { useTranslation } from "react-i18next";
+import { Image } from "@/lib/types";
 
 export const userKeys = {
   key: ["account"] as const,
   identifier: () => [...userKeys.key, "identifier"] as const,
   profile: () => [...userKeys.key, "profile"] as const,
+  avatar: () => [...userKeys.key, "avatar"] as const,
 };
 
 export const useAccountIdentifier = () => {
@@ -21,11 +23,20 @@ export const useAccountIdentifier = () => {
 };
 
 export const useUserProfile = () => {
-  return useQuery({
+  const data = useQuery({
     queryKey: userKeys.profile(),
     queryFn: getUserProfile,
     staleTime: Infinity,
   });
+  return data;
+};
+
+export const useUserAvatar = () => {
+  const { data, isLoading } = useUserProfile();
+  return {
+    avatar: data?.avatar ? (data.avatar as Image) : null,
+    isLoading,
+  };
 };
 
 export const useUpdateUserProfile = () => {
@@ -34,13 +45,15 @@ export const useUpdateUserProfile = () => {
   const { t } = useTranslation();
   return useMutation({
     mutationFn: updateUserProfile,
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast({
         title: t("toast.update.success", {
           item: t("tab_profile", { ns: "profile" }),
         }),
       });
-      queryClient.setQueryData(userKeys.profile(), { ...data });
+      queryClient.invalidateQueries({
+        queryKey: userKeys.profile(),
+      });
     },
     onError: (error) => {
       toast({

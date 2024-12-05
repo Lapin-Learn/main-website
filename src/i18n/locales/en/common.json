@@ -2,6 +2,10 @@
     "email": "Email",
     "password": "Password",
     "confirmPassword": "Confirm password",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "save": "Save",
+    "update": "Update",
     "error": {
         "INVALID_PASSWORD": "Password incorrect"
     },

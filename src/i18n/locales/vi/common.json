@@ -2,6 +2,10 @@
     "email": "Email",
     "password": "Mật khẩu",
     "confirmPassword": "Nhập lại mật khẩu",
+    "cancel": "Hủy",
+    "submit": "Gửi",
+    "save": "Lưu",
+    "update": "Cập nhật",
     "error": {
         "INVALID_PASSWORD": "Mật khẩu không đúng"
     },

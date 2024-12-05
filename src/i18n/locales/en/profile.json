@@ -1,0 +1,47 @@
+{
+    "pageTitle": "Account management",
+    "tab_profile": "Personal information",
+    "tab_changePassword": "Change password",
+    "tab_history": "Learning history",
+    "saveBtn": "Save changes",
+    "formProfile": {
+        "username": {
+            "label": "Username",
+            "placeholder": "Enter username"
+        },
+        "email": {
+            "label": "Email",
+            "placeholder": "Enter email"
+        },
+        "fullName": {
+            "label": "Full name",
+            "placeholder": "Enter full name"
+        },
+        "gender": {
+            "label": "Gender",
+            "placeholder": "Select gender",
+            "options": {
+                "female": "Female",
+                "male": "Male"
+            }
+        },
+        "dob": {
+            "label": "Date of birth",
+            "placeholder": "Select date of birth"
+        }
+    },
+    "formUpdatePassword": {
+        "oldPassword": {
+            "label": "Current password",
+            "placeholder": "Enter current password"
+        },
+        "newPassword": {
+            "label": "New password",
+            "placeholder": "Enter new password"
+        },
+        "confirmPassword": {
+            "label": "Confirm password",
+            "placeholder": "Re-enter new password"
+        }
+    }
+}
