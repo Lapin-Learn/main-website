@@ -4,29 +4,39 @@ import ReadingIcon from "@/assets/icons/skills/reading";
 import SpeakingIcon from "@/assets/icons/skills/speaking";
 import WritingIcon from "@/assets/icons/skills/writing";
 import AllSkillsIcon from "@/assets/icons/skills/all";
+import ListeningFilledIcon from "@/assets/icons/skills/listening-filled";
+import ReadingFilledIcon from "@/assets/icons/skills/reading-filled";
+import SpeakingFilledIcon from "@/assets/icons/skills/speaking-filled";
+import WritingFilledIcon from "@/assets/icons/skills/writing-filled";
+import AllSkillsFilledIcon from "@/assets/icons/skills/all-filled";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui";
+import { useTranslation } from "react-i18next";
+import { EnumSkill } from "@/lib/enums";
 
-export type Skills = "Tất cả kỹ năng" | "Reading" | "Listening" | "Writing" | "Speaking";
-
-const skillsList: { label: Skills; Icon: React.FC<React.SVGProps<SVGSVGElement>> }[] = [
-  { label: "Tất cả kỹ năng", Icon: AllSkillsIcon },
-  { label: "Reading", Icon: ReadingIcon },
-  { label: "Listening", Icon: ListeningIcon },
-  { label: "Writing", Icon: WritingIcon },
-  { label: "Speaking", Icon: SpeakingIcon },
+const skillsList: {
+  label: EnumSkill;
+  IconOutlined: React.FC<React.SVGProps<SVGSVGElement>>;
+  IconFilled: React.FC<React.SVGProps<SVGSVGElement>>;
+}[] = [
+  { label: EnumSkill.allSkills, IconOutlined: AllSkillsIcon, IconFilled: AllSkillsFilledIcon },
+  { label: EnumSkill.reading, IconOutlined: ReadingIcon, IconFilled: ReadingFilledIcon },
+  { label: EnumSkill.listening, IconOutlined: ListeningIcon, IconFilled: ListeningFilledIcon },
+  { label: EnumSkill.writing, IconOutlined: WritingIcon, IconFilled: WritingFilledIcon },
+  { label: EnumSkill.speaking, IconOutlined: SpeakingIcon, IconFilled: SpeakingFilledIcon },
 ];
 
 const SkillsFilter = ({
   skill,
   setSkill,
 }: {
-  skill: Skills;
-  setSkill: Dispatch<SetStateAction<Skills>>;
+  skill: EnumSkill;
+  setSkill: Dispatch<SetStateAction<EnumSkill>>;
 }) => {
+  const { t } = useTranslation();
   return (
     <div className="flex gap-4">
-      {skillsList.map(({ label, Icon }) => (
+      {skillsList.map(({ label, IconOutlined, IconFilled }) => (
         <Button
           key={label}
           variant="ghost"
@@ -39,8 +49,14 @@ const SkillsFilter = ({
               : "bg-neutral-50 text-gray-700 hover:bg-neutral-100/50 hover:text-gray-800"
           )}
         >
-          <Icon className={cn("h-5 w-5")} fill={label === skill ? "#c2410c" : "#374151"} />
-          <span className="hidden md:inline">{label}</span>
+          {label === skill ? (
+            <IconFilled className={cn("h-5 w-5")} fill="#c2410c" />
+          ) : (
+            <IconOutlined className={cn("h-5 w-5")} fill="#374151" />
+          )}
+          <span className="hidden md:inline">
+            {t(label).charAt(0).toUpperCase() + t(label).slice(1)}
+          </span>
         </Button>
       ))}
     </div>

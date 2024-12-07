@@ -10,10 +10,24 @@ import practiceEn from "./locales/en/practice.json";
 import practiceVi from "./locales/vi/practice.json";
 import profileVi from "./locales/vi/profile.json";
 import profileEn from "./locales/en/profile.json";
+import gamificationEn from "./locales/en/gamification.json";
+import gamificationVi from "./locales/vi/gamification.json";
 
 const resources = {
-  en: { common: commonEn, auth: authEn, practice: practiceEn, profile: profileEn },
-  vi: { common: commonVi, auth: authVi, practice: practiceVi, profile: profileVi },
+  en: {
+    common: commonEn,
+    auth: authEn,
+    practice: practiceEn,
+    profile: profileEn,
+    gamification: gamificationEn,
+  },
+  vi: {
+    common: commonVi,
+    auth: authVi,
+    practice: practiceVi,
+    profile: profileVi,
+    gamification: gamificationVi,
+  },
 };
 
 const languageDetectorOptions = {

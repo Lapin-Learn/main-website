@@ -1,8 +1,9 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 import ErrorFallback from "@/components/ErrorFallback";
-import { getAccountIdentifier, getAuthValueFromStorage, signOut } from "@/services";
+import { getAuthValueFromStorage } from "@/services";
 import SideBar from "@/components/organisms/side-bar";
+import { userKeys } from "@/hooks/react-query/useUsers";
 
 const AuthenticatedPage = () => {
   return (
@@ -19,15 +20,19 @@ const AuthenticatedPage = () => {
 };
 
 export const Route = createFileRoute("/_authenticated")({
-  beforeLoad: async ({ location }) => {
+  beforeLoad: async ({ context: { queryClient }, location }) => {
     try {
       if (!getAuthValueFromStorage()) {
         return redirect({ to: "/log-in" });
       }
-      const user = await getAccountIdentifier();
+      const user = queryClient.getQueryData(userKeys.identifier());
       if (!user) {
-        await signOut();
-        return redirect({ to: "/log-in" });
+        const identifier = await getAccountIdentifier();
+        if (!identifier) {
+          throw new Error("User not found");
+        } else {
+          queryClient.setQueryData(userKeys.identifier(), identifier);
+        }
       }
       if (location.pathname === "/") {
         return redirect({ to: "/practice" });

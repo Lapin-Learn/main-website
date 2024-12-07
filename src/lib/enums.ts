@@ -9,6 +9,7 @@ export enum EnumSkill {
   listening = "listening",
   writing = "writing",
   speaking = "speaking",
+  allSkills = "allSkills",
 }
 
 export enum EnumBandScore {
@@ -59,9 +60,4 @@ export enum TestRecordStatus {
   InProgress = "In Progress",
   Completed = "Completed",
   NotStarted = "Not Started",
-}
-
-export enum EnumAction {
-  DAILY_STREAK = "daily_streak",
-  FREEZE_STREAK = "freeze_streak",
 }
