@@ -154,7 +154,7 @@ export default function SignUpPage() {
               </Button>
               <div className="flex w-full flex-row items-center gap-2">
                 <Separator orientation="horizontal" className="flex-1" />
-                <p>or</p>
+                <p className="text-sm">{t("or")}</p>
                 <Separator orientation="horizontal" className="flex-1" />
               </div>
               <Button

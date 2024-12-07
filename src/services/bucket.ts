@@ -20,7 +20,11 @@ type BucketInfo = {
 };
 
 export const updatePresignedURL = async ({ id, name }: BucketInfo) => {
-  return api.put(`files/presigned-url/${id}`, { json: { name } }).json<PresignedUrl>();
+  return (
+    await api
+      .put(`files/presigned-url/${id}`, { json: { name } })
+      .json<FetchingData<PresignedUrl>>()
+  ).data;
 };
 
 export const confirmUpload = async (params: { id: string }) => {

@@ -108,9 +108,9 @@ export default function LogInPage() {
                 )}
                 {t("logIn.logInBtn")}
               </Button>
-              <div className="flex w-full flex-row items-center gap-2">
+              <div className="flex w-full flex-row items-center gap-3">
                 <Separator orientation="horizontal" className="flex-1" />
-                <p>{t("or")}</p>
+                <p className='text-sm'>{t("or")}</p>
                 <Separator orientation="horizontal" className="flex-1" />
               </div>
               <Button
