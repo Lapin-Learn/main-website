@@ -36,6 +36,8 @@ const api = ky.create({
               return ky(request);
             } catch (e) {
               console.error(e);
+              await signOut();
+              redirect({ to: "/log-in" });
             }
           } else {
             await signOut();

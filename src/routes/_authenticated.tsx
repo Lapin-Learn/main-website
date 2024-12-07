@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 import ErrorFallback from "@/components/ErrorFallback";
-import { getAuthValueFromStorage } from "@/services";
+import { getAccountIdentifier, getAuthValueFromStorage, signOut } from "@/services";
 import SideBar from "@/components/organisms/side-bar";
 
 const AuthenticatedPage = () => {
@@ -11,11 +11,8 @@ const AuthenticatedPage = () => {
         <SideBar />
       </div>
 
-      <main className="grid flex-1 grid-cols-12 overflow-y-auto">
-        <div className="col-span-8">
-          <Outlet />
-        </div>
-        <div className="col-span-4">Other component</div>
+      <main className="flex-1 overflow-y-auto">
+        <Outlet />
       </main>
     </div>
   );
@@ -27,12 +24,17 @@ export const Route = createFileRoute("/_authenticated")({
       if (!getAuthValueFromStorage()) {
         return redirect({ to: "/log-in" });
       }
+      const user = await getAccountIdentifier();
+      if (!user) {
+        await signOut();
+        return redirect({ to: "/log-in" });
+      }
       if (location.pathname === "/") {
         return redirect({ to: "/practice" });
       }
       return true;
     } catch (e) {
-      console.error(e);
+      await signOut();
       return redirect({ to: "/log-in" });
     }
   },

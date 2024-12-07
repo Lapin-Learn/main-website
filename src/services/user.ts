@@ -11,3 +11,12 @@ export const updateUserProfile = async (payload: Partial<UserProfile>) => {
     await api.put("users/profile", { json: { body: payload } }).json<FetchingData<UserProfile>>()
   ).data;
 };
+
+type UpdateUserPasswordPayload = {
+  oldPassword: string;
+  newPassword: string;
+};
+
+export const updateUserPassword = async (payload: UpdateUserPasswordPayload) => {
+  return await api.put("users/profile/password", { json: payload }).json();
+};

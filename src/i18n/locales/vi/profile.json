@@ -1,0 +1,47 @@
+{
+    "pageTitle": "Quản lý tài khoản",
+    "tab_profile": "Thông tin cá nhân",
+    "tab_changePassword": "Đổi mật khẩu",
+    "tab_history": "Lịch sử học tập",
+    "saveBtn": "Lưu thay đổi",
+    "formProfile": {
+        "username": {
+            "label": "Tên đăng nhập",
+            "placeholder": "Nhập tên đăng nhập"
+        },
+        "email": {
+            "label": "Email",
+            "placeholder": "Nhập email"
+        },
+        "fullName": {
+            "label": "Họ và tên",
+            "placeholder": "Nhập họ và tên"
+        },
+        "gender": {
+            "label": "Giới tính",
+            "placeholder": "Chọn giới tính",
+            "options": {
+                "female": "Nữ",
+                "male": "Nam"
+            }
+        },
+        "dob": {
+            "label": "Ngày sinh",
+            "placeholder": "Chọn ngày sinh"
+        }
+    },
+    "formUpdatePassword": {
+        "oldPassword": {
+            "label": "Mật khẩu cũ",
+            "placeholder": "Nhập mật khẩu cũ"
+        },
+        "newPassword": {
+            "label": "Mật khẩu mới",
+            "placeholder": "Nhập mật khẩu mới"
+        },
+        "confirmPassword": {
+            "label": "Xác nhận mật khẩu",
+            "placeholder": "Nhập lại mật khẩu mới"
+        }
+    }
+}

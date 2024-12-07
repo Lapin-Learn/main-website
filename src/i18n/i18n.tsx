@@ -8,10 +8,12 @@ import authVi from "./locales/vi/auth.json";
 import commonVi from "./locales/vi/common.json";
 import practiceEn from "./locales/en/practice.json";
 import practiceVi from "./locales/vi/practice.json";
+import profileVi from "./locales/vi/profile.json";
+import profileEn from "./locales/en/profile.json";
 
 const resources = {
-  en: { common: commonEn, auth: authEn, practice: practiceEn },
-  vi: { common: commonVi, auth: authVi, practice: practiceVi },
+  en: { common: commonEn, auth: authEn, practice: practiceEn, profile: profileEn },
+  vi: { common: commonVi, auth: authVi, practice: practiceVi, profile: profileVi },
 };
 
 const languageDetectorOptions = {
@@ -53,6 +55,8 @@ i18n
       escapeValue: false,
       format: function (value, format) {
         if (format === "capitalize") return value.charAt(0).toUpperCase() + value.slice(1);
+        if (format === "uppercase") return value.toUpperCase();
+        if (format === "lowercase") return value.toLowerCase();
         return value;
       },
     },
