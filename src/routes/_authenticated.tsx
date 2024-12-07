@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 import ErrorFallback from "@/components/ErrorFallback";
-import { getAuthValueFromStorage } from "@/services";
+import { getAccountIdentifier, getAuthValueFromStorage, signOut } from "@/services";
 import SideBar from "@/components/organisms/side-bar";
 
 const AuthenticatedPage = () => {
@@ -24,12 +24,17 @@ export const Route = createFileRoute("/_authenticated")({
       if (!getAuthValueFromStorage()) {
         return redirect({ to: "/log-in" });
       }
+      const user = await getAccountIdentifier();
+      if (!user) {
+        await signOut();
+        return redirect({ to: "/log-in" });
+      }
       if (location.pathname === "/") {
         return redirect({ to: "/practice" });
       }
       return true;
     } catch (e) {
-      console.error(e);
+      await signOut();
       return redirect({ to: "/log-in" });
     }
   },

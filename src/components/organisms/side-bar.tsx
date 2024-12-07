@@ -45,13 +45,13 @@ export default function SideBar() {
               <div className="flex flex-row items-center justify-between gap-2">
                 <div className="flex flex-row items-center justify-center gap-2">
                   {avatar ? (
-                    <img src={avatar.url} className="size-10 rounded-full" />
+                    <img src={avatar.url} className="!size-10 rounded-full" />
                   ) : (
-                    <div className="grid size-10 place-items-center rounded-full bg-neutral-100 text-white">
+                    <div className="grid !size-10 place-items-center rounded-full bg-neutral-100 text-white">
                       <User size={20} />
                     </div>
                   )}
-                  <div className="flex h-10 w-full flex-col justify-between">
+                  <div className="flex h-10 w-full flex-1 flex-col justify-between overflow-hidden">
                     {user && isSuccess ? (
                       <>
                         <p className="text-small font-semibold text-black">{user.fullName}</p>

@@ -23,12 +23,11 @@ export const useAccountIdentifier = () => {
 };
 
 export const useUserProfile = () => {
-  const data = useQuery({
+  return useQuery({
     queryKey: userKeys.profile(),
     queryFn: getUserProfile,
     staleTime: Infinity,
   });
-  return data;
 };
 
 export const useUserAvatar = () => {

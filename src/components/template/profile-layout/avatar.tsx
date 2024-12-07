@@ -65,7 +65,7 @@ export default function Avatar() {
             {avatar?.url ? (
               <img
                 key={avatar.id}
-                className="absolute left-0 top-0 size-32 rounded-full object-cover"
+                className="absolute left-0 top-0 size-32 rounded-full bg-white object-cover"
                 src={avatar.url}
                 loading="lazy"
                 alt={user?.fullName ?? "Avatar"}

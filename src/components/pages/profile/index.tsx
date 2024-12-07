@@ -56,9 +56,14 @@ export default function ProfilePage() {
     }
   }, [data, isSuccess]);
 
+  useEffect(() => {
+    console.log("isValid", form.formState.isValid);
+    console.log("isDiry", form.formState.isDirty);
+  }, [form.formState]);
+
   return (
-    <div className="flex flex-col items-center justify-center gap-2 overflow-hidden">
-      <div className="z-10 w-full">
+    <div className="flex flex-col items-center justify-center gap-2">
+      <div className="w-full">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-2 gap-4">
             <FormField
@@ -146,7 +151,7 @@ export default function ProfilePage() {
               }
               className="w-fit"
               size="lg"
-              isLoading={updateProfile.isPending}
+              isLoading={updateProfile.isPending || isLoading}
             >
               {t("saveBtn")}
             </Button>
