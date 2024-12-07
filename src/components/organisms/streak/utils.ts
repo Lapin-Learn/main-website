@@ -75,6 +75,7 @@ const parseActiveDays = (originalDays: DayProps[], activeDays: Date[] = []) => {
   const newDays = [...originalDays];
   let i = 0;
   let j = 0;
+  if (originalDays.length === 0) return [];
   while (i < activeDays.length) {
     if (isBefore(activeDays[i], originalDays[0].day)) {
       i++;

@@ -3,9 +3,6 @@ import { useAccountIdentifier } from "@/hooks/react-query/useUsers";
 import { useAuthStore } from "@/hooks/useAuthStore";
 import { getAuthValueFromStorage } from "@/services";
 
-import { StreakSection } from "../organisms/streak";
-import { Button } from "../ui";
-
 export default function HomePage() {
   const signOut = useSignOut();
   const { data, isError, isLoading } = useAccountIdentifier();

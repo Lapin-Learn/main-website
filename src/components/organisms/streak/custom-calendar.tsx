@@ -11,7 +11,7 @@ import WeekHeader from "./week-header";
 
 const CustomCalendar = () => {
   const [startDay, setStartDay] = useState(new Date());
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   const changeMonth = (direction: number) => {
     const newDate = new Date(startDay.setMonth(startDay.getMonth() + direction));
@@ -44,7 +44,10 @@ const CustomCalendar = () => {
     <div
       className="flex flex-col gap-2 rounded-lg bg-white p-3 transition-all duration-500"
       onMouseEnter={() => setIsCollapsed(false)}
-      onMouseLeave={() => setIsCollapsed(true)}
+      onMouseLeave={() => {
+        setIsCollapsed(true);
+        setStartDay(new Date());
+      }}
     >
       <div
         className={cn(
