@@ -40,7 +40,7 @@ export default function VerifyOtpPage() {
   const verifyOtpMutation = useVerifyOtp();
   const getOtp = useGetOtp();
   const navigate = useNavigate();
-  const { time, timeLeft, restart } = useCountdown(5 * 60);
+  const { time, timeLeft, restart, resume } = useCountdown(5 * 60);
 
   const onSubmit = (data: FormInputs) => {
     verifyOtpMutation.mutate({
@@ -53,6 +53,10 @@ export default function VerifyOtpPage() {
   useEffect(() => {
     if (!email) navigate({ to: "/log-in" });
   }, [email, navigate]);
+
+  useEffect(() => {
+    resume();
+  }, []);
 
   return (
     <>

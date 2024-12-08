@@ -1,3 +1,4 @@
+import ProfileLayout from "@/components/templates/profile-layout";
 import { createFileRoute } from "@tanstack/react-router";
 
 import ProfileLayout from "@/components/template/profile-layout";

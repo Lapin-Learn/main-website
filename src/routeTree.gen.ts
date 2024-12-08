@@ -11,22 +11,28 @@
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root";
+import { Route as SimulatedTestImport } from "./routes/_simulated-test";
 import { Route as AuthenticationImport } from "./routes/_authentication";
 import { Route as AuthenticatedImport } from "./routes/_authenticated";
 import { Route as AuthenticatedIndexImport } from "./routes/_authenticated/index";
+import { Route as SimulatedTestSimulatedTestImport } from "./routes/_simulated-test/simulated-test";
 import { Route as AuthenticationVerifyOtpImport } from "./routes/_authentication/verify-otp";
 import { Route as AuthenticationSignUpImport } from "./routes/_authentication/sign-up";
 import { Route as AuthenticationResetPasswordImport } from "./routes/_authentication/reset-password";
 import { Route as AuthenticationLogInImport } from "./routes/_authentication/log-in";
 import { Route as AuthenticationForgotPasswordImport } from "./routes/_authentication/forgot-password";
+import { Route as AuthenticatedPracticeImport } from "./routes/_authenticated/practice";
 import { Route as AuthenticatedProfileImport } from "./routes/_authenticated/_profile";
-import { Route as AuthenticatedPracticeIndexImport } from "./routes/_authenticated/practice/index";
-import { Route as AuthenticatedPracticeCollectionIdImport } from "./routes/_authenticated/practice/$collectionId";
 import { Route as AuthenticatedProfileProfileIndexImport } from "./routes/_authenticated/_profile/profile/index";
 import { Route as AuthenticatedProfileProfileHistoryImport } from "./routes/_authenticated/_profile/profile/history";
 import { Route as AuthenticatedProfileProfileChangePasswordImport } from "./routes/_authenticated/_profile/profile/change-password";
 
 // Create/Update Routes
+
+const SimulatedTestRoute = SimulatedTestImport.update({
+  id: "/_simulated-test",
+  getParentRoute: () => rootRoute,
+} as any);
 
 const AuthenticationRoute = AuthenticationImport.update({
   id: "/_authentication",
@@ -42,6 +48,12 @@ const AuthenticatedIndexRoute = AuthenticatedIndexImport.update({
   id: "/",
   path: "/",
   getParentRoute: () => AuthenticatedRoute,
+} as any);
+
+const SimulatedTestSimulatedTestRoute = SimulatedTestSimulatedTestImport.update({
+  id: "/simulated-test",
+  path: "/simulated-test",
+  getParentRoute: () => SimulatedTestRoute,
 } as any);
 
 const AuthenticationVerifyOtpRoute = AuthenticationVerifyOtpImport.update({
@@ -128,11 +140,25 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AuthenticationImport;
       parentRoute: typeof rootRoute;
     };
+    "/_simulated-test": {
+      id: "/_simulated-test";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof SimulatedTestImport;
+      parentRoute: typeof rootRoute;
+    };
     "/_authenticated/_profile": {
       id: "/_authenticated/_profile";
       path: "";
       fullPath: "";
       preLoaderRoute: typeof AuthenticatedProfileImport;
+      parentRoute: typeof AuthenticatedImport;
+    };
+    "/_authenticated/practice": {
+      id: "/_authenticated/practice";
+      path: "/practice";
+      fullPath: "/practice";
+      preLoaderRoute: typeof AuthenticatedPracticeImport;
       parentRoute: typeof AuthenticatedImport;
     };
     "/_authentication/forgot-password": {
@@ -170,25 +196,18 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AuthenticationVerifyOtpImport;
       parentRoute: typeof AuthenticationImport;
     };
+    "/_simulated-test/simulated-test": {
+      id: "/_simulated-test/simulated-test";
+      path: "/simulated-test";
+      fullPath: "/simulated-test";
+      preLoaderRoute: typeof SimulatedTestSimulatedTestImport;
+      parentRoute: typeof SimulatedTestImport;
+    };
     "/_authenticated/": {
       id: "/_authenticated/";
       path: "/";
       fullPath: "/";
       preLoaderRoute: typeof AuthenticatedIndexImport;
-      parentRoute: typeof AuthenticatedImport;
-    };
-    "/_authenticated/practice/$collectionId": {
-      id: "/_authenticated/practice/$collectionId";
-      path: "/practice/$collectionId";
-      fullPath: "/practice/$collectionId";
-      preLoaderRoute: typeof AuthenticatedPracticeCollectionIdImport;
-      parentRoute: typeof AuthenticatedImport;
-    };
-    "/_authenticated/practice/": {
-      id: "/_authenticated/practice/";
-      path: "/practice";
-      fullPath: "/practice";
-      preLoaderRoute: typeof AuthenticatedPracticeIndexImport;
       parentRoute: typeof AuthenticatedImport;
     };
     "/_authenticated/_profile/profile/change-password": {
@@ -271,16 +290,28 @@ const AuthenticationRouteWithChildren = AuthenticationRoute._addFileChildren(
   AuthenticationRouteChildren
 );
 
+interface SimulatedTestRouteChildren {
+  SimulatedTestSimulatedTestRoute: typeof SimulatedTestSimulatedTestRoute;
+}
+
+const SimulatedTestRouteChildren: SimulatedTestRouteChildren = {
+  SimulatedTestSimulatedTestRoute: SimulatedTestSimulatedTestRoute,
+};
+
+const SimulatedTestRouteWithChildren = SimulatedTestRoute._addFileChildren(
+  SimulatedTestRouteChildren
+);
+
 export interface FileRoutesByFullPath {
   "": typeof AuthenticatedProfileRouteWithChildren;
+  "/practice": typeof AuthenticatedPracticeRoute;
   "/forgot-password": typeof AuthenticationForgotPasswordRoute;
   "/log-in": typeof AuthenticationLogInRoute;
   "/reset-password": typeof AuthenticationResetPasswordRoute;
   "/sign-up": typeof AuthenticationSignUpRoute;
   "/verify-otp": typeof AuthenticationVerifyOtpRoute;
+  "/simulated-test": typeof SimulatedTestSimulatedTestRoute;
   "/": typeof AuthenticatedIndexRoute;
-  "/practice/$collectionId": typeof AuthenticatedPracticeCollectionIdRoute;
-  "/practice": typeof AuthenticatedPracticeIndexRoute;
   "/profile/change-password": typeof AuthenticatedProfileProfileChangePasswordRoute;
   "/profile/history": typeof AuthenticatedProfileProfileHistoryRoute;
   "/profile": typeof AuthenticatedProfileProfileIndexRoute;
@@ -288,14 +319,14 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   "": typeof AuthenticatedProfileRouteWithChildren;
+  "/practice": typeof AuthenticatedPracticeRoute;
   "/forgot-password": typeof AuthenticationForgotPasswordRoute;
   "/log-in": typeof AuthenticationLogInRoute;
   "/reset-password": typeof AuthenticationResetPasswordRoute;
   "/sign-up": typeof AuthenticationSignUpRoute;
   "/verify-otp": typeof AuthenticationVerifyOtpRoute;
+  "/simulated-test": typeof SimulatedTestSimulatedTestRoute;
   "/": typeof AuthenticatedIndexRoute;
-  "/practice/$collectionId": typeof AuthenticatedPracticeCollectionIdRoute;
-  "/practice": typeof AuthenticatedPracticeIndexRoute;
   "/profile/change-password": typeof AuthenticatedProfileProfileChangePasswordRoute;
   "/profile/history": typeof AuthenticatedProfileProfileHistoryRoute;
   "/profile": typeof AuthenticatedProfileProfileIndexRoute;
@@ -305,15 +336,16 @@ export interface FileRoutesById {
   __root__: typeof rootRoute;
   "/_authenticated": typeof AuthenticatedRouteWithChildren;
   "/_authentication": typeof AuthenticationRouteWithChildren;
+  "/_simulated-test": typeof SimulatedTestRouteWithChildren;
   "/_authenticated/_profile": typeof AuthenticatedProfileRouteWithChildren;
+  "/_authenticated/practice": typeof AuthenticatedPracticeRoute;
   "/_authentication/forgot-password": typeof AuthenticationForgotPasswordRoute;
   "/_authentication/log-in": typeof AuthenticationLogInRoute;
   "/_authentication/reset-password": typeof AuthenticationResetPasswordRoute;
   "/_authentication/sign-up": typeof AuthenticationSignUpRoute;
   "/_authentication/verify-otp": typeof AuthenticationVerifyOtpRoute;
+  "/_simulated-test/simulated-test": typeof SimulatedTestSimulatedTestRoute;
   "/_authenticated/": typeof AuthenticatedIndexRoute;
-  "/_authenticated/practice/$collectionId": typeof AuthenticatedPracticeCollectionIdRoute;
-  "/_authenticated/practice/": typeof AuthenticatedPracticeIndexRoute;
   "/_authenticated/_profile/profile/change-password": typeof AuthenticatedProfileProfileChangePasswordRoute;
   "/_authenticated/_profile/profile/history": typeof AuthenticatedProfileProfileHistoryRoute;
   "/_authenticated/_profile/profile/": typeof AuthenticatedProfileProfileIndexRoute;
@@ -323,28 +355,28 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | ""
+    | "/practice"
     | "/forgot-password"
     | "/log-in"
     | "/reset-password"
     | "/sign-up"
     | "/verify-otp"
+    | "/simulated-test"
     | "/"
-    | "/practice/$collectionId"
-    | "/practice"
     | "/profile/change-password"
     | "/profile/history"
     | "/profile";
   fileRoutesByTo: FileRoutesByTo;
   to:
     | ""
+    | "/practice"
     | "/forgot-password"
     | "/log-in"
     | "/reset-password"
     | "/sign-up"
     | "/verify-otp"
+    | "/simulated-test"
     | "/"
-    | "/practice/$collectionId"
-    | "/practice"
     | "/profile/change-password"
     | "/profile/history"
     | "/profile";
@@ -352,15 +384,16 @@ export interface FileRouteTypes {
     | "__root__"
     | "/_authenticated"
     | "/_authentication"
+    | "/_simulated-test"
     | "/_authenticated/_profile"
+    | "/_authenticated/practice"
     | "/_authentication/forgot-password"
     | "/_authentication/log-in"
     | "/_authentication/reset-password"
     | "/_authentication/sign-up"
     | "/_authentication/verify-otp"
+    | "/_simulated-test/simulated-test"
     | "/_authenticated/"
-    | "/_authenticated/practice/$collectionId"
-    | "/_authenticated/practice/"
     | "/_authenticated/_profile/profile/change-password"
     | "/_authenticated/_profile/profile/history"
     | "/_authenticated/_profile/profile/";
@@ -370,11 +403,13 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren;
   AuthenticationRoute: typeof AuthenticationRouteWithChildren;
+  SimulatedTestRoute: typeof SimulatedTestRouteWithChildren;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AuthenticationRoute: AuthenticationRouteWithChildren,
+  SimulatedTestRoute: SimulatedTestRouteWithChildren,
 };
 
 export const routeTree = rootRoute
@@ -388,7 +423,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/_authenticated",
-        "/_authentication"
+        "/_authentication",
+        "/_simulated-test"
       ]
     },
     "/_authenticated": {
@@ -408,6 +444,12 @@ export const routeTree = rootRoute
         "/_authentication/reset-password",
         "/_authentication/sign-up",
         "/_authentication/verify-otp"
+      ]
+    },
+    "/_simulated-test": {
+      "filePath": "_simulated-test.tsx",
+      "children": [
+        "/_simulated-test/simulated-test"
       ]
     },
     "/_authenticated/_profile": {
@@ -438,6 +480,10 @@ export const routeTree = rootRoute
     "/_authentication/verify-otp": {
       "filePath": "_authentication/verify-otp.tsx",
       "parent": "/_authentication"
+    },
+    "/_simulated-test/simulated-test": {
+      "filePath": "_simulated-test/simulated-test.tsx",
+      "parent": "/_simulated-test"
     },
     "/_authenticated/": {
       "filePath": "_authenticated/index.tsx",
