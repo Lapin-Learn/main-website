@@ -8,11 +8,12 @@ import SubmitDialog from "../../organisms/simulated-test-dialog/submit-dialog";
 import QuestionNavigator from "../../mocules/question-navigator";
 import React, { useEffect } from "react";
 import { mockQuestionGroups } from "./mock";
+import { useTranslation } from "react-i18next";
 
 type SimulatedTestLayoutProps = {};
 const SimulatedTestLayout = ({}: SimulatedTestLayoutProps) => {
   const { time, resume, timeLeft } = useCountdown(60 * 40); // 40 minutes
-
+  const { t } = useTranslation("simulatedTest");
   useEffect(() => {
     if (timeLeft === 0) {
       // TODO: submit the test
@@ -31,7 +32,7 @@ const SimulatedTestLayout = ({}: SimulatedTestLayoutProps) => {
           triggerButton={
             <Button className="absolute left-8" variant="ghost">
               <ChevronLeft size={20} />
-              Thoát
+              {t("exitDialog.exitBtn")}
             </Button>
           }
         />
@@ -60,13 +61,16 @@ const SimulatedTestLayout = ({}: SimulatedTestLayoutProps) => {
         <div className="flex flex-row gap-4">
           <Button variant="outline">
             <ArrowLeft size={20} className="mr-2" />
-            Quay về
+            {t("prevBtn")}
           </Button>
           <Button variant="outline">
-            Tiếp theo
+            {t("nextBtn")}
             <ArrowRight size={20} className="ml-2" />
           </Button>
-          <SubmitDialog triggerButton={<Button>Nộp bài</Button>} time={<strong>{time}</strong>} />
+          <SubmitDialog
+            triggerButton={<Button>{t("submitBtn")}</Button>}
+            time={<strong>{time}</strong>}
+          />
         </div>
       </div>
     </div>

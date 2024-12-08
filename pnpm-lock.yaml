@@ -71,6 +71,12 @@ dependencies:
   '@tiptap/core':
     specifier: ^2.7.4
     version: 2.10.3(@tiptap/pm@2.10.3)
+  '@tiptap/extension-image':
+    specifier: ^2.10.3
+    version: 2.10.3(@tiptap/core@2.10.3)
+  '@tiptap/starter-kit':
+    specifier: ^2.10.3
+    version: 2.10.3
   '@types/canvas-confetti':
     specifier: ^1.6.4
     version: 1.6.4

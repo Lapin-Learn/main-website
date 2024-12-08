@@ -11,6 +11,7 @@ import {
 import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
 import { useNavigate } from "@tanstack/react-router";
 import React from "react";
+import { Trans, useTranslation } from "react-i18next";
 
 type SubmitDialogProps = {
   triggerButton: React.ReactNode;
@@ -21,20 +22,24 @@ const SubmitDialog = ({ triggerButton, time }: SubmitDialogProps) => {
   const onClose = () => {
     navigate({ to: "/practice" });
   };
+  const { t } = useTranslation("simulatedTest", {
+    keyPrefix: "submitDialog",
+  });
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{triggerButton}</AlertDialogTrigger>
       <AlertDialogContent className="max-w-sm">
         <AlertDialogHeader>
-          <AlertDialogTitle>Bạn chắc chắn nộp bài không?</AlertDialogTitle>
+          <AlertDialogTitle>{t("title")}</AlertDialogTitle>
           <AlertDialogDescription className="text-center">
-            Bạn chưa hoàn thành tất cả câu hỏi trong bài thi và còn {time}.
+            <Trans i18nKey="simulatedTest:submitDialog:description"></Trans>
+            &nbsp;<span>{time}</span>.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className="w-full">Hủy</AlertDialogCancel>
+          <AlertDialogCancel className="w-full"> {t("cancelBtn")}</AlertDialogCancel>
           <AlertDialogAction onClick={onClose} className="w-full">
-            Nộp bài
+            {t("submitBtn")}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
