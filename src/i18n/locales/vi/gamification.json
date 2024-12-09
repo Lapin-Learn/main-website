@@ -1,0 +1,8 @@
+{
+    "streak": {
+        "description_true": "Ngày liên tiếp!",
+        "description_false": "Học ngay để giữ streak!",
+        "record_true": "Đây là streak dài nhất bạn đạt được!",
+        "record_false": "{{record}} là streak dài nhất bạn đạt được!"
+    }
+}

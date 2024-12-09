@@ -14,5 +14,10 @@
             "success": "Cập nhật {{item, lowercase}} thành công",
             "error": "Cập nhật {{item, lowercase}} thất bại"
         }
-    }
+    },
+    "sideBar": {
+        "practice": "Luyện thi",
+        "mission": "Nhiệm vụ"
+    },
+    "allSkills": "Tất cả kỹ năng"
 }

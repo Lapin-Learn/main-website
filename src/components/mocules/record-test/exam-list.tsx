@@ -2,9 +2,9 @@ import { z } from "zod";
 import { ExamCard, ExamCardProps } from "./exam-card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Search } from "lucide-react";
-import SkillsFilter, { Skills } from "../skill-filter";
+import SkillsFilter from "../skill-filter";
 import { useState } from "react";
-import { TestRecordStatus } from "@/lib/enums";
+import { EnumSkill, TestRecordStatus } from "@/lib/enums";
 import { FormControl, FormField, FormItem, Input, Form } from "@/components/ui";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
@@ -152,7 +152,7 @@ const formSchema = z.object({
 type FormInputs = z.infer<typeof formSchema>;
 
 export const ExamList = () => {
-  const [skill, setSkill] = useState<Skills>("Tất cả kỹ năng");
+  const [skill, setSkill] = useState<EnumSkill>(EnumSkill.allSkills);
   const { t } = useTranslation("practice");
 
   const form = useForm<FormInputs>({
@@ -171,7 +171,7 @@ export const ExamList = () => {
     <div className="container flex flex-col items-center gap-8">
       <SkillsFilter skill={skill} setSkill={setSkill} />
       <div className="flex w-full items-center justify-between">
-        <h2 className="text-heading-5 md:text-heading-3 font-semibold">{t("exam-list.title")}</h2>
+        <h2 className="text-heading-5 font-semibold md:text-heading-3">{t("exam-list.title")}</h2>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex items-center gap-2">
             <FormField
