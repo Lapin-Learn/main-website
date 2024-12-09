@@ -1,5 +1,4 @@
 import { useFormContext } from "react-hook-form";
-
 import {
   FormControl,
   FormDescription,
@@ -27,6 +26,7 @@ export type FormSelectProps = {
   className?: string;
   inputClassName?: string;
   loading?: boolean;
+  onValueChange?: (value: string) => void;
 };
 
 export default function FormSelect({
@@ -37,18 +37,27 @@ export default function FormSelect({
   placeholder,
   options = [],
   loading = false,
+  onValueChange,
 }: FormSelectProps) {
   const { control } = useFormContext();
+
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => {
+        const handleChange = (value: string) => {
+          field.onChange(value);
+          if (onValueChange) {
+            onValueChange(value);
+          }
+        };
+
         return (
           <FormItem className={className}>
             <FormLabel>{label}</FormLabel>
             <Select
-              onValueChange={field.onChange}
+              onValueChange={handleChange}
               defaultValue={field.value}
               value={field.value}
               disabled={loading}
