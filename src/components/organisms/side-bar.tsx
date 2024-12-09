@@ -15,9 +15,9 @@ const features: SideBarFeatureProps[] = [
   {
     to: "/practice",
     icon: <PracticeIcon />,
-    label: "Luyện tập",
+    label: "practice",
   },
-  { to: "/missions", icon: <MissionsIcon />, label: "Nhiệm vụ" },
+  { to: "/missions", icon: <MissionsIcon />, label: "mission" },
 ];
 
 export default function SideBar() {

@@ -14,5 +14,10 @@
             "success": "Update {{item, lowercase}} successfully",
             "error": "Update {{item, lowercase}} failed"
         }
-    }
+    },
+    "sideBar": {
+        "practice": "Practice",
+        "mission": "Mission"
+    },
+    "allSkills": "All skills"
 }

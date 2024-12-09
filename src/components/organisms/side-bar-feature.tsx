@@ -3,6 +3,7 @@ import { ChevronDown } from "lucide-react";
 import React, { useState } from "react";
 
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 export interface SideBarFeatureProps {
   to: string;
@@ -18,6 +19,7 @@ export const SideBarFeature = (props: {
 }) => {
   const { feature, isExpanded, isChild = false } = props;
   const { to, icon, label } = feature;
+  const { t } = useTranslation();
   const location = useLocation();
 
   const isActive = feature.child ? false : location.pathname === to;
@@ -68,11 +70,11 @@ export const SideBarFeature = (props: {
           >
             <span
               className={cn(
-                "text-small absolute bottom-0 left-0 right-0 top-0 flex flex-1 select-none items-center text-nowrap font-semibold duration-300",
+                "absolute bottom-0 left-0 right-0 top-0 flex flex-1 select-none items-center text-nowrap text-small font-semibold duration-300",
                 isActive ? "text-orange-700" : "text-neutral-200"
               )}
             >
-              {label}
+              {t(`sideBar.${label}`)}
             </span>
 
             {isExpanded && !!feature.child && (
