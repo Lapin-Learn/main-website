@@ -4,6 +4,7 @@ import { CollectionList } from "../organisms/simulated-tests/collection-list";
 import { StreakSection } from "../organisms/streak";
 import SelectModeDialog from "../organisms/select-mode-dialog";
 import { useTranslation } from "react-i18next";
+import { isDevEnv } from "@/lib/utils";
 
 export default function PracticePage() {
   const skill = "reading";
@@ -47,7 +48,7 @@ export default function PracticePage() {
       <div className="col-span-8 flex h-screen w-full flex-col justify-start gap-9 pt-8">
         <img src={HeroImage} alt="hero" className="rounded-2xl object-cover" />
         <CollectionList />
-        <SelectModeDialog title={title} parts={generateParts(skill)} />
+        {isDevEnv() && <SelectModeDialog title={title} parts={generateParts(skill)} />}
       </div>
       <div className="col-span-4 pt-8">
         <StreakSection />
