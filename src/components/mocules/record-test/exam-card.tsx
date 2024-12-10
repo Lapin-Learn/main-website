@@ -33,9 +33,10 @@ export type ExamCardProps = {
   keyword: string;
   description: string;
   tests: TestProps[];
+  onClick?: () => void;
 };
 
-export const ExamCard = ({ name, description, tags, tests }: ExamCardProps) => {
+export const ExamCard = ({ name, description, tags, tests, onClick }: ExamCardProps) => {
   const totalQuestions = tests.length;
   const completedQuestions = tests.reduce((acc, test) => {
     if (test.record.status === TestRecordStatus.Completed && test.record.score !== null) {
@@ -44,7 +45,10 @@ export const ExamCard = ({ name, description, tags, tests }: ExamCardProps) => {
     return acc;
   }, 0);
   return (
-    <div className="flex flex-row gap-5 overflow-hidden rounded-2xl border bg-white shadow-sm hover:cursor-pointer hover:shadow-[0px_9px_24.1px_0px_rgba(101,105,115,0.1)]">
+    <div
+      className="flex flex-row gap-5 overflow-hidden rounded-2xl border bg-white shadow-sm hover:cursor-pointer hover:shadow-[0px_9px_24.1px_0px_rgba(101,105,115,0.1)]"
+      onClick={onClick}
+    >
       <Skeleton className="w-72 rounded-none" />
       <div className="flex w-full flex-col gap-6 py-4">
         <div className="flex h-fit w-full flex-row items-start justify-between gap-8">
@@ -97,7 +101,7 @@ export const TestItem = ({ test_name, record }: TestProps) => {
       <Button variant="ghost" className="w-full p-0" onClick={handleExam}>
         <div className="flex w-full flex-col gap-2">
           <div className="flex flex-row items-center justify-between gap-2 py-1">
-            <p className="text-small grow-0 truncate text-neutral-900">{test_name}</p>
+            <p className="grow-0 truncate text-small text-neutral-900">{test_name}</p>
             <ExamItemScore score={record.score ?? null} status={record.status} />
           </div>
         </div>

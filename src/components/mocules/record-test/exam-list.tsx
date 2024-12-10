@@ -3,12 +3,14 @@ import { ExamCard, ExamCardProps } from "./exam-card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Search } from "lucide-react";
 import SkillsFilter from "../skill-filter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EnumSkill, TestRecordStatus } from "@/lib/enums";
 import { FormControl, FormField, FormItem, Input, Form } from "@/components/ui";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import FormSelect from "../form-inputs/form-select";
+import { useNavigate } from "@tanstack/react-router";
+import { sk } from "date-fns/locale";
 
 const sampleData: ExamCardProps[] = [
   {
@@ -154,6 +156,7 @@ type FormInputs = z.infer<typeof formSchema>;
 export const ExamList = () => {
   const [skill, setSkill] = useState<EnumSkill>(EnumSkill.allSkills);
   const { t } = useTranslation("practice");
+  const navigate = useNavigate();
 
   const form = useForm<FormInputs>({
     defaultValues: {
@@ -166,6 +169,12 @@ export const ExamList = () => {
   function onSubmit(data: FormInputs) {
     console.log(data);
   }
+
+  useEffect(() => {
+    navigate({
+      search: skill === EnumSkill.allSkills ? undefined : ({ skill } as any),
+    });
+  }, [skill]);
 
   return (
     <div className="container flex flex-col items-center gap-8">
@@ -204,7 +213,18 @@ export const ExamList = () => {
 
       <div className="flex flex-col gap-8">
         {sampleData.map((exam, index) => (
-          <ExamCard key={index} {...exam} />
+          <ExamCard
+            key={index}
+            {...exam}
+            onClick={() =>
+              navigate({
+                to: `/practice/${index}`,
+                search: {
+                  skill: skill === EnumSkill.allSkills ? undefined : skill,
+                } as any,
+              })
+            }
+          />
         ))}
       </div>
     </div>

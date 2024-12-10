@@ -15,7 +15,7 @@
             "error": "Cập nhật {{item, lowercase}} thất bại"
         }
     },
-    "sideBar": {
+    "navigation": {
         "practice": "Luyện thi",
         "mission": "Nhiệm vụ"
     },

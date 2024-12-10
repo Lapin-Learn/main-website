@@ -22,7 +22,7 @@ export const SideBarFeature = (props: {
   const { t } = useTranslation();
   const location = useLocation();
 
-  const isActive = feature.child ? false : location.pathname === to;
+  const isActive = feature.child ? false : location.pathname.includes(to);
 
   const isSelectChild =
     feature.child && feature.child.find((x) => location.pathname.includes(x.to));
@@ -74,7 +74,7 @@ export const SideBarFeature = (props: {
                 isActive ? "text-orange-700" : "text-neutral-200"
               )}
             >
-              {t(`sideBar.${label}`)}
+              {t(`navigation.${label}`)}
             </span>
 
             {isExpanded && !!feature.child && (
