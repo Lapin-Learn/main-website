@@ -7,7 +7,8 @@
         "placeholder": "Tìm kiếm",
         "noResults": "Không tìm thấy kết quả"
     },
-    "exam-list": {
-        "title": "Danh sách các bộ đề"
+    "collection-list": {
+        "title": "Danh sách các bộ đề",
+        "numberOfTest" : "{{number}}/{{total}} đề"
     }
 }
