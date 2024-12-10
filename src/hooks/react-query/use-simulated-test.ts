@@ -37,9 +37,8 @@ export const useGetListSimulatedTestCollection = () => {
         return getSimulatedTestCollections({ keyword, ...fromPageToOffset({ page }) });
       },
       getNextPageParam: (lastPage) => {
-        // TODO: replace DEFAULT_PAGE_SIZE with actual data return from BE
-        const { total, offset, page } = lastPage;
-        return (page + 1) * DEFAULT_PAGE_SIZE + offset <= total ? page + 2 : undefined;
+        const { total, offset, limit, page } = lastPage;
+        return page * limit + offset <= total ? page + 1 : undefined;
       },
       initialPageParam: 0,
     });
