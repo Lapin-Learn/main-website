@@ -12,9 +12,14 @@ import { FormControl, FormField, FormItem, Input, Form } from "@/components/ui";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import FormSelect from "../../mocules/form-inputs/form-select";
-import { useGetListSimulatedTestCollection } from "@/hooks/react-query/use-simulated-test";
+import {
+  useFilter,
+  useGetListSimulatedTestCollection,
+} from "@/hooks/react-query/use-simulated-test";
 import { LoadMore } from "@/components/mocules/load-more";
 import { SIMULATED_TEST_TAGS } from "@/lib/consts";
+import { useDebounce } from "@/hooks/use-debounce";
+import { generateKeyword } from "@/lib/utils";
 
 const formSchema = z.object({
   search: z.string().optional(),
@@ -24,46 +29,53 @@ const formSchema = z.object({
 type FormInputs = z.infer<typeof formSchema>;
 
 export const CollectionList = () => {
-  const { list, loadMoreProps, isLoading } = useGetListSimulatedTestCollection({});
   const [skill, setSkill] = useState<EnumSkill>(EnumSkill.allSkills);
   const { t } = useTranslation("practice");
 
-  useEffect(() => {
-    console.log(list);
-  }, [list]);
   const form = useForm<FormInputs>({
     defaultValues: {
       search: "",
-      filter: "newest",
+      filter: "",
     },
     resolver: zodResolver(formSchema),
   });
+  const searchText = useDebounce(form.watch("search"), 300);
+  // TODO: update multiple filter
+  const tag = form.watch("filter") || "";
 
-  function onSubmit(data: FormInputs) {
-    console.log(data);
-  }
+  const { list, loadMoreProps, isLoading } = useGetListSimulatedTestCollection();
+  const { setFilter, clearFilter } = useFilter();
+
+  useEffect(() => {
+    setFilter({ keyword: generateKeyword({ tag, searchText: searchText || "" }) });
+  }, [searchText, tag]);
+
+  console.log("list");
+
+  useEffect(() => {
+    return () => clearFilter();
+  }, []);
 
   return (
-    <div className="container flex flex-col items-center gap-8">
+    <div className="container flex flex-col items-center gap-2 md:gap-8">
       <SkillsFilter skill={skill} setSkill={setSkill} />
-      <div className="flex w-full items-center justify-between">
-        <h2 className="text-heading-5 font-semibold md:text-heading-3">
+      <div className="flex w-full flex-col items-center justify-between md:flex-row">
+        <h2 className="mt-4 text-heading-5 font-semibold md:mt-0 md:text-heading-3">
           {t("collection-list.title")}
         </h2>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="flex items-center gap-2">
+          <form className="flex w-full flex-1 items-center justify-end gap-2">
             <FormField
               control={form.control}
               name="search"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full md:w-auto">
                   <FormControl>
                     <Input
                       placeholder={t("search.placeholder")}
-                      className="h-9 w-full bg-white text-neutral-300 placeholder:text-neutral-300 focus:outline-none"
+                      className="h-9 w-full bg-white placeholder:text-neutral-300 focus:outline-none"
                       StartIcon={Search}
                       {...field}
-                      onBlur={() => form.handleSubmit(onSubmit)()}
                     />
                   </FormControl>
                 </FormItem>
@@ -71,10 +83,12 @@ export const CollectionList = () => {
             />
             <FormSelect
               name="filter"
-              options={SIMULATED_TEST_TAGS.map((tag) => {
+              inputClassName="bg-white h-9"
+              placeholder={t("collection-list.tagPlaceholder")}
+              options={SIMULATED_TEST_TAGS.map(({ value, labelKey }) => {
                 return {
-                  label: t(`collection-list.tags.${tag}`, { ns: "practice" }),
-                  value: tag,
+                  label: t(`collection-list.tags.${labelKey}`, { ns: "practice" }),
+                  value,
                 };
               })}
             />
@@ -82,10 +96,18 @@ export const CollectionList = () => {
         </Form>
       </div>
 
-      <div className="mb-8 flex flex-col gap-8">
-        {list && !isLoading
-          ? list.map((collection) => <CollectionCard key={collection.id} {...collection} />)
-          : Array.from({ length: 3 }).map((_, id) => <SkeletonCollectionCard key={id} />)}
+      <div className="mb-8 flex w-full flex-col gap-4 md:gap-8">
+        {list && !isLoading ? (
+          list.length > 0 ? (
+            list.map((collection) => <CollectionCard key={collection.id} {...collection} />)
+          ) : (
+            <div className="grid h-96 place-items-center text-center text-xl text-neutral-500">
+              {t("search.noResults")}
+            </div>
+          )
+        ) : (
+          Array.from({ length: 3 }).map((_, id) => <SkeletonCollectionCard key={id} />)
+        )}
         {loadMoreProps.hasNextPage && <LoadMore {...loadMoreProps} />}
       </div>
     </div>

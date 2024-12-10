@@ -77,7 +77,7 @@ export const CollectionCard = ({
 
 export const SkeletonCollectionCard = () => {
   return (
-    <div className="grid h-64 animate-pulse grid-cols-[2fr_5fr] gap-5 overflow-hidden rounded-2xl border bg-white shadow-sm">
+    <div className="grid h-64 w-full animate-pulse grid-cols-[2fr_5fr] gap-5 overflow-hidden rounded-2xl border bg-white shadow-sm">
       <Skeleton className="h-64 rounded-none bg-neutral-50" />
       <div className="flex w-full flex-col justify-between gap-6 py-4">
         <div className="flex h-fit w-full flex-row items-start justify-between gap-8">

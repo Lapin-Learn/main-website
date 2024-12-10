@@ -1,7 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-import { PagedData, pagingSchema, PagingSchema } from "@/lib/types/pagination.type";
+import { PagedData, PagingSchema } from "@/lib/types/pagination.type";
 import { InfiniteData } from "@tanstack/react-query";
 import { z } from "zod";
 import { EnumSkill } from "./enums";
@@ -54,6 +54,22 @@ export const fromPageToOffset = (value: PagingSchema) => {
 
 export const splitTextSpace = (text: string) => {
   return text.split(/(\s+)/).filter((part) => part !== "");
+};
+
+export const generateKeyword = (
+  filter: Record<string, string | number | Record<string, string | number>>
+) => {
+  return Object.values(filter)
+    .map((value) => {
+      if (typeof value === "number") {
+        return value.toString();
+      }
+      if (typeof value === "object") {
+        return Object.values(value).join("");
+      }
+      return value;
+    })
+    .join("");
 };
 
 export const searchSchema = z.object({

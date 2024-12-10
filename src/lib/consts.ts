@@ -20,9 +20,24 @@ export const CONTENT_TYPE_OPTIONS = [
 export const DEFAULT_PAGE_SIZE = 10;
 
 export const SIMULATED_TEST_TAGS = [
-  "academic",
-  "cambridge",
-  "forecast",
-  "actual",
-  "britishcouncil",
+  {
+    labelKey: "academic",
+    value: "Academic",
+  },
+  {
+    labelKey: "cambridge",
+    value: "Cambridge",
+  },
+  {
+    labelKey: "forecast",
+    value: "Forecast",
+  },
+  {
+    labelKey: "actual",
+    value: "Actual",
+  },
+  {
+    labelKey: "britishcouncil",
+    value: "British Council",
+  },
 ];

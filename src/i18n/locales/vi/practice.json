@@ -16,6 +16,7 @@
             "forecast": "Đề dự đoán",
             "actual": "Đề thi thật",
             "britishcouncil": "British Council"
-        }
+        },
+        "tagPlaceholder": "Bộ lọc"
     }
 }
