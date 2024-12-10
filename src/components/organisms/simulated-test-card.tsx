@@ -5,7 +5,6 @@ import { EnumSkill } from "@/lib/enums";
 
 import TestSkillCard from "../mocules/simulated-test/test-skill-card";
 import { Button, Separator } from "../ui";
-import { AnimatedCircularProgressBar } from "./circular-progress";
 
 export default function SimulatedTestCard() {
   const { t } = useTranslation("collection");

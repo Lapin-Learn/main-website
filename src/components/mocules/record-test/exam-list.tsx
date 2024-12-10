@@ -1,13 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link, useLocation, useNavigate } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { Search } from "lucide-react";
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
 
 import { Form, FormControl, FormField, FormItem, Input } from "@/components/ui";
-import { EnumSkill, TestRecordStatus } from "@/lib/enums";
+import { TestRecordStatus } from "@/lib/enums";
 
 import FormSelect from "../form-inputs/form-select";
 import SkillsFilter from "../skill-filter";
@@ -156,7 +155,6 @@ type FormInputs = z.infer<typeof formSchema>;
 
 export const ExamList = () => {
   const { t } = useTranslation("practice");
-  const navigate = useNavigate();
   const location = useLocation();
 
   const form = useForm<FormInputs>({
