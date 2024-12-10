@@ -1,5 +1,8 @@
 import { z } from "zod";
-import { CollectionCard } from "../../mocules/simulated-tests/collection-card";
+import {
+  CollectionCard,
+  SkeletonCollectionCard,
+} from "../../mocules/simulated-tests/collection-card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Search } from "lucide-react";
 import SkillsFilter from "../../mocules/skill-filter";
@@ -11,6 +14,7 @@ import { useForm } from "react-hook-form";
 import FormSelect from "../../mocules/form-inputs/form-select";
 import { useGetListSimulatedTestCollection } from "@/hooks/react-query/use-simulated-test";
 import { LoadMore } from "@/components/mocules/load-more";
+import { SIMULATED_TEST_TAGS } from "@/lib/consts";
 
 const formSchema = z.object({
   search: z.string().optional(),
@@ -20,7 +24,7 @@ const formSchema = z.object({
 type FormInputs = z.infer<typeof formSchema>;
 
 export const CollectionList = () => {
-  const { list, loadMoreProps } = useGetListSimulatedTestCollection({});
+  const { list, loadMoreProps, isLoading } = useGetListSimulatedTestCollection({});
   const [skill, setSkill] = useState<EnumSkill>(EnumSkill.allSkills);
   const { t } = useTranslation("practice");
 
@@ -67,17 +71,21 @@ export const CollectionList = () => {
             />
             <FormSelect
               name="filter"
-              options={[
-                { label: t("filter.newest", { ns: "practice" }), value: "newest" },
-                { label: t("filter.oldest", { ns: "practice" }), value: "oldest" },
-              ]}
+              options={SIMULATED_TEST_TAGS.map((tag) => {
+                return {
+                  label: t(`collection-list.tags.${tag}`, { ns: "practice" }),
+                  value: tag,
+                };
+              })}
             />
           </form>
         </Form>
       </div>
 
       <div className="mb-8 flex flex-col gap-8">
-        {list && list.map((collection) => <CollectionCard key={collection.id} {...collection} />)}
+        {list && !isLoading
+          ? list.map((collection) => <CollectionCard key={collection.id} {...collection} />)
+          : Array.from({ length: 3 }).map((_, id) => <SkeletonCollectionCard key={id} />)}
         {loadMoreProps.hasNextPage && <LoadMore {...loadMoreProps} />}
       </div>
     </div>

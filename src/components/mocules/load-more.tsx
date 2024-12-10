@@ -5,7 +5,7 @@ export interface LoadMoreProps {
   hasNextPage: InfiniteQueryObserverBaseResult["hasNextPage"];
   fetchNextPage: InfiniteQueryObserverBaseResult["fetchNextPage"];
   isFetchingNextPage: InfiniteQueryObserverBaseResult["isFetchingNextPage"];
-
+  // TODO: inject React.ReactNode
   label?: string;
 }
 
@@ -41,7 +41,7 @@ export const LoadMore = (props: LoadMoreProps) => {
     <>
       <div ref={ref} className="h-10"></div>
       {isFetchingNextPage && (
-        <div className="fixed bottom-0 mb-4 flex w-fit justify-center rounded-md bg-slate-300/80 px-2 py-3">
+        <div className="px-2 py-3">
           <span>{label}</span>
         </div>
       )}

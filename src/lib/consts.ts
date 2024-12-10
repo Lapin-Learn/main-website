@@ -18,3 +18,11 @@ export const CONTENT_TYPE_OPTIONS = [
 ];
 
 export const DEFAULT_PAGE_SIZE = 10;
+
+export const SIMULATED_TEST_TAGS = [
+  "academic",
+  "cambridge",
+  "forecast",
+  "actual",
+  "britishcouncil",
+];

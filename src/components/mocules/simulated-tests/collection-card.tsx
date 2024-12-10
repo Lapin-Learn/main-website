@@ -74,3 +74,38 @@ export const CollectionCard = ({
     </div>
   );
 };
+
+export const SkeletonCollectionCard = () => {
+  return (
+    <div className="grid h-64 animate-pulse grid-cols-[2fr_5fr] gap-5 overflow-hidden rounded-2xl border bg-white shadow-sm">
+      <Skeleton className="h-64 rounded-none bg-neutral-50" />
+      <div className="flex w-full flex-col justify-between gap-6 py-4">
+        <div className="flex h-fit w-full flex-row items-start justify-between gap-8">
+          <div className="flex w-full flex-col gap-y-2">
+            <div>
+              <div className="inline-block h-6 w-40 rounded bg-neutral-50" />
+              <div className="flex h-7 items-center gap-1">
+                <div className="inline-block h-3 w-10 rounded bg-neutral-50" />
+                <div className="inline-block h-3 w-10 rounded bg-neutral-50" />
+                <div className="inline-block h-3 w-10 rounded bg-neutral-50" />
+              </div>
+            </div>
+            <div>
+              <div className="mb-2 h-4 w-full rounded bg-neutral-50" />
+              <div className="h-4 w-2/3 rounded bg-neutral-50" />
+            </div>
+          </div>
+          <div className="clip-custom bg-neutral-50 p-2 pl-7 pr-3.5">
+            <div className="h-4 w-1/3 bg-gray-400" />
+          </div>
+        </div>
+        <div className="grid grid-cols-2 items-center justify-between gap-4 gap-x-8 gap-y-1.5 pr-10">
+          <div className="h-10 bg-neutral-50" />
+          <div className="h-10 bg-neutral-50" />
+          <div className="h-10 bg-neutral-50" />
+          <div className="h-10 bg-neutral-50" />
+        </div>
+      </div>
+    </div>
+  );
+};

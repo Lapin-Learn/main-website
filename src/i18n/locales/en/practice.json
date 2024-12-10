@@ -9,6 +9,13 @@
     },
     "collection-list": {
         "title": "Simulated tests",
-        "numberOfTest" : "{{number}}/{{total}} tests"
+        "numberOfTest" : "{{number}}/{{total}} tests",
+        "tags": {
+            "academic": "Academic",
+            "cambridge": "Cambridge",
+            "forecast": "Forecast test",
+            "actual": "Actual test",
+            "britishcouncil": "British Council"
+        }
     }
 }
