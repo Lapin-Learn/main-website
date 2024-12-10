@@ -17,6 +17,7 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 import { CaretSortIcon } from "@radix-ui/react-icons";
+import { useTranslation } from "react-i18next";
 
 /**
  * Variants for the multi-select component to handle different styles.
@@ -123,6 +124,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
   ) => {
     const [selectedValues, setSelectedValues] = React.useState<string[]>(defaultValue);
     const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
+    const { t } = useTranslation();
 
     const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.key === "Enter") {
@@ -212,7 +214,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                       )}
                       style={{ animationDuration: `${animation}s` }}
                     >
-                      {`+ ${selectedValues.length - maxCount} more`}
+                      {`+ ${selectedValues.length - maxCount} ${t("more")}`}
                       <XCircle
                         className="ml-2 h-4 w-4 cursor-pointer"
                         onClick={(event) => {
@@ -249,9 +251,9 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
           onEscapeKeyDown={() => setIsPopoverOpen(false)}
         >
           <Command>
-            <CommandInput placeholder="Search..." onKeyDown={handleInputKeyDown} />
+            <CommandInput placeholder={t("search.placeholder")} onKeyDown={handleInputKeyDown} />
             <CommandList>
-              <CommandEmpty>No results found.</CommandEmpty>
+              <CommandEmpty>{t("search.noResults")}</CommandEmpty>
               <CommandGroup>
                 <CommandItem key="all" onSelect={toggleAll} className="cursor-pointer">
                   <div
@@ -264,7 +266,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                   >
                     <CheckIcon className="h-4 w-4" />
                   </div>
-                  <span>(Select All)</span>
+                  <span>{`(${t("select_all")})`}</span>
                 </CommandItem>
                 {options.map((option) => {
                   const isSelected = selectedValues.includes(option.value);
@@ -301,7 +303,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                         onSelect={handleClear}
                         className="flex-1 cursor-pointer justify-center"
                       >
-                        Clear
+                        {t("clear")}
                       </CommandItem>
                       <Separator orientation="vertical" className="flex h-full min-h-6" />
                     </>
@@ -310,7 +312,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                     onSelect={() => setIsPopoverOpen(false)}
                     className="max-w-full flex-1 cursor-pointer justify-center"
                   >
-                    Close
+                    {t("cancel")}
                   </CommandItem>
                 </div>
               </CommandGroup>

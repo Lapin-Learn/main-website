@@ -1,102 +1,116 @@
 import { Button, Form } from "../ui";
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from "../ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
 import { SquarePen, TriangleAlert, Zap } from "lucide-react";
 import FormSelect from "../mocules/form-inputs/form-select";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import FormMultipleSelect from "../mocules/form-inputs/form-multiple-select";
 import { useState } from "react";
 import CustomAlert from "../mocules/alert";
-
-const modes = [
-  { value: "full_test", label: "Thi thử" },
-  { value: "practice", label: "Luyện tập" },
-];
-
-const timeLimits = [
-  { value: "no_limit", label: "Không giới hạn" },
-  { value: "10", label: "10 phút" },
-  { value: "20", label: "20 phút" },
-  { value: "30", label: "30 phút" },
-  { value: "40", label: "40 phút" },
-  { value: "50", label: "50 phút" },
-  { value: "60", label: "60 phút" },
-  { value: "70", label: "70 phút" },
-  { value: "80", label: "80 phút" },
-  { value: "90", label: "90 phút" },
-];
+import { useTranslation } from "react-i18next";
 
 type SelectModeDialogProps = {
-  visible: boolean;
   title: string;
   parts: {
     value: string;
     label: string;
   }[];
-  onClose?: () => void;
 };
 
-const formSchema = z.object({
-  mode: z.string(),
-  timeLimit: z.string(),
-  parts: z.array(z.string()).nonempty("Chọn ít nhất một phần bài muốn làm"),
-});
+const SelectModeDialog = ({ title, parts }: SelectModeDialogProps) => {
+  const [mode, setMode] = useState("full_test");
+  const { t } = useTranslation("practice");
 
-type FormInputs = z.infer<typeof formSchema>;
-
-const SelectModeDialog = ({ visible, title, parts, onClose }: SelectModeDialogProps) => {
+  const baseSchema = z.object({
+    mode: z.string(),
+  });
+  const practiceSchema = baseSchema.extend({
+    timeLimit: z.string(),
+    parts: z.array(z.string()).nonempty(t("exam-mode-config.parts.error")),
+  });
+  type FormInputs = z.infer<typeof practiceSchema>;
   const form = useForm<FormInputs>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(mode === "practice" ? practiceSchema : baseSchema),
     defaultValues: {
       mode: "full_test",
       timeLimit: "no_limit",
       parts: parts.map((item) => item.value),
     },
   });
-  const [mode, setMode] = useState("");
+
+  const modes = [
+    { value: "practice", label: t("exam-mode-config.mode.practice") },
+    { value: "full_test", label: t("exam-mode-config.mode.full_test") },
+  ];
+
+  const timeLimits = [{ value: "no_limit", label: t("exam-mode-config.time_limit.no_limit") }];
+  for (let i = 10; i <= 90; i += 10) {
+    timeLimits.push({
+      value: i.toString(),
+      label: t("exam-mode-config.time_limit.time", { time: i.toString() }),
+    });
+  }
 
   const handleModeChange = (value: string) => {
     setMode(value);
+    form.reset({
+      ...form.getValues(),
+      mode: value,
+      timeLimit: "no_limit",
+      parts: parts.map((item) => item.value),
+    });
+  };
+
+  const handleCancel = () => {
+    form.reset();
   };
 
   const onSubmit = (data: FormInputs) => {
-    if (mode === "full_test") {
-      const { mode } = data;
-      console.log(mode);
-    } else {
-      console.log(data);
-    }
+    console.log(data);
   };
 
   return (
-    <Dialog open={visible}>
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline">Test Popup</Button>
+      </DialogTrigger>
       <DialogContent className="flex max-w-[720px] flex-col gap-4 rounded-2xl bg-white px-8 py-10">
-        <DialogTitle className="text-heading-4 font-bold">{title}</DialogTitle>
-        <DialogDescription>
-          {mode === "practice" ? (
-            <CustomAlert
-              theme="success"
-              title="Chế độ luyện tập"
-              description="Trong chế độ này, bạn có thể tự chọn phần mình muốn làm, tự điều chỉnh thời gian tuỳ vào khả năng của mình và nghe lại đoạn thu âm."
-              icon={<SquarePen className="h-5 w-5" color="#166534" />}
-            />
-          ) : (
-            <CustomAlert
-              theme="warning"
-              title="Lưu ý"
-              description="Trong quá trình làm bài, bạn sẽ không thể nghe lại và không nên thoát ra để kết quả được đánh giá một cách tốt nhất."
-              icon={<TriangleAlert className="h-5 w-5" color="#854D0E" />}
-            />
-          )}
-        </DialogDescription>
+        <DialogHeader className="flex flex-col gap-3">
+          <DialogTitle className="text-heading-4 font-bold">{title}</DialogTitle>
+          <DialogDescription>
+            {mode === "practice" ? (
+              <CustomAlert
+                theme="success"
+                title={t("exam-mode-config.alerts.practice.title")}
+                description={t("exam-mode-config.alerts.practice.description")}
+                icon={<SquarePen className="h-5 w-5" color="#166534" />}
+              />
+            ) : (
+              <CustomAlert
+                theme="warning"
+                title={t("exam-mode-config.alerts.full_test.title")}
+                description={t("exam-mode-config.alerts.full_test.description")}
+                icon={<TriangleAlert className="h-5 w-5" color="#854D0E" />}
+              />
+            )}
+          </DialogDescription>
+        </DialogHeader>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 gap-2">
             <FormSelect
               name="mode"
-              label="Chế độ"
-              placeholder="Chọn chế độ thi"
+              label={t("exam-mode-config.mode.label")}
+              placeholder={t("exam-mode-config.mode.placeholder")}
               options={modes.map((item) => ({
                 label: item.label,
                 value: item.value,
@@ -107,31 +121,39 @@ const SelectModeDialog = ({ visible, title, parts, onClose }: SelectModeDialogPr
               <>
                 <FormSelect
                   name="timeLimit"
-                  label="Thời gian"
-                  placeholder="Chọn thời gian làm bài"
+                  label={t("exam-mode-config.time_limit.label")}
+                  placeholder={t("exam-mode-config.time_limit.placeholder")}
                   options={Object.values(timeLimits).map((item) => ({
                     label: item.label,
                     value: item.value,
                   }))}
                 />
-                <FormMultipleSelect name="parts" label="Chọn phần bài muốn làm" options={parts} />
+                <FormSelect
+                  name="parts"
+                  label={t("exam-mode-config.parts.label")}
+                  placeholder={t("exam-mode-config.parts.placeholder")}
+                  options={parts}
+                  isMulti={true}
+                />
               </>
             )}
-            <div className="mt-4 flex justify-start gap-2">
-              <Button type="button" variant="secondary" onClick={onClose}>
-                Hủy
-              </Button>
+            <DialogFooter className="mt-4 gap-1 sm:justify-start">
+              <DialogClose asChild>
+                <Button type="button" variant="secondary" onClick={handleCancel}>
+                  {t("exam-mode-config.buttons.cancel")}
+                </Button>
+              </DialogClose>
               <Button type="submit" className="w-fit">
                 {mode === "practice" ? (
-                  "Luyện tập"
+                  t("exam-mode-config.buttons.practice")
                 ) : (
                   <div className="flex items-center gap-2">
                     <Zap fill="white" strokeWidth={0} className="h-4 w-4" />
-                    Bắt đầu
+                    {t("exam-mode-config.buttons.start")}
                   </div>
                 )}
               </Button>
-            </div>
+            </DialogFooter>
           </form>
         </Form>
       </DialogContent>

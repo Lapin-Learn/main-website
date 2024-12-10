@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { MultiSelect } from "@/components/ui/multi-select";
 
 export type FormSelectProps = {
   name: string;
@@ -26,6 +27,7 @@ export type FormSelectProps = {
   className?: string;
   inputClassName?: string;
   loading?: boolean;
+  isMulti?: boolean;
   onValueChange?: (value: string) => void;
 };
 
@@ -37,6 +39,7 @@ export default function FormSelect({
   placeholder,
   options = [],
   loading = false,
+  isMulti = false,
   onValueChange,
 }: FormSelectProps) {
   const { control } = useFormContext();
@@ -56,25 +59,40 @@ export default function FormSelect({
         return (
           <FormItem className={className}>
             <FormLabel>{label}</FormLabel>
-            <Select
-              onValueChange={handleChange}
-              defaultValue={field.value}
-              value={field.value}
-              disabled={loading}
-            >
+            {isMulti ? (
               <FormControl>
-                <SelectTrigger className={inputClassName}>
-                  <SelectValue placeholder={placeholder} className="placeholder:bg-neutral-300" />
-                </SelectTrigger>
+                <MultiSelect
+                  options={options}
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  placeholder={placeholder}
+                  variant="inverted"
+                  animation={2}
+                  maxCount={3}
+                  disabled={loading}
+                />
               </FormControl>
-              <SelectContent>
-                {options.map(({ value, label }) => (
-                  <SelectItem key={value} value={value}>
-                    {label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            ) : (
+              <Select
+                onValueChange={handleChange}
+                defaultValue={field.value}
+                value={field.value}
+                disabled={loading}
+              >
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder={placeholder} />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {options.map(({ value, label }) => (
+                    <SelectItem key={value} value={value}>
+                      {label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
             <FormDescription />
             <FormMessage />
           </FormItem>

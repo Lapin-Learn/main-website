@@ -4,8 +4,16 @@
     "confirmPassword": "Nhập lại mật khẩu",
     "cancel": "Hủy",
     "submit": "Gửi",
+    "clear": "Xóa",
+    "close": "Đóng",
     "save": "Lưu",
     "update": "Cập nhật",
+    "more": "thêm",
+    "select_all": "Chọn tất cả",
+    "search": {
+        "placeholder": "Tìm kiếm",
+        "noResults": "Không tìm thấy kết quả"
+    },
     "error": {
         "INVALID_PASSWORD": "Mật khẩu không đúng"
     },
