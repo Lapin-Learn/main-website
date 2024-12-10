@@ -1,9 +1,9 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { ChevronDown } from "lucide-react";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { cn } from "@/lib/utils";
-import { useTranslation } from "react-i18next";
 
 export interface SideBarFeatureProps {
   to: string;

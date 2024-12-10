@@ -1,5 +1,8 @@
-import { ArrowRight } from "lucide-react";
-import { Button, Separator } from "../ui";
+import { useLocation } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
+
+import FilteredSkillCard from "../mocules/simulated-test/filtered-skill-card";
+import SimulatedTestCard from "../organisms/simulated-test-card";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,22 +12,6 @@ import {
   BreadcrumbSeparator,
 } from "../ui/breadcrumb";
 import { Skeleton } from "../ui/skeleton";
-import { AnimatedCircularProgressBar } from "../organisms/circular-progress";
-import { useTranslation } from "react-i18next";
-import { useLocation } from "@tanstack/react-router";
-import { EnumSkill } from "@/lib/enums";
-import ReadingIcon from "@/assets/icons/skills/reading";
-import ListeningIcon from "@/assets/icons/skills/listening";
-import WritingIcon from "@/assets/icons/skills/writing";
-import SpeakingIcon from "@/assets/icons/skills/speaking";
-
-const skillIconMap: Record<EnumSkill, React.FC<React.SVGProps<SVGSVGElement>>> = {
-  [EnumSkill.allSkills]: ReadingIcon,
-  [EnumSkill.reading]: ReadingIcon,
-  [EnumSkill.listening]: ListeningIcon,
-  [EnumSkill.writing]: WritingIcon,
-  [EnumSkill.speaking]: SpeakingIcon,
-};
 
 export default function CollectionDetailPage() {
   const location = useLocation();
@@ -79,84 +66,11 @@ export default function CollectionDetailPage() {
       {location.searchStr ? (
         <div className="grid grid-cols-3 gap-4">
           {[1, 2, 3, 4, 5, 6, 7].map(() => (
-            <div className="flex flex-row gap-4 rounded-2xl bg-white p-5">
-              <div className="flex max-w-64 flex-col gap-5">
-                <div className="flex flex-col gap-2">
-                  <p className="truncate text-lg font-bold">
-                    Road to IELTS - Test 1 -{" "}
-                    <span className="capitalize">{location.search.skill}</span>
-                  </p>
-                  <div className="flex flex-col gap-2">
-                    <div className="flex flex-col">
-                      <div className="text-sm text-neutral-200">
-                        Band: <span className="text-sm font-semibold text-neutral-950">--</span>
-                      </div>
-                      <div className="text-sm text-neutral-200">
-                        Time Spent:{" "}
-                        <span className="text-sm font-semibold text-neutral-950">44:11</span>
-                      </div>
-                    </div>
-                  </div>
-                  <Button className="w-fit gap-2 px-0" variant="ghost" disabled>
-                    Xem lich su
-                    <ArrowRight size="16" />
-                  </Button>
-                </div>
-              </div>
-              <AnimatedCircularProgressBar
-                value={0}
-                icon={skillIconMap[location.search.skill as EnumSkill]}
-              />
-            </div>
+            <FilteredSkillCard />
           ))}
         </div>
       ) : (
-        [1, 2, 3, 4].map(() => (
-          <div className="flex flex-row gap-4 rounded-2xl bg-white p-5">
-            <div className="flex max-w-40 flex-col gap-5">
-              <p className="truncate text-lg font-bold">Road to IELTS - Test 1</p>
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-row gap-5">
-                  <div className="flex flex-col gap-2">
-                    <span className="text-sm font-semibold text-neutral-200">Band</span>
-                    <span className="text-sm font-semibold">--</span>
-                  </div>
-                  <Separator orientation="vertical" />
-                  <div className="flex flex-col gap-2">
-                    <span className="text-sm font-semibold text-neutral-200">Time Spent</span>
-                    <span className="text-sm font-semibold">44:11</span>
-                  </div>
-                </div>
-                <Button className="w-fit gap-2 px-0" variant="ghost" disabled>
-                  Xem lich su
-                  <ArrowRight size="16" />
-                </Button>
-              </div>
-            </div>
-            <div className="flex flex-1 flex-wrap gap-4 xl:flex-nowrap">
-              {Object.keys(EnumSkill)
-                .filter((key) => key !== "allSkills")
-                .map((skill) => (
-                  <div
-                    key={skill}
-                    className="flex w-full flex-row items-center justify-between rounded-lg border border-neutral-100 p-3"
-                  >
-                    <div className="flex flex-col gap-1">
-                      <span className="text-base font-semibold capitalize">{skill}</span>
-                      <div>
-                        <div className="text-xs text-neutral-100">Correct Answer:</div>
-                        <div className="font-semibold">--/40</div>
-                      </div>
-                    </div>
-                    <AnimatedCircularProgressBar
-                      value={0}
-                      icon={skillIconMap[skill as EnumSkill]}
-                    />
-                  </div>
-                ))}
-            </div>
-          </div>
-        ))
+        [1, 2, 3, 4].map(() => <SimulatedTestCard />)
       )}
     </div>
   );

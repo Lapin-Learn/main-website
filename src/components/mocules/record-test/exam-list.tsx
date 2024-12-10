@@ -1,16 +1,17 @@
-import { z } from "zod";
-import { ExamCard, ExamCardProps } from "./exam-card";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { Search } from "lucide-react";
-import SkillsFilter from "../skill-filter";
 import { useEffect, useState } from "react";
-import { EnumSkill, TestRecordStatus } from "@/lib/enums";
-import { FormControl, FormField, FormItem, Input, Form } from "@/components/ui";
-import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
+
+import { Form, FormControl, FormField, FormItem, Input } from "@/components/ui";
+import { EnumSkill, TestRecordStatus } from "@/lib/enums";
+
 import FormSelect from "../form-inputs/form-select";
-import { useNavigate } from "@tanstack/react-router";
-import { sk } from "date-fns/locale";
+import SkillsFilter from "../skill-filter";
+import { ExamCard, ExamCardProps } from "./exam-card";
 
 const sampleData: ExamCardProps[] = [
   {
@@ -154,9 +155,9 @@ const formSchema = z.object({
 type FormInputs = z.infer<typeof formSchema>;
 
 export const ExamList = () => {
-  const [skill, setSkill] = useState<EnumSkill>(EnumSkill.allSkills);
   const { t } = useTranslation("practice");
   const navigate = useNavigate();
+  const location = useLocation();
 
   const form = useForm<FormInputs>({
     defaultValues: {
@@ -170,15 +171,9 @@ export const ExamList = () => {
     console.log(data);
   }
 
-  useEffect(() => {
-    navigate({
-      search: skill === EnumSkill.allSkills ? undefined : ({ skill } as any),
-    });
-  }, [skill]);
-
   return (
     <div className="container flex flex-col items-center gap-8">
-      <SkillsFilter skill={skill} setSkill={setSkill} />
+      <SkillsFilter />
       <div className="flex w-full items-center justify-between">
         <h2 className="text-heading-5 font-semibold md:text-heading-3">{t("exam-list.title")}</h2>
         <Form {...form}>
@@ -213,18 +208,9 @@ export const ExamList = () => {
 
       <div className="flex flex-col gap-8">
         {sampleData.map((exam, index) => (
-          <ExamCard
-            key={index}
-            {...exam}
-            onClick={() =>
-              navigate({
-                to: `/practice/${index}`,
-                search: {
-                  skill: skill === EnumSkill.allSkills ? undefined : skill,
-                } as any,
-              })
-            }
-          />
+          <Link to={`/practice/${index}`} search={location.search}>
+            <ExamCard key={index} {...exam} />
+          </Link>
         ))}
       </div>
     </div>

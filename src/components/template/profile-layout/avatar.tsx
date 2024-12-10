@@ -1,3 +1,6 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { Camera } from "lucide-react";
+
 import ChangeImageDialog from "@/components/organisms/change-image-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCreateBucket, useUpdateBucket } from "@/hooks/react-query/useBuckets";
@@ -8,8 +11,6 @@ import {
   useUserProfile,
 } from "@/hooks/react-query/useUsers";
 import { cn } from "@/lib/utils";
-import { useQueryClient } from "@tanstack/react-query";
-import { Camera } from "lucide-react";
 
 export default function Avatar() {
   const { data: user } = useUserProfile();

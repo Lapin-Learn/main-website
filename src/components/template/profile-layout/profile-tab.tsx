@@ -1,4 +1,5 @@
 import { useLocation } from "@tanstack/react-router";
+
 import ProfileTabItem, { ProfileTabItemProps } from "./profile-tab-item";
 
 const ProfileTab = ({ items }: { items: ProfileTabItemProps[] }) => {

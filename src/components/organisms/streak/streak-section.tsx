@@ -1,11 +1,12 @@
+import { useTranslation } from "react-i18next";
 import Lottie from "react-lottie";
 
 import flame from "@/assets/lotties/streak-flame.json";
-import CustomCalendar from "./custom-calendar";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useGetGamificationProfile } from "@/hooks/react-query/useGamification";
 import { cn } from "@/lib/utils";
-import { useTranslation } from "react-i18next";
-import { Skeleton } from "@/components/ui/skeleton";
+
+import CustomCalendar from "./custom-calendar";
 
 const StreakSection = () => {
   const { t } = useTranslation("gamification");

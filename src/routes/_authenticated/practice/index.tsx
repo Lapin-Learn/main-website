@@ -1,6 +1,16 @@
-import PracticePage from '@/components/pages/practice'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
+import { fallback, zodValidator } from "@tanstack/zod-adapter";
+import { z } from "zod";
 
-export const Route = createFileRoute('/_authenticated/practice/')({
+import PracticePage from "@/components/pages/practice";
+
+const searchSchema = z.object({
+  skill: fallback(z.enum(["reading", "listening", "speaking", "writing"]), "reading").default(
+    "reading"
+  ),
+});
+
+export const Route = createFileRoute("/_authenticated/practice/")({
   component: PracticePage,
-})
+  validateSearch: zodValidator(searchSchema),
+});

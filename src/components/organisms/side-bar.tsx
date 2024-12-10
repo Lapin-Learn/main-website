@@ -1,15 +1,15 @@
+import { Link } from "@tanstack/react-router";
 import { LogOut, User } from "lucide-react";
 
 import MissionsIcon from "@/assets/icons/missions";
 import PracticeIcon from "@/assets/icons/practice";
 import Logo from "@/assets/logo.svg";
-
-import { SideBarFeature, SideBarFeatureProps } from "./side-bar-feature";
-import { Separator } from "../ui";
 import { useSignOut } from "@/hooks/react-query/useAuth";
 import { useUserAvatar, useUserProfile } from "@/hooks/react-query/useUsers";
-import { Link } from "@tanstack/react-router";
+
+import { Separator } from "../ui";
 import { Skeleton } from "../ui/skeleton";
+import { SideBarFeature, SideBarFeatureProps } from "./side-bar-feature";
 
 const features: SideBarFeatureProps[] = [
   {
@@ -55,7 +55,7 @@ export default function SideBar() {
                     {user && isSuccess ? (
                       <>
                         <p className="text-small font-semibold text-black">{user.fullName}</p>
-                        <p className="truncate text-xs text-supporting-text">{user.email}</p>
+                        <p className="text-supporting-text truncate text-xs">{user.email}</p>
                       </>
                     ) : (
                       <>

@@ -1,12 +1,12 @@
 import { ArrowRight } from "lucide-react";
 
 import ExamItemInProgressIcon from "@/assets/icons/exam/inprogress";
+import { Button } from "@/components/ui";
 import { TestRecordStatus } from "@/lib/enums";
 import { cn } from "@/lib/utils";
 
 import { Separator } from "../../ui/separator";
 import { Skeleton } from "../../ui/skeleton";
-import { Button } from "@/components/ui";
 
 export type TestRecordProps = {
   id: number;
@@ -33,10 +33,9 @@ export type ExamCardProps = {
   keyword: string;
   description: string;
   tests: TestProps[];
-  onClick?: () => void;
 };
 
-export const ExamCard = ({ name, description, tags, tests, onClick }: ExamCardProps) => {
+export const ExamCard = ({ name, description, tags, tests }: ExamCardProps) => {
   const totalQuestions = tests.length;
   const completedQuestions = tests.reduce((acc, test) => {
     if (test.record.status === TestRecordStatus.Completed && test.record.score !== null) {
@@ -45,10 +44,7 @@ export const ExamCard = ({ name, description, tags, tests, onClick }: ExamCardPr
     return acc;
   }, 0);
   return (
-    <div
-      className="flex flex-row gap-5 overflow-hidden rounded-2xl border bg-white shadow-sm hover:cursor-pointer hover:shadow-[0px_9px_24.1px_0px_rgba(101,105,115,0.1)]"
-      onClick={onClick}
-    >
+    <div className="flex flex-row gap-5 overflow-hidden rounded-2xl border bg-white shadow-sm hover:cursor-pointer hover:shadow-[0px_9px_24.1px_0px_rgba(101,105,115,0.1)]">
       <Skeleton className="w-72 rounded-none" />
       <div className="flex w-full flex-col gap-6 py-4">
         <div className="flex h-fit w-full flex-row items-start justify-between gap-8">

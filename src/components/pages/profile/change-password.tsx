@@ -9,10 +9,10 @@ import {
 } from "@components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import * as z from "zod";
 
 import { Input } from "@/components/ui/input";
-import { useTranslation } from "react-i18next";
 import { useUpdateUserPassword } from "@/hooks/react-query/useUsers";
 
 const formSchema = z

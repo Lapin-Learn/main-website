@@ -105,4 +105,4 @@ const parseActiveDays = (originalDays: DayProps[], activeDays: Date[] = []) => {
   }
   return newDays;
 };
-export { generateCalendar, parseActiveDays, getDaysInWeek };
+export { generateCalendar, getDaysInWeek, parseActiveDays };
