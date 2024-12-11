@@ -36,7 +36,6 @@ export default function FormSelect({
   name,
   label,
   className,
-  inputClassName,
   placeholder,
   options = [],
   loading = false,
