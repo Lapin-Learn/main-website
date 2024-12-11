@@ -21,8 +21,9 @@ import { Route as AuthenticationSignUpImport } from "./routes/_authentication/si
 import { Route as AuthenticationResetPasswordImport } from "./routes/_authentication/reset-password";
 import { Route as AuthenticationLogInImport } from "./routes/_authentication/log-in";
 import { Route as AuthenticationForgotPasswordImport } from "./routes/_authentication/forgot-password";
-import { Route as AuthenticatedPracticeImport } from "./routes/_authenticated/practice";
 import { Route as AuthenticatedProfileImport } from "./routes/_authenticated/_profile";
+import { Route as AuthenticatedPracticeIndexImport } from "./routes/_authenticated/practice/index";
+import { Route as AuthenticatedPracticeCollectionIdImport } from "./routes/_authenticated/practice/$collectionId";
 import { Route as AuthenticatedProfileProfileIndexImport } from "./routes/_authenticated/_profile/profile/index";
 import { Route as AuthenticatedProfileProfileHistoryImport } from "./routes/_authenticated/_profile/profile/history";
 import { Route as AuthenticatedProfileProfileChangePasswordImport } from "./routes/_authenticated/_profile/profile/change-password";
@@ -154,13 +155,6 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AuthenticatedProfileImport;
       parentRoute: typeof AuthenticatedImport;
     };
-    "/_authenticated/practice": {
-      id: "/_authenticated/practice";
-      path: "/practice";
-      fullPath: "/practice";
-      preLoaderRoute: typeof AuthenticatedPracticeImport;
-      parentRoute: typeof AuthenticatedImport;
-    };
     "/_authentication/forgot-password": {
       id: "/_authentication/forgot-password";
       path: "/forgot-password";
@@ -208,6 +202,20 @@ declare module "@tanstack/react-router" {
       path: "/";
       fullPath: "/";
       preLoaderRoute: typeof AuthenticatedIndexImport;
+      parentRoute: typeof AuthenticatedImport;
+    };
+    "/_authenticated/practice/$collectionId": {
+      id: "/_authenticated/practice/$collectionId";
+      path: "/practice/$collectionId";
+      fullPath: "/practice/$collectionId";
+      preLoaderRoute: typeof AuthenticatedPracticeCollectionIdImport;
+      parentRoute: typeof AuthenticatedImport;
+    };
+    "/_authenticated/practice/": {
+      id: "/_authenticated/practice/";
+      path: "/practice";
+      fullPath: "/practice";
+      preLoaderRoute: typeof AuthenticatedPracticeIndexImport;
       parentRoute: typeof AuthenticatedImport;
     };
     "/_authenticated/_profile/profile/change-password": {
@@ -304,7 +312,6 @@ const SimulatedTestRouteWithChildren = SimulatedTestRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   "": typeof AuthenticatedProfileRouteWithChildren;
-  "/practice": typeof AuthenticatedPracticeRoute;
   "/forgot-password": typeof AuthenticationForgotPasswordRoute;
   "/log-in": typeof AuthenticationLogInRoute;
   "/reset-password": typeof AuthenticationResetPasswordRoute;
@@ -312,6 +319,8 @@ export interface FileRoutesByFullPath {
   "/verify-otp": typeof AuthenticationVerifyOtpRoute;
   "/simulated-test": typeof SimulatedTestSimulatedTestRoute;
   "/": typeof AuthenticatedIndexRoute;
+  "/practice/$collectionId": typeof AuthenticatedPracticeCollectionIdRoute;
+  "/practice": typeof AuthenticatedPracticeIndexRoute;
   "/profile/change-password": typeof AuthenticatedProfileProfileChangePasswordRoute;
   "/profile/history": typeof AuthenticatedProfileProfileHistoryRoute;
   "/profile": typeof AuthenticatedProfileProfileIndexRoute;
@@ -319,7 +328,6 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   "": typeof AuthenticatedProfileRouteWithChildren;
-  "/practice": typeof AuthenticatedPracticeRoute;
   "/forgot-password": typeof AuthenticationForgotPasswordRoute;
   "/log-in": typeof AuthenticationLogInRoute;
   "/reset-password": typeof AuthenticationResetPasswordRoute;
@@ -327,6 +335,8 @@ export interface FileRoutesByTo {
   "/verify-otp": typeof AuthenticationVerifyOtpRoute;
   "/simulated-test": typeof SimulatedTestSimulatedTestRoute;
   "/": typeof AuthenticatedIndexRoute;
+  "/practice/$collectionId": typeof AuthenticatedPracticeCollectionIdRoute;
+  "/practice": typeof AuthenticatedPracticeIndexRoute;
   "/profile/change-password": typeof AuthenticatedProfileProfileChangePasswordRoute;
   "/profile/history": typeof AuthenticatedProfileProfileHistoryRoute;
   "/profile": typeof AuthenticatedProfileProfileIndexRoute;
@@ -338,7 +348,6 @@ export interface FileRoutesById {
   "/_authentication": typeof AuthenticationRouteWithChildren;
   "/_simulated-test": typeof SimulatedTestRouteWithChildren;
   "/_authenticated/_profile": typeof AuthenticatedProfileRouteWithChildren;
-  "/_authenticated/practice": typeof AuthenticatedPracticeRoute;
   "/_authentication/forgot-password": typeof AuthenticationForgotPasswordRoute;
   "/_authentication/log-in": typeof AuthenticationLogInRoute;
   "/_authentication/reset-password": typeof AuthenticationResetPasswordRoute;
@@ -346,6 +355,8 @@ export interface FileRoutesById {
   "/_authentication/verify-otp": typeof AuthenticationVerifyOtpRoute;
   "/_simulated-test/simulated-test": typeof SimulatedTestSimulatedTestRoute;
   "/_authenticated/": typeof AuthenticatedIndexRoute;
+  "/_authenticated/practice/$collectionId": typeof AuthenticatedPracticeCollectionIdRoute;
+  "/_authenticated/practice/": typeof AuthenticatedPracticeIndexRoute;
   "/_authenticated/_profile/profile/change-password": typeof AuthenticatedProfileProfileChangePasswordRoute;
   "/_authenticated/_profile/profile/history": typeof AuthenticatedProfileProfileHistoryRoute;
   "/_authenticated/_profile/profile/": typeof AuthenticatedProfileProfileIndexRoute;
@@ -355,7 +366,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | ""
-    | "/practice"
     | "/forgot-password"
     | "/log-in"
     | "/reset-password"
@@ -363,13 +373,14 @@ export interface FileRouteTypes {
     | "/verify-otp"
     | "/simulated-test"
     | "/"
+    | "/practice/$collectionId"
+    | "/practice"
     | "/profile/change-password"
     | "/profile/history"
     | "/profile";
   fileRoutesByTo: FileRoutesByTo;
   to:
     | ""
-    | "/practice"
     | "/forgot-password"
     | "/log-in"
     | "/reset-password"
@@ -377,6 +388,8 @@ export interface FileRouteTypes {
     | "/verify-otp"
     | "/simulated-test"
     | "/"
+    | "/practice/$collectionId"
+    | "/practice"
     | "/profile/change-password"
     | "/profile/history"
     | "/profile";
@@ -386,7 +399,6 @@ export interface FileRouteTypes {
     | "/_authentication"
     | "/_simulated-test"
     | "/_authenticated/_profile"
-    | "/_authenticated/practice"
     | "/_authentication/forgot-password"
     | "/_authentication/log-in"
     | "/_authentication/reset-password"
@@ -394,6 +406,8 @@ export interface FileRouteTypes {
     | "/_authentication/verify-otp"
     | "/_simulated-test/simulated-test"
     | "/_authenticated/"
+    | "/_authenticated/practice/$collectionId"
+    | "/_authenticated/practice/"
     | "/_authenticated/_profile/profile/change-password"
     | "/_authenticated/_profile/profile/history"
     | "/_authenticated/_profile/profile/";
