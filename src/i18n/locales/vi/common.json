@@ -17,7 +17,8 @@
     },
     "navigation": {
         "practice": "Luyện thi",
-        "mission": "Nhiệm vụ"
+        "mission": "Nhiệm vụ",
+        "simulatedTest": "Bài thi mô phỏng"
     },
     "allSkills": "Tất cả kỹ năng",
     "reading": "reading",
