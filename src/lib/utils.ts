@@ -2,6 +2,8 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 import { PagedData, PagingSchema } from "@/lib/types/pagination.type";
+import { z } from "zod";
+import { EnumSkill } from "./enums";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -47,3 +49,7 @@ export const fromPageToOffset = (value: PagingSchema) => {
 export const splitTextSpace = (text: string) => {
   return text.split(/(\s+)/).filter((part) => part !== "");
 };
+
+export const searchSchema = z.object({
+  skill: z.nativeEnum(EnumSkill).optional().catch(undefined),
+});

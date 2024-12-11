@@ -1,5 +1,6 @@
-import { ExamList } from "../mocules/record-test/exam-list";
 import HeroImage from "@/assets/images/hero-image.jpg";
+
+import { ExamList } from "../mocules/record-test/exam-list";
 import { StreakSection } from "../organisms/streak";
 
 export default function PracticePage() {

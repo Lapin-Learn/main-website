@@ -1,6 +1,7 @@
 import { X } from "lucide-react";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,7 +14,6 @@ import {
 } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useTranslation } from "react-i18next";
 
 type ChangeImageDialogProps = React.PropsWithChildren<{
   onSubmit?: (file: File[]) => void;

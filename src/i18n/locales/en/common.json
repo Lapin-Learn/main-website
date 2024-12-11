@@ -15,7 +15,7 @@
             "error": "Update {{item, lowercase}} failed"
         }
     },
-    "sideBar": {
+    "navigation": {
         "practice": "Practice",
         "mission": "Mission"
     },
