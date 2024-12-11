@@ -66,10 +66,11 @@ export default function FormSelect({
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                   placeholder={placeholder}
-                  variant="inverted"
+                  variant="default"
                   animation={2}
-                  maxCount={3}
+                  maxCount={4}
                   disabled={loading}
+                  hasBadge={true}
                 />
               </FormControl>
             ) : (

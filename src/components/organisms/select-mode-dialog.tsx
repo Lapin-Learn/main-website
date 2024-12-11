@@ -144,14 +144,12 @@ const SelectModeDialog = ({ title, parts }: SelectModeDialogProps) => {
                 </Button>
               </DialogClose>
               <Button type="submit" className="w-fit">
-                {mode === "practice" ? (
-                  t("exam-mode-config.buttons.practice")
-                ) : (
-                  <div className="flex items-center gap-2">
-                    <Zap fill="white" strokeWidth={0} className="h-4 w-4" />
-                    {t("exam-mode-config.buttons.start")}
-                  </div>
-                )}
+                <div className="flex items-center gap-2">
+                  <Zap fill="white" strokeWidth={0} className="h-4 w-4" />
+                  {mode === "practice"
+                    ? t("exam-mode-config.buttons.practice")
+                    : t("exam-mode-config.buttons.start")}
+                </div>
               </Button>
             </DialogFooter>
           </form>
