@@ -1,3 +1,12 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SquarePen, TriangleAlert, Zap } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
+
+import CustomAlert from "../mocules/alert";
+import FormSelect from "../mocules/form-inputs/form-select";
 import { Button, Form } from "../ui";
 import {
   Dialog,
@@ -9,14 +18,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { SquarePen, TriangleAlert, Zap } from "lucide-react";
-import FormSelect from "../mocules/form-inputs/form-select";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import CustomAlert from "../mocules/alert";
-import { useTranslation } from "react-i18next";
 
 type SelectModeDialogProps = {
   title: string;
@@ -92,14 +93,14 @@ const SelectModeDialog = ({ title, parts }: SelectModeDialogProps) => {
                 theme="success"
                 title={t("exam-mode-config.alerts.practice.title")}
                 description={t("exam-mode-config.alerts.practice.description")}
-                icon={<SquarePen className="h-5 w-5" color="#166534" />}
+                icon={<SquarePen className="size-5" color="#166534" />}
               />
             ) : (
               <CustomAlert
                 theme="warning"
                 title={t("exam-mode-config.alerts.full_test.title")}
                 description={t("exam-mode-config.alerts.full_test.description")}
-                icon={<TriangleAlert className="h-5 w-5" color="#854D0E" />}
+                icon={<TriangleAlert className="size-5" color="#854D0E" />}
               />
             )}
           </DialogDescription>
@@ -139,13 +140,13 @@ const SelectModeDialog = ({ title, parts }: SelectModeDialogProps) => {
             )}
             <DialogFooter className="mt-4 gap-1 sm:justify-start">
               <DialogClose asChild>
-                <Button type="button" variant="secondary" onClick={handleCancel}>
+                <Button type="button" variant="outline" onClick={handleCancel}>
                   {t("exam-mode-config.buttons.cancel")}
                 </Button>
               </DialogClose>
               <Button type="submit" className="w-fit">
                 <div className="flex items-center gap-2">
-                  <Zap fill="white" strokeWidth={0} className="h-4 w-4" />
+                  <Zap fill="white" strokeWidth={0} className="size-4" />
                   {mode === "practice"
                     ? t("exam-mode-config.buttons.practice")
                     : t("exam-mode-config.buttons.start")}
