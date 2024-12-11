@@ -56,7 +56,7 @@ export enum EnumAction {
   FREEZE_STREAK = "freeze_streak",
 }
 
-export enum TestRecordStatus {
+export enum EnumTestRecordStatus {
   InProgress = "In Progress",
   Completed = "Completed",
   NotStarted = "Not Started",

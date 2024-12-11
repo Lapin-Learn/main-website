@@ -25,6 +25,7 @@ export type FormSelectProps = {
   }[];
   placeholder?: string;
   className?: string;
+  inputClassName?: string;
   loading?: boolean;
 };
 
@@ -32,6 +33,7 @@ export default function FormSelect({
   name,
   label,
   className,
+  inputClassName,
   placeholder,
   options = [],
   loading = false,
@@ -52,8 +54,8 @@ export default function FormSelect({
               disabled={loading}
             >
               <FormControl>
-                <SelectTrigger>
-                  <SelectValue placeholder={placeholder} />
+                <SelectTrigger className={inputClassName}>
+                  <SelectValue placeholder={placeholder} className="placeholder:bg-neutral-300" />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>

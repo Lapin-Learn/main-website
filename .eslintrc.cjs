@@ -10,7 +10,7 @@ module.exports = {
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
-  plugins: ["react-refresh", "simple-import-sort", "tailwindcss"],
+  plugins: ["react-refresh", "simple-import-sort", "tailwindcss", "unused-imports"],
   settings: {
     tailwindcss: {
       callees: ["twMerge", "createTheme"],
@@ -25,5 +25,15 @@ module.exports = {
     "simple-import-sort/imports": "warn",
     "simple-import-sort/exports": "warn",
     "no-console": ["warn", { allow: ["warn", "error"] }], // Disallow console.log, allow console.warn and console.error
+    "unused-imports/no-unused-imports": "warn",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        vars: "all",
+        varsIgnorePattern: "^_",
+        args: "after-used",
+        argsIgnorePattern: "^_",
+      },
+    ],
   },
 };

@@ -1,0 +1,18 @@
+import { Image } from "./common.type";
+
+export type SimulatedTestCollection = {
+  id: number;
+  name: string;
+  description: string;
+  tags: string[];
+  thumbnail: Image | null;
+  testCount: number;
+  simulatedIeltsTests: SimulatedTestSimple[];
+};
+
+export type SimulatedTestSimple = {
+  id: number;
+  collectionId: number;
+  order: string;
+  testName: string;
+};

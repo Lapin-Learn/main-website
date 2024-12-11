@@ -19,5 +19,9 @@
         "practice": "Practice",
         "mission": "Mission"
     },
-    "allSkills": "All skills"
+    "allSkills": "All skills",
+    "reading": "reading",
+    "speaking": "speaking",
+    "listening": "listening",
+    "writing": "writing"
 }

@@ -7,7 +7,16 @@
         "placeholder": "Tìm kiếm",
         "noResults": "Không tìm thấy kết quả"
     },
-    "exam-list": {
-        "title": "Danh sách các bộ đề"
+    "collection-list": {
+        "title": "Danh sách các bộ đề",
+        "numberOfTest" : "{{number}}/{{total}} đề",
+        "tags": {
+            "academic": "Academic",
+            "cambridge": "Cambridge",
+            "forecast": "Đề dự đoán",
+            "actual": "Đề thi thật",
+            "britishcouncil": "British Council"
+        },
+        "tagPlaceholder": "Bộ lọc"
     }
 }

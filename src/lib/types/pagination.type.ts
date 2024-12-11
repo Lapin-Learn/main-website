@@ -6,17 +6,17 @@ export type FetchingData<T> = {
   data: T;
 };
 
-export type PagedData<T, K extends string> = Partial<{
+export type PagedData<T> = {
   offset: number;
   limit: number;
   total: number;
-}> & {
-  [key in K]: T[];
+  page: number;
+  items: T[];
 };
 
 export const pagingSchema = z.object({
-  page: z.number().catch(1),
-  pageSize: z.number().catch(10),
+  page: z.number().optional().catch(1),
+  pageSize: z.number().optional().catch(10),
 });
 
 export type PagingSchema = z.infer<typeof pagingSchema>;
