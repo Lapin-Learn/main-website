@@ -1,3 +1,8 @@
+import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
+import { useNavigate } from "@tanstack/react-router";
+import React from "react";
+import { Trans, useTranslation } from "react-i18next";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -8,10 +13,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
-import { useNavigate } from "@tanstack/react-router";
-import React from "react";
-import { Trans, useTranslation } from "react-i18next";
 
 type SubmitDialogProps = {
   triggerButton: React.ReactNode;

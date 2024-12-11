@@ -1,3 +1,7 @@
+import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
+import { useNavigate } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,9 +13,6 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
-import { useNavigate } from "@tanstack/react-router";
-import { useTranslation } from "react-i18next";
 
 type ExitDialogProps = {
   triggerButton: React.ReactNode;

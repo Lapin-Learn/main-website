@@ -1,9 +1,11 @@
+import { Editor } from "@tiptap/core";
+import Image from "@tiptap/extension-image";
+import StarterKit from "@tiptap/starter-kit";
+
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Editor } from "@tiptap/core";
+
 import { mockParagraph } from "./mock-paragraph";
-import StarterKit from "@tiptap/starter-kit";
-import Image from "@tiptap/extension-image";
 
 const ReadingPage = () => {
   const editor = new Editor({

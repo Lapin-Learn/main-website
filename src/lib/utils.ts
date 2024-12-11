@@ -76,3 +76,5 @@ export const generateKeyword = (
 export const searchSchema = z.object({
   skill: z.nativeEnum(EnumSkill).optional().catch(undefined),
 });
+
+export const isDevEnv = () => process.env.NODE_ENV === "development";

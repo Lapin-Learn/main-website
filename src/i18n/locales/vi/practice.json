@@ -18,5 +18,54 @@
             "britishcouncil": "British Council"
         },
         "tagPlaceholder": "Bộ lọc"
-    }
+    },
+    "exam-mode-config": {
+        "title": "Chọn chế độ",
+        "mode": {
+            "label": "Chế độ",
+            "placeholder": "Chọn chế độ thi",
+            "full_test": "Thi thử",
+            "practice": "Luyện tập"
+        },
+        "time_limit": {
+            "label": "Thời gian",
+            "placeholder": "Chọn thời gian làm bài",
+            "no_limit": "Không giới hạn",
+            "time": "{{ time }} phút"
+        },
+        "parts": {
+            "label": "Chọn phần bài muốn làm",
+            "placeholder": "Chọn phần bài muốn làm",
+            "error": "Chọn ít nhất một phần bài"
+        },
+        "alerts": {
+            "practice": {
+                "title": "Chế độ luyện tập",
+                "description": "Trong chế độ này, bạn có thể tự chọn phần mình muốn làm, tự điều chỉnh thời gian tuỳ vào khả năng của mình và nghe lại đoạn thu âm."
+            },
+            "full_test": {
+                "title": "Lưu ý",
+                "description": "Trong quá trình làm bài, bạn sẽ không thể nghe lại và không nên thoát ra để kết quả được đánh giá một cách tốt nhất."
+            }
+        },
+        "buttons": {
+            "cancel": "Hủy",
+            "practice": "Luyện tập",
+            "start": "Bắt đầu"
+        }
+    },
+    "skills": {
+      "reading": {
+        "passage": "Phần {{ number }}"
+      },
+      "listening": {
+        "section": "Phần {{ number }}"
+      },
+      "writing": {
+        "task": "Phần {{ number }}"
+      },
+      "speaking": {
+        "part": "Phần {{ number }}"
+      }
+  }
 }

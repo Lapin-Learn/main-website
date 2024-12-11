@@ -4,8 +4,16 @@
     "confirmPassword": "Confirm password",
     "cancel": "Cancel",
     "submit": "Submit",
+    "clear": "Clear",
+    "close": "Close",
     "save": "Save",
     "update": "Update",
+    "more": "more",
+    "select_all": "Select all",
+    "search": {
+        "placeholder": "Search",
+        "noResults": "No results found"
+    },
     "error": {
         "INVALID_PASSWORD": "Password incorrect"
     },
