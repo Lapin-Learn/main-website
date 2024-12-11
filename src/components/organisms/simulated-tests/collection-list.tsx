@@ -1,25 +1,27 @@
-import { z } from "zod";
-import {
-  CollectionCard,
-  SkeletonCollectionCard,
-} from "../../mocules/simulated-tests/collection-card";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Link, useLocation } from "@tanstack/react-router";
 import { Search } from "lucide-react";
-import SkillsFilter from "../../mocules/skill-filter";
-import { useEffect, useState } from "react";
-import { EnumSkill } from "@/lib/enums";
-import { FormControl, FormField, FormItem, Input, Form } from "@/components/ui";
-import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import FormSelect from "../../mocules/form-inputs/form-select";
+import { useTranslation } from "react-i18next";
+import { z } from "zod";
+
+import { LoadMore } from "@/components/mocules/load-more";
+import { Form, FormControl, FormField, FormItem, Input } from "@/components/ui";
 import {
   useFilter,
   useGetListSimulatedTestCollection,
 } from "@/hooks/react-query/use-simulated-test";
-import { LoadMore } from "@/components/mocules/load-more";
-import { SIMULATED_TEST_TAGS } from "@/lib/consts";
 import { useDebounce } from "@/hooks/use-debounce";
+import { SIMULATED_TEST_TAGS } from "@/lib/consts";
 import { generateKeyword } from "@/lib/utils";
+
+import FormSelect from "../../mocules/form-inputs/form-select";
+import {
+  CollectionCard,
+  SkeletonCollectionCard,
+} from "../../mocules/simulated-tests/collection-card";
+import SkillsFilter from "../../mocules/skill-filter";
 
 const formSchema = z.object({
   search: z.string().optional(),
@@ -29,7 +31,7 @@ const formSchema = z.object({
 type FormInputs = z.infer<typeof formSchema>;
 
 export const CollectionList = () => {
-  const [skill, setSkill] = useState<EnumSkill>(EnumSkill.allSkills);
+  const location = useLocation();
   const { t } = useTranslation("practice");
 
   const form = useForm<FormInputs>({
@@ -50,15 +52,13 @@ export const CollectionList = () => {
     setFilter({ keyword: generateKeyword({ tag, searchText: searchText || "" }) });
   }, [searchText, tag]);
 
-  console.log("list");
-
   useEffect(() => {
     return () => clearFilter();
   }, []);
 
   return (
     <div className="container flex flex-col items-center gap-2 md:gap-8">
-      <SkillsFilter skill={skill} setSkill={setSkill} />
+      <SkillsFilter />
       <div className="flex w-full flex-col items-center justify-between md:flex-row">
         <h2 className="mt-4 text-heading-5 font-semibold md:mt-0 md:text-heading-3">
           {t("collection-list.title")}
@@ -99,7 +99,11 @@ export const CollectionList = () => {
       <div className="mb-8 flex w-full flex-col gap-4 md:gap-8">
         {list && !isLoading ? (
           list.length > 0 ? (
-            list.map((collection) => <CollectionCard key={collection.id} {...collection} />)
+            list.map((collection) => (
+              <Link to={`/practice/${collection.id}`} search={location.search}>
+                <CollectionCard key={collection.id} {...collection} />
+              </Link>
+            ))
           ) : (
             <div className="grid h-96 place-items-center text-center text-xl text-neutral-500">
               {t("search.noResults")}

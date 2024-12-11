@@ -1,11 +1,11 @@
 import { ArrowRight } from "lucide-react";
 
 import ExamItemInProgressIcon from "@/assets/icons/exam/inprogress";
+import { Button } from "@/components/ui";
 import { EnumTestRecordStatus } from "@/lib/enums";
+import { SimulatedTestSimple } from "@/lib/types/simulated-test.type";
 
 import { Separator } from "../../ui/separator";
-import { Button } from "@/components/ui";
-import { SimulatedTestSimple } from "@/lib/types/simulated-test.type";
 
 export const TestItem = ({ testName }: SimulatedTestSimple) => {
   // TODO: Navigate to test history detail page

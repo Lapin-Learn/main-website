@@ -1,9 +1,11 @@
+import { useTranslation } from "react-i18next";
+
+import { MAPPED_SIMULATED_TEST_TAGS } from "@/lib/consts";
+import { SimulatedTestCollection } from "@/lib/types/simulated-test.type";
 import { cn } from "@/lib/utils";
 
 import { Skeleton } from "../../ui/skeleton";
-import { SimulatedTestCollection } from "@/lib/types/simulated-test.type";
 import { TestItem } from "./test-item";
-import { useTranslation } from "react-i18next";
 
 export const CollectionCard = ({
   name,
@@ -33,12 +35,14 @@ export const CollectionCard = ({
             <div>
               <span className="mr-2 text-lg font-semibold leading-8">{name}</span>
               <span className="inline-flex flex-wrap items-center gap-2 align-text-bottom">
-                {tags.map((skill, index) => (
+                {tags.map((tag, index) => (
                   <span
                     key={index}
                     className="h-fit text-nowrap rounded-md bg-blue-50 px-2.5 py-0.5 text-center text-[12px] font-medium text-blue-500"
                   >
-                    {skill}
+                    {t("collection-list.tags." + MAPPED_SIMULATED_TEST_TAGS[tag.trim()], {
+                      ns: "practice",
+                    })}
                   </span>
                 ))}
               </span>

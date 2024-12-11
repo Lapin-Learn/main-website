@@ -1,8 +1,8 @@
 import { FetchingData, PagedData, PagingSchema } from "@/lib/types";
+import { SimulatedTestCollection } from "@/lib/types/simulated-test.type";
 import { generateSearchParams } from "@/lib/utils";
 
 import api from "./kyInstance";
-import { SimulatedTestCollection } from "@/lib/types/simulated-test.type";
 
 export type CollectionParams = {
   keyword?: string;

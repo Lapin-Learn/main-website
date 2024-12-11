@@ -1,8 +1,9 @@
-import { fromPageToOffset, parseInfiniteData } from "@/lib/utils";
-import { CollectionParams, getSimulatedTestCollections } from "@/services/simulated-test";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { create } from "zustand";
+
+import { fromPageToOffset, parseInfiniteData } from "@/lib/utils";
+import { CollectionParams, getSimulatedTestCollections } from "@/services/simulated-test";
 
 const simulatedTestKeys = {
   collectionKey: ["collection"] as const,
@@ -52,4 +53,9 @@ export const useGetListSimulatedTestCollection = () => {
       hasNextPage,
     },
   };
+};
+
+export const useGetCollectionDetail = (collectionId: number) => {
+  const { list, isLoading } = useGetListSimulatedTestCollection();
+  return { isLoading, collection: list.find((item) => item.id === collectionId) };
 };

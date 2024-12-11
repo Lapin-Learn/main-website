@@ -41,3 +41,11 @@ export const SIMULATED_TEST_TAGS = [
     value: "British Council",
   },
 ];
+
+export const MAPPED_SIMULATED_TEST_TAGS: Record<string, string> = {
+  Academic: "academic",
+  Cambridge: "cambridge",
+  Forecast: "forecast",
+  Actual: "actual",
+  "British Council": "britishcouncil",
+};

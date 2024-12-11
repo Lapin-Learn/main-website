@@ -1,9 +1,10 @@
+import { InfiniteData } from "@tanstack/react-query";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { z } from "zod";
 
 import { PagedData, PagingSchema } from "@/lib/types/pagination.type";
-import { InfiniteData } from "@tanstack/react-query";
-import { z } from "zod";
+
 import { EnumSkill } from "./enums";
 
 export function cn(...inputs: ClassValue[]) {
