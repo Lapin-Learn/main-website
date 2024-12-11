@@ -17,7 +17,8 @@
     },
     "navigation": {
         "practice": "Practice",
-        "mission": "Mission"
+        "mission": "Mission",
+        "simulatedTest": "Simulated test"
     },
     "allSkills": "All skills",
     "reading": "reading",
