@@ -1,12 +1,11 @@
-import * as React from "react";
+import { CaretSortIcon } from "@radix-ui/react-icons";
 import { cva, type VariantProps } from "class-variance-authority";
 import { CheckIcon, XIcon } from "lucide-react";
+import * as React from "react";
+import { useTranslation } from "react-i18next";
 
-import { cn } from "@/lib/utils";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandGroup,
@@ -14,8 +13,9 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
-import { CaretSortIcon } from "@radix-ui/react-icons";
-import { useTranslation } from "react-i18next";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
 /**
  * Variants for the multi-select component to handle different styles.
@@ -214,10 +214,10 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                           className="border-foreground/1 bg-blue-100 text-blue-900 hover:bg-blue-50"
                           style={{ animationDuration: `${animation}s` }}
                         >
-                          {IconComponent && <IconComponent className="mr-2 h-3 w-3" />}
+                          {IconComponent && <IconComponent className="mr-2 size-3" />}
                           {option?.label}
                           <XIcon
-                            className="ml-2 h-3 w-3 cursor-pointer"
+                            className="ml-2 size-3 cursor-pointer"
                             onClick={(event) => {
                               event.stopPropagation();
                               toggleOption(value);
@@ -245,7 +245,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                     >
                       {`+ ${selectedValues.length - maxCount} ${t("more")}`}
                       <XIcon
-                        className="ml-2 h-4 w-4 cursor-pointer"
+                        className="ml-2 size-4 cursor-pointer"
                         onClick={(event) => {
                           event.stopPropagation();
                           clearExtraOptions();
@@ -293,7 +293,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                         : "opacity-50 [&_svg]:invisible"
                     )}
                   >
-                    <CheckIcon className="h-4 w-4" />
+                    <CheckIcon className="size-4" />
                   </div>
                   <span>{`(${t("select_all")})`}</span>
                 </CommandItem>
@@ -313,11 +313,9 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                             : "opacity-50 [&_svg]:invisible"
                         )}
                       >
-                        <CheckIcon className="h-4 w-4" />
+                        <CheckIcon className="size-4" />
                       </div>
-                      {option.icon && (
-                        <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-                      )}
+                      {option.icon && <option.icon className="mr-2 size-4 text-muted-foreground" />}
                       <span>{option.label}</span>
                     </CommandItem>
                   );

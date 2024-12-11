@@ -1,4 +1,5 @@
 import { useFormContext } from "react-hook-form";
+
 import {
   FormControl,
   FormDescription,
@@ -7,6 +8,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { MultiSelect } from "@/components/ui/multi-select";
 import {
   Select,
   SelectContent,
@@ -14,7 +16,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { MultiSelect } from "@/components/ui/multi-select";
 
 export type FormSelectProps = {
   name: string;

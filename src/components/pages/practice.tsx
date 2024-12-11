@@ -1,10 +1,11 @@
-import HeroImage from "@/assets/images/hero-image.jpg";
+import { useTranslation } from "react-i18next";
 
+import HeroImage from "@/assets/images/hero-image.jpg";
+import { isDevEnv } from "@/lib/utils";
+
+import SelectModeDialog from "../organisms/select-mode-dialog";
 import { CollectionList } from "../organisms/simulated-tests/collection-list";
 import { StreakSection } from "../organisms/streak";
-import SelectModeDialog from "../organisms/select-mode-dialog";
-import { useTranslation } from "react-i18next";
-import { isDevEnv } from "@/lib/utils";
 
 export default function PracticePage() {
   const skill = "reading";
