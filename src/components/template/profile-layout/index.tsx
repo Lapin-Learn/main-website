@@ -1,9 +1,11 @@
 import { Outlet } from "@tanstack/react-router";
-import ProfileTab from "./profile-tab";
-import { useUserProfile } from "@/hooks/react-query/useUsers";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "react-i18next";
+
+import { Skeleton } from "@/components/ui/skeleton";
+import { useUserProfile } from "@/hooks/react-query/useUsers";
+
 import Avatar from "./avatar";
+import ProfileTab from "./profile-tab";
 
 const profileTabItems = [
   {

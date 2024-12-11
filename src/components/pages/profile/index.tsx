@@ -10,14 +10,14 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import * as z from "zod";
 
+import { FormDatePicker } from "@/components/mocules/form-inputs/form-date-picker";
+import FormSelect from "@/components/mocules/form-inputs/form-select";
 import { Input } from "@/components/ui/input";
 import { useUpdateUserProfile, useUserProfile } from "@/hooks/react-query/useUsers";
 import { EnumGender } from "@/lib/enums";
-import { FormDatePicker } from "@/components/mocules/form-inputs/form-date-picker";
-import FormSelect from "@/components/mocules/form-inputs/form-select";
-import { useTranslation } from "react-i18next";
 
 const formSchema = z.object({
   email: z.string().email(),

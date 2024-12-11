@@ -1,10 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
+import { Image } from "@/lib/types";
 import { getAccountIdentifier } from "@/services";
 import { getUserProfile, updateUserPassword, updateUserProfile } from "@/services/user";
+
 import { useToast } from "../use-toast";
-import { useTranslation } from "react-i18next";
-import { Image } from "@/lib/types";
 
 export const userKeys = {
   key: ["account"] as const,
