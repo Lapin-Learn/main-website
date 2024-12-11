@@ -32,7 +32,7 @@ const SkillsFilter = () => {
   const { t } = useTranslation();
   const { search } = useLocation();
   return (
-    <div className="flex gap-4">
+    <div className="flex flex-wrap justify-center gap-4">
       {skillsList.map(({ label, IconOutlined, IconFilled }) => (
         <Link to="/practice" search={{ skill: label !== EnumSkill.allSkills ? label : undefined }}>
           <Button
@@ -51,7 +51,7 @@ const SkillsFilter = () => {
             ) : (
               <IconOutlined className={cn("h-5 w-5")} fill="#374151" />
             )}
-            <span className="hidden md:inline">
+            <span className="md:inline">
               {t(label).charAt(0).toUpperCase() + t(label).slice(1)}
             </span>
           </Button>

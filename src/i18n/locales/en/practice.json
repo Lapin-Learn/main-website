@@ -7,7 +7,16 @@
         "placeholder": "Search",
         "noResults": "No results found"
     },
-    "exam-list": {
-        "title": "Simulated tests"
+    "collection-list": {
+        "title": "Simulated tests",
+        "numberOfTest" : "{{number}}/{{total}} tests",
+        "tags": {
+            "academic": "Academic",
+            "cambridge": "Cambridge",
+            "forecast": "Forecast test",
+            "actual": "Actual test",
+            "britishcouncil": "British Council"
+        },
+        "tagPlaceholder": "Filter"
     }
 }

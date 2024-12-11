@@ -19,5 +19,9 @@
         "practice": "Luyện thi",
         "mission": "Nhiệm vụ"
     },
-    "allSkills": "Tất cả kỹ năng"
+    "allSkills": "Tất cả kỹ năng",
+    "reading": "reading",
+    "speaking": "speaking",
+    "listening": "listening",
+    "writing": "writing"
 }
