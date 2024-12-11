@@ -1,4 +1,3 @@
-import { DEFAULT_PAGE_SIZE } from "@/lib/consts";
 import { fromPageToOffset, parseInfiniteData } from "@/lib/utils";
 import { CollectionParams, getSimulatedTestCollections } from "@/services/simulated-test";
 import { useInfiniteQuery } from "@tanstack/react-query";
