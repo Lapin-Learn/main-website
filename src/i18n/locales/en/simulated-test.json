@@ -1,0 +1,22 @@
+{
+    "exitDialog": {
+        "title": "Are you sure you want to exit?",
+        "description": "You have not completed the test. All your answers will be saved as a draft.",
+        "exitBtn": "Back",
+        "continueBtn": "Continue"
+    },
+    "startDialog": {
+        "title": "Start the test",
+        "description": "The test consists of <1>{{parts}} parts</1> and you will have <1>{{minutes}} minutes</1> to complete it. You <1>cannot stop midway</1> and the test will be automatically submitted after {{minutes}} minutes.",
+        "startBtn": "Start"
+    },
+    "submitDialog": {
+        "title": "Are you sure you want to submit?",
+        "description": "You have not completed all the questions in the test and there is still time left.",
+        "submitBtn": "Submit",
+        "cancelBtn": "Cancel"
+    },
+    "nextBtn": "Next",
+    "prevBtn": "Previous",
+    "submitBtn": "Submit"
+}

@@ -14,22 +14,34 @@ import commonVi from "./locales/vi/common.json";
 import gamificationVi from "./locales/vi/gamification.json";
 import practiceVi from "./locales/vi/practice.json";
 import profileVi from "./locales/vi/profile.json";
+import simulatedTestVi from "./locales/vi/simulated-test.json";
+import simulatedTestEn from "./locales/en/simulated-test.json";
 
 const resources = {
   en: {
     common: commonEn,
+
     auth: authEn,
+
     practice: practiceEn,
+
     profile: profileEn,
     gamification: gamificationEn,
+
+    simulatedTest: simulatedTestEn,
     collection: collectionEn,
   },
   vi: {
     common: commonVi,
+
     auth: authVi,
+
     practice: practiceVi,
+
     profile: profileVi,
     gamification: gamificationVi,
+
+    simulatedTest: simulatedTestVi,
     collection: collectionVi,
   },
 };
