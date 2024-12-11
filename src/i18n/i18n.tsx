@@ -8,6 +8,7 @@ import commonEn from "./locales/en/common.json";
 import gamificationEn from "./locales/en/gamification.json";
 import practiceEn from "./locales/en/practice.json";
 import profileEn from "./locales/en/profile.json";
+import simulatedTestEn from "./locales/en/simulated-test.json";
 import authVi from "./locales/vi/auth.json";
 import collectionVi from "./locales/vi/collection.json";
 import commonVi from "./locales/vi/common.json";
@@ -15,7 +16,6 @@ import gamificationVi from "./locales/vi/gamification.json";
 import practiceVi from "./locales/vi/practice.json";
 import profileVi from "./locales/vi/profile.json";
 import simulatedTestVi from "./locales/vi/simulated-test.json";
-import simulatedTestEn from "./locales/en/simulated-test.json";
 
 const resources = {
   en: {
