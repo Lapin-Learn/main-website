@@ -25,7 +25,7 @@ export const CollectionCard = ({
   return (
     <div className="grid h-60 grid-cols-[2fr_5fr] gap-5 overflow-hidden rounded-2xl border bg-white shadow-sm hover:cursor-pointer hover:shadow-[0px_9px_24.1px_0px_rgba(101,105,115,0.1)]">
       {thumbnail ? (
-        <img src={thumbnail.url} className="h-60 w-72 object-cover" />
+        <img src={thumbnail} className="h-60 w-72 object-cover" />
       ) : (
         <Skeleton className="w-72" />
       )}

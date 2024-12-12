@@ -26,7 +26,7 @@ export default function FilteredSkillCard({ onClick }: FilteredSkillCardProps) {
 
   return (
     <button
-      className="flex flex-row gap-4 rounded-2xl border bg-white p-5"
+      className="flex flex-row gap-4 rounded-2xl border bg-white p-3 md:p-5"
       onClick={() => {
         if (onClick) onClick(skill, test);
       }}
@@ -36,8 +36,8 @@ export default function FilteredSkillCard({ onClick }: FilteredSkillCardProps) {
           <p className="truncate text-lg font-bold">
             {test.testName} - <span className="capitalize">{location.search.skill}</span>
           </p>
-          <div className="flex flex-col gap-2">
-            <div className="flex flex-col">
+          <div className="flex flex-col items-start gap-2">
+            <div className="flex flex-col items-start">
               <div className="text-sm text-neutral-200">
                 {t("correctAnswer")}:{" "}
                 <span className="text-sm font-semibold text-neutral-950">--/40</span>
@@ -48,7 +48,10 @@ export default function FilteredSkillCard({ onClick }: FilteredSkillCardProps) {
               </div>
             </div>
           </div>
-          <Button className="w-fit gap-2 px-0 text-primary hover:bg-transparent" variant="ghost">
+          <Button
+            className="w-fit gap-2 px-0 text-primary hover:bg-transparent hover:text-primary-700"
+            variant="ghost"
+          >
             {t("viewHistory")}
             <ArrowRight size="16" />
           </Button>

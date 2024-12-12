@@ -1,11 +1,9 @@
-import { Image } from "./common.type";
-
 export type SimulatedTestCollection = {
   id: number;
   name: string;
   description: string;
   tags: string[];
-  thumbnail: Image | null;
+  thumbnail: string | null;
   testCount: number;
   simulatedIeltsTests: SimulatedTestSimple[];
 };

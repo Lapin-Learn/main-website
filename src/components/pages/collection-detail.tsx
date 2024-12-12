@@ -53,7 +53,7 @@ export default function CollectionDetailPage() {
       <div>
         <div className="flex h-60 flex-row gap-5">
           {collection?.thumbnail ? (
-            <img src={collection?.thumbnail.url} className="h-60 w-72 object-cover" />
+            <img src={collection?.thumbnail} className="h-60 w-72 object-cover" />
           ) : (
             <Skeleton className="h-60 w-72" />
           )}
