@@ -6,6 +6,8 @@ import { MAPPED_SIMULATED_TEST_TAGS } from "@/lib/consts";
 import { Route } from "@/routes/_authenticated/practice/$collectionId";
 
 import FilteredSkillCard from "../mocules/simulated-test/filtered-skill-card";
+import SelectModeDialog from "../organisms/select-mode-dialog";
+import useSelectModeDialog from "../organisms/select-mode-dialog/use-select-mode-dialog";
 import SimulatedTestCard from "../organisms/simulated-test-card";
 import {
   Breadcrumb,
@@ -22,6 +24,7 @@ export default function CollectionDetailPage() {
   const { collectionId } = Route.useParams();
   const { collection, isLoading } = useGetCollectionDetail(Number(collectionId));
   const { t } = useTranslation();
+  const { setData, setOpen } = useSelectModeDialog();
   const navigate = useNavigate();
 
   if (!isLoading && !collection) {
@@ -78,10 +81,17 @@ export default function CollectionDetailPage() {
           </div>
         </div>
       </div>
+      <SelectModeDialog />
       {location.searchStr ? (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
           {[1, 2, 3, 4, 5, 6, 7].map(() => (
-            <FilteredSkillCard />
+            <FilteredSkillCard
+              onClick={(skill, test) => {
+                console.log(skill, test);
+                setData({ skill, test });
+                setOpen(true);
+              }}
+            />
           ))}
         </div>
       ) : (

@@ -200,7 +200,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                       return (
                         <Badge
                           key={value}
-                          className="border-foreground/1 bg-blue-100 text-blue-900 hover:bg-blue-50"
+                          className="border-foreground/1 border-none bg-blue-50 text-blue-500 shadow-none hover:bg-blue-50/80 hover:text-blue-600"
                           style={{ animationDuration: `${animation}s` }}
                         >
                           {IconComponent && <IconComponent className="mr-2 size-3" />}

@@ -28,7 +28,6 @@ export const useFilter = create<Action & State>((set) => ({
 
 export const useGetListSimulatedTestCollection = () => {
   const { keyword } = useFilter();
-  console.log(keyword);
   const { fetchNextPage, isFetchingNextPage, hasNextPage, data, refetch, isLoading, isRefetching } =
     useInfiniteQuery({
       queryKey: simulatedTestKeys.collectionList({ keyword }),

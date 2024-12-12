@@ -1,13 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SquarePen, TriangleAlert, Zap } from "lucide-react";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
 
-import CustomAlert from "../mocules/alert";
-import FormSelect from "../mocules/form-inputs/form-select";
-import { Button, Form } from "../ui";
+import CustomAlert from "@/components/mocules/alert";
+import FormSelect from "@/components/mocules/form-inputs/form-select";
+import { Button, Form } from "@/components/ui";
 import {
   Dialog,
   DialogClose,
@@ -16,41 +15,89 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
+} from "@/components/ui/dialog";
+import { EnumSkill } from "@/lib/enums";
 
-type SelectModeDialogProps = {
-  title: string;
-  parts: {
+import useSelectModeDialog from "./use-select-mode-dialog";
+
+enum EnumMode {
+  PRACTICE = "practice",
+  FULL_TEST = "full_test",
+}
+
+const SelectModeDialog = () => {
+  const { t } = useTranslation("practice");
+  const { test, skill, open, setOpen } = useSelectModeDialog();
+
+  const parts: {
     value: string;
     label: string;
-  }[];
-};
+  }[] = generateParts(skill ?? EnumSkill.reading);
 
-const SelectModeDialog = ({ title, parts }: SelectModeDialogProps) => {
-  const [mode, setMode] = useState("full_test");
-  const { t } = useTranslation("practice");
+  // TODO: Temporary function to generate parts
+  function generateParts(skill: EnumSkill) {
+    switch (skill) {
+      case EnumSkill.reading:
+        return [
+          { value: "passage_1", label: t("skills.reading.passage", { number: 1 }) },
+          { value: "passage_2", label: t("skills.reading.passage", { number: 2 }) },
+          { value: "passage_3", label: t("skills.reading.passage", { number: 3 }) },
+        ];
+      case EnumSkill.listening:
+        return [
+          { value: "section_1", label: t("skills.listening.section", { number: 1 }) },
+          { value: "section_2", label: t("skills.listening.section", { number: 2 }) },
+          { value: "section_3", label: t("skills.listening.section", { number: 3 }) },
+          { value: "section_4", label: t("skills.listening.section", { number: 4 }) },
+        ];
+      case EnumSkill.writing:
+        return [
+          { value: "task_1", label: t("skills.writing.task", { number: 1 }) },
+          { value: "task_2", label: t("skills.writing.task", { number: 2 }) },
+        ];
+      case EnumSkill.speaking:
+        return [
+          { value: "part_1", label: t("skills.speaking.part", { number: 1 }) },
+          { value: "part_2", label: t("skills.speaking.part", { number: 2 }) },
+          { value: "part_3", label: t("skills.speaking.part", { number: 3 }) },
+        ];
+      default:
+        return [];
+    }
+  }
 
-  const baseSchema = z.object({
-    mode: z.string(),
-  });
-  const practiceSchema = baseSchema.extend({
-    timeLimit: z.string(),
-    parts: z.array(z.string()).nonempty(t("exam-mode-config.parts.error")),
-  });
+  const practiceSchema = z
+    .object({
+      mode: z.nativeEnum(EnumMode),
+      timeLimit: z.string(),
+      parts: z.array(z.string()),
+    })
+    .superRefine((data, ctx) => {
+      if (data.mode === EnumMode.PRACTICE && data.parts.length === 0) {
+        ctx.addIssue({
+          message: t("exam-mode-config.time_limit.error"),
+          path: ["parts"],
+          code: z.ZodIssueCode.custom,
+        });
+      }
+    });
+
   type FormInputs = z.infer<typeof practiceSchema>;
+
+  const formDefaultValues: FormInputs = {
+    mode: EnumMode.FULL_TEST,
+    timeLimit: "no_limit",
+    parts: parts.map((item) => item.value),
+  };
+
   const form = useForm<FormInputs>({
-    resolver: zodResolver(mode === "practice" ? practiceSchema : baseSchema),
-    defaultValues: {
-      mode: "full_test",
-      timeLimit: "no_limit",
-      parts: parts.map((item) => item.value),
-    },
+    resolver: zodResolver(practiceSchema),
+    defaultValues: formDefaultValues,
   });
 
   const modes = [
-    { value: "practice", label: t("exam-mode-config.mode.practice") },
-    { value: "full_test", label: t("exam-mode-config.mode.full_test") },
+    { value: EnumMode.PRACTICE, label: t("exam-mode-config.mode.practice") },
+    { value: EnumMode.FULL_TEST, label: t("exam-mode-config.mode.full_test") },
   ];
 
   const timeLimits = [{ value: "no_limit", label: t("exam-mode-config.time_limit.no_limit") }];
@@ -60,19 +107,17 @@ const SelectModeDialog = ({ title, parts }: SelectModeDialogProps) => {
       label: t("exam-mode-config.time_limit.time", { time: i.toString() }),
     });
   }
+  const mode = form.watch("mode");
 
   const handleModeChange = (value: string) => {
-    setMode(value);
     form.reset({
-      ...form.getValues(),
-      mode: value,
-      timeLimit: "no_limit",
-      parts: parts.map((item) => item.value),
+      ...formDefaultValues,
+      mode: value as EnumMode,
     });
   };
 
   const handleCancel = () => {
-    form.reset();
+    form.reset(formDefaultValues);
   };
 
   const onSubmit = (data: FormInputs) => {
@@ -80,15 +125,23 @@ const SelectModeDialog = ({ title, parts }: SelectModeDialogProps) => {
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">Test Popup</Button>
-      </DialogTrigger>
+    <Dialog
+      open={open}
+      onOpenChange={(open) => {
+        if (!open) {
+          form.reset(formDefaultValues);
+        }
+        setOpen(open);
+      }}
+    >
       <DialogContent className="flex max-w-[720px] flex-col gap-4 rounded-2xl bg-white px-8 py-10">
         <DialogHeader className="flex flex-col gap-3">
-          <DialogTitle className="text-heading-4 font-bold">{title}</DialogTitle>
+          <DialogTitle className="text-heading-4 font-bold">
+            {test?.testName} -{" "}
+            {skill.toString().charAt(0).toUpperCase() + skill.toString().slice(1)}
+          </DialogTitle>
           <DialogDescription>
-            {mode === "practice" ? (
+            {mode === EnumMode.PRACTICE ? (
               <CustomAlert
                 theme="success"
                 title={t("exam-mode-config.alerts.practice.title")}

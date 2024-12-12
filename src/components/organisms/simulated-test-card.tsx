@@ -5,9 +5,11 @@ import { EnumSkill } from "@/lib/enums";
 
 import TestSkillCard from "../mocules/simulated-test/test-skill-card";
 import { Button, Separator } from "../ui";
+import useSelectModeDialog from "./select-mode-dialog/use-select-mode-dialog";
 
 export default function SimulatedTestCard() {
   const { t } = useTranslation("collection");
+  const { setOpen, setData } = useSelectModeDialog();
   return (
     <div className="rounded-2xl border bg-white p-5">
       <p className="mb-4 truncate text-lg font-bold">IELTS Cambridge 19 - Test 1</p>
@@ -36,7 +38,23 @@ export default function SimulatedTestCard() {
           {Object.keys(EnumSkill)
             .filter((key) => key !== "allSkills")
             .map((skill) => (
-              <TestSkillCard skill={skill} />
+              <button
+                onClick={() => {
+                  setData({
+                    skill: skill as EnumSkill,
+                    test: {
+                      id: 1,
+                      collectionId: 1,
+                      order: "1",
+                      testName: "Road to IELTS - Test 1",
+                    },
+                  });
+                  setOpen(true);
+                }}
+                className="w-full"
+              >
+                <TestSkillCard skill={skill} />
+              </button>
             ))}
         </div>
       </div>
