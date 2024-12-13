@@ -109,7 +109,7 @@ export const SideBarFeature = (props: {
           </li>
         </TooltipTrigger>
         {!isExpanded && (
-          <TooltipContent className="bg-white">
+          <TooltipContent className="bg-white shadow-md" side="right">
             <span className={cn("text-small font-semibold text-black")}>
               {t(`navigation.${label}`)}
             </span>
