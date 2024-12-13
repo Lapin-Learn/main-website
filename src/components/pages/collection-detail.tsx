@@ -1,14 +1,18 @@
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 
-import { useGetCollectionDetail } from "@/hooks/react-query/use-simulated-test";
+import {
+  useGetCollectionDetail,
+  useGetCollectionInfo,
+} from "@/hooks/react-query/use-simulated-test";
 import { MAPPED_SIMULATED_TEST_TAGS } from "@/lib/consts";
 import { Route } from "@/routes/_authenticated/practice/$collectionId";
 
+import { LoadMore } from "../mocules/load-more";
 import FilteredSkillCard from "../mocules/simulated-test/filtered-skill-card";
 import SelectModeDialog from "../organisms/select-mode-dialog";
 import useSelectModeDialog from "../organisms/select-mode-dialog/use-select-mode-dialog";
-import SimulatedTestCard from "../organisms/simulated-test-card";
+import { SimulatedTestCard, SkeletonSimulatedTestCard } from "../organisms/simulated-test-card";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -22,7 +26,12 @@ import { Skeleton } from "../ui/skeleton";
 export default function CollectionDetailPage() {
   const location = useLocation();
   const { collectionId } = Route.useParams();
-  const { collection, isLoading } = useGetCollectionDetail(Number(collectionId));
+  const { collection, isLoading } = useGetCollectionInfo(Number(collectionId));
+  const {
+    list,
+    isLoading: gettingSimulatedTests,
+    loadMoreProps,
+  } = useGetCollectionDetail(Number(collectionId));
   const { t } = useTranslation();
   const { setData, setOpen } = useSelectModeDialog();
   const navigate = useNavigate();
@@ -97,7 +106,26 @@ export default function CollectionDetailPage() {
           ))}
         </div>
       ) : (
-        [1, 2, 3, 4].map(() => <SimulatedTestCard />)
+        <>
+          {list && !gettingSimulatedTests ? (
+            list.length > 0 ? (
+              list.map((simulatedTest) => (
+                <SimulatedTestCard
+                  key={simulatedTest.id}
+                  {...simulatedTest}
+                  collectionId={collection?.id || 1}
+                />
+              ))
+            ) : (
+              <div className="grid h-96 place-items-center text-center text-xl text-neutral-500">
+                {t("search.noResults")}
+              </div>
+            )
+          ) : (
+            Array.from({ length: 2 }).map((_, id) => <SkeletonSimulatedTestCard key={id} />)
+          )}
+          {loadMoreProps.hasNextPage && <LoadMore {...loadMoreProps} />}
+        </>
       )}
     </div>
   );

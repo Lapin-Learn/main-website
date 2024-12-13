@@ -100,7 +100,7 @@ export const CollectionList = () => {
         {list && !isLoading ? (
           list.length > 0 ? (
             list.map((collection) => (
-              <Link to={`/practice/${collection.id}`} search={location.search}>
+              <Link to={`/practice/${collection.id}`} search={location.search} key={collection.id}>
                 <CollectionCard key={collection.id} {...collection} />
               </Link>
             ))

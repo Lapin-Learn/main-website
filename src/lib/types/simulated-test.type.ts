@@ -1,3 +1,5 @@
+import { EnumSkill } from "../enums";
+
 export type SimulatedTestCollection = {
   id: number;
   name: string;
@@ -13,4 +15,18 @@ export type SimulatedTestSimple = {
   collectionId: number;
   order: string;
   testName: string;
+};
+
+type PartDetail = {
+  questionTypes: string[];
+};
+
+type SkillTest = {
+  id: number;
+  skill: EnumSkill;
+  partsDetail: PartDetail[];
+};
+
+export type SimulatedTest = Omit<SimulatedTestSimple, "collectionId"> & {
+  skillTests: SkillTest[];
 };

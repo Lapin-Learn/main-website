@@ -14,7 +14,7 @@ export default function TestSkillCard({ skill }: { skill: string }) {
     >
       <div className="flex flex-col items-start gap-2">
         <span className="text-base font-semibold capitalize">{skill}</span>
-        <div>
+        <div className="flex flex-col items-start">
           <div className="text-xs text-neutral-100">{t("correctAnswer")}:</div>
           <div className="font-semibold">--/40</div>
         </div>
