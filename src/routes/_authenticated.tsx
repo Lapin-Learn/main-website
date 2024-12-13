@@ -1,18 +1,18 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 import ErrorFallback from "@/components/ErrorFallback";
-import SideBar from "@/components/organisms/side-bar";
+import SideBar from "@/components/organisms/sidebar/side-bar";
 import { userKeys } from "@/hooks/react-query/useUsers";
 import { getAccountIdentifier, getAuthValueFromStorage, signOut } from "@/services";
 
 const AuthenticatedPage = () => {
   return (
-    <div className="flex h-screen bg-[#F8F8F8]">
-      <div className="sticky top-0 h-screen">
+    <div className="relative flex h-screen bg-[#F8F8F8]">
+      <div className="sticky top-0 z-10 h-screen">
         <SideBar />
       </div>
 
-      <main className="flex-1 overflow-y-auto">
+      <main className="z-0 flex-1 overflow-y-auto pt-12 sm:pt-0">
         <Outlet />
       </main>
     </div>
