@@ -12,7 +12,7 @@ export default function TestSkillCard({ skill }: { skill: string }) {
       key={skill}
       className="flex h-fit w-full flex-row justify-between rounded-lg border border-neutral-100 p-3"
     >
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col items-start gap-2">
         <span className="text-base font-semibold capitalize">{skill}</span>
         <div>
           <div className="text-xs text-neutral-100">{t("correctAnswer")}:</div>
