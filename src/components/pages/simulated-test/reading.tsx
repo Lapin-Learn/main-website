@@ -6,8 +6,7 @@ import QuestionGroup from "@/components/organisms/question-groups";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { EnumQuestionGroup } from "@/lib/enums";
-
-import { mockParagraph, mockQuestionGroups } from "./mock";
+import { mockParagraph, mockQuestionGroups } from "@/lib/mock/mock-reading-content";
 
 const ReadingPage = () => {
   const editor = new Editor({
@@ -42,11 +41,17 @@ const ReadingPage = () => {
             {mockQuestionGroups.map((questionGroup) => {
               if (questionGroup.questionType == EnumQuestionGroup.fillInBlanks)
                 return (
-                  <QuestionGroup.FillInBlanks key={questionGroup.startOrder} {...questionGroup} />
+                  <QuestionGroup.FillInBlanks
+                    key={questionGroup.startQuestionNo}
+                    {...questionGroup}
+                  />
                 );
               else
                 return (
-                  <QuestionGroup.MultipleChoice key={questionGroup.startOrder} {...questionGroup} />
+                  <QuestionGroup.MultipleChoice
+                    key={questionGroup.startQuestionNo}
+                    {...questionGroup}
+                  />
                 );
             })}
           </div>

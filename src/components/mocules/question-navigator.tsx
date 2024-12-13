@@ -1,5 +1,6 @@
-import { cva, VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 
+import useSimulatedTest from "@/hooks/use-simulated-test";
 import { cn, scrollToElementById } from "@/lib/utils";
 
 const questionNavigatorVariants = cva(
@@ -15,18 +16,30 @@ const questionNavigatorVariants = cva(
   }
 );
 
-type QuestionNavigatorProps = VariantProps<typeof questionNavigatorVariants> &
-  React.ButtonHTMLAttributes<HTMLButtonElement> & {
-    number: number;
-  };
+type QuestionNavigatorProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  number: number;
+  partNo: number;
+};
 
-const QuestionNavigator = ({ number, status, className, ...props }: QuestionNavigatorProps) => {
+const QuestionNavigator = ({ number, className, partNo, ...props }: QuestionNavigatorProps) => {
+  const { navigateToPart, currentQuestion, answerSheet } = useSimulatedTest();
   return (
     <button
       onClick={() => {
+        navigateToPart(number, partNo);
         scrollToElementById(`Question-${number}`);
       }}
-      className={cn(questionNavigatorVariants({ status }), className)}
+      className={cn(
+        questionNavigatorVariants({
+          status:
+            number.toString() == currentQuestion.toString()
+              ? "active"
+              : answerSheet[number] == null || answerSheet[number] === undefined
+                ? "unanswered"
+                : "answered",
+        }),
+        className
+      )}
       {...props}
     >
       {number}

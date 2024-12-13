@@ -16,9 +16,8 @@ import {
 
 type SubmitDialogProps = {
   triggerButton: React.ReactNode;
-  time: React.ReactNode;
 };
-const SubmitDialog = ({ triggerButton, time }: SubmitDialogProps) => {
+const SubmitDialog = ({ triggerButton }: SubmitDialogProps) => {
   const navigate = useNavigate();
   const onClose = () => {
     navigate({ to: "/practice" });
@@ -34,7 +33,7 @@ const SubmitDialog = ({ triggerButton, time }: SubmitDialogProps) => {
           <AlertDialogTitle>{t("title")}</AlertDialogTitle>
           <AlertDialogDescription className="text-center">
             <Trans i18nKey="simulatedTest:submitDialog:description"></Trans>
-            &nbsp;<span>{time}</span>.
+            &nbsp;<span>thời gian</span>.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

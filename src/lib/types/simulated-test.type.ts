@@ -26,8 +26,8 @@ export type QuestionGroup = QuestionGroupMultipleChoice | QuestionGroupFillInBla
 type BaseQuestionGroup = {
   part: number;
   questionCard: string;
-  startOrder: number;
-  endOrder: number;
+  startQuestionNo: number;
+  endQuestionNo: number;
 };
 export type QuestionGroupMultipleChoice = BaseQuestionGroup & {
   questionType: EnumQuestionGroup.multipleChoice;

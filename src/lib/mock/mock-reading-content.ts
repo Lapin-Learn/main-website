@@ -201,8 +201,8 @@ export const mockQuestionGroups: QuestionGroup[] = [
     questionType: EnumQuestionGroup.multipleChoice,
     questionCard:
       "Questions 1-7 Do the following statements agree with the information given in Reading Passage 1?",
-    startOrder: 1,
-    endOrder: 7,
+    startQuestionNo: 1,
+    endQuestionNo: 7,
     questions: [
       {
         questionNo: 1,
@@ -250,8 +250,8 @@ export const mockQuestionGroups: QuestionGroup[] = [
     questionType: EnumQuestionGroup.fillInBlanks,
     questionCard:
       "Questions 8-13 Complete the notes below. Choose ONE WORD ONLY from the passage for each answer.",
-    startOrder: 8,
-    endOrder: 13,
+    startQuestionNo: 8,
+    endQuestionNo: 13,
     part: 1,
     questions: {
       type: "doc",
@@ -389,5 +389,25 @@ export const mockQuestionGroups: QuestionGroup[] = [
         },
       ],
     } as JSONContent,
+  },
+];
+
+export default [
+  {
+    part: 1,
+    startQuestionNo: 1,
+    endQuestionNo: 13,
+    content: mockParagraph,
+    questionGroups: mockQuestionGroups,
+  },
+  {
+    part: 2,
+    startQuestionNo: 14,
+    endQuestionNo: 26,
+  },
+  {
+    part: 3,
+    startQuestionNo: 27,
+    endQuestionNo: 40,
   },
 ];
