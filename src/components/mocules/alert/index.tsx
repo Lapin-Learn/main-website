@@ -19,7 +19,7 @@ const themeClasses = {
 
 export default function CustomAlert({ theme, title, description, icon }: CustomAlertProps) {
   return (
-    <Alert className={cn("flex flex-col gap-2", themeClasses[theme])}>
+    <Alert className={cn("flex flex-col gap-1 md:gap-2", themeClasses[theme])}>
       <div className="flex items-center gap-2">
         {icon}
         <AlertTitle className="m-0 text-body font-semibold">{title}</AlertTitle>

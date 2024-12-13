@@ -6,6 +6,8 @@ import { MAPPED_SIMULATED_TEST_TAGS } from "@/lib/consts";
 import { Route } from "@/routes/_authenticated/practice/$collectionId";
 
 import FilteredSkillCard from "../mocules/simulated-test/filtered-skill-card";
+import SelectModeDialog from "../organisms/select-mode-dialog";
+import useSelectModeDialog from "../organisms/select-mode-dialog/use-select-mode-dialog";
 import SimulatedTestCard from "../organisms/simulated-test-card";
 import {
   Breadcrumb,
@@ -22,6 +24,7 @@ export default function CollectionDetailPage() {
   const { collectionId } = Route.useParams();
   const { collection, isLoading } = useGetCollectionDetail(Number(collectionId));
   const { t } = useTranslation();
+  const { setData, setOpen } = useSelectModeDialog();
   const navigate = useNavigate();
 
   if (!isLoading && !collection) {
@@ -48,17 +51,19 @@ export default function CollectionDetailPage() {
         </BreadcrumbList>
       </Breadcrumb>
       <div>
-        <div className="flex h-60 flex-row gap-5">
+        <div className="mb-2 flex h-40 flex-row gap-5 md:h-60">
           {collection?.thumbnail ? (
-            <img src={collection?.thumbnail.url} className="h-60 w-72 object-cover" />
+            <img src={collection?.thumbnail} className="h-40 w-60 object-cover md:h-60 md:w-72" />
           ) : (
-            <Skeleton className="h-60 w-72" />
+            <Skeleton className="h-40 w-60 md:h-60 md:w-72" />
           )}
           <div className="flex w-full flex-col gap-6 py-4">
             <div className="flex h-fit w-full flex-row items-start justify-between gap-8">
               <div className="flex flex-col gap-y-3">
-                <span className="mr-2 text-xl font-bold leading-8">{collection?.name}</span>
-                <span className="inline-flex items-center gap-2 align-text-bottom">
+                <span className="mr-2 text-lg font-bold md:text-xl md:leading-8">
+                  {collection?.name}
+                </span>
+                <span className="inline-flex flex-wrap items-center gap-2 align-text-bottom">
                   {collection?.tags.map((tag, index) => (
                     <span
                       key={index}
@@ -78,10 +83,17 @@ export default function CollectionDetailPage() {
           </div>
         </div>
       </div>
+      <SelectModeDialog />
       {location.searchStr ? (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
           {[1, 2, 3, 4, 5, 6, 7].map(() => (
-            <FilteredSkillCard />
+            <FilteredSkillCard
+              onClick={(skill, test) => {
+                console.log(skill, test);
+                setData({ skill, test });
+                setOpen(true);
+              }}
+            />
           ))}
         </div>
       ) : (

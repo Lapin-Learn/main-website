@@ -5,13 +5,15 @@ import { EnumSkill } from "@/lib/enums";
 
 import TestSkillCard from "../mocules/simulated-test/test-skill-card";
 import { Button, Separator } from "../ui";
+import useSelectModeDialog from "./select-mode-dialog/use-select-mode-dialog";
 
 export default function SimulatedTestCard() {
   const { t } = useTranslation("collection");
+  const { setOpen, setData } = useSelectModeDialog();
   return (
     <div className="rounded-2xl border bg-white p-5">
       <p className="mb-4 truncate text-lg font-bold">IELTS Cambridge 19 - Test 1</p>
-      <div className="flex flex-row items-center gap-8">
+      <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-8">
         <div className="flex max-w-60 flex-col justify-between gap-4">
           <div className="flex flex-row gap-3">
             <div className="flex flex-col gap-2">
@@ -32,11 +34,27 @@ export default function SimulatedTestCard() {
             <ArrowRight size="16" />
           </Button>
         </div>
-        <div className="flex flex-1 flex-wrap gap-3 xl:flex-nowrap">
+        <div className="grid w-full flex-1 grid-cols-2 gap-3 lg:grid-cols-4">
           {Object.keys(EnumSkill)
             .filter((key) => key !== "allSkills")
             .map((skill) => (
-              <TestSkillCard skill={skill} />
+              <button
+                onClick={() => {
+                  setData({
+                    skill: skill as EnumSkill,
+                    test: {
+                      id: 1,
+                      collectionId: 1,
+                      order: "1",
+                      testName: "Road to IELTS - Test 1",
+                    },
+                  });
+                  setOpen(true);
+                }}
+                className="w-full"
+              >
+                <TestSkillCard skill={skill} />
+              </button>
             ))}
         </div>
       </div>
