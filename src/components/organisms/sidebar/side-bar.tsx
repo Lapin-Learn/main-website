@@ -38,7 +38,7 @@ export default function SideBar() {
 
       <aside
         className={cn(
-          "fixed h-full border-r bg-white transition-all duration-300 ease-in-out sm:static",
+          "fixed h-full border-r bg-white transition-all duration-500 ease-in-out sm:static",
           isSidebarOpen ? "right-0 w-[280px] sm:left-0" : "right-[-280px] w-0 sm:left-0 sm:w-fit"
         )}
       >
@@ -60,17 +60,17 @@ export default function SideBar() {
                   alt="App Logo"
                 />
 
-                <div
+                <button
                   className={cn(
-                    "size-fit cursor-pointer rounded-full transition-transform duration-300 ease-in-out",
+                    "grid size-9 cursor-pointer place-items-center rounded-full border bg-white text-neutral-400 shadow-md transition-transform duration-300 ease-in-out hover:text-neutral-700",
                     isSidebarOpen
-                      ? "left-0 rotate-180 sm:rotate-0"
-                      : "absolute right-0 hidden translate-x-3 rotate-180 border-l bg-white sm:flex"
+                      ? "left-0 [&_svg]:rotate-180 [&_svg]:sm:rotate-0"
+                      : "absolute right-0 hidden translate-x-1/2 sm:grid sm:place-items-center [&_svg]:rotate-180"
                   )}
                   onClick={() => setSidebarOpen((prev) => !prev)}
                 >
-                  <ChevronLeft size={28} />
-                </div>
+                  <ChevronLeft size={20} />
+                </button>
               </div>
               <Separator className="mt-6" />
               <ul className="flex w-full flex-col space-y-2 overflow-hidden pt-3">
