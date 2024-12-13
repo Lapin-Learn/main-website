@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 import ErrorFallback from "@/components/ErrorFallback";
-import SideBar from "@/components/organisms/side-bar";
+import SideBar from "@/components/organisms/sidebar/side-bar";
 import { userKeys } from "@/hooks/react-query/useUsers";
 import { getAccountIdentifier, getAuthValueFromStorage, signOut } from "@/services";
 
