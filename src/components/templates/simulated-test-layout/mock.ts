@@ -1,14 +1,17 @@
 export const mockQuestionGroups = [
   {
     partNo: 1,
-    numberOfQuestions: 13,
+    startQuestionNo: 1,
+    endQuestionNo: 13,
   },
   {
     partNo: 2,
-    numberOfQuestions: 13,
+    startQuestionNo: 14,
+    endQuestionNo: 26,
   },
   {
     partNo: 3,
-    numberOfQuestions: 14,
+    startQuestionNo: 27,
+    endQuestionNo: 40,
   },
 ];

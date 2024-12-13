@@ -1,5 +1,7 @@
 import { cva, VariantProps } from "class-variance-authority";
 
+import { cn, scrollToElementById } from "@/lib/utils";
+
 const questionNavigatorVariants = cva(
   "size-7 rounded-[4px] text-center inline-grid place-items-center text-xs duration-200 transition-colors",
   {
@@ -13,15 +15,20 @@ const questionNavigatorVariants = cva(
   }
 );
 
-type QuestionNavigatorProps = VariantProps<typeof questionNavigatorVariants> & {
-  number: number;
-  part: number;
-  onClick?: () => void;
-};
+type QuestionNavigatorProps = VariantProps<typeof questionNavigatorVariants> &
+  React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    number: number;
+  };
 
-const QuestionNavigator = ({ number, status, onClick = () => {} }: QuestionNavigatorProps) => {
+const QuestionNavigator = ({ number, status, className, ...props }: QuestionNavigatorProps) => {
   return (
-    <button onClick={onClick} className={questionNavigatorVariants({ status })}>
+    <button
+      onClick={() => {
+        scrollToElementById(`Question-${number}`);
+      }}
+      className={cn(questionNavigatorVariants({ status }), className)}
+      {...props}
+    >
       {number}
     </button>
   );

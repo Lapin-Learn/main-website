@@ -1,4 +1,9 @@
-export const mockParagraph = {
+import { JSONContent } from "@tiptap/core";
+
+import { EnumQuestionGroup } from "@/lib/enums";
+import { QuestionGroup } from "@/lib/types/simulated-test.type";
+
+export const mockParagraph: JSONContent = {
   type: "doc",
   content: [
     {
@@ -189,3 +194,200 @@ export const mockParagraph = {
     },
   ],
 };
+
+export const mockQuestionGroups: QuestionGroup[] = [
+  {
+    part: 1,
+    questionType: EnumQuestionGroup.multipleChoice,
+    questionCard:
+      "Questions 1-7 Do the following statements agree with the information given in Reading Passage 1?",
+    startOrder: 1,
+    endOrder: 7,
+    questions: [
+      {
+        questionNo: 1,
+        question:
+          "People had expected Andy Murray to become the world's top tennis player for at least five years before 2016.",
+        options: ["True", "False", "Not Given"],
+      },
+      {
+        questionNo: 2,
+        question: "The change that Andy Murray made to his rackets attracted a lot of attention.",
+        options: ["True", "False", "Not Given"],
+      },
+      {
+        questionNo: 3,
+        question:
+          "Most of the world's top players take a professional racket stringer on tour with them.",
+        options: ["True", "False", "Not Given"],
+      },
+      {
+        questionNo: 4,
+        question:
+          "Mike and Bob Bryan use rackets that are light in comparison to the majority of rackets.",
+        options: ["True", "False", "Not Given"],
+      },
+      {
+        questionNo: 5,
+        question: "Werner Fischer played with a spaghetti-strung racket that he designed himself.",
+        options: ["True", "False", "Not Given"],
+      },
+      {
+        questionNo: 6,
+        question:
+          "The weather can affect how professional players adjust the strings on their rackets.",
+        options: ["True", "False", "Not Given"],
+      },
+      {
+        questionNo: 7,
+        question:
+          "It was believed that the change Pete Sampras made to his rackets contributed to his strong serve.",
+        options: ["True", "False", "Not Given"],
+      },
+    ],
+  },
+  {
+    questionType: EnumQuestionGroup.fillInBlanks,
+    questionCard:
+      "Questions 8-13 Complete the notes below. Choose ONE WORD ONLY from the passage for each answer.",
+    startOrder: 8,
+    endOrder: 13,
+    part: 1,
+    questions: {
+      type: "doc",
+      content: [
+        {
+          type: "text",
+          text: "The tennis racket and how it has changed",
+        },
+        {
+          type: "bulletList",
+          attrs: {
+            type: "bullet",
+            class: "list-disc",
+          },
+          content: [
+            {
+              type: "listItem",
+              content: [
+                {
+                  type: "text",
+                  text: "Mike and Bob Bryan made changes to the types of",
+                },
+
+                {
+                  type: "custom-input",
+                  attrs: {
+                    questionNo: "8",
+                  },
+                },
+                {
+                  type: "text",
+                  text: "used on their racket frames.",
+                },
+              ],
+            },
+            {
+              type: "listItem",
+              content: [
+                {
+                  type: "text",
+                  text: " Players were not allowed to use the spaghetti-strung racket because of the amount of",
+                },
+                {
+                  type: "custom-input",
+
+                  attrs: {
+                    questionNo: "9",
+                  },
+                },
+                {
+                  type: "text",
+                  text: "it created.",
+                },
+              ],
+            },
+            {
+              type: "listItem",
+              content: [
+                {
+                  type: "text",
+                  text: "Changes to rackets can be regarded as being as important as players' diets or the",
+                },
+                {
+                  type: "custom-input",
+
+                  attrs: {
+                    questionNo: "10",
+                  },
+                },
+                {
+                  type: "text",
+                  text: "they do.",
+                },
+              ],
+            },
+            {
+              type: "listItem",
+              content: [
+                {
+                  type: "text",
+                  text: "All rackets used to have natural strings made from the",
+                },
+                {
+                  type: "custom-input",
+
+                  attrs: {
+                    questionNo: "11",
+                  },
+                },
+                {
+                  type: "text",
+                  text: "of animals.",
+                },
+              ],
+            },
+            {
+              type: "listItem",
+              content: [
+                {
+                  type: "text",
+                  text: "Pete Sampras had metal ",
+                },
+                {
+                  type: "custom-input",
+                  attrs: {
+                    questionNo: "12",
+                  },
+                },
+                {
+                  type: "text",
+                  text: "put into the frames of his rackets.",
+                },
+              ],
+            },
+            {
+              type: "listItem",
+              content: [
+                {
+                  type: "text",
+                  text: "Gonçalo Oliveira changed the",
+                },
+                {
+                  type: "custom-input",
+                  attrs: {
+                    questionNo: "13",
+                  },
+                },
+                {
+                  type: "text",
+                  text: "on his racket handles.",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    } as JSONContent,
+  },
+];

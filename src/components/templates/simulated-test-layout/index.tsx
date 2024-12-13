@@ -27,7 +27,7 @@ const SimulatedTestLayout = () => {
       <div className="grid h-20 w-full place-items-center border-b bg-white px-8 shadow-sm">
         <div className="flex flex-col items-center">
           <h6 className="text-lg font-bold uppercase">Reading passage 1</h6>
-          <div className="text-supporting-text text-sm font-bold">Road to IELTS - test 1</div>
+          <div className="text-sm font-semibold text-neutral-300">Road to IELTS - test 1</div>
         </div>
         <ExitDialog
           triggerButton={
@@ -48,13 +48,11 @@ const SimulatedTestLayout = () => {
           {mockQuestionGroups.map((group) => (
             <React.Fragment key={group.partNo}>
               <p className="w-[60px] text-center text-xs font-medium">Part {group.partNo}</p>
-              {Array.from({ length: group.numberOfQuestions }).map((_, i) => (
-                <QuestionNavigator
-                  key={i + group.partNo}
-                  number={i + group.partNo + 1}
-                  part={group.partNo}
-                  status="unanswered"
-                />
+              {Array.from(
+                { length: group.endQuestionNo - group.startQuestionNo + 1 },
+                (_, i) => i + group.startQuestionNo
+              ).map((number) => (
+                <QuestionNavigator key={number} number={number} status="unanswered" />
               ))}
             </React.Fragment>
           ))}

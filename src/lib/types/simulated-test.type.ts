@@ -1,3 +1,7 @@
+import { JSONContent } from "@tiptap/core";
+
+import { EnumQuestionGroup } from "../enums";
+
 import { EnumSkill } from "../enums";
 
 export type SimulatedTestCollection = {
@@ -15,6 +19,30 @@ export type SimulatedTestSimple = {
   collectionId: number;
   order: string;
   testName: string;
+};
+
+export type QuestionGroup = QuestionGroupMultipleChoice | QuestionGroupFillInBlanks;
+
+type BaseQuestionGroup = {
+  part: number;
+  questionCard: string;
+  startOrder: number;
+  endOrder: number;
+};
+export type QuestionGroupMultipleChoice = BaseQuestionGroup & {
+  questionType: EnumQuestionGroup.multipleChoice;
+  questions: MultipleChoiceQuestion[];
+};
+
+type MultipleChoiceQuestion = {
+  questionNo: number;
+  question: string;
+  options: string[];
+};
+
+export type QuestionGroupFillInBlanks = BaseQuestionGroup & {
+  questionType: EnumQuestionGroup.fillInBlanks;
+  questions: JSONContent | object;
 };
 
 type PartDetail = {

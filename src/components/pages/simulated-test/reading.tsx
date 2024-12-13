@@ -2,10 +2,12 @@ import { Editor } from "@tiptap/core";
 import Image from "@tiptap/extension-image";
 import StarterKit from "@tiptap/starter-kit";
 
+import QuestionGroup from "@/components/organisms/question-groups";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { EnumQuestionGroup } from "@/lib/enums";
 
-import { mockParagraph } from "./mock-paragraph";
+import { mockParagraph, mockQuestionGroups } from "./mock";
 
 const ReadingPage = () => {
   const editor = new Editor({
@@ -34,7 +36,22 @@ const ReadingPage = () => {
         </ScrollArea>
       </ResizablePanel>
       <ResizableHandle withHandle />
-      <ResizablePanel minSize={20}>Two</ResizablePanel>
+      <ResizablePanel minSize={20}>
+        <ScrollArea className="h-full px-8">
+          <div className="flex flex-col gap-6 py-4">
+            {mockQuestionGroups.map((questionGroup) => {
+              if (questionGroup.questionType == EnumQuestionGroup.fillInBlanks)
+                return (
+                  <QuestionGroup.FillInBlanks key={questionGroup.startOrder} {...questionGroup} />
+                );
+              else
+                return (
+                  <QuestionGroup.MultipleChoice key={questionGroup.startOrder} {...questionGroup} />
+                );
+            })}
+          </div>
+        </ScrollArea>
+      </ResizablePanel>
     </ResizablePanelGroup>
   );
 };
