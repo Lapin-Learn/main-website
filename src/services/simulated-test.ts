@@ -12,7 +12,7 @@ export const getSimulatedTestCollections = async (payload: CollectionParams) => 
   const searchParams = generateSearchParams(payload);
   return (
     await api
-      .get("simulated-test/collections", {
+      .get("collections", {
         searchParams,
       })
       .json<FetchingData<PagedData<SimulatedTestCollection>>>()
