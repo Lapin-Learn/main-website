@@ -51,17 +51,19 @@ export default function CollectionDetailPage() {
         </BreadcrumbList>
       </Breadcrumb>
       <div>
-        <div className="flex h-60 flex-row gap-5">
+        <div className="mb-2 flex h-40 flex-row gap-5 md:h-60">
           {collection?.thumbnail ? (
-            <img src={collection?.thumbnail} className="h-60 w-72 object-cover" />
+            <img src={collection?.thumbnail} className="h-40 w-60 object-cover md:h-60 md:w-72" />
           ) : (
-            <Skeleton className="h-60 w-72" />
+            <Skeleton className="h-40 w-60 md:h-60 md:w-72" />
           )}
           <div className="flex w-full flex-col gap-6 py-4">
             <div className="flex h-fit w-full flex-row items-start justify-between gap-8">
               <div className="flex flex-col gap-y-3">
-                <span className="mr-2 text-xl font-bold leading-8">{collection?.name}</span>
-                <span className="inline-flex items-center gap-2 align-text-bottom">
+                <span className="mr-2 text-lg font-bold md:text-xl md:leading-8">
+                  {collection?.name}
+                </span>
+                <span className="inline-flex flex-wrap items-center gap-2 align-text-bottom">
                   {collection?.tags.map((tag, index) => (
                     <span
                       key={index}

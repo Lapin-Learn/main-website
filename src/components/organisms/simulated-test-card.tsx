@@ -13,7 +13,7 @@ export default function SimulatedTestCard() {
   return (
     <div className="rounded-2xl border bg-white p-5">
       <p className="mb-4 truncate text-lg font-bold">IELTS Cambridge 19 - Test 1</p>
-      <div className="flex flex-row items-center gap-8">
+      <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-8">
         <div className="flex max-w-60 flex-col justify-between gap-4">
           <div className="flex flex-row gap-3">
             <div className="flex flex-col gap-2">
@@ -34,7 +34,7 @@ export default function SimulatedTestCard() {
             <ArrowRight size="16" />
           </Button>
         </div>
-        <div className="flex flex-1 flex-wrap gap-3 xl:flex-nowrap">
+        <div className="grid w-full flex-1 grid-cols-2 gap-3 lg:grid-cols-4">
           {Object.keys(EnumSkill)
             .filter((key) => key !== "allSkills")
             .map((skill) => (

@@ -26,7 +26,7 @@ export default function FilteredSkillCard({ onClick }: FilteredSkillCardProps) {
 
   return (
     <button
-      className="flex flex-row gap-4 rounded-2xl border bg-white p-3 md:p-5"
+      className="flex flex-row justify-between gap-4 rounded-2xl border bg-white p-3 md:p-5"
       onClick={() => {
         if (onClick) onClick(skill, test);
       }}

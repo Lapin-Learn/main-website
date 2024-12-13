@@ -75,7 +75,7 @@ const SelectModeDialog = () => {
     .superRefine((data, ctx) => {
       if (data.mode === EnumMode.PRACTICE && data.parts.length === 0) {
         ctx.addIssue({
-          message: t("exam-mode-config.time_limit.error"),
+          message: t("exam-mode-config.parts.error"),
           path: ["parts"],
           code: z.ZodIssueCode.custom,
         });
@@ -134,7 +134,7 @@ const SelectModeDialog = () => {
         setOpen(open);
       }}
     >
-      <DialogContent className="flex max-w-[720px] flex-col gap-4 rounded-2xl bg-white px-8 py-10">
+      <DialogContent className="flex max-w-screen-sm flex-col gap-4 rounded-2xl bg-white px-3 py-4 md:max-w-[720px] md:px-8 md:py-10">
         <DialogHeader className="flex flex-col gap-3">
           <DialogTitle className="text-heading-4 font-bold">
             {test?.testName} -{" "}
@@ -191,13 +191,18 @@ const SelectModeDialog = () => {
                 />
               </>
             )}
-            <DialogFooter className="mt-4 gap-1 sm:justify-start">
+            <DialogFooter className="mt-1 justify-start gap-1 md:mt-4">
               <DialogClose asChild>
-                <Button type="button" variant="outline" onClick={handleCancel}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full flex-1"
+                  onClick={handleCancel}
+                >
                   {t("exam-mode-config.buttons.cancel")}
                 </Button>
               </DialogClose>
-              <Button type="submit" className="w-fit">
+              <Button type="submit" className="w-full flex-1 sm:w-fit">
                 <div className="flex items-center gap-2">
                   <Zap fill="white" strokeWidth={0} className="size-4" />
                   {mode === "practice"
