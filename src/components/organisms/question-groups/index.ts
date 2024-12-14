@@ -1,9 +1,9 @@
-import fillInTheBlanksQuestionGroup from "./fill-in-the-blanks-question-group";
+import FillInTheBlanksQuestionGroup from "./fill-in-the-blanks-question-group";
 import MultipleChoiceQuestionGroup from "./multiple-choice-question-group";
 
 // TODO: Factory method here?
 const QuestionGroup = {
   MultipleChoice: MultipleChoiceQuestionGroup,
-  FillInBlanks: fillInTheBlanksQuestionGroup,
+  FillInBlanks: FillInTheBlanksQuestionGroup,
 };
 export default QuestionGroup;

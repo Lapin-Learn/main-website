@@ -45,6 +45,15 @@ export type QuestionGroupFillInBlanks = BaseQuestionGroup & {
   questions: JSONContent | object;
 };
 
+export type ReadingContent = {
+  // type: EnumSkill.reading;
+  part: number;
+  startQuestionNo: number;
+  endQuestionNo: number;
+  content: JSONContent;
+  questionGroups: QuestionGroup[];
+};
+
 type PartDetail = {
   questionTypes: string[];
 };

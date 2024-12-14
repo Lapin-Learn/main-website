@@ -1,9 +1,13 @@
 import { create } from "zustand";
 
+import mockReadingContent from "@/lib/mock/mock-reading-content";
+import { ReadingContent } from "@/lib/types/simulated-test.type";
+
 type State = {
   currentPart: number;
   currentQuestion: number;
   answerSheet: Record<string, string | null>;
+  testContent: ReadingContent | null;
 };
 
 type Action = {
@@ -16,14 +20,18 @@ type Action = {
 const initialState: State = {
   currentPart: 0,
   currentQuestion: 1,
-  answerSheet: {
-    "30": "a",
-  },
+  answerSheet: {},
+  testContent: null,
 };
 
 const useSimulatedTest = create<State & Action>((set) => ({
   ...initialState,
-  navigateToPart: (questionNo, partNo) => set({ currentPart: partNo, currentQuestion: questionNo }),
+  navigateToPart: (questionNo, partNo) =>
+    set({
+      currentPart: partNo,
+      currentQuestion: questionNo,
+      testContent: mockReadingContent.find((content) => content.part === partNo) || null,
+    }),
   setAnswer: (question, answer) =>
     set((state) => ({ answerSheet: { ...state.answerSheet, [question]: answer } })),
   clearAnswer: (question) =>
