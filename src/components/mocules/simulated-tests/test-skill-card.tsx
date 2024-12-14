@@ -5,8 +5,15 @@ import { EnumSkill } from "@/lib/enums";
 
 import { skillIconMap } from "./utils";
 
-export default function TestSkillCard({ skill }: { skill: string }) {
+export default function TestSkillCard({
+  skill,
+  isSupport,
+}: {
+  skill: EnumSkill;
+  isSupport: boolean;
+}) {
   const { t } = useTranslation("collection");
+
   return (
     <div
       key={skill}
@@ -15,8 +22,10 @@ export default function TestSkillCard({ skill }: { skill: string }) {
       <div className="flex flex-col items-start gap-2">
         <span className="text-base font-semibold capitalize">{skill}</span>
         <div className="flex flex-col items-start">
-          <div className="text-xs text-neutral-100">{t("correctAnswer")}:</div>
-          <div className="font-semibold">--/40</div>
+          <div className="text-start text-xs text-neutral-100">
+            {isSupport ? `${t("correctAnswer")}:` : `${t("comingSoon")}...`}
+          </div>
+          {isSupport && <div className="font-semibold">--/40</div>}
         </div>
       </div>
       <AnimatedCircularProgressBar value={0} icon={skillIconMap[skill as EnumSkill]} />

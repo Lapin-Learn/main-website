@@ -9,9 +9,11 @@ import { MAPPED_SIMULATED_TEST_TAGS } from "@/lib/consts";
 import { Route } from "@/routes/_authenticated/practice/$collectionId";
 
 import { LoadMore } from "../mocules/load-more";
-import FilteredSkillCard from "../mocules/simulated-test/filtered-skill-card";
+import {
+  FilteredSkillCard,
+  SkeletonFilteredSkillCard,
+} from "../mocules/simulated-tests/filtered-skill-card";
 import SelectModeDialog from "../organisms/select-mode-dialog";
-import useSelectModeDialog from "../organisms/select-mode-dialog/use-select-mode-dialog";
 import { SimulatedTestCard, SkeletonSimulatedTestCard } from "../organisms/simulated-test-card";
 import {
   Breadcrumb,
@@ -24,7 +26,7 @@ import {
 import { Skeleton } from "../ui/skeleton";
 
 export default function CollectionDetailPage() {
-  const location = useLocation();
+  const { search, pathname } = useLocation();
   const { collectionId } = Route.useParams();
   const { collection, isLoading } = useGetCollectionInfo(Number(collectionId));
   const {
@@ -33,7 +35,6 @@ export default function CollectionDetailPage() {
     loadMoreProps,
   } = useGetCollectionDetail(Number(collectionId));
   const { t } = useTranslation();
-  const { setData, setOpen } = useSelectModeDialog();
   const navigate = useNavigate();
 
   if (!isLoading && !collection) {
@@ -48,11 +49,11 @@ export default function CollectionDetailPage() {
             <BreadcrumbLink href="/practice">{t("navigation.practice")}</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
-          {location.searchStr ? (
+          {search.skill ? (
             <>
-              <BreadcrumbLink href={location.pathname}>{collection?.name}</BreadcrumbLink>
+              <BreadcrumbLink href={pathname}>{collection?.name}</BreadcrumbLink>
               <BreadcrumbSeparator />
-              <BreadcrumbPage className="capitalize">{location.search.skill}</BreadcrumbPage>
+              <BreadcrumbPage className="capitalize">{search.skill}</BreadcrumbPage>
             </>
           ) : (
             <BreadcrumbPage>{collection?.name}</BreadcrumbPage>
@@ -93,40 +94,52 @@ export default function CollectionDetailPage() {
         </div>
       </div>
       <SelectModeDialog />
-      {location.searchStr ? (
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
-          {[1, 2, 3, 4, 5, 6, 7].map(() => (
-            <FilteredSkillCard
-              onClick={(skill, test) => {
-                console.log(skill, test);
-                setData({ skill, test });
-                setOpen(true);
-              }}
-            />
-          ))}
-        </div>
-      ) : (
-        <>
-          {list && !gettingSimulatedTests ? (
-            list.length > 0 ? (
-              list.map((simulatedTest) => (
-                <SimulatedTestCard
-                  key={simulatedTest.id}
-                  {...simulatedTest}
-                  collectionId={collection?.id || 1}
-                />
-              ))
-            ) : (
-              <div className="grid h-96 place-items-center text-center text-xl text-neutral-500">
-                {t("search.noResults")}
-              </div>
-            )
+      {search.skill ? (
+        list && !gettingSimulatedTests ? (
+          list.length > 0 ? (
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+              {list.map((simulatedTest) => {
+                const { id: collectionId, ...rest } = simulatedTest;
+                const skillTest = simulatedTest.skillTests.find((st) => st.skill === search.skill);
+                return (
+                  <FilteredSkillCard
+                    test={{ collectionId, ...rest, id: skillTest ? skillTest.id : NaN }}
+                    skill={search.skill}
+                    isSupport={!!skillTest}
+                  />
+                );
+              })}
+            </div>
           ) : (
-            Array.from({ length: 2 }).map((_, id) => <SkeletonSimulatedTestCard key={id} />)
-          )}
-          {loadMoreProps.hasNextPage && <LoadMore {...loadMoreProps} />}
-        </>
+            <div className="grid h-96 place-items-center text-center text-xl text-neutral-500">
+              {t("search.noResults")}
+            </div>
+          )
+        ) : (
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+            {Array.from({ length: 3 }).map((_, id) => (
+              <SkeletonFilteredSkillCard key={id} />
+            ))}
+          </div>
+        )
+      ) : list && !gettingSimulatedTests ? (
+        list.length > 0 ? (
+          list.map((simulatedTest) => (
+            <SimulatedTestCard
+              key={simulatedTest.id}
+              {...simulatedTest}
+              collectionId={collection?.id || 1}
+            />
+          ))
+        ) : (
+          <div className="grid h-96 place-items-center text-center text-xl text-neutral-500">
+            {t("search.noResults")}
+          </div>
+        )
+      ) : (
+        Array.from({ length: 3 }).map((_, id) => <SkeletonSimulatedTestCard key={id} />)
       )}
+      {loadMoreProps.hasNextPage && <LoadMore {...loadMoreProps} />}
     </div>
   );
 }

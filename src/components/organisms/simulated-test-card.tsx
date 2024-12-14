@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { EnumSkill } from "@/lib/enums";
 import { SimulatedTest } from "@/lib/types/simulated-test.type";
 
-import TestSkillCard from "../mocules/simulated-test/test-skill-card";
+import TestSkillCard from "../mocules/simulated-tests/test-skill-card";
 import { Button, Separator } from "../ui";
 import useSelectModeDialog from "./select-mode-dialog/use-select-mode-dialog";
 
@@ -22,7 +22,7 @@ export function SimulatedTestCard({
   return (
     <div className="rounded-2xl border bg-white p-5">
       <p className="mb-4 truncate text-lg font-bold">{testName}</p>
-      <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-8">
+      <div className="flex flex-col gap-3 md:flex-row md:items-start md:gap-8 lg:items-center">
         <div className="flex min-w-36 flex-col justify-between gap-4">
           <div className="flex flex-row gap-3">
             <div className="flex flex-col gap-2">
@@ -43,34 +43,36 @@ export function SimulatedTestCard({
             <ArrowRight size="16" />
           </Button>
         </div>
-        {skillTests.length ? (
-          <div className="grid w-full flex-1 grid-cols-2 gap-3 lg:grid-cols-4">
-            {skillTests.map((skillTest) => (
-              <button
-                key={`${testName}-${skillTest.skill}`}
-                onClick={() => {
-                  setData({
-                    skill: skillTest.skill,
-                    test: {
-                      id,
-                      collectionId,
-                      order,
-                      testName,
-                    },
-                  });
-                  setOpen(true);
-                }}
-                className="w-full"
-              >
-                <TestSkillCard skill={skillTest.skill} />
-              </button>
-            ))}{" "}
-          </div>
-        ) : (
-          <div className="w-full place-items-center text-center text-xl text-neutral-500">
-            {t("search.noResults", { ns: "practice" })}
-          </div>
-        )}
+
+        <div className="grid w-full flex-1 grid-cols-2 gap-3 lg:grid-cols-4">
+          {Object.values(EnumSkill)
+            .filter((s) => s !== EnumSkill.allSkills)
+            .map((skill) => {
+              const skillTest = skillTests.find((st) => st.skill === skill);
+              return (
+                <button
+                  key={`${testName}-${skill}`}
+                  onClick={() => {
+                    if (skillTest) {
+                      setData({
+                        skill: skill,
+                        test: {
+                          id,
+                          collectionId,
+                          order,
+                          testName,
+                        },
+                      });
+                      setOpen(true);
+                    }
+                  }}
+                  className="w-full"
+                >
+                  <TestSkillCard skill={skill} isSupport={!!skillTest} />
+                </button>
+              );
+            })}{" "}
+        </div>
       </div>
     </div>
   );

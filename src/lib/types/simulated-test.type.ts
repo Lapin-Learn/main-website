@@ -21,7 +21,7 @@ type PartDetail = {
   questionTypes: string[];
 };
 
-type SkillTest = {
+export type SkillTest = {
   id: number;
   skill: EnumSkill;
   partsDetail: PartDetail[];
