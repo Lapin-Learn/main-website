@@ -59,8 +59,8 @@ export const CollectionList = () => {
   return (
     <div className="container flex flex-col items-center gap-2 md:gap-8">
       <SkillsFilter />
-      <div className="flex w-full flex-col items-center justify-between md:flex-row">
-        <h2 className="mt-4 text-heading-5 font-semibold md:mt-0 md:text-heading-3">
+      <div className="flex w-full flex-col items-center justify-between gap-4 lg:flex-row">
+        <h2 className="mt-4 text-heading-4 font-semibold md:mt-0 md:text-heading-3">
           {t("collection-list.title")}
         </h2>
         <Form {...form}>
@@ -69,7 +69,7 @@ export const CollectionList = () => {
               control={form.control}
               name="search"
               render={({ field }) => (
-                <FormItem className="w-full md:w-auto">
+                <FormItem className="w-full lg:w-auto">
                   <FormControl>
                     <Input
                       placeholder={t("search.placeholder")}
@@ -100,7 +100,7 @@ export const CollectionList = () => {
         {list && !isLoading ? (
           list.length > 0 ? (
             list.map((collection) => (
-              <Link to={`/practice/${collection.id}`} search={location.search}>
+              <Link to={`/practice/${collection.id}`} search={location.search} key={collection.id}>
                 <CollectionCard key={collection.id} {...collection} />
               </Link>
             ))

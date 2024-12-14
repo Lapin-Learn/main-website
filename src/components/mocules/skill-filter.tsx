@@ -34,9 +34,12 @@ const SkillsFilter = () => {
   return (
     <div className="flex flex-wrap justify-center gap-4">
       {skillsList.map(({ label, IconOutlined, IconFilled }) => (
-        <Link to="/practice" search={{ skill: label !== EnumSkill.allSkills ? label : undefined }}>
+        <Link
+          key={label}
+          to="/practice"
+          search={{ skill: label !== EnumSkill.allSkills ? label : undefined }}
+        >
           <Button
-            key={label}
             variant="ghost"
             size="lg"
             className={cn(
