@@ -66,9 +66,7 @@ export const CollectionList = () => {
         <Form {...form}>
           <form
             className="flex w-full flex-1 items-center justify-end gap-2"
-            onSubmit={form.handleSubmit(() => {
-              console.log("submit");
-            })}
+            onSubmit={(e) => e.preventDefault()}
           >
             <FormField
               control={form.control}

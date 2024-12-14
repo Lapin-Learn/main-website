@@ -66,11 +66,12 @@ export const generateKeyword = (
         return value.toString();
       }
       if (typeof value === "object") {
-        return Object.values(value).join("");
+        return Object.values(value).join(" ");
       }
       return value;
     })
-    .join("");
+    .join(" ")
+    .trim();
 };
 
 export const searchSchema = z.object({
