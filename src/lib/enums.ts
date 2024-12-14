@@ -61,3 +61,11 @@ export enum EnumTestRecordStatus {
   Completed = "Completed",
   NotStarted = "Not Started",
 }
+
+export enum EnumQuestionGroup {
+  multipleChoice = "multiple_choice",
+  TFNG = "TFNG",
+  matchingHeadings = "matching_headings",
+  matchingInformation = "matching_informations",
+  fillInBlanks = "fill_in_blanks",
+}

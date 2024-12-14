@@ -1,18 +1,23 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { create } from "zustand";
 
 import { fromPageToOffset, parseInfiniteData } from "@/lib/utils";
 import {
   CollectionParams,
+  getSimulatedTestBySkill,
   getSimulatedTestCollectionDetail,
   getSimulatedTestCollections,
+  SimulatedSkillTestParams,
 } from "@/services/simulated-test";
 
 const simulatedTestKeys = {
   collectionKey: ["collection"] as const,
   collectionList: (params: Partial<CollectionParams>) =>
     [...simulatedTestKeys.collectionKey, params] as const,
+  skillTestKey: ["skill-test"] as const,
+  skillTestDetail: (params: SimulatedSkillTestParams) =>
+    [...simulatedTestKeys.skillTestKey, params] as const,
 };
 
 type State = {
@@ -61,6 +66,18 @@ export const useGetListSimulatedTestCollection = () => {
 export const useGetCollectionInfo = (collectionId: number) => {
   const { list, isLoading } = useGetListSimulatedTestCollection();
   return { isLoading, collection: list.find((item) => item.id === collectionId) };
+};
+
+export const useGetSkillTestData = (skillTestId: number, partNo: number) => {
+  return useQuery({
+    queryKey: simulatedTestKeys.skillTestDetail({ skillTestId, partNo }),
+    queryFn: () => {
+      if (partNo == 0) throw new Error("Test doesn't have part 0");
+      if (skillTestId) {
+        return getSimulatedTestBySkill({ skillTestId, partNo });
+      }
+    },
+  });
 };
 
 export const useGetCollectionDetail = (collectionId: number) => {
