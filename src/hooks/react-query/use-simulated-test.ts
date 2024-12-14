@@ -3,7 +3,11 @@ import { useMemo } from "react";
 import { create } from "zustand";
 
 import { fromPageToOffset, parseInfiniteData } from "@/lib/utils";
-import { CollectionParams, getSimulatedTestCollections } from "@/services/simulated-test";
+import {
+  CollectionParams,
+  getSimulatedTestCollectionDetail,
+  getSimulatedTestCollections,
+} from "@/services/simulated-test";
 
 const simulatedTestKeys = {
   collectionKey: ["collection"] as const,
@@ -54,7 +58,35 @@ export const useGetListSimulatedTestCollection = () => {
   };
 };
 
-export const useGetCollectionDetail = (collectionId: number) => {
+export const useGetCollectionInfo = (collectionId: number) => {
   const { list, isLoading } = useGetListSimulatedTestCollection();
   return { isLoading, collection: list.find((item) => item.id === collectionId) };
+};
+
+export const useGetCollectionDetail = (collectionId: number) => {
+  const { fetchNextPage, isFetchingNextPage, hasNextPage, data, refetch, isLoading, isRefetching } =
+    useInfiniteQuery({
+      queryKey: ["collection", collectionId],
+      queryFn: ({ pageParam }) => {
+        const page = pageParam || 1;
+        const { offset, limit } = fromPageToOffset({ page });
+        return getSimulatedTestCollectionDetail(collectionId, { page: offset, pageSize: limit });
+      },
+      getNextPageParam: (lastPage) => {
+        const { total, offset, limit, page } = lastPage;
+        return page * limit + offset <= total ? page + 1 : undefined;
+      },
+      initialPageParam: 0,
+    });
+  return {
+    list: useMemo(() => parseInfiniteData(data), [data]),
+    isLoading,
+    isRefetching,
+    refetch,
+    loadMoreProps: {
+      fetchNextPage,
+      isFetchingNextPage,
+      hasNextPage,
+    },
+  };
 };

@@ -9,7 +9,7 @@ const WritingIcon = (props: SVGProps<SVGSVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g clip-path="url(#clip0_217_16997)">
+    <g clipPath="url(#clip0_217_16997)">
       <path
         d="M0.683667 11.1525C0.246052 11.59 0.000132154 12.1834 0 12.8022L0 13.9998H1.19758C1.81637 13.9997 2.40977 13.7537 2.84725 13.3161L10.6307 5.53272L8.46708 3.36914L0.683667 11.1525Z"
         fill="#A9421C"

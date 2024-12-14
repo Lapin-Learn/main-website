@@ -9,7 +9,7 @@ const AllSkillsIcon = (props: SVGProps<SVGSVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g clip-path="url(#clip0_217_16994)">
+    <g clipPath="url(#clip0_217_16994)">
       <path
         d="M4.08333 0H2.33333C1.04467 0 0 1.04467 0 2.33333V4.08333C0 5.372 1.04467 6.41667 2.33333 6.41667H4.08333C5.372 6.41667 6.41667 5.372 6.41667 4.08333V2.33333C6.41667 1.04467 5.372 0 4.08333 0Z"
         fill="#A9421C"
