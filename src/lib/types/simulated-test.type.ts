@@ -21,7 +21,10 @@ export type SimulatedTestSimple = {
   testName: string;
 };
 
-export type QuestionGroup = QuestionGroupMultipleChoice | QuestionGroupFillInBlanks;
+export type QuestionGroup =
+  | QuestionGroupMultipleChoice
+  | QuestionGroupFillInBlanks
+  | QuestionGroupMatchingHeadings;
 
 type BaseQuestionGroup = {
   part: number;
@@ -35,7 +38,7 @@ export type QuestionGroupMultipleChoice = BaseQuestionGroup & {
 };
 
 type MultipleChoiceQuestion = {
-  questionNo: number;
+  questionNo: number[];
   question: string;
   options: string[];
 };
@@ -43,6 +46,17 @@ type MultipleChoiceQuestion = {
 export type QuestionGroupFillInBlanks = BaseQuestionGroup & {
   questionType: EnumQuestionGroup.fillInBlanks;
   questions: JSONContent | object;
+};
+
+type MatchingHeadingsQuestion = {
+  questionNo: number;
+  question: string;
+  options: string[];
+};
+
+export type QuestionGroupMatchingHeadings = BaseQuestionGroup & {
+  questionType: EnumQuestionGroup.matchingHeadings;
+  questions: MatchingHeadingsQuestion[];
 };
 
 export type ReadingContent = {

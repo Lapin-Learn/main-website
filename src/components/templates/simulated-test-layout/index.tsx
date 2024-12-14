@@ -14,6 +14,7 @@ import Header from "./header";
 const SimulatedTestLayout = () => {
   const { t } = useTranslation("simulatedTest");
   const { navigateToPart, currentPart, resetTest } = useSimulatedTest();
+  // TODO: calling api to get the detail of the session before render the outlet
 
   useEffect(() => {
     navigateToPart(1, 1);
@@ -24,7 +25,7 @@ const SimulatedTestLayout = () => {
     <div className="flex h-screen w-screen flex-col justify-between">
       <Header currentPart={currentPart} />
       <Outlet />
-      <div className="flex min-h-24 flex-1 flex-row items-center justify-between gap-12 border-t bg-white px-8">
+      <div className="flex flex-1 flex-col items-center justify-between gap-2 border-t bg-white px-4 py-2 sm:min-h-24 sm:flex-row sm:px-8 sm:py-0 lg:gap-12">
         <div className="flex h-fit w-full flex-1 flex-wrap items-center gap-1">
           {mockQuestionGroups.map((group) => (
             <React.Fragment key={group.part}>
@@ -38,14 +39,34 @@ const SimulatedTestLayout = () => {
             </React.Fragment>
           ))}
         </div>
-        <div className="flex flex-row gap-4">
-          <Button variant="outline">
-            <ArrowLeft size={20} className="mr-2" />
-            {t("prevBtn")}
+        <div className="flex flex-row gap-2 xl:gap-4">
+          <Button
+            variant="outline"
+            disabled={currentPart == mockQuestionGroups[0].part}
+            onClick={() => {
+              if (currentPart == mockQuestionGroups[0].part) return;
+              navigateToPart(
+                mockQuestionGroups.find((g) => g.part == currentPart - 1)?.startQuestionNo ?? 1,
+                currentPart - 1
+              );
+            }}
+          >
+            <ArrowLeft size={20} className="lg:mr-2" />
+            <span className="hidden lg:block">{t("prevBtn")}</span>
           </Button>
-          <Button variant="outline">
-            {t("nextBtn")}
-            <ArrowRight size={20} className="ml-2" />
+          <Button
+            variant="outline"
+            disabled={currentPart == mockQuestionGroups[mockQuestionGroups.length - 1].part}
+            onClick={() => {
+              if (currentPart == mockQuestionGroups[mockQuestionGroups.length - 1].part) return;
+              navigateToPart(
+                mockQuestionGroups.find((g) => g.part == currentPart + 1)?.startQuestionNo ?? 1,
+                currentPart + 1
+              );
+            }}
+          >
+            <span className="hidden lg:block">{t("nextBtn")}</span>
+            <ArrowRight size={20} className="lg:ml-2" />
           </Button>
           <SubmitDialog triggerButton={<Button>{t("submitBtn")}</Button>} />
         </div>

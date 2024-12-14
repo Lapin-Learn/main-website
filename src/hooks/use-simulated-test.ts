@@ -3,7 +3,10 @@ import { create } from "zustand";
 import mockReadingContent from "@/lib/mock/mock-reading-content";
 import { ReadingContent } from "@/lib/types/simulated-test.type";
 
+import { useGetSkillTestData } from "./react-query/use-simulated-test";
+
 type State = {
+  skillId: number;
   currentPart: number;
   currentQuestion: number;
   answerSheet: Record<string, string | null>;
@@ -18,13 +21,14 @@ type Action = {
 };
 
 const initialState: State = {
+  skillId: 4,
   currentPart: 0,
   currentQuestion: 1,
   answerSheet: {},
   testContent: null,
 };
 
-const useSimulatedTest = create<State & Action>((set) => ({
+const useSimulatedTestState = create<State & Action>((set) => ({
   ...initialState,
   navigateToPart: (questionNo, partNo) =>
     set({
@@ -39,4 +43,18 @@ const useSimulatedTest = create<State & Action>((set) => ({
   resetTest: () => set({ ...initialState }),
 }));
 
+const useSimulatedTest = () => {
+  const { testContent, ...props } = useSimulatedTestState();
+  const {
+    data: testContent2,
+    isLoading,
+    isSuccess,
+  } = useGetSkillTestData(props.skillId, props.currentPart);
+  return {
+    ...props,
+    testContent: testContent2 ?? null,
+    isLoading,
+    isSuccess,
+  };
+};
 export default useSimulatedTest;

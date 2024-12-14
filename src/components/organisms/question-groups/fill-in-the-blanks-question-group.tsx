@@ -12,6 +12,11 @@ const extensions = [
         class: "list-disc pl-4",
       },
     },
+    orderedList: {
+      HTMLAttributes: {
+        class: "list-[upper-alpha] [&_li]:my-1 pl-8",
+      },
+    },
     listItem: {
       HTMLAttributes: {
         class: "mb-2",

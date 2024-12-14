@@ -10,6 +10,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import useSimulatedTest from "@/hooks/use-simulated-test";
 
 type StartDialogProps = {
   onClose: () => void;
@@ -18,6 +19,7 @@ const StartDialog = ({ onClose }: StartDialogProps) => {
   const { t } = useTranslation("simulatedTest", {
     keyPrefix: "startDialog",
   });
+  const { isSuccess } = useSimulatedTest();
   return (
     <AlertDialog defaultOpen>
       <AlertDialogContent className="max-w-sm">
@@ -39,7 +41,7 @@ const StartDialog = ({ onClose }: StartDialogProps) => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogAction asChild className="w-full" onClick={onClose}>
-            <Button size="xl" className="w-full">
+            <Button size="xl" className="w-full" disabled={!isSuccess}>
               {t("startBtn")}
             </Button>
           </AlertDialogAction>

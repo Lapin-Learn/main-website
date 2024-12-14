@@ -1,6 +1,5 @@
 import { mergeAttributes, Node } from "@tiptap/core";
-import { ReactNodeViewRenderer } from "@tiptap/react";
-import { Attribute, NodeViewWrapper } from "@tiptap/react";
+import { Attribute, NodeViewWrapper, ReactNodeViewRenderer } from "@tiptap/react";
 
 import { Input } from "@/components/ui";
 
