@@ -49,6 +49,12 @@ export const CollectionList = () => {
   const { setFilter, clearFilter } = useFilter();
 
   useEffect(() => {
+    if (location.search && form.getValues("search") === "") {
+      form.setValue("search", location.search.search);
+    }
+  }, [location.search]);
+
+  useEffect(() => {
     setFilter({ keyword: generateKeyword({ tag, searchText: searchText || "" }) });
   }, [searchText, tag]);
 
