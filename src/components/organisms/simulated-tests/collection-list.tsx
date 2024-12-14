@@ -64,7 +64,12 @@ export const CollectionList = () => {
           {t("collection-list.title")}
         </h2>
         <Form {...form}>
-          <form className="flex w-full flex-1 items-center justify-end gap-2">
+          <form
+            className="flex w-full flex-1 items-center justify-end gap-2"
+            onSubmit={form.handleSubmit(() => {
+              console.log("submit");
+            })}
+          >
             <FormField
               control={form.control}
               name="search"

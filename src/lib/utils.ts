@@ -78,3 +78,10 @@ export const searchSchema = z.object({
 });
 
 export const isDevEnv = () => process.env.NODE_ENV === "development";
+
+export const scrollToElementById = (id: string) => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+};

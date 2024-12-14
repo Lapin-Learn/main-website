@@ -196,7 +196,7 @@ const SelectModeDialog = () => {
                 <Button
                   type="button"
                   variant="outline"
-                  className="w-full flex-1"
+                  className="w-full flex-1 sm:w-fit"
                   onClick={handleCancel}
                 >
                   {t("exam-mode-config.buttons.cancel")}

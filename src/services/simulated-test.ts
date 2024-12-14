@@ -1,5 +1,9 @@
 import { FetchingData, PagedData, PagingSchema } from "@/lib/types";
-import { SimulatedTest, SimulatedTestCollection } from "@/lib/types/simulated-test.type";
+import {
+  ReadingContent,
+  SimulatedTest,
+  SimulatedTestCollection,
+} from "@/lib/types/simulated-test.type";
 import { generateSearchParams } from "@/lib/utils";
 
 import api from "./kyInstance";
@@ -16,6 +20,24 @@ export const getSimulatedTestCollections = async (payload: CollectionParams) => 
         searchParams,
       })
       .json<FetchingData<PagedData<SimulatedTestCollection>>>()
+  ).data;
+};
+
+export type SimulatedSkillTestParams = {
+  skillTestId: number;
+  partNo: number;
+};
+export const getSimulatedTestBySkill = async ({
+  skillTestId,
+  partNo,
+}: SimulatedSkillTestParams) => {
+  const searchParams = generateSearchParams({ part: partNo });
+  return (
+    await api
+      .get(`skill-tests/${skillTestId}`, {
+        searchParams,
+      })
+      .json<FetchingData<ReadingContent>>()
   ).data;
 };
 

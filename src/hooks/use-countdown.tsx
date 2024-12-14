@@ -65,7 +65,15 @@ function useCountdown(initialTime: number) {
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  return { time: formatTime(timeLeft), restart, stop, pause, resume, timeLeft };
+  return {
+    time: formatTime(timeLeft),
+    restart,
+    stop,
+    pause,
+    resume,
+    timeLeft,
+    isEnd: timeLeft === 0,
+  };
 }
 
 export default useCountdown;

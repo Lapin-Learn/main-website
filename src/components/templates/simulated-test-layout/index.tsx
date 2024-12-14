@@ -1,77 +1,74 @@
 import { Outlet } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, ChevronLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui";
-import useCountdown from "@/hooks/use-countdown";
+import useSimulatedTest from "@/hooks/use-simulated-test";
+import mockQuestionGroups from "@/lib/mock/mock-reading-content";
 
 import QuestionNavigator from "../../mocules/question-navigator";
-import ExitDialog from "../../organisms/simulated-test-dialog/exit-dialog";
-import StartDialog from "../../organisms/simulated-test-dialog/start-dialog";
 import SubmitDialog from "../../organisms/simulated-test-dialog/submit-dialog";
-import { mockQuestionGroups } from "./mock";
+import Header from "./header";
 
 const SimulatedTestLayout = () => {
-  const { time, resume, timeLeft } = useCountdown(60 * 40); // 40 minutes
   const { t } = useTranslation("simulatedTest");
+  const { navigateToPart, currentPart, resetTest } = useSimulatedTest();
+  // TODO: calling api to get the detail of the session before render the outlet
+
   useEffect(() => {
-    if (timeLeft === 0) {
-      // TODO: submit the test
-    }
-  }, [timeLeft]);
+    navigateToPart(1, 1);
+    return () => resetTest();
+  }, []);
 
   return (
     <div className="flex h-screen w-screen flex-col justify-between">
-      <StartDialog onClose={() => resume()} />
-      <div className="grid h-20 w-full place-items-center border-b bg-white px-8 shadow-sm">
-        <div className="flex flex-col items-center">
-          <h6 className="text-lg font-bold uppercase">Reading passage 1</h6>
-          <div className="text-supporting-text text-sm font-bold">Road to IELTS - test 1</div>
-        </div>
-        <ExitDialog
-          triggerButton={
-            <Button className="absolute left-8" variant="ghost">
-              <ChevronLeft size={20} />
-              {t("exitDialog.exitBtn")}
-            </Button>
-          }
-        />
-
-        <div className="absolute right-8 w-24 rounded-md bg-secondary p-2 text-center text-lg font-bold text-secondary-foreground">
-          {time}
-        </div>
-      </div>
+      <Header currentPart={currentPart} />
       <Outlet />
-      <div className="flex min-h-24 flex-1 flex-row items-center justify-between gap-12 border-t bg-white px-8">
+      <div className="flex flex-1 flex-col items-center justify-between gap-2 border-t bg-white px-4 py-2 sm:min-h-24 sm:flex-row sm:px-8 sm:py-0 lg:gap-12">
         <div className="flex h-fit w-full flex-1 flex-wrap items-center gap-1">
           {mockQuestionGroups.map((group) => (
-            <React.Fragment key={group.partNo}>
-              <p className="w-[60px] text-center text-xs font-medium">Part {group.partNo}</p>
-              {Array.from({ length: group.numberOfQuestions }).map((_, i) => (
-                <QuestionNavigator
-                  key={i + group.partNo}
-                  number={i + group.partNo + 1}
-                  part={group.partNo}
-                  status="unanswered"
-                />
+            <React.Fragment key={group.part}>
+              <p className="w-[60px] text-center text-xs font-medium">Part {group.part}</p>
+              {Array.from(
+                { length: group.endQuestionNo - group.startQuestionNo + 1 },
+                (_, i) => i + group.startQuestionNo
+              ).map((number) => (
+                <QuestionNavigator key={number} number={number} partNo={group.part} />
               ))}
             </React.Fragment>
           ))}
         </div>
-        <div className="flex flex-row gap-4">
-          <Button variant="outline">
-            <ArrowLeft size={20} className="mr-2" />
-            {t("prevBtn")}
+        <div className="flex flex-row gap-2 xl:gap-4">
+          <Button
+            variant="outline"
+            disabled={currentPart == mockQuestionGroups[0].part}
+            onClick={() => {
+              if (currentPart == mockQuestionGroups[0].part) return;
+              navigateToPart(
+                mockQuestionGroups.find((g) => g.part == currentPart - 1)?.startQuestionNo ?? 1,
+                currentPart - 1
+              );
+            }}
+          >
+            <ArrowLeft size={20} className="lg:mr-2" />
+            <span className="hidden lg:block">{t("prevBtn")}</span>
           </Button>
-          <Button variant="outline">
-            {t("nextBtn")}
-            <ArrowRight size={20} className="ml-2" />
+          <Button
+            variant="outline"
+            disabled={currentPart == mockQuestionGroups[mockQuestionGroups.length - 1].part}
+            onClick={() => {
+              if (currentPart == mockQuestionGroups[mockQuestionGroups.length - 1].part) return;
+              navigateToPart(
+                mockQuestionGroups.find((g) => g.part == currentPart + 1)?.startQuestionNo ?? 1,
+                currentPart + 1
+              );
+            }}
+          >
+            <span className="hidden lg:block">{t("nextBtn")}</span>
+            <ArrowRight size={20} className="lg:ml-2" />
           </Button>
-          <SubmitDialog
-            triggerButton={<Button>{t("submitBtn")}</Button>}
-            time={<strong>{time}</strong>}
-          />
+          <SubmitDialog triggerButton={<Button>{t("submitBtn")}</Button>} />
         </div>
       </div>
     </div>
