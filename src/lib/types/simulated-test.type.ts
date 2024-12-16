@@ -1,7 +1,6 @@
 import { JSONContent } from "@tiptap/core";
 
 import { EnumQuestionGroup } from "../enums";
-
 import { EnumSkill } from "../enums";
 
 export type SimulatedTestCollection = {
