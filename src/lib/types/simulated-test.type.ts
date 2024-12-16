@@ -1,6 +1,6 @@
 import { JSONContent } from "@tiptap/core";
 
-import { EnumQuestionGroup } from "../enums";
+import { EnumMode, EnumQuestionGroup, EnumSimulatedTestSessionStatus } from "../enums";
 import { EnumSkill } from "../enums";
 
 export type SimulatedTestCollection = {
@@ -79,4 +79,18 @@ export type SkillTest = {
 
 export type SimulatedTest = Omit<SimulatedTestSimple, "collectionId"> & {
   skillTests: SkillTest[];
+};
+
+export type SimulatedTestSession = {
+  elapsedTime: number;
+  estimatedBandScore: number | null;
+  id: number;
+  learnerProfileId: string;
+  mode: EnumMode;
+  parts: number[];
+  responses: object;
+  results: object;
+  skillTestId: number;
+  status: EnumSimulatedTestSessionStatus;
+  timeLimit: number;
 };

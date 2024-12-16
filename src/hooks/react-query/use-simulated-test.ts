@@ -1,4 +1,5 @@
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { create } from "zustand";
 
@@ -9,7 +10,10 @@ import {
   getSimulatedTestCollectionDetail,
   getSimulatedTestCollections,
   SimulatedSkillTestParams,
+  startSimulatedTest,
 } from "@/services/simulated-test";
+
+import { useToast } from "../use-toast";
 
 const simulatedTestKeys = {
   collectionKey: ["collection"] as const,
@@ -108,4 +112,24 @@ export const useGetCollectionDetail = (collectionId: number) => {
       hasNextPage,
     },
   };
+};
+
+export const useStartSimulatedTest = () => {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  return useMutation({
+    mutationFn: startSimulatedTest,
+    onSuccess: (response) => {
+      if (response) {
+        navigate({ to: "/simulated-test", search: { testId: response.id } });
+      }
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
 };
