@@ -121,7 +121,7 @@ export const useStartSimulatedTest = () => {
     mutationFn: startSimulatedTest,
     onSuccess: (response) => {
       if (response) {
-        navigate({ to: "/simulated-test/$sessionId", params: { sessionId: response.id } });
+        navigate({ to: "/simulated-test", search: { testId: response.id } });
       }
     },
     onError: (error) => {
