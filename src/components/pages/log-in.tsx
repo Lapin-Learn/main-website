@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import * as z from "zod";
 
-import GoogleLogo from "@/assets/GoogleLogo";
+import GoogleLogo from "@/assets/icons/GoogleLogo";
 import { Input } from "@/components/ui/input";
 import { useSignIn, useSignInWithGoogle } from "@/hooks/react-query/useAuth";
 
@@ -110,7 +110,7 @@ export default function LogInPage() {
               </Button>
               <div className="flex w-full flex-row items-center gap-3">
                 <Separator orientation="horizontal" className="flex-1" />
-                <p className='text-sm'>{t("or")}</p>
+                <p className="text-sm">{t("or")}</p>
                 <Separator orientation="horizontal" className="flex-1" />
               </div>
               <Button

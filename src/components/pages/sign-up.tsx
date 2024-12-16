@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import * as z from "zod";
 
-import GoogleLogo from "@/assets/GoogleLogo";
+import GoogleLogo from "@/assets/icons/GoogleLogo";
 import { Input } from "@/components/ui/input";
 import { useSignUp, useSignUpWithGoogle } from "@/hooks/react-query/useAuth";
 
