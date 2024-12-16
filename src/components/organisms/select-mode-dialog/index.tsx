@@ -80,14 +80,6 @@ const SelectModeDialog = () => {
 
   type FormInputs = z.infer<typeof practiceSchema>;
 
-  const skillTestIdMapping: Record<EnumSkill, number> = {
-    listening: 1,
-    speaking: 2,
-    writing: 3,
-    reading: 4,
-    allSkills: 5,
-  };
-
   const formDefaultValues: FormInputs = {
     mode: EnumMode.FULL_TEST,
     timeLimit: "no_limit",
@@ -126,7 +118,7 @@ const SelectModeDialog = () => {
 
   const onSubmit = (data: FormInputs) => {
     startSimulatedTest.mutate({
-      skillTestId: skillTestIdMapping[skill],
+      skillTestId: test?.id ?? 0,
       timeLimit: data.timeLimit === "no_limit" ? 0 : parseInt(data.timeLimit, 10),
       mode: data.mode,
       parts: data.parts.map((part) => (typeof part === "string" ? parseInt(part, 10) : part)),
