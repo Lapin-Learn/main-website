@@ -1,3 +1,4 @@
+import { EnumMode } from "@/lib/enums";
 import { FetchingData, PagedData, PagingSchema } from "@/lib/types";
 import {
   ReadingContent,
@@ -53,4 +54,17 @@ export const getSimulatedTestCollectionDetail = async (
       })
       .json<FetchingData<PagedData<SimulatedTest>>>()
   ).data;
+};
+
+export type SimulatedTestSessionProps = {
+  skillTestId: number;
+  timeLimit: number;
+  mode: EnumMode;
+  parts: number[];
+};
+
+export const startSimulatedTest = async (sessionData: SimulatedTestSessionProps) => {
+  return await api.post("simulated-tests/session", {
+    json: sessionData,
+  });
 };

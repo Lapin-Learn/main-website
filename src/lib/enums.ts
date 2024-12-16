@@ -69,3 +69,8 @@ export enum EnumQuestionGroup {
   matchingInformation = "matching_informations",
   fillInBlanks = "fill_in_blanks",
 }
+
+export enum EnumMode {
+  PRACTICE = "practice",
+  FULL_TEST = "full_test",
+}
