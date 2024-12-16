@@ -18,5 +18,57 @@
     },
     "nextBtn": "Next",
     "prevBtn": "Previous",
-    "submitBtn": "Submit"
+    "submitBtn": "Submit",
+    "tour": {
+        "skipBtn": "Skip",
+        "beforeStart": {
+            "title": "Before you start",
+            "welcome": "Welcome to the LapinLearn test mode!",
+            "steps": [
+                "This guide will help you understand the main features of the application.",
+                "The timer will not start until you complete this guide.",
+                "You can skip the guide or review it at any time in the settings."
+            ],
+            "startBtn": "Start tour"
+        },
+        "end": {
+            "title": "End",
+            "congratulations": "You have completed the guide!",
+            "steps": [
+                "You can now start the test or review this guide at any time.",
+                "Good luck with your practice and achieving your desired score!"
+            ],
+            "lastBtn": "Start the test"
+        },
+        "elements": {
+            "timer": {
+                "title": "Timer",
+                "description": "The timer is displayed at the top right corner of the screen, indicating the remaining time for the current section."
+            },
+            "content": {
+                "title": "Reading Section",
+                "description": "This is the reading section. Scroll down to read the entire content of the passage. The passages are divided into smaller sections for easier navigation."
+            },
+            "answerSheet": {
+                "title": "Answer Sheet",
+                "description": "Select the correct answer (if it's a multiple-choice question) or fill in the blank (if it's an essay question)."
+            },
+            "questionNavigator": {
+                "title": "Question Navigator",
+                "description": "At the bottom of the screen, you will see the question navigation bar. Click on a number to jump to the corresponding question. The current question will be highlighted, and unanswered questions will be marked."
+            },
+            "backAndNext": {
+                "title": "Back and Next Buttons",
+                "description": "Use the Back button to return to the previous question. Use the Next button to move to the next question."
+            },
+            "submit": {
+                "title": "Submit Button",
+                "description": "When you have completed all the questions, click the Submit button to finish the test. If time runs out, your test will be automatically submitted."
+            },
+            "quit": {
+                "title": "Quit Button",
+                "description": "Click the Quit button to leave the test at any time. Your progress may not be saved if you quit without submitting."
+            }
+        }
+    }
 }

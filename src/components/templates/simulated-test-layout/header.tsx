@@ -33,14 +33,14 @@ export default function Header({ currentPart }: HeaderProps) {
         </div>
         <ExitDialog
           triggerButton={
-            <Button className="absolute left-4 sm:left-8" variant="ghost">
+            <Button className="quit absolute left-4 sm:left-8" variant="ghost">
               <ChevronLeft size={20} />
               {t("exitDialog.exitBtn")}
             </Button>
           }
         />
 
-        <div className="absolute right-4 w-20 rounded-md bg-secondary p-1 text-center text-base font-bold text-secondary-foreground sm:right-8 sm:text-lg md:w-24 md:p-2">
+        <div className="timer absolute right-4 w-20 rounded-md bg-secondary p-1 text-center text-base font-bold text-secondary-foreground sm:right-8 sm:text-lg md:w-24 md:p-2">
           {time}
         </div>
       </div>

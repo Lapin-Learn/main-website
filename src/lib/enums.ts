@@ -80,3 +80,13 @@ export enum EnumSimulatedTestSessionStatus {
   COMPLETED = "completed",
   NOT_STARTED = "not_started",
 }
+
+export enum EnumTourElement {
+  TIMER = "timer",
+  CONTENT = "content",
+  ANSWER_SHEET = "answer-sheet",
+  QUESTION_NAVIGATOR = "question-navigator",
+  BACK_AND_NEXT = "back-and-next",
+  SUBMIT = "submit",
+  QUIT = "quit",
+}
