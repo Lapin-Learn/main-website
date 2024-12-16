@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 .env
 stack.env
+
+*storybook.log
