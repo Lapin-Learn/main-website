@@ -13,13 +13,16 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 
 type SubmitDialogProps = {
   triggerButton: React.ReactNode;
 };
 const SubmitDialog = ({ triggerButton }: SubmitDialogProps) => {
   const navigate = useNavigate();
+  const { answerSheet } = useAnswerStore();
   const onClose = () => {
+    console.log("Answer sheet", answerSheet);
     navigate({ to: "/practice" });
   };
   const { t } = useTranslation("simulatedTest", {

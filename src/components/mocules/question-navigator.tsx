@@ -1,6 +1,6 @@
 import { cva } from "class-variance-authority";
 
-import useSimulatedTest from "@/hooks/use-simulated-test";
+import useSimulatedTestStore, { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { cn, scrollToElementById } from "@/lib/utils";
 
 const questionNavigatorVariants = cva(
@@ -22,12 +22,14 @@ type QuestionNavigatorProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const QuestionNavigator = ({ number, className, partNo, ...props }: QuestionNavigatorProps) => {
-  const { navigateToPart, currentQuestion, answerSheet } = useSimulatedTest();
+  const { navigateToPart } = useSimulatedTestStore();
+  const { answerSheet, currentQuestion, setCurrentQuestion } = useAnswerStore();
   return (
     <button
       onClick={() => {
         navigateToPart(number, partNo);
         scrollToElementById(`Question-${number}`);
+        setCurrentQuestion(number);
       }}
       className={cn(
         questionNavigatorVariants({

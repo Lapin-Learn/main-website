@@ -15,7 +15,7 @@ import Header from "./header";
 const SimulatedTestLayout = () => {
   const { t } = useTranslation("simulatedTest");
   const { testId, sessionId, skillTestId } = Route.useSearch();
-  const { navigateToPart, currentPart, resetTest } = useSimulatedTestState();
+  const { navigateToPart, position, resetTest } = useSimulatedTestState();
   const navigate = useNavigate();
   // TODO: calling api to get the detail of the session before render the outlet
 
@@ -31,7 +31,7 @@ const SimulatedTestLayout = () => {
 
   return (
     <div className="flex h-screen w-screen flex-col justify-between">
-      <Header currentPart={currentPart} testId={testId} skillTestId={skillTestId} />
+      <Header currentPart={position.part} testId={testId} skillTestId={skillTestId} />
       <Outlet />
       <div className="flex flex-1 flex-col items-center justify-between gap-2 border-t bg-white px-4 py-2 sm:min-h-24 sm:flex-row sm:px-8 sm:py-0 lg:gap-12">
         <div className="question-navigator flex h-fit w-full flex-1 flex-wrap items-center gap-1">
@@ -51,12 +51,12 @@ const SimulatedTestLayout = () => {
           <div className="back-and-next flex flex-row gap-2 xl:gap-4">
             <Button
               variant="outline"
-              disabled={currentPart == mockQuestionGroups[0].part}
+              disabled={position.part == mockQuestionGroups[0].part}
               onClick={() => {
-                if (currentPart == mockQuestionGroups[0].part) return;
+                if (position.part == mockQuestionGroups[0].part) return;
                 navigateToPart(
-                  mockQuestionGroups.find((g) => g.part == currentPart - 1)?.startQuestionNo ?? 1,
-                  currentPart - 1
+                  mockQuestionGroups.find((g) => g.part == position.part - 1)?.startQuestionNo ?? 1,
+                  position.part - 1
                 );
               }}
             >
@@ -65,12 +65,12 @@ const SimulatedTestLayout = () => {
             </Button>
             <Button
               variant="outline"
-              disabled={currentPart == mockQuestionGroups[mockQuestionGroups.length - 1].part}
+              disabled={position.part == mockQuestionGroups[mockQuestionGroups.length - 1].part}
               onClick={() => {
-                if (currentPart == mockQuestionGroups[mockQuestionGroups.length - 1].part) return;
+                if (position.part == mockQuestionGroups[mockQuestionGroups.length - 1].part) return;
                 navigateToPart(
-                  mockQuestionGroups.find((g) => g.part == currentPart + 1)?.startQuestionNo ?? 1,
-                  currentPart + 1
+                  mockQuestionGroups.find((g) => g.part == position.part + 1)?.startQuestionNo ?? 1,
+                  position.part + 1
                 );
               }}
             >

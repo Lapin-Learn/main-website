@@ -51,7 +51,6 @@ function useCountdown(initialTime: number) {
   }, [isRunning, timeLeft]);
 
   const resume = useCallback(() => {
-    console.log(isRunning, pausedTimeRef.current);
     if (!isRunning && pausedTimeRef.current !== null) {
       setIsRunning(true);
       endTimeRef.current = Date.now() + pausedTimeRef.current * 1000;
