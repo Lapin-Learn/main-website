@@ -16,50 +16,46 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { EnumSkill } from "@/lib/enums";
+import { useStartSimulatedTest } from "@/hooks/react-query/use-simulated-test";
+import { EnumMode, EnumSkill } from "@/lib/enums";
 
 import useSelectModeDialog from "./use-select-mode-dialog";
-
-enum EnumMode {
-  PRACTICE = "practice",
-  FULL_TEST = "full_test",
-}
 
 const SelectModeDialog = () => {
   const { t } = useTranslation("practice");
   const { test, skill, open, setOpen } = useSelectModeDialog();
+  const startSimulatedTest = useStartSimulatedTest();
 
   const parts: {
     value: string;
     label: string;
   }[] = generateParts(skill ?? EnumSkill.reading);
 
-  // TODO: Temporary function to generate parts
   function generateParts(skill: EnumSkill) {
     switch (skill) {
       case EnumSkill.reading:
         return [
-          { value: "passage_1", label: t("skills.reading.passage", { number: 1 }) },
-          { value: "passage_2", label: t("skills.reading.passage", { number: 2 }) },
-          { value: "passage_3", label: t("skills.reading.passage", { number: 3 }) },
+          { value: "1", label: t("skills.reading.passage", { number: 1 }) },
+          { value: "2", label: t("skills.reading.passage", { number: 2 }) },
+          { value: "3", label: t("skills.reading.passage", { number: 3 }) },
         ];
       case EnumSkill.listening:
         return [
-          { value: "section_1", label: t("skills.listening.section", { number: 1 }) },
-          { value: "section_2", label: t("skills.listening.section", { number: 2 }) },
-          { value: "section_3", label: t("skills.listening.section", { number: 3 }) },
-          { value: "section_4", label: t("skills.listening.section", { number: 4 }) },
+          { value: "1", label: t("skills.listening.section", { number: 1 }) },
+          { value: "2", label: t("skills.listening.section", { number: 2 }) },
+          { value: "3", label: t("skills.listening.section", { number: 3 }) },
+          { value: "4", label: t("skills.listening.section", { number: 4 }) },
         ];
       case EnumSkill.writing:
         return [
-          { value: "task_1", label: t("skills.writing.task", { number: 1 }) },
-          { value: "task_2", label: t("skills.writing.task", { number: 2 }) },
+          { value: "1", label: t("skills.writing.task", { number: 1 }) },
+          { value: "2", label: t("skills.writing.task", { number: 2 }) },
         ];
       case EnumSkill.speaking:
         return [
-          { value: "part_1", label: t("skills.speaking.part", { number: 1 }) },
-          { value: "part_2", label: t("skills.speaking.part", { number: 2 }) },
-          { value: "part_3", label: t("skills.speaking.part", { number: 3 }) },
+          { value: "1", label: t("skills.speaking.part", { number: 1 }) },
+          { value: "2", label: t("skills.speaking.part", { number: 2 }) },
+          { value: "3", label: t("skills.speaking.part", { number: 3 }) },
         ];
       default:
         return [];
@@ -121,7 +117,14 @@ const SelectModeDialog = () => {
   };
 
   const onSubmit = (data: FormInputs) => {
-    console.log(data);
+    if (test) {
+      startSimulatedTest.mutate({
+        skillTestId: test.id,
+        timeLimit: data.timeLimit === "no_limit" ? 0 : parseInt(data.timeLimit, 10),
+        mode: data.mode,
+        parts: data.parts.map((part) => (typeof part === "string" ? parseInt(part, 10) : part)),
+      });
+    }
   };
 
   return (

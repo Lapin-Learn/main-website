@@ -1,8 +1,10 @@
+import { EnumMode } from "@/lib/enums";
 import { FetchingData, PagedData, PagingSchema } from "@/lib/types";
 import {
   ReadingContent,
   SimulatedTest,
   SimulatedTestCollection,
+  SimulatedTestSession,
 } from "@/lib/types/simulated-test.type";
 import { generateSearchParams } from "@/lib/utils";
 
@@ -52,5 +54,22 @@ export const getSimulatedTestCollectionDetail = async (
         searchParams,
       })
       .json<FetchingData<PagedData<SimulatedTest>>>()
+  ).data;
+};
+
+export type SimulatedTestSessionPayload = {
+  skillTestId: number;
+  timeLimit: number;
+  mode: EnumMode;
+  parts: number[];
+};
+
+export const startSimulatedTest = async (payload: SimulatedTestSessionPayload) => {
+  return (
+    await api
+      .post("simulated-tests/session", {
+        json: payload,
+      })
+      .json<FetchingData<SimulatedTestSession>>()
   ).data;
 };
