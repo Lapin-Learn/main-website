@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
-import AppLogo from "@/assets/AppLogo";
+import AppLogo from "@/assets/icons/AppLogo";
 import Auth from "@/assets/images/auth-bg.jpg";
 import { getAuthValueFromStorage } from "@/services";
 

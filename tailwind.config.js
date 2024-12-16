@@ -70,7 +70,6 @@ module.exports = {
         neutral: {
           "50": "#EFEFEF",
           "100": "#CCCCCC",
-          "100": "#CCCCCC",
           "200": "#B4B4B4",
           "300": "#929292",
           "400": "#7D7D7D",
@@ -91,12 +90,6 @@ module.exports = {
           "700": "#414141",
           "800": "#272727",
           "900": "#272727",
-        },
-        blue: {
-          DEFAULT: "#37AEFF",
-          200: "#A3DAFF",
-          500: "#37AEFF",
-          700: "#277CB5",
         },
       },
       borderRadius: {

@@ -15,6 +15,8 @@ const simulatedTestKeys = {
   collectionKey: ["collection"] as const,
   collectionList: (params: Partial<CollectionParams>) =>
     [...simulatedTestKeys.collectionKey, params] as const,
+  collectionDetail: (collectionId: number) =>
+    [...simulatedTestKeys.collectionKey, collectionId] as const,
   skillTestKey: ["skill-test"] as const,
   skillTestDetail: (params: SimulatedSkillTestParams) =>
     [...simulatedTestKeys.skillTestKey, params] as const,
@@ -83,7 +85,7 @@ export const useGetSkillTestData = (skillTestId: number, partNo: number) => {
 export const useGetCollectionDetail = (collectionId: number) => {
   const { fetchNextPage, isFetchingNextPage, hasNextPage, data, refetch, isLoading, isRefetching } =
     useInfiniteQuery({
-      queryKey: ["collection", collectionId],
+      queryKey: simulatedTestKeys.collectionDetail(collectionId),
       queryFn: ({ pageParam }) => {
         const page = pageParam || 1;
         const { offset, limit } = fromPageToOffset({ page });
