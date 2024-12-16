@@ -4,6 +4,7 @@ import {
   ReadingContent,
   SimulatedTest,
   SimulatedTestCollection,
+  SimulatedTestSession,
 } from "@/lib/types/simulated-test.type";
 import { generateSearchParams } from "@/lib/utils";
 
@@ -56,15 +57,19 @@ export const getSimulatedTestCollectionDetail = async (
   ).data;
 };
 
-export type SimulatedTestSessionProps = {
+export type SimulatedTestSessionPayload = {
   skillTestId: number;
   timeLimit: number;
   mode: EnumMode;
   parts: number[];
 };
 
-export const startSimulatedTest = async (sessionData: SimulatedTestSessionProps) => {
-  return await api.post("simulated-tests/session", {
-    json: sessionData,
-  });
+export const startSimulatedTest = async (payload: SimulatedTestSessionPayload) => {
+  return (
+    await api
+      .post("simulated-tests/session", {
+        json: payload,
+      })
+      .json<FetchingData<SimulatedTestSession>>()
+  ).data;
 };

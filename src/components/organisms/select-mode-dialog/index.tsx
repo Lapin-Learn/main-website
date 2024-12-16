@@ -125,13 +125,12 @@ const SelectModeDialog = () => {
   };
 
   const onSubmit = (data: FormInputs) => {
-    const sessionData = {
+    startSimulatedTest.mutate({
       skillTestId: skillTestIdMapping[skill],
       timeLimit: data.timeLimit === "no_limit" ? 0 : parseInt(data.timeLimit, 10),
       mode: data.mode,
       parts: data.parts.map((part) => (typeof part === "string" ? parseInt(part, 10) : part)),
-    };
-    startSimulatedTest.mutate(sessionData);
+    });
   };
 
   return (
