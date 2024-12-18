@@ -1,10 +1,12 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui";
+import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { QuestionGroupMatchingHeadings } from "@/lib/types/simulated-test.type";
 
 export default function MatchingHeadingsQuestionGroup({
   questionCard,
   questions,
 }: QuestionGroupMatchingHeadings) {
+  const { answer, answerSheet } = useAnswerStore();
   return (
     <div>
       <h6 className="font-bold">{questionCard}</h6>
@@ -18,7 +20,10 @@ export default function MatchingHeadingsQuestionGroup({
             <strong className="mr-2">{question.questionNo}.</strong>
             {question.question}
             <span className="ml-2 inline-block">
-              <Select>
+              <Select
+                value={answerSheet[question.questionNo] ?? ""}
+                onValueChange={(value: string) => answer(question.questionNo, value)}
+              >
                 <SelectTrigger className="w-40">
                   <SelectValue
                     placeholder={
@@ -28,8 +33,8 @@ export default function MatchingHeadingsQuestionGroup({
                 </SelectTrigger>
                 <SelectContent>
                   {question.options.map((option) => (
-                    <SelectItem key={option} value={option}>
-                      {option}
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>

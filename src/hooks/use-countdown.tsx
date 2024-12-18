@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-function useCountdown(initialTime: number) {
+function useCountdown(initialTime: number, onChangeTime?: (time: number) => void) {
   const [timeLeft, setTimeLeft] = useState(initialTime);
   const [isRunning, setIsRunning] = useState(false);
   const endTimeRef = useRef(Date.now() + initialTime * 1000);
@@ -11,6 +11,9 @@ function useCountdown(initialTime: number) {
     const now = Date.now();
     const timeLeft = Math.max(0, Math.floor((endTimeRef.current - now) / 1000));
     setTimeLeft(timeLeft);
+    if (onChangeTime) {
+      onChangeTime(timeLeft);
+    }
   }, []);
 
   useEffect(() => {
@@ -51,7 +54,6 @@ function useCountdown(initialTime: number) {
   }, [isRunning, timeLeft]);
 
   const resume = useCallback(() => {
-    console.log(isRunning, pausedTimeRef.current);
     if (!isRunning && pausedTimeRef.current !== null) {
       setIsRunning(true);
       endTimeRef.current = Date.now() + pausedTimeRef.current * 1000;

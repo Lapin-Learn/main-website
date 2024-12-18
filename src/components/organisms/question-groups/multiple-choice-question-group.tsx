@@ -1,10 +1,61 @@
+import { useEffect, useState } from "react";
+
 import { Checkbox, Label, RadioGroup, RadioGroupItem } from "@/components/ui";
+import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
+import { Option } from "@/lib/types";
 import { QuestionGroupMultipleChoice } from "@/lib/types/simulated-test.type";
+
+type MultipleSelectProps = {
+  question: {
+    questionNo: number[];
+    question: string;
+    options: Option[];
+  };
+};
+function MultipleSelect({ question }: MultipleSelectProps) {
+  const MAX_SELECT = question.questionNo.length;
+  const { answer } = useAnswerStore();
+  const [selected, setSelected] = useState<string[]>([]);
+
+  useEffect(() => {
+    for (let i = 0; i < MAX_SELECT; i++) {
+      answer(question.questionNo[i], selected[i] ?? "");
+    }
+  }, [selected]);
+  return (
+    <div className="mt-2 flex flex-col gap-3">
+      {question.options.map((option, index) => (
+        <div key={index} className="flex items-baseline">
+          <Checkbox
+            value={option.value}
+            id={`${question.questionNo}-${option.value}`}
+            onCheckedChange={(checked) => {
+              if (checked) {
+                if (selected.length < MAX_SELECT) {
+                  setSelected([...selected, option.value]);
+                }
+              } else {
+                setSelected(selected.filter((item) => item !== option.value));
+              }
+            }}
+          />
+          <Label
+            className="ml-2 text-base font-normal"
+            htmlFor={`${question.questionNo}-${option.value}`}
+          >
+            {option.label}
+          </Label>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function MultipleChoiceQuestionGroup({
   questionCard,
   questions,
 }: QuestionGroupMultipleChoice) {
+  const { answer, answerSheet } = useAnswerStore();
   return (
     <div>
       <h6 className="font-bold">{questionCard}</h6>
@@ -33,29 +84,25 @@ export default function MultipleChoiceQuestionGroup({
           )}
           <div className="mt-2">
             {question.questionNo.length > 1 ? (
-              <div className="mt-2 flex flex-col gap-3">
-                {question.options.map((option, index) => (
-                  <div key={index} className="flex items-baseline">
-                    <Checkbox value={option} id={`${question.questionNo}-${option}`} />
-                    <Label
-                      className="ml-2 text-base font-normal"
-                      htmlFor={`${question.questionNo}-${option}`}
-                    >
-                      {option}
-                    </Label>
-                  </div>
-                ))}
-              </div>
+              <MultipleSelect question={question} />
             ) : (
-              <RadioGroup>
+              <RadioGroup
+                onValueChange={(value) => {
+                  answer(question.questionNo[0], value);
+                }}
+                value={answerSheet[question.questionNo[0]] ?? ""}
+              >
                 {question.options.map((option, index) => (
                   <div key={index} className="flex items-center">
-                    <RadioGroupItem value={option} id={`${question.questionNo}-${option}`} />
+                    <RadioGroupItem
+                      value={option.value}
+                      id={`${question.questionNo}-${option.value}`}
+                    />
                     <Label
                       className="ml-2 text-base font-normal"
-                      htmlFor={`${question.questionNo}-${option}`}
+                      htmlFor={`${question.questionNo}-${option.value}`}
                     >
-                      {option}
+                      {option.label}
                     </Label>
                   </div>
                 ))}

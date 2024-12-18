@@ -11,6 +11,7 @@ import {
   getSimulatedTestCollections,
   SimulatedSkillTestParams,
   startSimulatedTest,
+  submitSimulatedTest,
 } from "@/services/simulated-test";
 
 import { useToast } from "../use-toast";
@@ -124,12 +125,34 @@ export const useStartSimulatedTest = () => {
         navigate({
           to: "/practice/simulated-test",
           search: {
-            testId: response.id,
             skillTestId: response.skillTestId,
             sessionId: response.id,
           },
         });
       }
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+};
+
+export const useSubmitSimulatedTest = () => {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  return useMutation({
+    mutationFn: submitSimulatedTest,
+    onSuccess: () => {
+      // TODO: change navigate to the result page and remove toast
+      navigate({ to: "/practice" });
+      toast({
+        title: "Success",
+        description: "Submit test successfully",
+      });
     },
     onError: (error) => {
       toast({

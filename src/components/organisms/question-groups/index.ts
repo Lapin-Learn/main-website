@@ -1,5 +1,5 @@
 import FillInTheBlanksQuestionGroup from "./fill-in-the-blanks-question-group";
-import MatchingHeadingsQuestionGroup from "./matching_headings-question-group";
+import MatchingHeadingsQuestionGroup from "./matching-headings-question-group";
 import MultipleChoiceQuestionGroup from "./multiple-choice-question-group";
 
 // TODO: Factory method here?
