@@ -121,7 +121,14 @@ export const useStartSimulatedTest = () => {
     mutationFn: startSimulatedTest,
     onSuccess: (response) => {
       if (response) {
-        navigate({ to: "/simulated-test", search: { testId: response.id } });
+        navigate({
+          to: "/practice/simulated-test",
+          search: {
+            testId: response.id,
+            skillTestId: response.skillTestId,
+            sessionId: response.id,
+          },
+        });
       }
     },
     onError: (error) => {
