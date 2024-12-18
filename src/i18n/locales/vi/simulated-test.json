@@ -18,5 +18,57 @@
     },
     "nextBtn": "Tiếp theo",
     "prevBtn": "Quay lại",
-    "submitBtn": "Nộp bài"
+    "submitBtn": "Nộp bài",
+    "tour": {
+        "skipBtn": "Bỏ qua",
+        "beforeStart": {
+            "title": "Trước khi bắt đầu",
+            "welcome": "Chào mừng bạn đến với chế độ luyện thi của LapinLearn!",
+            "steps": [
+                "Hướng dẫn này sẽ giúp bạn hiểu rõ các tính năng chính của ứng dụng.",
+                "Bộ đếm giờ sẽ không bắt đầu cho đến khi bạn hoàn thành hướng dẫn này.",
+                "Bạn có thể bỏ qua hướng dẫn hoặc xem lại bất kỳ lúc nào trong phần cài đặt."
+            ],
+            "startBtn": "Bắt đầu"
+        },
+        "end": {
+            "title": "Kết thúc",
+            "congratulations": "Chúc mừng bạn đã hoàn thành hướng dẫn!",
+            "steps": [
+                "Bây giờ bạn có thể bắt đầu bài thi hoặc xem lại hướng dẫn này bất cứ lúc nào.",
+                "Chúc bạn ôn luyện hiệu quả và đạt điểm số mong muốn!"
+            ],
+            "lastBtn": "Bắt đầu làm bài"
+        },
+        "elements": {
+            "timer": {
+                "title": "Bộ đếm giờ",
+                "description": "Bộ đếm giờ được hiển thị ở góc trên bên phải màn hình, cho biết thời gian còn lại cho phần thi hiện tại."
+            },
+            "content": {
+                "title": "Phần bài đọc",
+                "description": "Đây là phần bài đọc, cuộn xuống để đọc toàn bộ nội dung của đoạn văn. Các đoạn văn được chia thành các phần nhỏ hơn để dễ theo dõi."
+            },
+            "answerSheet": {
+                "title": "Phần làm bài",
+                "description": "Chọn đáp án đúng (nếu là câu hỏi trắc nghiệm) hoặc điền câu trả lời vào ô trống (nếu là câu hỏi tự luận)."
+            },
+            "questionNavigator": {
+                "title": "Phần chuyển câu",
+                "description": "Ở dưới cùng màn hình, bạn sẽ thấy thanh điều hướng câu hỏi, nhấn vào số để nhảy đến câu hỏi tương ứng. Câu hỏi hiện tại sẽ được làm nổi bật, và các câu hỏi chưa trả lời sẽ được đánh dấu."
+            },
+            "backAndNext": {
+                "title": "Nút quay lại và tiếp theo",
+                "description": "Sử dụng nút Quay lại để trở về phần trước đó. Sử dụng nút Tiếp theo để chuyển sang phần tiếp theo."
+            },
+            "submit": {
+                "title": "Nút nộp bài",
+                "description": "Khi đã hoàn thành tất cả câu hỏi, nhấn nút Nộp bài để kết thúc bài thi. Nếu hết giờ, bài làm của bạn sẽ được tự động nộp."
+            },
+            "quit": {
+                "title": "Nút thoát",
+                "description": "Nhấn nút Thoát để rời khỏi bài thi bất kỳ lúc nào. Tiến trình của bạn có thể không được lưu nếu thoát mà không nộp bài."
+            }
+        }
+    }
 }

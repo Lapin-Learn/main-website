@@ -11,12 +11,13 @@ import { EnumQuestionGroup } from "@/lib/enums";
 const ReadingPage = () => {
   const { testContent, isLoading } = useSimulatedTest();
   const breakpoint = useBreakPoint();
+
   return (
     <ResizablePanelGroup
       direction={breakpoint == "xs" ? "vertical" : "horizontal"}
       className="shadow-[inset_0px_5px_8px_0_rgb(0_0_0_/_0.05),inset_0px_-5px_8px_0_rgb(0_0_0_/_0.05)]"
     >
-      <ResizablePanel minSize={20}>
+      <ResizablePanel className="content" minSize={20}>
         {testContent && !isLoading ? (
           <ScrollArea className={"h-full px-4 sm:px-8"}>
             <ReadingPassage content={testContent.content} />
@@ -28,7 +29,7 @@ const ReadingPage = () => {
         )}
       </ResizablePanel>
       <ResizableHandle withHandle />
-      <ResizablePanel minSize={20}>
+      <ResizablePanel className="answer-sheet" minSize={20}>
         {testContent && !isLoading ? (
           <ScrollArea className="h-full px-4 sm:px-8">
             <div className="flex flex-col gap-16 py-4">

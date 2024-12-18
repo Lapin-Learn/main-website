@@ -13,15 +13,16 @@ import { Button } from "@/components/ui/button";
 import useSimulatedTest from "@/hooks/use-simulated-test";
 
 type StartDialogProps = {
+  open: boolean;
   onClose: () => void;
 };
-const StartDialog = ({ onClose }: StartDialogProps) => {
+const StartDialog = ({ onClose, open }: StartDialogProps) => {
   const { t } = useTranslation("simulatedTest", {
     keyPrefix: "startDialog",
   });
   const { isSuccess } = useSimulatedTest();
   return (
-    <AlertDialog defaultOpen>
+    <AlertDialog open={open}>
       <AlertDialogContent className="max-w-sm">
         <AlertDialogHeader>
           <AlertDialogTitle>{t("title")}</AlertDialogTitle>
