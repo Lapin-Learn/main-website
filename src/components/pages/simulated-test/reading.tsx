@@ -14,14 +14,10 @@ import { Route } from "@/routes/_authenticated/practice/_simulated-test";
 
 const ReadingPage = () => {
   const { skillTestId } = Route.useSearch();
-
-  const { currentPart } = useSimulatedTestState();
-
   const {
-    data: testContent,
-    isLoading,
-    position: { question },
-  } = useGetSkillTestData(skillTestId, currentPart);
+    position: { part: currentPart, question },
+  } = useSimulatedTestState();
+  const { data: testContent, isLoading } = useGetSkillTestData(skillTestId, currentPart);
   const breakpoint = useBreakPoint();
 
   useEffect(() => {

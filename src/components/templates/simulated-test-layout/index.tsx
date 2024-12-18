@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui";
-import useSimulatedTestState from "@/hooks/use-simulated-test";
+import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
 import mockQuestionGroups from "@/lib/mock/mock-reading-content";
 import { Route } from "@/routes/_authenticated/practice/_simulated-test";
 
@@ -14,7 +14,7 @@ import Header from "./header";
 
 const SimulatedTestLayout = () => {
   const { t } = useTranslation("simulatedTest");
-  const { testId, sessionId, skillTestId } = Route.useSearch();
+  const { sessionId, skillTestId } = Route.useSearch();
   const { navigateToPart, position, resetTest } = useSimulatedTestState();
   const navigate = useNavigate();
   // TODO: calling api to get the detail of the session before render the outlet
@@ -31,7 +31,7 @@ const SimulatedTestLayout = () => {
 
   return (
     <div className="flex h-screen w-screen flex-col justify-between">
-      <Header currentPart={position.part} testId={testId} skillTestId={skillTestId} />
+      <Header currentPart={position.part} testId={skillTestId} skillTestId={skillTestId} />
       <Outlet />
       <div className="flex flex-1 flex-col items-center justify-between gap-2 border-t bg-white px-4 py-2 sm:min-h-24 sm:flex-row sm:px-8 sm:py-0 lg:gap-12">
         <div className="question-navigator flex h-fit w-full flex-1 flex-wrap items-center gap-1">
@@ -78,7 +78,10 @@ const SimulatedTestLayout = () => {
               <ArrowRight size={20} className="lg:ml-2" />
             </Button>
           </div>
-          <SubmitDialog triggerButton={<Button className="submit">{t("submitBtn")}</Button>} />
+          <SubmitDialog
+            triggerButton={<Button className="submit">{t("submitBtn")}</Button>}
+            sessionId={sessionId}
+          />
         </div>
       </div>
     </div>

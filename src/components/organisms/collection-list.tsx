@@ -16,12 +16,9 @@ import { useDebounce } from "@/hooks/use-debounce";
 import { SIMULATED_TEST_TAGS } from "@/lib/consts";
 import { generateKeyword } from "@/lib/utils";
 
-import FormSelect from "../../mocules/form-inputs/form-select";
-import {
-  CollectionCard,
-  SkeletonCollectionCard,
-} from "../../mocules/simulated-tests/collection-card";
-import SkillsFilter from "../../mocules/skill-filter";
+import FormSelect from "../mocules/form-inputs/form-select";
+import { CollectionCard, SkeletonCollectionCard } from "../mocules/simulated-tests/collection-card";
+import SkillsFilter from "../mocules/skill-filter";
 
 const formSchema = z.object({
   search: z.string().optional(),

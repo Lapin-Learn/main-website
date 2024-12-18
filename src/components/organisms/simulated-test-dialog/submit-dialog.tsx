@@ -1,5 +1,4 @@
 import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
-import { useNavigate } from "@tanstack/react-router";
 import React from "react";
 import { Trans, useTranslation } from "react-i18next";
 
@@ -13,17 +12,28 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { useSubmitSimulatedTest } from "@/hooks/react-query/use-simulated-test";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
+import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
 
 type SubmitDialogProps = {
   triggerButton: React.ReactNode;
+  sessionId: number;
 };
-const SubmitDialog = ({ triggerButton }: SubmitDialogProps) => {
-  const navigate = useNavigate();
-  const { answerSheet } = useAnswerStore();
+const SubmitDialog = ({ triggerButton, sessionId }: SubmitDialogProps) => {
+  const { answerSheet, elapsedTime } = useAnswerStore();
+  const { mutate: submitTest } = useSubmitSimulatedTest();
   const onClose = () => {
-    console.log("Answer sheet", answerSheet);
-    navigate({ to: "/practice" });
+    const responses = Object.entries(answerSheet).map(([questionNo, answer]) => ({
+      questionNo: parseInt(questionNo),
+      answer,
+    }));
+    submitTest({
+      sessionId,
+      elapsedTime,
+      status: EnumSimulatedTestSessionStatus.FINISHED,
+      responses,
+    });
   };
   const { t } = useTranslation("simulatedTest", {
     keyPrefix: "submitDialog",

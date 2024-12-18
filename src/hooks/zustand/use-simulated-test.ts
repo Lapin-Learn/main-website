@@ -1,9 +1,6 @@
 import { create } from "zustand";
 
-import { useGetSkillTestData } from "../react-query/use-simulated-test";
-
 type State = {
-  skillId: number;
   position: {
     part: number;
     question: number;
@@ -17,7 +14,6 @@ type Action = {
 };
 
 const initialState: State = {
-  skillId: 4,
   position: {
     part: 1,
     question: 1,
@@ -43,38 +39,30 @@ const useSimulatedTestState = create<State & Action>((set, get) => ({
     }),
 }));
 
-const useSimulatedTestStore = () => {
-  const props = useSimulatedTestState();
-  const { data, isLoading, isSuccess } = useGetSkillTestData(props.skillId, props.position.part);
-
-  return {
-    ...props,
-    testContent: data ?? null,
-    isLoading,
-    isSuccess,
-  };
-};
-
-export default useSimulatedTestStore;
+export default useSimulatedTestState;
 
 type AnswerState = {
   answerSheet: Record<string, string | null>;
   currentQuestion: number;
+  elapsedTime: number;
 };
 
 type AnswerAction = {
   resetAnswers: () => void;
   answer: (questionNo: number, answer: string | null) => void;
   setCurrentQuestion: (questionNo: number) => void;
+  setElapsedTime: (time: number) => void;
 };
 
 export const useAnswerStore = create<AnswerState & AnswerAction>((set) => ({
   answerSheet: {},
   currentQuestion: 1,
+  elapsedTime: 0,
   resetAnswers: () => {
     set({
       answerSheet: {},
       currentQuestion: 1,
+      elapsedTime: 0,
     });
   },
   answer: (questionNo, answer) => {
@@ -84,4 +72,5 @@ export const useAnswerStore = create<AnswerState & AnswerAction>((set) => ({
     }));
   },
   setCurrentQuestion: (questionNo) => set({ currentQuestion: questionNo }),
+  setElapsedTime: (time) => set({ elapsedTime: time }),
 }));
