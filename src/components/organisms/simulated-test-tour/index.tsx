@@ -23,7 +23,7 @@ const SimulatedTestTour = ({ run, handleTourCallback }: SimulatedTestTourProps) 
       steps={[
         {
           content: (
-            <div className="max-w-80 text-left text-sm">
+            <div className="max-w-2xl text-left text-sm">
               <h5 className="mb-2 text-heading-5 font-semibold">{t("tour.beforeStart.title")}</h5>
               <div className="flex flex-col gap-1">
                 <p>{t("tour.beforeStart.welcome")}</p>
@@ -42,7 +42,7 @@ const SimulatedTestTour = ({ run, handleTourCallback }: SimulatedTestTourProps) 
         ...tourSteps,
         {
           content: (
-            <div className="max-w-80 text-left text-sm">
+            <div className="max-w-2xl text-left text-sm">
               <h5 className="mb-2 text-heading-5 font-semibold">{t("tour.end.title")}</h5>
               <div className="flex flex-col gap-1">
                 <p>{t("tour.end.congratulations")}</p>

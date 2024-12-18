@@ -59,7 +59,7 @@
             },
             "backAndNext": {
                 "title": "Nút quay lại và tiếp theo",
-                "description": "Sử dụng nút Quay lại để trở về câu hỏi trước đó. Sử dụng nút Tiếp theo để chuyển sang câu hỏi tiếp theo."
+                "description": "Sử dụng nút Quay lại để trở về phần trước đó. Sử dụng nút Tiếp theo để chuyển sang phần tiếp theo."
             },
             "submit": {
                 "title": "Nút nộp bài",

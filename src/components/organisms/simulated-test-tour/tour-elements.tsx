@@ -1,7 +1,8 @@
-import { EnumTourElement } from "@/lib/enums";
 import { PropsWithChildren } from "react";
 import { useTranslation } from "react-i18next";
 import { Step } from "react-joyride";
+
+import { EnumTourElement } from "@/lib/enums";
 
 const TargetSection = ({
   children,
@@ -10,7 +11,7 @@ const TargetSection = ({
   steps,
 }: PropsWithChildren<{ title: string; currentStep: number; steps: number }>) => {
   return (
-    <div className="max-w-80 text-left text-sm">
+    <div className="max-w-96 text-left text-sm">
       <div className="flex justify-between">
         <h3 className="mb-2 text-heading-6 font-semibold">{title}</h3>
         <p className="text-small font-semibold text-neutral-300">
@@ -37,7 +38,7 @@ const createStep = (
         <p>{t(descriptionKey)}</p>
       </TargetSection>
     ),
-    placement: "bottom",
+    placement: "auto",
     floaterProps: {
       disableAnimation: true,
     },
