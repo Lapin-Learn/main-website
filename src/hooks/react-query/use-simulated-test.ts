@@ -123,7 +123,11 @@ export const useStartSimulatedTest = () => {
       if (response) {
         navigate({
           to: "/practice/simulated-test",
-          search: { testId: response.id, skillTestId: response.skillTestId },
+          search: {
+            testId: response.id,
+            skillTestId: response.skillTestId,
+            sessionId: response.id,
+          },
         });
       }
     },

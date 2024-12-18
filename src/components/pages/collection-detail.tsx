@@ -99,12 +99,12 @@ export default function CollectionDetailPage() {
           list.length > 0 ? (
             <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
               {list.map((simulatedTest) => {
-                const { id: collectionId, ...rest } = simulatedTest;
                 const skillTest = simulatedTest.skillTests.find((st) => st.skill === search.skill);
+                if (!skillTest) return null;
                 return (
                   <FilteredSkillCard
-                    test={{ collectionId, ...rest, id: skillTest ? skillTest.id : NaN }}
-                    skill={search.skill}
+                    test={simulatedTest}
+                    skillTest={skillTest}
                     isSupport={!!skillTest}
                   />
                 );

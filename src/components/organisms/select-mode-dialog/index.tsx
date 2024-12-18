@@ -24,14 +24,14 @@ import useSelectModeDialog from "./use-select-mode-dialog";
 
 const SelectModeDialog = () => {
   const { t } = useTranslation("practice");
-  const { test, skill, open, setOpen } = useSelectModeDialog();
+  const { test, skillTest, open, setOpen } = useSelectModeDialog();
   const startSimulatedTest = useStartSimulatedTest();
 
   const parts: {
     value: string;
     label: string;
     description?: string;
-  }[] = generateParts(skill ?? EnumSkill.reading, test?.skillTests ?? []);
+  }[] = generateParts(skillTest?.skill ?? EnumSkill.reading, test?.skillTests ?? []);
 
   function generateParts(skill: EnumSkill, skillTests: SimulatedTest["skillTests"]) {
     const partsDetail = skillTests.find((item) => item.skill === skill)?.partsDetail ?? [];
@@ -100,15 +100,17 @@ const SelectModeDialog = () => {
   };
 
   const onSubmit = (data: FormInputs) => {
-    if (test) {
+    if (skillTest) {
       startSimulatedTest.mutate({
-        skillTestId: test.id,
+        skillTestId: skillTest.id,
         timeLimit: data.timeLimit === "no_limit" ? 0 : parseInt(data.timeLimit, 10),
         mode: data.mode,
         parts: data.parts.map((part) => (typeof part === "string" ? parseInt(part, 10) : part)),
       });
     }
   };
+
+  if (!test || !skillTest) return null;
 
   return (
     <Dialog
@@ -123,8 +125,9 @@ const SelectModeDialog = () => {
       <DialogContent className="flex max-w-screen-sm flex-col gap-4 rounded-2xl bg-white px-3 py-4 md:max-w-[720px] md:px-8 md:py-10">
         <DialogHeader className="flex flex-col gap-3">
           <DialogTitle className="text-heading-4 font-bold">
-            {test?.testName} -{" "}
-            {skill.toString().charAt(0).toUpperCase() + skill.toString().slice(1)}
+            {test.testName}&nbsp;-&nbsp;
+            {skillTest.skill.toString().charAt(0).toUpperCase() +
+              skillTest.skill.toString().slice(1)}
           </DialogTitle>
           <DialogDescription>
             {mode === EnumMode.PRACTICE ? (

@@ -15,7 +15,7 @@ export function SimulatedTestCard(
 ) {
   const { t } = useTranslation(["collection", "practice"]);
   const { setOpen, setData } = useSelectModeDialog();
-  const { testName, skillTests, order, id, collectionId } = props;
+  const { testName, skillTests } = props;
   return (
     <div className="rounded-2xl border bg-white p-5">
       <p className="mb-4 truncate text-lg font-bold">{testName}</p>
@@ -52,7 +52,7 @@ export function SimulatedTestCard(
                   onClick={() => {
                     if (skillTest) {
                       setData({
-                        skill: skill,
+                        skillTest,
                         test: props,
                       });
                       setOpen(true);
