@@ -4,19 +4,18 @@ import { useTranslation } from "react-i18next";
 import { AnimatedCircularProgressBar } from "@/components/organisms/circular-progress";
 import useSelectModeDialog from "@/components/organisms/select-mode-dialog/use-select-mode-dialog";
 import { Button } from "@/components/ui";
-import { EnumSkill } from "@/lib/enums";
-import { SimulatedTestSimple } from "@/lib/types/simulated-test.type";
+import { SimulatedTest, SkillTest } from "@/lib/types/simulated-test.type";
 import { cn } from "@/lib/utils";
 
 import { skillIconMap } from "./utils";
 
 type FilteredSkillCardProps = {
-  test: SimulatedTestSimple;
-  skill: EnumSkill;
+  test: SimulatedTest;
+  skillTest: SkillTest;
   isSupport: boolean;
 };
 
-export function FilteredSkillCard({ test, skill, isSupport }: FilteredSkillCardProps) {
+export function FilteredSkillCard({ test, skillTest, isSupport }: FilteredSkillCardProps) {
   const { t } = useTranslation("collection");
   const { setData, setOpen } = useSelectModeDialog();
 
@@ -25,7 +24,7 @@ export function FilteredSkillCard({ test, skill, isSupport }: FilteredSkillCardP
       className="flex flex-col justify-between gap-4 rounded-2xl border bg-white p-3 md:p-5"
       onClick={() => {
         if (isSupport) {
-          setData({ skill, test });
+          setData({ skillTest, test });
           setOpen(true);
         }
       }}
@@ -61,7 +60,7 @@ export function FilteredSkillCard({ test, skill, isSupport }: FilteredSkillCardP
             )}
           </div>
         </div>
-        <AnimatedCircularProgressBar value={0} icon={skillIconMap[skill]} />
+        <AnimatedCircularProgressBar value={0} icon={skillIconMap[skillTest.skill]} />
       </div>
     </button>
   );

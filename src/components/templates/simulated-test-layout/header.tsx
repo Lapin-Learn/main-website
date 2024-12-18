@@ -7,16 +7,20 @@ import ExitDialog from "@/components/organisms/simulated-test-dialog/exit-dialog
 import StartDialog from "@/components/organisms/simulated-test-dialog/start-dialog";
 import SimulatedTestTour from "@/components/organisms/simulated-test-tour";
 import { Button } from "@/components/ui";
+import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
 import useCountdown from "@/hooks/use-countdown";
 
 type HeaderProps = {
   currentPart: number;
+  testId: number;
+  skillTestId: number;
 };
-export default function Header({ currentPart }: HeaderProps) {
+export default function Header({ currentPart, skillTestId }: HeaderProps) {
   const [run, setRun] = useState(false);
   const [showStartDialog, setShowStartDialog] = useState(false);
   const { time, resume, isEnd } = useCountdown(60 * 40); // 40 minutes
   const { t } = useTranslation("simulatedTest");
+  const { isSuccess } = useGetSkillTestData(skillTestId, currentPart);
   useEffect(() => {
     const isFirstTime = localStorage.getItem("simulatedTestFirstTime") !== "false";
     if (isFirstTime) {
@@ -50,10 +54,12 @@ export default function Header({ currentPart }: HeaderProps) {
           setShowStartDialog(false);
         }}
         open={showStartDialog}
+        disableStart={!isSuccess}
       />
       <SimulatedTestTour run={run} handleTourCallback={handleTourCallback} />
       <div className="grid w-full place-items-center border-b bg-white px-4 shadow-sm sm:h-20 sm:px-8">
         <div className="flex flex-col items-center">
+          {/* TODO: get skill, session detail to render data  */}
           <h6 className="text-base font-bold uppercase sm:text-lg">
             Reading passage {currentPart}
           </h6>

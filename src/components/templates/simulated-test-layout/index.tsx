@@ -1,11 +1,12 @@
-import { Outlet } from "@tanstack/react-router";
+import { Outlet, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui";
-import useSimulatedTest from "@/hooks/use-simulated-test";
+import useSimulatedTestState from "@/hooks/use-simulated-test";
 import mockQuestionGroups from "@/lib/mock/mock-reading-content";
+import { Route } from "@/routes/_authenticated/practice/_simulated-test";
 
 import QuestionNavigator from "../../mocules/question-navigator";
 import SubmitDialog from "../../organisms/simulated-test-dialog/submit-dialog";
@@ -13,17 +14,24 @@ import Header from "./header";
 
 const SimulatedTestLayout = () => {
   const { t } = useTranslation("simulatedTest");
-  const { navigateToPart, currentPart, resetTest } = useSimulatedTest();
+  const { testId, sessionId, skillTestId } = Route.useSearch();
+  const { navigateToPart, currentPart, resetTest } = useSimulatedTestState();
+  const navigate = useNavigate();
   // TODO: calling api to get the detail of the session before render the outlet
 
   useEffect(() => {
     navigateToPart(1, 1);
-    return () => resetTest();
+    return () => {
+      if (!sessionId) {
+        navigate({ to: "/practice" });
+      }
+      resetTest();
+    };
   }, []);
 
   return (
     <div className="flex h-screen w-screen flex-col justify-between">
-      <Header currentPart={currentPart} />
+      <Header currentPart={currentPart} testId={testId} skillTestId={skillTestId} />
       <Outlet />
       <div className="flex flex-1 flex-col items-center justify-between gap-2 border-t bg-white px-4 py-2 sm:min-h-24 sm:flex-row sm:px-8 sm:py-0 lg:gap-12">
         <div className="question-navigator flex h-fit w-full flex-1 flex-wrap items-center gap-1">

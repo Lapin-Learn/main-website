@@ -18,48 +18,31 @@ import {
 } from "@/components/ui/dialog";
 import { useStartSimulatedTest } from "@/hooks/react-query/use-simulated-test";
 import { EnumMode, EnumSkill } from "@/lib/enums";
+import { SimulatedTest } from "@/lib/types/simulated-test.type";
 
 import useSelectModeDialog from "./use-select-mode-dialog";
 
 const SelectModeDialog = () => {
   const { t } = useTranslation("practice");
-  const { test, skill, open, setOpen } = useSelectModeDialog();
+  const { test, skillTest, open, setOpen } = useSelectModeDialog();
   const startSimulatedTest = useStartSimulatedTest();
 
   const parts: {
     value: string;
     label: string;
-  }[] = generateParts(skill ?? EnumSkill.reading);
+    description?: string;
+  }[] = generateParts(skillTest?.skill ?? EnumSkill.reading, test?.skillTests ?? []);
 
-  function generateParts(skill: EnumSkill) {
-    switch (skill) {
-      case EnumSkill.reading:
-        return [
-          { value: "1", label: t("skills.reading.passage", { number: 1 }) },
-          { value: "2", label: t("skills.reading.passage", { number: 2 }) },
-          { value: "3", label: t("skills.reading.passage", { number: 3 }) },
-        ];
-      case EnumSkill.listening:
-        return [
-          { value: "1", label: t("skills.listening.section", { number: 1 }) },
-          { value: "2", label: t("skills.listening.section", { number: 2 }) },
-          { value: "3", label: t("skills.listening.section", { number: 3 }) },
-          { value: "4", label: t("skills.listening.section", { number: 4 }) },
-        ];
-      case EnumSkill.writing:
-        return [
-          { value: "1", label: t("skills.writing.task", { number: 1 }) },
-          { value: "2", label: t("skills.writing.task", { number: 2 }) },
-        ];
-      case EnumSkill.speaking:
-        return [
-          { value: "1", label: t("skills.speaking.part", { number: 1 }) },
-          { value: "2", label: t("skills.speaking.part", { number: 2 }) },
-          { value: "3", label: t("skills.speaking.part", { number: 3 }) },
-        ];
-      default:
-        return [];
-    }
+  function generateParts(skill: EnumSkill, skillTests: SimulatedTest["skillTests"]) {
+    const partsDetail = skillTests.find((item) => item.skill === skill)?.partsDetail ?? [];
+    const parts = partsDetail.map((part, index) => {
+      return {
+        value: (index + 1).toString(),
+        label: t(`skills.part`, { number: index + 1, context: skill.toString() }),
+        description: part.questionTypes.join(", "),
+      };
+    });
+    return parts;
   }
 
   const practiceSchema = z
@@ -117,15 +100,17 @@ const SelectModeDialog = () => {
   };
 
   const onSubmit = (data: FormInputs) => {
-    if (test) {
+    if (skillTest) {
       startSimulatedTest.mutate({
-        skillTestId: test.id,
+        skillTestId: skillTest.id,
         timeLimit: data.timeLimit === "no_limit" ? 0 : parseInt(data.timeLimit, 10),
         mode: data.mode,
         parts: data.parts.map((part) => (typeof part === "string" ? parseInt(part, 10) : part)),
       });
     }
   };
+
+  if (!test || !skillTest) return null;
 
   return (
     <Dialog
@@ -140,8 +125,9 @@ const SelectModeDialog = () => {
       <DialogContent className="flex max-w-screen-sm flex-col gap-4 rounded-2xl bg-white px-3 py-4 md:max-w-[720px] md:px-8 md:py-10">
         <DialogHeader className="flex flex-col gap-3">
           <DialogTitle className="text-heading-4 font-bold">
-            {test?.testName} -{" "}
-            {skill.toString().charAt(0).toUpperCase() + skill.toString().slice(1)}
+            {test.testName}&nbsp;-&nbsp;
+            {skillTest.skill.toString().charAt(0).toUpperCase() +
+              skillTest.skill.toString().slice(1)}
           </DialogTitle>
           <DialogDescription>
             {mode === EnumMode.PRACTICE ? (
@@ -191,6 +177,13 @@ const SelectModeDialog = () => {
                   placeholder={t("exam-mode-config.parts.placeholder")}
                   options={parts}
                   isMulti={true}
+                  renderSelectItem={(option) => {
+                    return (
+                      <span className="max-w-32 overflow-hidden text-ellipsis">
+                        {option.label}: {option.description}
+                      </span>
+                    );
+                  }}
                 />
               </>
             )}

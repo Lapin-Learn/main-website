@@ -1,11 +1,10 @@
 import { create } from "zustand";
 
-import { EnumSkill } from "@/lib/enums";
-import { SimulatedTestSimple } from "@/lib/types/simulated-test.type";
+import { SimulatedTest, SkillTest } from "@/lib/types/simulated-test.type";
 
 type State = {
-  test: SimulatedTestSimple | null;
-  skill: EnumSkill;
+  test: SimulatedTest | null;
+  skillTest: SkillTest | null;
   open: boolean;
 };
 
@@ -16,7 +15,7 @@ const useSelectModeDialog = create<
   }
 >((set) => ({
   test: null,
-  skill: EnumSkill.reading,
+  skillTest: null,
   open: false,
   setData: (newState: Omit<State, "open">) => set((state) => ({ ...newState, state })),
   setOpen: (open) => set((state) => ({ ...state, open })),

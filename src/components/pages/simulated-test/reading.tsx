@@ -4,12 +4,18 @@ import ReadingPassage from "@/components/mocules/reading-passage";
 import QuestionGroup from "@/components/organisms/question-groups";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
 import useBreakPoint from "@/hooks/use-screen-size";
-import useSimulatedTest from "@/hooks/use-simulated-test";
+import useSimulatedTestState from "@/hooks/use-simulated-test";
 import { EnumQuestionGroup } from "@/lib/enums";
+import { Route } from "@/routes/_authenticated/practice/_simulated-test";
 
 const ReadingPage = () => {
-  const { testContent, isLoading } = useSimulatedTest();
+  const { skillTestId } = Route.useSearch();
+
+  const { currentPart } = useSimulatedTestState();
+
+  const { data: testContent, isLoading } = useGetSkillTestData(skillTestId, currentPart);
   const breakpoint = useBreakPoint();
 
   return (

@@ -17,22 +17,25 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export type FormSelectProps = {
+export type Option = {
+  value: string;
+  label: string;
+};
+
+export type FormSelectProps<T extends Option> = {
   name: string;
   label?: string;
-  options: {
-    value: string;
-    label: string;
-  }[];
+  options: T[];
   placeholder?: string;
   className?: string;
   inputClassName?: string;
   loading?: boolean;
   isMulti?: boolean;
   onValueChange?: (value: string) => void;
+  renderSelectItem?: (option: T) => React.ReactNode;
 };
 
-export default function FormSelect({
+export default function FormSelect<T extends Option>({
   name,
   label,
   className,
@@ -41,7 +44,8 @@ export default function FormSelect({
   loading = false,
   isMulti = false,
   onValueChange,
-}: FormSelectProps) {
+  renderSelectItem,
+}: FormSelectProps<T>) {
   const { control } = useFormContext();
 
   return (
@@ -71,6 +75,7 @@ export default function FormSelect({
                   maxCount={4}
                   disabled={loading}
                   hasBadge={true}
+                  {...(renderSelectItem ? { renderSelectItem } : {})}
                 />
               </FormControl>
             ) : (
@@ -86,9 +91,9 @@ export default function FormSelect({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {options.map(({ value, label }) => (
-                    <SelectItem key={value} value={value}>
-                      {label}
+                  {options.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {renderSelectItem ? renderSelectItem(option) : option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
