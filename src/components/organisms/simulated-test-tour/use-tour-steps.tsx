@@ -1,27 +1,9 @@
-import { PropsWithChildren } from "react";
 import { useTranslation } from "react-i18next";
 import { Step } from "react-joyride";
 
 import { EnumTourElement } from "@/lib/enums";
 
-const TargetSection = ({
-  children,
-  title,
-  currentStep,
-  steps,
-}: PropsWithChildren<{ title: string; currentStep: number; steps: number }>) => {
-  return (
-    <div className="max-w-96 text-left text-sm">
-      <div className="flex justify-between">
-        <h3 className="mb-2 text-heading-6 font-semibold">{title}</h3>
-        <p className="text-small font-semibold text-neutral-300">
-          {currentStep}/{steps}
-        </p>
-      </div>
-      {children}
-    </div>
-  );
-};
+import TargetSection from "./target-section";
 
 const createStep = (
   t: (key: string) => string,

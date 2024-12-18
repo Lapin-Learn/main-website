@@ -21,7 +21,6 @@ export default function Header({ currentPart }: HeaderProps) {
     const isFirstTime = localStorage.getItem("simulatedTestFirstTime") !== "false";
     if (isFirstTime) {
       setRun(true);
-      localStorage.setItem("simulatedTestFirstTime", "false");
     } else {
       setShowStartDialog(true);
     }
@@ -38,13 +37,20 @@ export default function Header({ currentPart }: HeaderProps) {
 
     if (finishedStatuses.includes(status)) {
       setRun(false);
-      resume();
+      localStorage.setItem("simulatedTestFirstTime", "false");
+      setShowStartDialog(true);
     }
   };
 
   return (
     <>
-      {showStartDialog && <StartDialog onClose={() => resume()} />}
+      <StartDialog
+        onClose={() => {
+          resume();
+          setShowStartDialog(false);
+        }}
+        open={showStartDialog}
+      />
       <SimulatedTestTour run={run} handleTourCallback={handleTourCallback} />
       <div className="grid w-full place-items-center border-b bg-white px-4 shadow-sm sm:h-20 sm:px-8">
         <div className="flex flex-col items-center">

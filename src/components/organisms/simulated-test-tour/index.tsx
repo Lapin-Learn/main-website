@@ -4,7 +4,7 @@ import Joyride, { CallBackProps, TooltipRenderProps } from "react-joyride";
 
 import { Button } from "@/components/ui";
 
-import { useTourSteps } from "./tour-elements";
+import { useTourSteps } from "./use-tour-steps";
 
 type SimulatedTestTourProps = {
   run: boolean;
