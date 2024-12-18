@@ -54,7 +54,7 @@ const ProfileTooltip = () => {
         {user && isSuccess ? (
           <>
             <p className="text-small font-semibold text-black">{user.fullName}</p>
-            <p className="text-supporting-text truncate text-xs">{user.email}</p>
+            <p className="truncate text-xs text-supporting-text">{user.email}</p>
           </>
         ) : (
           <>

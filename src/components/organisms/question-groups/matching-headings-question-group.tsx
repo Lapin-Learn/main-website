@@ -33,8 +33,8 @@ export default function MatchingHeadingsQuestionGroup({
                 </SelectTrigger>
                 <SelectContent>
                   {question.options.map((option) => (
-                    <SelectItem key={option} value={option}>
-                      {option}
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>

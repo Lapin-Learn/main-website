@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 
 import { Checkbox, Label, RadioGroup, RadioGroupItem } from "@/components/ui";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
+import { Option } from "@/lib/types";
 import { QuestionGroupMultipleChoice } from "@/lib/types/simulated-test.type";
 
 type MultipleSelectProps = {
   question: {
     questionNo: number[];
     question: string;
-    options: string[];
+    options: Option[];
   };
 };
 function MultipleSelect({ question }: MultipleSelectProps) {
@@ -26,23 +27,23 @@ function MultipleSelect({ question }: MultipleSelectProps) {
       {question.options.map((option, index) => (
         <div key={index} className="flex items-baseline">
           <Checkbox
-            value={option}
-            id={`${question.questionNo}-${option}`}
+            value={option.value}
+            id={`${question.questionNo}-${option.value}`}
             onCheckedChange={(checked) => {
               if (checked) {
                 if (selected.length < MAX_SELECT) {
-                  setSelected([...selected, option]);
+                  setSelected([...selected, option.value]);
                 }
               } else {
-                setSelected(selected.filter((item) => item !== option));
+                setSelected(selected.filter((item) => item !== option.value));
               }
             }}
           />
           <Label
             className="ml-2 text-base font-normal"
-            htmlFor={`${question.questionNo}-${option}`}
+            htmlFor={`${question.questionNo}-${option.value}`}
           >
-            {option}
+            {option.label}
           </Label>
         </div>
       ))}
@@ -93,12 +94,15 @@ export default function MultipleChoiceQuestionGroup({
               >
                 {question.options.map((option, index) => (
                   <div key={index} className="flex items-center">
-                    <RadioGroupItem value={option} id={`${question.questionNo}-${option}`} />
+                    <RadioGroupItem
+                      value={option.value}
+                      id={`${question.questionNo}-${option.value}`}
+                    />
                     <Label
                       className="ml-2 text-base font-normal"
-                      htmlFor={`${question.questionNo}-${option}`}
+                      htmlFor={`${question.questionNo}-${option.value}`}
                     >
-                      {option}
+                      {option.label}
                     </Label>
                   </div>
                 ))}

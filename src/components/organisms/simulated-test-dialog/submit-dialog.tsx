@@ -2,9 +2,9 @@ import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
 import React from "react";
 import { Trans, useTranslation } from "react-i18next";
 
+import { Button } from "@/components/ui";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -22,24 +22,32 @@ type SubmitDialogProps = {
 };
 const SubmitDialog = ({ triggerButton, sessionId }: SubmitDialogProps) => {
   const { answerSheet, elapsedTime } = useAnswerStore();
-  const { mutate: submitTest } = useSubmitSimulatedTest();
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const { mutate: submitTest, isPending } = useSubmitSimulatedTest();
   const onClose = () => {
     const responses = Object.entries(answerSheet).map(([questionNo, answer]) => ({
       questionNo: parseInt(questionNo),
       answer,
     }));
-    submitTest({
-      sessionId,
-      elapsedTime,
-      status: EnumSimulatedTestSessionStatus.FINISHED,
-      responses,
-    });
+    submitTest(
+      {
+        sessionId,
+        elapsedTime,
+        status: EnumSimulatedTestSessionStatus.FINISHED,
+        responses,
+      },
+      {
+        onSuccess: () => {
+          setIsDialogOpen(false);
+        },
+      }
+    );
   };
   const { t } = useTranslation("simulatedTest", {
     keyPrefix: "submitDialog",
   });
   return (
-    <AlertDialog>
+    <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <AlertDialogTrigger asChild>{triggerButton}</AlertDialogTrigger>
       <AlertDialogContent className="max-w-sm">
         <AlertDialogHeader>
@@ -51,9 +59,14 @@ const SubmitDialog = ({ triggerButton, sessionId }: SubmitDialogProps) => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel className="w-full"> {t("cancelBtn")}</AlertDialogCancel>
-          <AlertDialogAction onClick={onClose} className="w-full">
+          <Button
+            className="size-full"
+            onClick={onClose}
+            isLoading={isPending}
+            disabled={isPending}
+          >
             {t("submitBtn")}
-          </AlertDialogAction>
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
