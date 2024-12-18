@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import { useStartSimulatedTest } from "@/hooks/react-query/use-simulated-test";
 import { EnumMode, EnumSkill } from "@/lib/enums";
+import { SimulatedTest } from "@/lib/types/simulated-test.type";
 
 import useSelectModeDialog from "./use-select-mode-dialog";
 
@@ -29,37 +30,19 @@ const SelectModeDialog = () => {
   const parts: {
     value: string;
     label: string;
-  }[] = generateParts(skill ?? EnumSkill.reading);
+    description?: string;
+  }[] = generateParts(skill ?? EnumSkill.reading, test?.skillTests ?? []);
 
-  function generateParts(skill: EnumSkill) {
-    switch (skill) {
-      case EnumSkill.reading:
-        return [
-          { value: "1", label: t("skills.reading.passage", { number: 1 }) },
-          { value: "2", label: t("skills.reading.passage", { number: 2 }) },
-          { value: "3", label: t("skills.reading.passage", { number: 3 }) },
-        ];
-      case EnumSkill.listening:
-        return [
-          { value: "1", label: t("skills.listening.section", { number: 1 }) },
-          { value: "2", label: t("skills.listening.section", { number: 2 }) },
-          { value: "3", label: t("skills.listening.section", { number: 3 }) },
-          { value: "4", label: t("skills.listening.section", { number: 4 }) },
-        ];
-      case EnumSkill.writing:
-        return [
-          { value: "1", label: t("skills.writing.task", { number: 1 }) },
-          { value: "2", label: t("skills.writing.task", { number: 2 }) },
-        ];
-      case EnumSkill.speaking:
-        return [
-          { value: "1", label: t("skills.speaking.part", { number: 1 }) },
-          { value: "2", label: t("skills.speaking.part", { number: 2 }) },
-          { value: "3", label: t("skills.speaking.part", { number: 3 }) },
-        ];
-      default:
-        return [];
-    }
+  function generateParts(skill: EnumSkill, skillTests: SimulatedTest["skillTests"]) {
+    const partsDetail = skillTests.find((item) => item.skill === skill)?.partsDetail ?? [];
+    const parts = partsDetail.map((part, index) => {
+      return {
+        value: (index + 1).toString(),
+        label: t(`skills.part`, { number: index + 1, context: skill.toString() }),
+        description: part.questionTypes.join(", "),
+      };
+    });
+    return parts;
   }
 
   const practiceSchema = z
@@ -191,6 +174,13 @@ const SelectModeDialog = () => {
                   placeholder={t("exam-mode-config.parts.placeholder")}
                   options={parts}
                   isMulti={true}
+                  renderSelectItem={(option) => {
+                    return (
+                      <span className="max-w-32 overflow-hidden text-ellipsis">
+                        {option.label}: {option.description}
+                      </span>
+                    );
+                  }}
                 />
               </>
             )}

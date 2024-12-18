@@ -17,6 +17,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
+import { Option } from "../mocules/form-inputs/form-select";
+
 /**
  * Variants for the multi-select component to handle different styles.
  * Uses class-variance-authority (cva) to define different styles based on "variant" prop.
@@ -40,21 +42,14 @@ const multiSelectVariants = cva("m-1", {
 /**
  * Props for MultiSelect component
  */
-interface MultiSelectProps
+interface MultiSelectProps<T extends Option>
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof multiSelectVariants> {
   /**
    * An array of option objects to be displayed in the multi-select component.
    * Each option object has a label, value, and an optional icon.
    */
-  options: {
-    /** The text to display for the option. */
-    label: string;
-    /** The unique value associated with the option. */
-    value: string;
-    /** Optional icon component to display alongside the option. */
-    icon?: React.ComponentType<{ className?: string }>;
-  }[];
+  options: T[];
 
   /**
    * Callback function triggered when the selected values change.
@@ -107,10 +102,16 @@ interface MultiSelectProps
    * Optional, defaults to false.
    */
   hasBadge?: boolean;
+
+  /**
+   * Optional function to render custom select items.
+   * Receives an option object and returns a React node.
+   */
+  renderSelectItem?: (option: T) => React.ReactNode;
 }
 
-export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>(
-  (
+export const MultiSelect = React.forwardRef(
+  <T extends Option>(
     {
       options,
       onValueChange,
@@ -123,9 +124,10 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
       asChild = false,
       hasBadge = false,
       className,
+      renderSelectItem,
       ...props
-    },
-    ref
+    }: MultiSelectProps<T>,
+    ref: React.ForwardedRef<HTMLButtonElement>
   ) => {
     const [selectedValues, setSelectedValues] = React.useState<string[]>(defaultValue);
     const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
@@ -196,15 +198,14 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                   {hasBadge ? (
                     selectedValues.slice(0, maxCount).map((value) => {
                       const option = options.find((o) => o.value === value);
-                      const IconComponent = option?.icon;
+                      if (!option) return null;
                       return (
                         <Badge
                           key={value}
-                          className="border-foreground/1 border-none bg-blue-50 text-blue-500 shadow-none hover:bg-blue-50/80 hover:text-blue-600"
+                          className="border-foreground/1 overflow-hidden text-ellipsis border-none bg-blue-50 text-blue-500 shadow-none hover:bg-blue-50/80 hover:text-blue-600"
                           style={{ animationDuration: `${animation}s` }}
                         >
-                          {IconComponent && <IconComponent className="mr-2 size-3" />}
-                          {option?.label}
+                          {renderSelectItem ? renderSelectItem(option) : option?.label}
                           <XIcon
                             className="ml-2 size-3 cursor-pointer"
                             onClick={(event) => {
@@ -304,8 +305,7 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
                       >
                         <CheckIcon className="size-4" />
                       </div>
-                      {option.icon && <option.icon className="mr-2 size-4 text-muted-foreground" />}
-                      <span>{option.label}</span>
+                      <span>{renderSelectItem ? renderSelectItem(option) : option?.label}</span>
                     </CommandItem>
                   );
                 })}
@@ -317,6 +317,9 @@ export const MultiSelect = React.forwardRef<HTMLButtonElement, MultiSelectProps>
       </Popover>
     );
   }
-);
+) as <T extends Option>(
+  props: MultiSelectProps<T> & { ref?: React.ForwardedRef<HTMLButtonElement> }
+) => JSX.Element;
 
-MultiSelect.displayName = "MultiSelect";
+// TODO: try to fix this one, using T as a generic type but still keep the displayName
+// MultiSelect.displayName = "MultiSelect";

@@ -6,7 +6,7 @@ import {
   useGetCollectionInfo,
 } from "@/hooks/react-query/use-simulated-test";
 import { MAPPED_SIMULATED_TEST_TAGS } from "@/lib/consts";
-import { Route } from "@/routes/_authenticated/practice/$collectionId";
+import { Route } from "@/routes/_authenticated/_dashboard/practice/$collectionId";
 
 import { LoadMore } from "../mocules/load-more";
 import {

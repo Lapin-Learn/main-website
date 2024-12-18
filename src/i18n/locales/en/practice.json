@@ -55,17 +55,9 @@
       }
     },
     "skills": {
-      "reading": {
-        "passage": "Passage {{ number }}"
-      },
-      "listening": {
-        "section": "Section {{ number }}"
-      },
-      "writing": {
-        "task": "Task {{ number }}"
-      },
-      "speaking": {
-        "part": "Part {{ number }}"
-      }
+      "part_reading": "Passage {{ number }}",
+      "part_listening": "Section {{ number }}"      ,
+      "part_writing": "Task {{ number }}",
+      "part_speaking": "Part {{ number }}"
   }
 }

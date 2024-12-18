@@ -67,6 +67,7 @@ module.exports = {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
+        ["supporting-text"]: "#B4B4B4",
         neutral: {
           "50": "#EFEFEF",
           "100": "#CCCCCC",

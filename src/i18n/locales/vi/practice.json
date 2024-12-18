@@ -55,17 +55,9 @@
         }
     },
     "skills": {
-      "reading": {
-        "passage": "Phần {{ number }}"
-      },
-      "listening": {
-        "section": "Phần {{ number }}"
-      },
-      "writing": {
-        "task": "Phần {{ number }}"
-      },
-      "speaking": {
-        "part": "Phần {{ number }}"
-      }
+      "part_reading":"Phần {{ number }}",
+      "part_listening": "Phần {{ number }}",
+      "part_writing": "Phần {{ number }}",
+      "part_speaking": "Phần {{ number }}"
   }
 }

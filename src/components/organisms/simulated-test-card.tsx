@@ -8,17 +8,14 @@ import TestSkillCard from "../mocules/simulated-tests/test-skill-card";
 import { Button, Separator } from "../ui";
 import useSelectModeDialog from "./select-mode-dialog/use-select-mode-dialog";
 
-export function SimulatedTestCard({
-  testName,
-  skillTests,
-  order,
-  id,
-  collectionId,
-}: SimulatedTest & {
-  collectionId: number;
-}) {
+export function SimulatedTestCard(
+  props: SimulatedTest & {
+    collectionId: number;
+  }
+) {
   const { t } = useTranslation(["collection", "practice"]);
   const { setOpen, setData } = useSelectModeDialog();
+  const { testName, skillTests, order, id, collectionId } = props;
   return (
     <div className="rounded-2xl border bg-white p-5">
       <p className="mb-4 truncate text-lg font-bold">{testName}</p>
@@ -56,22 +53,21 @@ export function SimulatedTestCard({
                     if (skillTest) {
                       setData({
                         skill: skill,
-                        test: {
-                          id,
-                          collectionId,
-                          order,
-                          testName,
-                        },
+                        test: props,
                       });
                       setOpen(true);
                     }
                   }}
+                  disabled={!skillTest || !skillTest.partsDetail}
                   className="w-full"
                 >
-                  <TestSkillCard skill={skill} isSupport={!!skillTest} />
+                  <TestSkillCard
+                    skill={skill}
+                    isComingSoon={!skillTest || !skillTest.partsDetail}
+                  />
                 </button>
               );
-            })}{" "}
+            })}
         </div>
       </div>
     </div>
