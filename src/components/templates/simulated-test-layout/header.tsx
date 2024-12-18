@@ -9,18 +9,23 @@ import SimulatedTestTour from "@/components/organisms/simulated-test-tour";
 import { Button } from "@/components/ui";
 import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
 import useCountdown from "@/hooks/use-countdown";
+import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 
 type HeaderProps = {
   currentPart: number;
   testId: number;
   skillTestId: number;
 };
+
 export default function Header({ currentPart, skillTestId }: HeaderProps) {
+  const { t } = useTranslation("simulatedTest");
   const [run, setRun] = useState(false);
   const [showStartDialog, setShowStartDialog] = useState(false);
-  const { time, resume, isEnd } = useCountdown(60 * 40); // 40 minutes
-  const { t } = useTranslation("simulatedTest");
+
   const { isSuccess } = useGetSkillTestData(skillTestId, currentPart);
+  const { setElapsedTime } = useAnswerStore();
+  const { time, resume, isEnd } = useCountdown(60 * 40, setElapsedTime); // 40 minutes
+
   useEffect(() => {
     const isFirstTime = localStorage.getItem("simulatedTestFirstTime") !== "false";
     if (isFirstTime) {
@@ -29,6 +34,7 @@ export default function Header({ currentPart, skillTestId }: HeaderProps) {
       setShowStartDialog(true);
     }
   }, []);
+
   useEffect(() => {
     if (isEnd) {
       // TODO: submit the test

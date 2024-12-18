@@ -1,6 +1,6 @@
 import HeroImage from "@/assets/images/hero-image.jpg";
 
-import { CollectionList } from "../organisms/simulated-tests/collection-list";
+import { CollectionList } from "../organisms/collection-list";
 import { StreakSection } from "../organisms/streak";
 
 export default function PracticePage() {

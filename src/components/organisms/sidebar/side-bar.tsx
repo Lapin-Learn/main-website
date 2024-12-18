@@ -21,7 +21,7 @@ const features: SideBarFeatureProps[] = [
 ];
 
 export default function SideBar() {
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
   return (
     <>
       <div className="fixed flex w-full items-center justify-between bg-white p-4 pt-8 sm:hidden">

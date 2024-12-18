@@ -13,3 +13,8 @@ export type PresignedUrl = {
   id: string;
   url: string;
 };
+
+export type Option = {
+  value: string;
+  label: string;
+};

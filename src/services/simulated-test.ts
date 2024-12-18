@@ -1,4 +1,4 @@
-import { EnumMode } from "@/lib/enums";
+import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
 import { FetchingData, PagedData, PagingSchema } from "@/lib/types";
 import {
   ReadingContent,
@@ -71,5 +71,29 @@ export const startSimulatedTest = async (payload: SimulatedTestSessionPayload) =
         json: payload,
       })
       .json<FetchingData<SimulatedTestSession>>()
+  ).data;
+};
+
+type SubmitSimulatedTestPayload = {
+  elapsedTime: number;
+  status: EnumSimulatedTestSessionStatus;
+  responses: {
+    questionNo: number;
+    answer: string | null;
+  }[];
+};
+
+export const submitSimulatedTest = async (
+  payload: SubmitSimulatedTestPayload & {
+    sessionId: number;
+  }
+) => {
+  const { sessionId, ...rest } = payload;
+  return (
+    await api
+      .put(`simulated-tests/session/${sessionId}`, {
+        json: rest,
+      })
+      .json<FetchingData<string>>()
   ).data;
 };

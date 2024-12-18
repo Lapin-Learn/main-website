@@ -1,4 +1,5 @@
 import { Loader2 } from "lucide-react";
+import { useEffect } from "react";
 
 import ReadingPassage from "@/components/mocules/reading-passage";
 import QuestionGroup from "@/components/organisms/question-groups";
@@ -6,17 +7,24 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/componen
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
 import useBreakPoint from "@/hooks/use-screen-size";
-import useSimulatedTestState from "@/hooks/use-simulated-test";
+import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
 import { EnumQuestionGroup } from "@/lib/enums";
+import { scrollToElementById } from "@/lib/utils";
 import { Route } from "@/routes/_authenticated/practice/_simulated-test";
 
 const ReadingPage = () => {
   const { skillTestId } = Route.useSearch();
-
-  const { currentPart } = useSimulatedTestState();
-
+  const {
+    position: { part: currentPart, question },
+  } = useSimulatedTestState();
   const { data: testContent, isLoading } = useGetSkillTestData(skillTestId, currentPart);
   const breakpoint = useBreakPoint();
+
+  useEffect(() => {
+    if (!isLoading) {
+      scrollToElementById(`Question-${question}`);
+    }
+  }, [isLoading, question]);
 
   return (
     <ResizablePanelGroup

@@ -38,7 +38,7 @@ export const useSignIn = () => {
         });
       } else {
         setAccessToken(data.accessToken);
-        navigate({ to: "/" });
+        navigate({ to: "/practice" });
         toast({
           title: "Success",
           description: "You have successfully logged in",
