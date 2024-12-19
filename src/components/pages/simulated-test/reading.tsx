@@ -1,7 +1,7 @@
 import { Loader2 } from "lucide-react";
 import { useEffect } from "react";
 
-import ReadingPassage from "@/components/mocules/reading-passage";
+import ReadingPassage from "@/components/molecules/reading-passage";
 import QuestionGroup from "@/components/organisms/question-groups";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { ScrollArea } from "@/components/ui/scroll-area";

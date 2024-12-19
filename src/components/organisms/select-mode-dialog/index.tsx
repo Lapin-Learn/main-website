@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
 
-import CustomAlert from "@/components/mocules/alert";
-import FormSelect from "@/components/mocules/form-inputs/form-select";
+import CustomAlert from "@/components/molecules/alert";
+import FormSelect from "@/components/molecules/form-inputs/form-select";
 import { Button, Form } from "@/components/ui";
 import {
   Dialog,

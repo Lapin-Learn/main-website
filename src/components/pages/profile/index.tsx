@@ -13,8 +13,8 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import * as z from "zod";
 
-import { FormDatePicker } from "@/components/mocules/form-inputs/form-date-picker";
-import FormSelect from "@/components/mocules/form-inputs/form-select";
+import { FormDatePicker } from "@/components/molecules/form-inputs/form-date-picker";
+import FormSelect from "@/components/molecules/form-inputs/form-select";
 import { Input } from "@/components/ui/input";
 import { useUpdateUserProfile, useUserProfile } from "@/hooks/react-query/useUsers";
 import { EnumGender } from "@/lib/enums";
