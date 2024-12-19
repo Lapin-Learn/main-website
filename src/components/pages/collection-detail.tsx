@@ -8,11 +8,11 @@ import {
 import { MAPPED_SIMULATED_TEST_TAGS } from "@/lib/consts";
 import { Route } from "@/routes/_authenticated/_dashboard/practice/$collectionId";
 
-import { LoadMore } from "../mocules/load-more";
+import { LoadMore } from "../molecules/load-more";
 import {
   FilteredSkillCard,
   SkeletonFilteredSkillCard,
-} from "../mocules/simulated-tests/filtered-skill-card";
+} from "../molecules/simulated-tests/filtered-skill-card";
 import SelectModeDialog from "../organisms/select-mode-dialog";
 import { SimulatedTestCard, SkeletonSimulatedTestCard } from "../organisms/simulated-test-card";
 import {

@@ -8,7 +8,7 @@ import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
 import mockQuestionGroups from "@/lib/mock/mock-reading-content";
 import { Route } from "@/routes/_authenticated/practice/_simulated-test";
 
-import QuestionNavigator from "../../mocules/question-navigator";
+import QuestionNavigator from "../../molecules/question-navigator";
 import SubmitDialog from "../../organisms/simulated-test-dialog/submit-dialog";
 import Header from "./header";
 

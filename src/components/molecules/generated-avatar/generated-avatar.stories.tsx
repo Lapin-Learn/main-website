@@ -4,7 +4,7 @@ import GeneratedAvatar, { GeneratedAvatarProps } from ".";
 
 const meta = {
   component: GeneratedAvatar,
-  title: "mocules/Generated Avatar",
+  title: "molecules/Generated Avatar",
   parameters: {
     layout: "centered",
     docs: {
