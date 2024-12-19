@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
 
-import { LoadMore } from "@/components/mocules/load-more";
+import { LoadMore } from "@/components/molecules/load-more";
 import { Form, FormControl, FormField, FormItem, Input } from "@/components/ui";
 import {
   useFilter,
@@ -16,9 +16,12 @@ import { useDebounce } from "@/hooks/use-debounce";
 import { SIMULATED_TEST_TAGS } from "@/lib/consts";
 import { generateKeyword } from "@/lib/utils";
 
-import FormSelect from "../mocules/form-inputs/form-select";
-import { CollectionCard, SkeletonCollectionCard } from "../mocules/simulated-tests/collection-card";
-import SkillsFilter from "../mocules/skill-filter";
+import FormSelect from "../molecules/form-inputs/form-select";
+import {
+  CollectionCard,
+  SkeletonCollectionCard,
+} from "../molecules/simulated-tests/collection-card";
+import SkillsFilter from "../molecules/skill-filter";
 
 const formSchema = z.object({
   search: z.string().optional(),

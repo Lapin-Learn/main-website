@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { EnumSkill } from "@/lib/enums";
 import { SimulatedTest } from "@/lib/types/simulated-test.type";
 
-import TestSkillCard from "../mocules/simulated-tests/test-skill-card";
+import TestSkillCard from "../molecules/simulated-tests/test-skill-card";
 import { Button, Separator } from "../ui";
 import useSelectModeDialog from "./select-mode-dialog/use-select-mode-dialog";
 

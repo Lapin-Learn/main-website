@@ -17,7 +17,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
-import { Option } from "../mocules/form-inputs/form-select";
+import { Option } from "../molecules/form-inputs/form-select";
 
 /**
  * Variants for the multi-select component to handle different styles.
