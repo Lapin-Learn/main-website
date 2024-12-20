@@ -10,23 +10,21 @@ import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
 import useCountdown from "@/hooks/use-countdown";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { EnumSkill } from "@/lib/enums";
+import { SimulatedTestSession } from "@/lib/types/simulated-test.type";
 
 type HeaderProps = {
   currentPart: number;
-  testId: number;
-  skillTestId: number;
-  skill: EnumSkill;
-  timeLimit: number;
+  session: SimulatedTestSession;
 };
 
-export default function Header({ currentPart, skillTestId, skill, timeLimit }: HeaderProps) {
+export default function Header({ currentPart, session }: HeaderProps) {
   const { t } = useTranslation("simulatedTest");
   const [run, setRun] = useState(false);
   const [showStartDialog, setShowStartDialog] = useState(false);
 
-  const { isSuccess } = useGetSkillTestData(skillTestId, currentPart);
+  const { isSuccess } = useGetSkillTestData(session.skillTest.id, currentPart);
   const { setElapsedTime } = useAnswerStore();
-  const { time, resume, isEnd } = useCountdown(timeLimit, setElapsedTime); // 40 minutes
+  const { time, resume, isEnd } = useCountdown(session.timeLimit, setElapsedTime); // 40 minutes
 
   useEffect(() => {
     const isFirstTime = localStorage.getItem("simulatedTestFirstTime") !== "false";
@@ -49,6 +47,7 @@ export default function Header({ currentPart, skillTestId, skill, timeLimit }: H
     setShowStartDialog(true);
   };
 
+  const { skill } = session.skillTest;
   const getPartName = () => {
     if (skill === EnumSkill.reading) {
       return "Passage";
@@ -67,6 +66,10 @@ export default function Header({ currentPart, skillTestId, skill, timeLimit }: H
         }}
         open={showStartDialog}
         disableStart={!isSuccess}
+        parts={session.parts.length}
+        timeLimit={session.timeLimit}
+        mode={session.mode}
+        skill={skill}
       />
       <SimulatedTestTourFactory skill={skill} run={run} onEndTour={onEndTour} />
       <div className="grid w-full place-items-center border-b bg-white px-4 shadow-sm sm:h-16 sm:px-8">
@@ -76,7 +79,7 @@ export default function Header({ currentPart, skillTestId, skill, timeLimit }: H
             {[skill.toString(), getPartName(), currentPart].join(" ")}
           </h6>
           <div className="text-xs font-semibold text-neutral-300 sm:text-sm">
-            Road to IELTS - test 1
+            {session.skillTest.simulatedIeltsTest.testName}
           </div>
         </div>
         <ExitDialog

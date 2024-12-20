@@ -92,3 +92,10 @@ export const formatTime = (seconds: number) => {
   const secs = seconds % 60;
   return `${mins.toString().padStart(2, "0")}:${secs.toFixed(0).toString().padStart(2, "0")}`;
 };
+
+export const formatAnswerSheetToResponses = (answerSheet: Record<string, string | null>) => {
+  return Object.entries(answerSheet).map(([questionNo, answer]) => ({
+    questionNo: parseInt(questionNo),
+    answer,
+  }));
+};

@@ -3,6 +3,7 @@ import { FetchingData, PagedData, PagingSchema } from "@/lib/types";
 import {
   ReadingContent,
   SimulatedTest,
+  SimulatedTestAnswer,
   SimulatedTestCollection,
   SimulatedTestSession,
 } from "@/lib/types/simulated-test.type";
@@ -33,14 +34,19 @@ export const getSimulatedTestBySkill = async ({
   skillTestId,
   partNo,
 }: SimulatedSkillTestParams) => {
-  const searchParams = generateSearchParams({ part: partNo });
-  return (
-    await api
-      .get(`skill-tests/${skillTestId}`, {
-        searchParams,
-      })
-      .json<FetchingData<ReadingContent>>()
-  ).data;
+  try {
+    const searchParams = generateSearchParams({ part: partNo });
+    return (
+      await api
+        .get(`skill-tests/${skillTestId}`, {
+          searchParams,
+        })
+        .json<FetchingData<ReadingContent>>()
+    ).data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };
 
 export const getSimulatedTestCollectionDetail = async (
@@ -64,23 +70,25 @@ export type SimulatedTestSessionPayload = {
   parts: number[];
 };
 
+type StartSimulatedTestResponse = {
+  id: number;
+  skillTestId: number;
+};
+
 export const startSimulatedTest = async (payload: SimulatedTestSessionPayload) => {
   return (
     await api
       .post("simulated-tests/session", {
         json: payload,
       })
-      .json<FetchingData<SimulatedTestSession>>()
+      .json<FetchingData<StartSimulatedTestResponse>>()
   ).data;
 };
 
 type SubmitSimulatedTestPayload = {
   elapsedTime: number;
   status: EnumSimulatedTestSessionStatus;
-  responses: {
-    questionNo: number;
-    answer: string | null;
-  }[];
+  responses: SimulatedTestAnswer[];
 };
 
 export const submitSimulatedTest = async (
@@ -95,5 +103,11 @@ export const submitSimulatedTest = async (
         json: rest,
       })
       .json<FetchingData<string>>()
+  ).data;
+};
+
+export const getSimulatedTestSessionDetail = async (sessionId: number) => {
+  return (
+    await api.get(`simulated-tests/session/${sessionId}`).json<FetchingData<SimulatedTestSession>>()
   ).data;
 };

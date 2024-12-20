@@ -13,13 +13,28 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { useSubmitSimulatedTest } from "@/hooks/react-query/use-simulated-test";
+import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
+import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
+import { formatAnswerSheetToResponses } from "@/lib/utils";
+import { Route } from "@/routes/_authenticated/practice/simulated-test";
 
 type ExitDialogProps = {
   triggerButton: React.ReactNode;
 };
 const ExitDialog = ({ triggerButton }: ExitDialogProps) => {
   const navigate = useNavigate();
+  const { sessionId } = Route.useSearch();
+  const { answerSheet, elapsedTime } = useAnswerStore();
+  const { mutate: submitTest } = useSubmitSimulatedTest();
   const onClose = () => {
+    const responses = formatAnswerSheetToResponses(answerSheet);
+    submitTest({
+      sessionId,
+      elapsedTime,
+      status: EnumSimulatedTestSessionStatus.IN_PROGRESS,
+      responses,
+    });
     navigate({ to: "/practice" });
   };
   const { t } = useTranslation("simulatedTest", {

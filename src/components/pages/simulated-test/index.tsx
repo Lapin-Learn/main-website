@@ -1,10 +1,12 @@
 import { useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { Fragment, PropsWithChildren, useEffect } from "react";
 
 import ListeningPage from "@/components/pages/simulated-test/listening";
 import ReadingPage from "@/components/pages/simulated-test/reading";
-import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
+import { useGetSTSessionDetail } from "@/hooks/react-query/use-simulated-test";
+import useSimulatedTestState, { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { EnumSkill } from "@/lib/enums";
+import { SimulatedTestAnswer } from "@/lib/types/simulated-test.type";
 import { Route } from "@/routes/_authenticated/practice/simulated-test";
 
 import Footer from "./footer";
@@ -15,12 +17,10 @@ import Header from "./header";
  * The layout should decide which component should be render, escape checking condition in every component, as many stateless component as possible
  */
 const SimulatedTestPage = () => {
-  const { sessionId, skillTestId } = Route.useSearch();
+  const { sessionId } = Route.useSearch();
   const { navigateToPart, position, resetTest } = useSimulatedTestState();
   const navigate = useNavigate();
-  const skill: EnumSkill = EnumSkill.reading;
-
-  // TODO: render the page for each skill base on the skillTest.skill value from get session
+  const { data: session, isLoading, isSuccess } = useGetSTSessionDetail(sessionId);
 
   // TODO: calling api to get the detail of the session before render the outlet
   useEffect(() => {
@@ -33,17 +33,32 @@ const SimulatedTestPage = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (isSuccess && !session) {
+      navigate({ to: "/practice" });
+    }
+  }, [isSuccess, session]);
+
+  // TODO: enhance UI loading here
+  if (isLoading || !session) {
+    return <div className="size-screen grid place-items-center">Loading...</div>;
+  }
+
   return (
     <div className="flex h-screen w-screen flex-col justify-between">
-      <Header
-        currentPart={position.part}
-        testId={skillTestId}
-        skillTestId={skillTestId}
-        skill={skill}
-        timeLimit={40 * 60}
-      />
-      <SkillContentFactory skill={skill} />
-      <Footer sessionId={parseInt(sessionId)} />
+      <Header currentPart={position.part} session={session} />
+      <DefaultAnswerWrapper draftAnswers={session.responses ?? []}>
+        <SkillContentFactory skill={session.skillTest.skill} />
+        <Footer
+          sessionId={parseInt(sessionId)}
+          partDetails={
+            session.skillTest.partsDetail.map((part, index) => ({
+              ...part,
+              part: session.parts[index],
+            })) ?? []
+          }
+        />
+      </DefaultAnswerWrapper>
     </div>
   );
 };
@@ -67,4 +82,25 @@ const SkillContentFactory = ({ skill }: { skill: EnumSkill }) => {
         </div>
       );
   }
+};
+
+const DefaultAnswerWrapper = ({
+  children,
+  draftAnswers,
+}: PropsWithChildren<{
+  draftAnswers: SimulatedTestAnswer[];
+}>) => {
+  const { loadAllAnswer } = useAnswerStore();
+  useEffect(() => {
+    loadAllAnswer(
+      draftAnswers.reduce(
+        (acc, answer) => {
+          acc[answer.questionNo.toString()] = answer.answer;
+          return acc;
+        },
+        {} as Record<string, string | null>
+      )
+    );
+  }, [draftAnswers]);
+  return <Fragment>{children}</Fragment>;
 };

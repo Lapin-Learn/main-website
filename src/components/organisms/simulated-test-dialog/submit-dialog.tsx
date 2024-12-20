@@ -15,6 +15,7 @@ import {
 import { useSubmitSimulatedTest } from "@/hooks/react-query/use-simulated-test";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
+import { formatAnswerSheetToResponses } from "@/lib/utils";
 
 type SubmitDialogProps = {
   triggerButton: React.ReactNode;
@@ -25,10 +26,7 @@ const SubmitDialog = ({ triggerButton, sessionId }: SubmitDialogProps) => {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const { mutate: submitTest, isPending } = useSubmitSimulatedTest();
   const onClose = () => {
-    const responses = Object.entries(answerSheet).map(([questionNo, answer]) => ({
-      questionNo: parseInt(questionNo),
-      answer,
-    }));
+    const responses = formatAnswerSheetToResponses(answerSheet);
     submitTest(
       {
         sessionId,

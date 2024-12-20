@@ -9,6 +9,7 @@ import {
   getSimulatedTestBySkill,
   getSimulatedTestCollectionDetail,
   getSimulatedTestCollections,
+  getSimulatedTestSessionDetail,
   SimulatedSkillTestParams,
   startSimulatedTest,
   submitSimulatedTest,
@@ -25,6 +26,8 @@ const simulatedTestKeys = {
   skillTestKey: ["skill-test"] as const,
   skillTestDetail: (params: SimulatedSkillTestParams) =>
     [...simulatedTestKeys.skillTestKey, params] as const,
+  session: ["session"] as const,
+  sessionDetail: (sessionId: number) => [...simulatedTestKeys.session, sessionId] as const,
 };
 
 type State = {
@@ -84,6 +87,7 @@ export const useGetSkillTestData = (skillTestId: number, partNo: number) => {
         return getSimulatedTestBySkill({ skillTestId, partNo });
       }
     },
+    retry: false,
   });
 };
 
@@ -120,13 +124,13 @@ export const useStartSimulatedTest = () => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: startSimulatedTest,
-    onSuccess: (response) => {
-      if (response) {
+    onSuccess: (returnData) => {
+      if (returnData) {
         navigate({
           to: "/practice/simulated-test",
           search: {
-            skillTestId: response.skillTestId,
-            sessionId: response.id,
+            skillTestId: returnData.skillTestId,
+            sessionId: returnData.id,
           },
         });
       }
@@ -161,5 +165,12 @@ export const useSubmitSimulatedTest = () => {
         variant: "destructive",
       });
     },
+  });
+};
+
+export const useGetSTSessionDetail = (sessionId: number) => {
+  return useQuery({
+    queryKey: simulatedTestKeys.sessionDetail(sessionId),
+    queryFn: () => getSimulatedTestSessionDetail(sessionId),
   });
 };

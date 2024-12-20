@@ -52,6 +52,7 @@ type AnswerAction = {
   answer: (questionNo: number, answer: string | null) => void;
   setCurrentQuestion: (questionNo: number) => void;
   setElapsedTime: (time: number) => void;
+  loadAllAnswer: (answers: Record<string, string | null>) => void;
 };
 
 export const useAnswerStore = create<AnswerState & AnswerAction>((set) => ({
@@ -73,4 +74,5 @@ export const useAnswerStore = create<AnswerState & AnswerAction>((set) => ({
   },
   setCurrentQuestion: (questionNo) => set({ currentQuestion: questionNo }),
   setElapsedTime: (time) => set({ elapsedTime: time }),
+  loadAllAnswer: (answers) => set({ answerSheet: answers }),
 }));

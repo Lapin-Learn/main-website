@@ -60,7 +60,6 @@ export type QuestionGroupMatchingHeadings = BaseQuestionGroup & {
 };
 
 export type ReadingContent = {
-  // type: EnumSkill.reading;
   part: number;
   startQuestionNo: number;
   endQuestionNo: number;
@@ -68,8 +67,10 @@ export type ReadingContent = {
   questionGroups: QuestionGroup[];
 };
 
-type PartDetail = {
+export type PartDetail = {
   questionTypes: string[];
+  startQuestionNo: number;
+  endQuestionNo: number;
 };
 
 export type SkillTest = {
@@ -89,9 +90,15 @@ export type SimulatedTestSession = {
   learnerProfileId: string;
   mode: EnumMode;
   parts: number[];
-  responses: object;
-  results: object;
-  skillTestId: number;
+  responses: SimulatedTestAnswer[];
+  skillTest: SkillTest & {
+    simulatedIeltsTest: Pick<SimulatedTestSimple, "id" | "testName">;
+  };
   status: EnumSimulatedTestSessionStatus;
   timeLimit: number;
+};
+
+export type SimulatedTestAnswer = {
+  questionNo: number;
+  answer: string | null;
 };

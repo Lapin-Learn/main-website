@@ -7,18 +7,22 @@ import SubmitDialog from "@/components/organisms/simulated-test-dialog/submit-di
 import { Button } from "@/components/ui";
 import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
 import mockQuestionGroups from "@/lib/mock/mock-reading-content";
+import { PartDetail } from "@/lib/types/simulated-test.type";
 
 type FooterProps = {
   sessionId: number;
+  partDetails: (PartDetail & {
+    part: number;
+  })[];
 };
-const Footer = ({ sessionId }: FooterProps) => {
+const Footer = ({ sessionId, partDetails }: FooterProps) => {
   const { navigateToPart, position } = useSimulatedTestState();
   const { t } = useTranslation("simulatedTest");
 
   return (
     <div className="flex flex-col items-center justify-between gap-2 border-t bg-white px-4 py-2 sm:min-h-24 sm:flex-row sm:px-8 sm:py-0 lg:gap-12">
       <div className="question-navigator flex h-fit w-full flex-1 flex-wrap items-center gap-1">
-        {mockQuestionGroups.map((group) => (
+        {partDetails.map((group) => (
           <React.Fragment key={group.part}>
             <p className="w-[60px] text-center text-xs font-medium">Part {group.part}</p>
             {Array.from(
