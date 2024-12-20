@@ -2,7 +2,6 @@ import { Trans, useTranslation } from "react-i18next";
 
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -40,11 +39,9 @@ const StartDialog = ({ onClose, open, disableStart = false }: StartDialogProps) 
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogAction asChild className="w-full" onClick={onClose} disabled={disableStart}>
-            <Button size="xl" className="w-full" disabled={disableStart}>
-              {t("startBtn")}
-            </Button>
-          </AlertDialogAction>
+          <Button size="xl" className="w-full" disabled={disableStart} onClick={onClose}>
+            {t("startBtn")}
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

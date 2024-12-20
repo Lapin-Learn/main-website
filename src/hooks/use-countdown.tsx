@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { formatTime } from "@/lib/utils";
+
 function useCountdown(initialTime: number, onChangeTime?: (time: number) => void) {
   const [timeLeft, setTimeLeft] = useState(initialTime);
   const [isRunning, setIsRunning] = useState(false);
@@ -60,12 +62,6 @@ function useCountdown(initialTime: number, onChangeTime?: (time: number) => void
       pausedTimeRef.current = null;
     }
   }, [isRunning]);
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
-  };
 
   return {
     time: formatTime(timeLeft),

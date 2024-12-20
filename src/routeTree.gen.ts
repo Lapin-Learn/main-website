@@ -8,8 +8,6 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from "@tanstack/react-router";
-
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root";
@@ -22,18 +20,13 @@ import { Route as AuthenticationResetPasswordImport } from "./routes/_authentica
 import { Route as AuthenticationLogInImport } from "./routes/_authentication/log-in";
 import { Route as AuthenticationForgotPasswordImport } from "./routes/_authentication/forgot-password";
 import { Route as AuthenticatedDashboardImport } from "./routes/_authenticated/_dashboard";
-import { Route as AuthenticatedPracticeSimulatedTestImport } from "./routes/_authenticated/practice/_simulated-test";
+import { Route as AuthenticatedPracticeSimulatedTestImport } from "./routes/_authenticated/practice/simulated-test";
 import { Route as AuthenticatedDashboardProfileImport } from "./routes/_authenticated/_dashboard/_profile";
 import { Route as AuthenticatedDashboardPracticeIndexImport } from "./routes/_authenticated/_dashboard/practice/index";
-import { Route as AuthenticatedPracticeSimulatedTestSimulatedTestImport } from "./routes/_authenticated/practice/_simulated-test/simulated-test";
 import { Route as AuthenticatedDashboardPracticeCollectionIdImport } from "./routes/_authenticated/_dashboard/practice/$collectionId";
 import { Route as AuthenticatedDashboardProfileProfileImport } from "./routes/_authenticated/_dashboard/_profile/profile";
 import { Route as AuthenticatedDashboardProfileHistoryImport } from "./routes/_authenticated/_dashboard/_profile/history";
 import { Route as AuthenticatedDashboardProfileChangePasswordImport } from "./routes/_authenticated/_dashboard/_profile/change-password";
-
-// Create Virtual Routes
-
-const AuthenticatedPracticeImport = createFileRoute("/_authenticated/practice")();
 
 // Create/Update Routes
 
@@ -45,12 +38,6 @@ const AuthenticationRoute = AuthenticationImport.update({
 const AuthenticatedRoute = AuthenticatedImport.update({
   id: "/_authenticated",
   getParentRoute: () => rootRoute,
-} as any);
-
-const AuthenticatedPracticeRoute = AuthenticatedPracticeImport.update({
-  id: "/practice",
-  path: "/practice",
-  getParentRoute: () => AuthenticatedRoute,
 } as any);
 
 const AuthenticatedIndexRoute = AuthenticatedIndexImport.update({
@@ -95,8 +82,9 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardImport.update({
 } as any);
 
 const AuthenticatedPracticeSimulatedTestRoute = AuthenticatedPracticeSimulatedTestImport.update({
-  id: "/_simulated-test",
-  getParentRoute: () => AuthenticatedPracticeRoute,
+  id: "/practice/simulated-test",
+  path: "/practice/simulated-test",
+  getParentRoute: () => AuthenticatedRoute,
 } as any);
 
 const AuthenticatedDashboardProfileRoute = AuthenticatedDashboardProfileImport.update({
@@ -109,13 +97,6 @@ const AuthenticatedDashboardPracticeIndexRoute = AuthenticatedDashboardPracticeI
   path: "/practice/",
   getParentRoute: () => AuthenticatedDashboardRoute,
 } as any);
-
-const AuthenticatedPracticeSimulatedTestSimulatedTestRoute =
-  AuthenticatedPracticeSimulatedTestSimulatedTestImport.update({
-    id: "/simulated-test",
-    path: "/simulated-test",
-    getParentRoute: () => AuthenticatedPracticeSimulatedTestRoute,
-  } as any);
 
 const AuthenticatedDashboardPracticeCollectionIdRoute =
   AuthenticatedDashboardPracticeCollectionIdImport.update({
@@ -221,19 +202,12 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AuthenticatedDashboardProfileImport;
       parentRoute: typeof AuthenticatedDashboardImport;
     };
-    "/_authenticated/practice": {
-      id: "/_authenticated/practice";
-      path: "/practice";
-      fullPath: "/practice";
-      preLoaderRoute: typeof AuthenticatedPracticeImport;
-      parentRoute: typeof AuthenticatedImport;
-    };
-    "/_authenticated/practice/_simulated-test": {
-      id: "/_authenticated/practice/_simulated-test";
-      path: "/practice";
-      fullPath: "/practice";
+    "/_authenticated/practice/simulated-test": {
+      id: "/_authenticated/practice/simulated-test";
+      path: "/practice/simulated-test";
+      fullPath: "/practice/simulated-test";
       preLoaderRoute: typeof AuthenticatedPracticeSimulatedTestImport;
-      parentRoute: typeof AuthenticatedPracticeRoute;
+      parentRoute: typeof AuthenticatedImport;
     };
     "/_authenticated/_dashboard/_profile/change-password": {
       id: "/_authenticated/_dashboard/_profile/change-password";
@@ -262,13 +236,6 @@ declare module "@tanstack/react-router" {
       fullPath: "/practice/$collectionId";
       preLoaderRoute: typeof AuthenticatedDashboardPracticeCollectionIdImport;
       parentRoute: typeof AuthenticatedDashboardImport;
-    };
-    "/_authenticated/practice/_simulated-test/simulated-test": {
-      id: "/_authenticated/practice/_simulated-test/simulated-test";
-      path: "/simulated-test";
-      fullPath: "/practice/simulated-test";
-      preLoaderRoute: typeof AuthenticatedPracticeSimulatedTestSimulatedTestImport;
-      parentRoute: typeof AuthenticatedPracticeSimulatedTestImport;
     };
     "/_authenticated/_dashboard/practice/": {
       id: "/_authenticated/_dashboard/practice/";
@@ -314,43 +281,16 @@ const AuthenticatedDashboardRouteWithChildren = AuthenticatedDashboardRoute._add
   AuthenticatedDashboardRouteChildren
 );
 
-interface AuthenticatedPracticeSimulatedTestRouteChildren {
-  AuthenticatedPracticeSimulatedTestSimulatedTestRoute: typeof AuthenticatedPracticeSimulatedTestSimulatedTestRoute;
-}
-
-const AuthenticatedPracticeSimulatedTestRouteChildren: AuthenticatedPracticeSimulatedTestRouteChildren =
-  {
-    AuthenticatedPracticeSimulatedTestSimulatedTestRoute:
-      AuthenticatedPracticeSimulatedTestSimulatedTestRoute,
-  };
-
-const AuthenticatedPracticeSimulatedTestRouteWithChildren =
-  AuthenticatedPracticeSimulatedTestRoute._addFileChildren(
-    AuthenticatedPracticeSimulatedTestRouteChildren
-  );
-
-interface AuthenticatedPracticeRouteChildren {
-  AuthenticatedPracticeSimulatedTestRoute: typeof AuthenticatedPracticeSimulatedTestRouteWithChildren;
-}
-
-const AuthenticatedPracticeRouteChildren: AuthenticatedPracticeRouteChildren = {
-  AuthenticatedPracticeSimulatedTestRoute: AuthenticatedPracticeSimulatedTestRouteWithChildren,
-};
-
-const AuthenticatedPracticeRouteWithChildren = AuthenticatedPracticeRoute._addFileChildren(
-  AuthenticatedPracticeRouteChildren
-);
-
 interface AuthenticatedRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRouteWithChildren;
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute;
-  AuthenticatedPracticeRoute: typeof AuthenticatedPracticeRouteWithChildren;
+  AuthenticatedPracticeSimulatedTestRoute: typeof AuthenticatedPracticeSimulatedTestRoute;
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
-  AuthenticatedPracticeRoute: AuthenticatedPracticeRouteWithChildren,
+  AuthenticatedPracticeSimulatedTestRoute: AuthenticatedPracticeSimulatedTestRoute,
 };
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
@@ -385,12 +325,12 @@ export interface FileRoutesByFullPath {
   "/sign-up": typeof AuthenticationSignUpRoute;
   "/verify-otp": typeof AuthenticationVerifyOtpRoute;
   "/": typeof AuthenticatedIndexRoute;
-  "/practice": typeof AuthenticatedDashboardPracticeIndexRoute;
+  "/practice/simulated-test": typeof AuthenticatedPracticeSimulatedTestRoute;
   "/change-password": typeof AuthenticatedDashboardProfileChangePasswordRoute;
   "/history": typeof AuthenticatedDashboardProfileHistoryRoute;
   "/profile": typeof AuthenticatedDashboardProfileProfileRoute;
   "/practice/$collectionId": typeof AuthenticatedDashboardPracticeCollectionIdRoute;
-  "/practice/simulated-test": typeof AuthenticatedPracticeSimulatedTestSimulatedTestRoute;
+  "/practice": typeof AuthenticatedDashboardPracticeIndexRoute;
 }
 
 export interface FileRoutesByTo {
@@ -401,12 +341,12 @@ export interface FileRoutesByTo {
   "/sign-up": typeof AuthenticationSignUpRoute;
   "/verify-otp": typeof AuthenticationVerifyOtpRoute;
   "/": typeof AuthenticatedIndexRoute;
-  "/practice": typeof AuthenticatedDashboardPracticeIndexRoute;
+  "/practice/simulated-test": typeof AuthenticatedPracticeSimulatedTestRoute;
   "/change-password": typeof AuthenticatedDashboardProfileChangePasswordRoute;
   "/history": typeof AuthenticatedDashboardProfileHistoryRoute;
   "/profile": typeof AuthenticatedDashboardProfileProfileRoute;
   "/practice/$collectionId": typeof AuthenticatedDashboardPracticeCollectionIdRoute;
-  "/practice/simulated-test": typeof AuthenticatedPracticeSimulatedTestSimulatedTestRoute;
+  "/practice": typeof AuthenticatedDashboardPracticeIndexRoute;
 }
 
 export interface FileRoutesById {
@@ -421,13 +361,11 @@ export interface FileRoutesById {
   "/_authentication/verify-otp": typeof AuthenticationVerifyOtpRoute;
   "/_authenticated/": typeof AuthenticatedIndexRoute;
   "/_authenticated/_dashboard/_profile": typeof AuthenticatedDashboardProfileRouteWithChildren;
-  "/_authenticated/practice": typeof AuthenticatedPracticeRouteWithChildren;
-  "/_authenticated/practice/_simulated-test": typeof AuthenticatedPracticeSimulatedTestRouteWithChildren;
+  "/_authenticated/practice/simulated-test": typeof AuthenticatedPracticeSimulatedTestRoute;
   "/_authenticated/_dashboard/_profile/change-password": typeof AuthenticatedDashboardProfileChangePasswordRoute;
   "/_authenticated/_dashboard/_profile/history": typeof AuthenticatedDashboardProfileHistoryRoute;
   "/_authenticated/_dashboard/_profile/profile": typeof AuthenticatedDashboardProfileProfileRoute;
   "/_authenticated/_dashboard/practice/$collectionId": typeof AuthenticatedDashboardPracticeCollectionIdRoute;
-  "/_authenticated/practice/_simulated-test/simulated-test": typeof AuthenticatedPracticeSimulatedTestSimulatedTestRoute;
   "/_authenticated/_dashboard/practice/": typeof AuthenticatedDashboardPracticeIndexRoute;
 }
 
@@ -441,12 +379,12 @@ export interface FileRouteTypes {
     | "/sign-up"
     | "/verify-otp"
     | "/"
-    | "/practice"
+    | "/practice/simulated-test"
     | "/change-password"
     | "/history"
     | "/profile"
     | "/practice/$collectionId"
-    | "/practice/simulated-test";
+    | "/practice";
   fileRoutesByTo: FileRoutesByTo;
   to:
     | ""
@@ -456,12 +394,12 @@ export interface FileRouteTypes {
     | "/sign-up"
     | "/verify-otp"
     | "/"
-    | "/practice"
+    | "/practice/simulated-test"
     | "/change-password"
     | "/history"
     | "/profile"
     | "/practice/$collectionId"
-    | "/practice/simulated-test";
+    | "/practice";
   id:
     | "__root__"
     | "/_authenticated"
@@ -474,13 +412,11 @@ export interface FileRouteTypes {
     | "/_authentication/verify-otp"
     | "/_authenticated/"
     | "/_authenticated/_dashboard/_profile"
-    | "/_authenticated/practice"
-    | "/_authenticated/practice/_simulated-test"
+    | "/_authenticated/practice/simulated-test"
     | "/_authenticated/_dashboard/_profile/change-password"
     | "/_authenticated/_dashboard/_profile/history"
     | "/_authenticated/_dashboard/_profile/profile"
     | "/_authenticated/_dashboard/practice/$collectionId"
-    | "/_authenticated/practice/_simulated-test/simulated-test"
     | "/_authenticated/_dashboard/practice/";
   fileRoutesById: FileRoutesById;
 }
@@ -514,7 +450,7 @@ export const routeTree = rootRoute
       "children": [
         "/_authenticated/_dashboard",
         "/_authenticated/",
-        "/_authenticated/practice"
+        "/_authenticated/practice/simulated-test"
       ]
     },
     "/_authentication": {
@@ -569,19 +505,9 @@ export const routeTree = rootRoute
         "/_authenticated/_dashboard/_profile/profile"
       ]
     },
-    "/_authenticated/practice": {
-      "filePath": "_authenticated/practice",
-      "parent": "/_authenticated",
-      "children": [
-        "/_authenticated/practice/_simulated-test"
-      ]
-    },
-    "/_authenticated/practice/_simulated-test": {
-      "filePath": "_authenticated/practice/_simulated-test.tsx",
-      "parent": "/_authenticated/practice",
-      "children": [
-        "/_authenticated/practice/_simulated-test/simulated-test"
-      ]
+    "/_authenticated/practice/simulated-test": {
+      "filePath": "_authenticated/practice/simulated-test.tsx",
+      "parent": "/_authenticated"
     },
     "/_authenticated/_dashboard/_profile/change-password": {
       "filePath": "_authenticated/_dashboard/_profile/change-password.tsx",
@@ -598,10 +524,6 @@ export const routeTree = rootRoute
     "/_authenticated/_dashboard/practice/$collectionId": {
       "filePath": "_authenticated/_dashboard/practice/$collectionId.tsx",
       "parent": "/_authenticated/_dashboard"
-    },
-    "/_authenticated/practice/_simulated-test/simulated-test": {
-      "filePath": "_authenticated/practice/_simulated-test/simulated-test.tsx",
-      "parent": "/_authenticated/practice/_simulated-test"
     },
     "/_authenticated/_dashboard/practice/": {
       "filePath": "_authenticated/_dashboard/practice/index.tsx",

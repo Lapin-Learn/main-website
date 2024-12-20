@@ -1,18 +1,18 @@
-import { Outlet, useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import React, { useEffect } from "react";
+import React, { PropsWithChildren, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui";
 import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
 import mockQuestionGroups from "@/lib/mock/mock-reading-content";
-import { Route } from "@/routes/_authenticated/practice/_simulated-test";
+import { Route } from "@/routes/_authenticated/practice/simulated-test";
 
 import QuestionNavigator from "../../molecules/question-navigator";
 import SubmitDialog from "../../organisms/simulated-test-dialog/submit-dialog";
 import Header from "./header";
 
-const SimulatedTestLayout = () => {
+const SimulatedTestPage = ({ children }: PropsWithChildren) => {
   const { t } = useTranslation("simulatedTest");
   const { sessionId, skillTestId } = Route.useSearch();
   const { navigateToPart, position, resetTest } = useSimulatedTestState();
@@ -32,8 +32,8 @@ const SimulatedTestLayout = () => {
   return (
     <div className="flex h-screen w-screen flex-col justify-between">
       <Header currentPart={position.part} testId={skillTestId} skillTestId={skillTestId} />
-      <Outlet />
-      <div className="flex flex-1 flex-col items-center justify-between gap-2 border-t bg-white px-4 py-2 sm:min-h-24 sm:flex-row sm:px-8 sm:py-0 lg:gap-12">
+      {children}
+      <div className="flex flex-col items-center justify-between gap-2 border-t bg-white px-4 py-2 sm:min-h-24 sm:flex-row sm:px-8 sm:py-0 lg:gap-12">
         <div className="question-navigator flex h-fit w-full flex-1 flex-wrap items-center gap-1">
           {mockQuestionGroups.map((group) => (
             <React.Fragment key={group.part}>
@@ -88,4 +88,4 @@ const SimulatedTestLayout = () => {
   );
 };
 
-export default SimulatedTestLayout;
+export default SimulatedTestPage;
