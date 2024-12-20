@@ -1,21 +1,33 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import Joyride, { CallBackProps, TooltipRenderProps } from "react-joyride";
+import Joyride, { CallBackProps, STATUS, TooltipRenderProps } from "react-joyride";
 
 import { Button } from "@/components/ui";
+import { EnumSkill } from "@/lib/enums";
 
 import { useTourSteps } from "./use-tour-steps";
 
 type SimulatedTestTourProps = {
   run: boolean;
-  handleTourCallback: (data: CallBackProps) => void;
+  onEndTour: () => void;
 };
 
-const SimulatedTestTour = ({ run, handleTourCallback }: SimulatedTestTourProps) => {
+const SimulatedTestTourReading = ({ run, onEndTour }: SimulatedTestTourProps) => {
   const { t } = useTranslation("simulatedTest");
   const tourSteps = useTourSteps();
   const startSteps = t("tour.beforeStart.steps", { returnObjects: true }) as string[];
   const endSteps = t("tour.end.steps", { returnObjects: true }) as string[];
+
+  const handleTourCallback = (data: CallBackProps) => {
+    const { status } = data;
+    const finishedStatuses: string[] = [STATUS.FINISHED, STATUS.SKIPPED];
+
+    if (finishedStatuses.includes(status)) {
+      onEndTour();
+    }
+  };
+
   return (
     <Joyride
       run={run}
@@ -121,4 +133,23 @@ const SimulatedTestTour = ({ run, handleTourCallback }: SimulatedTestTourProps) 
   );
 };
 
-export default SimulatedTestTour;
+const DefaultTour = ({ onEndTour }: Pick<SimulatedTestTourProps, "onEndTour">) => {
+  useEffect(() => {
+    onEndTour();
+  }, []);
+  return <React.Fragment />;
+};
+
+const SimulatedTestTourFactory = ({
+  skill,
+  ...props
+}: { skill: EnumSkill } & SimulatedTestTourProps) => {
+  switch (skill) {
+    case EnumSkill.reading:
+      return <SimulatedTestTourReading {...props} />;
+    default:
+      return <DefaultTour {...props} />;
+  }
+};
+
+export { SimulatedTestTourFactory, SimulatedTestTourReading };

@@ -22,7 +22,12 @@ type QuestionNavigatorProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   partNo: number;
 };
 
-const QuestionNavigator = ({ number, className, partNo, ...props }: QuestionNavigatorProps) => {
+const QuestionNavigatorButton = ({
+  number,
+  className,
+  partNo,
+  ...props
+}: QuestionNavigatorProps) => {
   const { navigateToPart } = useSimulatedTestStore();
   const { answerSheet, currentQuestion, setCurrentQuestion, resetAnswers } = useAnswerStore();
 
@@ -55,4 +60,4 @@ const QuestionNavigator = ({ number, className, partNo, ...props }: QuestionNavi
   );
 };
 
-export default QuestionNavigator;
+export default QuestionNavigatorButton;

@@ -127,7 +127,7 @@ const AudioPlayer = ({
       <button
         onClick={isPlaying ? pauseAudio : playAudio}
         type="button"
-        className="size-5 [&_svg]:fill-primary [&_svg]:text-primary"
+        className="size-5 [&_svg]:fill-primary-700 [&_svg]:text-primary-700"
       >
         {isPlaying ? <PauseIcon size={20} /> : <PlayIcon size={20} />}
       </button>
@@ -142,15 +142,15 @@ const AudioPlayer = ({
       <div className="w-20 text-sm text-neutral-400">{`${formatTime(currentTime)}/${formatTime(duration)}`}</div>
       <Popover>
         <PopoverTrigger asChild>
-          <button type="button" className="size-5">
+          <button type="button" className="size-5 [&_svg]:text-neutral-400">
             {volume == 0 ? (
-              <Icons.VolumeOff color="#7D7D7D" width={20} height={20} />
+              <Icons.VolumeOff width={20} height={20} />
             ) : (
-              <Icons.Volume color="#7D7D7D" width={20} height={20} />
+              <Icons.Volume width={20} height={20} />
             )}
           </button>
         </PopoverTrigger>
-        <PopoverContent className="w-fit p-2">
+        <PopoverContent className="w-10 p-2">
           <div className="flex flex-col items-center gap-1">
             <Slider
               className="h-20"
