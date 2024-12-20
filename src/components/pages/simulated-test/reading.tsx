@@ -33,7 +33,9 @@ const ReadingPage = () => {
       <ResizablePanel className="content" minSize={20}>
         {testContent && !isLoading ? (
           <ScrollArea className={"h-full px-4 sm:px-8"}>
-            <ReadingPassage content={testContent.content} />
+            {typeof testContent.content === "string" ? null : (
+              <ReadingPassage content={testContent.content} />
+            )}
           </ScrollArea>
         ) : (
           <div className="grid size-full flex-1 place-items-center">

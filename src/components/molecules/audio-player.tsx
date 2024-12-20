@@ -1,14 +1,11 @@
 import { PauseIcon, PlayIcon } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Icons from "@/assets/icons";
 import { cn, formatTime } from "@/lib/utils";
 
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Slider } from "../ui/slider";
-
-const AUDIO_URL =
-  "https://storage.googleapis.com/prep-storage-service/elements/elements/4fffd4ba72121ad9604d1282ff21e611-1727676956.mp3";
 
 type AudioPlayerProps = {
   className?: string;
@@ -17,20 +14,25 @@ type AudioPlayerProps = {
    */
   pausable?: boolean;
   /**
-   * If true, the audio player can be played automatically, i.e. the audio will start playing when the component is mounted and the audio source is loaded
+   * If true, the audio player can be played automatically, i.e. the audio will start playing when the component is mounted and the audio src is loaded
    */
   autoplay?: boolean;
   /**
    * If true, the audio player can be seeked, i.e. the user can change the current time of the audio
    */
   seekable?: boolean;
+  /**
+   * The audio source URL
+   */
+  src: string;
 };
 
 const AudioPlayer = ({
   className,
   pausable = true,
-  autoplay = false,
+  autoplay = true,
   seekable = true,
+  src,
 }: AudioPlayerProps) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -112,15 +114,16 @@ const AudioPlayer = ({
   }, []);
 
   useEffect(() => {
-    getAudioDuration(AUDIO_URL)
+    getAudioDuration(src)
       .then((duration) => {
         setDuration(duration);
+        setCurrentTime(0);
         if (autoplay) {
           playAudio();
         }
       })
       .catch((error) => console.error("Error loading audio duration:", error));
-  }, [AUDIO_URL]);
+  }, [src]);
 
   return (
     <div className={cn("flex w-full items-center space-x-3 bg-white p-8", className)}>
@@ -165,7 +168,7 @@ const AudioPlayer = ({
           </div>
         </PopoverContent>
       </Popover>
-      <audio ref={audioRef} src={AUDIO_URL} hidden />
+      <audio ref={audioRef} src={src} hidden />
     </div>
   );
 };

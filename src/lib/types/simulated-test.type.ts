@@ -63,7 +63,7 @@ export type ReadingContent = {
   part: number;
   startQuestionNo: number;
   endQuestionNo: number;
-  content: JSONContent;
+  content: JSONContent | string;
   questionGroups: QuestionGroup[];
 };
 
