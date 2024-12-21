@@ -97,6 +97,9 @@ export const submitSimulatedTest = async (
   }
 ) => {
   const { sessionId, ...rest } = payload;
+  if (payload.responses.length === 0) {
+    return null;
+  }
   return (
     await api
       .put(`simulated-tests/session/${sessionId}`, {

@@ -33,7 +33,8 @@ const useGlobalTimerStore = create<State & Action>((set, get) => ({
   createTimer: (key, type, initialTime) =>
     set((state) => {
       if (state.timers[key]) {
-        console.warn(`Timer with key "${key}" already exists, overriding...`);
+        console.warn(`Timer with key "${key}" already exists`);
+        return state;
       }
       return {
         timers: {

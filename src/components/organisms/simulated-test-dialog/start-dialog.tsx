@@ -44,6 +44,7 @@ const StartDialog = ({
               values={{
                 parts,
                 minutes: mode === EnumMode.PRACTICE ? timeLimit : DEFAULT_TIME_LIMIT[skill],
+                context: mode === EnumMode.PRACTICE && timeLimit == 0 ? "unlimited" : "default",
               }}
             >
               <strong></strong>

@@ -7,7 +7,8 @@
     },
     "startDialog": {
         "title": "Bắt đầu làm bài",
-        "description": " Bài thi gồm <1>{{parts}} phần</1> và bạn sẽ có <1>{{minutes}} phút</1> để hoàn thành bài thi. Bạn <1>không thể dừng giữa chừng</1> và bài thi sẽ tự động nộp sau {{minutes}} phút.",
+        "description_default": "Bài thi gồm <1>{{parts}} phần</1> và bạn sẽ có <1>{{minutes}} phút</1> để hoàn thành bài thi. Bạn <1>không thể dừng giữa chừng</1> và bài thi sẽ tự động nộp sau {{minutes}} phút.",
+        "description_unlimited": "Bài thi gồm <1>{{parts}} phần</1> và bạn sẽ có <1>không giới hạn thời gian</1> để hoàn thành bài thi. Nhấn <1>nộp bài</1> để kết thúc bài thi.",
         "startBtn": "Bắt đầu"
     },
     "submitDialog": {
