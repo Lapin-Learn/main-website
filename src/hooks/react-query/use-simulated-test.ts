@@ -10,6 +10,7 @@ import {
   getSimulatedTestBySkill,
   getSimulatedTestCollectionDetail,
   getSimulatedTestCollections,
+  getSimulatedTestDetail,
   getSimulatedTestSessionDetail,
   SimulatedSkillTestParams,
   startSimulatedTest,
@@ -29,6 +30,9 @@ const simulatedTestKeys = {
     [...simulatedTestKeys.skillTestKey, params] as const,
   session: ["session"] as const,
   sessionDetail: (sessionId: number) => [...simulatedTestKeys.session, sessionId] as const,
+  simulatedTestKey: ["simulated-test"] as const,
+  simulatedTestDetail: (simulatedTestId: number) =>
+    [...simulatedTestKeys.simulatedTestKey, simulatedTestId] as const,
 };
 
 type State = {
@@ -187,5 +191,13 @@ export const useGetSTSessionDetail = (sessionId: number) => {
     queryKey: simulatedTestKeys.sessionDetail(sessionId),
     queryFn: () => getSimulatedTestSessionDetail(sessionId),
     retry: false,
+  });
+};
+
+export const useGetSimulatedTestDetail = (simulatedTestId: number, enabled = false) => {
+  return useQuery({
+    queryKey: simulatedTestKeys.simulatedTestDetail(simulatedTestId),
+    queryFn: () => getSimulatedTestDetail(simulatedTestId),
+    enabled,
   });
 };

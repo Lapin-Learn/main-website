@@ -114,3 +114,8 @@ export const getSimulatedTestSessionDetail = async (sessionId: number) => {
     await api.get(`simulated-tests/session/${sessionId}`).json<FetchingData<SimulatedTestSession>>()
   ).data;
 };
+
+export const getSimulatedTestDetail = async (simulatedTestId: number) => {
+  return (await api.get(`simulated-tests/${simulatedTestId}`).json<FetchingData<SimulatedTest>>())
+    .data;
+};

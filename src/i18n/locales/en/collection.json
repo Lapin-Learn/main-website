@@ -1,6 +1,9 @@
 {
     "viewHistory": "View History",
-    "correctAnswer": "Correct Answer",
+    "correctAnswer": "Correct Answers",
     "timeSpent": "Time Spent",
-    "comingSoon": "Coming Soon"
+    "comingSoon": "Coming Soon",
+    "viewDetail": "View Detail",
+    "answerKeys": "Answer Keys",
+    "analysis": "Analysis"
 }

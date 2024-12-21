@@ -91,7 +91,7 @@ export type SkillTest = {
   partsDetail: PartDetail[];
 };
 
-export type SimulatedTest = Omit<SimulatedTestSimple, "collectionId"> & {
+export type SimulatedTest = SimulatedTestSimple & {
   skillTests: SkillTest[];
 };
 
@@ -105,12 +105,21 @@ export type SimulatedTestSession = {
   responses: SimulatedTestAnswer[];
   skillTest: SkillTest & {
     simulatedIeltsTest: Pick<SimulatedTestSimple, "id" | "testName">;
+    answers: STSkillTestAnswer[];
   };
   status: EnumSimulatedTestSessionStatus;
   timeLimit: number;
+  updatedAt: Date;
+  results: boolean[];
 };
 
 export type SimulatedTestAnswer = {
   questionNo: number;
   answer: string | null;
+};
+
+export type STSkillTestAnswer = {
+  type: "exact" | "variant";
+  valid: string;
+  variants?: string[];
 };

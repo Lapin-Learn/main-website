@@ -26,7 +26,8 @@
     "navigation": {
         "practice": "Luyện thi",
         "mission": "Nhiệm vụ",
-        "simulatedTest": "Bài thi mô phỏng"
+        "simulatedTest": "Bài thi mô phỏng",
+        "result": "Kết quả"
     },
     "allSkills": "Tất cả kỹ năng",
     "reading": "reading",

@@ -1,63 +1,64 @@
 {
-    "filter": {
-        "newest": "Newest",
-        "oldest": "Oldest"
+  "filter": {
+    "newest": "Newest",
+    "oldest": "Oldest"
+  },
+  "search": {
+    "placeholder": "Search",
+    "noResults": "No results found"
+  },
+  "collection-list": {
+    "title": "Simulated tests",
+    "numberOfTest" : "{{number}}/{{total}} tests",
+    "tags": {
+      "academic": "Academic",
+      "cambridge": "Cambridge",
+      "forecast": "Forecast test",
+      "actual": "Actual test",
+      "britishcouncil": "British Council"
     },
-    "search": {
-        "placeholder": "Search",
-        "noResults": "No results found"
+    "tagPlaceholder": "Filter"
+  },
+  "exam-mode-config": {
+    "title": "Select Mode",
+    "mode": {
+      "label": "Mode",
+      "placeholder": "Select test mode",
+      "full_test": "Full test",
+      "practice": "Practice"
     },
-    "collection-list": {
-        "title": "Simulated tests",
-        "numberOfTest" : "{{number}}/{{total}} tests",
-        "tags": {
-            "academic": "Academic",
-            "cambridge": "Cambridge",
-            "forecast": "Forecast test",
-            "actual": "Actual test",
-            "britishcouncil": "British Council"
-        },
-        "tagPlaceholder": "Filter"
+    "time_limit": {
+      "label": "Time Limit",
+      "placeholder": "Select time limit",
+      "no_limit": "No limit",
+      "time": "{{ time }} minutes"
     },
-    "exam-mode-config": {
-      "title": "Select Mode",
-      "mode": {
-        "label": "Mode",
-        "placeholder": "Select test mode",
-        "full_test": "Full test",
-        "practice": "Practice"
+    "parts": {
+      "label": "Select sections to practice",
+      "placeholder": "Select sections to practice",
+      "error": "Please select at least one part"
+    },
+    "alerts": {
+      "practice": {
+        "title": "Practice Mode",
+        "description": "In this mode, you can choose the parts you want to practice, adjust the time according to your ability, and listen to the recording again."
       },
-      "time_limit": {
-        "label": "Time Limit",
-        "placeholder": "Select time limit",
-        "no_limit": "No limit",
-        "time": "{{ time }} minutes"
-      },
-      "parts": {
-        "label": "Select sections to practice",
-        "placeholder": "Select sections to practice",
-        "error": "Please select at least one part"
-      },
-      "alerts": {
-        "practice": {
-          "title": "Practice Mode",
-          "description": "In this mode, you can choose the parts you want to practice, adjust the time according to your ability, and listen to the recording again."
-        },
-        "full_test": {
-          "title": "Warning",
-          "description": "During the test, you will not be able to listen again and should not exit to ensure the best evaluation results."
-        }
-      },
-      "buttons": {
-        "cancel": "Cancel",
-        "practice": "Practice",
-        "start": "Start"
+      "full_test": {
+        "title": "Warning",
+        "description": "During the test, you will not be able to listen again and should not exit to ensure the best evaluation results."
       }
     },
-    "skills": {
-      "part_reading": "Passage {{ number }}",
-      "part_listening": "Section {{ number }}"      ,
-      "part_writing": "Task {{ number }}",
-      "part_speaking": "Part {{ number }}"
-  }
+    "buttons": {
+      "cancel": "Cancel",
+      "practice": "Practice",
+      "start": "Start"
+    }
+  },
+  "skills": {
+    "part_reading": "Passage {{ number }}",
+    "part_listening": "Section {{ number }}",
+    "part_writing": "Task {{ number }}",
+    "part_speaking": "Part {{ number }}"
+  },
+  "finished-on": "Finished on"
 }
