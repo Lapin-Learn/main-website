@@ -7,10 +7,11 @@ import StartDialog from "@/components/organisms/simulated-test-dialog/start-dial
 import { SimulatedTestTourFactory } from "@/components/organisms/simulated-test-tour";
 import { Button } from "@/components/ui";
 import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
-import useCountdown from "@/hooks/use-countdown";
-import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
-import { EnumSkill } from "@/lib/enums";
+import useGlobalTimerStore, { timerKeys } from "@/hooks/zustand/use-global-timer";
 import { SimulatedTestSession } from "@/lib/types/simulated-test.type";
+import { getInitialTime, getPartName, getTimerMode } from "@/lib/utils";
+
+import Timer from "./timer";
 
 type HeaderProps = {
   currentPart: number;
@@ -23,8 +24,7 @@ export default function Header({ currentPart, session }: HeaderProps) {
   const [showStartDialog, setShowStartDialog] = useState(false);
 
   const { isSuccess } = useGetSkillTestData(session.skillTest.id, currentPart);
-  const { setElapsedTime } = useAnswerStore();
-  const { time, resume, isEnd } = useCountdown(session.timeLimit, setElapsedTime); // 40 minutes
+  const { createTimer, startTimer } = useGlobalTimerStore();
 
   useEffect(() => {
     const isFirstTime = localStorage.getItem("simulatedTestFirstTime") !== "false";
@@ -35,12 +35,6 @@ export default function Header({ currentPart, session }: HeaderProps) {
     }
   }, []);
 
-  useEffect(() => {
-    if (isEnd) {
-      // TODO: submit the test
-    }
-  }, [isEnd]);
-
   const onEndTour = () => {
     setRun(false);
     localStorage.setItem("simulatedTestFirstTime", "false");
@@ -48,20 +42,22 @@ export default function Header({ currentPart, session }: HeaderProps) {
   };
 
   const { skill } = session.skillTest;
-  const getPartName = () => {
-    if (skill === EnumSkill.reading) {
-      return "Passage";
-    } else if (skill === EnumSkill.writing) {
-      return "Task";
+
+  useEffect(() => {
+    if (isSuccess && session) {
+      createTimer(
+        timerKeys.testDetail(session.id),
+        getTimerMode(session.mode, session.timeLimit),
+        getInitialTime(session.mode, session.timeLimit, skill)
+      );
     }
-    return "Part";
-  };
+  }, [isSuccess, session]);
 
   return (
     <>
       <StartDialog
         onClose={() => {
-          resume();
+          startTimer(timerKeys.testDetail(session.id));
           setShowStartDialog(false);
         }}
         open={showStartDialog}
@@ -74,9 +70,8 @@ export default function Header({ currentPart, session }: HeaderProps) {
       <SimulatedTestTourFactory skill={skill} run={run} onEndTour={onEndTour} />
       <div className="grid w-full place-items-center border-b bg-white px-4 shadow-sm sm:h-16 sm:px-8">
         <div className="flex flex-col items-center">
-          {/* TODO: get skill, session detail to render data  */}
           <h6 className="text-base font-bold uppercase sm:text-lg">
-            {[skill.toString(), getPartName(), currentPart].join(" ")}
+            {[skill.toString(), getPartName(session.skillTest.skill), currentPart].join(" ")}
           </h6>
           <div className="text-xs font-semibold text-neutral-300 sm:text-sm">
             {session.skillTest.simulatedIeltsTest.testName}
@@ -90,10 +85,7 @@ export default function Header({ currentPart, session }: HeaderProps) {
             </Button>
           }
         />
-        {/* TODO: Optimize this component, right now it makes the whole page rerender */}
-        <div className="timer absolute right-4 w-20 rounded-md bg-secondary p-1 text-center text-base font-bold text-secondary-foreground sm:right-8 sm:text-lg md:w-24 md:p-2">
-          {time}
-        </div>
+        <Timer sessionId={session.id} />
       </div>
     </>
   );

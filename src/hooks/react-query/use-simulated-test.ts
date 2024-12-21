@@ -3,6 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { create } from "zustand";
 
+import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
 import { fromPageToOffset, parseInfiniteData } from "@/lib/utils";
 import {
   CollectionParams,
@@ -150,9 +151,18 @@ export const useSubmitSimulatedTest = () => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: submitSimulatedTest,
-    onSuccess: () => {
-      // TODO: change navigate to the result page and remove toast
-      navigate({ to: "/practice" });
+    onSuccess: (_, variables) => {
+      if (variables.status == EnumSimulatedTestSessionStatus.FINISHED) {
+        navigate({
+          to: "/practice/simulated-test/result",
+          search: {
+            sessionId: variables.sessionId,
+          },
+        });
+      } else {
+        // TODO: should we navigate back to collection/${collectionId}?
+        navigate({ to: "/practice" });
+      }
       toast({
         title: "Success",
         description: "Submit test successfully",

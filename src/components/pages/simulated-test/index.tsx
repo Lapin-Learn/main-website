@@ -5,7 +5,7 @@ import ListeningPage from "@/components/pages/simulated-test/listening";
 import ReadingPage from "@/components/pages/simulated-test/reading";
 import { useGetSTSessionDetail } from "@/hooks/react-query/use-simulated-test";
 import useSimulatedTestState, { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
-import { EnumSkill } from "@/lib/enums";
+import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { SimulatedTestAnswer } from "@/lib/types/simulated-test.type";
 import { Route } from "@/routes/_authenticated/practice/simulated-test";
 
@@ -36,6 +36,15 @@ const SimulatedTestPage = () => {
   useEffect(() => {
     if (isSuccess && !session) {
       navigate({ to: "/practice" });
+    } else {
+      if (session?.status === EnumSimulatedTestSessionStatus.FINISHED) {
+        navigate({
+          to: "result",
+          search: {
+            sessionId,
+          },
+        });
+      }
     }
   }, [isSuccess, session]);
 
@@ -90,9 +99,9 @@ const DefaultAnswerWrapper = ({
 }: PropsWithChildren<{
   draftAnswers: SimulatedTestAnswer[];
 }>) => {
-  const { loadAllAnswer } = useAnswerStore();
+  const { loadAllAnswers } = useAnswerStore();
   useEffect(() => {
-    loadAllAnswer(
+    loadAllAnswers(
       draftAnswers.reduce(
         (acc, answer) => {
           acc[answer.questionNo.toString()] = answer.answer;

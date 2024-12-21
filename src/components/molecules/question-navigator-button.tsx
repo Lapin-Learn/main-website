@@ -1,5 +1,4 @@
 import { cva } from "class-variance-authority";
-import { useEffect } from "react";
 
 import useSimulatedTestStore, { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { cn, scrollToElementById } from "@/lib/utils";
@@ -29,11 +28,7 @@ const QuestionNavigatorButton = ({
   ...props
 }: QuestionNavigatorProps) => {
   const { navigateToPart } = useSimulatedTestStore();
-  const { answerSheet, currentQuestion, setCurrentQuestion, resetAnswers } = useAnswerStore();
-
-  useEffect(() => {
-    return resetAnswers;
-  }, []);
+  const { answerSheet, currentQuestion, setCurrentQuestion } = useAnswerStore();
 
   return (
     <button

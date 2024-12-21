@@ -3,9 +3,11 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { z } from "zod";
 
+import { TimerType } from "@/hooks/zustand/use-global-timer";
 import { PagedData, PagingSchema } from "@/lib/types/pagination.type";
 
-import { EnumSkill } from "./enums";
+import { DEFAULT_TIME_LIMIT } from "./consts";
+import { EnumMode, EnumSkill } from "./enums";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -94,8 +96,46 @@ export const formatTime = (seconds: number) => {
 };
 
 export const formatAnswerSheetToResponses = (answerSheet: Record<string, string | null>) => {
-  return Object.entries(answerSheet).map(([questionNo, answer]) => ({
-    questionNo: parseInt(questionNo),
-    answer,
-  }));
+  return Object.entries(answerSheet)
+    .map(([questionNo, answer]) => ({
+      questionNo: parseInt(questionNo),
+      answer,
+    }))
+    .filter((x) => x.answer !== null);
+};
+
+export const getTimerMode = (mode: EnumMode, timeLimit: number): TimerType => {
+  if (mode === EnumMode.PRACTICE) {
+    if (timeLimit === 0) {
+      return "stopwatch";
+    } else {
+      return "countdown";
+    }
+  } else {
+    return "countdown";
+  }
+};
+
+/**
+ * Return initial time for countdown timer
+ * @param mode
+ * @param timeLimit
+ * @param skill
+ * @returns initial time in milliseconds
+ */
+export const getInitialTime = (mode: EnumMode, timeLimit: number, skill: EnumSkill): number => {
+  if (mode === EnumMode.PRACTICE) {
+    return timeLimit;
+  } else {
+    return DEFAULT_TIME_LIMIT[skill] * 60 * 1000;
+  }
+};
+
+export const getPartName = (skill: EnumSkill) => {
+  if (skill === EnumSkill.reading) {
+    return "Passage";
+  } else if (skill === EnumSkill.writing) {
+    return "Task";
+  }
+  return "Part";
 };
