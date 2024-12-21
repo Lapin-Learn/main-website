@@ -17,10 +17,10 @@ import {
   useGetSTSessionDetail,
   useSubmitSimulatedTest,
 } from "@/hooks/react-query/use-simulated-test";
-import useGlobalTimerStore, { timerKeys } from "@/hooks/zustand/use-global-timer";
+import useGlobalTimerStore, { timerKeys, TimerType } from "@/hooks/zustand/use-global-timer";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
-import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
-import { formatAnswerSheetToResponses, getInitialTime } from "@/lib/utils";
+import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
+import { formatAnswerSheetToResponses, getElapsedTime, getInitialTime } from "@/lib/utils";
 import { Route } from "@/routes/_authenticated/practice/simulated-test";
 
 type ExitDialogProps = {
@@ -37,12 +37,13 @@ const ExitDialog = ({ triggerButton }: ExitDialogProps) => {
   const onClose = () => {
     const responses = formatAnswerSheetToResponses(answerSheet);
     if (session) {
+      const type: TimerType =
+        session.timeLimit == 0 && session.mode == EnumMode.PRACTICE ? "stopwatch" : "countdown";
+      const initialTime = getInitialTime(session.mode, session.timeLimit, session.skillTest.skill);
+      const currentTime = getTimer(timerKeys.testDetail(sessionId))?.time ?? 0;
       submitTest({
         sessionId,
-        elapsedTime:
-          (getInitialTime(session.mode, session.timeLimit, session.skillTest.skill) -
-            (getTimer(timerKeys.testDetail(sessionId))?.time ?? 0)) /
-          1000,
+        elapsedTime: getElapsedTime(type, initialTime, currentTime),
         status: EnumSimulatedTestSessionStatus.IN_PROGRESS,
         responses,
       });

@@ -1,0 +1,264 @@
+{
+    "part": 1,
+    "startQuestionNo": 1,
+    "endQuestionNo": 10,
+    "content": "",
+    "questionGroups": [
+        {
+            "part": 1,
+            "startQuestionNo": 1,
+            "endQuestionNo": 10,
+            "questionType": "fill_in_blanks",
+            "questionCard": "Questions 1-10 Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.",
+            "questions": {
+                "type": "doc",
+                "content": [
+                    {
+                        "type": "paragraph",
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Hinchingbrooke Country Park"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "hardBreak"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "The park"
+                            },
+                            {
+                                "type": "hardBreak"
+                            },
+                            {
+                                "type": "text",
+                                "text": "Area"
+                            },
+                            {
+                                "type": "custom-input",
+                                "attrs": {
+                                    "questionNo": "1"
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "text": "hectares"
+                            },
+                            {
+                                "type": "hardBreak"
+                            },
+                            {
+                                "type": "text",
+                                "text": "Habitats: wetland, grassland and woodland"
+                            },
+                            {
+                                "type": "hardBreak"
+                            },
+                            {
+                                "type": "text",
+                                "text": "Wetland: lakes, ponds and a"
+                            },
+                            {
+                                "type": "custom-input",
+                                "attrs": {
+                                    "questionNo": "2"
+                                }
+                            },
+                            {
+                                "type": "hardBreak"
+                            },
+                            {
+                                "type": "text",
+                                "text": "Wildlife includes birds, insects and animals"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "hardBreak"
+                    },
+                    {
+                        "type": "hardBreak"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Subjects studied in educational visits include"
+                            },
+                            {
+                                "type": "hardBreak"
+                            },
+                            {
+                                "type": "text",
+                                "text": "Science: Children look at"
+                            },
+                            {
+                                "type": "custom-input",
+                                "attrs": {
+                                    "questionNo": "3"
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "text": "about plants, etc."
+                            },
+                            {
+                                "type": "hardBreak"
+                            },
+                            {
+                                "type": "text",
+                                "text": "Geography: includes learning to use a"
+                            },
+                            {
+                                "type": "custom-input",
+                                "attrs": {
+                                    "questionNo": "4"
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "text": "and compass"
+                            },
+                            {
+                                "type": "hardBreak"
+                            },
+                            {
+                                "type": "text",
+                                "text": "History: changes in land use"
+                            },
+                            {
+                                "type": "hardBreak"
+                            },
+                            {
+                                "type": "text",
+                                "text": "Leisure and tourism: mostly concentrates on the park's"
+                            },
+                            {
+                                "type": "custom-input",
+                                "attrs": {
+                                    "questionNo": "5"
+                                }
+                            },
+                            {
+                                "type": "hardBreak"
+                            },
+                            {
+                                "type": "text",
+                                "text": "Music: Children make"
+                            },
+                            {
+                                "type": "custom-input",
+                                "attrs": {
+                                    "questionNo": "6"
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "text": "with natural materials, and experiment with rhythm and speed."
+                            }
+                        ]
+                    },
+                    {
+                        "type": "hardBreak"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Benefits of outdoor educational visits"
+                            },
+                            {
+                                "type": "hardBreak"
+                            },
+                            {
+                                "type": "text",
+                                "text": "They give children a feeling of"
+                            },
+                            {
+                                "type": "custom-input",
+                                "attrs": {
+                                    "questionNo": "7"
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "text": "that they may not have elsewhere"
+                            },
+                            {
+                                "type": "hardBreak"
+                            },
+                            {
+                                "type": "text",
+                                "text": "Children learn new"
+                            },
+                            {
+                                "type": "custom-input",
+                                "attrs": {
+                                    "questionNo": "8"
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "text": "and gain self-confidence."
+                            }
+                        ]
+                    },
+                    {
+                        "type": "hardBreak"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Practical issues"
+
+                            },
+                            {
+                                "type": "hardBreak"
+                            },
+                            {
+                                "type": "text",
+                                "text": "Cost per child:"
+                            },
+                            {
+                                "type":"custom-input",
+                                "attrs": {
+                                    "questionNo": "9"
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "text":"£"
+                            },
+                            {
+                                "type": "hardBreak"
+                            },
+                            {
+                                "type":"text",
+                                "text": "Adults, such as"
+                            },
+                            {
+                                "type": "custom-input",
+                                "attrs": {
+                                    "questionNo": "10"
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "text": ", free"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}

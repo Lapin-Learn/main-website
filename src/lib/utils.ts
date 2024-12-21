@@ -125,7 +125,7 @@ export const getTimerMode = (mode: EnumMode, timeLimit: number): TimerType => {
  */
 export const getInitialTime = (mode: EnumMode, timeLimit: number, skill: EnumSkill): number => {
   if (mode === EnumMode.PRACTICE) {
-    return timeLimit;
+    return timeLimit * 60 * 1000;
   } else {
     return DEFAULT_TIME_LIMIT[skill] * 60 * 1000;
   }
@@ -138,4 +138,12 @@ export const getPartName = (skill: EnumSkill) => {
     return "Task";
   }
   return "Part";
+};
+
+export const getElapsedTime = (type: TimerType, initialTime: number, currentTime: number) => {
+  if (type === "stopwatch") {
+    return currentTime / 1000;
+  } else {
+    return (initialTime - currentTime) / 1000;
+  }
 };

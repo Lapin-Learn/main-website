@@ -22,9 +22,7 @@ const SimulatedTestPage = () => {
   const navigate = useNavigate();
   const { data: session, isLoading, isSuccess } = useGetSTSessionDetail(sessionId);
 
-  // TODO: calling api to get the detail of the session before render the outlet
   useEffect(() => {
-    navigateToPart(1, 1);
     return () => {
       if (!sessionId) {
         navigate({ to: "/practice" });
@@ -37,13 +35,16 @@ const SimulatedTestPage = () => {
     if (isSuccess && !session) {
       navigate({ to: "/practice" });
     } else {
-      if (session?.status === EnumSimulatedTestSessionStatus.FINISHED) {
-        navigate({
-          to: "result",
-          search: {
-            sessionId,
-          },
-        });
+      if (session) {
+        navigateToPart(session.skillTest.partsDetail[0].startQuestionNo, session.parts[0]);
+        if (session.status === EnumSimulatedTestSessionStatus.FINISHED) {
+          navigate({
+            to: "result",
+            search: {
+              sessionId,
+            },
+          });
+        }
       }
     }
   }, [isSuccess, session]);
@@ -56,7 +57,7 @@ const SimulatedTestPage = () => {
   return (
     <div className="flex h-screen w-screen flex-col justify-between">
       <Header currentPart={position.part} session={session} />
-      <DefaultAnswerWrapper draftAnswers={session.responses ?? []}>
+      <DefaultAnswerWrapper draftAnswers={session.responses}>
         <SkillContentFactory skill={session.skillTest.skill} />
         <Footer
           sessionId={parseInt(sessionId)}
@@ -97,18 +98,20 @@ const DefaultAnswerWrapper = ({
   children,
   draftAnswers,
 }: PropsWithChildren<{
-  draftAnswers: SimulatedTestAnswer[];
+  draftAnswers: SimulatedTestAnswer[] | null;
 }>) => {
   const { loadAllAnswers } = useAnswerStore();
   useEffect(() => {
     loadAllAnswers(
-      draftAnswers.reduce(
-        (acc, answer) => {
-          acc[answer.questionNo.toString()] = answer.answer;
-          return acc;
-        },
-        {} as Record<string, string | null>
-      )
+      draftAnswers
+        ? draftAnswers.reduce(
+            (acc, answer) => {
+              acc[answer.questionNo.toString()] = answer.answer;
+              return acc;
+            },
+            {} as Record<string, string | null>
+          )
+        : {}
     );
   }, [draftAnswers]);
   return <Fragment>{children}</Fragment>;

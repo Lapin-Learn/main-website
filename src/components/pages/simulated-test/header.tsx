@@ -8,6 +8,7 @@ import { SimulatedTestTourFactory } from "@/components/organisms/simulated-test-
 import { Button } from "@/components/ui";
 import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
 import useGlobalTimerStore, { timerKeys } from "@/hooks/zustand/use-global-timer";
+import { EnumMode } from "@/lib/enums";
 import { SimulatedTestSession } from "@/lib/types/simulated-test.type";
 import { getInitialTime, getPartName, getTimerMode } from "@/lib/utils";
 
@@ -24,7 +25,7 @@ export default function Header({ currentPart, session }: HeaderProps) {
   const [showStartDialog, setShowStartDialog] = useState(false);
 
   const { isSuccess } = useGetSkillTestData(session.skillTest.id, currentPart);
-  const { createTimer, startTimer } = useGlobalTimerStore();
+  const { createTimer, startTimer, deleteTimer } = useGlobalTimerStore();
 
   useEffect(() => {
     const isFirstTime = localStorage.getItem("simulatedTestFirstTime") !== "false";
@@ -33,6 +34,9 @@ export default function Header({ currentPart, session }: HeaderProps) {
     } else {
       setShowStartDialog(true);
     }
+    return () => {
+      deleteTimer(timerKeys.testDetail(session.id));
+    };
   }, []);
 
   const onEndTour = () => {
@@ -43,13 +47,25 @@ export default function Header({ currentPart, session }: HeaderProps) {
 
   const { skill } = session.skillTest;
 
+  // Run before create timer below
+  useEffect(() => {
+    return () => {
+      if (session) {
+        deleteTimer(timerKeys.testDetail(session.id));
+      }
+    };
+  }, [session]);
+
   useEffect(() => {
     if (isSuccess && session) {
-      createTimer(
-        timerKeys.testDetail(session.id),
-        getTimerMode(session.mode, session.timeLimit),
-        getInitialTime(session.mode, session.timeLimit, skill)
-      );
+      const { mode, timeLimit, id } = session;
+      // Load previous elapsed time if available
+      let initialTime = session.elapsedTime * 1000;
+      // countdown
+      if (mode == EnumMode.FULL_TEST || timeLimit !== 0) {
+        initialTime = getInitialTime(mode, timeLimit, skill) - initialTime;
+      }
+      createTimer(timerKeys.testDetail(id), getTimerMode(mode, timeLimit), initialTime);
     }
   }, [isSuccess, session]);
 
