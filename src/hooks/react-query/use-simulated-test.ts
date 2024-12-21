@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { create } from "zustand";
@@ -149,6 +149,7 @@ export const useStartSimulatedTest = () => {
 export const useSubmitSimulatedTest = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: submitSimulatedTest,
     onSuccess: (_, variables) => {
@@ -163,6 +164,9 @@ export const useSubmitSimulatedTest = () => {
         // TODO: should we navigate back to collection/${collectionId}?
         navigate({ to: "/practice" });
       }
+      queryClient.invalidateQueries({
+        queryKey: simulatedTestKeys.sessionDetail(variables.sessionId),
+      });
       toast({
         title: "Success",
         description: "Submit test successfully",

@@ -19,6 +19,22 @@ const Footer = ({ sessionId, partDetails }: FooterProps) => {
   const { navigateToPart, position } = useSimulatedTestState();
   const { t } = useTranslation("simulatedTest");
 
+  const moveToNextPart = () => {
+    if (position.part == partDetails[0].part) return;
+    navigateToPart(
+      mockQuestionGroups.find((g) => g.part == position.part - 1)?.startQuestionNo ?? 1,
+      position.part - 1
+    );
+  };
+
+  const moveToPrevPart = () => {
+    if (position.part == partDetails[partDetails.length - 1].part) return;
+    navigateToPart(
+      mockQuestionGroups.find((g) => g.part == position.part + 1)?.startQuestionNo ?? 1,
+      position.part + 1
+    );
+  };
+
   return (
     <div className="flex flex-col items-center justify-between gap-2 border-t bg-white px-4 py-2 sm:min-h-24 sm:flex-row sm:px-8 sm:py-0 lg:gap-12">
       <div className="question-navigator flex h-fit w-full flex-1 flex-wrap items-center gap-1">
@@ -35,31 +51,19 @@ const Footer = ({ sessionId, partDetails }: FooterProps) => {
         ))}
       </div>
       <div className="flex flex-row gap-2 xl:gap-4">
-        <div className="back-and-next flex flex-row gap-2 xl:gap-4">
+        <div className="flex flex-row gap-2 xl:gap-4">
           <Button
             variant="outline"
-            disabled={position.part == mockQuestionGroups[0].part}
-            onClick={() => {
-              if (position.part == mockQuestionGroups[0].part) return;
-              navigateToPart(
-                mockQuestionGroups.find((g) => g.part == position.part - 1)?.startQuestionNo ?? 1,
-                position.part - 1
-              );
-            }}
+            disabled={position.part == partDetails[0].part}
+            onClick={moveToPrevPart}
           >
             <ArrowLeft size={20} className="lg:mr-2" />
             <span className="hidden lg:block">{t("prevBtn")}</span>
           </Button>
           <Button
             variant="outline"
-            disabled={position.part == mockQuestionGroups[mockQuestionGroups.length - 1].part}
-            onClick={() => {
-              if (position.part == mockQuestionGroups[mockQuestionGroups.length - 1].part) return;
-              navigateToPart(
-                mockQuestionGroups.find((g) => g.part == position.part + 1)?.startQuestionNo ?? 1,
-                position.part + 1
-              );
-            }}
+            disabled={position.part == partDetails[partDetails.length - 1].part}
+            onClick={moveToNextPart}
           >
             <span className="hidden lg:block">{t("nextBtn")}</span>
             <ArrowRight size={20} className="lg:ml-2" />
