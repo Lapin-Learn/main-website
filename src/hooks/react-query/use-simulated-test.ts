@@ -3,12 +3,14 @@ import { useNavigate } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { create } from "zustand";
 
+import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
 import { fromPageToOffset, parseInfiniteData } from "@/lib/utils";
 import {
   CollectionParams,
   getSimulatedTestBySkill,
   getSimulatedTestCollectionDetail,
   getSimulatedTestCollections,
+  getSimulatedTestSessionDetail,
   SimulatedSkillTestParams,
   startSimulatedTest,
   submitSimulatedTest,
@@ -25,6 +27,8 @@ const simulatedTestKeys = {
   skillTestKey: ["skill-test"] as const,
   skillTestDetail: (params: SimulatedSkillTestParams) =>
     [...simulatedTestKeys.skillTestKey, params] as const,
+  session: ["session"] as const,
+  sessionDetail: (sessionId: number) => [...simulatedTestKeys.session, sessionId] as const,
 };
 
 type State = {
@@ -84,6 +88,7 @@ export const useGetSkillTestData = (skillTestId: number, partNo: number) => {
         return getSimulatedTestBySkill({ skillTestId, partNo });
       }
     },
+    retry: false,
   });
 };
 
@@ -120,13 +125,13 @@ export const useStartSimulatedTest = () => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: startSimulatedTest,
-    onSuccess: (response) => {
-      if (response) {
+    onSuccess: (returnData) => {
+      if (returnData) {
         navigate({
           to: "/practice/simulated-test",
           search: {
-            skillTestId: response.skillTestId,
-            sessionId: response.id,
+            skillTestId: returnData.skillTestId,
+            sessionId: returnData.id,
           },
         });
       }
@@ -146,9 +151,18 @@ export const useSubmitSimulatedTest = () => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: submitSimulatedTest,
-    onSuccess: () => {
-      // TODO: change navigate to the result page and remove toast
-      navigate({ to: "/practice" });
+    onSuccess: (_, variables) => {
+      if (variables.status == EnumSimulatedTestSessionStatus.FINISHED) {
+        navigate({
+          to: "/practice/simulated-test/result",
+          search: {
+            sessionId: variables.sessionId,
+          },
+        });
+      } else {
+        // TODO: should we navigate back to collection/${collectionId}?
+        navigate({ to: "/practice" });
+      }
       toast({
         title: "Success",
         description: "Submit test successfully",
@@ -161,5 +175,12 @@ export const useSubmitSimulatedTest = () => {
         variant: "destructive",
       });
     },
+  });
+};
+
+export const useGetSTSessionDetail = (sessionId: number) => {
+  return useQuery({
+    queryKey: simulatedTestKeys.sessionDetail(sessionId),
+    queryFn: () => getSimulatedTestSessionDetail(sessionId),
   });
 };

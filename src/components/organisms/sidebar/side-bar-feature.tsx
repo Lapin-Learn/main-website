@@ -46,8 +46,8 @@ export const SideBarFeature = (props: {
             >
               <div
                 className={cn(
-                  "flex h-fit items-center rounded-lg p-4 transition-all duration-300",
-                  isExpanded && "mx-2 gap-2.5",
+                  "flex h-fit items-center rounded-lg p-3 transition-all duration-300",
+                  isExpanded && "mx-1 gap-2.5",
                   isActive
                     ? "bg-[#FCE3B4] hover:bg-[#FCE3B4]/80"
                     : "bg-transparent hover:bg-neutral-50",
@@ -55,8 +55,8 @@ export const SideBarFeature = (props: {
                   !isExpanded && isSelectChild && "bg-neutral-100"
                 )}
               >
-                <div className="relative h-full w-10 items-center justify-center">
-                  <div className="flex h-full flex-1 items-center justify-center text-blue-500">
+                <div className="relative h-full w-8 items-center justify-center">
+                  <div className="flex h-full flex-1 items-center justify-center">
                     {
                       <>
                         {React.cloneElement(

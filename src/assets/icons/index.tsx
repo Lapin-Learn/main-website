@@ -11,6 +11,8 @@ import Speaking from "./skills/speaking";
 import SpeakingFilled from "./skills/speaking-filled";
 import Writing from "./skills/writing";
 import WritingFilled from "./skills/writing-filled";
+import Volume from "./volume";
+import VolumeOff from "./volume-off";
 
 export default {
   Missions,
@@ -26,4 +28,6 @@ export default {
   Speaking,
   WritingFilled,
   Writing,
+  Volume,
+  VolumeOff,
 };

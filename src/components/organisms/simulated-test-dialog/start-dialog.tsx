@@ -2,7 +2,6 @@ import { Trans, useTranslation } from "react-i18next";
 
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -10,13 +9,27 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { DEFAULT_TIME_LIMIT } from "@/lib/consts";
+import { EnumMode, EnumSkill } from "@/lib/enums";
 
 type StartDialogProps = {
   open: boolean;
   onClose: () => void;
   disableStart?: boolean;
+  parts: number;
+  timeLimit: number;
+  mode: EnumMode;
+  skill: EnumSkill;
 };
-const StartDialog = ({ onClose, open, disableStart = false }: StartDialogProps) => {
+const StartDialog = ({
+  onClose,
+  open,
+  disableStart = false,
+  parts,
+  timeLimit,
+  mode,
+  skill,
+}: StartDialogProps) => {
   const { t } = useTranslation("simulatedTest", {
     keyPrefix: "startDialog",
   });
@@ -29,8 +42,8 @@ const StartDialog = ({ onClose, open, disableStart = false }: StartDialogProps) 
             <Trans
               i18nKey="simulatedTest:startDialog:description"
               values={{
-                parts: 3,
-                minutes: 40,
+                parts,
+                minutes: mode === EnumMode.PRACTICE ? timeLimit : DEFAULT_TIME_LIMIT[skill],
               }}
             >
               <strong></strong>
@@ -40,11 +53,9 @@ const StartDialog = ({ onClose, open, disableStart = false }: StartDialogProps) 
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogAction asChild className="w-full" onClick={onClose} disabled={disableStart}>
-            <Button size="xl" className="w-full" disabled={disableStart}>
-              {t("startBtn")}
-            </Button>
-          </AlertDialogAction>
+          <Button size="xl" className="w-full" disabled={disableStart} onClick={onClose}>
+            {t("startBtn")}
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

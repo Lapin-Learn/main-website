@@ -13,13 +13,40 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import {
+  useGetSTSessionDetail,
+  useSubmitSimulatedTest,
+} from "@/hooks/react-query/use-simulated-test";
+import useGlobalTimerStore, { timerKeys } from "@/hooks/zustand/use-global-timer";
+import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
+import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
+import { formatAnswerSheetToResponses, getInitialTime } from "@/lib/utils";
+import { Route } from "@/routes/_authenticated/practice/simulated-test";
 
 type ExitDialogProps = {
   triggerButton: React.ReactNode;
 };
 const ExitDialog = ({ triggerButton }: ExitDialogProps) => {
   const navigate = useNavigate();
+  const { sessionId } = Route.useSearch();
+  const { answerSheet } = useAnswerStore();
+  const { data: session } = useGetSTSessionDetail(sessionId);
+  const { getTimer } = useGlobalTimerStore();
+  const { mutate: submitTest } = useSubmitSimulatedTest();
+
   const onClose = () => {
+    const responses = formatAnswerSheetToResponses(answerSheet);
+    if (session) {
+      submitTest({
+        sessionId,
+        elapsedTime:
+          (getInitialTime(session.mode, session.timeLimit, session.skillTest.skill) -
+            (getTimer(timerKeys.testDetail(sessionId))?.time ?? 0)) /
+          1000,
+        status: EnumSimulatedTestSessionStatus.IN_PROGRESS,
+        responses,
+      });
+    }
     navigate({ to: "/practice" });
   };
   const { t } = useTranslation("simulatedTest", {

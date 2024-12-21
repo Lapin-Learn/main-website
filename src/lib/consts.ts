@@ -1,4 +1,4 @@
-import { EnumBandScore } from "./enums";
+import { EnumBandScore, EnumSkill } from "./enums";
 import { EnumQuestion } from "./types/question.type";
 
 export const BAND_SCORES = {
@@ -48,4 +48,12 @@ export const MAPPED_SIMULATED_TEST_TAGS: Record<string, string> = {
   Forecast: "forecast",
   Actual: "actual",
   "British Council": "britishcouncil",
+};
+
+export const DEFAULT_TIME_LIMIT: Record<EnumSkill, number> = {
+  [EnumSkill.reading]: 60,
+  [EnumSkill.listening]: 40,
+  [EnumSkill.writing]: 60,
+  [EnumSkill.speaking]: 15,
+  [EnumSkill.allSkills]: 0,
 };
