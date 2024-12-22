@@ -2,7 +2,6 @@ import { Check, X } from "lucide-react";
 
 import TagsList from "@/components/molecules/tags-list";
 import { PartDetail, STSkillTestAnswer } from "@/lib/types/simulated-test.type";
-import { cn } from "@/lib/utils";
 
 export function PartAnswersCard({
   part,
@@ -29,7 +28,8 @@ export function PartAnswersCard({
         <TagsList tags={questionTypes} />
       </div>
       <div
-        className={cn("grid grid-flow-col grid-cols-3 gap-4", `grid-rows-${Math.ceil(length / 3)}`)}
+        className="grid grid-flow-col grid-cols-3 gap-4"
+        style={{ gridTemplateRows: `repeat(${Math.ceil(length / 3)}, minmax(0, 1fr))` }}
       >
         {answers.slice(startQuestionNo - 1, endQuestionNo).map((answer, i) => {
           const id = i + startQuestionNo;
