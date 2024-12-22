@@ -10,7 +10,7 @@ import { useState } from "react";
 
 import CustomInput from "../../organisms/question-groups/input-node";
 import { Button } from "../../ui";
-import JsonDisplayWithCopy from "./json-display";
+import JsonDisplayWithCopy from "./json-display-with-copy";
 import MenuBar from "./menu-bar";
 
 // const CustomTableCell = TableCell.extend({

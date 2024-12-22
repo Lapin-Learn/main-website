@@ -24,7 +24,8 @@ export type SimulatedTestSimple = {
 export type QuestionGroup =
   | QuestionGroupMultipleChoice
   | QuestionGroupFillInBlanks
-  | QuestionGroupMatchingHeadings;
+  | QuestionGroupMatchingHeadings
+  | QuestionGroupMatchingInformation;
 
 type BaseQuestionGroup = {
   part: number;
@@ -59,6 +60,17 @@ export type QuestionGroupMatchingHeadings = BaseQuestionGroup & {
   questions: MatchingHeadingsQuestion[];
 };
 
+export type QuestionGroupMatchingInformation = BaseQuestionGroup & {
+  questionType: EnumQuestionGroup.matchingInformation;
+  questionDescription: string | JSONContent | object;
+  options: Option[];
+  questions: {
+    questionNo: number;
+    question: string;
+  }[];
+};
+
+// _____________________________________________________________________________
 export type ReadingContent = {
   part: number;
   startQuestionNo: number;
