@@ -3,6 +3,7 @@ import { QuestionGroup } from "@/lib/types/simulated-test.type";
 
 import FillInBlanksQuestionGroup from "./fill-in-blanks-question-group";
 import MatchingHeadingsQuestionGroup from "./matching-headings-question-group";
+import MatchingInformationQuestionGroup from "./matching-information-question-group";
 import MultipleChoiceQuestionGroup from "./multiple-choice-question-group";
 
 const QuestionGroupFactory = ({ questionGroup }: { questionGroup: QuestionGroup }) => {
@@ -11,8 +12,12 @@ const QuestionGroupFactory = ({ questionGroup }: { questionGroup: QuestionGroup 
       return <FillInBlanksQuestionGroup {...questionGroup} />;
     case EnumQuestionGroup.matchingHeadings:
       return <MatchingHeadingsQuestionGroup {...questionGroup} />;
-    default:
+    case EnumQuestionGroup.multipleChoice:
       return <MultipleChoiceQuestionGroup {...questionGroup} />;
+    case EnumQuestionGroup.matchingInformation:
+      return <MatchingInformationQuestionGroup {...questionGroup} />;
+    default:
+      return <div>Haven't supported yet</div>;
   }
 };
 export default QuestionGroupFactory;

@@ -1,6 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import { Fragment, PropsWithChildren, useEffect } from "react";
 
+import ErrorFallback from "@/components/ErrorFallback";
 import ListeningPage from "@/components/pages/simulated-test/listening";
 import ReadingPage from "@/components/pages/simulated-test/reading";
 import { useGetSTSessionDetail } from "@/hooks/react-query/use-simulated-test";
@@ -20,7 +21,7 @@ const SimulatedTestPage = () => {
   const { sessionId } = Route.useSearch();
   const { navigateToPart, position, resetTest } = useSimulatedTestState();
   const navigate = useNavigate();
-  const { data: session, isLoading, isSuccess } = useGetSTSessionDetail(sessionId);
+  const { data: session, isLoading, isSuccess, isError } = useGetSTSessionDetail(sessionId);
 
   useEffect(() => {
     return () => {
@@ -48,6 +49,10 @@ const SimulatedTestPage = () => {
       }
     }
   }, [isSuccess, session]);
+
+  if (isError) {
+    return <ErrorFallback />;
+  }
 
   // TODO: enhance UI loading here
   if (isLoading || !session) {

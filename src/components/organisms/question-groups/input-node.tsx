@@ -32,7 +32,9 @@ const CustomInput = ({ questionNo }: CustomInputProps) => {
 export default Node.create({
   name: "custom-input",
 
-  group: "inline*",
+  group: "inline",
+  inline: true,
+  content: "text*",
 
   addAttributes() {
     return {
@@ -45,16 +47,16 @@ export default Node.create({
   parseHTML() {
     return [
       {
-        tag: 'span[data-type="custom-input"]',
-        getAttrs: (dom) => ({
-          questionNo: dom.getAttribute("data-questionNo"),
-        }),
+        tag: "custom-input",
+        // getAttrs: (dom) => ({
+        //   questionNo: dom.getAttribute("data-questionNo"),
+        // }),
       },
     ];
   },
 
   renderHTML({ HTMLAttributes }) {
-    return ["span", mergeAttributes(HTMLAttributes, { "data-type": "custom-input" }), 0];
+    return ["custom-input", mergeAttributes(HTMLAttributes, { "data-type": "custom-input" }), 0];
   },
 
   addNodeView() {
