@@ -30,14 +30,15 @@ function MultipleSelect({ question }: MultipleSelectProps) {
             value={option.value}
             id={`${question.questionNo}-${option.value}`}
             onCheckedChange={(checked) => {
+              console.log("checked", selected.length);
               if (checked) {
-                if (selected.length < MAX_SELECT) {
-                  setSelected([...selected, option.value]);
-                }
+                const newSelected = [...selected, option.value];
+                setSelected(newSelected.slice(-MAX_SELECT));
               } else {
                 setSelected(selected.filter((item) => item !== option.value));
               }
             }}
+            checked={selected.includes(option.value)}
           />
           <Label
             className="ml-2 text-base font-normal"

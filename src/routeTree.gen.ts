@@ -11,6 +11,7 @@
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root";
+import { Route as HtmlEditorImport } from "./routes/html-editor";
 import { Route as AuthenticationImport } from "./routes/_authentication";
 import { Route as AuthenticatedImport } from "./routes/_authenticated";
 import { Route as AuthenticatedIndexImport } from "./routes/_authenticated/index";
@@ -30,6 +31,12 @@ import { Route as AuthenticatedDashboardProfileChangePasswordImport } from "./ro
 import { Route as AuthenticatedDashboardPracticeSimulatedTestResultImport } from "./routes/_authenticated/_dashboard/practice/simulated-test/result";
 
 // Create/Update Routes
+
+const HtmlEditorRoute = HtmlEditorImport.update({
+  id: "/html-editor",
+  path: "/html-editor",
+  getParentRoute: () => rootRoute,
+} as any);
 
 const AuthenticationRoute = AuthenticationImport.update({
   id: "/_authentication",
@@ -153,6 +160,13 @@ declare module "@tanstack/react-router" {
       path: "";
       fullPath: "";
       preLoaderRoute: typeof AuthenticationImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/html-editor": {
+      id: "/html-editor";
+      path: "/html-editor";
+      fullPath: "/html-editor";
+      preLoaderRoute: typeof HtmlEditorImport;
       parentRoute: typeof rootRoute;
     };
     "/_authenticated/_dashboard": {
@@ -338,6 +352,7 @@ const AuthenticationRouteWithChildren = AuthenticationRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   "": typeof AuthenticatedDashboardProfileRouteWithChildren;
+  "/html-editor": typeof HtmlEditorRoute;
   "/forgot-password": typeof AuthenticationForgotPasswordRoute;
   "/log-in": typeof AuthenticationLogInRoute;
   "/reset-password": typeof AuthenticationResetPasswordRoute;
@@ -355,6 +370,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   "": typeof AuthenticatedDashboardProfileRouteWithChildren;
+  "/html-editor": typeof HtmlEditorRoute;
   "/forgot-password": typeof AuthenticationForgotPasswordRoute;
   "/log-in": typeof AuthenticationLogInRoute;
   "/reset-password": typeof AuthenticationResetPasswordRoute;
@@ -374,6 +390,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute;
   "/_authenticated": typeof AuthenticatedRouteWithChildren;
   "/_authentication": typeof AuthenticationRouteWithChildren;
+  "/html-editor": typeof HtmlEditorRoute;
   "/_authenticated/_dashboard": typeof AuthenticatedDashboardRouteWithChildren;
   "/_authentication/forgot-password": typeof AuthenticationForgotPasswordRoute;
   "/_authentication/log-in": typeof AuthenticationLogInRoute;
@@ -395,6 +412,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | ""
+    | "/html-editor"
     | "/forgot-password"
     | "/log-in"
     | "/reset-password"
@@ -411,6 +429,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo;
   to:
     | ""
+    | "/html-editor"
     | "/forgot-password"
     | "/log-in"
     | "/reset-password"
@@ -428,6 +447,7 @@ export interface FileRouteTypes {
     | "__root__"
     | "/_authenticated"
     | "/_authentication"
+    | "/html-editor"
     | "/_authenticated/_dashboard"
     | "/_authentication/forgot-password"
     | "/_authentication/log-in"
@@ -449,11 +469,13 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren;
   AuthenticationRoute: typeof AuthenticationRouteWithChildren;
+  HtmlEditorRoute: typeof HtmlEditorRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AuthenticationRoute: AuthenticationRouteWithChildren,
+  HtmlEditorRoute: HtmlEditorRoute,
 };
 
 export const routeTree = rootRoute
@@ -467,7 +489,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/_authenticated",
-        "/_authentication"
+        "/_authentication",
+        "/html-editor"
       ]
     },
     "/_authenticated": {
@@ -487,6 +510,9 @@ export const routeTree = rootRoute
         "/_authentication/sign-up",
         "/_authentication/verify-otp"
       ]
+    },
+    "/html-editor": {
+      "filePath": "html-editor.tsx"
     },
     "/_authenticated/_dashboard": {
       "filePath": "_authenticated/_dashboard.tsx",

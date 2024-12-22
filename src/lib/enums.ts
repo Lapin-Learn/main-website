@@ -66,7 +66,7 @@ export enum EnumQuestionGroup {
   multipleChoice = "multiple_choice",
   TFNG = "TFNG",
   matchingHeadings = "matching_headings",
-  matchingInformation = "matching_informations",
+  matchingInformation = "matching_information",
   fillInBlanks = "fill_in_blanks",
 }
 
