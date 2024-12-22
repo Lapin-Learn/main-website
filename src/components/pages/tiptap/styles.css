@@ -1,20 +1,9 @@
 /* Basic editor styles */
-.tiptap {
-    border: 1px solid gray;
-    border-radius: 16px;
-    padding: 32px;
-    margin: 16px;
-}
-
-.ProseMirror:focus-visible {
-  outline: none !important;
-}
 
 .tiptap:first-child {
     margin-top: 0;
   }
   :root {
-    outline: none !important;
     --gray-1: #f5f5f5;
     --gray-2: #e0e0e055;
     --gray-3: #bdbdbd;

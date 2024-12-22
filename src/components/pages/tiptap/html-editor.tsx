@@ -1,4 +1,4 @@
-// import "./styles.css";
+import "./styles.css";
 
 import Table from "@tiptap/extension-table";
 import TableCell from "@tiptap/extension-table-cell";
@@ -62,7 +62,6 @@ export default () => {
       />
       <Button
         onClick={() => {
-          console.log(JSON.stringify(editor?.getJSON()));
           setResult(JSON.stringify(editor?.getJSON()));
         }}
         className="w-fit"

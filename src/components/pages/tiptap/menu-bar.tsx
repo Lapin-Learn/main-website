@@ -124,7 +124,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
         onClick={() => editor.chain().focus().toggleHeaderColumn().run()}
         disabled={!editor.can().toggleHeaderColumn()}
       >
-        ToggleHeaderColumn
+        Toggle header column
       </Button>
       <Button
         variant="outline"
@@ -160,20 +160,6 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
         disabled={!editor.can().fixTables()}
       >
         Fix tables
-      </Button>
-      <Button
-        variant="outline"
-        onClick={() => editor.chain().focus().goToNextCell().run()}
-        disabled={!editor.can().goToNextCell()}
-      >
-        Go to next cell
-      </Button>
-      <Button
-        variant="outline"
-        onClick={() => editor.chain().focus().goToPreviousCell().run()}
-        disabled={!editor.can().goToPreviousCell()}
-      >
-        Go to previous cell
       </Button>
     </div>
   );
