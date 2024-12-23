@@ -96,12 +96,10 @@ export const formatTime = (seconds: number) => {
 };
 
 export const formatAnswerSheetToResponses = (answerSheet: Record<string, string | null>) => {
-  return Object.entries(answerSheet)
-    .map(([questionNo, answer]) => ({
-      questionNo: parseInt(questionNo),
-      answer,
-    }))
-    .filter((x) => x.answer !== null);
+  return Object.entries(answerSheet).map(([questionNo, answer]) => ({
+    questionNo: parseInt(questionNo),
+    answer,
+  }));
 };
 
 export const getTimerMode = (mode: EnumMode, timeLimit: number): TimerType => {

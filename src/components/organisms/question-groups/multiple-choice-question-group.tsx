@@ -60,7 +60,7 @@ export default function MultipleChoiceQuestionGroup({
   return (
     <div>
       <h6 className="font-bold">{questionCard}</h6>
-      {/* TODO DICUSSION: hard code here base on type or store in dtb, there may be a difference YES NO NG */}
+      {/* TODO DISCUSSION: hard code here base on type or store in dtb, there may be a difference YES NO NG */}
       {/* <ul className="pl-4 pt-2">
         <li>TRUE - if the statement agrees with the information</li>
         <li>FALSE - if the statement contradicts the information </li>
