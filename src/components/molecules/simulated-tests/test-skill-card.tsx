@@ -15,9 +15,9 @@ export default function TestSkillCard({ skill, isComingSoon }: TestSkillCardProp
   return (
     <div
       key={skill}
-      className="flex h-28 w-full flex-row justify-between rounded-lg border border-neutral-100 p-3"
+      className="flex h-28 w-full flex-row items-center justify-between rounded-lg border border-neutral-100 p-3"
     >
-      <div className="flex h-full flex-col items-start justify-between gap-2">
+      <div className="flex flex-col items-start gap-2">
         <span className="text-base font-semibold capitalize">{skill}</span>
         <div className="flex flex-col items-start">
           <div className="text-start text-xs text-supporting-text">

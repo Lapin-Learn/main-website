@@ -5,6 +5,7 @@ import { SimulatedTestCollection } from "@/lib/types/simulated-test.type";
 import { cn } from "@/lib/utils";
 
 import { Skeleton } from "../../ui/skeleton";
+import TagsList from "../tags-list";
 import { TestItem } from "./test-item";
 
 export const CollectionCard = ({
@@ -34,18 +35,14 @@ export const CollectionCard = ({
           <div className="flex flex-col gap-y-2">
             <div>
               <span className="mr-2 text-lg font-semibold leading-8">{name}</span>
-              <span className="inline-flex flex-wrap items-center gap-2 align-text-bottom">
-                {tags.map((tag, index) => (
-                  <span
-                    key={index}
-                    className="h-fit text-nowrap rounded-md bg-blue-50 px-2.5 py-0.5 text-center text-[12px] font-medium text-blue-500"
-                  >
-                    {t("collection-list.tags." + MAPPED_SIMULATED_TEST_TAGS[tag.trim()], {
-                      ns: "practice",
-                    })}
-                  </span>
-                ))}
-              </span>
+              <TagsList
+                tags={tags}
+                format={(tag) =>
+                  t("collection-list.tags." + MAPPED_SIMULATED_TEST_TAGS[tag.trim()], {
+                    ns: "practice",
+                  })
+                }
+              />
             </div>
 
             <p className="line-clamp-1 truncate text-wrap text-sm font-normal text-neutral-400 sm:line-clamp-2 md:line-clamp-3">
