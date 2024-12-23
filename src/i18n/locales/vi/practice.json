@@ -60,5 +60,5 @@
       "part_writing": "Phần {{ number }}",
       "part_speaking": "Phần {{ number }}"
   },
-    "finishedOn": "Hoàn thành lúc"
+    "finished-on": "Hoàn thành lúc"
 }

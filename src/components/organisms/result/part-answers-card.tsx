@@ -17,20 +17,16 @@ export function PartAnswersCard({
   answers: STSkillTestAnswer[];
 }) {
   const { startQuestionNo, questionTypes, endQuestionNo } = partDetail;
-  const length = endQuestionNo - startQuestionNo + 1;
 
   return (
     <div className="flex flex-col gap-4 rounded-2xl bg-white p-4">
-      <div className="flex gap-4">
+      <div className="flex flex-col gap-4 lg:flex-row">
         <p className="text-lg font-bold">
           Part {part}: Question {startQuestionNo}-{endQuestionNo}
         </p>
         <TagsList tags={questionTypes} />
       </div>
-      <div
-        className="grid grid-flow-col grid-cols-3 gap-4"
-        style={{ gridTemplateRows: `repeat(${Math.ceil(length / 3)}, minmax(0, 1fr))` }}
-      >
+      <div className="grid grid-flow-col grid-cols-2 grid-rows-7 gap-4 md:grid-cols-3 md:grid-rows-5">
         {answers.slice(startQuestionNo - 1, endQuestionNo).map((answer, i) => {
           const id = i + startQuestionNo;
           return (
@@ -39,8 +35,8 @@ export function PartAnswersCard({
                 {id}
               </div>
               <div className="text-sm">
-                <span className="capitalize text-green-500">
-                  {answer.valid || answer.variants?.join("/ ")}
+                <span className="text-green-500">
+                  {String(answer.valid || answer.variants?.join("/ ")).toUpperCase()}
                 </span>{" "}
                 : {userAnswers[id - 1]}
               </div>

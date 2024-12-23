@@ -60,7 +60,7 @@ export function CollectionDetailHeader({
           />
           {session ? (
             <>
-              <span className="text-sm font-normal text-neutral-400">
+              <span className="text-sm font-normal text-neutral-200">
                 {t("finished-on")}: {new Date(session.updatedAt || "").toLocaleString()}
               </span>
               <div className="flex flex-row items-center gap-5 pt-3">
