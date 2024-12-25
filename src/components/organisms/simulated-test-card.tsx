@@ -42,32 +42,29 @@ export function SimulatedTestCard(
         </div>
 
         <div className="grid w-full flex-1 grid-cols-2 gap-3 lg:grid-cols-4">
-          {Object.values(EnumSkill)
-            .filter((s) => s !== EnumSkill.allSkills)
-            .map((skill) => {
-              const skillTest = skillTests.find((st) => st.skill === skill);
-              return (
-                <button
-                  key={`${testName}-${skill}`}
-                  onClick={() => {
-                    if (skillTest) {
-                      setData({
-                        skillTest,
-                        test: props,
-                      });
-                      setOpen(true);
-                    }
-                  }}
-                  disabled={!skillTest || !skillTest.partsDetail}
-                  className="w-full"
-                >
-                  <TestSkillCard
-                    skill={skill}
-                    isComingSoon={!skillTest || !skillTest.partsDetail}
-                  />
-                </button>
-              );
-            })}
+          {Object.values(EnumSkill).map((skill) => {
+            const skillTest = skillTests.find((st) => st.skill === skill);
+            return (
+              <button
+                key={`${testName}-${skill}`}
+                onClick={() => {
+                  if (skillTest) {
+                    setData({
+                      skillTest,
+                      test: props,
+                    });
+                    setOpen(true);
+                  }
+                }}
+                disabled={
+                  !skillTest || !skillTest.partsDetail || skillTest.partsDetail.length === 0
+                }
+                className="w-full"
+              >
+                <TestSkillCard skill={skill} isComingSoon={!skillTest || !skillTest.partsDetail} />
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>

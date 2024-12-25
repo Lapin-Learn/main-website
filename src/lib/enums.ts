@@ -1,7 +1,6 @@
 export enum EnumRole {
   admin = "admin",
   learner = "learner",
-  expert = "expert",
 }
 
 export enum EnumSkill {
@@ -9,9 +8,15 @@ export enum EnumSkill {
   listening = "listening",
   writing = "writing",
   speaking = "speaking",
-  allSkills = "allSkills",
 }
 
+export enum ExtendEnumSkill {
+  reading = "reading",
+  listening = "listening",
+  writing = "writing",
+  speaking = "speaking",
+  allSkills = "allSkills",
+}
 export enum EnumBandScore {
   PRE_IELTS = "pre_ielts",
   BAND_45 = "4.5",
@@ -64,10 +69,36 @@ export enum EnumTestRecordStatus {
 
 export enum EnumQuestionGroup {
   multipleChoice = "multiple_choice",
-  TFNG = "TFNG",
   matchingHeadings = "matching_headings",
   matchingInformation = "matching_information",
   fillInBlanks = "fill_in_blanks",
+}
+
+export enum EnumQuestionGroupLabel {
+  // Multiple choice group
+  // Output: A, B, C, D, E, F, G,... or True, False, Not Given or Yes, No, Not Given
+  multipleChoice = "multiple_choice",
+  TFNG = "true_false_not_given",
+  YNNG = "yes_no_not_given",
+
+  // Fill in the blanks group
+  // Output: short text
+  summaryFlowChartCompletion = "summary_flow_chart_completion",
+  noteFormCompletion = "note_form_completion",
+  tableCompletion = "table_completion",
+  mapPlanDiagramLabelling = "map_plan_diagram_labelling",
+  tableNoteFlowChartCompletion = "table_note_flow_chart_completion",
+  shortAnswer = "short_answer",
+  diagramLabelCompletion = "diagram_label_completion",
+
+  // Matching group
+  // Output: A, B, C, D, E, F, G,...
+  matching = "matching",
+  matchingInformation = "matching_information",
+  matchingFeatures = "matching_features",
+  matchingHeadings = "matching_headings",
+  matchingInformationToParagraph = "matching_information_to_paragraph",
+  matchingSentenceEndings = "matching_sentence_endings",
 }
 
 export enum EnumMode {

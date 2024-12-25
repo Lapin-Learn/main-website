@@ -7,7 +7,8 @@ import { TimerType } from "@/hooks/zustand/use-global-timer";
 import { PagedData, PagingSchema } from "@/lib/types/pagination.type";
 
 import { DEFAULT_TIME_LIMIT } from "./consts";
-import { EnumMode, EnumSkill } from "./enums";
+import { EnumMode, EnumRole, EnumSkill } from "./enums";
+import { ROUTE_PERMISSION } from "./route-permission";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -144,4 +145,11 @@ export const getElapsedTime = (type: TimerType, initialTime: number, currentTime
   } else {
     return (initialTime - currentTime) / 1000;
   }
+};
+
+export const checkRoutePermission = (pathname: string, userRole: EnumRole) => {
+  if (ROUTE_PERMISSION[pathname]) {
+    return ROUTE_PERMISSION[pathname].includes(userRole);
+  }
+  return true;
 };

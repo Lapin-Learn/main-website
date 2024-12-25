@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 
+import { EnumRole } from "@/lib/enums";
 import { Image } from "@/lib/types";
 import { getAccountIdentifier } from "@/services";
 import { getUserProfile, updateUserPassword, updateUserProfile } from "@/services/user";
@@ -15,12 +16,22 @@ export const userKeys = {
 };
 
 export const useAccountIdentifier = () => {
-  return useQuery({
+  const result = useQuery({
     queryKey: userKeys.identifier(),
     queryFn: getAccountIdentifier,
     staleTime: Infinity,
     retry: false,
   });
+
+  const checkRole = (role: EnumRole) => {
+    if (!result.isSuccess || !result.data) return false;
+    return result.data.role === role;
+  };
+
+  return {
+    ...result,
+    checkRole,
+  };
 };
 
 export const useUserProfile = () => {

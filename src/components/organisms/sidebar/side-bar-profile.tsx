@@ -5,7 +5,8 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/h
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSignOut } from "@/hooks/react-query/useAuth";
-import { useUserAvatar, useUserProfile } from "@/hooks/react-query/useUsers";
+import { useAccountIdentifier, useUserAvatar, useUserProfile } from "@/hooks/react-query/useUsers";
+import { EnumRole } from "@/lib/enums";
 import { cn } from "@/lib/utils";
 
 export const SideBarProfile = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
@@ -48,12 +49,16 @@ export const SideBarProfile = ({ isSidebarOpen }: { isSidebarOpen: boolean }) =>
 const ProfileTooltip = () => {
   const signOut = useSignOut();
   const { data: user, isSuccess } = useUserProfile();
+  const { checkRole } = useAccountIdentifier();
+
   return (
     <>
       <div className="flex h-10 w-full flex-1 flex-col justify-between overflow-hidden">
         {user && isSuccess ? (
           <>
-            <p className="text-small font-semibold text-black">{user.fullName}</p>
+            <p className="text-small font-semibold text-black">
+              {checkRole(EnumRole.learner) ? user.fullName : "Super Admin"}
+            </p>
             <p className="truncate text-xs text-supporting-text">{user.email}</p>
           </>
         ) : (

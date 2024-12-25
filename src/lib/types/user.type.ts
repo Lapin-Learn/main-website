@@ -1,10 +1,11 @@
-import { EnumGender, EnumRank } from "../enums";
+import { EnumGender, EnumRank, EnumRole } from "../enums";
 import { Image } from "./common.type";
 
 export type AccountIdentifier = {
   username: string;
   id: string;
   dob: string;
+  role: EnumRole;
 };
 
 export type Level = {
