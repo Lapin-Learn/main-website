@@ -20,6 +20,10 @@
     "nextBtn": "Tiếp theo",
     "prevBtn": "Quay lại",
     "submitBtn": "Nộp bài",
+    "mode":{
+        "practice": "Chế độ luyện tập",
+        "test": "Chế độ thi thử"
+    },
     "tour": {
         "skipBtn": "Bỏ qua",
         "beforeStart": {
@@ -71,5 +75,41 @@
                 "description": "Nhấn nút Thoát để rời khỏi bài thi bất kỳ lúc nào. Tiến trình của bạn có thể không được lưu nếu thoát mà không nộp bài."
             }
         }
-    }
+    },
+    "speaking": {
+        "microphoneTest": "Bạn có {{ seconds }} giây để thử Microphone",
+        "microphonePermission": "Để có thể dụng Microphone, bạn cần cấp quyền cho Microphone của máy",
+        "instructions": {
+            "practice": [
+                {
+                    "title": "Thời gian không giới hạn",
+                    "content": "Trong chế độ này, thời gian suy nghĩ và nói của bạn sẽ không bị giới hạn, cho phép bạn thoải mái luyện tập mà không cần lo lắng về thời gian."
+                },
+                {
+                    "title": "Luyện tập theo phần",
+                    "content": "Giúp bạn tập trung luyện tập từng phần chi tiết trước khi kết hợp toàn bộ bài thi. Không được quay lại, hệ thống sẽ thu âm lại toàn bộ bài và bạn chỉ có thể nghe lại khi hoàn thành."
+                },
+                {
+                    "title": "Hệ thống tự động đọc câu hỏi",
+                    "content": "Hệ thống tự động đọc câu hỏi cho từng phần, với giọng đọc rõ ràng và tốc độ chuẩn. Ngoài ra, hệ thống cho phép bạn hỏi lại và nghe lại câu hỏi nhiều nhất 2 lần, giúp làm rõ nội dung câu hỏi."
+                }
+            ],
+            "full_test": [
+                {
+                    "title": "Thời gian thi thật",
+                    "content": "Trong chế độ này, bạn sẽ có thời gian suy nghĩ và nói như trong bài thi thật, giúp bạn làm quen với áp lực thời gian và cải thiện kỹ năng quản lý thời gian."
+                },
+                {
+                    "title": "Làm tất cả các phần",
+                    "content": "Bạn sẽ hoàn thành bài thi như một bài thi thật gồm 3 phần"
+                },
+                {
+                    "title": "Hệ thống tự động đọc câu hỏi",
+                    "content": "Hệ thống tự động đọc câu hỏi cho từng phần, với giọng đọc rõ ràng và tốc độ chuẩn. Ngoài ra, hệ thống cho phép bạn hỏi lại và nghe lại câu hỏi nhiều nhất 2 lần, giúp làm rõ nội dung câu hỏi."
+                }
+            ]
+        }
+    },
+    "startTest": "Bắt đầu làm bài",
+    "start": "Bắt đầu"
 }
