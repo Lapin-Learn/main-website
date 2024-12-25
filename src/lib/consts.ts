@@ -1,4 +1,4 @@
-import { EnumBandScore, EnumSkill } from "./enums";
+import { EnumBandScore, EnumQuestionGroup, EnumSkill } from "./enums";
 import { EnumQuestion } from "./types/question.type";
 
 export const BAND_SCORES = {
@@ -55,5 +55,60 @@ export const DEFAULT_TIME_LIMIT: Record<EnumSkill, number> = {
   [EnumSkill.listening]: 40,
   [EnumSkill.writing]: 60,
   [EnumSkill.speaking]: 15,
-  [EnumSkill.allSkills]: 0,
 };
+
+export const DEFAULT_QUESTION_NO_BY_SKILL: Record<
+  EnumSkill,
+  Record<string, { startQuestionNo: number; endQuestionNo: number }> | undefined
+> = {
+  [EnumSkill.listening]: {
+    "1": {
+      startQuestionNo: 1,
+      endQuestionNo: 10,
+    },
+    "2": {
+      startQuestionNo: 11,
+      endQuestionNo: 20,
+    },
+    "3": {
+      startQuestionNo: 21,
+      endQuestionNo: 30,
+    },
+    "4": {
+      startQuestionNo: 31,
+      endQuestionNo: 40,
+    },
+  },
+  [EnumSkill.reading]: {
+    "1": {
+      startQuestionNo: 1,
+      endQuestionNo: 13,
+    },
+    "2": {
+      startQuestionNo: 14,
+      endQuestionNo: 26,
+    },
+    "3": {
+      startQuestionNo: 27,
+      endQuestionNo: 40,
+    },
+  },
+  [EnumSkill.writing]: undefined,
+  [EnumSkill.speaking]: undefined,
+};
+
+export const MAPPED_QUESTION_TYPE_LABELS = {
+  [EnumQuestionGroup.fillInBlanks]: "Fill in the blanks",
+  [EnumQuestionGroup.matchingInformation]: "Matching information",
+  [EnumQuestionGroup.multipleChoice]: "Multiple choice",
+  [EnumQuestionGroup.matchingHeadings]: "Matching headings",
+};
+
+// export const MAPPED_QUESTION_TYPE_GROUPS = {
+//   [EnumQuestionGroup.fillInBlanks]: EnumQuestionGroup.fillInBlanks,
+//   [EnumQuestionGroup.matchingInformation]: EnumQuestionGroup.matchingInformation,
+//   [EnumQuestionGroup.TFNG]: EnumQuestionGroup.fillInBlanks,
+//   [EnumQuestionGroup.multipleChoice]: EnumQuestionGroup.fillInBlanks,
+//   [EnumQuestionGroup.matchingHeadings]: EnumQuestionGroup.matchingHeadings,
+
+// }

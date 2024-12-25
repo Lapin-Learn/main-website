@@ -11,21 +11,29 @@ import SpeakingIcon from "@/assets/icons/skills/speaking";
 import SpeakingFilledIcon from "@/assets/icons/skills/speaking-filled";
 import WritingIcon from "@/assets/icons/skills/writing";
 import WritingFilledIcon from "@/assets/icons/skills/writing-filled";
-import { EnumSkill } from "@/lib/enums";
+import { ExtendEnumSkill } from "@/lib/enums";
 import { cn } from "@/lib/utils";
 
 import { Button } from "../ui";
 
 const skillsList: {
-  label: EnumSkill;
+  label: ExtendEnumSkill;
   IconOutlined: React.FC<React.SVGProps<SVGSVGElement>>;
   IconFilled: React.FC<React.SVGProps<SVGSVGElement>>;
 }[] = [
-  { label: EnumSkill.allSkills, IconOutlined: AllSkillsIcon, IconFilled: AllSkillsFilledIcon },
-  { label: EnumSkill.reading, IconOutlined: ReadingIcon, IconFilled: ReadingFilledIcon },
-  { label: EnumSkill.listening, IconOutlined: ListeningIcon, IconFilled: ListeningFilledIcon },
-  { label: EnumSkill.writing, IconOutlined: WritingIcon, IconFilled: WritingFilledIcon },
-  { label: EnumSkill.speaking, IconOutlined: SpeakingIcon, IconFilled: SpeakingFilledIcon },
+  {
+    label: ExtendEnumSkill.allSkills,
+    IconOutlined: AllSkillsIcon,
+    IconFilled: AllSkillsFilledIcon,
+  },
+  { label: ExtendEnumSkill.reading, IconOutlined: ReadingIcon, IconFilled: ReadingFilledIcon },
+  {
+    label: ExtendEnumSkill.listening,
+    IconOutlined: ListeningIcon,
+    IconFilled: ListeningFilledIcon,
+  },
+  { label: ExtendEnumSkill.writing, IconOutlined: WritingIcon, IconFilled: WritingFilledIcon },
+  { label: ExtendEnumSkill.speaking, IconOutlined: SpeakingIcon, IconFilled: SpeakingFilledIcon },
 ];
 
 const SkillsFilter = () => {
@@ -37,19 +45,19 @@ const SkillsFilter = () => {
         <Link
           key={label}
           to="/practice"
-          search={{ skill: label !== EnumSkill.allSkills ? label : undefined }}
+          search={{ skill: label !== ExtendEnumSkill.allSkills ? label : undefined }}
         >
           <Button
             variant="ghost"
             size="lg"
             className={cn(
               "flex items-center gap-2.5 rounded-lg px-4 py-3 text-sm font-semibold transition-all",
-              label === (search.skill || EnumSkill.allSkills)
+              label === (search.skill || ExtendEnumSkill.allSkills)
                 ? "bg-[#FCE3B4] text-orange-700 hover:bg-[#FCE3B4]/80 hover:text-orange-700"
                 : "bg-neutral-50 text-gray-700 hover:bg-neutral-100/50 hover:text-gray-800"
             )}
           >
-            {label === (search.skill || EnumSkill.allSkills) ? (
+            {label === (search.skill || ExtendEnumSkill.allSkills) ? (
               <IconFilled className={cn("h-5 w-5")} fill="#c2410c" />
             ) : (
               <IconOutlined className={cn("h-5 w-5")} fill="#374151" />

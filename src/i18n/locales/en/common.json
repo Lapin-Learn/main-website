@@ -27,7 +27,8 @@
         "practice": "Practice",
         "mission": "Mission",
         "simulatedTest": "Simulated test",
-        "result": "Result"
+        "result": "Result",
+        "contentEditor": "Content editor"
     },
     "allSkills": "All skills",
     "reading": "reading",

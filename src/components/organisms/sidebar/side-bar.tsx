@@ -1,10 +1,12 @@
-import { ChevronLeft, Menu } from "lucide-react";
+import { ChevronLeft, Edit, Menu } from "lucide-react";
 import { useState } from "react";
 
 import MissionsIcon from "@/assets/icons/missions";
 import PracticeIcon from "@/assets/icons/practice";
 import AppIcon from "@/assets/images/app.jpg";
 import Logo from "@/assets/logo.svg";
+import { useAccountIdentifier } from "@/hooks/react-query/useUsers";
+import { EnumRole } from "@/lib/enums";
 import { cn } from "@/lib/utils";
 
 import { Separator } from "../../ui";
@@ -20,8 +22,18 @@ const features: SideBarFeatureProps[] = [
   { to: "/missions", icon: <MissionsIcon />, label: "mission" },
 ];
 
+const adminFeatures: SideBarFeatureProps[] = [
+  {
+    to: "/content-editor",
+    icon: <Edit fillOpacity={0} />,
+    label: "contentEditor",
+  },
+];
+
 export default function SideBar() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const { checkRole } = useAccountIdentifier();
+
   return (
     <>
       <div className="fixed flex w-full items-center justify-between bg-white p-4 pt-8 sm:hidden">
@@ -69,7 +81,7 @@ export default function SideBar() {
               </div>
               <Separator className="mt-6" />
               <ul className="flex w-full flex-col space-y-2 overflow-hidden pt-3">
-                {features.map((feat, idx) => {
+                {(checkRole(EnumRole.learner) ? features : adminFeatures).map((feat, idx) => {
                   if (typeof feat === "object")
                     return <SideBarFeature key={idx} feature={feat} isExpanded={isSidebarOpen} />;
                   return <div key={idx} className="h-px w-full bg-border" />;
