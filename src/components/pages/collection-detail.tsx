@@ -39,7 +39,7 @@ export default function CollectionDetailPage() {
                   <FilteredSkillCard
                     test={simulatedTest}
                     skillTest={skillTest}
-                    isSupport={!!skillTest}
+                    isSupport={!!skillTest && skillTest.partsDetail.length > 0}
                   />
                 );
               })}

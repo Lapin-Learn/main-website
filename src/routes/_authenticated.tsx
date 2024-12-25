@@ -2,6 +2,9 @@ import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 import ErrorFallback from "@/components/ErrorFallback";
 import { userKeys } from "@/hooks/react-query/useUsers";
+import { FALLBACK_ROUTE } from "@/lib/route-permission";
+import { AccountIdentifier } from "@/lib/types";
+import { checkRoutePermission } from "@/lib/utils";
 import { getAccountIdentifier, getAuthValueFromStorage, signOut } from "@/services";
 
 const AuthenticatedPage = () => {
@@ -9,25 +12,27 @@ const AuthenticatedPage = () => {
 };
 
 export const Route = createFileRoute("/_authenticated")({
-  beforeLoad: async ({ context: { queryClient }, location }) => {
+  beforeLoad: async ({ context: { queryClient }, location: { pathname } }) => {
     try {
       if (!getAuthValueFromStorage()) {
         return redirect({ to: "/log-in" });
       }
-      const user = queryClient.getQueryData(userKeys.identifier());
+      const user = queryClient.getQueryData(userKeys.identifier()) as AccountIdentifier;
       if (!user) {
         const identifier = await getAccountIdentifier();
         if (!identifier) {
           throw new Error("User not found");
         } else {
           queryClient.setQueryData(userKeys.identifier(), identifier);
+          if (pathname === "/" || !checkRoutePermission(pathname, identifier.role)) {
+            console.log("Redirecting to", FALLBACK_ROUTE[identifier.role]);
+            return redirect({ to: FALLBACK_ROUTE[identifier.role] });
+          }
         }
-      }
-      if (location.pathname === "/") {
-        return redirect({ to: "/practice" });
       }
       return true;
     } catch (e) {
+      console.error(e);
       await signOut();
       return redirect({ to: "/log-in" });
     }

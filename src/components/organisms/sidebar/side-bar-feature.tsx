@@ -61,7 +61,9 @@ export const SideBarFeature = (props: {
                       <>
                         {React.cloneElement(
                           icon as React.ReactElement,
-                          isActive ? { fill: "#c2410c" } : { fill: "#929292" }
+                          isActive
+                            ? { fill: "#c2410c", color: "#c2410c" }
+                            : { fill: "#929292", color: "#929292" }
                         )}
                       </>
                     }
