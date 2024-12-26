@@ -57,11 +57,18 @@ export function SimulatedTestCard(
                   }
                 }}
                 disabled={
-                  !skillTest || !skillTest.partsDetail || skillTest.partsDetail.length === 0
+                  false
+                  // !skillTest || !skillTest.partsDetail || skillTest.partsDetail.length === 0
                 }
                 className="w-full"
               >
-                <TestSkillCard skill={skill} isComingSoon={!skillTest || !skillTest.partsDetail} />
+                <TestSkillCard
+                  skill={skill}
+                  isComingSoon={
+                    false
+                    // !skillTest || !skillTest.partsDetail || skillTest.partsDetail.length === 0
+                  }
+                />
               </button>
             );
           })}
