@@ -1,24 +1,16 @@
-import "@/styles/styles.css";
-
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Color } from "@tiptap/extension-color";
-import Highlight from "@tiptap/extension-highlight";
-import Table from "@tiptap/extension-table";
-import TableCell from "@tiptap/extension-table-cell";
-import TableHeader from "@tiptap/extension-table-header";
-import TableRow from "@tiptap/extension-table-row";
-import TextAlign from "@tiptap/extension-text-align";
-import TextStyle from "@tiptap/extension-text-style";
 import { EditorContent, useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import InputFieldButton from "@/components/editor/components/input-field-button";
+import ExtensionKit from "@/components/editor/extensions/extension-kit";
+import ImageBlockMenu from "@/components/editor/extensions/ImageBlock/components/ImageBlockMenu";
+import { TableColumnMenu, TableRowMenu } from "@/components/editor/extensions/Table/menus";
+import { TextMenu } from "@/components/editor/menus";
 import JsonDisplayWithCopy from "@/components/molecules/json-display-with-copy";
 import AddPartForm from "@/components/organisms/add-part-form-fields";
-import MenuBar from "@/components/organisms/editor/menu-bar";
-import CustomInput from "@/components/organisms/question-groups/input-node";
 import { Button, Form } from "@/components/ui";
 import { EnumQuestionGroup, EnumSkill } from "@/lib/enums";
 
@@ -44,6 +36,8 @@ const formSchema = z
 type FormSchema = z.infer<typeof formSchema>;
 
 export default () => {
+  const menuContainerRef = useRef(null);
+
   const methods = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -53,25 +47,22 @@ export default () => {
     },
   });
   const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Table.configure({
-        resizable: true,
-      }),
-      TableRow,
-      TableHeader,
-      TableCell,
-      CustomInput,
-      TextStyle,
-      Color.configure({ types: [TextStyle.name] }),
-      Highlight.configure({
-        multicolor: true,
-      }),
-      TextAlign,
-    ],
+    extensions: ExtensionKit(),
+    editorProps: {
+      attributes: {
+        autocomplete: "off",
+        autocorrect: "off",
+        autocapitalize: "off",
+        class: "min-h-full outline-none",
+      },
+    },
     injectCSS: false,
   });
   const [result, setResult] = useState("{}");
+
+  if (!editor) {
+    return null;
+  }
 
   return (
     <main className="bg-neutral-50 p-8">
@@ -83,12 +74,15 @@ export default () => {
               <AddPartForm />
             </form>
           </Form>
-          <div className="flex flex-col gap-4">
-            <MenuBar editor={editor} />
-            <EditorContent
-              editor={editor}
-              className="rounded-md border p-4 [&>[role='textbox']]:outline-none"
-            />
+          <div className="flex flex-col gap-4" ref={menuContainerRef}>
+            <div>
+              <InputFieldButton editor={editor} />
+            </div>
+            <EditorContent editor={editor} className="rounded-md border p-4" />
+            <TextMenu editor={editor} />
+            <TableRowMenu editor={editor} appendTo={menuContainerRef} />
+            <TableColumnMenu editor={editor} appendTo={menuContainerRef} />
+            <ImageBlockMenu editor={editor} appendTo={menuContainerRef} />
           </div>
         </div>
         <Button

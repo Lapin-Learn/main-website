@@ -6,9 +6,9 @@ import { z } from "zod";
 import { TimerType } from "@/hooks/zustand/use-global-timer";
 import { PagedData, PagingSchema } from "@/lib/types/pagination.type";
 
-import { DEFAULT_TIME_LIMIT } from "./consts";
-import { EnumMode, EnumRole, EnumSkill } from "./enums";
-import { ROUTE_PERMISSION } from "./route-permission";
+import { DEFAULT_TIME_LIMIT } from "../consts";
+import { EnumMode, EnumRole, EnumSkill } from "../enums";
+import { ROUTE_PERMISSION } from "../route-permission";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

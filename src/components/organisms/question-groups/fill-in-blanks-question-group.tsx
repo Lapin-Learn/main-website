@@ -1,30 +1,10 @@
 import { Editor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
+import { InputField } from "@/components/editor/local-custom-extensions";
 import { QuestionGroupFillInBlanks } from "@/lib/types/simulated-test.type";
 
-import CustomInput from "./input-node";
-
-const extensions = [
-  StarterKit.configure({
-    bulletList: {
-      HTMLAttributes: {
-        class: "list-disc pl-4",
-      },
-    },
-    orderedList: {
-      HTMLAttributes: {
-        class: "list-[upper-alpha] [&_li]:my-1 pl-8",
-      },
-    },
-    listItem: {
-      HTMLAttributes: {
-        class: "mb-2",
-      },
-    },
-  }),
-  CustomInput,
-];
+const extensions = [StarterKit, InputField];
 
 export default function FillInBlanksQuestionGroup({
   questions,
