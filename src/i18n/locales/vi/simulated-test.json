@@ -111,5 +111,6 @@
         }
     },
     "startTest": "Bắt đầu làm bài",
-    "start": "Bắt đầu"
+    "start": "Bắt đầu",
+    "nextQuestion": "Câu kế tiếp"
 }

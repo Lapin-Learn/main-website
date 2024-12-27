@@ -132,3 +132,25 @@ export const WRITING_INSTRUCTIONS = [
     content: "You should spend about 40 minutes on this task. Write at least 250 words.",
   },
 ];
+
+export const MIC_TEST_DURATION = 10;
+
+export const PART_TITLES: { [key: number]: string } = {
+  1: "PART 1: INSTRUCTION AND INTERVIEW",
+  2: "PART 2: TOPIC",
+  3: "PART 3: TOPIC DISCUSSION",
+};
+
+export const PART_INSTRUCTIONS: { [key: number]: string[] } = {
+  1: [
+    "In this first part, the examiner will ask you some questions about yourself.",
+    "DO NOT give out real personal information on your answers.",
+  ],
+  2: [
+    "In this part you will be given a topic and you have 1-2 minutes to talk about it.",
+    "Before you talk, you have 1 minute to think about what you’re going to say, and you can make some notes if you wish.",
+  ],
+  3: [
+    "In this part, you will be asked some more general questions based on the topic from part 2.",
+  ],
+};
