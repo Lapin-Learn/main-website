@@ -1,5 +1,5 @@
 import "./styles/globals.css";
-// import "./styles/prosemirror.css";
+import "./styles/index.css";
 import "./i18n/i18n.tsx";
 
 import React from "react";

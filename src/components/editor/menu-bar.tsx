@@ -1,9 +1,7 @@
 import { Editor } from "@tiptap/react";
 import { CornerDownLeft, MessageCircleQuestion } from "lucide-react";
 
-import TableFeatures from "@/components/organisms/editor/table-features";
-import TextColorFeatures from "@/components/organisms/editor/text-color-features";
-import TextStyleFeatures from "@/components/organisms/editor/text-style-features";
+import TableFeatures from "@/components/editor/components/table-features";
 import { Button, Input } from "@/components/ui";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
@@ -14,8 +12,6 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 
   return (
     <div className="flex flex-wrap gap-2">
-      <TextStyleFeatures editor={editor} />
-      <TextColorFeatures editor={editor} />
       <Popover>
         <PopoverTrigger asChild>
           <Button variant="outline">

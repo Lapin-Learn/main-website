@@ -34,6 +34,8 @@ export default Node.create({
 
   group: "inline",
   inline: true,
+  selectable: false,
+  draggable: false,
   content: "text*",
 
   addAttributes() {
@@ -48,9 +50,6 @@ export default Node.create({
     return [
       {
         tag: "custom-input",
-        // getAttrs: (dom) => ({
-        //   questionNo: dom.getAttribute("data-questionNo"),
-        // }),
       },
     ];
   },

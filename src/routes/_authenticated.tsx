@@ -24,6 +24,7 @@ export const Route = createFileRoute("/_authenticated")({
           throw new Error("User not found");
         } else {
           queryClient.setQueryData(userKeys.identifier(), identifier);
+          console.log(pathname, identifier);
           if (pathname === "/" || !checkRoutePermission(pathname, identifier.role)) {
             console.log("Redirecting to", FALLBACK_ROUTE[identifier.role]);
             return redirect({ to: FALLBACK_ROUTE[identifier.role] });
