@@ -19,17 +19,18 @@ export const TableColumnMenu = React.memo(({ editor, appendTo }: MenuProps): JSX
     [editor]
   );
 
-  const onAddColumnBefore = useCallback(() => {
-    editor.chain().focus().addColumnBefore().run();
-  }, [editor]);
+  // TODO: add column before, add column after, delete column
+  // const onAddColumnBefore = useCallback(() => {
+  //   editor.chain().focus().addColumnBefore().run();
+  // }, [editor]);
 
-  const onAddColumnAfter = useCallback(() => {
-    editor.chain().focus().addColumnAfter().run();
-  }, [editor]);
+  // const onAddColumnAfter = useCallback(() => {
+  //   editor.chain().focus().addColumnAfter().run();
+  // }, [editor]);
 
-  const onDeleteColumn = useCallback(() => {
-    editor.chain().focus().deleteColumn().run();
-  }, [editor]);
+  // const onDeleteColumn = useCallback(() => {
+  //   editor.chain().focus().deleteColumn().run();
+  // }, [editor]);
 
   return (
     <BaseBubbleMenu

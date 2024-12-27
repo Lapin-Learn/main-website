@@ -18,17 +18,17 @@ export const TableRowMenu = React.memo(({ editor, appendTo }: MenuProps): JSX.El
     [editor]
   );
 
-  const onAddRowBefore = useCallback(() => {
-    editor.chain().focus().addRowBefore().run();
-  }, [editor]);
+  // const onAddRowBefore = useCallback(() => {
+  //   editor.chain().focus().addRowBefore().run();
+  // }, [editor]);
 
-  const onAddRowAfter = useCallback(() => {
-    editor.chain().focus().addRowAfter().run();
-  }, [editor]);
+  // const onAddRowAfter = useCallback(() => {
+  //   editor.chain().focus().addRowAfter().run();
+  // }, [editor]);
 
-  const onDeleteRow = useCallback(() => {
-    editor.chain().focus().deleteRow().run();
-  }, [editor]);
+  // const onDeleteRow = useCallback(() => {
+  //   editor.chain().focus().deleteRow().run();
+  // }, [editor]);
 
   return (
     <BaseBubbleMenu
