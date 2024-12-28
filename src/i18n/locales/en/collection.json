@@ -3,7 +3,12 @@
     "correctAnswer": "Correct Answers",
     "timeSpent": "Time Spent",
     "comingSoon": "Coming Soon",
-    "viewDetail": "View Detail",
+    "detail": {
+        "button": "View Details",
+        "title": "Details",
+        "answer": "Answer",
+        "answerKeys": "Answer Keys"
+    },
     "answerKeys": "Answer Keys",
     "analysis": "Analysis"
 }

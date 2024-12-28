@@ -11,7 +11,7 @@ import {
 } from "../molecules/simulated-tests/filtered-skill-card";
 import { CollectionDetailHeader } from "../organisms/collection-detail-header";
 import SelectModeDialog from "../organisms/select-mode-dialog";
-import { SimulatedTestCard, SkeletonSimulatedTestCard } from "../organisms/simulated-test-card";
+import { SimulatedTestCard, SkeletonSimulatedTestCard } from "../organisms/simulated-test/card";
 
 export default function CollectionDetailPage() {
   const { search } = useLocation();

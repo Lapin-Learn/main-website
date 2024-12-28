@@ -1,7 +1,6 @@
 import { JSONContent } from "@tiptap/core";
 
-import { EnumMode, EnumQuestionGroup, EnumSimulatedTestSessionStatus } from "../enums";
-import { EnumSkill } from "../enums";
+import { EnumMode, EnumQuestionGroup, EnumSimulatedTestSessionStatus, EnumSkill } from "../enums";
 import { Option } from "./common.type";
 
 export type SimulatedTestCollection = {
@@ -32,6 +31,7 @@ type BaseQuestionGroup = {
   questionCard: string;
   startQuestionNo: number;
   endQuestionNo: number;
+  disabled?: boolean;
 };
 export type QuestionGroupMultipleChoice = BaseQuestionGroup & {
   questionType: EnumQuestionGroup.multipleChoice;
@@ -122,4 +122,9 @@ export type STSkillTestAnswer = {
   type: "exact" | "variant";
   valid: string;
   variants?: string[];
+};
+
+export type STSkillPageProps = {
+  skillTestId: number;
+  sessionId: number;
 };
