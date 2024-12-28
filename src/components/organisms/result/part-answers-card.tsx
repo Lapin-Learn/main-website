@@ -1,5 +1,5 @@
 import TagsList from "@/components/molecules/tags-list";
-import { PartDetail, STSkillTestAnswer } from "@/lib/types/simulated-test.type";
+import { PartDetail, SkillTestGuidance, STSkillTestAnswer } from "@/lib/types/simulated-test.type";
 
 import AnswerKeyContent from "./answer-key-content";
 
@@ -9,12 +9,14 @@ export function PartAnswersCard({
   userAnswers,
   answerStatus,
   answers,
+  guidances,
 }: {
   part: number;
   partDetail: PartDetail;
   userAnswers: string[];
   answerStatus: boolean[];
   answers: STSkillTestAnswer[];
+  guidances: SkillTestGuidance[];
 }) {
   const { startQuestionNo, questionTypes, endQuestionNo } = partDetail;
 
@@ -38,6 +40,7 @@ export function PartAnswersCard({
                 answer={answer}
                 userAnswer={userAnswers[id - 1]}
                 status={answerStatus[id - 1]}
+                guidance={guidances[id - 1]}
               />
             </div>
           );

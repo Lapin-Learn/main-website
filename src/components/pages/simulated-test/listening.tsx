@@ -53,6 +53,7 @@ const ListeningPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
                       endNo={questionGroup.endQuestionNo}
                       userAnswers={userAnswers}
                       answerStatus={answerStatus}
+                      guidances={session.skillTest.guidances}
                     />
                   )}
                 </div>
