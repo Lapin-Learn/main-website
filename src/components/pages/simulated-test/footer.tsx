@@ -84,11 +84,7 @@ const Footer = ({ sessionId, partDetails, skill, status }: FooterProps) => {
           </Button>
         </div>
         <SubmitDialog
-          triggerButton={
-            <Button className="submit" disabled={skill == EnumSkill.writing}>
-              {t("submitBtn")}
-            </Button>
-          }
+          triggerButton={<Button className="submit">{t("submitBtn")}</Button>}
           sessionId={sessionId}
         />
       </div>

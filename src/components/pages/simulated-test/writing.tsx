@@ -1,5 +1,4 @@
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
 
 import WritingQuestionCard from "@/components/molecules/writing-question-card";
 import SimpleEditor from "@/components/organisms/editor/editor-writing-test";
@@ -8,13 +7,13 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/componen
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
 import useBreakPoint from "@/hooks/use-screen-size";
-import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
+import useSimulatedTestState, { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { WRITING_INSTRUCTIONS } from "@/lib/consts";
 import { Route } from "@/routes/_authenticated/practice/simulated-test";
 
 const WritingPage = () => {
   const { skillTestId } = Route.useSearch();
-  const [_, setAnswer] = useState("");
+  const { answer, answerSheet } = useAnswerStore();
   const {
     position: { part: currentPart },
   } = useSimulatedTestState();
@@ -46,7 +45,11 @@ const WritingPage = () => {
       </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel className="answer-sheet" minSize={20}>
-        <SimpleEditor onChange={setAnswer} />
+        <SimpleEditor
+          onChange={(content: string) => answer(currentPart, content)}
+          defaultContent={answerSheet[currentPart] ?? ""}
+          key={currentPart}
+        />
       </ResizablePanel>
     </ResizablePanelGroup>
   );
