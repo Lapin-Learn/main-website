@@ -18,7 +18,7 @@ const ListeningPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
     position: { part: currentPart, question },
   } = useSimulatedTestState();
   const { data: testContent, isLoading } = useGetSkillTestData(skillTestId, currentPart);
-  const { data: session } = useGetSTSessionDetail(sessionId);
+  const { data: session, userAnswers, answerStatus } = useGetSTSessionDetail(sessionId);
   const isFinished = session?.status === EnumSimulatedTestSessionStatus.FINISHED;
 
   useEffect(() => {
@@ -51,6 +51,8 @@ const ListeningPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
                       answerKeys={session.skillTest.answers}
                       startNo={questionGroup.startQuestionNo}
                       endNo={questionGroup.endQuestionNo}
+                      userAnswers={userAnswers}
+                      answerStatus={answerStatus}
                     />
                   )}
                 </div>
