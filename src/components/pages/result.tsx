@@ -6,7 +6,7 @@ import {
   useGetSimulatedTestDetail,
   useGetSTSessionDetail,
 } from "@/hooks/react-query/use-simulated-test";
-import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
+import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { SimulatedTestSession } from "@/lib/types/simulated-test.type";
 import { Route } from "@/routes/_authenticated/_dashboard/practice/simulated-test/result";
 
@@ -64,6 +64,12 @@ export default function ResultPage() {
         <TabsContent value="answerKeys" className="flex flex-col gap-6">
           {isLoading ? (
             <SkeletonPartAnswersCard />
+          ) : session.skillTest.skill === EnumSkill.writing ||
+            session.skillTest.skill === EnumSkill.speaking ? (
+            <div className="flex h-full flex-col items-center">
+              <h1 className="text-2xl font-bold">Coming soon</h1>
+              <p className="text-center text-sm">This skill is not available yet</p>
+            </div>
           ) : (
             <>
               {session?.parts.map((part, index) => {

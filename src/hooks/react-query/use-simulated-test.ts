@@ -3,7 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { create } from "zustand";
 
-import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
+import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { fromPageToOffset, parseInfiniteData } from "@/lib/utils";
 import {
   CollectionParams,
@@ -194,7 +194,11 @@ export const useGetSTSessionDetail = (sessionId: number) => {
   });
   const session = result.data;
 
-  if (!session)
+  if (
+    !session ||
+    session.skillTest.skill === EnumSkill.writing ||
+    session.skillTest.skill === EnumSkill.speaking
+  )
     return {
       ...result,
       userAnswers: [],

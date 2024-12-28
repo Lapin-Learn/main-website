@@ -17,6 +17,7 @@ import { Route as AuthenticatedDashboardProfileImport } from "./routes/_authenti
 import { Route as AuthenticatedDashboardProfileChangePasswordImport } from "./routes/_authenticated/_dashboard/_profile/change-password";
 import { Route as AuthenticatedDashboardProfileHistoryImport } from "./routes/_authenticated/_dashboard/_profile/history";
 import { Route as AuthenticatedDashboardProfileProfileImport } from "./routes/_authenticated/_dashboard/_profile/profile";
+import { Route as AuthenticatedDashboardContentEditorImport } from "./routes/_authenticated/_dashboard/content-editor";
 import { Route as AuthenticatedDashboardPracticeCollectionIdImport } from "./routes/_authenticated/_dashboard/practice/$collectionId";
 import { Route as AuthenticatedDashboardPracticeIndexImport } from "./routes/_authenticated/_dashboard/practice/index";
 import { Route as AuthenticatedDashboardPracticeSimulatedTestResultImport } from "./routes/_authenticated/_dashboard/practice/simulated-test/result";
@@ -80,6 +81,12 @@ const AuthenticationForgotPasswordRoute = AuthenticationForgotPasswordImport.upd
 const AuthenticatedDashboardRoute = AuthenticatedDashboardImport.update({
   id: "/_dashboard",
   getParentRoute: () => AuthenticatedRoute,
+} as any);
+
+const AuthenticatedDashboardContentEditorRoute = AuthenticatedDashboardContentEditorImport.update({
+  id: "/content-editor",
+  path: "/content-editor",
+  getParentRoute: () => AuthenticatedDashboardRoute,
 } as any);
 
 const AuthenticatedDashboardProfileRoute = AuthenticatedDashboardProfileImport.update({
@@ -211,6 +218,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AuthenticatedDashboardProfileImport;
       parentRoute: typeof AuthenticatedDashboardImport;
     };
+    "/_authenticated/_dashboard/content-editor": {
+      id: "/_authenticated/_dashboard/content-editor";
+      path: "/content-editor";
+      fullPath: "/content-editor";
+      preLoaderRoute: typeof AuthenticatedDashboardContentEditorImport;
+      parentRoute: typeof AuthenticatedDashboardImport;
+    };
     "/_authenticated/_dashboard/_profile/change-password": {
       id: "/_authenticated/_dashboard/_profile/change-password";
       path: "/change-password";
@@ -283,6 +297,7 @@ const AuthenticatedDashboardProfileRouteWithChildren =
 
 interface AuthenticatedDashboardRouteChildren {
   AuthenticatedDashboardProfileRoute: typeof AuthenticatedDashboardProfileRouteWithChildren;
+  AuthenticatedDashboardContentEditorRoute: typeof AuthenticatedDashboardContentEditorRoute;
   AuthenticatedDashboardPracticeCollectionIdRoute: typeof AuthenticatedDashboardPracticeCollectionIdRoute;
   AuthenticatedDashboardPracticeIndexRoute: typeof AuthenticatedDashboardPracticeIndexRoute;
   AuthenticatedDashboardPracticeSimulatedTestResultRoute: typeof AuthenticatedDashboardPracticeSimulatedTestResultRoute;
@@ -290,6 +305,7 @@ interface AuthenticatedDashboardRouteChildren {
 
 const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren = {
   AuthenticatedDashboardProfileRoute: AuthenticatedDashboardProfileRouteWithChildren,
+  AuthenticatedDashboardContentEditorRoute: AuthenticatedDashboardContentEditorRoute,
   AuthenticatedDashboardPracticeCollectionIdRoute: AuthenticatedDashboardPracticeCollectionIdRoute,
   AuthenticatedDashboardPracticeIndexRoute: AuthenticatedDashboardPracticeIndexRoute,
   AuthenticatedDashboardPracticeSimulatedTestResultRoute:
@@ -344,6 +360,7 @@ export interface FileRoutesByFullPath {
   "/sign-up": typeof AuthenticationSignUpRoute;
   "/verify-otp": typeof AuthenticationVerifyOtpRoute;
   "/": typeof AuthenticatedIndexRoute;
+  "/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
   "/change-password": typeof AuthenticatedDashboardProfileChangePasswordRoute;
   "/history": typeof AuthenticatedDashboardProfileHistoryRoute;
   "/profile": typeof AuthenticatedDashboardProfileProfileRoute;
@@ -361,6 +378,7 @@ export interface FileRoutesByTo {
   "/sign-up": typeof AuthenticationSignUpRoute;
   "/verify-otp": typeof AuthenticationVerifyOtpRoute;
   "/": typeof AuthenticatedIndexRoute;
+  "/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
   "/change-password": typeof AuthenticatedDashboardProfileChangePasswordRoute;
   "/history": typeof AuthenticatedDashboardProfileHistoryRoute;
   "/profile": typeof AuthenticatedDashboardProfileProfileRoute;
@@ -382,6 +400,7 @@ export interface FileRoutesById {
   "/_authentication/verify-otp": typeof AuthenticationVerifyOtpRoute;
   "/_authenticated/": typeof AuthenticatedIndexRoute;
   "/_authenticated/_dashboard/_profile": typeof AuthenticatedDashboardProfileRouteWithChildren;
+  "/_authenticated/_dashboard/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
   "/_authenticated/_dashboard/_profile/change-password": typeof AuthenticatedDashboardProfileChangePasswordRoute;
   "/_authenticated/_dashboard/_profile/history": typeof AuthenticatedDashboardProfileHistoryRoute;
   "/_authenticated/_dashboard/_profile/profile": typeof AuthenticatedDashboardProfileProfileRoute;
@@ -401,6 +420,7 @@ export interface FileRouteTypes {
     | "/sign-up"
     | "/verify-otp"
     | "/"
+    | "/content-editor"
     | "/change-password"
     | "/history"
     | "/profile"
@@ -417,6 +437,7 @@ export interface FileRouteTypes {
     | "/sign-up"
     | "/verify-otp"
     | "/"
+    | "/content-editor"
     | "/change-password"
     | "/history"
     | "/profile"
@@ -436,6 +457,7 @@ export interface FileRouteTypes {
     | "/_authentication/verify-otp"
     | "/_authenticated/"
     | "/_authenticated/_dashboard/_profile"
+    | "/_authenticated/_dashboard/content-editor"
     | "/_authenticated/_dashboard/_profile/change-password"
     | "/_authenticated/_dashboard/_profile/history"
     | "/_authenticated/_dashboard/_profile/profile"
@@ -493,6 +515,7 @@ export const routeTree = rootRoute
       "parent": "/_authenticated",
       "children": [
         "/_authenticated/_dashboard/_profile",
+        "/_authenticated/_dashboard/content-editor",
         "/_authenticated/_dashboard/practice/$collectionId",
         "/_authenticated/_dashboard/practice/",
         "/_authenticated/_dashboard/practice/simulated-test/result"
@@ -530,6 +553,10 @@ export const routeTree = rootRoute
         "/_authenticated/_dashboard/_profile/history",
         "/_authenticated/_dashboard/_profile/profile"
       ]
+    },
+    "/_authenticated/_dashboard/content-editor": {
+      "filePath": "_authenticated/_dashboard/content-editor.tsx",
+      "parent": "/_authenticated/_dashboard"
     },
     "/_authenticated/_dashboard/_profile/change-password": {
       "filePath": "_authenticated/_dashboard/_profile/change-password.tsx",
