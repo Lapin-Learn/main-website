@@ -13,6 +13,7 @@
 import { Route as rootRoute } from "./routes/__root";
 import { Route as AuthenticatedImport } from "./routes/_authenticated";
 import { Route as AuthenticatedDashboardImport } from "./routes/_authenticated/_dashboard";
+import { Route as AuthenticatedSpeakingIndexImport } from "./routes/_authenticated/speaking/index";
 import { Route as AuthenticatedDashboardProfileImport } from "./routes/_authenticated/_dashboard/_profile";
 import { Route as AuthenticatedDashboardProfileChangePasswordImport } from "./routes/_authenticated/_dashboard/_profile/change-password";
 import { Route as AuthenticatedDashboardProfileHistoryImport } from "./routes/_authenticated/_dashboard/_profile/history";
@@ -87,6 +88,12 @@ const AuthenticatedDashboardContentEditorRoute = AuthenticatedDashboardContentEd
   id: "/content-editor",
   path: "/content-editor",
   getParentRoute: () => AuthenticatedDashboardRoute,
+} as any);
+
+const AuthenticatedSpeakingIndexRoute = AuthenticatedSpeakingIndexImport.update({
+  id: "/speaking/",
+  path: "/speaking/",
+  getParentRoute: () => AuthenticatedRoute,
 } as any);
 
 const AuthenticatedDashboardProfileRoute = AuthenticatedDashboardProfileImport.update({
@@ -225,6 +232,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AuthenticatedDashboardContentEditorImport;
       parentRoute: typeof AuthenticatedDashboardImport;
     };
+    "/_authenticated/speaking/": {
+      id: "/_authenticated/speaking/";
+      path: "/speaking";
+      fullPath: "/speaking";
+      preLoaderRoute: typeof AuthenticatedSpeakingIndexImport;
+      parentRoute: typeof AuthenticatedImport;
+    };
     "/_authenticated/_dashboard/_profile/change-password": {
       id: "/_authenticated/_dashboard/_profile/change-password";
       path: "/change-password";
@@ -319,12 +333,14 @@ const AuthenticatedDashboardRouteWithChildren = AuthenticatedDashboardRoute._add
 interface AuthenticatedRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRouteWithChildren;
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute;
+  AuthenticatedSpeakingIndexRoute: typeof AuthenticatedSpeakingIndexRoute;
   AuthenticatedPracticeSimulatedTestIndexRoute: typeof AuthenticatedPracticeSimulatedTestIndexRoute;
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedSpeakingIndexRoute: AuthenticatedSpeakingIndexRoute,
   AuthenticatedPracticeSimulatedTestIndexRoute: AuthenticatedPracticeSimulatedTestIndexRoute,
 };
 
@@ -361,6 +377,7 @@ export interface FileRoutesByFullPath {
   "/verify-otp": typeof AuthenticationVerifyOtpRoute;
   "/": typeof AuthenticatedIndexRoute;
   "/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
+  "/speaking": typeof AuthenticatedSpeakingIndexRoute;
   "/change-password": typeof AuthenticatedDashboardProfileChangePasswordRoute;
   "/history": typeof AuthenticatedDashboardProfileHistoryRoute;
   "/profile": typeof AuthenticatedDashboardProfileProfileRoute;
@@ -379,6 +396,7 @@ export interface FileRoutesByTo {
   "/verify-otp": typeof AuthenticationVerifyOtpRoute;
   "/": typeof AuthenticatedIndexRoute;
   "/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
+  "/speaking": typeof AuthenticatedSpeakingIndexRoute;
   "/change-password": typeof AuthenticatedDashboardProfileChangePasswordRoute;
   "/history": typeof AuthenticatedDashboardProfileHistoryRoute;
   "/profile": typeof AuthenticatedDashboardProfileProfileRoute;
@@ -401,6 +419,7 @@ export interface FileRoutesById {
   "/_authenticated/": typeof AuthenticatedIndexRoute;
   "/_authenticated/_dashboard/_profile": typeof AuthenticatedDashboardProfileRouteWithChildren;
   "/_authenticated/_dashboard/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
+  "/_authenticated/speaking/": typeof AuthenticatedSpeakingIndexRoute;
   "/_authenticated/_dashboard/_profile/change-password": typeof AuthenticatedDashboardProfileChangePasswordRoute;
   "/_authenticated/_dashboard/_profile/history": typeof AuthenticatedDashboardProfileHistoryRoute;
   "/_authenticated/_dashboard/_profile/profile": typeof AuthenticatedDashboardProfileProfileRoute;
@@ -421,6 +440,7 @@ export interface FileRouteTypes {
     | "/verify-otp"
     | "/"
     | "/content-editor"
+    | "/speaking"
     | "/change-password"
     | "/history"
     | "/profile"
@@ -438,6 +458,7 @@ export interface FileRouteTypes {
     | "/verify-otp"
     | "/"
     | "/content-editor"
+    | "/speaking"
     | "/change-password"
     | "/history"
     | "/profile"
@@ -458,6 +479,7 @@ export interface FileRouteTypes {
     | "/_authenticated/"
     | "/_authenticated/_dashboard/_profile"
     | "/_authenticated/_dashboard/content-editor"
+    | "/_authenticated/speaking/"
     | "/_authenticated/_dashboard/_profile/change-password"
     | "/_authenticated/_dashboard/_profile/history"
     | "/_authenticated/_dashboard/_profile/profile"
@@ -497,6 +519,7 @@ export const routeTree = rootRoute
       "children": [
         "/_authenticated/_dashboard",
         "/_authenticated/",
+        "/_authenticated/speaking/",
         "/_authenticated/practice/simulated-test/"
       ]
     },
@@ -557,6 +580,10 @@ export const routeTree = rootRoute
     "/_authenticated/_dashboard/content-editor": {
       "filePath": "_authenticated/_dashboard/content-editor.tsx",
       "parent": "/_authenticated/_dashboard"
+    },
+    "/_authenticated/speaking/": {
+      "filePath": "_authenticated/speaking/index.tsx",
+      "parent": "/_authenticated"
     },
     "/_authenticated/_dashboard/_profile/change-password": {
       "filePath": "_authenticated/_dashboard/_profile/change-password.tsx",

@@ -78,6 +78,10 @@
     "speaking": {
         "microphoneTest": "You have {{ seconds }} seconds to test the Microphone",
         "microphonePermission": "To use the Microphone, you need to grant permission for the Microphone on your device",
+        "microphoneDeniedTitle": "Microphone permission denied",
+        "microphoneDeniedDescription": "Please allow microphone permission to record audio.",
+        "browserNotSupportTitle": "Browser not supported",
+        "browserNotSupportDescription": "This browser does not support audio recording.",
         "instructions": {
         "practice": [
                 {
@@ -107,7 +111,8 @@
                     "content": "The system automatically reads the questions for each section, with a clear voice and standard speed. Additionally, the system allows you to ask and listen to the question again up to 2 times, helping to clarify the content of the question."
                 }
             ]
-        }
+        },
+        "preparePartTwo": "You have 1 minute to prepare"
   },
   "startTest": "Start the Test",
   "start": "Start",

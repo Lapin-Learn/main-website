@@ -1,10 +1,10 @@
-import { Square } from "lucide-react";
+import { AudioLines, Square } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
-import MicrophoneIcon from "@/assets/icons/skills/microphone-filled";
+import SpeakingIcon from "@/assets/icons/skills/speaking-filled";
 import { Button } from "@/components/ui";
 import AudioRipple from "@/components/ui/audioRipple";
+import useAudioRecording from "@/hooks/use-audio-recording";
 import { useSpeakingStore } from "@/hooks/zustand/use-recording-store";
 
 import { AudioProgress } from "../../organisms/audio-progress";
@@ -18,103 +18,28 @@ declare global {
 
 type RecordingButtonProps = {
   duration: number;
+  playBack?: boolean;
 };
 
-const RecordingButton = ({ duration }: RecordingButtonProps) => {
+const RecordingButton = ({ duration, playBack = false }: RecordingButtonProps) => {
   const {
-    permission,
-    stream,
-    recordingStatus,
-    audioChunks,
-    setPermission,
-    setStream,
-    setRecordingStatus,
-    setAudioChunks,
-    setAudio,
-  } = useSpeakingStore();
-
-  const { listening } = useSpeechRecognition();
-  const [isRecording, setIsRecording] = useState(false);
-  const [audioLevel, setAudioLevel] = useState(0);
+    startRecording,
+    stopRecording,
+    updateAudioLevel,
+    isRecording,
+    audioLevel,
+    setAudioLevel,
+    audioContextRef,
+    analyserRef,
+    dataArrayRef,
+  } = useAudioRecording();
+  const { audio, permission, recordingStatus, stream } = useSpeakingStore();
   const [progress, setProgress] = useState(0);
-  const audioContextRef = useRef<AudioContext | null>(null);
-  const analyserRef = useRef<AnalyserNode | null>(null);
-  const dataArrayRef = useRef<Uint8Array | null>(null);
-  const mediaRecorder = useRef<MediaRecorder | null>(null);
-
-  const mimeType = "audio/webm";
-
-  const getMicrophonePermission = async () => {
-    if ("MediaRecorder" in window) {
-      try {
-        const streamData = await navigator.mediaDevices.getUserMedia({
-          audio: true,
-          video: false,
-        });
-        setPermission(true);
-        setStream(streamData);
-      } catch (error) {
-        alert("Permission denied.");
-      }
-    } else {
-      alert("The MediaRecorder API is not supported in your browser.");
-    }
-  };
-
-  const startRecording = async () => {
-    setRecordingStatus("recording");
-    setAudio(null);
-    setAudioChunks([]);
-
-    if (!listening) {
-      SpeechRecognition.startListening({ continuous: true });
-      setIsRecording(true);
-    }
-
-    if (stream) {
-      const media = new MediaRecorder(stream, { mimeType });
-      mediaRecorder.current = media;
-      mediaRecorder.current.start();
-
-      const localAudioChunks: Blob[] = [];
-      mediaRecorder.current.ondataavailable = (event) => {
-        if (typeof event.data === "undefined") return;
-        if (event.data.size === 0) return;
-        localAudioChunks.push(event.data);
-      };
-      setAudioChunks(localAudioChunks);
-    } else {
-      alert("No stream available for recording.");
-    }
-  };
-
-  const stopRecording = () => {
-    SpeechRecognition.stopListening();
-    setIsRecording(false);
-    setAudioLevel(0);
-    setRecordingStatus("inactive");
-
-    if (mediaRecorder.current) {
-      mediaRecorder.current.stop();
-      mediaRecorder.current.onstop = () => {
-        const audioBlob = new Blob(audioChunks, { type: mimeType });
-        const audioUrl = URL.createObjectURL(audioBlob);
-        setAudio(audioUrl);
-        setAudioChunks([]);
-      };
-    }
-  };
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    let animationFrameId: number | null = null;
-    const updateAudioLevel = () => {
-      if (!analyserRef.current || !dataArrayRef.current) return;
-      analyserRef.current.getByteFrequencyData(dataArrayRef.current);
-      const average = dataArrayRef.current.reduce((a, b) => a + b) / dataArrayRef.current.length;
-      setAudioLevel(average);
-      animationFrameId = requestAnimationFrame(updateAudioLevel);
-    };
-
     if (isRecording) {
       if (!audioContextRef.current) {
         audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
@@ -129,18 +54,18 @@ const RecordingButton = ({ duration }: RecordingButtonProps) => {
       analyserRef.current = analyser;
       dataArrayRef.current = dataArray;
 
-      navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+      if (stream) {
         const source = audioContext.createMediaStreamSource(stream);
         source.connect(analyser);
         updateAudioLevel();
-      });
+      }
 
       //TODO: Handle unlimited recording
-      const interval = setInterval(
+      intervalRef.current = setInterval(
         () => {
           setProgress((prev) => {
             if (prev >= (duration * 1000) / 100) {
-              clearInterval(interval);
+              clearInterval(intervalRef.current!);
               stopRecording();
               return (duration * 1000) / 100;
             }
@@ -151,26 +76,56 @@ const RecordingButton = ({ duration }: RecordingButtonProps) => {
       );
 
       return () => {
-        clearInterval(interval);
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+        }
       };
     } else {
       setProgress(0);
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
+      setAudioLevel(0);
       if (audioContextRef.current) {
         audioContextRef.current.close();
         audioContextRef.current = null;
       }
       analyserRef.current = null;
       dataArrayRef.current = null;
-      setAudioLevel(0);
     }
-  }, [isRecording]);
+  }, [isRecording, stopRecording, duration]);
+
+  useEffect(() => {
+    if (audio && audioRef.current) {
+      setIsPlaying(true);
+      audioRef.current.play();
+    }
+  }, [audio, audioRef]);
+
+  const handlePlayPause = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    if (audioRef.current && !isRecording) {
+      const currentTime = audioRef.current.currentTime;
+      const duration = audioRef.current.duration;
+      setProgress((currentTime / duration) * 100);
+    }
+  };
+
+  const handleAudioEnded = () => {
+    setIsPlaying(false);
+    setProgress(0);
+  };
 
   return (
     <div className="relative h-full w-fit overflow-visible">
-      {isRecording && <AudioRipple audioLevel={audioLevel} />}
+      {(isRecording || isPlaying) && (
+        <AudioRipple audioLevel={isRecording ? audioLevel : isPlaying ? 60 : 0} />
+      )}
       <div className="z-0 overflow-visible">
         <AudioProgress
           value={progress}
@@ -183,17 +138,29 @@ const RecordingButton = ({ duration }: RecordingButtonProps) => {
             variant="outline"
             size="icon"
             onClick={
-              permission ? (isRecording ? stopRecording : startRecording) : getMicrophonePermission
+              playBack && isPlaying ? handlePlayPause : isRecording ? stopRecording : startRecording
             }
+            disabled={!permission}
             className="absolute-center z-10 size-16 rounded-full bg-white shadow-xl transition-colors hover:bg-neutral-50"
           >
-            {recordingStatus === "recording" && (
-              <Square fill="red" strokeWidth={0} className="size-8" />
+            {playBack && isPlaying ? (
+              <AudioLines color="#A9421C" className="size-8" />
+            ) : recordingStatus === "recording" ? (
+              <Square fill="#A9421C" strokeWidth={0} className="size-8" />
+            ) : (
+              <SpeakingIcon className="size-6" />
             )}
-            {recordingStatus === "inactive" && <MicrophoneIcon />}
           </Button>
         </AudioProgress>
       </div>
+      {playBack && (
+        <audio
+          ref={audioRef}
+          src={audio || ""}
+          onTimeUpdate={handleTimeUpdate}
+          onEnded={handleAudioEnded}
+        />
+      )}
     </div>
   );
 };

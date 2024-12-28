@@ -1,8 +1,10 @@
 import { Loader2 } from "lucide-react";
+import { useEffect } from "react";
 
 import PartInstruction from "@/components/molecules/speaking-part-instruction";
 import SpeakingMicTest from "@/components/organisms/speaking-mic-test";
 import SpeakingQuestion from "@/components/organisms/speaking-question";
+import useAudioRecording from "@/hooks/use-audio-recording";
 import { useSpeakingStore } from "@/hooks/zustand/use-recording-store";
 import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
 import { PART_TITLES } from "@/lib/consts";
@@ -12,13 +14,22 @@ import { PART_TITLES } from "@/lib/consts";
 const SpeakingPage = () => {
   //TODO: Handle get test data
   // const { skillTestId } = Route.useSearch();
-  const { testState } = useSpeakingStore();
+  const { testState, stopStream, reset } = useSpeakingStore();
+  const { getMicrophonePermission } = useAudioRecording();
   const {
     position: { part: currentPart },
   } = useSimulatedTestState();
   // const { data: testContent, isLoading } = useGetSkillTestData(skillTestId, currentPart);
   const testContent = { content: "test content" };
   const isLoading = false;
+
+  useEffect(() => {
+    getMicrophonePermission();
+    return () => {
+      stopStream();
+      reset();
+    };
+  }, [stopStream, reset]);
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center bg-gradient-to-b from-[#F0FCFF] to-[#C7E1EF]">
