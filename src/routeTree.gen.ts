@@ -13,7 +13,6 @@
 import { Route as rootRoute } from "./routes/__root";
 import { Route as AuthenticatedImport } from "./routes/_authenticated";
 import { Route as AuthenticatedDashboardImport } from "./routes/_authenticated/_dashboard";
-import { Route as AuthenticatedSpeakingIndexImport } from "./routes/_authenticated/speaking/index";
 import { Route as AuthenticatedDashboardProfileImport } from "./routes/_authenticated/_dashboard/_profile";
 import { Route as AuthenticatedDashboardProfileChangePasswordImport } from "./routes/_authenticated/_dashboard/_profile/change-password";
 import { Route as AuthenticatedDashboardProfileHistoryImport } from "./routes/_authenticated/_dashboard/_profile/history";
@@ -24,6 +23,7 @@ import { Route as AuthenticatedDashboardPracticeIndexImport } from "./routes/_au
 import { Route as AuthenticatedDashboardPracticeSimulatedTestResultImport } from "./routes/_authenticated/_dashboard/practice/simulated-test/result";
 import { Route as AuthenticatedIndexImport } from "./routes/_authenticated/index";
 import { Route as AuthenticatedPracticeSimulatedTestIndexImport } from "./routes/_authenticated/practice/simulated-test/index";
+import { Route as AuthenticatedSpeakingIndexImport } from "./routes/_authenticated/speaking/index";
 import { Route as AuthenticationImport } from "./routes/_authentication";
 import { Route as AuthenticationForgotPasswordImport } from "./routes/_authentication/forgot-password";
 import { Route as AuthenticationLogInImport } from "./routes/_authentication/log-in";
@@ -84,16 +84,16 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardImport.update({
   getParentRoute: () => AuthenticatedRoute,
 } as any);
 
-const AuthenticatedDashboardContentEditorRoute = AuthenticatedDashboardContentEditorImport.update({
-  id: "/content-editor",
-  path: "/content-editor",
-  getParentRoute: () => AuthenticatedDashboardRoute,
-} as any);
-
 const AuthenticatedSpeakingIndexRoute = AuthenticatedSpeakingIndexImport.update({
   id: "/speaking/",
   path: "/speaking/",
   getParentRoute: () => AuthenticatedRoute,
+} as any);
+
+const AuthenticatedDashboardContentEditorRoute = AuthenticatedDashboardContentEditorImport.update({
+  id: "/content-editor",
+  path: "/content-editor",
+  getParentRoute: () => AuthenticatedDashboardRoute,
 } as any);
 
 const AuthenticatedDashboardProfileRoute = AuthenticatedDashboardProfileImport.update({
