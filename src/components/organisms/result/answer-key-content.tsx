@@ -38,7 +38,7 @@ export default function AnswerKeyContent({
         </div>
       </DialogTrigger>
       {guidance && (
-        <DialogContent>
+        <DialogContent className="max-w-3xl">
           <div dangerouslySetInnerHTML={{ __html: guidance.explanationInText }} />
         </DialogContent>
       )}
