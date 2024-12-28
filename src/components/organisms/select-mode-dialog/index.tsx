@@ -117,8 +117,6 @@ const SelectModeDialog = () => {
 
   if (!test || !skillTest) return null;
 
-  console.log(form.getValues("parts"));
-
   return (
     <Dialog
       open={open}
