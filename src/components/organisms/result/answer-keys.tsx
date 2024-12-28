@@ -18,12 +18,12 @@ export default function AnswerKeys({
   return (
     <div className="flex flex-col gap-4">
       {answerKeys.slice(startNo - 1, endNo).map((answer, index) => (
-        <div key={index} className="flex gap-2">
+        <div key={index} className="flex items-center gap-2">
           <div className="text-base font-bold">{+startNo + index}</div>
           <AnswerKeyContent
             answer={answer}
-            userAnswer={userAnswers[+startNo + index]}
-            status={answerStatus[+startNo + index]}
+            userAnswer={userAnswers[+startNo + index - 1]}
+            status={answerStatus[+startNo + index - 1]}
           />
         </div>
       ))}
