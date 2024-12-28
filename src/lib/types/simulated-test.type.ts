@@ -106,6 +106,7 @@ export type SimulatedTestSession = {
   skillTest: SkillTest & {
     simulatedIeltsTest: Pick<SimulatedTestSimple, "id" | "testName">;
     answers: STSkillTestAnswer[];
+    guidances: SkillTestGuidance[];
   };
   status: EnumSimulatedTestSessionStatus;
   timeLimit: number;
@@ -127,4 +128,10 @@ export type STSkillTestAnswer = {
 export type STSkillPageProps = {
   skillTestId: number;
   sessionId: number;
+};
+
+export type SkillTestGuidance = {
+  explanationInText: string;
+  explanationResource: string;
+  tip: string;
 };

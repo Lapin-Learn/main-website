@@ -1,4 +1,4 @@
-import { STSkillTestAnswer } from "@/lib/types/simulated-test.type";
+import { SkillTestGuidance, STSkillTestAnswer } from "@/lib/types/simulated-test.type";
 
 import AnswerKeyContent from "./answer-key-content";
 
@@ -8,12 +8,14 @@ export default function AnswerKeys({
   endNo,
   userAnswers,
   answerStatus,
+  guidances,
 }: {
   answerKeys: STSkillTestAnswer[];
   startNo: number;
   endNo: number;
   userAnswers: string[];
   answerStatus: boolean[];
+  guidances: SkillTestGuidance[];
 }) {
   return (
     <div className="flex flex-col gap-4">
@@ -24,6 +26,7 @@ export default function AnswerKeys({
             answer={answer}
             userAnswer={userAnswers[+startNo + index - 1]}
             status={answerStatus[+startNo + index - 1]}
+            guidance={guidances[+startNo + index - 1]}
           />
         </div>
       ))}

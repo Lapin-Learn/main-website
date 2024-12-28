@@ -81,6 +81,7 @@ export default function ResultPage() {
                     userAnswers={userAnswers}
                     answerStatus={answerStatus}
                     answers={session.skillTest.answers}
+                    guidances={session.skillTest.guidances}
                   />
                 );
               })}
