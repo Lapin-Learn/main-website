@@ -93,7 +93,16 @@ export const DEFAULT_QUESTION_NO_BY_SKILL: Record<
       endQuestionNo: 40,
     },
   },
-  [EnumSkill.writing]: undefined,
+  [EnumSkill.writing]: {
+    "1": {
+      startQuestionNo: 1,
+      endQuestionNo: 1,
+    },
+    "2": {
+      startQuestionNo: 2,
+      endQuestionNo: 2,
+    },
+  },
   [EnumSkill.speaking]: undefined,
 };
 
@@ -112,3 +121,14 @@ export const MAPPED_QUESTION_TYPE_LABELS = {
 //   [EnumQuestionGroup.matchingHeadings]: EnumQuestionGroup.matchingHeadings,
 
 // }
+
+export const WRITING_INSTRUCTIONS = [
+  {
+    title: "Part 1",
+    content: "You should spend about 20 minutes on this task. Write at least 150 words.",
+  },
+  {
+    title: "Part 2",
+    content: "You should spend about 40 minutes on this task. Write at least 250 words.",
+  },
+];
