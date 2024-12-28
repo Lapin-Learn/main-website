@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 import ReadingPassage from "@/components/molecules/reading-passage";
 import QuestionGroupFactory from "@/components/organisms/question-groups";
-import AnswerKeys from "@/components/organisms/simulated-test/answer-keys";
+import AnswerKeys from "@/components/organisms/result/answer-keys";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useGetSkillTestData, useGetSTSessionDetail } from "@/hooks/react-query/use-simulated-test";
@@ -18,7 +18,7 @@ const ReadingPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
     position: { part: currentPart, question },
   } = useSimulatedTestState();
   const { data: testContent, isLoading } = useGetSkillTestData(skillTestId, currentPart);
-  const { data: session } = useGetSTSessionDetail(sessionId);
+  const { data: session, userAnswers, answerStatus } = useGetSTSessionDetail(sessionId);
   const isFinished = session?.status === EnumSimulatedTestSessionStatus.FINISHED;
   const breakpoint = useBreakPoint();
 
@@ -63,6 +63,8 @@ const ReadingPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
                       answerKeys={session.skillTest.answers}
                       startNo={questionGroup.startQuestionNo}
                       endNo={questionGroup.endQuestionNo}
+                      userAnswers={userAnswers}
+                      answerStatus={answerStatus}
                     />
                   )}
                 </div>

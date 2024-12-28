@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 import AudioPlayer from "@/components/molecules/audio-player";
 import QuestionGroupFactory from "@/components/organisms/question-groups";
-import AnswerKeys from "@/components/organisms/simulated-test/answer-keys";
+import AnswerKeys from "@/components/organisms/result/answer-keys";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useGetSkillTestData, useGetSTSessionDetail } from "@/hooks/react-query/use-simulated-test";
 import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";

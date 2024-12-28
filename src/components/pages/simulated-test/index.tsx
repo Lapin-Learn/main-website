@@ -72,7 +72,6 @@ const SimulatedTestPage = () => {
 export default SimulatedTestPage;
 
 function renderFooter(session: SimulatedTestSession, sessionId: number): ReactNode {
-  console.log(session);
   return (
     <Footer
       sessionId={sessionId}

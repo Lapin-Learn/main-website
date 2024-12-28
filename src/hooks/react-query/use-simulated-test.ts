@@ -187,11 +187,32 @@ export const useSubmitSimulatedTest = () => {
 };
 
 export const useGetSTSessionDetail = (sessionId: number) => {
-  return useQuery({
+  const result = useQuery({
     queryKey: simulatedTestKeys.sessionDetail(sessionId),
     queryFn: () => getSimulatedTestSessionDetail(sessionId),
     retry: false,
   });
+  const session = result.data;
+
+  if (!session)
+    return {
+      ...result,
+      userAnswers: [],
+      answerStatus: [],
+    };
+
+  const userAnswers = new Array(session.responses?.length || 0).fill(null);
+  const answerStatus = new Array(session.results?.length || 0).fill(null);
+  session.responses?.forEach((answer, index) => {
+    userAnswers[answer.questionNo - 1] = answer.answer;
+    answerStatus[answer.questionNo - 1] = session.results[index];
+  });
+
+  return {
+    ...result,
+    userAnswers,
+    answerStatus,
+  };
 };
 
 export const useGetSimulatedTestDetail = (simulatedTestId: number, enabled = false) => {

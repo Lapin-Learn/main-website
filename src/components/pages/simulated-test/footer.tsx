@@ -9,7 +9,6 @@ import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
 import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
 import mockQuestionGroups from "@/lib/mock/mock-reading-content";
 import { PartDetail } from "@/lib/types/simulated-test.type";
-import { cn } from "@/lib/utils";
 
 type FooterProps = {
   sessionId: number;
@@ -39,12 +38,7 @@ const Footer = ({ sessionId, partDetails, status }: FooterProps) => {
   };
 
   return (
-    <div
-      className={cn(
-        "flex flex-col items-center justify-between gap-2 border-t bg-white py-2 sm:min-h-24 sm:flex-row sm:py-0 lg:gap-12",
-        status !== EnumSimulatedTestSessionStatus.FINISHED && "px-4 sm:px-8 "
-      )}
-    >
+    <div className="flex flex-col items-center justify-between gap-2 border-t bg-white px-4 py-2 sm:min-h-24 sm:flex-row sm:px-8 sm:py-0 lg:gap-12">
       <div className="question-navigator flex h-fit w-full flex-1 flex-wrap items-center gap-1">
         {partDetails.map((group) => (
           <React.Fragment key={group.part}>

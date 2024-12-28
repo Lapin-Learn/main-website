@@ -22,7 +22,7 @@ import Footer from "./simulated-test/footer";
 export default function ResultPage() {
   const { t } = useTranslation(["collection", "common"]);
   const { sessionId } = Route.useSearch();
-  const { data: session, isLoading } = useGetSTSessionDetail(sessionId);
+  const { data: session, isLoading, userAnswers, answerStatus } = useGetSTSessionDetail(sessionId);
   const navigate = useNavigate();
   const [viewDetail, setViewDetail] = useState(false);
 
@@ -67,12 +67,6 @@ export default function ResultPage() {
           ) : (
             <>
               {session?.parts.map((part, index) => {
-                const userAnswers = new Array(session.responses?.length || 0).fill(null);
-                const answerStatus = new Array(session.results?.length || 0).fill(null);
-                session.responses?.forEach((answer, index) => {
-                  userAnswers[answer.questionNo - 1] = answer.answer;
-                  answerStatus[answer.questionNo - 1] = session.results[index];
-                });
                 return (
                   <PartAnswersCard
                     key={index}
@@ -90,10 +84,10 @@ export default function ResultPage() {
         <TabsContent value="analysis">Analysis.</TabsContent>
       </Tabs>
       <Dialog open={viewDetail} onOpenChange={setViewDetail}>
-        <DialogContent className="max-w-screen h-screen">
+        <DialogContent className="max-w-screen h-screen px-0">
           <PageLayout
             header={
-              <DialogHeader>
+              <DialogHeader className="px-4 sm:px-8">
                 <DialogTitle>{t("detail.title")}</DialogTitle>
               </DialogHeader>
             }

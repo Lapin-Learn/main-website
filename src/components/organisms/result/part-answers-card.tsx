@@ -1,7 +1,7 @@
-import { Check, X } from "lucide-react";
-
 import TagsList from "@/components/molecules/tags-list";
 import { PartDetail, STSkillTestAnswer } from "@/lib/types/simulated-test.type";
+
+import AnswerKeyContent from "./answer-key-content";
 
 export function PartAnswersCard({
   part,
@@ -34,17 +34,11 @@ export function PartAnswersCard({
               <div className="flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-900">
                 {id}
               </div>
-              <div className="text-sm">
-                <span className="text-green-500">
-                  {String(answer.valid || answer.variants?.join("/ ")).toUpperCase()}
-                </span>{" "}
-                : {userAnswers[id - 1]}
-              </div>
-              {answerStatus[id - 1] ? (
-                <Check className="text-green-500" size={16} />
-              ) : (
-                <X className="text-red-500" size={16} />
-              )}
+              <AnswerKeyContent
+                answer={answer}
+                userAnswer={userAnswers[id - 1]}
+                status={answerStatus[id - 1]}
+              />
             </div>
           );
         })}
