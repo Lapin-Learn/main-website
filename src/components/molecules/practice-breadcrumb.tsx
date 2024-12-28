@@ -54,7 +54,6 @@ export function PracticeBreadcrumb({
   };
 
   const breadcrumbs = generateBreadcrumbs();
-  console.log(breadcrumbs);
 
   return (
     <Breadcrumb>

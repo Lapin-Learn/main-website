@@ -11,8 +11,9 @@ type MultipleSelectProps = {
     question: string;
     options: Option[];
   };
+  disabled?: boolean;
 };
-function MultipleSelect({ question }: MultipleSelectProps) {
+function MultipleSelect({ question, disabled }: MultipleSelectProps) {
   const MAX_SELECT = question.questionNo.length;
   const { answer } = useAnswerStore();
   const [selected, setSelected] = useState<string[]>([]);
@@ -39,6 +40,7 @@ function MultipleSelect({ question }: MultipleSelectProps) {
               }
             }}
             checked={selected.includes(option.value)}
+            disabled={disabled}
           />
           <Label
             className="ml-2 text-base font-normal"
@@ -55,6 +57,7 @@ function MultipleSelect({ question }: MultipleSelectProps) {
 export default function MultipleChoiceQuestionGroup({
   questionCard,
   questions,
+  disabled,
 }: QuestionGroupMultipleChoice) {
   const { answer, answerSheet } = useAnswerStore();
   return (
@@ -85,13 +88,14 @@ export default function MultipleChoiceQuestionGroup({
           )}
           <div className="mt-2">
             {question.questionNo.length > 1 ? (
-              <MultipleSelect question={question} />
+              <MultipleSelect question={question} disabled={disabled} />
             ) : (
               <RadioGroup
                 onValueChange={(value) => {
                   answer(question.questionNo[0], value);
                 }}
                 value={answerSheet[question.questionNo[0]] ?? ""}
+                disabled={disabled}
               >
                 {question.options.map((option, index) => (
                   <div key={index} className="flex items-center">

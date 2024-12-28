@@ -5,6 +5,7 @@ import { QuestionGroupMatchingHeadings } from "@/lib/types/simulated-test.type";
 export default function MatchingHeadingsQuestionGroup({
   questionCard,
   questions,
+  disabled,
 }: QuestionGroupMatchingHeadings) {
   const { answer, answerSheet } = useAnswerStore();
   return (
@@ -23,6 +24,7 @@ export default function MatchingHeadingsQuestionGroup({
               <Select
                 value={answerSheet[question.questionNo] ?? ""}
                 onValueChange={(value: string) => answer(question.questionNo, value)}
+                disabled={disabled}
               >
                 <SelectTrigger className="w-40">
                   <SelectValue

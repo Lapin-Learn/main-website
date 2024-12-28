@@ -75,21 +75,25 @@ export function CollectionDetailHeader({
                     <Separator orientation="vertical" className="flex h-full min-h-12" />
                   </>
                 )}
-                <div className="flex flex-col gap-2">
-                  <span className="text-sm font-semibold text-neutral-200">
-                    {t("correctAnswer", { ns: "collection" })}
-                  </span>
-                  <div className="flex flex-row items-center gap-2">
-                    <Check className="text-green-500" />
-                    <span className="text-2xl font-semibold">
-                      {session.results.filter((res) => res).length}
-                      <span className="text-sm font-normal text-neutral-200">
-                        / {totalQuestions}
+                {session.results && (
+                  <>
+                    <div className="flex flex-col gap-2">
+                      <span className="text-sm font-semibold text-neutral-200">
+                        {t("correctAnswer", { ns: "collection" })}
                       </span>
-                    </span>
-                  </div>
-                </div>
-                <Separator orientation="vertical" className="flex h-full min-h-12" />
+                      <div className="flex flex-row items-center gap-2">
+                        <Check className="text-green-500" />
+                        <span className="text-2xl font-semibold">
+                          {session.results.filter((res) => res).length}
+                          <span className="text-sm font-normal text-neutral-200">
+                            / {totalQuestions}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <Separator orientation="vertical" className="flex h-full min-h-12" />
+                  </>
+                )}
                 <div className="flex flex-col gap-2">
                   <span className="text-sm font-semibold text-neutral-200">
                     {t("timeSpent", { ns: "collection" })}
