@@ -7,6 +7,7 @@ export default function MatchingInformationQuestionGroup({
   questions,
   options,
   questionDescription,
+  disabled,
 }: QuestionGroupMatchingInformation) {
   const { answer, answerSheet } = useAnswerStore();
   return (
@@ -35,6 +36,7 @@ export default function MatchingInformationQuestionGroup({
               <Select
                 value={answerSheet[question.questionNo] ?? ""}
                 onValueChange={(value: string) => answer(question.questionNo, value)}
+                disabled={disabled}
               >
                 <SelectTrigger className="w-40">
                   <SelectValue

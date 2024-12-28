@@ -1,13 +1,12 @@
 import { useNavigate } from "@tanstack/react-router";
-import { Fragment, PropsWithChildren, useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 
 import ErrorFallback from "@/components/ErrorFallback";
-import ListeningPage from "@/components/pages/simulated-test/listening";
-import ReadingPage from "@/components/pages/simulated-test/reading";
+import PageLayout from "@/components/organisms/simulated-test/page-layout";
 import { useGetSTSessionDetail } from "@/hooks/react-query/use-simulated-test";
-import useSimulatedTestState, { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
-import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
-import { SimulatedTestAnswer } from "@/lib/types/simulated-test.type";
+import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
+import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
+import { SimulatedTestSession } from "@/lib/types/simulated-test.type";
 import { Route } from "@/routes/_authenticated/practice/simulated-test";
 
 import Footer from "./footer";
@@ -18,7 +17,7 @@ import Header from "./header";
  * The layout should decide which component should be render, escape checking condition in every component, as many stateless component as possible
  */
 const SimulatedTestPage = () => {
-  const { sessionId } = Route.useSearch();
+  const { sessionId, skillTestId } = Route.useSearch();
   const { navigateToPart, position, resetTest } = useSimulatedTestState();
   const navigate = useNavigate();
   const { data: session, isLoading, isSuccess, isError } = useGetSTSessionDetail(sessionId);
@@ -60,64 +59,29 @@ const SimulatedTestPage = () => {
   }
 
   return (
-    <div className="flex h-screen w-screen flex-col justify-between">
-      <Header currentPart={position.part} session={session} />
-      <DefaultAnswerWrapper draftAnswers={session.responses}>
-        <SkillContentFactory skill={session.skillTest.skill} />
-        <Footer
-          sessionId={parseInt(sessionId)}
-          partDetails={
-            session.skillTest.partsDetail.map((part, index) => ({
-              ...part,
-              part: session.parts[index],
-            })) ?? []
-          }
-        />
-      </DefaultAnswerWrapper>
-    </div>
+    <PageLayout
+      header={<Header currentPart={position.part} session={session} />}
+      session={session}
+      sessionId={sessionId}
+      skillTestId={skillTestId}
+      renderFooter={renderFooter}
+    />
   );
 };
 
 export default SimulatedTestPage;
 
-/**
- * With each type of skill, you can add a new component here, only for render the content
- */
-const SkillContentFactory = ({ skill }: { skill: EnumSkill }) => {
-  switch (skill) {
-    case EnumSkill.reading:
-      return <ReadingPage />;
-    case EnumSkill.listening:
-      return <ListeningPage />;
-    default:
-      return (
-        <div className="flex flex-col items-center">
-          <h1 className="text-2xl font-bold">Coming soon</h1>
-          <p className="text-center text-sm">This skill is not available yet</p>
-        </div>
-      );
-  }
-};
-
-const DefaultAnswerWrapper = ({
-  children,
-  draftAnswers,
-}: PropsWithChildren<{
-  draftAnswers: SimulatedTestAnswer[] | null;
-}>) => {
-  const { loadAllAnswers } = useAnswerStore();
-  useEffect(() => {
-    loadAllAnswers(
-      draftAnswers
-        ? draftAnswers.reduce(
-            (acc, answer) => {
-              acc[answer.questionNo.toString()] = answer.answer;
-              return acc;
-            },
-            {} as Record<string, string | null>
-          )
-        : {}
-    );
-  }, [draftAnswers]);
-  return <Fragment>{children}</Fragment>;
-};
+function renderFooter(session: SimulatedTestSession, sessionId: number): ReactNode {
+  return (
+    <Footer
+      sessionId={sessionId}
+      partDetails={
+        session.skillTest.partsDetail.map((part, index) => ({
+          ...part,
+          part: session.parts[index],
+        })) ?? []
+      }
+      status={session.status}
+    />
+  );
+}

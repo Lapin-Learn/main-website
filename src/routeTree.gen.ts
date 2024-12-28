@@ -11,24 +11,24 @@
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root";
-import { Route as AuthenticationImport } from "./routes/_authentication";
 import { Route as AuthenticatedImport } from "./routes/_authenticated";
-import { Route as AuthenticatedIndexImport } from "./routes/_authenticated/index";
-import { Route as AuthenticationVerifyOtpImport } from "./routes/_authentication/verify-otp";
-import { Route as AuthenticationSignUpImport } from "./routes/_authentication/sign-up";
-import { Route as AuthenticationResetPasswordImport } from "./routes/_authentication/reset-password";
-import { Route as AuthenticationLogInImport } from "./routes/_authentication/log-in";
-import { Route as AuthenticationForgotPasswordImport } from "./routes/_authentication/forgot-password";
 import { Route as AuthenticatedDashboardImport } from "./routes/_authenticated/_dashboard";
-import { Route as AuthenticatedDashboardContentEditorImport } from "./routes/_authenticated/_dashboard/content-editor";
 import { Route as AuthenticatedDashboardProfileImport } from "./routes/_authenticated/_dashboard/_profile";
-import { Route as AuthenticatedPracticeSimulatedTestIndexImport } from "./routes/_authenticated/practice/simulated-test/index";
-import { Route as AuthenticatedDashboardPracticeIndexImport } from "./routes/_authenticated/_dashboard/practice/index";
-import { Route as AuthenticatedDashboardPracticeCollectionIdImport } from "./routes/_authenticated/_dashboard/practice/$collectionId";
-import { Route as AuthenticatedDashboardProfileProfileImport } from "./routes/_authenticated/_dashboard/_profile/profile";
-import { Route as AuthenticatedDashboardProfileHistoryImport } from "./routes/_authenticated/_dashboard/_profile/history";
 import { Route as AuthenticatedDashboardProfileChangePasswordImport } from "./routes/_authenticated/_dashboard/_profile/change-password";
+import { Route as AuthenticatedDashboardProfileHistoryImport } from "./routes/_authenticated/_dashboard/_profile/history";
+import { Route as AuthenticatedDashboardProfileProfileImport } from "./routes/_authenticated/_dashboard/_profile/profile";
+import { Route as AuthenticatedDashboardContentEditorImport } from "./routes/_authenticated/_dashboard/content-editor";
+import { Route as AuthenticatedDashboardPracticeCollectionIdImport } from "./routes/_authenticated/_dashboard/practice/$collectionId";
+import { Route as AuthenticatedDashboardPracticeIndexImport } from "./routes/_authenticated/_dashboard/practice/index";
 import { Route as AuthenticatedDashboardPracticeSimulatedTestResultImport } from "./routes/_authenticated/_dashboard/practice/simulated-test/result";
+import { Route as AuthenticatedIndexImport } from "./routes/_authenticated/index";
+import { Route as AuthenticatedPracticeSimulatedTestIndexImport } from "./routes/_authenticated/practice/simulated-test/index";
+import { Route as AuthenticationImport } from "./routes/_authentication";
+import { Route as AuthenticationForgotPasswordImport } from "./routes/_authentication/forgot-password";
+import { Route as AuthenticationLogInImport } from "./routes/_authentication/log-in";
+import { Route as AuthenticationResetPasswordImport } from "./routes/_authentication/reset-password";
+import { Route as AuthenticationSignUpImport } from "./routes/_authentication/sign-up";
+import { Route as AuthenticationVerifyOtpImport } from "./routes/_authentication/verify-otp";
 
 // Create/Update Routes
 

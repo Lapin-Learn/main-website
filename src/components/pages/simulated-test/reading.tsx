@@ -3,20 +3,23 @@ import { useEffect } from "react";
 
 import ReadingPassage from "@/components/molecules/reading-passage";
 import QuestionGroupFactory from "@/components/organisms/question-groups";
+import AnswerKeys from "@/components/organisms/result/answer-keys";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
+import { useGetSkillTestData, useGetSTSessionDetail } from "@/hooks/react-query/use-simulated-test";
 import useBreakPoint from "@/hooks/use-screen-size";
 import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
+import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
+import { STSkillPageProps } from "@/lib/types/simulated-test.type";
 import { scrollToElementById } from "@/lib/utils";
-import { Route } from "@/routes/_authenticated/practice/simulated-test";
 
-const ReadingPage = () => {
-  const { skillTestId } = Route.useSearch();
+const ReadingPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
   const {
     position: { part: currentPart, question },
   } = useSimulatedTestState();
   const { data: testContent, isLoading } = useGetSkillTestData(skillTestId, currentPart);
+  const { data: session, userAnswers, answerStatus } = useGetSTSessionDetail(sessionId);
+  const isFinished = session?.status === EnumSimulatedTestSessionStatus.FINISHED;
   const breakpoint = useBreakPoint();
 
   useEffect(() => {
@@ -49,10 +52,22 @@ const ReadingPage = () => {
           <ScrollArea className="h-full px-4 sm:px-8">
             <div className="flex flex-col gap-16 py-4">
               {testContent.questionGroups.map((questionGroup) => (
-                <QuestionGroupFactory
-                  key={questionGroup.startQuestionNo}
-                  questionGroup={questionGroup}
-                />
+                <div className="flex flex-col gap-8">
+                  <QuestionGroupFactory
+                    key={questionGroup.startQuestionNo}
+                    questionGroup={questionGroup}
+                    disabled={isFinished}
+                  />
+                  {isFinished && (
+                    <AnswerKeys
+                      answerKeys={session.skillTest.answers}
+                      startNo={questionGroup.startQuestionNo}
+                      endNo={questionGroup.endQuestionNo}
+                      userAnswers={userAnswers}
+                      answerStatus={answerStatus}
+                    />
+                  )}
+                </div>
               ))}
             </div>
           </ScrollArea>
