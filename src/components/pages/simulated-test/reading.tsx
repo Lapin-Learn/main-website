@@ -35,7 +35,7 @@ const ReadingPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
     >
       <ResizablePanel className="content" minSize={20}>
         {testContent && !isLoading ? (
-          <ScrollArea className={"h-full px-4 sm:px-8"}>
+          <ScrollArea className="h-full px-4 sm:px-8">
             {typeof testContent.content === "string" ? null : (
               <ReadingPassage content={testContent.content} />
             )}

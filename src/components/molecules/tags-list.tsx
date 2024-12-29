@@ -1,10 +1,9 @@
-export default function TagsList({
-  tags,
-  format,
-}: {
+type TagsListProps = {
   tags: string[];
   format?: (tag: string) => string;
-}) {
+};
+
+export default function TagsList({ tags, format }: TagsListProps) {
   return (
     <span className="inline-flex flex-wrap items-center gap-2 align-text-bottom">
       {tags.map((tag, index) => (

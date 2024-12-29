@@ -16,6 +16,7 @@ export function SimulatedTestCard(
   const { t } = useTranslation(["collection", "practice"]);
   const { setOpen, setData } = useSelectModeDialog();
   const { testName, skillTests } = props;
+
   return (
     <div className="rounded-2xl border bg-white p-5">
       <p className="mb-4 truncate text-lg font-bold">{testName}</p>
@@ -44,9 +45,13 @@ export function SimulatedTestCard(
         <div className="grid w-full flex-1 grid-cols-2 gap-3 lg:grid-cols-4">
           {Object.values(EnumSkill).map((skill) => {
             const skillTest = skillTests.find((st) => st.skill === skill);
+            const isComingSoon =
+              !skillTest || !skillTest.partsDetail || skillTest.partsDetail.length === 0;
+
             return (
-              <button
-                key={`${testName}-${skill}`}
+              <TestSkillCard
+                skill={skill}
+                isComingSoon={isComingSoon}
                 onClick={() => {
                   if (skillTest) {
                     setData({
@@ -56,13 +61,7 @@ export function SimulatedTestCard(
                     setOpen(true);
                   }
                 }}
-                disabled={
-                  !skillTest || !skillTest.partsDetail || skillTest.partsDetail.length === 0
-                }
-                className="w-full"
-              >
-                <TestSkillCard skill={skill} isComingSoon={!skillTest || !skillTest.partsDetail} />
-              </button>
+              />
             );
           })}
         </div>

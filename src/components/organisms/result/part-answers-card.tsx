@@ -1,7 +1,16 @@
 import TagsList from "@/components/molecules/tags-list";
 import { PartDetail, SkillTestGuidance, STSkillTestAnswer } from "@/lib/types/simulated-test.type";
 
-import AnswerKeyContent from "./answer-key-content";
+import AnswerGuidanceContent from "./answer-guidance-content";
+
+type PartAnswersCardProps = {
+  part: number;
+  partDetail: PartDetail;
+  userAnswers: string[];
+  answerStatus: boolean[];
+  answers: STSkillTestAnswer[];
+  guidances: SkillTestGuidance[];
+};
 
 export function PartAnswersCard({
   part,
@@ -10,18 +19,11 @@ export function PartAnswersCard({
   answerStatus,
   answers,
   guidances,
-}: {
-  part: number;
-  partDetail: PartDetail;
-  userAnswers: string[];
-  answerStatus: boolean[];
-  answers: STSkillTestAnswer[];
-  guidances: SkillTestGuidance[];
-}) {
+}: PartAnswersCardProps) {
   const { startQuestionNo, questionTypes, endQuestionNo } = partDetail;
 
   return (
-    <div className="flex flex-col gap-4 rounded-2xl bg-white p-4">
+    <div className="flex flex-col gap-4 rounded-2xl border bg-white p-4">
       <div className="flex flex-col gap-4 lg:flex-row">
         <p className="text-lg font-bold">
           Part {part}: Question {startQuestionNo}-{endQuestionNo}
@@ -36,7 +38,7 @@ export function PartAnswersCard({
               <div className="flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-900">
                 {id}
               </div>
-              <AnswerKeyContent
+              <AnswerGuidanceContent
                 answer={answer}
                 userAnswer={userAnswers[id - 1]}
                 status={answerStatus[id - 1]}

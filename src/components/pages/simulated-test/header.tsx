@@ -6,7 +6,6 @@ import ExitDialog from "@/components/organisms/simulated-test-dialog/exit-dialog
 import StartDialog from "@/components/organisms/simulated-test-dialog/start-dialog";
 import { SimulatedTestTourFactory } from "@/components/organisms/simulated-test-tour";
 import { Button } from "@/components/ui";
-import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
 import useGlobalTimerStore, { timerKeys } from "@/hooks/zustand/use-global-timer";
 import { EnumMode } from "@/lib/enums";
 import { SimulatedTestSession } from "@/lib/types/simulated-test.type";
@@ -24,7 +23,8 @@ export default function Header({ currentPart, session }: HeaderProps) {
   const [run, setRun] = useState(false);
   const [showStartDialog, setShowStartDialog] = useState(false);
 
-  const { isSuccess } = useGetSkillTestData(session.skillTest.id, currentPart);
+  // const { isSuccess } = useGetSkillTestData(session.skillTest.id, currentPart);
+  const isSuccess = true;
   const { createTimer, startTimer, deleteTimer } = useGlobalTimerStore();
 
   useEffect(() => {
