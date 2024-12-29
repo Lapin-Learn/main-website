@@ -1,5 +1,5 @@
 import { useNavigate } from "@tanstack/react-router";
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -12,9 +12,16 @@ import { Route } from "@/routes/_authenticated/_dashboard/practice/simulated-tes
 
 import { CollectionDetailHeader } from "../organisms/collection-detail-header";
 import { PartAnswersCard, SkeletonPartAnswersCard } from "../organisms/result/part-answers-card";
-import PageLayout from "../organisms/simulated-test/page-layout";
+import PageLayout from "../templates/simulated-test-detail-layout";
 import { Button } from "../ui";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "../ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
 import { Skeleton } from "../ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import Footer from "./simulated-test/footer";
@@ -24,7 +31,6 @@ export default function ResultPage() {
   const { sessionId } = Route.useSearch();
   const { data: session, isLoading, userAnswers, answerStatus } = useGetSTSessionDetail(sessionId);
   const navigate = useNavigate();
-  const [viewDetail, setViewDetail] = useState(false);
 
   const { data: simulatedTest } = useGetSimulatedTestDetail(
     session?.skillTest.simulatedIeltsTest.id || 0,
@@ -41,6 +47,10 @@ export default function ResultPage() {
     return <div className="size-screen grid place-items-center">Loading...</div>;
   }
 
+  const isAvailableSkill = [EnumSkill.reading, EnumSkill.listening].includes(
+    session.skillTest.skill
+  );
+
   return (
     <div className="flex flex-col gap-6 p-8">
       <CollectionDetailHeader collectionId={simulatedTest?.collectionId || 0} session={session} />
@@ -56,71 +66,68 @@ export default function ResultPage() {
               <TabsTrigger value="answerKeys">{t("answerKeys")}</TabsTrigger>
               <TabsTrigger value="analysis">{t("analysis")}</TabsTrigger>
             </TabsList>
-            <Button variant="link" onClick={() => setViewDetail(true)}>
-              {t("detail.button")}
-            </Button>
+            {isAvailableSkill && (
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="link">{t("detail.button")}</Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-screen h-screen p-0">
+                  <PageLayout
+                    header={
+                      <DialogHeader className="p-4 sm:px-8">
+                        <DialogTitle>{t("detail.title")}</DialogTitle>
+                      </DialogHeader>
+                    }
+                    session={session}
+                    renderFooter={renderDialogFooter}
+                  />
+                </DialogContent>
+              </Dialog>
+            )}
           </div>
         )}
         <TabsContent value="answerKeys" className="flex flex-col gap-6">
           {isLoading ? (
             <SkeletonPartAnswersCard />
-          ) : session.skillTest.skill === EnumSkill.writing ||
-            session.skillTest.skill === EnumSkill.speaking ? (
+          ) : !isAvailableSkill ? (
             <div className="flex h-full flex-col items-center">
               <h1 className="text-2xl font-bold">Coming soon</h1>
               <p className="text-center text-sm">This skill is not available yet</p>
             </div>
           ) : (
-            <>
-              {session?.parts.map((part, index) => {
-                return (
-                  <PartAnswersCard
-                    key={index}
-                    part={part}
-                    partDetail={session.skillTest.partsDetail[index]}
-                    userAnswers={userAnswers}
-                    answerStatus={answerStatus}
-                    answers={session.skillTest.answers}
-                    guidances={session.skillTest.guidances}
-                  />
-                );
-              })}
-            </>
+            session?.parts.map((part, index) => {
+              return (
+                <PartAnswersCard
+                  key={index}
+                  part={part}
+                  partDetail={session.skillTest.partsDetail[index]}
+                  userAnswers={userAnswers}
+                  answerStatus={answerStatus}
+                  answers={session.skillTest.answers}
+                  guidances={session.skillTest.guidances}
+                />
+              );
+            })
           )}
         </TabsContent>
         <TabsContent value="analysis">Analysis.</TabsContent>
       </Tabs>
-      <Dialog open={viewDetail} onOpenChange={setViewDetail}>
-        <DialogContent className="max-w-screen h-screen px-0">
-          <PageLayout
-            header={
-              <DialogHeader className="px-4 sm:px-8">
-                <DialogTitle>{t("detail.title")}</DialogTitle>
-              </DialogHeader>
-            }
-            session={session}
-            sessionId={sessionId}
-            skillTestId={session?.skillTest.id || 0}
-            renderFooter={renderDialogFooter}
-          />
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
 
-function renderDialogFooter(session: SimulatedTestSession, sessionId: number): ReactNode {
+function renderDialogFooter(session: SimulatedTestSession) {
+  const partDetails = session.skillTest.partsDetail.map((part, index) => ({
+    ...part,
+    part: session.parts[index],
+  }));
   return (
     <DialogFooter>
       <Footer
-        sessionId={sessionId}
-        partDetails={
-          session.skillTest.partsDetail.map((part, index) => ({
-            ...part,
-            part: session.parts[index],
-          })) ?? []
-        }
+        sessionId={session.id}
+        partDetails={partDetails}
         status={session.status}
+        skill={session.skillTest.skill}
       />
     </DialogFooter>
   );

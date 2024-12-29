@@ -1,6 +1,15 @@
 import { SkillTestGuidance, STSkillTestAnswer } from "@/lib/types/simulated-test.type";
 
-import AnswerKeyContent from "./answer-key-content";
+import AnswerKeyContent from "./answer-guidance-content";
+
+type AnswerKeysProps = {
+  answerKeys: STSkillTestAnswer[];
+  startNo: number;
+  endNo: number;
+  userAnswers: string[];
+  answerStatus: boolean[];
+  guidances: SkillTestGuidance[];
+};
 
 export default function AnswerKeys({
   answerKeys,
@@ -9,14 +18,7 @@ export default function AnswerKeys({
   userAnswers,
   answerStatus,
   guidances,
-}: {
-  answerKeys: STSkillTestAnswer[];
-  startNo: number;
-  endNo: number;
-  userAnswers: string[];
-  answerStatus: boolean[];
-  guidances: SkillTestGuidance[];
-}) {
+}: AnswerKeysProps) {
   return (
     <div className="flex flex-col gap-4">
       {answerKeys.slice(startNo - 1, endNo).map((answer, index) => (

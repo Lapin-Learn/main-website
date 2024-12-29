@@ -6,9 +6,8 @@ import QuestionNavigator from "@/components/molecules/question-navigator-button"
 import SubmitDialog from "@/components/organisms/simulated-test-dialog/submit-dialog";
 import { Button } from "@/components/ui";
 import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
-import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
 import { DEFAULT_QUESTION_NO_BY_SKILL } from "@/lib/consts";
-import { EnumSkill } from "@/lib/enums";
+import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { PartDetail } from "@/lib/types/simulated-test.type";
 import { cn } from "@/lib/utils";
 
@@ -20,6 +19,7 @@ type FooterProps = {
   skill: EnumSkill;
   status: EnumSimulatedTestSessionStatus;
 };
+
 const Footer = ({ sessionId, partDetails, skill, status }: FooterProps) => {
   const { navigateToPart, position } = useSimulatedTestState();
   const { t } = useTranslation("simulatedTest");
@@ -73,20 +73,24 @@ const Footer = ({ sessionId, partDetails, skill, status }: FooterProps) => {
         </div>
       )}
       <div className="flex flex-row gap-2 xl:gap-4">
-        <div className="flex flex-row gap-2 xl:gap-4">
-          <Button variant="outline" disabled={!prevPart} onClick={moveToPrevPart}>
-            <ArrowLeft size={20} className="lg:mr-2" />
-            <span className="hidden lg:block">{t("prevBtn")}</span>
-          </Button>
-          <Button variant="outline" disabled={!nextPart} onClick={moveToNextPart}>
-            <span className="hidden lg:block">{t("nextBtn")}</span>
-            <ArrowRight size={20} className="lg:ml-2" />
-          </Button>
-        </div>
-        <SubmitDialog
-          triggerButton={<Button className="submit">{t("submitBtn")}</Button>}
-          sessionId={sessionId}
-        />
+        {status !== EnumSimulatedTestSessionStatus.FINISHED && (
+          <>
+            <div className="flex flex-row gap-2 xl:gap-4">
+              <Button variant="outline" disabled={!prevPart} onClick={moveToPrevPart}>
+                <ArrowLeft size={20} className="lg:mr-2" />
+                <span className="hidden lg:block">{t("prevBtn")}</span>
+              </Button>
+              <Button variant="outline" disabled={!nextPart} onClick={moveToNextPart}>
+                <span className="hidden lg:block">{t("nextBtn")}</span>
+                <ArrowRight size={20} className="lg:ml-2" />
+              </Button>
+            </div>
+            <SubmitDialog
+              triggerButton={<Button className="submit">{t("submitBtn")}</Button>}
+              sessionId={sessionId}
+            />
+          </>
+        )}
       </div>
     </div>
   );
