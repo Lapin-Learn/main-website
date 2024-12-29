@@ -19,6 +19,10 @@
     "nextBtn": "Next",
     "prevBtn": "Previous",
     "submitBtn": "Submit",
+    "mode":{
+        "practice": "Practice Mode",
+        "test": "Full Test Mode"
+    },
     "tour": {
         "skipBtn": "Skip",
         "beforeStart": {
@@ -70,5 +74,47 @@
                 "description": "Click the Quit button to leave the test at any time. Your progress may not be saved if you quit without submitting."
             }
         }
-    }
+    },
+    "speaking": {
+        "microphoneTest": "You have {{ seconds }} seconds to test the Microphone",
+        "microphonePermission": "To use the Microphone, you need to grant permission for the Microphone on your device",
+        "microphoneDeniedTitle": "Microphone permission denied",
+        "microphoneDeniedDescription": "Please allow microphone permission to record audio.",
+        "browserNotSupportTitle": "Browser not supported",
+        "browserNotSupportDescription": "This browser does not support audio recording.",
+        "instructions": {
+        "practice": [
+                {
+                    "title": "Unlimited Time",
+                    "content": "In this mode, your thinking and speaking time will not be limited, allowing you to practice comfortably without worrying about time."
+                },
+                {
+                    "title": "Practice by Section",
+                    "content": "Helps you focus on practicing each detailed section before combining the entire test. You cannot go back, the system will record the entire test and you can only listen back when completed."
+                },
+                {
+                    "title": "Automatic Question Reading System",
+                    "content": "The system automatically reads the questions for each section, with a clear voice and standard speed. Additionally, the system allows you to ask and listen to the question again up to 2 times, helping to clarify the content of the question."
+                }
+            ],
+            "full_test": [
+                {
+                    "title": "Real Test Time",
+                    "content": "In this mode, you will have thinking and speaking time as in the real test, helping you get used to the time pressure and improve your time management skills."
+                },
+                {
+                    "title": "Complete All Sections",
+                    "content": "You will complete the test as a real test consisting of 3 sections."
+                },
+                {
+                    "title": "Automatic Question Reading System",
+                    "content": "The system automatically reads the questions for each section, with a clear voice and standard speed. Additionally, the system allows you to ask and listen to the question again up to 2 times, helping to clarify the content of the question."
+                }
+            ]
+        },
+        "preparePartTwo": "You have 1 minute to prepare"
+  },
+  "startTest": "Start the Test",
+  "start": "Start",
+  "nextQuestion": "Next Question"
 }
