@@ -1,8 +1,8 @@
 import { useNavigate } from "@tanstack/react-router";
-import { ReactNode, useEffect } from "react";
+import { useEffect } from "react";
 
 import ErrorFallback from "@/components/ErrorFallback";
-import PageLayout from "@/components/organisms/simulated-test/page-layout";
+import PageLayout from "@/components/templates/simulated-test-detail-layout";
 import { useGetSTSessionDetail } from "@/hooks/react-query/use-simulated-test";
 import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
 import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
@@ -17,7 +17,7 @@ import Header from "./header";
  * The layout should decide which component should be render, escape checking condition in every component, as many stateless component as possible
  */
 const SimulatedTestPage = () => {
-  const { sessionId, skillTestId } = Route.useSearch();
+  const { sessionId } = Route.useSearch();
   const { navigateToPart, position, resetTest } = useSimulatedTestState();
   const navigate = useNavigate();
   const { data: session, isLoading, isSuccess, isError } = useGetSTSessionDetail(sessionId);
@@ -62,8 +62,6 @@ const SimulatedTestPage = () => {
     <PageLayout
       header={<Header currentPart={position.part} session={session} />}
       session={session}
-      sessionId={sessionId}
-      skillTestId={skillTestId}
       renderFooter={renderFooter}
     />
   );
@@ -71,10 +69,10 @@ const SimulatedTestPage = () => {
 
 export default SimulatedTestPage;
 
-function renderFooter(session: SimulatedTestSession, sessionId: number): ReactNode {
+function renderFooter(session: SimulatedTestSession) {
   return (
     <Footer
-      sessionId={sessionId}
+      sessionId={session.id}
       partDetails={
         session.skillTest.partsDetail.map((part, index) => ({
           ...part,
@@ -82,6 +80,7 @@ function renderFooter(session: SimulatedTestSession, sessionId: number): ReactNo
         })) ?? []
       }
       status={session.status}
+      skill={session.skillTest.skill}
     />
   );
 }

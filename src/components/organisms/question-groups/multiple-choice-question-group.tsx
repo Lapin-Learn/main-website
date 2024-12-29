@@ -19,8 +19,8 @@ function MultipleSelect({ question, disabled }: MultipleSelectProps) {
   const [selected, setSelected] = useState<string[]>([]);
 
   useEffect(() => {
-    for (let i = 0; i < MAX_SELECT; i++) {
-      answer(question.questionNo[i], selected[i] ?? "");
+    for (let i = 0; i < Math.min(MAX_SELECT, selected.length); i++) {
+      answer(question.questionNo[i], selected[i] ?? null);
     }
   }, [selected]);
   return (
@@ -31,7 +31,6 @@ function MultipleSelect({ question, disabled }: MultipleSelectProps) {
             value={option.value}
             id={`${question.questionNo}-${option.value}`}
             onCheckedChange={(checked) => {
-              console.log("checked", selected.length);
               if (checked) {
                 const newSelected = [...selected, option.value];
                 setSelected(newSelected.slice(-MAX_SELECT));

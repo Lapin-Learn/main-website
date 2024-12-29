@@ -9,7 +9,6 @@ type State = {
 
 type Action = {
   navigateToPart: (questionNo: number, partNo: number) => void;
-  setCurrentQuestion: (questionNo: number) => void;
   resetTest: () => void;
 };
 
@@ -20,7 +19,7 @@ const initialState: State = {
   },
 };
 
-const useSimulatedTestState = create<State & Action>((set, get) => ({
+const useSimulatedTestState = create<State & Action>((set) => ({
   ...initialState,
   navigateToPart: (questionNo, partNo) =>
     set({
@@ -30,13 +29,6 @@ const useSimulatedTestState = create<State & Action>((set, get) => ({
       },
     }),
   resetTest: () => set({ ...initialState }),
-  setCurrentQuestion: (questionNo) =>
-    set({
-      position: {
-        ...get().position,
-        question: questionNo,
-      },
-    }),
 }));
 
 export default useSimulatedTestState;

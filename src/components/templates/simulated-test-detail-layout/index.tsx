@@ -2,6 +2,7 @@ import { Fragment, PropsWithChildren, ReactNode, useEffect } from "react";
 
 import ListeningPage from "@/components/pages/simulated-test/listening";
 import ReadingPage from "@/components/pages/simulated-test/reading";
+import WritingPage from "@/components/pages/simulated-test/writing";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { EnumSkill } from "@/lib/enums";
 import { SimulatedTestAnswer, SimulatedTestSession } from "@/lib/types/simulated-test.type";
@@ -9,18 +10,13 @@ import { SimulatedTestAnswer, SimulatedTestSession } from "@/lib/types/simulated
 interface PageLayoutProps {
   header: ReactNode;
   session: SimulatedTestSession;
-  sessionId: number;
-  skillTestId: number;
-  renderFooter: (session: SimulatedTestSession, sessionId: number) => ReactNode;
+  renderFooter: (session: SimulatedTestSession) => ReactNode;
 }
 
-export default function PageLayout({
-  header,
-  session,
-  sessionId,
-  skillTestId,
-  renderFooter,
-}: PageLayoutProps) {
+export default function PageLayout({ header, session, renderFooter }: PageLayoutProps) {
+  const sessionId = session.id;
+  const skillTestId = session.skillTest.id;
+
   return (
     <div className="flex h-screen w-full flex-col justify-between">
       {header}
@@ -30,7 +26,7 @@ export default function PageLayout({
           skillTestId={skillTestId}
           sessionId={sessionId}
         />
-        {renderFooter(session, sessionId)}
+        {renderFooter(session)}
       </DefaultAnswerWrapper>
     </div>
   );
@@ -76,6 +72,8 @@ const SkillContentFactory = ({
       return <ReadingPage skillTestId={skillTestId} sessionId={sessionId} />;
     case EnumSkill.listening:
       return <ListeningPage skillTestId={skillTestId} sessionId={sessionId} />;
+    case EnumSkill.writing:
+      return <WritingPage />;
     default:
       return (
         <div className="flex flex-col items-center">

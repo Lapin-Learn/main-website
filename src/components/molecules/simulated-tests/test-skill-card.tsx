@@ -8,14 +8,17 @@ import { skillIconMap } from "./utils";
 type TestSkillCardProps = {
   skill: EnumSkill;
   isComingSoon: boolean;
+  onClick?: () => void;
 };
-export default function TestSkillCard({ skill, isComingSoon }: TestSkillCardProps) {
+export default function TestSkillCard({ skill, isComingSoon, onClick }: TestSkillCardProps) {
   const { t } = useTranslation("collection");
 
   return (
-    <div
+    <button
       key={skill}
       className="flex h-28 w-full flex-row items-center justify-between rounded-lg border border-neutral-100 p-3"
+      disabled={isComingSoon}
+      onClick={onClick}
     >
       <div className="flex flex-col items-start gap-2">
         <span className="text-base font-semibold capitalize">{skill}</span>
@@ -27,6 +30,6 @@ export default function TestSkillCard({ skill, isComingSoon }: TestSkillCardProp
         </div>
       </div>
       <AnimatedCircularProgressBar value={0} icon={skillIconMap[skill as EnumSkill]} />
-    </div>
+    </button>
   );
 }
