@@ -19,7 +19,7 @@ const initialState: State = {
   },
 };
 
-const useSimulatedTestState = create<State & Action>((set, get) => ({
+const useSimulatedTestState = create<State & Action>((set) => ({
   ...initialState,
   navigateToPart: (questionNo, partNo) =>
     set({
