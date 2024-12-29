@@ -5,6 +5,7 @@ import { Button } from "@/components/ui";
 import useAudioRecording from "@/hooks/use-audio-recording";
 import { useSpeakingStore } from "@/hooks/zustand/use-recording-store";
 import { MIC_TEST_DURATION } from "@/lib/consts";
+import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
 
 import RecordingButton from "../../molecules/recording-button";
 import { InstructionCarousel } from "../instruction-carousel";
@@ -16,7 +17,7 @@ const SpeakingMicTest = () => {
 
   const handleStartTest = () => {
     stopRecording();
-    setTestState("in-progress");
+    setTestState(EnumSimulatedTestSessionStatus.IN_PROGRESS);
   };
 
   return (

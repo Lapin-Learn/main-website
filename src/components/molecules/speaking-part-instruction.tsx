@@ -13,7 +13,7 @@ const PartInstruction = ({ partNo }: PartInstructionProps) => {
   const { t } = useTranslation("simulatedTest");
 
   return (
-    <div className="flex w-[800px] flex-col items-center gap-4 overflow-visible rounded-lg border border-blue-200 bg-white p-12">
+    <div className="flex w-[800px] flex-col items-center gap-4 overflow-visible rounded-lg border border-blue-200 bg-white px-16 py-12">
       <h4 className="text-heading-5 font-semibold">Instruction</h4>
       <div className="flex flex-col items-center gap-2">
         {PART_INSTRUCTIONS[partNo].map((instruction, index) => (

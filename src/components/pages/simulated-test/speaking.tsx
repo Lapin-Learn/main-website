@@ -8,6 +8,7 @@ import useAudioRecording from "@/hooks/use-audio-recording";
 import { useSpeakingStore } from "@/hooks/zustand/use-recording-store";
 import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
 import { PART_TITLES } from "@/lib/consts";
+import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
 // import { Route } from "@/routes/_authenticated/practice/simulated-test";
 // import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
 
@@ -35,7 +36,7 @@ const SpeakingPage = () => {
     <div className="flex flex-1 flex-col items-center justify-center bg-gradient-to-b from-[#F0FCFF] to-[#C7E1EF]">
       {testContent && !isLoading ? (
         <>
-          {testState === "not-started" ? (
+          {testState === EnumSimulatedTestSessionStatus.NOT_STARTED ? (
             <SpeakingMicTest />
           ) : (
             <div className="flex flex-1 flex-col items-center justify-center gap-8">

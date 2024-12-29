@@ -3,11 +3,11 @@ import { useEffect, useRef, useState } from "react";
 
 import SpeakingIcon from "@/assets/icons/skills/speaking-filled";
 import { Button } from "@/components/ui";
-import AudioRipple from "@/components/ui/audioRipple";
+import AudioRipple from "@/components/ui/audio-ripple";
 import useAudioRecording from "@/hooks/use-audio-recording";
 import { useSpeakingStore } from "@/hooks/zustand/use-recording-store";
 
-import { AudioProgress } from "../../organisms/audio-progress";
+import { AudioProgress } from "../audio-progress";
 
 declare global {
   interface Window {

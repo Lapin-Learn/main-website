@@ -1,10 +1,11 @@
 import { create } from "zustand";
 
+import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
+
 export type RecordingStatus = "inactive" | "recording";
-export type TestState = "not-started" | "in-progress" | "finished";
 
 interface SpeakingState {
-  testState: TestState;
+  testState: EnumSimulatedTestSessionStatus;
   permission: boolean;
   stream: MediaStream | null;
   recordingStatus: RecordingStatus;
@@ -13,7 +14,7 @@ interface SpeakingState {
 }
 
 interface SpeakingActions {
-  setTestState: (state: TestState) => void;
+  setTestState: (state: EnumSimulatedTestSessionStatus) => void;
   setPermission: (permission: boolean) => void;
   setStream: (stream: MediaStream) => void;
   stopStream: () => void;
@@ -23,13 +24,17 @@ interface SpeakingActions {
   reset: () => void;
 }
 
-export const useSpeakingStore = create<SpeakingState & SpeakingActions>((set) => ({
-  testState: "not-started",
+const initialState: SpeakingState = {
+  testState: EnumSimulatedTestSessionStatus.NOT_STARTED,
   permission: false,
   stream: null,
   recordingStatus: "inactive",
   audioChunks: [],
   audio: null,
+};
+
+export const useSpeakingStore = create<SpeakingState & SpeakingActions>((set) => ({
+  ...initialState,
   setTestState: (state) => set({ testState: state }),
   setPermission: (permission) => set({ permission }),
   setStream: (stream) =>
@@ -51,7 +56,7 @@ export const useSpeakingStore = create<SpeakingState & SpeakingActions>((set) =>
   setAudio: (audio) => set({ audio }),
   reset: () =>
     set({
-      testState: "not-started",
+      testState: EnumSimulatedTestSessionStatus.NOT_STARTED,
       stream: null,
       recordingStatus: "inactive",
       audioChunks: [],
