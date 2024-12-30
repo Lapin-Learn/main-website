@@ -1,3 +1,5 @@
+import icons from "@/assets/icons";
+
 import { EnumBandScore, EnumQuestionGroup, EnumSkill } from "./enums";
 import { EnumQuestion } from "./types/question.type";
 
@@ -153,4 +155,26 @@ export const PART_INSTRUCTIONS: { [key: number]: string[] } = {
   3: [
     "In this part, you will be asked some more general questions based on the topic from part 2.",
   ],
+};
+
+import ListeningIcon from "@/assets/icons/skills/listening";
+import ReadingIcon from "@/assets/icons/skills/reading";
+import SpeakingIcon from "@/assets/icons/skills/speaking";
+import WritingIcon from "@/assets/icons/skills/writing";
+
+export const MAPPED_SKILL_ICON: Record<EnumSkill, React.FC<React.SVGProps<SVGSVGElement>>> = {
+  [EnumSkill.reading]: ReadingIcon,
+  [EnumSkill.listening]: ListeningIcon,
+  [EnumSkill.writing]: WritingIcon,
+  [EnumSkill.speaking]: SpeakingIcon,
+};
+
+export const MAPPED_SKILL_ICON_FILLED: Record<
+  EnumSkill,
+  React.FC<React.SVGProps<SVGSVGElement>>
+> = {
+  [EnumSkill.reading]: icons.ReadingFilled,
+  [EnumSkill.listening]: icons.ListeningFilled,
+  [EnumSkill.writing]: icons.WritingFilled,
+  [EnumSkill.speaking]: icons.SpeakingFilled,
 };

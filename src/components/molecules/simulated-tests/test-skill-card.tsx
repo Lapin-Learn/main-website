@@ -1,9 +1,8 @@
 import { useTranslation } from "react-i18next";
 
 import { AnimatedCircularProgressBar } from "@/components/organisms/circular-progress";
+import { MAPPED_SKILL_ICON } from "@/lib/consts";
 import { EnumSkill } from "@/lib/enums";
-
-import { skillIconMap } from "./utils";
 
 type TestSkillCardProps = {
   skill: EnumSkill;
@@ -29,7 +28,7 @@ export default function TestSkillCard({ skill, isComingSoon, onClick }: TestSkil
           {!isComingSoon && <div className="font-semibold">--/40</div>}
         </div>
       </div>
-      <AnimatedCircularProgressBar value={0} icon={skillIconMap[skill as EnumSkill]} />
+      <AnimatedCircularProgressBar value={0} icon={MAPPED_SKILL_ICON[skill as EnumSkill]} />
     </button>
   );
 }

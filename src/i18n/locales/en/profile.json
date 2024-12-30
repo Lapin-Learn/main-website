@@ -43,5 +43,9 @@
             "label": "Confirm password",
             "placeholder": "Re-enter new password"
         }
+    },
+    "learning_history": {
+        "learning_result": "Estimated learning result",
+        "simulated_test_history": "Simulated test history"
     }
 }
