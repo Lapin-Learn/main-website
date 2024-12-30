@@ -1,0 +1,72 @@
+"use client";
+
+import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart } from "recharts";
+
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+import { EnumSkill } from "@/lib/enums";
+import { BandScoreSkill, UserBandScoreOverall } from "@/lib/types/simulated-test.type";
+
+const DEFAULT_DATA: BandScoreSkill[] = [
+  { skill: EnumSkill.reading, bandScore: 0 },
+  { skill: EnumSkill.listening, bandScore: 0 },
+  { skill: EnumSkill.writing, bandScore: 0 },
+  { skill: EnumSkill.speaking, bandScore: 0 },
+];
+
+const chartConfig = {
+  bandScore: {
+    label: "Skill",
+    color: "hsl(var(--chart-1))",
+  },
+} satisfies ChartConfig;
+
+type OverallBandScoreChartProps = {
+  className?: string;
+  data: UserBandScoreOverall;
+};
+
+export function OverallBandScoreChart({ className, data }: OverallBandScoreChartProps) {
+  return (
+    <Card className={className}>
+      <CardContent className="overflow-visible pb-0 pt-2">
+        <ChartContainer
+          config={chartConfig}
+          className="mx-auto aspect-square max-h-[200px] overflow-visible"
+        >
+          <RadarChart
+            data={DEFAULT_DATA.map((item) => {
+              const bandScore = data.bandScores.find((bandScore) => bandScore.skill === item.skill);
+              return { ...item, bandScore: bandScore?.bandScore ?? 0 };
+            })}
+          >
+            <ChartTooltip cursor={false} content={<ChartTooltipContent className="capitalize" />} />
+            <PolarAngleAxis
+              dataKey="skill"
+              tickFormatter={(skill) => skill.charAt(0).toUpperCase()}
+            />
+            <PolarRadiusAxis domain={[0, 9]} />
+            <PolarGrid />
+            <Radar
+              dataKey="bandScore"
+              fill="var(--color-bandScore)"
+              fillOpacity={0.6}
+              dot={{
+                r: 2,
+                fillOpacity: 1,
+              }}
+            />
+          </RadarChart>
+        </ChartContainer>
+      </CardContent>
+      <CardFooter className="flex-col gap-2 text-xl font-semibold">
+        Overall:&nbsp;{data.overallBandScore ?? "--"}
+      </CardFooter>
+    </Card>
+  );
+}

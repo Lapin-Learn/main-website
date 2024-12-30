@@ -12,6 +12,7 @@ import {
   getSimulatedTestCollections,
   getSimulatedTestDetail,
   getSimulatedTestSessionDetail,
+  getUserBandScoreOverall,
   SimulatedSkillTestParams,
   startSimulatedTest,
   submitSimulatedTest,
@@ -33,6 +34,7 @@ const simulatedTestKeys = {
   simulatedTestKey: ["simulated-test"] as const,
   simulatedTestDetail: (simulatedTestId: number) =>
     [...simulatedTestKeys.simulatedTestKey, simulatedTestId] as const,
+  overall: () => [...simulatedTestKeys.simulatedTestKey, "overal"] as const,
 };
 
 type State = {
@@ -224,5 +226,27 @@ export const useGetSimulatedTestDetail = (simulatedTestId: number, enabled = fal
     queryKey: simulatedTestKeys.simulatedTestDetail(simulatedTestId),
     queryFn: () => getSimulatedTestDetail(simulatedTestId),
     enabled,
+  });
+};
+
+export const useGetUserBandScoreOverall = () => {
+  return useQuery({
+    queryKey: simulatedTestKeys.overall(),
+    queryFn: async () => {
+      const bandScores = await getUserBandScoreOverall();
+      // All skills available
+      if (Object.keys(bandScores).length == 4) {
+        const overall =
+          Object.values(bandScores).reduce((acc, cur) => acc + Number(cur.bandScore), 0) / 4;
+        return {
+          bandScores,
+          overallBandScore: Math.round(overall * 2) / 2,
+        };
+      }
+      return {
+        bandScores,
+        overallBandScore: null,
+      };
+    },
   });
 };

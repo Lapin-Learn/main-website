@@ -4,10 +4,9 @@ import { useTranslation } from "react-i18next";
 import { AnimatedCircularProgressBar } from "@/components/organisms/circular-progress";
 import useSelectModeDialog from "@/components/organisms/select-mode-dialog/use-select-mode-dialog";
 import { Button } from "@/components/ui";
+import { MAPPED_SKILL_ICON } from "@/lib/consts";
 import { SimulatedTest, SkillTest } from "@/lib/types/simulated-test.type";
 import { cn } from "@/lib/utils";
-
-import { skillIconMap } from "./utils";
 
 type FilteredSkillCardProps = {
   test: SimulatedTest;
@@ -60,7 +59,7 @@ export function FilteredSkillCard({ test, skillTest, isSupport }: FilteredSkillC
             )}
           </div>
         </div>
-        <AnimatedCircularProgressBar value={0} icon={skillIconMap[skillTest.skill]} />
+        <AnimatedCircularProgressBar value={0} icon={MAPPED_SKILL_ICON[skillTest.skill]} />
       </div>
     </button>
   );
