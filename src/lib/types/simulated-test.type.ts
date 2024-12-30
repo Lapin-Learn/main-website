@@ -3,6 +3,15 @@ import { JSONContent } from "@tiptap/core";
 import { EnumMode, EnumQuestionGroup, EnumSimulatedTestSessionStatus, EnumSkill } from "../enums";
 import { Option } from "./common.type";
 
+export type BandScoreSkill = {
+  bandScore: number;
+  skill: EnumSkill;
+};
+export type UserBandScoreOverall = {
+  bandScores: BandScoreSkill[];
+  overallBandScore: number | null;
+};
+
 export type SimulatedTestCollection = {
   id: number;
   name: string;

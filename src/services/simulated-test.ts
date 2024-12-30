@@ -1,6 +1,7 @@
 import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
 import { FetchingData, PagedData, PagingSchema } from "@/lib/types";
 import {
+  BandScoreSkill,
   ReadingContent,
   SimulatedTest,
   SimulatedTestAnswer,
@@ -118,4 +119,8 @@ export const getSimulatedTestSessionDetail = async (sessionId: number) => {
 export const getSimulatedTestDetail = async (simulatedTestId: number) => {
   return (await api.get(`simulated-tests/${simulatedTestId}`).json<FetchingData<SimulatedTest>>())
     .data;
+};
+
+export const getUserBandScoreOverall = async () => {
+  return (await api.get("simulated-tests/report").json<FetchingData<BandScoreSkill[]>>()).data;
 };

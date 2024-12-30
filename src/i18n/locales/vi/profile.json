@@ -43,5 +43,9 @@
             "label": "Xác nhận mật khẩu",
             "placeholder": "Nhập lại mật khẩu mới"
         }
+    },
+    "learning_history": {
+        "learning_result": "Kết quả dự đoán",
+        "simulated_test_history": "Lịch sử luyện thi"
     }
 }
