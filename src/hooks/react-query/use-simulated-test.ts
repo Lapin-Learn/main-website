@@ -12,6 +12,7 @@ import {
   getSimulatedTestCollections,
   getSimulatedTestDetail,
   getSimulatedTestSessionDetail,
+  getSimulatedTestSessionHistory,
   getUserBandScoreOverall,
   SimulatedSkillTestParams,
   startSimulatedTest,
@@ -34,7 +35,7 @@ const simulatedTestKeys = {
   simulatedTestKey: ["simulated-test"] as const,
   simulatedTestDetail: (simulatedTestId: number) =>
     [...simulatedTestKeys.simulatedTestKey, simulatedTestId] as const,
-  overall: () => [...simulatedTestKeys.simulatedTestKey, "overal"] as const,
+  overall: () => [...simulatedTestKeys.simulatedTestKey, "overall"] as const,
 };
 
 type State = {
@@ -247,6 +248,18 @@ export const useGetUserBandScoreOverall = () => {
         bandScores,
         overallBandScore: null,
       };
+    },
+  });
+};
+
+export const useGetSTSessionHistory = () => {
+  return useQuery({
+    queryKey: simulatedTestKeys.session,
+    queryFn: async () => {
+      const limit = 10;
+      const offset = 0;
+      const history = await getSimulatedTestSessionHistory(limit, offset);
+      return history.items;
     },
   });
 };

@@ -144,3 +144,21 @@ export type SkillTestGuidance = {
   explanationResource: string;
   tip: string;
 };
+
+export type SimulatedTestSessionsHistoryItem = Pick<
+  SimulatedTestSession,
+  "id" | "elapsedTime" | "estimatedBandScore" | "mode"
+> &
+  Pick<SimulatedTestSimple, "testName"> & {
+    totalQuestions: number;
+    skill: EnumSkill;
+    createdAt: Date;
+  };
+
+export type SimulatedTestSessionsHistory = {
+  limit: number;
+  offset: number;
+  total: number;
+  page: number;
+  items: SimulatedTestSessionsHistoryItem[];
+};

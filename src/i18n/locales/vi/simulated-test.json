@@ -20,7 +20,7 @@
     "nextBtn": "Tiếp theo",
     "prevBtn": "Quay lại",
     "submitBtn": "Nộp bài",
-    "mode":{
+    "mode": {
         "practice": "Chế độ luyện tập",
         "test": "Chế độ thi thử"
     },
@@ -117,5 +117,14 @@
     },
     "startTest": "Bắt đầu làm bài",
     "start": "Bắt đầu",
-    "nextQuestion": "Câu kế tiếp"
+    "nextQuestion": "Câu kế tiếp",
+    "history": {
+        "viewDetail": "Xem chi tiết",
+        "assignment": "Bài làm",
+        "skill": "Kỹ năng",
+        "date_completed": "Ngày làm",
+        "result": "Kết quả",
+        "duration": "Thời gian làm bài",
+        "noData": "Không có dữ liệu bài làm"
+    }
 }

@@ -3,9 +3,14 @@ import { createElement } from "react";
 import { useTranslation } from "react-i18next";
 
 import { OverallBandScoreChart } from "@/components/molecules/overall-band-score-chart";
+import { columns } from "@/components/organisms/simulated-test-table/column";
+import { SimulatedTestHistoryTable } from "@/components/organisms/simulated-test-table/table";
 import { Typography } from "@/components/ui";
 import { Card, CardContent } from "@/components/ui/card";
-import { useGetUserBandScoreOverall } from "@/hooks/react-query/use-simulated-test";
+import {
+  useGetSTSessionHistory,
+  useGetUserBandScoreOverall,
+} from "@/hooks/react-query/use-simulated-test";
 import useBreakPoint from "@/hooks/use-screen-size";
 import { MAPPED_SKILL_ICON_FILLED } from "@/lib/consts";
 import { EnumSkill } from "@/lib/enums";
@@ -13,9 +18,11 @@ import { EnumSkill } from "@/lib/enums";
 export default function HistoryPage() {
   const { t } = useTranslation("profile");
   const { data, isLoading } = useGetUserBandScoreOverall();
+  const { data: history, isLoading: isLoadingHistory } = useGetSTSessionHistory();
+
   const breakpoint = useBreakPoint();
 
-  if (isLoading || !data)
+  if (isLoading || !data || isLoadingHistory || !history)
     return (
       <div className="grid min-h-96 w-full place-items-center">
         <Loader2 className="animate-spin text-primary-900" size={32} />
@@ -65,6 +72,17 @@ export default function HistoryPage() {
       <Typography variant="h5" className="mb-4">
         {t("learning_history.simulated_test_history")}
       </Typography>
+
+      <SimulatedTestHistoryTable
+        columns={columns.map((column) => ({
+          ...column,
+          header: t(`${column.header}`, { ns: "simulatedTest" }),
+        }))}
+        data={history.map((test) => ({
+          ...test,
+          viewDetail: t("history.viewDetail", { ns: "simulatedTest" }),
+        }))}
+      />
     </div>
   );
 }
