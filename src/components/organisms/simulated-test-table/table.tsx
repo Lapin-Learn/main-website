@@ -1,10 +1,11 @@
 import {
-  Column,
   ColumnDef,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  PaginationState,
+  SortDirection,
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
@@ -12,7 +13,13 @@ import { ArrowDown, ArrowUp, ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+} from "@/components/ui/pagination";
 import {
   Table,
   TableBody,
@@ -22,20 +29,29 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Typography } from "@/components/ui/typography";
+import { PagedData } from "@/lib/types";
+import { SimulatedTestSessionsHistory } from "@/lib/types/simulated-test.type";
+import { cn } from "@/lib/utils";
 
 interface SimulatedTestHistoryTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  data: PagedData<SimulatedTestSessionsHistory>;
+  pagination: PaginationState;
+  setPagination: (pagination: PaginationState) => void;
 }
 
 export function SimulatedTestHistoryTable<TData, TValue>({
   columns,
   data,
+  pagination,
+  setPagination,
 }: SimulatedTestHistoryTableProps<TData, TValue>) {
   const { t } = useTranslation("simulatedTest");
+
   const [sorting, setSorting] = useState<SortingState>([]);
   const table = useReactTable({
-    data,
+    data: data?.items as TData[],
+    rowCount: data?.total,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -44,19 +60,11 @@ export function SimulatedTestHistoryTable<TData, TValue>({
     state: {
       sorting,
     },
+    manualPagination: true,
   });
 
-  const SortIcon = ({ column }: { column: Column<TData, unknown> }) => {
-    if (!column.getCanSort()) {
-      return null;
-    }
-
-    const Icon =
-      column.getIsSorted() === "desc"
-        ? ArrowDown
-        : column.getIsSorted() === "asc"
-          ? ArrowUp
-          : ChevronsUpDown;
+  const SortIcon = ({ isSorted }: { isSorted: false | SortDirection }) => {
+    const Icon = isSorted === "desc" ? ArrowDown : isSorted === "asc" ? ArrowUp : ChevronsUpDown;
 
     return <Icon className="ml-2 size-4" />;
   };
@@ -78,10 +86,9 @@ export function SimulatedTestHistoryTable<TData, TValue>({
                             header.column.toggleSorting(header.column.getIsSorted() === "asc");
                           }}
                         >
-                          <Typography variant="body2" className="font-semibold">
-                            {flexRender(header.column.columnDef.header, header.getContext())}
-                          </Typography>
-                          <SortIcon column={header.column} />
+                          <Typography variant="body2" className="font-semibold"></Typography>
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                          <SortIcon isSorted={header.column.getIsSorted()} />
                         </div>
                       )}
                     </TableHead>
@@ -115,24 +122,59 @@ export function SimulatedTestHistoryTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
-      </div>
+
+      <Pagination className="mt-4 flex items-end justify-end">
+        <PaginationContent className="overflow-hidden rounded-md border text-neutral-500">
+          <PaginationItem>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                table.previousPage();
+                setPagination({
+                  ...pagination,
+                  pageIndex: table.getState().pagination.pageIndex - 1,
+                });
+              }}
+              className={cn(!table.getCanPreviousPage() && "opacity-50")}
+              disabled={!table.getCanPreviousPage()}
+            >
+              Prev
+            </Button>
+          </PaginationItem>
+          {table.getPageCount() > 0 &&
+            [...Array(table.getPageCount()).keys()].map((page) => (
+              <PaginationItem key={page}>
+                <PaginationLink
+                  onClick={() => {
+                    if (table.getState().pagination.pageIndex === page) return;
+                    table.setPagination({ ...pagination, pageIndex: page });
+                    setPagination({ ...pagination, pageIndex: page });
+                  }}
+                  isActive={table.getState().pagination.pageIndex === page}
+                  className={cn(table.getState().pagination.pageIndex === page && " text-black")}
+                >
+                  {page + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+          <PaginationItem className="border-0">
+            <Button
+              variant="ghost"
+              onClick={() => {
+                table.nextPage();
+                setPagination({
+                  ...pagination,
+                  pageIndex: table.getState().pagination.pageIndex + 1,
+                });
+              }}
+              className={cn(!table.getCanPreviousPage() && "opacity-50")}
+              disabled={!table.getCanPreviousPage()}
+            >
+              Next
+            </Button>
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </div>
   );
 }

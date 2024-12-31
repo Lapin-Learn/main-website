@@ -1,5 +1,6 @@
+import { PaginationState } from "@tanstack/react-table";
 import { Loader2 } from "lucide-react";
-import { createElement } from "react";
+import { createElement, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { OverallBandScoreChart } from "@/components/molecules/overall-band-score-chart";
@@ -8,7 +9,7 @@ import { SimulatedTestHistoryTable } from "@/components/organisms/simulated-test
 import { Typography } from "@/components/ui";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-  useGetSTSessionHistory,
+  useGetSTSessionsHistory,
   useGetUserBandScoreOverall,
 } from "@/hooks/react-query/use-simulated-test";
 import useBreakPoint from "@/hooks/use-screen-size";
@@ -18,11 +19,22 @@ import { EnumSkill } from "@/lib/enums";
 export default function HistoryPage() {
   const { t } = useTranslation("profile");
   const { data, isLoading } = useGetUserBandScoreOverall();
-  const { data: history, isLoading: isLoadingHistory } = useGetSTSessionHistory();
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+  const { data: history, refetch } = useGetSTSessionsHistory(
+    pagination.pageIndex * pagination.pageSize,
+    pagination.pageSize
+  );
+
+  useEffect(() => {
+    refetch();
+  }, [pagination]);
 
   const breakpoint = useBreakPoint();
 
-  if (isLoading || !data || isLoadingHistory || !history)
+  if (isLoading || !data)
     return (
       <div className="grid min-h-96 w-full place-items-center">
         <Loader2 className="animate-spin text-primary-900" size={32} />
@@ -78,10 +90,20 @@ export default function HistoryPage() {
           ...column,
           header: t(`${column.header}`, { ns: "simulatedTest" }),
         }))}
-        data={history.map((test) => ({
-          ...test,
-          viewDetail: t("history.viewDetail", { ns: "simulatedTest" }),
-        }))}
+        data={{
+          ...history,
+          offset: history?.offset ?? 0,
+          limit: history?.limit ?? 0,
+          total: history?.total ?? 0,
+          page: history?.page ?? 0,
+          items:
+            history?.items?.map((test) => ({
+              ...test,
+              viewDetail: t("history.viewDetail", { ns: "simulatedTest" }),
+            })) ?? [],
+        }}
+        pagination={pagination}
+        setPagination={setPagination}
       />
     </div>
   );

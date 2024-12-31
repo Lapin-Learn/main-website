@@ -126,10 +126,25 @@ export const getUserBandScoreOverall = async () => {
   return (await api.get("simulated-tests/report").json<FetchingData<BandScoreSkill[]>>()).data;
 };
 
-export const getSimulatedTestSessionHistory = async (limit: number, offset: number) => {
+// export const getSimulatedTestSessionHistory = async (limit: number, offset: number) => {
+//   const searchParams = generateSearchParams({ limit, offset });
+//   return (
+//     await api
+//       .get("collections", {
+//         searchParams,
+//       })
+//       .json<FetchingData<PagedData<SimulatedTestSessionsHistory>>>()
+//   ).data;
+// };
+
+export const getSimulatedTestSessionHistory = async (payload: {
+  offset: number;
+  limit: number;
+}) => {
+  const searchParams = generateSearchParams(payload);
   return (
     await api
-      .get("simulated-tests/sessions", { searchParams: { limit, offset } })
-      .json<FetchingData<SimulatedTestSessionsHistory>>()
+      .get("simulated-tests/sessions", { searchParams })
+      .json<FetchingData<PagedData<SimulatedTestSessionsHistory>>>()
   ).data;
 };

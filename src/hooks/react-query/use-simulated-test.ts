@@ -1,4 +1,10 @@
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { create } from "zustand";
@@ -252,14 +258,31 @@ export const useGetUserBandScoreOverall = () => {
   });
 };
 
-export const useGetSTSessionHistory = () => {
+export const useGetSTSessionsHistory = (offset: number, limit: number) => {
   return useQuery({
     queryKey: simulatedTestKeys.session,
-    queryFn: async () => {
-      const limit = 10;
-      const offset = 0;
-      const history = await getSimulatedTestSessionHistory(limit, offset);
-      return history.items;
-    },
+    queryFn: async () => getSimulatedTestSessionHistory({ offset, limit }),
+    placeholderData: keepPreviousData,
   });
+  //       const page = pageParam || 1;
+  //       const { offset, limit } = fromPageToOffset({ page });
+  //       return getSimulatedTestSessionHistory({ offset: offset ?? 0, limit: limit ?? 10 });
+  //     },
+  //     getNextPageParam: (lastPage) => {
+  //       const { total, offset, limit, page } = lastPage;
+  //       return page * limit + offset <= total ? page + 1 : undefined;
+  //     },
+  //     initialPageParam: 1,
+  //   });
+  // return {
+  //   list: useMemo(() => parseInfiniteData(data), [data]),
+  //   isLoading,
+  //   isRefetching,
+  //   refetch,
+  //   loadMoreProps: {
+  //     fetchNextPage,
+  //     isFetchingNextPage,
+  //     hasNextPage,
+  //   },
+  // };
 };

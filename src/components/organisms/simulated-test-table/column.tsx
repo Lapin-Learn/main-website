@@ -2,11 +2,11 @@
 import { Link } from "@tanstack/react-router";
 import { ColumnDef } from "@tanstack/react-table";
 
-import { SimulatedTestSessionsHistoryItem } from "@/lib/types/simulated-test.type";
+import { SimulatedTestSessionsHistory } from "@/lib/types/simulated-test.type";
 import { formatTime } from "@/lib/utils";
 
 export const columns: ColumnDef<
-  SimulatedTestSessionsHistoryItem & {
+  SimulatedTestSessionsHistory & {
     viewDetail: string;
   }
 >[] = [
