@@ -1,10 +1,10 @@
 import { create } from "zustand";
 
-import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
+import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
 
 export type RecordingStatus = "inactive" | "recording";
 
-interface SpeakingState {
+interface RecordingState {
   testState: EnumSimulatedTestSessionStatus;
   permission: boolean;
   stream: MediaStream | null;
@@ -13,7 +13,7 @@ interface SpeakingState {
   audio: string | null;
 }
 
-interface SpeakingActions {
+interface RecordingActions {
   setTestState: (state: EnumSimulatedTestSessionStatus) => void;
   setPermission: (permission: boolean) => void;
   setStream: (stream: MediaStream) => void;
@@ -24,7 +24,7 @@ interface SpeakingActions {
   reset: () => void;
 }
 
-const initialState: SpeakingState = {
+const initialState: RecordingState = {
   testState: EnumSimulatedTestSessionStatus.NOT_STARTED,
   permission: false,
   stream: null,
@@ -33,7 +33,7 @@ const initialState: SpeakingState = {
   audio: null,
 };
 
-export const useSpeakingStore = create<SpeakingState & SpeakingActions>((set) => ({
+export const useRecordingStore = create<RecordingState & RecordingActions>((set) => ({
   ...initialState,
   setTestState: (state) => set({ testState: state }),
   setPermission: (permission) => set({ permission }),
@@ -54,12 +54,46 @@ export const useSpeakingStore = create<SpeakingState & SpeakingActions>((set) =>
   setRecordingStatus: (status) => set({ recordingStatus: status }),
   setAudioChunks: (chunks) => set({ audioChunks: chunks }),
   setAudio: (audio) => set({ audio }),
-  reset: () =>
-    set({
-      testState: EnumSimulatedTestSessionStatus.NOT_STARTED,
-      stream: null,
-      recordingStatus: "inactive",
-      audioChunks: [],
-      audio: null,
-    }),
+  reset: () => set({ ...initialState }),
+}));
+
+type SpeakingTestState = {
+  position: {
+    part: number;
+    question: number;
+  };
+  mode: EnumMode | null;
+  showInstruction: boolean;
+  speakingSources: string[];
+};
+
+type SpeakingTestActions = {
+  navigateToPart: (questionNo: number, partNo: number) => void;
+  addSpeakingSource: (source: string) => void;
+  reset: () => void;
+};
+
+const initialTestState: SpeakingTestState = {
+  position: {
+    part: 1,
+    question: 1,
+  },
+  mode: null,
+  showInstruction: true,
+  speakingSources: [],
+};
+
+export const useSpeakingTestState = create<SpeakingTestState & SpeakingTestActions>((set) => ({
+  ...initialTestState,
+  navigateToPart: (questionNo, partNo) =>
+    set((state) => ({
+      showInstruction: state.position.part !== partNo,
+      position: {
+        part: partNo,
+        question: questionNo,
+      },
+    })),
+  addSpeakingSource: (source) =>
+    set((state) => ({ speakingSources: [...state.speakingSources, source] })),
+  reset: () => set({ ...initialTestState }),
 }));

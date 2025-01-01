@@ -115,7 +115,8 @@
                 }
             ]
         },
-        "preparePartTwo": "Bạn có 1 phút để chuẩn bị"
+        "preparePartTwo": "Bạn có 1 phút để chuẩn bị",
+        "endTest": "Kết thúc bài làm" 
     },
     "startTest": "Bắt đầu làm bài",
     "start": "Bắt đầu",

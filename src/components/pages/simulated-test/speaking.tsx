@@ -5,24 +5,33 @@ import PartInstruction from "@/components/molecules/speaking-part-instruction";
 import SpeakingMicTest from "@/components/organisms/speaking-mic-test";
 import SpeakingQuestion from "@/components/organisms/speaking-question";
 import useAudioRecording from "@/hooks/use-audio-recording";
-import { useSpeakingStore } from "@/hooks/zustand/use-recording-store";
-import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
+import { useRecordingStore, useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
 import { PART_TITLES } from "@/lib/consts";
 import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
-// import { Route } from "@/routes/_authenticated/practice/simulated-test";
-// import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
+import mockSpeaking from "@/lib/mock/mockSpeaking.json";
 
 const SpeakingPage = () => {
   //TODO: Handle get test data
-  // const { skillTestId } = Route.useSearch();
-  const { testState, stopStream, reset } = useSpeakingStore();
-  const { getMicrophonePermission } = useAudioRecording();
-  const {
-    position: { part: currentPart },
-  } = useSimulatedTestState();
-  // const { data: testContent, isLoading } = useGetSkillTestData(skillTestId, currentPart);
-  const testContent = { content: "test content" };
   const isLoading = false;
+  const { getMicrophonePermission } = useAudioRecording();
+  const { testState, stopStream, reset } = useRecordingStore();
+  const {
+    showInstruction,
+    position: { part: currentPart },
+  } = useSpeakingTestState();
+
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   useEffect(() => {
     getMicrophonePermission();
@@ -34,15 +43,15 @@ const SpeakingPage = () => {
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center bg-gradient-to-b from-[#F0FCFF] to-[#C7E1EF]">
-      {testContent && !isLoading ? (
+      {mockSpeaking && !isLoading ? (
         <>
           {testState === EnumSimulatedTestSessionStatus.NOT_STARTED ? (
             <SpeakingMicTest />
           ) : (
             <div className="flex flex-1 flex-col items-center justify-center gap-8">
               <h4 className="text-heading-4 font-semibold">{PART_TITLES[currentPart]}</h4>
-              <PartInstruction partNo={currentPart} />
-              <SpeakingQuestion />
+              {showInstruction && <PartInstruction />}
+              {!showInstruction && <SpeakingQuestion content={mockSpeaking} audioSrc="audioSrc" />}
             </div>
           )}
         </>
