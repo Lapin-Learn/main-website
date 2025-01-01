@@ -3,12 +3,13 @@ import { create } from "zustand";
 import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
 
 export type RecordingStatus = "inactive" | "recording";
-
 interface RecordingState {
   testState: EnumSimulatedTestSessionStatus;
   permission: boolean;
   stream: MediaStream | null;
   recordingStatus: RecordingStatus;
+  audioLevel: number;
+  progress: number;
   audioChunks: Blob[];
   audio: string | null;
 }
@@ -19,6 +20,9 @@ interface RecordingActions {
   setStream: (stream: MediaStream) => void;
   stopStream: () => void;
   setRecordingStatus: (status: RecordingStatus) => void;
+  setAudioLevel: (level: number) => void;
+  setProgress: (fn: (prev: number) => number) => void;
+  setProgessValue: (value: number) => void;
   setAudioChunks: (chunks: Blob[]) => void;
   setAudio: (audio: string | null) => void;
   reset: () => void;
@@ -29,6 +33,8 @@ const initialState: RecordingState = {
   permission: false,
   stream: null,
   recordingStatus: "inactive",
+  audioLevel: 0,
+  progress: 0,
   audioChunks: [],
   audio: null,
 };
@@ -52,6 +58,9 @@ export const useRecordingStore = create<RecordingState & RecordingActions>((set)
       return { stream: null };
     }),
   setRecordingStatus: (status) => set({ recordingStatus: status }),
+  setAudioLevel: (level) => set({ audioLevel: level }),
+  setProgress: (fn) => set((state) => ({ progress: fn(state.progress) })),
+  setProgessValue: (value) => set({ progress: value }),
   setAudioChunks: (chunks) => set({ audioChunks: chunks }),
   setAudio: (audio) => set({ audio }),
   reset: () => set({ ...initialState }),

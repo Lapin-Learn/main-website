@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { Fragment } from "react";
+import { Fragment, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import RecordingButton from "@/components/molecules/recording-button";
@@ -17,7 +17,6 @@ type SpeakingQuestionProps = {
 const formatPartTwoContent = (content: string) => {
   const [question, details] = content.split("You should say:\n-");
   const detailItems = details.split("\n- ").filter((item) => item);
-
   return (
     <>
       <h5 className="text-center text-heading-5 font-semibold">{question}</h5>
@@ -41,7 +40,7 @@ const SpeakingPartOneAndThree = ({ content, audioSrc }: SpeakingQuestionProps) =
   const { setTestState } = useRecordingStore();
   const { t } = useTranslation("simulatedTest");
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = useCallback(() => {
     stopRecording();
     switch (currentPart) {
       case 1:
@@ -71,7 +70,15 @@ const SpeakingPartOneAndThree = ({ content, audioSrc }: SpeakingQuestionProps) =
       default:
         break;
     }
-  };
+  }, [
+    content,
+    currentPart,
+    navigateToPart,
+    question,
+    setTestState,
+    speakingSources,
+    stopRecording,
+  ]);
 
   const getNextButtonText = () => {
     if (currentPart === 1 && question === content.part1.length) {
@@ -120,7 +127,7 @@ const SpeakingPartTwo = ({ content, audioSrc }: SpeakingQuestionProps) => {
   const { setTestState } = useRecordingStore();
   const { t } = useTranslation("simulatedTest");
 
-  const handleNextPart = () => {
+  const handleNextPart = useCallback(() => {
     stopRecording();
     if (content.part3) {
       navigateToPart(1, 3);
@@ -129,7 +136,7 @@ const SpeakingPartTwo = ({ content, audioSrc }: SpeakingQuestionProps) => {
       console.log(speakingSources);
       alert("End of test");
     }
-  };
+  }, [content, navigateToPart, setTestState, speakingSources, stopRecording]);
 
   return (
     <div className="grid w-[880px] grid-cols-12 gap-6">
@@ -139,7 +146,7 @@ const SpeakingPartTwo = ({ content, audioSrc }: SpeakingQuestionProps) => {
       <div className="col-span-4 flex flex-col items-center justify-center gap-8 overflow-visible rounded-lg border border-blue-200 bg-white p-10">
         <p className="text-center">{t("speaking.preparePartTwo")}</p>
         <div className="relative h-full w-fit overflow-visible">
-          <RecordingButton onStop={handleNextPart} duration={120} />
+          <RecordingButton onStop={handleNextPart} duration={30} />
         </div>
         <Button type="button" className="w-full flex-1 sm:w-fit" onClick={handleNextPart}>
           <div className="flex items-center gap-2">

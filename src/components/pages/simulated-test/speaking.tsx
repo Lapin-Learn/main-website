@@ -39,7 +39,7 @@ const SpeakingPage = () => {
       stopStream();
       reset();
     };
-  }, [stopStream, reset]);
+  }, [stopStream, reset, getMicrophonePermission]);
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center bg-gradient-to-b from-[#F0FCFF] to-[#C7E1EF]">

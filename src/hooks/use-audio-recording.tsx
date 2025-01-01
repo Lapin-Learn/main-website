@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
@@ -6,14 +6,19 @@ import { useToast } from "./use-toast";
 import { useRecordingStore } from "./zustand/use-speaking-test";
 
 function useAudioRecording() {
-  const { stream, setStream, audioChunks, setRecordingStatus, setAudioChunks, setAudio } =
-    useRecordingStore();
+  const {
+    stream,
+    setStream,
+    audioChunks,
+    setRecordingStatus,
+    setAudioLevel,
+    setProgessValue,
+    setAudioChunks,
+    setAudio,
+  } = useRecordingStore();
   const { listening } = useSpeechRecognition();
   const { toast } = useToast();
   const { t } = useTranslation("simulatedTest");
-  const [isRecording, setIsRecording] = useState(false);
-  const [audioLevel, setAudioLevel] = useState(0);
-  const [progress, setProgress] = useState(0);
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const dataArrayRef = useRef<Uint8Array | null>(null);
@@ -47,7 +52,6 @@ function useAudioRecording() {
 
     if (!listening) {
       SpeechRecognition.startListening({ continuous: true });
-      setIsRecording(true);
     }
 
     if (stream) {
@@ -69,10 +73,9 @@ function useAudioRecording() {
 
   const stopRecording = useCallback(() => {
     SpeechRecognition.stopListening();
-    setIsRecording(false);
     setAudioLevel(0);
     setRecordingStatus("inactive");
-    setProgress(0);
+    setProgessValue(0);
 
     if (mediaRecorder.current) {
       mediaRecorder.current.stop();
@@ -98,12 +101,6 @@ function useAudioRecording() {
     startRecording,
     stopRecording,
     updateAudioLevel,
-    isRecording,
-    setIsRecording,
-    audioLevel,
-    setAudioLevel,
-    progress,
-    setProgress,
     audioContextRef,
     analyserRef,
     dataArrayRef,

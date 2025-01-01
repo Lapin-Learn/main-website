@@ -5,7 +5,7 @@ import SpeakingIcon from "@/assets/icons/skills/speaking-filled";
 import { Button } from "@/components/ui";
 import AudioRipple from "@/components/ui/audio-ripple";
 import useAudioRecording from "@/hooks/use-audio-recording";
-import { useRecordingStore, useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
+import { useRecordingStore } from "@/hooks/zustand/use-speaking-test";
 
 import { AudioProgress } from "../audio-progress";
 
@@ -28,17 +28,21 @@ const RecordingButton = ({ duration, playBack = false, onStart, onStop }: Record
     startRecording,
     stopRecording,
     updateAudioLevel,
-    isRecording,
-    audioLevel,
-    setAudioLevel,
-    progress,
-    setProgress,
     audioContextRef,
     analyserRef,
     dataArrayRef,
   } = useAudioRecording();
-  const { audio, permission, recordingStatus, stream } = useRecordingStore();
-  const { addSpeakingSource } = useSpeakingTestState();
+  const {
+    audio,
+    audioLevel,
+    setProgessValue,
+    setAudioLevel,
+    progress,
+    setProgress,
+    permission,
+    recordingStatus,
+    stream,
+  } = useRecordingStore();
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -46,17 +50,15 @@ const RecordingButton = ({ duration, playBack = false, onStart, onStop }: Record
   const handleStartRecording = () => {
     if (onStart) {
       onStart();
-    } else {
-      startRecording();
     }
+    startRecording();
   };
 
   const handleStopRecording = () => {
     if (onStop) {
       onStop();
-    } else {
-      stopRecording();
     }
+    stopRecording();
   };
 
   const handlePlayPause = () => {
@@ -69,20 +71,20 @@ const RecordingButton = ({ duration, playBack = false, onStart, onStop }: Record
   };
 
   const handleTimeUpdate = () => {
-    if (audioRef.current && !isRecording) {
+    if (audioRef.current && recordingStatus === "inactive") {
       const currentTime = audioRef.current.currentTime;
       const duration = audioRef.current.duration;
-      setProgress((currentTime / duration) * 100);
+      setProgessValue((currentTime / duration) * 100);
     }
   };
 
   const handleAudioEnded = () => {
     setIsPlaying(false);
-    setProgress(0);
+    setProgessValue(0);
   };
 
   useEffect(() => {
-    if (isRecording) {
+    if (recordingStatus === "recording") {
       if (!audioContextRef.current) {
         audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
       }
@@ -103,19 +105,19 @@ const RecordingButton = ({ duration, playBack = false, onStart, onStop }: Record
       }
 
       //TODO: Handle unlimited recording
-      intervalRef.current = setInterval(
-        () => {
-          setProgress((prev) => {
-            if (prev >= (duration * 1000) / 100) {
-              clearInterval(intervalRef.current!);
-              handleStopRecording();
-              return (duration * 1000) / 100;
-            }
-            return prev + 1;
-          });
-        },
-        (duration * 1000) / 100
-      );
+      const intervalDuration = 100;
+      const progressIncrement = 100 / (duration * 10);
+
+      intervalRef.current = setInterval(() => {
+        setProgress((prev: number) => {
+          if (prev >= 100) {
+            clearInterval(intervalRef.current!);
+            handleStopRecording();
+            return 100;
+          }
+          return prev + progressIncrement;
+        });
+      }, intervalDuration);
 
       return () => {
         if (intervalRef.current) {
@@ -123,7 +125,7 @@ const RecordingButton = ({ duration, playBack = false, onStart, onStop }: Record
         }
       };
     } else {
-      setProgress(0);
+      setProgessValue(0);
       setAudioLevel(0);
       if (audioContextRef.current) {
         audioContextRef.current.close();
@@ -132,7 +134,7 @@ const RecordingButton = ({ duration, playBack = false, onStart, onStop }: Record
       analyserRef.current = null;
       dataArrayRef.current = null;
     }
-  }, [isRecording, stopRecording, duration, intervalRef]);
+  }, [recordingStatus, stopRecording, duration, intervalRef]);
 
   useEffect(() => {
     if (audio && audioRef.current) {
@@ -141,16 +143,14 @@ const RecordingButton = ({ duration, playBack = false, onStart, onStop }: Record
     }
   }, [audio, audioRef]);
 
-  useEffect(() => {
-    if (audio && !playBack) {
-      addSpeakingSource(audio);
-    }
-  }, [audio, addSpeakingSource, playBack]);
+  console.log(audio);
 
   return (
     <div className="relative h-full w-fit overflow-visible">
-      {(isRecording || isPlaying) && (
-        <AudioRipple audioLevel={isRecording ? audioLevel : isPlaying ? 60 : 0} />
+      {(recordingStatus === "recording" || isPlaying) && (
+        <AudioRipple
+          audioLevel={recordingStatus === "recording" ? audioLevel : isPlaying ? 60 : 0}
+        />
       )}
       <div className="z-0 overflow-visible">
         <AudioProgress
@@ -166,7 +166,7 @@ const RecordingButton = ({ duration, playBack = false, onStart, onStop }: Record
             onClick={
               playBack && isPlaying
                 ? handlePlayPause
-                : isRecording
+                : recordingStatus === "recording"
                   ? handleStopRecording
                   : handleStartRecording
             }
