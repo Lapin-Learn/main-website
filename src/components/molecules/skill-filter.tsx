@@ -58,9 +58,9 @@ const SkillsFilter = () => {
             )}
           >
             {label === (search.skill || ExtendEnumSkill.allSkills) ? (
-              <IconFilled className={cn("h-5 w-5")} fill="#c2410c" />
+              <IconFilled className={cn("size-4")} fill="#c2410c" />
             ) : (
-              <IconOutlined className={cn("h-5 w-5")} fill="#374151" />
+              <IconOutlined className={cn("size-4")} fill="#374151" />
             )}
             <span className="md:inline">
               {t(label).charAt(0).toUpperCase() + t(label).slice(1)}

@@ -264,25 +264,4 @@ export const useGetSTSessionsHistory = (offset: number, limit: number) => {
     queryFn: async () => getSimulatedTestSessionHistory({ offset, limit }),
     placeholderData: keepPreviousData,
   });
-  //       const page = pageParam || 1;
-  //       const { offset, limit } = fromPageToOffset({ page });
-  //       return getSimulatedTestSessionHistory({ offset: offset ?? 0, limit: limit ?? 10 });
-  //     },
-  //     getNextPageParam: (lastPage) => {
-  //       const { total, offset, limit, page } = lastPage;
-  //       return page * limit + offset <= total ? page + 1 : undefined;
-  //     },
-  //     initialPageParam: 1,
-  //   });
-  // return {
-  //   list: useMemo(() => parseInfiniteData(data), [data]),
-  //   isLoading,
-  //   isRefetching,
-  //   refetch,
-  //   loadMoreProps: {
-  //     fetchNextPage,
-  //     isFetchingNextPage,
-  //     hasNextPage,
-  //   },
-  // };
 };

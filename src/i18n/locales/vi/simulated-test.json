@@ -122,9 +122,9 @@
         "viewDetail": "Xem chi tiết",
         "assignment": "Bài làm",
         "skill": "Kỹ năng",
-        "date_completed": "Ngày làm",
+        "date_completed": "Ngày hoàn thành",
         "result": "Kết quả",
-        "duration": "Thời gian làm bài",
+        "duration": "Thời gian",
         "noData": "Không có dữ liệu bài làm"
     }
 }

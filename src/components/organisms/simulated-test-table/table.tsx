@@ -6,11 +6,9 @@ import {
   getSortedRowModel,
   PaginationState,
   SortDirection,
-  SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowDown, ArrowUp, ChevronsUpDown } from "lucide-react";
-import { useState } from "react";
+import { ArrowDown, ArrowDownUp, ArrowUp, ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui";
@@ -29,9 +27,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Typography } from "@/components/ui/typography";
+import useBreakPoint from "@/hooks/use-screen-size";
 import { PagedData } from "@/lib/types";
 import { SimulatedTestSessionsHistory } from "@/lib/types/simulated-test.type";
-import { cn } from "@/lib/utils";
 
 interface SimulatedTestHistoryTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -47,27 +45,25 @@ export function SimulatedTestHistoryTable<TData, TValue>({
   setPagination,
 }: SimulatedTestHistoryTableProps<TData, TValue>) {
   const { t } = useTranslation("simulatedTest");
+  const breakpoint = useBreakPoint();
 
-  const [sorting, setSorting] = useState<SortingState>([]);
   const table = useReactTable({
     data: data?.items as TData[],
     rowCount: data?.total,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
-    state: {
-      sorting,
-    },
     manualPagination: true,
   });
 
   const SortIcon = ({ isSorted }: { isSorted: false | SortDirection }) => {
-    const Icon = isSorted === "desc" ? ArrowDown : isSorted === "asc" ? ArrowUp : ChevronsUpDown;
+    const Icon = isSorted === "desc" ? ArrowDown : isSorted === "asc" ? ArrowUp : ArrowDownUp;
 
-    return <Icon className="ml-2 size-4" />;
+    return <Icon className="ml-2 size-3 text-[#676879]" />;
   };
+
+  console.log(breakpoint);
 
   return (
     <div>
@@ -80,16 +76,12 @@ export function SimulatedTestHistoryTable<TData, TValue>({
                   return (
                     <TableHead key={header.id}>
                       {!header.isPlaceholder && header.column.columnDef.header !== "undefined" && (
-                        <div
-                          className="flex cursor-pointer items-center justify-between p-4 text-black"
-                          onClick={() => {
-                            header.column.toggleSorting(header.column.getIsSorted() === "asc");
-                          }}
-                        >
-                          <Typography variant="body2" className="font-semibold"></Typography>
-                          {flexRender(header.column.columnDef.header, header.getContext())}
-                          <SortIcon isSorted={header.column.getIsSorted()} />
-                        </div>
+                        <Typography variant="body2" className="font-semibold text-black">
+                          <div className="flex cursor-pointer items-center justify-between truncate p-4">
+                            {flexRender(header.column.columnDef.header, header.getContext())}
+                            <SortIcon isSorted={header.column.getIsSorted()} />
+                          </div>
+                        </Typography>
                       )}
                     </TableHead>
                   );
@@ -104,7 +96,7 @@ export function SimulatedTestHistoryTable<TData, TValue>({
                   {row.getVisibleCells().map((cell) => {
                     return (
                       <TableCell key={cell.id} className="p-4">
-                        <Typography variant="body2">
+                        <Typography variant="body2" className="truncate">
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </Typography>
                       </TableCell>
@@ -123,7 +115,7 @@ export function SimulatedTestHistoryTable<TData, TValue>({
         </Table>
       </div>
 
-      <Pagination className="mt-4 flex items-end justify-end">
+      <Pagination className="mt-4 flex w-fit items-end justify-end">
         <PaginationContent className="overflow-hidden rounded-md border text-neutral-500">
           <PaginationItem>
             <Button
@@ -135,10 +127,9 @@ export function SimulatedTestHistoryTable<TData, TValue>({
                   pageIndex: table.getState().pagination.pageIndex - 1,
                 });
               }}
-              className={cn(!table.getCanPreviousPage() && "opacity-50")}
               disabled={!table.getCanPreviousPage()}
             >
-              Prev
+              {breakpoint === "xs" ? <ChevronLeft className="size-4" /> : "Prev"}
             </Button>
           </PaginationItem>
           {table.getPageCount() > 0 &&
@@ -151,7 +142,6 @@ export function SimulatedTestHistoryTable<TData, TValue>({
                     setPagination({ ...pagination, pageIndex: page });
                   }}
                   isActive={table.getState().pagination.pageIndex === page}
-                  className={cn(table.getState().pagination.pageIndex === page && " text-black")}
                 >
                   {page + 1}
                 </PaginationLink>
@@ -167,10 +157,9 @@ export function SimulatedTestHistoryTable<TData, TValue>({
                   pageIndex: table.getState().pagination.pageIndex + 1,
                 });
               }}
-              className={cn(!table.getCanPreviousPage() && "opacity-50")}
-              disabled={!table.getCanPreviousPage()}
+              disabled={!table.getCanNextPage()}
             >
-              Next
+              {breakpoint === "xs" ? <ChevronRight className="size-4" /> : "Next"}
             </Button>
           </PaginationItem>
         </PaginationContent>
