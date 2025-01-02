@@ -7,6 +7,7 @@ import {
   SimulatedTestAnswer,
   SimulatedTestCollection,
   SimulatedTestSession,
+  SimulatedTestSessionsHistory,
 } from "@/lib/types/simulated-test.type";
 import { generateSearchParams } from "@/lib/utils";
 
@@ -123,4 +124,16 @@ export const getSimulatedTestDetail = async (simulatedTestId: number) => {
 
 export const getUserBandScoreOverall = async () => {
   return (await api.get("simulated-tests/report").json<FetchingData<BandScoreSkill[]>>()).data;
+};
+
+export const getSimulatedTestSessionHistory = async (payload: {
+  offset: number;
+  limit: number;
+}) => {
+  const searchParams = generateSearchParams(payload);
+  return (
+    await api
+      .get("simulated-tests/sessions", { searchParams })
+      .json<FetchingData<PagedData<SimulatedTestSessionsHistory>>>()
+  ).data;
 };

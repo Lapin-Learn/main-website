@@ -19,7 +19,7 @@
     "nextBtn": "Next",
     "prevBtn": "Previous",
     "submitBtn": "Submit",
-    "mode":{
+    "mode": {
         "practice": "Practice Mode",
         "test": "Full Test Mode"
     },
@@ -83,7 +83,7 @@
         "browserNotSupportTitle": "Browser not supported",
         "browserNotSupportDescription": "This browser does not support audio recording.",
         "instructions": {
-        "practice": [
+            "practice": [
                 {
                     "title": "Unlimited Time",
                     "content": "In this mode, your thinking and speaking time will not be limited, allowing you to practice comfortably without worrying about time."
@@ -113,8 +113,17 @@
             ]
         },
         "preparePartTwo": "You have 1 minute to prepare"
-  },
-  "startTest": "Start the Test",
-  "start": "Start",
-  "nextQuestion": "Next Question"
+    },
+    "startTest": "Start the Test",
+    "start": "Start",
+    "nextQuestion": "Next Question",
+    "history": {
+        "viewDetail": "View Detail",
+        "assignment": "Assignment",
+        "skill": "Skill",
+        "date_completed": "Date",
+        "result": "Result",
+        "duration": "Duration",
+        "noData": "No data available"
+    }
 }

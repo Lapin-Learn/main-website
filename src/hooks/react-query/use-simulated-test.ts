@@ -1,4 +1,10 @@
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { create } from "zustand";
@@ -12,6 +18,7 @@ import {
   getSimulatedTestCollections,
   getSimulatedTestDetail,
   getSimulatedTestSessionDetail,
+  getSimulatedTestSessionHistory,
   getUserBandScoreOverall,
   SimulatedSkillTestParams,
   startSimulatedTest,
@@ -34,7 +41,7 @@ const simulatedTestKeys = {
   simulatedTestKey: ["simulated-test"] as const,
   simulatedTestDetail: (simulatedTestId: number) =>
     [...simulatedTestKeys.simulatedTestKey, simulatedTestId] as const,
-  overall: () => [...simulatedTestKeys.simulatedTestKey, "overal"] as const,
+  overall: () => [...simulatedTestKeys.simulatedTestKey, "overall"] as const,
 };
 
 type State = {
@@ -248,5 +255,13 @@ export const useGetUserBandScoreOverall = () => {
         overallBandScore: null,
       };
     },
+  });
+};
+
+export const useGetSTSessionsHistory = (offset: number, limit: number) => {
+  return useQuery({
+    queryKey: simulatedTestKeys.session,
+    queryFn: async () => getSimulatedTestSessionHistory({ offset, limit }),
+    placeholderData: keepPreviousData,
   });
 };

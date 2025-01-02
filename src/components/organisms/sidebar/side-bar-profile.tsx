@@ -16,7 +16,7 @@ export const SideBarProfile = ({ isSidebarOpen }: { isSidebarOpen: boolean }) =>
       <Separator />
       <HoverCard>
         <HoverCardTrigger asChild>
-          <Link to="/profile">
+          <Link to="/profile/history">
             <div
               className={cn(
                 "flex flex-row items-center justify-center",
