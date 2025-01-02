@@ -2,38 +2,23 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 
 import AllSkillsIcon from "@/assets/icons/skills/all";
-import AllSkillsFilledIcon from "@/assets/icons/skills/all-filled";
-import ListeningIcon from "@/assets/icons/skills/listening";
-import ListeningFilledIcon from "@/assets/icons/skills/listening-filled";
-import ReadingIcon from "@/assets/icons/skills/reading";
-import ReadingFilledIcon from "@/assets/icons/skills/reading-filled";
-import SpeakingIcon from "@/assets/icons/skills/speaking";
-import SpeakingFilledIcon from "@/assets/icons/skills/speaking-filled";
-import WritingIcon from "@/assets/icons/skills/writing";
-import WritingFilledIcon from "@/assets/icons/skills/writing-filled";
-import { ExtendEnumSkill } from "@/lib/enums";
+import { MAPPED_SKILL_ICON, MAPPED_SKILL_ICON_FILLED } from "@/lib/consts";
+import { EnumSkill, ExtendEnumSkill } from "@/lib/enums";
 import { cn } from "@/lib/utils";
 
 import { Button } from "../ui";
 
-const skillsList: {
-  label: ExtendEnumSkill;
-  IconOutlined: React.FC<React.SVGProps<SVGSVGElement>>;
-  IconFilled: React.FC<React.SVGProps<SVGSVGElement>>;
-}[] = [
+const skillsList = [
   {
     label: ExtendEnumSkill.allSkills,
     IconOutlined: AllSkillsIcon,
-    IconFilled: AllSkillsFilledIcon,
+    IconFilled: AllSkillsIcon,
   },
-  { label: ExtendEnumSkill.reading, IconOutlined: ReadingIcon, IconFilled: ReadingFilledIcon },
-  {
-    label: ExtendEnumSkill.listening,
-    IconOutlined: ListeningIcon,
-    IconFilled: ListeningFilledIcon,
-  },
-  { label: ExtendEnumSkill.writing, IconOutlined: WritingIcon, IconFilled: WritingFilledIcon },
-  { label: ExtendEnumSkill.speaking, IconOutlined: SpeakingIcon, IconFilled: SpeakingFilledIcon },
+  ...Object.keys(MAPPED_SKILL_ICON).map((key) => ({
+    label: key,
+    IconOutlined: MAPPED_SKILL_ICON[key as EnumSkill],
+    IconFilled: MAPPED_SKILL_ICON_FILLED[key as EnumSkill],
+  })),
 ];
 
 const SkillsFilter = () => {

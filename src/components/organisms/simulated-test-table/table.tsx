@@ -55,6 +55,7 @@ export function SimulatedTestHistoryTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     manualPagination: true,
+    enableSorting: false,
   });
 
   const SortIcon = ({ isSorted }: { isSorted: false | SortDirection }) => {
@@ -62,8 +63,6 @@ export function SimulatedTestHistoryTable<TData, TValue>({
 
     return <Icon className="ml-2 size-3 text-[#676879]" />;
   };
-
-  console.log(breakpoint);
 
   return (
     <div>
@@ -79,7 +78,9 @@ export function SimulatedTestHistoryTable<TData, TValue>({
                         <Typography variant="body2" className="font-semibold text-black">
                           <div className="flex cursor-pointer items-center justify-between truncate p-4">
                             {flexRender(header.column.columnDef.header, header.getContext())}
-                            <SortIcon isSorted={header.column.getIsSorted()} />
+                            {header.column.getCanSort() && (
+                              <SortIcon isSorted={header.column.getIsSorted()} />
+                            )}
                           </div>
                         </Typography>
                       )}
@@ -115,7 +116,7 @@ export function SimulatedTestHistoryTable<TData, TValue>({
         </Table>
       </div>
 
-      <Pagination className="mt-4 flex w-fit items-end justify-end">
+      <Pagination className="mt-4 flex items-end justify-end">
         <PaginationContent className="overflow-hidden rounded-md border text-neutral-500">
           <PaginationItem>
             <Button

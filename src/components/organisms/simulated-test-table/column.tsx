@@ -2,26 +2,10 @@
 import { Link } from "@tanstack/react-router";
 import { ColumnDef } from "@tanstack/react-table";
 
-import ListeningIcon from "@/assets/icons/skills/listening";
-import ReadingIcon from "@/assets/icons/skills/reading";
-import SpeakingIcon from "@/assets/icons/skills/speaking";
-import WritingIcon from "@/assets/icons/skills/writing";
-import { ExtendEnumSkill } from "@/lib/enums";
+import { MAPPED_SKILL_ICON } from "@/lib/consts";
+import { EnumSkill } from "@/lib/enums";
 import { SimulatedTestSessionsHistory } from "@/lib/types/simulated-test.type";
 import { cn, formatTime } from "@/lib/utils";
-
-const skillsList: {
-  label: ExtendEnumSkill;
-  IconOutlined: React.FC<React.SVGProps<SVGSVGElement>>;
-}[] = [
-  { label: ExtendEnumSkill.reading, IconOutlined: ReadingIcon },
-  {
-    label: ExtendEnumSkill.listening,
-    IconOutlined: ListeningIcon,
-  },
-  { label: ExtendEnumSkill.writing, IconOutlined: WritingIcon },
-  { label: ExtendEnumSkill.speaking, IconOutlined: SpeakingIcon },
-];
 
 export const columns: ColumnDef<
   SimulatedTestSessionsHistory & {
@@ -32,9 +16,8 @@ export const columns: ColumnDef<
     accessorKey: "testName",
     header: "history.assignment",
     cell: ({ cell }: { cell: any }) => {
-      const Icon = skillsList.find(
-        (skill) => skill.label === cell.row.original.skill
-      )?.IconOutlined;
+      const Icon = MAPPED_SKILL_ICON[cell.row.original.skill as EnumSkill];
+
       return (
         <div className="flex items-center gap-2">
           {Icon && <Icon className={cn("size-4")} fill="#929292" />}
@@ -43,17 +26,6 @@ export const columns: ColumnDef<
       );
     },
   },
-  // {
-  //   accessorKey: "skill",
-  //   header: "history.skill",
-  //   cell: ({ cell }: { cell: any }) => {
-  //     return (
-  //       <div className="text-neutral-200">
-  //         {cell.getValue().charAt(0).toUpperCase() + cell.getValue().slice(1)}
-  //       </div>
-  //     );
-  //   },
-  // },
   {
     accessorKey: "createdAt",
     header: "history.date_completed",
