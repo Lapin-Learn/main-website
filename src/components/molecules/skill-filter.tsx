@@ -23,13 +23,13 @@ const skillsList = [
 
 const SkillsFilter = () => {
   const { t } = useTranslation();
-  const { search } = useLocation();
+  const { search, pathname } = useLocation();
   return (
     <div className="flex flex-wrap justify-center gap-4">
       {skillsList.map(({ label, IconOutlined, IconFilled }) => (
         <Link
           key={label}
-          to="/practice"
+          to={pathname}
           search={{ skill: label !== ExtendEnumSkill.allSkills ? label : undefined }}
         >
           <Button

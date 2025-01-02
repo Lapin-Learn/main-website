@@ -40,7 +40,10 @@ export default function CollectionDetailPage() {
                 if (!skillTest) return null;
                 return (
                   <FilteredSkillCard
-                    test={simulatedTest}
+                    test={{
+                      ...simulatedTest,
+                      collectionId: Number(collectionId),
+                    }}
                     skillTest={skillTest}
                     isSupport={!!skillTest && skillTest.partsDetail.length > 0}
                   />

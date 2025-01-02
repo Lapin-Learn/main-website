@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 
 import { useGetCollectionInfo } from "@/hooks/react-query/use-simulated-test";
 import { MAPPED_SIMULATED_TEST_TAGS } from "@/lib/consts";
-import { EnumSkill } from "@/lib/enums";
 import { SimulatedTestSession } from "@/lib/types/simulated-test.type";
 import { formatTime } from "@/lib/utils";
 
@@ -12,14 +11,12 @@ import TagsList from "../molecules/tags-list";
 import { Separator } from "../ui/separator";
 import { Skeleton } from "../ui/skeleton";
 
-export function CollectionDetailHeader({
-  collectionId,
-  session,
-}: {
+type CollectionDetailHeaderProps = {
   collectionId: number;
   session?: SimulatedTestSession;
-  skill?: EnumSkill;
-}) {
+};
+
+export function CollectionDetailHeader({ collectionId, session }: CollectionDetailHeaderProps) {
   const { t } = useTranslation(["practice", "collection"]);
   const { collection, isLoading: collectionLoading } = useGetCollectionInfo(collectionId);
 
