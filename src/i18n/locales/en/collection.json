@@ -1,10 +1,10 @@
 {
     "viewHistory": "View History",
     "correctAnswer": "Correct Answers",
-    "timeSpent": "Time Spent",
+    "timeSpent": "Time spent",
     "comingSoon": "Coming Soon",
     "detail": {
-        "button": "View Details",
+        "button": "View details",
         "title": "Details",
         "answerKeys": "Answer Keys"
     },

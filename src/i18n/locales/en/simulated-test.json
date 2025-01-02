@@ -20,6 +20,7 @@
     "prevBtn": "Previous",
     "submitBtn": "Submit",
     "mode": {
+        "title": "Mode",
         "practice": "Practice Mode",
         "test": "Full Test Mode"
     },
@@ -118,12 +119,12 @@
     "start": "Start",
     "nextQuestion": "Next Question",
     "history": {
-        "viewDetail": "View Detail",
-        "assignment": "Assignment",
+        "viewDetail": "View details",
+        "assignment": "Simulated test",
         "skill": "Skill",
-        "date_completed": "Date",
+        "date_completed": "Date completed",
         "result": "Result",
-        "duration": "Duration",
+        "duration": "Elapsed time",
         "noData": "No data available"
     }
 }

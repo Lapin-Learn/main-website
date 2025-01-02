@@ -7,6 +7,7 @@ import {
 } from "@tanstack/react-table";
 import { ArrowDown, ArrowDownUp, ArrowUp, ChevronLeft, ChevronRight } from "lucide-react";
 import { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   Table,
@@ -45,6 +46,7 @@ export const BaseTable = <TData, TValue>(props: BaseTableProps<TData, TValue>) =
     classNames,
   } = props;
   const breakpoint = useBreakPoint();
+  const { t } = useTranslation();
 
   const SortIcon = ({ isSorted }: { isSorted: false | SortDirection }) => {
     const Icon = isSorted === "desc" ? ArrowDown : isSorted === "asc" ? ArrowUp : ArrowDownUp;
@@ -146,7 +148,7 @@ export const BaseTable = <TData, TValue>(props: BaseTableProps<TData, TValue>) =
                 }}
                 disabled={!table.getCanPreviousPage()}
               >
-                {breakpoint === "xs" ? <ChevronLeft className="size-4" /> : "Prev"}
+                {breakpoint === "xs" ? <ChevronLeft className="size-4" /> : t("prev")}
               </Button>
             </PaginationItem>
             {table.getPageCount() > 0 &&
@@ -176,7 +178,7 @@ export const BaseTable = <TData, TValue>(props: BaseTableProps<TData, TValue>) =
                 }}
                 disabled={!table.getCanNextPage()}
               >
-                {breakpoint === "xs" ? <ChevronRight className="size-4" /> : "Next"}
+                {breakpoint === "xs" ? <ChevronRight className="size-4" /> : t("next")}
               </Button>
             </PaginationItem>
           </PaginationContent>

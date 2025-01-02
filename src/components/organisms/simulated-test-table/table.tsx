@@ -11,13 +11,13 @@ import { useTranslation } from "react-i18next";
 import { useGetSTSessionsHistory } from "@/hooks/react-query/use-simulated-test";
 
 import { BaseTable } from "../base-table";
-import { getColumns } from "./column";
+import { columns, extendedColumns } from "./column";
 
 type SimulatedTestHistoryTableProps = {
   minimal?: boolean;
 };
 
-export function SimulatedTestHistoryTable({ minimal }: SimulatedTestHistoryTableProps) {
+export function SimulatedTestHistoryTable({ minimal = false }: SimulatedTestHistoryTableProps) {
   const { t } = useTranslation("simulatedTest");
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -29,7 +29,7 @@ export function SimulatedTestHistoryTable({ minimal }: SimulatedTestHistoryTable
     pagination.pageSize
   );
 
-  const i18nColumns = getColumns().map((column) => ({
+  const i18nColumns = (minimal ? columns : extendedColumns).map((column) => ({
     ...column,
     header: t(column.header as string),
   }));

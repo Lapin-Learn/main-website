@@ -1,7 +1,11 @@
-import { useLocation } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 
-import { SimulatedTestCollection, SimulatedTestSession } from "@/lib/types/simulated-test.type";
+import {
+  SimulatedTest,
+  SimulatedTestCollection,
+  SimulatedTestSession,
+} from "@/lib/types/simulated-test.type";
 
 import {
   Breadcrumb,
@@ -12,17 +16,22 @@ import {
   BreadcrumbSeparator,
 } from "../ui/breadcrumb";
 
+type PracticeBreadcrumbProps = {
+  collection: SimulatedTestCollection;
+  session?: SimulatedTestSession;
+  simulatedTest?: SimulatedTest;
+};
+
 export function PracticeBreadcrumb({
   collection,
   session,
-}: {
-  collection: SimulatedTestCollection;
-  session?: SimulatedTestSession;
-}) {
+  simulatedTest,
+}: PracticeBreadcrumbProps) {
   const { t } = useTranslation();
   const location = useLocation();
   const pathSegments = location.pathname.split("/").filter(Boolean);
 
+  // TODO: Kind of messy and hard to read. Refactor this to make it more readable. :">>> From Panda w luv
   const generateBreadcrumbs = () => {
     const breadcrumbs = [];
     if (pathSegments[0] === "practice") {
@@ -30,6 +39,20 @@ export function PracticeBreadcrumb({
       if (collection?.name) {
         breadcrumbs.push({ label: collection.name, href: `/practice/${collection.id}` });
       }
+      if (session) {
+        breadcrumbs.push({
+          label: session.skillTest.simulatedIeltsTest.testName,
+          href: `/practice/${collection.id}/simulated-test/${session?.skillTest.simulatedIeltsTest.id}`,
+        });
+      }
+
+      if (pathSegments[2] === "simulated-test" && simulatedTest) {
+        breadcrumbs.push({
+          label: simulatedTest.testName,
+          href: `/practice/${collection.id}/simulated-test/${simulatedTest.id}`,
+        });
+      }
+
       if (location.search.skill) {
         const skillName =
           location.search.skill.charAt(0).toUpperCase() + location.search.skill.slice(1);
@@ -38,6 +61,7 @@ export function PracticeBreadcrumb({
           href: `/practice/${collection.id}?skill=${location.search.skill}`,
         });
       }
+
       if (pathSegments[1] === "simulated-test" && pathSegments[2] === "result") {
         if (session?.skillTest?.skill) {
           const skillName =
@@ -64,7 +88,9 @@ export function PracticeBreadcrumb({
               <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
             ) : (
               <>
-                <BreadcrumbLink href={crumb.href}>{crumb.label}</BreadcrumbLink>
+                <BreadcrumbLink href={crumb.href} asChild>
+                  <Link to={crumb.href}>{crumb.label}</Link>
+                </BreadcrumbLink>
                 <BreadcrumbSeparator />
               </>
             )}
