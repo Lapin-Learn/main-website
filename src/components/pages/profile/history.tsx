@@ -1,17 +1,12 @@
-import { PaginationState } from "@tanstack/react-table";
 import { Loader2 } from "lucide-react";
-import { createElement, useEffect, useState } from "react";
+import { createElement } from "react";
 import { useTranslation } from "react-i18next";
 
 import { OverallBandScoreChart } from "@/components/molecules/overall-band-score-chart";
-import { columns } from "@/components/organisms/simulated-test-table/column";
 import { SimulatedTestHistoryTable } from "@/components/organisms/simulated-test-table/table";
 import { Typography } from "@/components/ui";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  useGetSTSessionsHistory,
-  useGetUserBandScoreOverall,
-} from "@/hooks/react-query/use-simulated-test";
+import { useGetUserBandScoreOverall } from "@/hooks/react-query/use-simulated-test";
 import useBreakPoint from "@/hooks/use-screen-size";
 import { MAPPED_SKILL_ICON_FILLED } from "@/lib/consts";
 import { EnumSkill } from "@/lib/enums";
@@ -19,18 +14,6 @@ import { EnumSkill } from "@/lib/enums";
 export default function HistoryPage() {
   const { t } = useTranslation("profile");
   const { data, isLoading } = useGetUserBandScoreOverall();
-  const [pagination, setPagination] = useState<PaginationState>({
-    pageIndex: 0,
-    pageSize: 10,
-  });
-  const { data: history, refetch } = useGetSTSessionsHistory(
-    pagination.pageIndex * pagination.pageSize,
-    pagination.pageSize
-  );
-
-  useEffect(() => {
-    refetch();
-  }, [pagination]);
 
   const breakpoint = useBreakPoint();
 
@@ -85,26 +68,7 @@ export default function HistoryPage() {
         {t("learning_history.simulated_test_history")}
       </Typography>
 
-      <SimulatedTestHistoryTable
-        columns={columns.map((column) => ({
-          ...column,
-          header: t(`${column.header}`, { ns: "simulatedTest" }),
-        }))}
-        data={{
-          ...history,
-          offset: history?.offset ?? 0,
-          limit: history?.limit ?? 0,
-          total: history?.total ?? 0,
-          page: history?.page ?? 0,
-          items:
-            history?.items?.map((test) => ({
-              ...test,
-              viewDetail: t("history.viewDetail", { ns: "simulatedTest" }),
-            })) ?? [],
-        }}
-        pagination={pagination}
-        setPagination={setPagination}
-      />
+      <SimulatedTestHistoryTable />
     </div>
   );
 }

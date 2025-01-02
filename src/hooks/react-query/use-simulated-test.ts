@@ -10,7 +10,8 @@ import { useMemo } from "react";
 import { create } from "zustand";
 
 import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
-import { fromPageToOffset, parseInfiniteData } from "@/lib/utils";
+import { PagingSchema } from "@/lib/types";
+import { fromOffsetToPage, fromPageToOffset, parseInfiniteData } from "@/lib/utils";
 import {
   CollectionParams,
   getSimulatedTestBySkill,
@@ -37,6 +38,7 @@ const simulatedTestKeys = {
   skillTestDetail: (params: SimulatedSkillTestParams) =>
     [...simulatedTestKeys.skillTestKey, params] as const,
   session: ["session"] as const,
+  sessionList: (filter: PagingSchema) => [...simulatedTestKeys.session, filter] as const,
   sessionDetail: (sessionId: number) => [...simulatedTestKeys.session, sessionId] as const,
   simulatedTestKey: ["simulated-test"] as const,
   simulatedTestDetail: (simulatedTestId: number) =>
@@ -260,7 +262,9 @@ export const useGetUserBandScoreOverall = () => {
 
 export const useGetSTSessionsHistory = (offset: number, limit: number) => {
   return useQuery({
-    queryKey: simulatedTestKeys.session,
+    queryKey: simulatedTestKeys.sessionList(
+      fromOffsetToPage({ offset, limit, items: [], total: 0, page: 0 })
+    ),
     queryFn: async () => getSimulatedTestSessionHistory({ offset, limit }),
     placeholderData: keepPreviousData,
   });
