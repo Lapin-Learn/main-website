@@ -22,6 +22,7 @@ function useAudioRecording() {
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const dataArrayRef = useRef<Uint8Array | null>(null);
+  const audioAnimationRef = useRef<number | null>(null);
   const mediaRecorder = useRef<MediaRecorder | null>(null);
 
   const mimeType = "audio/webm";
@@ -71,29 +72,39 @@ function useAudioRecording() {
     }
   }, [listening, setAudio, setAudioChunks, setRecordingStatus, stream]);
 
-  const stopRecording = useCallback(() => {
-    SpeechRecognition.stopListening();
-    setAudioLevel(0);
-    setRecordingStatus("inactive");
-    setProgessValue(0);
+  const stopRecording = useCallback(
+    (callback?: (audioUrl: string) => void) => {
+      SpeechRecognition.stopListening();
+      setAudioLevel(0);
+      setRecordingStatus("inactive");
+      setProgessValue(0);
 
-    if (mediaRecorder.current) {
-      mediaRecorder.current.stop();
-      mediaRecorder.current.onstop = () => {
-        const audioBlob = new Blob(audioChunks, { type: mimeType });
-        const audioUrl = URL.createObjectURL(audioBlob);
-        setAudio(audioUrl);
-        setAudioChunks([]);
-      };
-    }
-  }, [audioChunks, setAudio, setAudioChunks, setRecordingStatus]);
+      if (audioAnimationRef.current) {
+        cancelAnimationFrame(audioAnimationRef.current);
+      }
+
+      if (mediaRecorder.current) {
+        mediaRecorder.current.stop();
+        mediaRecorder.current!.onstop = () => {
+          const audioBlob = new Blob(audioChunks, { type: mimeType });
+          const audioUrl = URL.createObjectURL(audioBlob);
+          setAudio(audioUrl);
+          setAudioChunks([]);
+          if (callback) {
+            callback(audioUrl);
+          }
+        };
+      }
+    },
+    [audioChunks, setAudio, setAudioChunks, setRecordingStatus]
+  );
 
   const updateAudioLevel = useCallback(() => {
     if (!analyserRef.current || !dataArrayRef.current) return;
     analyserRef.current.getByteFrequencyData(dataArrayRef.current);
     const average = dataArrayRef.current.reduce((a, b) => a + b) / dataArrayRef.current.length;
     setAudioLevel(average);
-    requestAnimationFrame(updateAudioLevel);
+    audioAnimationRef.current = requestAnimationFrame(updateAudioLevel);
   }, []);
 
   return {

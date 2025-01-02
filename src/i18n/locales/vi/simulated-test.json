@@ -115,7 +115,10 @@
                 }
             ]
         },
+        "nextQuestionInSeconds": "Câu tiếp theo sau {{ time }}s",
+        "nextPartInSeconds": "Part tiếp theo sau {{ time }}s",
         "preparePartTwo": "Bạn có 1 phút để chuẩn bị",
+        "endTestInSeconds": "Kết thúc trong {{ time }}s",
         "endTest": "Kết thúc bài làm" 
     },
     "startTest": "Bắt đầu làm bài",

@@ -4,7 +4,6 @@ import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
 
 export type RecordingStatus = "inactive" | "recording";
 interface RecordingState {
-  testState: EnumSimulatedTestSessionStatus;
   permission: boolean;
   stream: MediaStream | null;
   recordingStatus: RecordingStatus;
@@ -15,7 +14,6 @@ interface RecordingState {
 }
 
 interface RecordingActions {
-  setTestState: (state: EnumSimulatedTestSessionStatus) => void;
   setPermission: (permission: boolean) => void;
   setStream: (stream: MediaStream) => void;
   stopStream: () => void;
@@ -29,7 +27,6 @@ interface RecordingActions {
 }
 
 const initialState: RecordingState = {
-  testState: EnumSimulatedTestSessionStatus.NOT_STARTED,
   permission: false,
   stream: null,
   recordingStatus: "inactive",
@@ -41,7 +38,6 @@ const initialState: RecordingState = {
 
 export const useRecordingStore = create<RecordingState & RecordingActions>((set) => ({
   ...initialState,
-  setTestState: (state) => set({ testState: state }),
   setPermission: (permission) => set({ permission }),
   setStream: (stream) =>
     set((state) => {
@@ -67,6 +63,7 @@ export const useRecordingStore = create<RecordingState & RecordingActions>((set)
 }));
 
 type SpeakingTestState = {
+  testState: EnumSimulatedTestSessionStatus;
   position: {
     part: number;
     question: number;
@@ -77,12 +74,14 @@ type SpeakingTestState = {
 };
 
 type SpeakingTestActions = {
+  setTestState: (state: EnumSimulatedTestSessionStatus) => void;
   navigateToPart: (questionNo: number, partNo: number) => void;
   addSpeakingSource: (source: string) => void;
   reset: () => void;
 };
 
 const initialTestState: SpeakingTestState = {
+  testState: EnumSimulatedTestSessionStatus.NOT_STARTED,
   position: {
     part: 1,
     question: 1,
@@ -94,6 +93,7 @@ const initialTestState: SpeakingTestState = {
 
 export const useSpeakingTestState = create<SpeakingTestState & SpeakingTestActions>((set) => ({
   ...initialTestState,
+  setTestState: (state) => set({ testState: state }),
   navigateToPart: (questionNo, partNo) =>
     set((state) => ({
       showInstruction: state.position.part !== partNo,

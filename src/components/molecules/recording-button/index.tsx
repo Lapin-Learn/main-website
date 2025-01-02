@@ -21,9 +21,16 @@ type RecordingButtonProps = {
   playBack?: boolean;
   onStart?: () => void;
   onStop?: () => void;
+  diasbled?: boolean;
 };
 
-const RecordingButton = ({ duration, playBack = false, onStart, onStop }: RecordingButtonProps) => {
+const RecordingButton = ({
+  duration,
+  playBack = false,
+  onStart,
+  onStop,
+  diasbled,
+}: RecordingButtonProps) => {
   const {
     startRecording,
     stopRecording,
@@ -143,8 +150,6 @@ const RecordingButton = ({ duration, playBack = false, onStart, onStop }: Record
     }
   }, [audio, audioRef]);
 
-  console.log(audio);
-
   return (
     <div className="relative h-full w-fit overflow-visible">
       {(recordingStatus === "recording" || isPlaying) && (
@@ -170,7 +175,7 @@ const RecordingButton = ({ duration, playBack = false, onStart, onStop }: Record
                   ? handleStopRecording
                   : handleStartRecording
             }
-            disabled={!permission}
+            disabled={!permission || diasbled}
             className="absolute-center z-10 size-16 rounded-full bg-white shadow-xl transition-colors hover:bg-neutral-50"
           >
             {playBack && isPlaying ? (

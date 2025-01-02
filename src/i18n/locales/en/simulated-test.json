@@ -114,7 +114,10 @@
                 }
             ]
         },
+        "nextQuestionInSeconds": "Next question in {{ time }}s",
+        "nextPartInSeconds": "Next part in {{ time }}s",
         "preparePartTwo": "You have 1 minute to prepare",
+        "endTestInSeconds": "Test ends in {{ time }}s",
         "endTest": "End the Test" 
     },
     "startTest": "Start the Test",
