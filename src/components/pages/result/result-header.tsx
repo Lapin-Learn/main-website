@@ -69,7 +69,7 @@ export function ResultHeader({ collectionId, session }: CollectionDetailHeaderPr
                         <Check className="text-green-500" />
                         <span className="text-2xl font-semibold">
                           {session.results.filter((res) => res).length}
-                          <span className="text-sm font-normal text-neutral-200">
+                          <span className="text-sm font-normal text-neutral-300">
                             / {totalQuestions}
                           </span>
                         </span>

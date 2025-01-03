@@ -6,7 +6,7 @@ import {
   Table as TableProps,
 } from "@tanstack/react-table";
 import { ArrowDown, ArrowDownUp, ArrowUp, ChevronLeft, ChevronRight } from "lucide-react";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -47,6 +47,13 @@ export const BaseTable = <TData, TValue>(props: BaseTableProps<TData, TValue>) =
   } = props;
   const breakpoint = useBreakPoint();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (table.getPageCount() > 0 && pagination.pageIndex >= table.getPageCount()) {
+      table.setPagination({ ...pagination, pageIndex: 0 });
+      setPagination({ ...pagination, pageIndex: 0 });
+    }
+  }, [table.getPageCount(), pagination.pageIndex]);
 
   const SortIcon = ({ isSorted }: { isSorted: false | SortDirection }) => {
     const Icon = isSorted === "desc" ? ArrowDown : isSorted === "asc" ? ArrowUp : ArrowDownUp;

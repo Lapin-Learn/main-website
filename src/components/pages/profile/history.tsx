@@ -68,7 +68,7 @@ export default function HistoryPage() {
         {t("learning_history.simulated_test_history")}
       </Typography>
 
-      <SimulatedTestHistoryTable minimal />
+      <SimulatedTestHistoryTable />
     </div>
   );
 }

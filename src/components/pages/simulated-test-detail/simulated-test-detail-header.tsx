@@ -5,21 +5,33 @@ import { PracticeBreadcrumb } from "@/components/molecules/practice-breadcrumb";
 import TestHeaderLayout from "@/components/templates/test-header-layout";
 import {
   useGetCollectionInfo,
-  useGetSTSessionsHistory,
+  useGetSTSessionsHistoryByST,
 } from "@/hooks/react-query/use-simulated-test";
-import { DEFAULT_PAGE_SIZE, MAPPED_SIMULATED_TEST_TAGS } from "@/lib/consts";
+import { MAPPED_SIMULATED_TEST_TAGS } from "@/lib/consts";
+import { EnumSkill } from "@/lib/enums";
 import { SimulatedTest } from "@/lib/types/simulated-test.type";
 
 type SimulatedTestDetailHeaderProps = {
   simulatedTest?: SimulatedTest;
+
+  filter?: {
+    skill?: EnumSkill;
+  };
 };
 
-export function SimulatedTestDetailHeader({ simulatedTest }: SimulatedTestDetailHeaderProps) {
+export function SimulatedTestDetailHeader({
+  simulatedTest,
+  filter,
+}: SimulatedTestDetailHeaderProps) {
   const { t } = useTranslation(["practice", "collection"]);
   const { collection, isLoading: collectionLoading } = useGetCollectionInfo(
     simulatedTest?.collectionId || 0
   );
-  const { data } = useGetSTSessionsHistory(0, DEFAULT_PAGE_SIZE);
+  const { data } = useGetSTSessionsHistoryByST(simulatedTest?.id ?? 0, {
+    offset: 0,
+    limit: 1,
+    ...filter,
+  });
 
   const latestSessionTest = useMemo(() => {
     if (!data) return null;

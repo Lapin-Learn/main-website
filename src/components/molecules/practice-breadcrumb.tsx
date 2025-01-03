@@ -89,7 +89,9 @@ export function PracticeBreadcrumb({
             ) : (
               <>
                 <BreadcrumbLink href={crumb.href} asChild>
-                  <Link to={crumb.href}>{crumb.label}</Link>
+                  <Link to={crumb.href} className="underline-offset-2 hover:underline">
+                    {crumb.label}
+                  </Link>
                 </BreadcrumbLink>
                 <BreadcrumbSeparator />
               </>

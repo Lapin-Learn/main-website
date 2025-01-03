@@ -65,7 +65,7 @@ const TagList = ({ format }: Pick<TagsListProps, "format">) => {
 const Description = () => {
   const { description } = useTestHeaderLayoutContext();
   return (
-    <p className="line-clamp-1 truncate text-wrap text-sm font-normal text-neutral-400 sm:line-clamp-2 md:line-clamp-3">
+    <p className="line-clamp-1 truncate text-wrap text-sm font-normal text-neutral-300 sm:line-clamp-2 md:line-clamp-3">
       {description}
     </p>
   );
@@ -78,7 +78,7 @@ type AchievementProps = {
 };
 const Achievement = ({ title, description, align }: AchievementProps) => (
   <div className="flex flex-col gap-2">
-    <span className="text-sm font-medium text-neutral-400">{title}</span>
+    <span className="text-sm font-medium text-neutral-300">{title}</span>
     <div
       className="flex flex-row items-center gap-2 text-2xl font-semibold"
       style={{ alignItems: align ?? "center" }}
@@ -117,7 +117,7 @@ function HeaderSkeleton() {
               <span className="inline-flex flex-wrap items-center gap-2 align-text-bottom">
                 <div className="h-6 w-20 rounded-md bg-neutral-50" />
               </span>
-              <p className="line-clamp-1 truncate text-wrap text-sm font-normal text-neutral-400 sm:line-clamp-2 md:line-clamp-3">
+              <p className="line-clamp-1 truncate text-wrap text-sm font-normal text-neutral-300 sm:line-clamp-2 md:line-clamp-3">
                 <div className="h-12 w-full bg-neutral-50" />
               </p>
             </div>
