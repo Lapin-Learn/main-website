@@ -52,7 +52,7 @@ export default function ResultPage() {
   );
 
   return (
-    <div className="flex flex-col gap-6 p-8">
+    <div className="flex flex-col gap-6 p-4 pt-8">
       <ResultHeader collectionId={simulatedTest?.collectionId || 0} session={session} />
       <Tabs defaultValue="answerKeys" className="flex flex-col gap-6">
         {isLoading ? (

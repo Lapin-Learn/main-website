@@ -36,5 +36,6 @@
     "listening": "listening",
     "writing": "writing",
     "next": "Tiếp theo",
-    "prev": "Trước"
+    "prev": "Trước",
+    "total": "Tổng: {{number}} {{unit}}"
 }

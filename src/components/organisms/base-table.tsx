@@ -138,7 +138,10 @@ export const BaseTable = <TData, TValue>(props: BaseTableProps<TData, TValue>) =
       </div>
       <div className="mt-4 flex flex-row items-center justify-between">
         <Typography variant="body2" className="text-neutral-500 ">
-          {table.getRowModel().rows.length} / {table.getRowCount()}
+          {t("total", {
+            number: table.getRowCount(),
+            unit: "",
+          })}
         </Typography>
 
         <Pagination className="w-fit flex-1 justify-end">

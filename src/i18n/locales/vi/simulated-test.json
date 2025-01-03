@@ -1,4 +1,5 @@
 {
+    "unit": "bài",
     "exitDialog": {
         "title": "Bạn chắc chắn muốn thoát không?",
         "description": " Bạn chưa hoàn thành bài thi. Tất cả câu trả lời của bạn sẽ được lưu thành bản nháp.",

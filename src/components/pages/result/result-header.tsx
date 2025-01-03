@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { PracticeBreadcrumb } from "@/components/molecules/practice-breadcrumb";
 import TestHeaderLayout from "@/components/templates/test-header-layout";
 import { useGetCollectionInfo } from "@/hooks/react-query/use-simulated-test";
+import useBreakPoint from "@/hooks/use-screen-size";
 import { MAPPED_SIMULATED_TEST_TAGS } from "@/lib/consts";
 import { SimulatedTestSession } from "@/lib/types/simulated-test.type";
 import { formatTime } from "@/lib/utils";
@@ -15,6 +16,7 @@ type CollectionDetailHeaderProps = {
 
 export function ResultHeader({ collectionId, session }: CollectionDetailHeaderProps) {
   const { t } = useTranslation(["practice", "collection"]);
+  const breakpoint = useBreakPoint();
   const { collection, isLoading: collectionLoading } = useGetCollectionInfo(collectionId);
 
   if (collectionLoading || !collection) {
@@ -27,6 +29,35 @@ export function ResultHeader({ collectionId, session }: CollectionDetailHeaderPr
     const { startQuestionNo, endQuestionNo } = part;
     return acc + (endQuestionNo - startQuestionNo + 1);
   }, 0);
+
+  const AchievementList = () =>
+    session ? (
+      <TestHeaderLayout.AchievementList>
+        {session.estimatedBandScore && (
+          <TestHeaderLayout.Achievement title="Band" description={session.estimatedBandScore} />
+        )}
+        {session.results && (
+          <TestHeaderLayout.Achievement
+            title={t("correctAnswer", { ns: "collection" })}
+            description={
+              <>
+                <Check className="text-green-500" />
+                <span className="text-2xl font-semibold">
+                  {session.results.filter((res) => res).length}
+                  <span className="text-sm font-normal text-neutral-300">/ {totalQuestions}</span>
+                </span>
+              </>
+            }
+          />
+        )}
+        <TestHeaderLayout.Achievement
+          title={t("timeSpent", { ns: "collection" })}
+          description={
+            <span className="text-2xl font-semibold">{formatTime(session.elapsedTime || 0)}</span>
+          }
+        />
+      </TestHeaderLayout.AchievementList>
+    ) : null;
 
   return (
     <>
@@ -53,42 +84,14 @@ export function ResultHeader({ collectionId, session }: CollectionDetailHeaderPr
               />
               <TestHeaderLayout.Description />
             </div>
-            {session && (
-              <TestHeaderLayout.AchievementList>
-                {session.estimatedBandScore && (
-                  <TestHeaderLayout.Achievement
-                    title="Band"
-                    description={session.estimatedBandScore}
-                  />
-                )}
-                {session.results && (
-                  <TestHeaderLayout.Achievement
-                    title={t("correctAnswer", { ns: "collection" })}
-                    description={
-                      <>
-                        <Check className="text-green-500" />
-                        <span className="text-2xl font-semibold">
-                          {session.results.filter((res) => res).length}
-                          <span className="text-sm font-normal text-neutral-300">
-                            / {totalQuestions}
-                          </span>
-                        </span>
-                      </>
-                    }
-                  />
-                )}
-                <TestHeaderLayout.Achievement
-                  title={t("timeSpent", { ns: "collection" })}
-                  description={
-                    <span className="text-2xl font-semibold">
-                      {formatTime(session.elapsedTime || 0)}
-                    </span>
-                  }
-                />
-              </TestHeaderLayout.AchievementList>
-            )}
+            {breakpoint !== "xs" && <AchievementList />}
           </div>
         </TestHeaderLayout.ContentWrapper>
+        {breakpoint === "xs" && (
+          <div className="flex flex-row justify-center">
+            <AchievementList />
+          </div>
+        )}
       </TestHeaderLayout>
     </>
   );

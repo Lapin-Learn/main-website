@@ -28,7 +28,7 @@ export default function CollectionDetailPage() {
   }
 
   return (
-    <div className="flex flex-col gap-6 p-8">
+    <div className="flex flex-col gap-6 p-4 pt-8">
       <CollectionDetailHeader collectionId={Number(collectionId)} />
       <SelectModeDialog />
       {search.skill ? (

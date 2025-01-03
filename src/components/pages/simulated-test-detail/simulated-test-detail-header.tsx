@@ -7,6 +7,7 @@ import {
   useGetCollectionInfo,
   useGetSTSessionsHistoryByST,
 } from "@/hooks/react-query/use-simulated-test";
+import useBreakPoint from "@/hooks/use-screen-size";
 import { MAPPED_SIMULATED_TEST_TAGS } from "@/lib/consts";
 import { EnumSkill } from "@/lib/enums";
 import { SimulatedTest } from "@/lib/types/simulated-test.type";
@@ -24,6 +25,7 @@ export function SimulatedTestDetailHeader({
   filter,
 }: SimulatedTestDetailHeaderProps) {
   const { t } = useTranslation(["practice", "collection"]);
+  const breakpoint = useBreakPoint();
   const { collection, isLoading: collectionLoading } = useGetCollectionInfo(
     simulatedTest?.collectionId || 0
   );
@@ -45,6 +47,23 @@ export function SimulatedTestDetailHeader({
 
   const { tags, thumbnail } = collection;
 
+  const AchievementList = () => (
+    <TestHeaderLayout.AchievementList>
+      <TestHeaderLayout.Achievement
+        title={t("latest-band", { ns: "practice" })}
+        description={latestSessionTest?.estimatedBandScore ?? "--"}
+      />
+      <TestHeaderLayout.Achievement
+        title={t("total-time-practice", { ns: "practice" })}
+        description={data?.total ?? 0}
+      />
+      <TestHeaderLayout.Achievement
+        title={t("timeSpent", { ns: "collection" })}
+        description="1:24:45"
+      />
+    </TestHeaderLayout.AchievementList>
+  );
+
   return (
     <>
       <PracticeBreadcrumb collection={collection} simulatedTest={simulatedTest} />
@@ -56,6 +75,7 @@ export function SimulatedTestDetailHeader({
           `${t("finished-on", { context: "latest" })}: ${new Date(latestSessionTest.createdAt || "").toLocaleString()}`
         }
         imageSrc={thumbnail ?? undefined}
+        className="flex-col gap-2"
       >
         <TestHeaderLayout.ContentWrapper>
           <TestHeaderLayout.Image />
@@ -71,22 +91,14 @@ export function SimulatedTestDetailHeader({
               />
               <TestHeaderLayout.Description />
             </div>
-            <TestHeaderLayout.AchievementList>
-              <TestHeaderLayout.Achievement
-                title={t("latest-band", { ns: "practice" })}
-                description={latestSessionTest?.estimatedBandScore ?? "--"}
-              />
-              <TestHeaderLayout.Achievement
-                title={t("total-time-practice", { ns: "practice" })}
-                description={data?.total ?? 0}
-              />
-              <TestHeaderLayout.Achievement
-                title={t("timeSpent", { ns: "collection" })}
-                description="1:24:45"
-              />
-            </TestHeaderLayout.AchievementList>
+            {breakpoint !== "xs" && <AchievementList />}
           </div>
         </TestHeaderLayout.ContentWrapper>
+        {breakpoint === "xs" && (
+          <div className="flex flex-row justify-center">
+            <AchievementList />
+          </div>
+        )}
       </TestHeaderLayout>
     </>
   );

@@ -17,7 +17,7 @@ export default function SimulatedTestDetailPage() {
   const { data: simulatedTest } = useGetSimulatedTestDetail(collectionId, !!collectionId);
 
   return (
-    <div className="flex flex-col gap-6 p-8">
+    <div className="flex flex-col gap-6 p-4 pt-8">
       <SimulatedTestDetailHeader
         simulatedTest={simulatedTest}
         filter={{

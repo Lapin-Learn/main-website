@@ -36,5 +36,6 @@
     "listening": "listening",
     "writing": "writing",
     "next": "Next",
-    "prev": "Prev"
+    "prev": "Prev",
+    "total": "Total: {{number}} {{unit}}"
 }

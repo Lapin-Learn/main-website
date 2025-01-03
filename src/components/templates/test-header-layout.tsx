@@ -18,11 +18,17 @@ const TestHeaderLayoutContext = React.createContext<TestHeaderLayoutContextType 
   undefined
 );
 
-const TestHeaderLayout = (props: PropsWithChildren<TestHeaderLayoutContextType>) => {
+const TestHeaderLayout = (
+  props: PropsWithChildren<
+    TestHeaderLayoutContextType & {
+      className?: string;
+    }
+  >
+) => {
   if (props.isLoading) return <HeaderSkeleton />;
   return (
     <TestHeaderLayoutContext.Provider value={props}>
-      <div>{props.children}</div>
+      <div className={props.className}>{props.children}</div>
     </TestHeaderLayoutContext.Provider>
   );
 };
@@ -91,7 +97,7 @@ const AchievementList = ({ children }: PropsWithChildren) => {
   const {} = useTestHeaderLayoutContext();
   const childrenArray = React.Children.toArray(children);
   return (
-    <div className="flex flex-row items-center gap-5 pt-3">
+    <div className="flex w-full flex-row items-center justify-evenly gap-5 pt-3 sm:w-fit sm:justify-normal">
       {childrenArray.map((child, index) => (
         <Fragment key={index}>
           {child}
