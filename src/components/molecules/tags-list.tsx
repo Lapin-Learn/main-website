@@ -1,4 +1,4 @@
-type TagsListProps = {
+export type TagsListProps = {
   tags: string[];
   format?: (tag: string) => string;
 };

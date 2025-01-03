@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -33,13 +34,15 @@ export function SimulatedTestCard(
               <span className="text-sm font-semibold">44:11</span>
             </div>
           </div>
-          <Button
-            className="size-fit gap-2 p-0 text-primary hover:bg-transparent hover:text-primary-700"
-            variant="ghost"
-          >
-            {t("viewHistory")}
-            <ArrowRight size="16" />
-          </Button>
+          <Link to={`/practice/${props.collectionId}/simulated-test/${props.id}`}>
+            <Button
+              className="size-fit gap-2 p-0 text-primary hover:bg-transparent hover:text-primary-700"
+              variant="ghost"
+            >
+              {t("viewHistory")}
+              <ArrowRight size="16" />
+            </Button>
+          </Link>
         </div>
 
         <div className="grid w-full flex-1 grid-cols-2 gap-3 lg:grid-cols-4">
@@ -50,6 +53,7 @@ export function SimulatedTestCard(
 
             return (
               <TestSkillCard
+                key={skill}
                 skill={skill}
                 isComingSoon={isComingSoon}
                 onClick={() => {
@@ -92,8 +96,8 @@ export function SkeletonSimulatedTestCard() {
         <div className="grid w-full flex-1 grid-cols-2 gap-3 lg:grid-cols-4">
           {Object.keys(EnumSkill)
             .filter((key) => key !== "allSkills")
-            .map(() => (
-              <div className="h-24 bg-neutral-50" />
+            .map((key) => (
+              <div className="h-24 bg-neutral-50" key={key} />
             ))}
         </div>
       </div>

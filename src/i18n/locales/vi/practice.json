@@ -60,5 +60,8 @@
       "part_writing": "Phần {{ number }}",
       "part_speaking": "Phần {{ number }}"
   },
-    "finished-on": "Hoàn thành lúc"
+  "finished-on": "Hoàn thành lúc",
+  "finished-on_latest": "Hoàn thành gần nhất",
+  "total-time-practice": "Số lần luyện thi",
+  "latest-band": "Band gần nhất"
 }

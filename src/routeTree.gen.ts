@@ -18,7 +18,8 @@ import { Route as AuthenticatedDashboardProfileProfileChangePasswordImport } fro
 import { Route as AuthenticatedDashboardProfileProfileHistoryImport } from "./routes/_authenticated/_dashboard/_profile/profile/history";
 import { Route as AuthenticatedDashboardProfileProfileIndexImport } from "./routes/_authenticated/_dashboard/_profile/profile/index";
 import { Route as AuthenticatedDashboardContentEditorImport } from "./routes/_authenticated/_dashboard/content-editor";
-import { Route as AuthenticatedDashboardPracticeCollectionIdImport } from "./routes/_authenticated/_dashboard/practice/$collectionId";
+import { Route as AuthenticatedDashboardPracticeCollectionIdIndexImport } from "./routes/_authenticated/_dashboard/practice/$collectionId/index";
+import { Route as AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdImport } from "./routes/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId";
 import { Route as AuthenticatedDashboardPracticeIndexImport } from "./routes/_authenticated/_dashboard/practice/index";
 import { Route as AuthenticatedDashboardPracticeSimulatedTestResultImport } from "./routes/_authenticated/_dashboard/practice/simulated-test/result";
 import { Route as AuthenticatedIndexImport } from "./routes/_authenticated/index";
@@ -114,10 +115,10 @@ const AuthenticatedDashboardPracticeIndexRoute = AuthenticatedDashboardPracticeI
   getParentRoute: () => AuthenticatedDashboardRoute,
 } as any);
 
-const AuthenticatedDashboardPracticeCollectionIdRoute =
-  AuthenticatedDashboardPracticeCollectionIdImport.update({
-    id: "/practice/$collectionId",
-    path: "/practice/$collectionId",
+const AuthenticatedDashboardPracticeCollectionIdIndexRoute =
+  AuthenticatedDashboardPracticeCollectionIdIndexImport.update({
+    id: "/practice/$collectionId/",
+    path: "/practice/$collectionId/",
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any);
 
@@ -147,6 +148,13 @@ const AuthenticatedDashboardProfileProfileChangePasswordRoute =
     id: "/profile/change-password",
     path: "/profile/change-password",
     getParentRoute: () => AuthenticatedDashboardProfileRoute,
+  } as any);
+
+const AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute =
+  AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdImport.update({
+    id: "/practice/$collectionId/simulated-test/$simulatedTestId",
+    path: "/practice/$collectionId/simulated-test/$simulatedTestId",
+    getParentRoute: () => AuthenticatedDashboardRoute,
   } as any);
 
 // Populate the FileRoutesByPath interface
@@ -237,13 +245,6 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AuthenticatedSpeakingIndexImport;
       parentRoute: typeof AuthenticatedImport;
     };
-    "/_authenticated/_dashboard/practice/$collectionId": {
-      id: "/_authenticated/_dashboard/practice/$collectionId";
-      path: "/practice/$collectionId";
-      fullPath: "/practice/$collectionId";
-      preLoaderRoute: typeof AuthenticatedDashboardPracticeCollectionIdImport;
-      parentRoute: typeof AuthenticatedDashboardImport;
-    };
     "/_authenticated/_dashboard/practice/": {
       id: "/_authenticated/_dashboard/practice/";
       path: "/practice";
@@ -286,6 +287,20 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AuthenticatedDashboardProfileProfileIndexImport;
       parentRoute: typeof AuthenticatedDashboardProfileImport;
     };
+    "/_authenticated/_dashboard/practice/$collectionId/": {
+      id: "/_authenticated/_dashboard/practice/$collectionId/";
+      path: "/practice/$collectionId";
+      fullPath: "/practice/$collectionId";
+      preLoaderRoute: typeof AuthenticatedDashboardPracticeCollectionIdIndexImport;
+      parentRoute: typeof AuthenticatedDashboardImport;
+    };
+    "/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId": {
+      id: "/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId";
+      path: "/practice/$collectionId/simulated-test/$simulatedTestId";
+      fullPath: "/practice/$collectionId/simulated-test/$simulatedTestId";
+      preLoaderRoute: typeof AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdImport;
+      parentRoute: typeof AuthenticatedDashboardImport;
+    };
   }
 }
 
@@ -311,18 +326,22 @@ const AuthenticatedDashboardProfileRouteWithChildren =
 interface AuthenticatedDashboardRouteChildren {
   AuthenticatedDashboardProfileRoute: typeof AuthenticatedDashboardProfileRouteWithChildren;
   AuthenticatedDashboardContentEditorRoute: typeof AuthenticatedDashboardContentEditorRoute;
-  AuthenticatedDashboardPracticeCollectionIdRoute: typeof AuthenticatedDashboardPracticeCollectionIdRoute;
   AuthenticatedDashboardPracticeIndexRoute: typeof AuthenticatedDashboardPracticeIndexRoute;
   AuthenticatedDashboardPracticeSimulatedTestResultRoute: typeof AuthenticatedDashboardPracticeSimulatedTestResultRoute;
+  AuthenticatedDashboardPracticeCollectionIdIndexRoute: typeof AuthenticatedDashboardPracticeCollectionIdIndexRoute;
+  AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute: typeof AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute;
 }
 
 const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren = {
   AuthenticatedDashboardProfileRoute: AuthenticatedDashboardProfileRouteWithChildren,
   AuthenticatedDashboardContentEditorRoute: AuthenticatedDashboardContentEditorRoute,
-  AuthenticatedDashboardPracticeCollectionIdRoute: AuthenticatedDashboardPracticeCollectionIdRoute,
   AuthenticatedDashboardPracticeIndexRoute: AuthenticatedDashboardPracticeIndexRoute,
   AuthenticatedDashboardPracticeSimulatedTestResultRoute:
     AuthenticatedDashboardPracticeSimulatedTestResultRoute,
+  AuthenticatedDashboardPracticeCollectionIdIndexRoute:
+    AuthenticatedDashboardPracticeCollectionIdIndexRoute,
+  AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute:
+    AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute,
 };
 
 const AuthenticatedDashboardRouteWithChildren = AuthenticatedDashboardRoute._addFileChildren(
@@ -377,13 +396,14 @@ export interface FileRoutesByFullPath {
   "/": typeof AuthenticatedIndexRoute;
   "/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
   "/speaking": typeof AuthenticatedSpeakingIndexRoute;
-  "/practice/$collectionId": typeof AuthenticatedDashboardPracticeCollectionIdRoute;
   "/practice": typeof AuthenticatedDashboardPracticeIndexRoute;
   "/practice/simulated-test": typeof AuthenticatedPracticeSimulatedTestIndexRoute;
   "/profile/change-password": typeof AuthenticatedDashboardProfileProfileChangePasswordRoute;
   "/profile/history": typeof AuthenticatedDashboardProfileProfileHistoryRoute;
   "/practice/simulated-test/result": typeof AuthenticatedDashboardPracticeSimulatedTestResultRoute;
   "/profile": typeof AuthenticatedDashboardProfileProfileIndexRoute;
+  "/practice/$collectionId": typeof AuthenticatedDashboardPracticeCollectionIdIndexRoute;
+  "/practice/$collectionId/simulated-test/$simulatedTestId": typeof AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute;
 }
 
 export interface FileRoutesByTo {
@@ -396,13 +416,14 @@ export interface FileRoutesByTo {
   "/": typeof AuthenticatedIndexRoute;
   "/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
   "/speaking": typeof AuthenticatedSpeakingIndexRoute;
-  "/practice/$collectionId": typeof AuthenticatedDashboardPracticeCollectionIdRoute;
   "/practice": typeof AuthenticatedDashboardPracticeIndexRoute;
   "/practice/simulated-test": typeof AuthenticatedPracticeSimulatedTestIndexRoute;
   "/profile/change-password": typeof AuthenticatedDashboardProfileProfileChangePasswordRoute;
   "/profile/history": typeof AuthenticatedDashboardProfileProfileHistoryRoute;
   "/practice/simulated-test/result": typeof AuthenticatedDashboardPracticeSimulatedTestResultRoute;
   "/profile": typeof AuthenticatedDashboardProfileProfileIndexRoute;
+  "/practice/$collectionId": typeof AuthenticatedDashboardPracticeCollectionIdIndexRoute;
+  "/practice/$collectionId/simulated-test/$simulatedTestId": typeof AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute;
 }
 
 export interface FileRoutesById {
@@ -419,13 +440,14 @@ export interface FileRoutesById {
   "/_authenticated/_dashboard/_profile": typeof AuthenticatedDashboardProfileRouteWithChildren;
   "/_authenticated/_dashboard/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
   "/_authenticated/speaking/": typeof AuthenticatedSpeakingIndexRoute;
-  "/_authenticated/_dashboard/practice/$collectionId": typeof AuthenticatedDashboardPracticeCollectionIdRoute;
   "/_authenticated/_dashboard/practice/": typeof AuthenticatedDashboardPracticeIndexRoute;
   "/_authenticated/practice/simulated-test/": typeof AuthenticatedPracticeSimulatedTestIndexRoute;
   "/_authenticated/_dashboard/_profile/profile/change-password": typeof AuthenticatedDashboardProfileProfileChangePasswordRoute;
   "/_authenticated/_dashboard/_profile/profile/history": typeof AuthenticatedDashboardProfileProfileHistoryRoute;
   "/_authenticated/_dashboard/practice/simulated-test/result": typeof AuthenticatedDashboardPracticeSimulatedTestResultRoute;
   "/_authenticated/_dashboard/_profile/profile/": typeof AuthenticatedDashboardProfileProfileIndexRoute;
+  "/_authenticated/_dashboard/practice/$collectionId/": typeof AuthenticatedDashboardPracticeCollectionIdIndexRoute;
+  "/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId": typeof AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute;
 }
 
 export interface FileRouteTypes {
@@ -440,13 +462,14 @@ export interface FileRouteTypes {
     | "/"
     | "/content-editor"
     | "/speaking"
-    | "/practice/$collectionId"
     | "/practice"
     | "/practice/simulated-test"
     | "/profile/change-password"
     | "/profile/history"
     | "/practice/simulated-test/result"
-    | "/profile";
+    | "/profile"
+    | "/practice/$collectionId"
+    | "/practice/$collectionId/simulated-test/$simulatedTestId";
   fileRoutesByTo: FileRoutesByTo;
   to:
     | ""
@@ -458,13 +481,14 @@ export interface FileRouteTypes {
     | "/"
     | "/content-editor"
     | "/speaking"
-    | "/practice/$collectionId"
     | "/practice"
     | "/practice/simulated-test"
     | "/profile/change-password"
     | "/profile/history"
     | "/practice/simulated-test/result"
-    | "/profile";
+    | "/profile"
+    | "/practice/$collectionId"
+    | "/practice/$collectionId/simulated-test/$simulatedTestId";
   id:
     | "__root__"
     | "/_authenticated"
@@ -479,13 +503,14 @@ export interface FileRouteTypes {
     | "/_authenticated/_dashboard/_profile"
     | "/_authenticated/_dashboard/content-editor"
     | "/_authenticated/speaking/"
-    | "/_authenticated/_dashboard/practice/$collectionId"
     | "/_authenticated/_dashboard/practice/"
     | "/_authenticated/practice/simulated-test/"
     | "/_authenticated/_dashboard/_profile/profile/change-password"
     | "/_authenticated/_dashboard/_profile/profile/history"
     | "/_authenticated/_dashboard/practice/simulated-test/result"
-    | "/_authenticated/_dashboard/_profile/profile/";
+    | "/_authenticated/_dashboard/_profile/profile/"
+    | "/_authenticated/_dashboard/practice/$collectionId/"
+    | "/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId";
   fileRoutesById: FileRoutesById;
 }
 
@@ -538,9 +563,10 @@ export const routeTree = rootRoute
       "children": [
         "/_authenticated/_dashboard/_profile",
         "/_authenticated/_dashboard/content-editor",
-        "/_authenticated/_dashboard/practice/$collectionId",
         "/_authenticated/_dashboard/practice/",
-        "/_authenticated/_dashboard/practice/simulated-test/result"
+        "/_authenticated/_dashboard/practice/simulated-test/result",
+        "/_authenticated/_dashboard/practice/$collectionId/",
+        "/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId"
       ]
     },
     "/_authentication/forgot-password": {
@@ -584,10 +610,6 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/speaking/index.tsx",
       "parent": "/_authenticated"
     },
-    "/_authenticated/_dashboard/practice/$collectionId": {
-      "filePath": "_authenticated/_dashboard/practice/$collectionId.tsx",
-      "parent": "/_authenticated/_dashboard"
-    },
     "/_authenticated/_dashboard/practice/": {
       "filePath": "_authenticated/_dashboard/practice/index.tsx",
       "parent": "/_authenticated/_dashboard"
@@ -611,6 +633,14 @@ export const routeTree = rootRoute
     "/_authenticated/_dashboard/_profile/profile/": {
       "filePath": "_authenticated/_dashboard/_profile/profile/index.tsx",
       "parent": "/_authenticated/_dashboard/_profile"
+    },
+    "/_authenticated/_dashboard/practice/$collectionId/": {
+      "filePath": "_authenticated/_dashboard/practice/$collectionId/index.tsx",
+      "parent": "/_authenticated/_dashboard"
+    },
+    "/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId": {
+      "filePath": "_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId.tsx",
+      "parent": "/_authenticated/_dashboard"
     }
   }
 }

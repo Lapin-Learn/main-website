@@ -8,25 +8,38 @@ import {
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useGetSTSessionsHistory } from "@/hooks/react-query/use-simulated-test";
+import { useGetSTSessionsHistoryByST } from "@/hooks/react-query/use-simulated-test";
+import { DEFAULT_PAGE_SIZE } from "@/lib/consts";
+import { EnumSkill } from "@/lib/enums";
 
 import { BaseTable } from "../base-table";
-import { columns } from "./column";
+import { extendedColumns } from "./column";
+
+type SimulatedTestHistoryTableProps = {
+  simulatedTestId?: number;
+  filter?: {
+    skill?: EnumSkill;
+  };
+};
 
 // Only 2 type of table, if more, refactor this component, right now we just do WET
-export function SimulatedTestHistoryTable() {
+export function SimulatedTestHistoryTable({
+  simulatedTestId = 0,
+  filter,
+}: SimulatedTestHistoryTableProps) {
   const { t } = useTranslation("simulatedTest");
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: DEFAULT_PAGE_SIZE,
   });
 
-  const { data, isLoading, isRefetching } = useGetSTSessionsHistory(
-    pagination.pageIndex * pagination.pageSize,
-    pagination.pageSize
-  );
+  const { data, isLoading, isRefetching } = useGetSTSessionsHistoryByST(simulatedTestId, {
+    offset: pagination.pageIndex * pagination.pageSize,
+    limit: pagination.pageSize,
+    ...filter,
+  });
 
-  const i18nColumns = columns.map((column) => ({
+  const i18nColumns = extendedColumns.map((column) => ({
     ...column,
     header: t(column.header as string),
   }));

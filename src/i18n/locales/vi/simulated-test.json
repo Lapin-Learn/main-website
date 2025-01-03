@@ -1,4 +1,5 @@
 {
+    "unit": "bài",
     "exitDialog": {
         "title": "Bạn chắc chắn muốn thoát không?",
         "description": " Bạn chưa hoàn thành bài thi. Tất cả câu trả lời của bạn sẽ được lưu thành bản nháp.",
@@ -21,6 +22,7 @@
     "prevBtn": "Quay lại",
     "submitBtn": "Nộp bài",
     "mode": {
+        "title": "Chế độ",
         "practice": "Chế độ luyện tập",
         "test": "Chế độ thi thử"
     },

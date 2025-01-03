@@ -19,9 +19,11 @@ import {
   getSimulatedTestDetail,
   getSimulatedTestSessionDetail,
   getSimulatedTestSessionHistory,
+  getSTSessionHistoryByST,
   getUserBandScoreOverall,
   SimulatedSkillTestParams,
   startSimulatedTest,
+  STSessionHistoryBySTParams,
   submitSimulatedTest,
 } from "@/services/simulated-test";
 
@@ -37,6 +39,10 @@ const simulatedTestKeys = {
   skillTestDetail: (params: SimulatedSkillTestParams) =>
     [...simulatedTestKeys.skillTestKey, params] as const,
   session: ["session"] as const,
+  sessionList: (filter: STSessionHistoryBySTParams) =>
+    [...simulatedTestKeys.session, filter] as const,
+  sessionListByST: (simulatedTestId: number, filter: STSessionHistoryBySTParams) =>
+    [...simulatedTestKeys.session, simulatedTestId, filter] as const,
   sessionDetail: (sessionId: number) => [...simulatedTestKeys.session, sessionId] as const,
   simulatedTestKey: ["simulated-test"] as const,
   simulatedTestDetail: (simulatedTestId: number) =>
@@ -260,8 +266,20 @@ export const useGetUserBandScoreOverall = () => {
 
 export const useGetSTSessionsHistory = (offset: number, limit: number) => {
   return useQuery({
-    queryKey: simulatedTestKeys.session,
+    queryKey: simulatedTestKeys.sessionList({ offset, limit }),
     queryFn: async () => getSimulatedTestSessionHistory({ offset, limit }),
     placeholderData: keepPreviousData,
+  });
+};
+
+export const useGetSTSessionsHistoryByST = (
+  simulatedTestId: number,
+  params: STSessionHistoryBySTParams
+) => {
+  return useQuery({
+    queryKey: simulatedTestKeys.sessionListByST(simulatedTestId, params),
+    queryFn: async () => getSTSessionHistoryByST(simulatedTestId, params),
+    placeholderData: keepPreviousData,
+    enabled: !!simulatedTestId,
   });
 };
