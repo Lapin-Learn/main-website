@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -46,13 +47,18 @@ export function FilteredSkillCard({ test, skillTest, isSupport }: FilteredSkillC
                     </div>
                   </div>
                 </div>
-                <Button
-                  className="w-fit gap-2 px-0 text-primary hover:bg-transparent hover:text-primary-700"
-                  variant="ghost"
+                <Link
+                  to={`/practice/${test.collectionId}/simulated-test/${test.id}`}
+                  className="w-fit"
                 >
-                  {t("viewHistory")}
-                  <ArrowRight size="16" />
-                </Button>
+                  <Button
+                    className="w-fit gap-2 px-0 text-primary hover:bg-transparent hover:text-primary-700"
+                    variant="ghost"
+                  >
+                    {t("viewHistory")}
+                    <ArrowRight size="16" />
+                  </Button>
+                </Link>
               </>
             ) : (
               <div className="text-start text-sm text-neutral-200">{t("comingSoon")}...</div>

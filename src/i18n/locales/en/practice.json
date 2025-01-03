@@ -60,5 +60,9 @@
     "part_writing": "Task {{ number }}",
     "part_speaking": "Part {{ number }}"
   },
-  "finished-on": "Finished on"
+  "finished-on": "Finished on",
+  "finished-on_latest": "Latest finished on",
+  "total-time-practice": "Practice times",
+  "latest-band": "Latest band"
+
 }

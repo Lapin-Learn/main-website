@@ -1,4 +1,5 @@
 {
+    "unit": "test(s)",
     "exitDialog": {
         "title": "Are you sure you want to exit?",
         "description": "You have not completed the test. All your answers will be saved as a draft.",
@@ -20,6 +21,7 @@
     "prevBtn": "Previous",
     "submitBtn": "Submit",
     "mode": {
+        "title": "Mode",
         "practice": "Practice Mode",
         "test": "Full Test Mode"
     },
@@ -118,12 +120,12 @@
     "start": "Start",
     "nextQuestion": "Next Question",
     "history": {
-        "viewDetail": "View Detail",
-        "assignment": "Assignment",
+        "viewDetail": "View details",
+        "assignment": "Simulated test",
         "skill": "Skill",
-        "date_completed": "Date",
+        "date_completed": "Date completed",
         "result": "Result",
-        "duration": "Duration",
+        "duration": "Elapsed time",
         "noData": "No data available"
     }
 }

@@ -34,5 +34,8 @@
     "reading": "reading",
     "speaking": "speaking",
     "listening": "listening",
-    "writing": "writing"
+    "writing": "writing",
+    "next": "Tiếp theo",
+    "prev": "Trước",
+    "total": "Tổng: {{number}} {{unit}}"
 }

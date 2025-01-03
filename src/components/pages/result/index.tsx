@@ -10,10 +10,9 @@ import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { SimulatedTestSession } from "@/lib/types/simulated-test.type";
 import { Route } from "@/routes/_authenticated/_dashboard/practice/simulated-test/result";
 
-import { CollectionDetailHeader } from "../organisms/collection-detail-header";
-import { PartAnswersCard, SkeletonPartAnswersCard } from "../organisms/result/part-answers-card";
-import PageLayout from "../templates/simulated-test-detail-layout";
-import { Button } from "../ui";
+import { PartAnswersCard, SkeletonPartAnswersCard } from "../../organisms/result/part-answers-card";
+import PageLayout from "../../templates/simulated-test-detail-layout";
+import { Button } from "../../ui";
 import {
   Dialog,
   DialogContent,
@@ -21,10 +20,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../ui/dialog";
-import { Skeleton } from "../ui/skeleton";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import Footer from "./simulated-test/footer";
+} from "../../ui/dialog";
+import { Skeleton } from "../../ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
+import Footer from "../simulated-test/footer";
+import { ResultHeader } from "./result-header";
 
 export default function ResultPage() {
   const { t } = useTranslation(["collection", "common"]);
@@ -52,8 +52,8 @@ export default function ResultPage() {
   );
 
   return (
-    <div className="flex flex-col gap-6 p-8">
-      <CollectionDetailHeader collectionId={simulatedTest?.collectionId || 0} session={session} />
+    <div className="flex flex-col gap-6 p-4 pt-8">
+      <ResultHeader collectionId={simulatedTest?.collectionId || 0} session={session} />
       <Tabs defaultValue="answerKeys" className="flex flex-col gap-6">
         {isLoading ? (
           <div className="flex justify-between">

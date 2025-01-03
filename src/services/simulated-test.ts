@@ -1,5 +1,5 @@
-import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
-import { FetchingData, PagedData, PagingSchema } from "@/lib/types";
+import { EnumMode, EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
+import { FetchingData, OffsetSchema, PagedData, PagingSchema } from "@/lib/types";
 import {
   BandScoreSkill,
   ReadingContent,
@@ -104,7 +104,7 @@ export const submitSimulatedTest = async (
   }
   return (
     await api
-      .put(`simulated-tests/session/${sessionId}`, {
+      .put(`simulated-tests/sessions/${sessionId}`, {
         json: rest,
       })
       .json<FetchingData<string>>()
@@ -113,7 +113,9 @@ export const submitSimulatedTest = async (
 
 export const getSimulatedTestSessionDetail = async (sessionId: number) => {
   return (
-    await api.get(`simulated-tests/session/${sessionId}`).json<FetchingData<SimulatedTestSession>>()
+    await api
+      .get(`simulated-tests/sessions/${sessionId}`)
+      .json<FetchingData<SimulatedTestSession>>()
   ).data;
 };
 
@@ -126,14 +128,26 @@ export const getUserBandScoreOverall = async () => {
   return (await api.get("simulated-tests/report").json<FetchingData<BandScoreSkill[]>>()).data;
 };
 
-export const getSimulatedTestSessionHistory = async (payload: {
-  offset: number;
-  limit: number;
-}) => {
+export const getSimulatedTestSessionHistory = async (payload: OffsetSchema) => {
   const searchParams = generateSearchParams(payload);
   return (
     await api
       .get("simulated-tests/sessions", { searchParams })
+      .json<FetchingData<PagedData<SimulatedTestSessionsHistory>>>()
+  ).data;
+};
+
+export type STSessionHistoryBySTParams = {
+  skill?: EnumSkill;
+} & OffsetSchema;
+export const getSTSessionHistoryByST = async (
+  simulatedTestId: number,
+  params: STSessionHistoryBySTParams
+) => {
+  const searchParams = generateSearchParams(params);
+  return (
+    await api
+      .get(`simulated-tests/${simulatedTestId}/sessions`, { searchParams })
       .json<FetchingData<PagedData<SimulatedTestSessionsHistory>>>()
   ).data;
 };
