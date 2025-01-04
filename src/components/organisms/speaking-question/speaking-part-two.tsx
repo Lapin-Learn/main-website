@@ -53,10 +53,8 @@ const SpeakingPartTwo = ({ content }: SpeakingQuestionProps) => {
 
   const handleNextPart = useCallback(() => {
     restart();
-    stopRecording((audioUrl) => {
-      addSpeakingSource(audioUrl);
-    });
-  }, [stopRecording, restart]);
+    stopRecording();
+  }, [stopRecording, restart, addSpeakingSource]);
 
   useEffect(() => {
     resume();

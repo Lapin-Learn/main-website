@@ -37,7 +37,7 @@ const RecordingButton = forwardRef<HTMLButtonElement, RecordingButtonProps>(
     const {
       audio,
       audioLevel,
-      setProgessValue,
+      setProgressValue,
       setAudioLevel,
       progress,
       setProgress,
@@ -76,13 +76,13 @@ const RecordingButton = forwardRef<HTMLButtonElement, RecordingButtonProps>(
       if (audioRef.current && recordingStatus === "inactive") {
         const currentTime = audioRef.current.currentTime;
         const duration = audioRef.current.duration;
-        setProgessValue((currentTime / duration) * 100);
+        setProgressValue((currentTime / duration) * 100);
       }
     };
 
     const handleAudioEnded = () => {
       setIsPlaying(false);
-      setProgessValue(0);
+      setProgressValue(0);
     };
 
     useEffect(() => {
@@ -127,7 +127,7 @@ const RecordingButton = forwardRef<HTMLButtonElement, RecordingButtonProps>(
           }
         };
       } else {
-        setProgessValue(0);
+        setProgressValue(0);
         setAudioLevel(0);
         if (audioContextRef.current) {
           audioContextRef.current.close();

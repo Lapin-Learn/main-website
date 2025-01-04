@@ -26,10 +26,8 @@ const SpeakingPartOneAndThree = ({ content }: SpeakingQuestionProps) => {
 
   const handleNextQuestion = useCallback(() => {
     restart();
-    stopRecording((audioUrl) => {
-      addSpeakingSource(audioUrl);
-    });
-  }, [stopRecording, restart]);
+    stopRecording();
+  }, [stopRecording, restart, addSpeakingSource]);
 
   useEffect(() => {
     if (!isRunning || !isEnd) return;

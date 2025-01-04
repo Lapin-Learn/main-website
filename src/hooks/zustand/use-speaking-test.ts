@@ -20,7 +20,7 @@ interface RecordingActions {
   setRecordingStatus: (status: RecordingStatus) => void;
   setAudioLevel: (level: number) => void;
   setProgress: (fn: (prev: number) => number) => void;
-  setProgessValue: (value: number) => void;
+  setProgressValue: (value: number) => void;
   setAudioChunks: (chunks: Blob[]) => void;
   setAudio: (audio: string | null) => void;
   reset: () => void;
@@ -56,7 +56,7 @@ export const useRecordingStore = create<RecordingState & RecordingActions>((set)
   setRecordingStatus: (status) => set({ recordingStatus: status }),
   setAudioLevel: (level) => set({ audioLevel: level }),
   setProgress: (fn) => set((state) => ({ progress: fn(state.progress) })),
-  setProgessValue: (value) => set({ progress: value }),
+  setProgressValue: (value) => set({ progress: value }),
   setAudioChunks: (chunks) => set({ audioChunks: chunks }),
   setAudio: (audio) => set({ audio }),
   reset: () => set({ ...initialState }),
