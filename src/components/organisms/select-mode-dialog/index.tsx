@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SquarePen, TriangleAlert, Zap } from "lucide-react";
+import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
@@ -30,7 +31,10 @@ const SelectModeDialog = () => {
     value: string;
     label: string;
     description?: string;
-  }[] = generateParts(skillTest?.skill ?? EnumSkill.reading, test?.skillTests ?? []);
+  }[] = useMemo(
+    () => generateParts(skillTest?.skill ?? EnumSkill.reading, test?.skillTests ?? []),
+    [skillTest, test]
+  );
 
   function generateParts(skill: EnumSkill, skillTests: SimulatedTest["skillTests"]) {
     const partsDetail = skillTests.find((item) => item.skill === skill)?.partsDetail ?? [];
@@ -72,6 +76,10 @@ const SelectModeDialog = () => {
     resolver: zodResolver(practiceSchema),
     defaultValues: formDefaultValues,
   });
+
+  useEffect(() => {
+    form.reset(formDefaultValues);
+  }, [parts]);
 
   const modes = [
     { value: EnumMode.PRACTICE, label: t("exam-mode-config.mode.practice") },
