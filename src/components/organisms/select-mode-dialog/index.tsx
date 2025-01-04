@@ -1,6 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SquarePen, TriangleAlert, Zap } from "lucide-react";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
@@ -27,10 +26,6 @@ const SelectModeDialog = () => {
   const { t } = useTranslation("practice");
   const { test, skillTest, open, setOpen } = useSelectModeDialog();
   const startSimulatedTest = useStartSimulatedTest();
-
-  useEffect(() => {
-    return () => setOpen(false);
-  }, []);
 
   const parts: {
     value: string;
@@ -106,12 +101,19 @@ const SelectModeDialog = () => {
 
   const onSubmit = (data: FormInputs) => {
     if (skillTest) {
-      startSimulatedTest.mutate({
-        skillTestId: skillTest.id,
-        timeLimit: data.timeLimit === "no_limit" ? 0 : parseInt(data.timeLimit, 10),
-        mode: data.mode,
-        parts: data.parts.map((part) => (typeof part === "string" ? parseInt(part, 10) : part)),
-      });
+      startSimulatedTest.mutate(
+        {
+          skillTestId: skillTest.id,
+          timeLimit: data.timeLimit === "no_limit" ? 0 : parseInt(data.timeLimit, 10),
+          mode: data.mode,
+          parts: data.parts.map((part) => (typeof part === "string" ? parseInt(part, 10) : part)),
+        },
+        {
+          onSettled: () => {
+            setOpen(false);
+          },
+        }
+      );
     }
   };
 

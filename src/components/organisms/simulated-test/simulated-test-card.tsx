@@ -15,7 +15,7 @@ export function SimulatedTestCard(
   }
 ) {
   const { t } = useTranslation(["collection", "practice"]);
-  const { setOpen, setData } = useSelectModeDialog();
+  const { setData } = useSelectModeDialog();
   const { testName, skillTests } = props;
 
   return (
@@ -61,8 +61,8 @@ export function SimulatedTestCard(
                     setData({
                       skillTest,
                       test: props,
+                      open: true,
                     });
-                    setOpen(true);
                   }
                 }}
               />

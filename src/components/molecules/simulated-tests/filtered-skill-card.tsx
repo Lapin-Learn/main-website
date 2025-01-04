@@ -17,15 +17,14 @@ type FilteredSkillCardProps = {
 
 export function FilteredSkillCard({ test, skillTest, isSupport }: FilteredSkillCardProps) {
   const { t } = useTranslation("collection");
-  const { setData, setOpen } = useSelectModeDialog();
+  const { setData } = useSelectModeDialog();
 
   return (
     <button
       className="flex flex-col justify-between gap-4 rounded-2xl border bg-white p-3 md:p-5"
       onClick={() => {
         if (isSupport) {
-          setData({ skillTest, test });
-          setOpen(true);
+          setData({ skillTest, test, open: true });
         }
       }}
     >
