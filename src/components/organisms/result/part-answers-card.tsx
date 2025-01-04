@@ -42,7 +42,7 @@ export function PartAnswersCard({
                 answer={answer}
                 userAnswer={userAnswers[id - 1]}
                 status={answerStatus[id - 1]}
-                guidance={guidances[id - 1]}
+                guidance={guidances ? guidances[id - 1] : null}
               />
             </div>
           );
