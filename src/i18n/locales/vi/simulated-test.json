@@ -115,7 +115,15 @@
                 }
             ]
         },
-        "preparePartTwo": "Bạn có 1 phút để chuẩn bị"
+        "nextQuestionInSeconds": "Câu tiếp theo sau {{ time }}s",
+        "nextPartInSeconds": "Part tiếp theo sau {{ time }}s",
+        "preparePartTwo": "Bạn có {{ time }} giây để chuẩn bị",
+        "startSpeakingPartTwo": "Bạn hãy bắt đầu nói",
+        "endTestInSeconds": "Kết thúc trong {{ time }}s",
+        "endTest": "Kết thúc bài làm",
+        "endTestTitle": "Kết thúc bài thi Speaking",
+        "endTestMessage": "Bạn đã hoàn thành bài thi Speaking. Vui lòng chờ kết quả từ chúng tôi.",
+        "endTestPlayBack": "Bạn có thể nghe lại phần bài nói của mình ở đây:"
     },
     "startTest": "Bắt đầu làm bài",
     "start": "Bắt đầu",

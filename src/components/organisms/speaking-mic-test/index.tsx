@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui";
 import useAudioRecording from "@/hooks/use-audio-recording";
-import { useSpeakingStore } from "@/hooks/zustand/use-recording-store";
+import { useRecordingStore, useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
 import { MIC_TEST_DURATION } from "@/lib/consts";
 import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
 
@@ -11,8 +11,9 @@ import RecordingButton from "../../molecules/recording-button";
 import { InstructionCarousel } from "../instruction-carousel";
 
 const SpeakingMicTest = () => {
-  const { permission, setTestState } = useSpeakingStore();
+  const { permission } = useRecordingStore();
   const { stopRecording } = useAudioRecording();
+  const { setTestState } = useSpeakingTestState();
   const { t } = useTranslation("simulatedTest");
 
   const handleStartTest = () => {

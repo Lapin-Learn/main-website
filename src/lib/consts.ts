@@ -136,6 +136,10 @@ export const WRITING_INSTRUCTIONS = [
 ];
 
 export const MIC_TEST_DURATION = 10;
+export const NEXT_QUESTION_COUNT_DOWN = 3;
+export const SPEAKING_PART_ONE_AND_THREE_DURATION = 30;
+export const SPEAKING_PART_TWO_PREPARE_DURATION = 10;
+export const SPEAKING_PART_TWO_DURATION = 20;
 
 export const PART_TITLES: { [key: number]: string } = {
   1: "PART 1: INSTRUCTION AND INTERVIEW",
