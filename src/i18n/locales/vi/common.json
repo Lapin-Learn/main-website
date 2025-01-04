@@ -37,5 +37,6 @@
     "writing": "writing",
     "next": "Tiếp theo",
     "prev": "Trước",
-    "total": "Tổng: {{number}} {{unit}}"
+    "total": "Tổng: {{number}} {{unit}}",
+    "home": "Trang chủ"
 }

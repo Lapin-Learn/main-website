@@ -88,6 +88,13 @@ export type ReadingContent = {
   questionGroups: QuestionGroup[];
 };
 
+export type SpeakingContent = {
+  name: string;
+  part1: string[];
+  part2: string[];
+  part3: string[];
+};
+
 export type PartDetail = {
   questionTypes: string[];
   startQuestionNo: number;

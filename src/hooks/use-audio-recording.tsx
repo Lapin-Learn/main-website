@@ -1,21 +1,31 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
+import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
+
 import { useToast } from "./use-toast";
-import { useSpeakingStore } from "./zustand/use-recording-store";
+import { useRecordingStore, useSpeakingTestState } from "./zustand/use-speaking-test";
 
 function useAudioRecording() {
-  const { stream, setStream, audioChunks, setRecordingStatus, setAudioChunks, setAudio } =
-    useSpeakingStore();
+  const {
+    stream,
+    setStream,
+    audioChunks,
+    setRecordingStatus,
+    setAudioLevel,
+    setProgressValue,
+    setAudioChunks,
+    setAudio,
+  } = useRecordingStore();
   const { listening } = useSpeechRecognition();
+  const { testState, addSpeakingSource } = useSpeakingTestState();
   const { toast } = useToast();
   const { t } = useTranslation("simulatedTest");
-  const [isRecording, setIsRecording] = useState(false);
-  const [audioLevel, setAudioLevel] = useState(0);
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const dataArrayRef = useRef<Uint8Array | null>(null);
+  const audioAnimationRef = useRef<number | null>(null);
   const mediaRecorder = useRef<MediaRecorder | null>(null);
 
   const mimeType = "audio/webm";
@@ -37,7 +47,7 @@ function useAudioRecording() {
         description: t("speaking.browserNotSupportDescription"),
       });
     }
-  }, [setStream, toast]);
+  }, [setStream, t, toast]);
 
   const startRecording = useCallback(async () => {
     setRecordingStatus("recording");
@@ -46,7 +56,6 @@ function useAudioRecording() {
 
     if (!listening) {
       SpeechRecognition.startListening({ continuous: true });
-      setIsRecording(true);
     }
 
     if (stream) {
@@ -68,17 +77,24 @@ function useAudioRecording() {
 
   const stopRecording = useCallback(() => {
     SpeechRecognition.stopListening();
-    setIsRecording(false);
     setAudioLevel(0);
     setRecordingStatus("inactive");
+    setProgressValue(0);
+
+    if (audioAnimationRef.current) {
+      cancelAnimationFrame(audioAnimationRef.current);
+    }
 
     if (mediaRecorder.current) {
       mediaRecorder.current.stop();
-      mediaRecorder.current.onstop = () => {
+      mediaRecorder.current!.onstop = () => {
         const audioBlob = new Blob(audioChunks, { type: mimeType });
         const audioUrl = URL.createObjectURL(audioBlob);
         setAudio(audioUrl);
         setAudioChunks([]);
+        if (testState === EnumSimulatedTestSessionStatus.IN_PROGRESS) {
+          addSpeakingSource(audioUrl);
+        }
       };
     }
   }, [audioChunks, setAudio, setAudioChunks, setRecordingStatus]);
@@ -88,7 +104,7 @@ function useAudioRecording() {
     analyserRef.current.getByteFrequencyData(dataArrayRef.current);
     const average = dataArrayRef.current.reduce((a, b) => a + b) / dataArrayRef.current.length;
     setAudioLevel(average);
-    requestAnimationFrame(updateAudioLevel);
+    audioAnimationRef.current = requestAnimationFrame(updateAudioLevel);
   }, []);
 
   return {
@@ -96,10 +112,6 @@ function useAudioRecording() {
     startRecording,
     stopRecording,
     updateAudioLevel,
-    isRecording,
-    setIsRecording,
-    audioLevel,
-    setAudioLevel,
     audioContextRef,
     analyserRef,
     dataArrayRef,

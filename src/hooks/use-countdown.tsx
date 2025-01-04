@@ -31,6 +31,12 @@ function useCountdown(initialTime: number, onChangeTime?: (time: number) => void
     };
   }, [updateTimer, isRunning]);
 
+  useEffect(() => {
+    if (timeLeft === 0) {
+      setIsRunning(false);
+    }
+  }, [timeLeft]);
+
   const restart = useCallback(() => {
     endTimeRef.current = Date.now() + initialTime * 1000;
     setTimeLeft(initialTime);
@@ -70,6 +76,7 @@ function useCountdown(initialTime: number, onChangeTime?: (time: number) => void
     pause,
     resume,
     timeLeft,
+    isRunning,
     isEnd: timeLeft === 0,
   };
 }
