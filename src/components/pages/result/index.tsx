@@ -95,7 +95,7 @@ export default function ResultPage() {
               <p className="text-center text-sm">This skill is not available yet</p>
             </div>
           ) : (
-            session?.parts.map((part, index) => {
+            session.parts.map((part, index) => {
               return (
                 <PartAnswersCard
                   key={index}

@@ -80,7 +80,7 @@ type StartSimulatedTestResponse = {
 export const startSimulatedTest = async (payload: SimulatedTestSessionPayload) => {
   return (
     await api
-      .post("simulated-tests/session", {
+      .post("simulated-tests/sessions", {
         json: payload,
       })
       .json<FetchingData<StartSimulatedTestResponse>>()
