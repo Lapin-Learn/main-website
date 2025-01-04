@@ -10,14 +10,14 @@ type State = {
 
 const useSelectModeDialog = create<
   State & {
-    setData: (state: Omit<State, "open">) => void;
+    setData: (state: Partial<State>) => void;
     setOpen: (open: boolean) => void;
   }
 >((set) => ({
   test: null,
   skillTest: null,
   open: false,
-  setData: (newState: Omit<State, "open">) => set((state) => ({ ...newState, state })),
+  setData: (newState: Partial<State>) => set((state) => ({ ...state, ...newState })),
   setOpen: (open) => set((state) => ({ ...state, open })),
 }));
 

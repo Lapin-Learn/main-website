@@ -80,7 +80,7 @@ type StartSimulatedTestResponse = {
 export const startSimulatedTest = async (payload: SimulatedTestSessionPayload) => {
   return (
     await api
-      .post("simulated-tests/session", {
+      .post("simulated-tests/sessions", {
         json: payload,
       })
       .json<FetchingData<StartSimulatedTestResponse>>()
@@ -100,7 +100,7 @@ export const submitSimulatedTest = async (
 ) => {
   const { sessionId, ...rest } = payload;
   if (payload.responses.length === 0) {
-    return null;
+    throw new Error("No responses to submit");
   }
   return (
     await api

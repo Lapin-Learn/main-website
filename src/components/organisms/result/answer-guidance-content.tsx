@@ -8,7 +8,7 @@ type AnswerGuidanceContentProps = {
   answer: STSkillTestAnswer;
   userAnswer: string;
   status: boolean;
-  guidance: SkillTestGuidance;
+  guidance: SkillTestGuidance | null;
 };
 
 export default function AnswerGuidanceContent({

@@ -123,9 +123,9 @@ function HeaderSkeleton() {
               <span className="inline-flex flex-wrap items-center gap-2 align-text-bottom">
                 <div className="h-6 w-20 rounded-md bg-neutral-50" />
               </span>
-              <p className="line-clamp-1 truncate text-wrap text-sm font-normal text-neutral-300 sm:line-clamp-2 md:line-clamp-3">
+              <div className="line-clamp-1 truncate text-wrap text-sm font-normal text-neutral-300 sm:line-clamp-2 md:line-clamp-3">
                 <div className="h-12 w-full bg-neutral-50" />
-              </p>
+              </div>
             </div>
           </div>
         </div>

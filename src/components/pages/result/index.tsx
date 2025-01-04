@@ -38,7 +38,7 @@ export default function ResultPage() {
   );
 
   useEffect(() => {
-    if (session?.status !== EnumSimulatedTestSessionStatus.FINISHED && simulatedTest) {
+    if (session && session.status !== EnumSimulatedTestSessionStatus.FINISHED && simulatedTest) {
       navigate({ to: `/practice/${simulatedTest?.collectionId}` });
     }
   }, [session, simulatedTest]);
@@ -71,7 +71,7 @@ export default function ResultPage() {
                 <DialogTrigger asChild>
                   <Button variant="link">{t("detail.button")}</Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-screen h-screen p-0">
+                <DialogContent className="max-w-screen h-screen p-0" aria-describedby={undefined}>
                   <PageLayout
                     header={
                       <DialogHeader className="p-4 sm:px-8">
@@ -95,7 +95,7 @@ export default function ResultPage() {
               <p className="text-center text-sm">This skill is not available yet</p>
             </div>
           ) : (
-            session?.parts.map((part, index) => {
+            session.parts.map((part, index) => {
               return (
                 <PartAnswersCard
                   key={index}
