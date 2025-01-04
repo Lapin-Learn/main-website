@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import RecordingButton from "@/components/molecules/recording-button";
@@ -7,9 +7,11 @@ import { Button } from "@/components/ui";
 import useAudioRecording from "@/hooks/use-audio-recording";
 import useCountdown from "@/hooks/use-countdown";
 import { useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
+import { NEXT_QUESTION_COUNT_DOWN, SPEAKING_PART_ONE_AND_THREE_DURATION } from "@/lib/consts";
 import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
 
 import { SpeakingQuestionProps } from ".";
+import { getNextButtonText } from "./helpers";
 
 const SpeakingPartOneAndThree = ({ content }: SpeakingQuestionProps) => {
   const {
@@ -19,97 +21,63 @@ const SpeakingPartOneAndThree = ({ content }: SpeakingQuestionProps) => {
     addSpeakingSource,
   } = useSpeakingTestState();
   const { stopRecording } = useAudioRecording();
-  const { time, timeLeft, restart } = useCountdown(3);
-  const [isCountingDown, setIsCountingDown] = useState(false);
+  const { timeLeft, restart, isRunning, isEnd } = useCountdown(NEXT_QUESTION_COUNT_DOWN);
   const { t } = useTranslation("simulatedTest");
 
   const handleNextQuestion = useCallback(() => {
-    setIsCountingDown(true);
     restart();
     stopRecording((audioUrl) => {
       addSpeakingSource(audioUrl);
     });
   }, [stopRecording, restart]);
 
-  const getNextButtonText = () => {
-    if (isCountingDown) {
-      if (
-        (currentPart === 1 && question < content.part1.length) ||
-        (currentPart === 3 && question < content.part3.length)
-      ) {
-        return `${t("speaking.nextQuestionInSeconds", { time })}`;
-      } else if (currentPart === 1 && question === content.part1.length) {
-        if (content.part2 || content.part3) {
-          return `${t("speaking.nextPartInSeconds", { time })}`;
-        } else {
-          return t("speaking.endTestInSeconds", { time });
-        }
-      } else if (currentPart === 3 && question === content.part3.length) {
-        return t("speaking.endTestInSeconds", { time });
-      } else {
-        return `${t("speaking.nextPartInSeconds", { time })}`;
-      }
-    }
-    if (currentPart === 1 && question === content.part1.length) {
-      if (content.part2) {
-        return "Part 2";
-      } else if (content.part3) {
-        return "Part 3";
-      } else {
-        return t("speaking.endTest");
-      }
-    } else if (currentPart === 3 && question === content.part3.length) {
-      return t("speaking.endTest");
-    } else {
-      return t("nextQuestion");
-    }
-  };
-
   useEffect(() => {
-    if (isCountingDown && timeLeft === 0) {
-      if (currentPart === 1) {
-        if (question === content.part1.length) {
-          if (content.part2) {
-            navigateToPart(1, 2);
-          } else if (content.part3) {
-            navigateToPart(1, 3);
-          } else {
-            setTestState(EnumSimulatedTestSessionStatus.FINISHED);
-          }
+    if (!isRunning || !isEnd) return;
+
+    if (currentPart === 1) {
+      if (question === content.part1.length) {
+        if (content.part2) {
+          navigateToPart(1, 2);
+        } else if (content.part3) {
+          navigateToPart(1, 3);
         } else {
-          navigateToPart(question + 1, 1);
-        }
-        setIsCountingDown(false);
-      } else if (currentPart === 3) {
-        if (question === content.part3.length) {
           setTestState(EnumSimulatedTestSessionStatus.FINISHED);
-        } else {
-          navigateToPart(question + 1, 3);
         }
-        setIsCountingDown(false);
+      } else {
+        navigateToPart(question + 1, 1);
+      }
+    } else if (currentPart === 3) {
+      if (question === content.part3.length) {
+        setTestState(EnumSimulatedTestSessionStatus.FINISHED);
+      } else {
+        navigateToPart(question + 1, 3);
       }
     }
-  }, [isCountingDown, timeLeft, currentPart]);
+  }, [isRunning, isEnd, currentPart]);
 
   return (
     <div className="flex w-[800px] flex-col items-center gap-10 overflow-visible rounded-lg border border-blue-200 bg-white p-12">
       <div className="flex flex-col items-center gap-3">
-        <h4 className="text-heading-5 font-semibold">{`Question ${question}`}</h4>
+        <h6 className="text-heading-6 font-semibold">{`Question ${question}`}</h6>
         <p className="text-center">
           {currentPart === 1 && content.part1[question - 1]}
           {currentPart === 3 && content.part3[question - 1]}
         </p>
       </div>
-      <RecordingButton onStop={handleNextQuestion} duration={30} diasbled={isCountingDown} />
+      <RecordingButton
+        onStop={handleNextQuestion}
+        duration={SPEAKING_PART_ONE_AND_THREE_DURATION}
+        diasbled={isRunning}
+      />
       <Button
         type="button"
         variant={question === content.part1.length ? "default" : "ghost"}
         className="w-full flex-1 sm:w-fit"
-        disabled={isCountingDown}
+        disabled={isRunning}
         onClick={handleNextQuestion}
       >
         <div className="flex items-center gap-2">
-          {getNextButtonText()}
+          {t(getNextButtonText(isRunning, currentPart, question, content), { time: timeLeft })}
           <ArrowRight className="size-4" />
         </div>
       </Button>
