@@ -1,4 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
+import React from "react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -83,20 +84,20 @@ export function PracticeBreadcrumb({
     <Breadcrumb>
       <BreadcrumbList>
         {breadcrumbs.map((crumb, index) => (
-          <BreadcrumbItem key={index}>
-            {index === breadcrumbs.length - 1 ? (
-              <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
-            ) : (
-              <>
+          <React.Fragment key={index}>
+            <BreadcrumbItem>
+              {index === breadcrumbs.length - 1 ? (
+                <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
+              ) : (
                 <BreadcrumbLink href={crumb.href} asChild>
                   <Link to={crumb.href} className="underline-offset-2 hover:underline">
                     {crumb.label}
                   </Link>
                 </BreadcrumbLink>
-                <BreadcrumbSeparator />
-              </>
-            )}
-          </BreadcrumbItem>
+              )}
+            </BreadcrumbItem>
+            {index < breadcrumbs.length - 1 && <BreadcrumbSeparator />}
+          </React.Fragment>
         ))}
       </BreadcrumbList>
     </Breadcrumb>

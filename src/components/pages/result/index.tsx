@@ -38,7 +38,7 @@ export default function ResultPage() {
   );
 
   useEffect(() => {
-    if (session?.status !== EnumSimulatedTestSessionStatus.FINISHED && simulatedTest) {
+    if (session && session.status !== EnumSimulatedTestSessionStatus.FINISHED && simulatedTest) {
       navigate({ to: `/practice/${simulatedTest?.collectionId}` });
     }
   }, [session, simulatedTest]);

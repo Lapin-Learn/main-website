@@ -100,7 +100,7 @@ export const submitSimulatedTest = async (
 ) => {
   const { sessionId, ...rest } = payload;
   if (payload.responses.length === 0) {
-    return null;
+    throw new Error("No responses to submit");
   }
   return (
     await api
