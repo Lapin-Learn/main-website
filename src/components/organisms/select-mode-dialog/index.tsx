@@ -11,7 +11,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -129,30 +128,31 @@ const SelectModeDialog = () => {
         setOpen(open);
       }}
     >
-      <DialogContent className="flex max-w-screen-sm flex-col gap-4 rounded-2xl bg-white px-3 py-4 md:max-w-[720px] md:px-8 md:py-10">
+      <DialogContent
+        className="flex max-w-screen-sm flex-col gap-4 rounded-2xl bg-white px-3 py-4 md:max-w-[720px] md:px-8 md:py-10"
+        aria-describedby={undefined}
+      >
         <DialogHeader className="flex flex-col gap-3">
           <DialogTitle className="text-heading-4 font-bold">
             {test.testName}&nbsp;-&nbsp;
             {skillTest.skill.toString().charAt(0).toUpperCase() +
               skillTest.skill.toString().slice(1)}
           </DialogTitle>
-          <DialogDescription>
-            {mode === EnumMode.PRACTICE ? (
-              <CustomAlert
-                theme="success"
-                title={t("exam-mode-config.alerts.practice.title")}
-                description={t("exam-mode-config.alerts.practice.description")}
-                icon={<SquarePen className="size-5" color="#166534" />}
-              />
-            ) : (
-              <CustomAlert
-                theme="warning"
-                title={t("exam-mode-config.alerts.full_test.title")}
-                description={t("exam-mode-config.alerts.full_test.description")}
-                icon={<TriangleAlert className="size-5" color="#854D0E" />}
-              />
-            )}
-          </DialogDescription>
+          {mode === EnumMode.PRACTICE ? (
+            <CustomAlert
+              theme="success"
+              title={t("exam-mode-config.alerts.practice.title")}
+              description={t("exam-mode-config.alerts.practice.description")}
+              icon={<SquarePen className="size-5" color="#166534" />}
+            />
+          ) : (
+            <CustomAlert
+              theme="warning"
+              title={t("exam-mode-config.alerts.full_test.title")}
+              description={t("exam-mode-config.alerts.full_test.description")}
+              icon={<TriangleAlert className="size-5" color="#854D0E" />}
+            />
+          )}
         </DialogHeader>
 
         <Form {...form}>

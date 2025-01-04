@@ -72,7 +72,7 @@ export const BaseTable = <TData, TValue>(props: BaseTableProps<TData, TValue>) =
                   return (
                     <TableHead key={header.id}>
                       {!header.isPlaceholder && header.column.columnDef.header !== "undefined" ? (
-                        <Typography variant="body2" className="font-semibold text-black">
+                        <Typography variant="body2" className="font-semibold text-black" comp="div">
                           <div className="flex cursor-pointer items-center justify-between truncate p-4">
                             {flexRender(header.column.columnDef.header, header.getContext())}
                             {header.column.getCanSort() && (
@@ -116,7 +116,7 @@ export const BaseTable = <TData, TValue>(props: BaseTableProps<TData, TValue>) =
                         const size = cell.column.getSize();
                         return (
                           <TableCell key={cell.id} className="p-4" width={size}>
-                            <Typography variant="body2" className="truncate">
+                            <Typography variant="body2" className="truncate" comp="div">
                               {flexRender(cell.column.columnDef.cell, cell.getContext())}
                             </Typography>
                           </TableCell>
@@ -137,7 +137,7 @@ export const BaseTable = <TData, TValue>(props: BaseTableProps<TData, TValue>) =
         </Table>
       </div>
       <div className="mt-4 flex flex-row items-center justify-between">
-        <Typography variant="body2" className="text-neutral-500 ">
+        <Typography variant="body2" className="text-neutral-500">
           {t("total", {
             number: table.getRowCount(),
             unit: "",

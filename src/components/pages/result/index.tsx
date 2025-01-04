@@ -71,7 +71,7 @@ export default function ResultPage() {
                 <DialogTrigger asChild>
                   <Button variant="link">{t("detail.button")}</Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-screen h-screen p-0">
+                <DialogContent className="max-w-screen h-screen p-0" aria-describedby={undefined}>
                   <PageLayout
                     header={
                       <DialogHeader className="p-4 sm:px-8">
