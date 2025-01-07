@@ -37,7 +37,7 @@ export function FilteredSkillCard({ test, skillTest, isSupport }: FilteredSkillC
                 <div className="flex flex-col items-start gap-2">
                   <div className="flex flex-col items-start">
                     <div className="text-sm text-neutral-200">
-                      {t("correctAnswers")}:{" "}
+                      {t("correctAnswer", { context: "plural" })}:{" "}
                       <span className="text-sm font-semibold text-neutral-950">--/40</span>
                     </div>
                     <div className="text-sm text-neutral-200">

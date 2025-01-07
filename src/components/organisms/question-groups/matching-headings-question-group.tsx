@@ -52,7 +52,10 @@ export default function MatchingHeadingsQuestionGroup({
           </p>
           {answerKeys.length && status.length ? (
             <div className="mt-2 flex">
-              <span className="font-medium italic">{t("correctAnswer")} : </span> &nbsp;
+              <span className="font-medium italic">
+                {t("correctAnswer", { context: "single" })} :{" "}
+              </span>{" "}
+              &nbsp;
               <AnswerGuidanceContent
                 answer={answerKeys[question.questionNo - 1]}
                 status={status[question.questionNo - 1]}

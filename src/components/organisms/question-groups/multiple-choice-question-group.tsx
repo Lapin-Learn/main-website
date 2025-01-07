@@ -133,7 +133,10 @@ export default function MultipleChoiceQuestionGroup({
             </div>
             {answerKeys.length ? (
               <div className="mt-2 flex">
-                <span className="font-medium italic">{t("correctAnswer")} : </span> &nbsp;
+                <span className="font-medium italic">
+                  {t("correctAnswer", { context: "single" })} :{" "}
+                </span>{" "}
+                &nbsp;
                 <AnswerGuidanceContent
                   answer={answerKeys[id]}
                   status={answerStatus}
