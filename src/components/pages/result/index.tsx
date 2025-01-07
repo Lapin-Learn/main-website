@@ -6,6 +6,7 @@ import {
   useGetSimulatedTestDetail,
   useGetSTSessionDetail,
 } from "@/hooks/react-query/use-simulated-test";
+import { useResult } from "@/hooks/zustand/use-result";
 import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { SimulatedTestSession } from "@/lib/types/simulated-test.type";
 import { Route } from "@/routes/_authenticated/_dashboard/practice/simulated-test/result";
@@ -29,13 +30,13 @@ import { ResultHeader } from "./result-header";
 export default function ResultPage() {
   const { t } = useTranslation(["collection", "common"]);
   const { sessionId } = Route.useSearch();
-  const { data: session, isLoading, userAnswers, answerStatus } = useGetSTSessionDetail(sessionId);
   const navigate = useNavigate();
-
+  const { data: session, isLoading, userAnswers, answerStatus } = useGetSTSessionDetail(sessionId);
   const { data: simulatedTest } = useGetSimulatedTestDetail(
     session?.skillTest.simulatedIeltsTest.id || 0,
     !isLoading
   );
+  const { setAnswerKeys, setGuidances, setStatus, reset } = useResult();
 
   useEffect(() => {
     if (session && session.status !== EnumSimulatedTestSessionStatus.FINISHED && simulatedTest) {
@@ -67,9 +68,20 @@ export default function ResultPage() {
               <TabsTrigger value="analysis">{t("analysis")}</TabsTrigger>
             </TabsList>
             {isAvailableSkill && (
-              <Dialog>
+              <Dialog onOpenChange={(open) => !open && reset()}>
                 <DialogTrigger asChild>
-                  <Button variant="link">{t("detail.button")}</Button>
+                  <Button
+                    variant="link"
+                    onClick={() => {
+                      if (session && session.status === EnumSimulatedTestSessionStatus.FINISHED) {
+                        setAnswerKeys(session.skillTest.answers);
+                        setGuidances(session.skillTest.guidances);
+                        setStatus(answerStatus);
+                      }
+                    }}
+                  >
+                    {t("detail.button")}
+                  </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-screen h-screen p-0" aria-describedby={undefined}>
                   <PageLayout

@@ -1,6 +1,6 @@
 {
     "viewHistory": "Xem lịch sử",
-    "correctAnswer": "Trả lời đúng",
+    "correctAnswers": "Trả lời đúng",
     "timeSpent": "Thời gian đã luyện",
     "comingSoon": "Sắp ra mắt",
     "detail": {
@@ -9,5 +9,6 @@
         "answerKeys": "Danh sách đáp án"
     },
     "answerKeys": "Đáp án",
-    "analysis": "Phân tích chi tiết" 
+    "analysis": "Phân tích chi tiết",
+    "correctAnswer": "Đáp án đúng"
 }

@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Checkbox, Label, RadioGroup, RadioGroupItem } from "@/components/ui";
+import { useResult } from "@/hooks/zustand/use-result";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { Option } from "@/lib/types";
 import { QuestionGroupMultipleChoice } from "@/lib/types/simulated-test.type";
+
+import AnswerGuidanceContent from "../result/answer-guidance-content";
 
 type MultipleSelectProps = {
   question: {
@@ -15,14 +19,17 @@ type MultipleSelectProps = {
 };
 function MultipleSelect({ question, disabled }: MultipleSelectProps) {
   const MAX_SELECT = question.questionNo.length;
-  const { answer } = useAnswerStore();
-  const [selected, setSelected] = useState<string[]>([]);
+  const { answer, answerSheet } = useAnswerStore();
+  const [selected, setSelected] = useState<string[]>(
+    question.questionNo.map((qNo) => answerSheet[qNo.toString()] ?? "")
+  );
 
   useEffect(() => {
     for (let i = 0; i < Math.min(MAX_SELECT, selected.length); i++) {
       answer(question.questionNo[i], selected[i] ?? null);
     }
   }, [selected]);
+
   return (
     <div className="mt-2 flex flex-col gap-3">
       {question.options.map((option, index) => (
@@ -56,9 +63,11 @@ function MultipleSelect({ question, disabled }: MultipleSelectProps) {
 export default function MultipleChoiceQuestionGroup({
   questionCard,
   questions,
-  disabled,
 }: QuestionGroupMultipleChoice) {
   const { answer, answerSheet } = useAnswerStore();
+  const { t } = useTranslation("collection");
+  const { answerKeys, status, guidances } = useResult();
+
   return (
     <div>
       <h6 className="font-bold">{questionCard}</h6>
@@ -68,53 +77,73 @@ export default function MultipleChoiceQuestionGroup({
         <li>FALSE - if the statement contradicts the information </li>
         <li>NOT GIVEN - if there is no information on this</li>
       </ul> */}
-      {questions.map((question) => (
-        <div key={question.questionNo[0]} className="mt-4">
-          {question.questionNo.length == 1 ? (
-            <p>
-              <strong className="mr-2" id={`Question-${question.questionNo.toString()}`}>
-                {question.questionNo[0]}.
-              </strong>
-              {question.question}
-            </p>
-          ) : (
-            <>
-              {question.questionNo.map((no) => (
-                <span id={`Question-${no}`} key={no} />
-              ))}
-              <strong>{question.question}</strong>
-            </>
-          )}
-          <div className="mt-2">
-            {question.questionNo.length > 1 ? (
-              <MultipleSelect question={question} disabled={disabled} />
+      {questions.map((question) => {
+        const id = question.questionNo[0] - 1;
+        const questionStatus =
+          question.questionNo.length > 1
+            ? status.slice(id, question.questionNo[question.questionNo.length - 1])
+            : [status[id]];
+        const answerStatus =
+          questionStatus.length > 1 ? questionStatus.every((status) => status) : questionStatus[0];
+
+        return (
+          <div key={question.questionNo[0]} className="mt-4">
+            {question.questionNo.length == 1 ? (
+              <p>
+                <strong className="mr-2" id={`Question-${question.questionNo.toString()}`}>
+                  {question.questionNo[0]}.
+                </strong>
+                {question.question}
+              </p>
             ) : (
-              <RadioGroup
-                onValueChange={(value) => {
-                  answer(question.questionNo[0], value);
-                }}
-                value={answerSheet[question.questionNo[0]] ?? ""}
-                disabled={disabled}
-              >
-                {question.options.map((option, index) => (
-                  <div key={index} className="flex items-center">
-                    <RadioGroupItem
-                      value={option.value}
-                      id={`${question.questionNo}-${option.value}`}
-                    />
-                    <Label
-                      className="ml-2 text-base font-normal"
-                      htmlFor={`${question.questionNo}-${option.value}`}
-                    >
-                      {option.label}
-                    </Label>
-                  </div>
+              <>
+                {question.questionNo.map((no) => (
+                  <span id={`Question-${no}`} key={no} />
                 ))}
-              </RadioGroup>
+                <strong>{question.question}</strong>
+              </>
             )}
+            <div className="mt-2">
+              {question.questionNo.length > 1 ? (
+                <MultipleSelect question={question} disabled={!!answerKeys.length} />
+              ) : (
+                <RadioGroup
+                  onValueChange={(value) => {
+                    answer(question.questionNo[0], value);
+                  }}
+                  value={answerSheet[question.questionNo[0]] ?? ""}
+                  disabled={!!answerKeys.length}
+                >
+                  {question.options.map((option, index) => (
+                    <div key={index} className="flex items-center">
+                      <RadioGroupItem
+                        value={option.value}
+                        id={`${question.questionNo}-${option.value}`}
+                      />
+                      <Label
+                        className="ml-2 text-base font-normal"
+                        htmlFor={`${question.questionNo}-${option.value}`}
+                      >
+                        {option.label}
+                      </Label>
+                    </div>
+                  ))}
+                </RadioGroup>
+              )}
+            </div>
+            {answerKeys.length ? (
+              <div className="mt-2 flex">
+                <span className="font-medium italic">{t("correctAnswer")} : </span> &nbsp;
+                <AnswerGuidanceContent
+                  answer={answerKeys[id]}
+                  status={answerStatus}
+                  guidance={guidances ? guidances[id] : null}
+                />
+              </div>
+            ) : null}
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

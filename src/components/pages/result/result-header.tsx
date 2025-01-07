@@ -38,7 +38,7 @@ export function ResultHeader({ collectionId, session }: CollectionDetailHeaderPr
         )}
         {session.results && (
           <TestHeaderLayout.Achievement
-            title={t("correctAnswer", { ns: "collection" })}
+            title={t("correctAnswers", { ns: "collection" })}
             description={
               <>
                 <Check className="text-green-500" />

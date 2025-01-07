@@ -23,7 +23,7 @@ export default function TestSkillCard({ skill, isComingSoon, onClick }: TestSkil
         <span className="text-base font-semibold capitalize">{skill}</span>
         <div className="flex flex-col items-start">
           <div className="text-start text-xs text-supporting-text">
-            {!isComingSoon ? `${t("correctAnswer")}:` : `${t("comingSoon")}...`}
+            {!isComingSoon ? `${t("correctAnswers")}:` : `${t("comingSoon")}...`}
           </div>
           {!isComingSoon && <div className="font-semibold">--/40</div>}
         </div>

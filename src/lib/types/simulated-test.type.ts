@@ -40,8 +40,8 @@ type BaseQuestionGroup = {
   questionCard: string;
   startQuestionNo: number;
   endQuestionNo: number;
-  disabled?: boolean;
 };
+
 export type QuestionGroupMultipleChoice = BaseQuestionGroup & {
   questionType: EnumQuestionGroup.multipleChoice;
   questions: MultipleChoiceQuestion[];

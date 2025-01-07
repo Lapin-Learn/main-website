@@ -3,11 +3,9 @@ import { useEffect } from "react";
 
 import AudioPlayer from "@/components/molecules/audio-player";
 import QuestionGroupFactory from "@/components/organisms/question-groups";
-import AnswerKeys from "@/components/organisms/result/answer-keys";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useGetSkillTestData, useGetSTSessionDetail } from "@/hooks/react-query/use-simulated-test";
 import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
-import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
 import { STSkillPageProps } from "@/lib/types/simulated-test.type";
 import { scrollToElementById } from "@/lib/utils";
 // import questionGroup from "@/lib/mock/mockListening1.json";
@@ -18,14 +16,17 @@ const ListeningPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
     position: { part: currentPart, question },
   } = useSimulatedTestState();
   const { data: testContent, isLoading } = useGetSkillTestData(skillTestId, currentPart);
-  const { data: session, userAnswers, answerStatus } = useGetSTSessionDetail(sessionId);
-  const isFinished = session?.status === EnumSimulatedTestSessionStatus.FINISHED;
+  const { data: session } = useGetSTSessionDetail(sessionId);
 
   useEffect(() => {
     if (!isLoading) {
       scrollToElementById(`Question-${question}`);
     }
   }, [isLoading, question]);
+
+  if (!session) {
+    return null;
+  }
 
   return (
     <ScrollArea className="inner-shadow-section relative flex h-full w-screen flex-1 flex-col items-center bg-neutral-50">
@@ -39,24 +40,11 @@ const ListeningPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
           {/* <QuestionGroupFactory questionGroup={questionGroup.questionGroups[0] as QuestionGroup} /> */}
           {testContent && !isLoading ? (
             <>
-              {testContent?.questionGroups?.map((questionGroup) => (
-                <div className="flex flex-col gap-8">
-                  <QuestionGroupFactory
-                    key={questionGroup.startQuestionNo}
-                    questionGroup={questionGroup}
-                    disabled={isFinished}
-                  />
-                  {isFinished && (
-                    <AnswerKeys
-                      answerKeys={session.skillTest.answers}
-                      startNo={questionGroup.startQuestionNo}
-                      endNo={questionGroup.endQuestionNo}
-                      userAnswers={userAnswers}
-                      answerStatus={answerStatus}
-                      guidances={session.skillTest.guidances}
-                    />
-                  )}
-                </div>
+              {testContent.questionGroups.map((questionGroup) => (
+                <QuestionGroupFactory
+                  key={questionGroup.startQuestionNo}
+                  questionGroup={questionGroup}
+                />
               )) ?? <div>This part is not available. Please contact the administrator.</div>}
             </>
           ) : (
