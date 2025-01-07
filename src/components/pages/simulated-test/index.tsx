@@ -79,7 +79,6 @@ function renderFooter(session: SimulatedTestSession) {
           part: session.parts[index],
         })) ?? []
       }
-      status={session.status}
       skill={session.skillTest.skill}
     />
   );

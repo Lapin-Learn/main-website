@@ -2,7 +2,7 @@ import { mergeAttributes, Node } from "@tiptap/core";
 import { Attribute, NodeViewWrapper, ReactNodeViewRenderer } from "@tiptap/react";
 import { useState } from "react";
 
-import AnswerGuidanceContent from "@/components/organisms/result/answer-guidance-content";
+import { AnswerContent } from "@/components/organisms/result/part-answers-card";
 import { Input } from "@/components/ui";
 import { useResult } from "@/hooks/zustand/use-result";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
@@ -21,9 +21,11 @@ const CustomInput = ({ questionNo }: CustomInputProps) => {
   return (
     <NodeViewWrapper className="mx-2 w-fit" contentEditable={false}>
       {answerKeys.length ? (
-        <AnswerGuidanceContent
+        <AnswerContent
+          id={`Question-${questionNo}`}
+          questionNo={parseInt(questionNo)}
           answer={answerKeys[parseInt(questionNo) - 1]}
-          userAnswer={value || ""}
+          userAnswer={value ?? ""}
           guidance={guidances ? guidances[parseInt(questionNo) - 1] : null}
           status={isCorrect}
         />

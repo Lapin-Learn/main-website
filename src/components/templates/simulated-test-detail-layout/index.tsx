@@ -10,10 +10,16 @@ import { SimulatedTestAnswer, SimulatedTestSession } from "@/lib/types/simulated
 interface PageLayoutProps {
   header: ReactNode;
   session: SimulatedTestSession;
-  renderFooter: (session: SimulatedTestSession) => ReactNode;
+  answerStatus?: boolean[];
+  renderFooter: (session: SimulatedTestSession, answerStatus?: boolean[]) => ReactNode;
 }
 
-export default function PageLayout({ header, session, renderFooter }: PageLayoutProps) {
+export default function PageLayout({
+  header,
+  session,
+  answerStatus,
+  renderFooter,
+}: PageLayoutProps) {
   const sessionId = session.id;
   const skillTestId = session.skillTest.id;
 
@@ -26,7 +32,7 @@ export default function PageLayout({ header, session, renderFooter }: PageLayout
           skillTestId={skillTestId}
           sessionId={sessionId}
         />
-        {renderFooter(session)}
+        {renderFooter(session, answerStatus)}
       </DefaultAnswerWrapper>
     </div>
   );

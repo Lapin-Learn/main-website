@@ -7,6 +7,7 @@ import {
   useGetSTSessionDetail,
 } from "@/hooks/react-query/use-simulated-test";
 import { useResult } from "@/hooks/zustand/use-result";
+import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
 import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { SimulatedTestSession } from "@/lib/types/simulated-test.type";
 import { Route } from "@/routes/_authenticated/_dashboard/practice/simulated-test/result";
@@ -37,6 +38,7 @@ export default function ResultPage() {
     !isLoading
   );
   const { setAnswerKeys, setGuidances, setStatus, reset } = useResult();
+  const { resetTest } = useSimulatedTestState();
 
   useEffect(() => {
     if (session && session.status !== EnumSimulatedTestSessionStatus.FINISHED && simulatedTest) {
@@ -51,6 +53,16 @@ export default function ResultPage() {
   const isAvailableSkill = [EnumSkill.reading, EnumSkill.listening].includes(
     session.skillTest.skill
   );
+
+  const onDialogOpen = () => {
+    if (session && session.status === EnumSimulatedTestSessionStatus.FINISHED) {
+      setAnswerKeys(session.skillTest.answers);
+      setGuidances(session.skillTest.guidances);
+      setStatus(answerStatus);
+    }
+
+    resetTest();
+  };
 
   return (
     <div className="flex flex-col gap-6 p-4 pt-8">
@@ -70,16 +82,7 @@ export default function ResultPage() {
             {isAvailableSkill && (
               <Dialog onOpenChange={(open) => !open && reset()}>
                 <DialogTrigger asChild>
-                  <Button
-                    variant="link"
-                    onClick={() => {
-                      if (session && session.status === EnumSimulatedTestSessionStatus.FINISHED) {
-                        setAnswerKeys(session.skillTest.answers);
-                        setGuidances(session.skillTest.guidances);
-                        setStatus(answerStatus);
-                      }
-                    }}
-                  >
+                  <Button variant="link" onClick={onDialogOpen}>
                     {t("detail.button")}
                   </Button>
                 </DialogTrigger>
@@ -91,6 +94,7 @@ export default function ResultPage() {
                       </DialogHeader>
                     }
                     session={session}
+                    answerStatus={answerStatus}
                     renderFooter={renderDialogFooter}
                   />
                 </DialogContent>
@@ -128,7 +132,7 @@ export default function ResultPage() {
   );
 }
 
-function renderDialogFooter(session: SimulatedTestSession) {
+function renderDialogFooter(session: SimulatedTestSession, answerStatus?: boolean[]) {
   const partDetails = session.skillTest.partsDetail.map((part, index) => ({
     ...part,
     part: session.parts[index],
@@ -138,8 +142,8 @@ function renderDialogFooter(session: SimulatedTestSession) {
       <Footer
         sessionId={session.id}
         partDetails={partDetails}
-        status={session.status}
         skill={session.skillTest.skill}
+        answerStatus={answerStatus}
       />
     </DialogFooter>
   );

@@ -7,7 +7,7 @@ import SubmitDialog from "@/components/organisms/simulated-test-dialog/submit-di
 import { Button } from "@/components/ui";
 import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
 import { DEFAULT_QUESTION_NO_BY_SKILL } from "@/lib/consts";
-import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
+import { EnumSkill } from "@/lib/enums";
 import { PartDetail } from "@/lib/types/simulated-test.type";
 import { cn } from "@/lib/utils";
 
@@ -17,10 +17,10 @@ type FooterProps = {
     part: number;
   })[];
   skill: EnumSkill;
-  status: EnumSimulatedTestSessionStatus;
+  answerStatus?: boolean[];
 };
 
-const Footer = ({ sessionId, partDetails, skill, status }: FooterProps) => {
+const Footer = ({ sessionId, partDetails, skill, answerStatus }: FooterProps) => {
   const { navigateToPart, position } = useSimulatedTestState();
   const { t } = useTranslation("simulatedTest");
 
@@ -66,30 +66,33 @@ const Footer = ({ sessionId, partDetails, skill, status }: FooterProps) => {
                 { length: group.endQuestionNo - group.startQuestionNo + 1 },
                 (_, i) => i + group.startQuestionNo
               ).map((number) => (
-                <QuestionNavigator key={number} number={number} partNo={group.part} />
+                <QuestionNavigator
+                  key={number}
+                  number={number}
+                  partNo={group.part}
+                  status={Array.isArray(answerStatus) ? answerStatus[number - 1] : answerStatus}
+                />
               ))}
             </React.Fragment>
           ))}
         </div>
       )}
       <div className="flex flex-row gap-2 xl:gap-4">
-        {status !== EnumSimulatedTestSessionStatus.FINISHED && (
-          <>
-            <div className="flex flex-row gap-2 xl:gap-4">
-              <Button variant="outline" disabled={!prevPart} onClick={moveToPrevPart}>
-                <ArrowLeft size={20} className="lg:mr-2" />
-                <span className="hidden lg:block">{t("prevBtn")}</span>
-              </Button>
-              <Button variant="outline" disabled={!nextPart} onClick={moveToNextPart}>
-                <span className="hidden lg:block">{t("nextBtn")}</span>
-                <ArrowRight size={20} className="lg:ml-2" />
-              </Button>
-            </div>
-            <SubmitDialog
-              triggerButton={<Button className="submit">{t("submitBtn")}</Button>}
-              sessionId={sessionId}
-            />
-          </>
+        <div className="flex flex-row gap-2 xl:gap-4">
+          <Button variant="outline" disabled={!prevPart} onClick={moveToPrevPart}>
+            <ArrowLeft size={20} className="lg:mr-2" />
+            <span className="hidden lg:block">{t("prevBtn")}</span>
+          </Button>
+          <Button variant="outline" disabled={!nextPart} onClick={moveToNextPart}>
+            <span className="hidden lg:block">{t("nextBtn")}</span>
+            <ArrowRight size={20} className="lg:ml-2" />
+          </Button>
+        </div>
+        {!answerStatus && (
+          <SubmitDialog
+            triggerButton={<Button className="submit">{t("submitBtn")}</Button>}
+            sessionId={sessionId}
+          />
         )}
       </div>
     </div>
