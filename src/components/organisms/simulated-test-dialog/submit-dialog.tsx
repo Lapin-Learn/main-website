@@ -59,7 +59,10 @@ const SubmitDialog = ({ triggerButton, sessionId }: SubmitDialogProps) => {
           sessionId: session.id,
           elapsedTime: getElapsedTime(type, initialTime, currentTime),
           status: EnumSimulatedTestSessionStatus.FINISHED,
-          responses,
+          response: {
+            skill: session.skillTest.skill,
+            info: responses,
+          },
         },
         {
           onSuccess: () => {

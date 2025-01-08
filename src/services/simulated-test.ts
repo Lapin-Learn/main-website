@@ -90,7 +90,10 @@ export const startSimulatedTest = async (payload: SimulatedTestSessionPayload) =
 type SubmitSimulatedTestPayload = {
   elapsedTime: number;
   status: EnumSimulatedTestSessionStatus;
-  responses: SimulatedTestAnswer[];
+  response: {
+    skill: EnumSkill;
+    info: SimulatedTestAnswer[];
+  };
 };
 
 export const submitSimulatedTest = async (
@@ -98,14 +101,21 @@ export const submitSimulatedTest = async (
     sessionId: number;
   }
 ) => {
-  const { sessionId, ...rest } = payload;
-  if (payload.responses.length === 0) {
+  const { sessionId, response, ...rest } = payload;
+  if (response.info.length === 0) {
     throw new Error("No responses to submit");
   }
+
+  const formData = new FormData();
+  Object.entries(rest).forEach(([key, value]) => {
+    formData.append(key, value as string | Blob);
+  });
+  formData.append("response", JSON.stringify(response));
+
   return (
     await api
-      .put(`simulated-tests/sessions/${sessionId}`, {
-        json: rest,
+      .put(`simulated-tests/session/${sessionId}`, {
+        body: formData,
       })
       .json<FetchingData<string>>()
   ).data;

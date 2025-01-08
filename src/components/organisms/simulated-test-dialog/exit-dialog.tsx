@@ -45,7 +45,10 @@ const ExitDialog = ({ triggerButton }: ExitDialogProps) => {
         sessionId,
         elapsedTime: getElapsedTime(type, initialTime, currentTime),
         status: EnumSimulatedTestSessionStatus.IN_PROGRESS,
-        responses,
+        response: {
+          skill: session.skillTest.skill,
+          info: responses,
+        },
       });
     }
     navigate({ to: "/practice" });
