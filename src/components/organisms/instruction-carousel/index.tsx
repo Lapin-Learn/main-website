@@ -10,6 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { EnumMode } from "@/lib/enums";
 
 const InstructionCard = ({ title, content }: { title: string; content: string }) => {
   return (
@@ -20,7 +21,7 @@ const InstructionCard = ({ title, content }: { title: string; content: string })
   );
 };
 
-export function InstructionCarousel() {
+export function InstructionCarousel({ mode }: { mode: EnumMode }) {
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
@@ -55,8 +56,8 @@ export function InstructionCarousel() {
             <CarouselItem className="basis-full" key={index}>
               {/* TODO: Add instruction for full test */}
               <InstructionCard
-                title={t(`speaking.instructions.practice.${index}.title`)}
-                content={t(`speaking.instructions.practice.${index}.content`)}
+                title={t(`speaking.instructions.${mode}.${index}.title`)}
+                content={t(`speaking.instructions.${mode}.${index}.content`)}
               />
             </CarouselItem>
           ))}

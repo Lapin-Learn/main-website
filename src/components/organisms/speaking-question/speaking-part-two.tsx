@@ -18,7 +18,7 @@ import { SpeakingQuestionProps } from ".";
 import { getNextButtonText } from "./helpers";
 
 const PartTwoContentFormatted = ({ content }: { content: string }) => {
-  const [question, details] = content.split("You should say:\n-");
+  const [question, details] = content.split("You should say:");
   const detailItems = details.split("\n- ").filter((item) => item);
   return (
     <>
@@ -33,7 +33,7 @@ const PartTwoContentFormatted = ({ content }: { content: string }) => {
   );
 };
 
-const SpeakingPartTwo = ({ content }: SpeakingQuestionProps) => {
+const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
   const {
     position: { part: currentPart, question },
     setTestState,
@@ -69,18 +69,24 @@ const SpeakingPartTwo = ({ content }: SpeakingQuestionProps) => {
   useEffect(() => {
     if (!isRunning || !isEnd) return;
 
-    if (content.part3) {
-      navigateToPart(1, 3);
+    if (question === content?.content.length) {
+      const currentPartIndex = session.parts.findIndex((part) => part === currentPart);
+      if (currentPartIndex + 1 < session.parts.length) {
+        navigateToPart(1, session.parts[currentPartIndex + 1]);
+      } else {
+        setTestState(EnumSimulatedTestSessionStatus.FINISHED);
+      }
     } else {
-      setTestState(EnumSimulatedTestSessionStatus.FINISHED);
-      alert("End of test");
+      navigateToPart(question + 1, currentPart);
     }
   }, [isRunning, isEnd]);
+
+  if (!content) return null;
 
   return (
     <div className="grid w-[880px] grid-cols-12 gap-6">
       <div className="col-span-8 flex flex-col justify-center gap-8 overflow-visible rounded-lg border border-blue-200 bg-white p-12">
-        <PartTwoContentFormatted content={content.part2[0]} />
+        <PartTwoContentFormatted content={content.content[0]} />
       </div>
       <div className="col-span-4 flex flex-col items-center justify-center gap-8 overflow-visible rounded-lg border border-blue-200 bg-white p-10">
         <p className="text-center">
@@ -101,7 +107,14 @@ const SpeakingPartTwo = ({ content }: SpeakingQuestionProps) => {
           onClick={handleNextPart}
         >
           <div className="flex items-center gap-2">
-            {t(getNextButtonText(isRunning, currentPart, question, content), { time: timeLeft })}
+            {t(
+              getNextButtonText(
+                isRunning,
+                currentPart === session.parts[session.parts.length - 1],
+                question === content?.content.length
+              ),
+              { time: timeLeft }
+            )}
             <ArrowRight className="size-4" />
           </div>
         </Button>

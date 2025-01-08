@@ -78,6 +78,7 @@ type SpeakingTestActions = {
   navigateToPart: (questionNo: number, partNo: number) => void;
   addSpeakingSource: (source: string) => void;
   setInitialPart: (part: number) => void;
+  setMode: (mode: EnumMode) => void;
   reset: () => void;
 };
 
@@ -106,5 +107,6 @@ export const useSpeakingTestState = create<SpeakingTestState & SpeakingTestActio
   addSpeakingSource: (source) =>
     set((state) => ({ speakingSources: [...state.speakingSources, source] })),
   setInitialPart: (part) => set((state) => ({ position: { ...state.position, part } })),
+  setMode: (mode) => set({ mode }),
   reset: () => set({ ...initialTestState }),
 }));

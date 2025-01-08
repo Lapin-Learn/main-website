@@ -117,6 +117,7 @@
         },
         "nextQuestionInSeconds": "Câu tiếp theo sau {{ time }}s",
         "nextPartInSeconds": "Part tiếp theo sau {{ time }}s",
+        "nextPart": "Part tiếp theo",
         "preparePartTwo": "Bạn có {{ time }} giây để chuẩn bị",
         "startSpeakingPartTwo": "Bạn hãy bắt đầu nói",
         "endTestInSeconds": "Kết thúc trong {{ time }}s",

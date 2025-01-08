@@ -2,6 +2,7 @@ import { Fragment, PropsWithChildren, ReactNode, useEffect } from "react";
 
 import ListeningPage from "@/components/pages/simulated-test/listening";
 import ReadingPage from "@/components/pages/simulated-test/reading";
+import SpeakingPage from "@/components/pages/simulated-test/speaking";
 import WritingPage from "@/components/pages/simulated-test/writing";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { EnumSkill } from "@/lib/enums";
@@ -26,14 +27,22 @@ export default function PageLayout({
   return (
     <div className="flex h-screen w-full flex-col justify-between">
       {header}
-      <DefaultAnswerWrapper draftAnswers={session.responses}>
+      {session.skillTest.skill === EnumSkill.speaking ? (
         <SkillContentFactory
           skill={session.skillTest.skill}
           skillTestId={skillTestId}
           sessionId={sessionId}
         />
-        {renderFooter(session, answerStatus)}
-      </DefaultAnswerWrapper>
+      ) : (
+        <DefaultAnswerWrapper draftAnswers={session.responses}>
+          <SkillContentFactory
+            skill={session.skillTest.skill}
+            skillTestId={skillTestId}
+            sessionId={sessionId}
+          />
+          {renderFooter(session, answerStatus)}
+        </DefaultAnswerWrapper>
+      )}
     </div>
   );
 }
@@ -78,6 +87,8 @@ const SkillContentFactory = ({
       return <ReadingPage skillTestId={skillTestId} sessionId={sessionId} />;
     case EnumSkill.listening:
       return <ListeningPage skillTestId={skillTestId} sessionId={sessionId} />;
+    case EnumSkill.speaking:
+      return <SpeakingPage skillTestId={skillTestId} sessionId={sessionId} />;
     case EnumSkill.writing:
       return <WritingPage />;
     default:

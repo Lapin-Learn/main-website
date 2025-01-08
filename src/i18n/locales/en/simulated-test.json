@@ -116,6 +116,7 @@
         },
         "nextQuestionInSeconds": "Next question in {{ time }}s",
         "nextPartInSeconds": "Next part in {{ time }}s",
+        "nextPart": "Next part",
         "preparePartTwo": "You have {{ time }} seconds to prepare",
         "startSpeakingPartTwo": "Start speaking now",
         "endTestInSeconds": "Test ends in {{ time }}s",

@@ -52,12 +52,13 @@ const ReadingPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
         {testContent && !isLoading ? (
           <ScrollArea className="h-full px-4 sm:px-8">
             <div className="flex flex-col gap-16 py-4">
-              {testContent.questionGroups.map((questionGroup) => (
-                <QuestionGroupFactory
-                  key={questionGroup.startQuestionNo}
-                  questionGroup={questionGroup}
-                />
-              ))}
+              {"questionGroups" in testContent &&
+                testContent.questionGroups.map((questionGroup) => (
+                  <QuestionGroupFactory
+                    key={questionGroup.startQuestionNo}
+                    questionGroup={questionGroup}
+                  />
+                ))}
             </div>
           </ScrollArea>
         ) : (

@@ -8,6 +8,7 @@ import {
   SimulatedTestCollection,
   SimulatedTestSession,
   SimulatedTestSessionsHistory,
+  SpeakingContent,
 } from "@/lib/types/simulated-test.type";
 import { generateSearchParams } from "@/lib/utils";
 
@@ -43,7 +44,7 @@ export const getSimulatedTestBySkill = async ({
         .get(`skill-tests/${skillTestId}`, {
           searchParams,
         })
-        .json<FetchingData<ReadingContent>>()
+        .json<FetchingData<ReadingContent | SpeakingContent>>()
     ).data;
   } catch (error) {
     console.error(error);

@@ -20,7 +20,6 @@ const features: SideBarFeatureProps[] = [
     label: "practice",
   },
   { to: "/missions", icon: <MissionsIcon />, label: "mission" },
-  { to: "/speaking", icon: <PracticeIcon />, label: "Speaking" },
 ];
 
 const adminFeatures: SideBarFeatureProps[] = [

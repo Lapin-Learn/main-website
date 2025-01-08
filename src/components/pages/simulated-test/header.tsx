@@ -13,7 +13,7 @@ import { getInitialTime, getPartName, getTimerMode } from "@/lib/utils";
 
 import Timer from "./timer";
 
-type HeaderProps = {
+export type HeaderProps = {
   currentPart: number;
   session: SimulatedTestSession;
 };

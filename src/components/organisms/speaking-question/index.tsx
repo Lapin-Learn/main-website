@@ -1,17 +1,18 @@
 import { Fragment } from "react";
 
 import { useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
-import { SpeakingContent } from "@/lib/types/simulated-test.type";
+import { SimulatedTestSession, SpeakingContent } from "@/lib/types/simulated-test.type";
 
 import SpeakingPartOneAndThree from "./speaking-part-one-and-three";
 import SpeakingPartTwo from "./speaking-part-two";
 
 export type SpeakingQuestionProps = {
-  content: SpeakingContent;
+  content?: SpeakingContent;
+  session: SimulatedTestSession;
   audioSrc?: string;
 };
 
-const SpeakingQuestion = ({ content, audioSrc }: SpeakingQuestionProps) => {
+const SpeakingQuestion = (props: SpeakingQuestionProps) => {
   const {
     position: { part },
   } = useSpeakingTestState();
@@ -19,9 +20,9 @@ const SpeakingQuestion = ({ content, audioSrc }: SpeakingQuestionProps) => {
   return (
     <Fragment>
       {part === 1 || part === 3 ? (
-        <SpeakingPartOneAndThree content={content} audioSrc={audioSrc} />
+        <SpeakingPartOneAndThree {...props} />
       ) : (
-        <SpeakingPartTwo content={content} audioSrc={audioSrc} />
+        <SpeakingPartTwo {...props} />
       )}
     </Fragment>
   );

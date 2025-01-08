@@ -13,7 +13,7 @@ import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
 import { SpeakingQuestionProps } from ".";
 import { getNextButtonText } from "./helpers";
 
-const SpeakingPartOneAndThree = ({ content }: SpeakingQuestionProps) => {
+const SpeakingPartOneAndThree = ({ content, session }: SpeakingQuestionProps) => {
   const {
     position: { part: currentPart, question },
     navigateToPart,
@@ -32,24 +32,15 @@ const SpeakingPartOneAndThree = ({ content }: SpeakingQuestionProps) => {
   useEffect(() => {
     if (!isRunning || !isEnd) return;
 
-    if (currentPart === 1) {
-      if (question === content.part1.length) {
-        if (content.part2) {
-          navigateToPart(1, 2);
-        } else if (content.part3) {
-          navigateToPart(1, 3);
-        } else {
-          setTestState(EnumSimulatedTestSessionStatus.FINISHED);
-        }
+    if (question === content?.content.length) {
+      const currentPartIndex = session.parts.findIndex((part) => part === currentPart);
+      if (currentPartIndex + 1 < session.parts.length) {
+        navigateToPart(1, session.parts[currentPartIndex + 1]);
       } else {
-        navigateToPart(question + 1, 1);
-      }
-    } else if (currentPart === 3) {
-      if (question === content.part3.length) {
         setTestState(EnumSimulatedTestSessionStatus.FINISHED);
-      } else {
-        navigateToPart(question + 1, 3);
       }
+    } else {
+      navigateToPart(question + 1, currentPart);
     }
   }, [isRunning, isEnd, currentPart]);
 
@@ -57,10 +48,7 @@ const SpeakingPartOneAndThree = ({ content }: SpeakingQuestionProps) => {
     <div className="flex w-[800px] flex-col items-center gap-10 overflow-visible rounded-lg border border-blue-200 bg-white p-12">
       <div className="flex flex-col items-center gap-3">
         <h6 className="text-heading-6 font-semibold">{`Question ${question}`}</h6>
-        <p className="text-center">
-          {currentPart === 1 && content.part1[question - 1]}
-          {currentPart === 3 && content.part3[question - 1]}
-        </p>
+        <p className="text-center">{content?.content[question - 1]}</p>
       </div>
       <RecordingButton
         onStop={handleNextQuestion}
@@ -69,13 +57,20 @@ const SpeakingPartOneAndThree = ({ content }: SpeakingQuestionProps) => {
       />
       <Button
         type="button"
-        variant={question === content.part1.length ? "default" : "ghost"}
+        variant={question === content?.content.length ? "default" : "ghost"}
         className="w-full flex-1 sm:w-fit"
         disabled={isRunning}
         onClick={handleNextQuestion}
       >
         <div className="flex items-center gap-2">
-          {t(getNextButtonText(isRunning, currentPart, question, content), { time: timeLeft })}
+          {t(
+            getNextButtonText(
+              isRunning,
+              currentPart === session.parts[session.parts.length - 1],
+              question === content?.content.length
+            ),
+            { time: timeLeft }
+          )}
           <ArrowRight className="size-4" />
         </div>
       </Button>

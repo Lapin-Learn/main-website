@@ -5,12 +5,14 @@ import ErrorFallback from "@/components/ErrorFallback";
 import PageLayout from "@/components/templates/simulated-test-detail-layout";
 import { useGetSTSessionDetail } from "@/hooks/react-query/use-simulated-test";
 import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
-import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
+import { useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
+import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { SimulatedTestSession } from "@/lib/types/simulated-test.type";
 import { Route } from "@/routes/_authenticated/practice/simulated-test";
 
 import Footer from "./footer";
 import Header from "./header";
+import SpeakingHeader from "./speaking-header";
 
 /**
  * Render the simulated test page layout
@@ -19,6 +21,13 @@ import Header from "./header";
 const SimulatedTestPage = () => {
   const { sessionId } = Route.useSearch();
   const { navigateToPart, position, resetTest } = useSimulatedTestState();
+  const {
+    navigateToPart: speakingNavigateToPart,
+    position: { part: speakingPart },
+    setInitialPart,
+    setMode,
+    reset: resetSpeakingTest,
+  } = useSpeakingTestState();
   const navigate = useNavigate();
   const { data: session, isLoading, isSuccess, isError } = useGetSTSessionDetail(sessionId);
 
@@ -28,7 +37,15 @@ const SimulatedTestPage = () => {
         navigate({ to: "/practice" });
       }
       resetTest();
+      resetSpeakingTest();
     };
+  }, []);
+
+  useEffect(() => {
+    if (session && session.skillTest.skill === EnumSkill.speaking) {
+      setMode(session.mode);
+      setInitialPart(session.parts[0]);
+    }
   }, []);
 
   useEffect(() => {
@@ -36,7 +53,14 @@ const SimulatedTestPage = () => {
       navigate({ to: "/practice" });
     } else {
       if (session) {
-        navigateToPart(session.skillTest.partsDetail[0].startQuestionNo, session.parts[0]);
+        if (session.skillTest.skill === EnumSkill.speaking) {
+          speakingNavigateToPart(
+            session.skillTest.partsDetail[0].startQuestionNo,
+            session.parts[0]
+          );
+        } else {
+          navigateToPart(session.skillTest.partsDetail[0].startQuestionNo, session.parts[0]);
+        }
         if (session.status === EnumSimulatedTestSessionStatus.FINISHED) {
           navigate({
             to: "result",
@@ -60,7 +84,13 @@ const SimulatedTestPage = () => {
 
   return (
     <PageLayout
-      header={<Header currentPart={position.part} session={session} />}
+      header={
+        session.skillTest.skill === EnumSkill.speaking ? (
+          <SpeakingHeader currentPart={speakingPart} session={session} />
+        ) : (
+          <Header currentPart={position.part} session={session} />
+        )
+      }
       session={session}
       renderFooter={renderFooter}
     />

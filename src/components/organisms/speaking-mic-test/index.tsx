@@ -5,7 +5,7 @@ import { Button } from "@/components/ui";
 import useAudioRecording from "@/hooks/use-audio-recording";
 import { useRecordingStore, useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
 import { MIC_TEST_DURATION } from "@/lib/consts";
-import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
+import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
 
 import RecordingButton from "../../molecules/recording-button";
 import { InstructionCarousel } from "../instruction-carousel";
@@ -23,9 +23,9 @@ const SpeakingMicTest = () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-3">
-      <h4 className="text-heading-4 font-semibold">{t("mode.practice")}</h4>
+      <h4 className="text-heading-4 font-semibold">{t(`mode.${EnumMode.FULL_TEST}`)}</h4>
       <div className="flex flex-col items-center gap-10">
-        <InstructionCarousel />
+        <InstructionCarousel mode={EnumMode.FULL_TEST} />
         <div className="flex w-[800px] flex-col items-center gap-8 overflow-visible rounded-lg border border-blue-200 bg-white p-8">
           <div className="relative h-full w-fit overflow-visible">
             <RecordingButton duration={MIC_TEST_DURATION} playBack />

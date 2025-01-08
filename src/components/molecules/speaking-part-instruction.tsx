@@ -1,19 +1,23 @@
 import { Zap } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import useGlobalTimerStore, { timerKeys } from "@/hooks/zustand/use-global-timer";
 import { useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
 import { PART_INSTRUCTIONS } from "@/lib/consts";
 
 import { Button } from "../ui";
 
-const PartInstruction = () => {
+const PartInstruction = ({ sessionId }: { sessionId: number }) => {
   const {
     position: { part: currentPart },
     navigateToPart,
   } = useSpeakingTestState();
   const { t } = useTranslation("simulatedTest");
+  const { startTimer } = useGlobalTimerStore();
+
   const handleStart = () => {
     navigateToPart(1, currentPart);
+    startTimer(timerKeys.testDetail(sessionId));
   };
 
   return (
