@@ -40,12 +40,13 @@ const ListeningPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
           {/* <QuestionGroupFactory questionGroup={questionGroup.questionGroups[0] as QuestionGroup} /> */}
           {testContent && !isLoading ? (
             <>
-              {testContent.questionGroups.map((questionGroup) => (
-                <QuestionGroupFactory
-                  key={questionGroup.startQuestionNo}
-                  questionGroup={questionGroup}
-                />
-              )) ?? <div>This part is not available. Please contact the administrator.</div>}
+              {("questionGroups" in testContent &&
+                testContent.questionGroups.map((questionGroup) => (
+                  <QuestionGroupFactory
+                    key={questionGroup.startQuestionNo}
+                    questionGroup={questionGroup}
+                  />
+                ))) ?? <div>This part is not available. Please contact the administrator.</div>}
             </>
           ) : (
             <div className="grid size-full flex-1 place-items-center">
