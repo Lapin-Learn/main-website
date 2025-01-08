@@ -1,15 +1,22 @@
+import { useTranslation } from "react-i18next";
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui";
+import { useResult } from "@/hooks/zustand/use-result";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { QuestionGroupMatchingInformation } from "@/lib/types/simulated-test.type";
+
+import AnswerGuidanceContent from "../result/answer-guidance-content";
 
 export default function MatchingInformationQuestionGroup({
   questionCard,
   questions,
   options,
   questionDescription,
-  disabled,
 }: QuestionGroupMatchingInformation) {
   const { answer, answerSheet } = useAnswerStore();
+  const { t } = useTranslation("collection");
+  const { answerKeys, status, guidances } = useResult();
+
   return (
     <div>
       <h6 className="font-bold">{questionCard}</h6>
@@ -36,7 +43,7 @@ export default function MatchingInformationQuestionGroup({
               <Select
                 value={answerSheet[question.questionNo] ?? ""}
                 onValueChange={(value: string) => answer(question.questionNo, value)}
-                disabled={disabled}
+                disabled={!!answerKeys.length}
               >
                 <SelectTrigger className="w-40">
                   <SelectValue
@@ -55,6 +62,19 @@ export default function MatchingInformationQuestionGroup({
               </Select>
             </span>
           </p>
+          {answerKeys.length && status.length ? (
+            <div className="mt-2 flex">
+              <span className="font-medium italic">
+                {t("correctAnswer", { context: "single" })} :{" "}
+              </span>{" "}
+              &nbsp;
+              <AnswerGuidanceContent
+                answer={answerKeys[question.questionNo - 1]}
+                status={status[question.questionNo - 1]}
+                guidance={guidances ? guidances[question.questionNo - 1] : null}
+              />
+            </div>
+          ) : null}
         </div>
       ))}
     </div>

@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 type AnswerGuidanceContentProps = {
   answer: STSkillTestAnswer;
-  userAnswer: string;
+  userAnswer?: string;
   status: boolean;
   guidance: SkillTestGuidance | null;
 };
@@ -30,7 +30,7 @@ export default function AnswerGuidanceContent({
             <span className="text-green-500">
               {String(answer.valid || answer.variants?.join("/ ")).toUpperCase()}
             </span>
-            &nbsp;: {userAnswer}
+            {userAnswer && ` : ${userAnswer}`}
           </div>
           {status ? (
             <Check className="text-green-500" size={16} />

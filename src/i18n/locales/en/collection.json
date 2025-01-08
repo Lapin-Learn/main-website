@@ -1,6 +1,5 @@
 {
     "viewHistory": "View History",
-    "correctAnswer": "Correct Answers",
     "timeSpent": "Time spent",
     "comingSoon": "Coming Soon",
     "detail": {
@@ -9,5 +8,7 @@
         "answerKeys": "Answer Keys"
     },
     "answerKeys": "Answer Keys",
-    "analysis": "Analysis"
+    "analysis": "Analysis",
+    "correctAnswer_single": "Correct Answer",
+    "correctAnswer_plural": "Correct Answers"
 }

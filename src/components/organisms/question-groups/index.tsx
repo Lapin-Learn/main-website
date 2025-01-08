@@ -6,22 +6,20 @@ import MatchingHeadingsQuestionGroup from "./matching-headings-question-group";
 import MatchingInformationQuestionGroup from "./matching-information-question-group";
 import MultipleChoiceQuestionGroup from "./multiple-choice-question-group";
 
-const QuestionGroupFactory = ({
-  questionGroup,
-  disabled,
-}: {
+type QuestionGroupFactoryProps = {
   questionGroup: QuestionGroup;
-  disabled?: boolean;
-}) => {
+};
+
+const QuestionGroupFactory = ({ questionGroup }: QuestionGroupFactoryProps) => {
   switch (questionGroup.questionType) {
     case EnumQuestionGroup.fillInBlanks:
-      return <FillInBlanksQuestionGroup {...questionGroup} disabled={disabled} />;
+      return <FillInBlanksQuestionGroup {...questionGroup} />;
     case EnumQuestionGroup.matchingHeadings:
-      return <MatchingHeadingsQuestionGroup {...questionGroup} disabled={disabled} />;
+      return <MatchingHeadingsQuestionGroup {...questionGroup} />;
     case EnumQuestionGroup.multipleChoice:
-      return <MultipleChoiceQuestionGroup {...questionGroup} disabled={disabled} />;
+      return <MultipleChoiceQuestionGroup {...questionGroup} />;
     case EnumQuestionGroup.matchingInformation:
-      return <MatchingInformationQuestionGroup {...questionGroup} disabled={disabled} />;
+      return <MatchingInformationQuestionGroup {...questionGroup} />;
     default:
       return <div>Haven't supported yet</div>;
   }
