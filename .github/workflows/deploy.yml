@@ -1,0 +1,54 @@
+name: Deploy React App to DigitalOcean
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    environment: production
+
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # Step 3: Install dependencies using pnpm
+      - name: Install dependencies
+        run: |
+          npm install -g pnpm
+          pnpm install
+
+      # Step 4: Build the React app
+      - name: Build React app
+        run: pnpm run build
+
+      # Step 5: Deploy to DigitalOcean
+      - name: Deploy React app
+        env:
+          DROPLET_IP: ${{ secrets.DROPLET_IP }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+        run: |
+          # Create an archive of the build directory
+          tar -czf build.tar.gz dist
+          
+          # Copy the build archive to the remote server
+          scp -i $SSH_KEY -o StrictHostKeyChecking=no build.tar.gz root@${{ secrets.DROPLET_IP }}:/var/www/lapinlearn-webapp
+          
+          # SSH into the server to unpack and serve the app
+          ssh -i $SSH_KEY -o StrictHostKeyChecking=no root@${{ secrets.DROPLET_IP }} <<EOF
+            mkdir -p /var/www/lapinlearn-webapp
+            tar -xzf /var/www/lapinlearn-webapp/build.tar.gz -C /var/www/lapinlearn-webapp
+            rm /var/www/lapinlearn-webapp/build.tar.gz
+            # Restart nginx to serve the updated app
+            systemctl restart nginx
+          EOF
