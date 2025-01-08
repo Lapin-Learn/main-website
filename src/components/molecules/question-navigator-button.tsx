@@ -11,6 +11,8 @@ const questionNavigatorVariants = cva(
         answered: "bg-blue-100 text-blue-900 hover:bg-blue-200/50",
         active: "bg-blue-500 text-white hover:bg-blue-500/80",
         unanswered: "bg-neutral-100/50 hover:bg-neutral-100/80",
+        right: "bg-green-100 text-green-900 hover:bg-green-200/50",
+        wrong: "bg-red-100 text-red-900 hover:bg-red-200/50",
       },
     },
   }
@@ -19,12 +21,14 @@ const questionNavigatorVariants = cva(
 type QuestionNavigatorProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   number: number;
   partNo: number;
+  status?: boolean;
 };
 
 const QuestionNavigatorButton = ({
   number,
   className,
   partNo,
+  status,
   ...props
 }: QuestionNavigatorProps) => {
   const { navigateToPart } = useSimulatedTestStore();
@@ -40,11 +44,15 @@ const QuestionNavigatorButton = ({
       className={cn(
         questionNavigatorVariants({
           status:
-            number.toString() == currentQuestion.toString()
-              ? "active"
-              : answerSheet[number] == null || answerSheet[number] === undefined
-                ? "unanswered"
-                : "answered",
+            status === undefined
+              ? number.toString() == currentQuestion.toString()
+                ? "active"
+                : answerSheet[number] == null || answerSheet[number] === undefined
+                  ? "unanswered"
+                  : "answered"
+              : status
+                ? "right"
+                : "wrong",
         }),
         className
       )}
