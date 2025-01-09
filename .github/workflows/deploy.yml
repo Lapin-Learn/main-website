@@ -20,7 +20,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
 
       # Step 3: Install dependencies using pnpm
       - name: Install dependencies
@@ -28,11 +28,33 @@ jobs:
           npm install -g pnpm
           pnpm install
 
+      - name: Setup .env file
+        env:
+          VITE_PUBLIC_API_ENDPOINT: ${{ secrets.VITE_PUBLIC_API_ENDPOINT }}
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+        run: |
+          echo "VITE_PUBLIC_API_ENDPOINT=${VITE_PUBLIC_API_ENDPOINT}" >> .env
+          echo "VITE_FIREBASE_API_KEY=${VITE_FIREBASE_API_KEY}" >> .env
+          echo "VITE_FIREBASE_AUTH_DOMAIN=${VITE_FIREBASE_AUTH_DOMAIN}" >> .env
+          echo "VITE_FIREBASE_PROJECT_ID=${VITE_FIREBASE_PROJECT_ID}" >> .env
+          echo "VITE_FIREBASE_APP_ID=${VITE_FIREBASE_APP_ID}" >> .env
+
       # Step 4: Build the React app
       - name: Build React app
         run: pnpm run build
 
-      # Step 5: Deploy to DigitalOcean
+      # Step 5: Check if the build was successful
+      - name: Check if build was successful
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "Build failed"
+            exit 1
+          fi
+
+      # Step 6: Deploy to DigitalOcean
       - name: Deploy React app
         env:
           DROPLET_IP: ${{ secrets.DROPLET_IP }}
@@ -41,14 +63,22 @@ jobs:
           # Create an archive of the build directory
           tar -czf build.tar.gz dist
           
-          # Copy the build archive to the remote server
-          scp -i $SSH_KEY -o StrictHostKeyChecking=no build.tar.gz root@${DROPLET_IP}:/var/www/lapinlearn-webapp
+          # Save the SSH key to a file
+          echo "${SSH_KEY}" > ssh_key
+          chmod 600 ssh_key
           
-          # SSH into the server to unpack and serve the app
-          ssh -i $SSH_KEY -o StrictHostKeyChecking=no root@${DROPLET_IP} <<EOF
-            mkdir -p /var/www/lapinlearn-webapp
+          # Step 1: Ensure the target directory exists on the remote server
+          ssh -i ssh_key -o StrictHostKeyChecking=no root@${DROPLET_IP} "mkdir -p /var/www/lapinlearn-webapp"
+
+          # Step 2: Copy the build archive to the remote server
+          scp -i ssh_key -o StrictHostKeyChecking=no -v build.tar.gz root@${DROPLET_IP}:/var/www/lapinlearn-webapp
+
+          # Step 3: SSH into the server to unpack and serve the app
+          ssh -i ssh_key -o StrictHostKeyChecking=no -v root@${DROPLET_IP} <<EOF
+            # Unpack the build archive in the correct directory
             tar -xzf /var/www/lapinlearn-webapp/build.tar.gz -C /var/www/lapinlearn-webapp
             rm /var/www/lapinlearn-webapp/build.tar.gz
             # Restart nginx to serve the updated app
             systemctl restart nginx
           EOF
+
