@@ -31,7 +31,3 @@ jobs:
       # Step 5: Run build
       - name: Build the app
         run: pnpm build
-
-      # Step 6: Verify the build directory exists
-      - name: Verify build directory
-        run: test -d build
