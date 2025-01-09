@@ -42,10 +42,10 @@ jobs:
           tar -czf build.tar.gz dist
           
           # Copy the build archive to the remote server
-          scp -i $SSH_KEY -o StrictHostKeyChecking=no build.tar.gz root@${{ secrets.DROPLET_IP }}:/var/www/lapinlearn-webapp
+          scp -i $SSH_KEY -o StrictHostKeyChecking=no build.tar.gz root@${DROPLET_IP}:/var/www/lapinlearn-webapp
           
           # SSH into the server to unpack and serve the app
-          ssh -i $SSH_KEY -o StrictHostKeyChecking=no root@${{ secrets.DROPLET_IP }} <<EOF
+          ssh -i $SSH_KEY -o StrictHostKeyChecking=no root@${DROPLET_IP} <<EOF
             mkdir -p /var/www/lapinlearn-webapp
             tar -xzf /var/www/lapinlearn-webapp/build.tar.gz -C /var/www/lapinlearn-webapp
             rm /var/www/lapinlearn-webapp/build.tar.gz
