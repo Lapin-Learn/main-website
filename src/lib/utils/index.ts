@@ -153,3 +153,7 @@ export const checkRoutePermission = (pathname: string, userRole: EnumRole) => {
   }
   return true;
 };
+
+export const genQuestionId = (questionNo: number | string) => {
+  return `Question-${questionNo}`;
+};

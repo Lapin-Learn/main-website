@@ -6,6 +6,7 @@ import { AnswerContent } from "@/components/organisms/result/part-answers-card";
 import { Input } from "@/components/ui";
 import { useResult } from "@/hooks/zustand/use-result";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
+import { genQuestionId } from "@/lib/utils";
 
 type CustomInputProps = Attribute & {
   questionNo: string;
@@ -22,7 +23,7 @@ const CustomInput = ({ questionNo }: CustomInputProps) => {
     <NodeViewWrapper className="mx-2 w-fit" contentEditable={false}>
       {answerKeys.length ? (
         <AnswerContent
-          id={`Question-${questionNo}`}
+          id={genQuestionId(questionNo)}
           questionNo={parseInt(questionNo)}
           answer={answerKeys[parseInt(questionNo) - 1]}
           userAnswer={value ?? ""}
@@ -32,7 +33,7 @@ const CustomInput = ({ questionNo }: CustomInputProps) => {
       ) : (
         <Input
           className="my-1 h-8 w-36 rounded-sm px-1.5 focus-visible:border-primary"
-          id={`Question-${questionNo}`}
+          id={genQuestionId(questionNo)}
           placeholder={`Question ${questionNo}`}
           onChange={(e) => {
             answer(parseInt(questionNo), e.target.value);

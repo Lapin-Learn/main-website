@@ -7,7 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useGetSkillTestData, useGetSTSessionDetail } from "@/hooks/react-query/use-simulated-test";
 import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
 import { STSkillPageProps } from "@/lib/types/simulated-test.type";
-import { scrollToElementById } from "@/lib/utils";
+import { genQuestionId, scrollToElementById } from "@/lib/utils";
 // import questionGroup from "@/lib/mock/mockListening1.json";
 // import { QuestionGroup } from "@/lib/types/simulated-test.type";
 
@@ -20,7 +20,7 @@ const ListeningPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
 
   useEffect(() => {
     if (!isLoading) {
-      scrollToElementById(`Question-${question}`);
+      scrollToElementById(genQuestionId(question));
     }
   }, [isLoading, question]);
 
