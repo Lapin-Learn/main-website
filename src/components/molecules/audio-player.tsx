@@ -1,5 +1,5 @@
 import { PauseIcon, PlayIcon } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { SyntheticEvent, useEffect, useRef, useState } from "react";
 
 import Icons from "@/assets/icons";
 import { cn, formatTime } from "@/lib/utils";
@@ -39,22 +39,20 @@ const AudioPlayer = ({
   const [volume, setVolume] = useState<number>(1); // Volume range: 0 to 1
   const [duration, setDuration] = useState<number>(0); // State to store audio duration
   const [currentTime, setCurrentTime] = useState<number>(0); // State to store current time
-
-  const handleCanPlayThrough = () => {
-    if (audioRef.current) {
-      setDuration(audioRef.current.duration);
-    }
-  };
+  const [isCanPlayThrough, setIsCanPlayThrough] = useState<boolean>(false);
 
   const handleTimeUpdate = () => {
     if (audioRef.current) {
       setCurrentTime(audioRef.current.currentTime);
+      if (audioRef.current.duration !== Infinity) {
+        setDuration(audioRef.current.duration);
+      }
     }
   };
 
   const playAudio = () => {
     if (!pausable) return;
-    if (audioRef.current) {
+    if (audioRef.current && audioRef.current.duration) {
       audioRef.current.volume = volume; // Ensure volume is set
       audioRef.current.play();
       setIsPlaying(true);
@@ -76,54 +74,30 @@ const AudioPlayer = ({
     }
   };
 
-  const getAudioDuration = (url: string): Promise<number> => {
-    return new Promise((resolve, reject) => {
-      const audio = new Audio(url);
-      audio.addEventListener("loadedmetadata", () => {
-        resolve(audio.duration);
-      });
-      audio.addEventListener("error", (e) => {
-        reject(e);
-      });
-    });
-  };
-
   const handleSeek = (values: number[]) => {
     if (!seekable) return;
     const newTime = parseFloat(values[0].toFixed(1));
     if (audioRef.current) {
       audioRef.current.currentTime = newTime;
       setCurrentTime(newTime);
+    }
+  };
+
+  const handleLoadedMetadata = (event: SyntheticEvent<HTMLAudioElement>) => {
+    setDuration(event.currentTarget.duration);
+    if (autoplay) {
       playAudio();
     }
   };
 
   useEffect(() => {
-    const audio = audioRef.current;
-    if (audio) {
-      audio.addEventListener("canplaythrough", handleCanPlayThrough);
-      audio.addEventListener("timeupdate", handleTimeUpdate);
+    if (currentTime >= duration) {
+      setIsPlaying(false);
+      setCurrentTime(0);
     }
+  }, [currentTime, duration]);
 
-    return () => {
-      if (audio) {
-        audio.removeEventListener("canplaythrough", handleCanPlayThrough);
-        audio.removeEventListener("timeupdate", handleTimeUpdate);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    getAudioDuration(src)
-      .then((duration) => {
-        setDuration(duration);
-        setCurrentTime(0);
-        if (autoplay) {
-          playAudio();
-        }
-      })
-      .catch((error) => console.error("Error loading audio duration:", error));
-  }, [src]);
+  useEffect(() => {}, [audioRef.current?.duration]);
 
   return (
     <div className={cn("flex w-full items-center space-x-3 bg-white p-8", className)}>
@@ -131,6 +105,7 @@ const AudioPlayer = ({
         onClick={isPlaying ? pauseAudio : playAudio}
         type="button"
         className="size-5 [&_svg]:fill-primary-700 [&_svg]:text-primary-700"
+        disabled={!isCanPlayThrough}
       >
         {isPlaying ? <PauseIcon size={20} /> : <PlayIcon size={20} />}
       </button>
@@ -142,7 +117,7 @@ const AudioPlayer = ({
         value={[currentTime]}
         onValueChange={handleSeek}
       />
-      <div className="w-20 text-sm text-neutral-400">{`${formatTime(currentTime)}/${formatTime(duration)}`}</div>
+      <div className="w-20 text-sm text-neutral-400">{`${formatTime(currentTime)}/${duration && duration !== Infinity ? formatTime(duration) : "--:--"}`}</div>
       <Popover>
         <PopoverTrigger asChild>
           <button type="button" className="size-5 [&_svg]:text-neutral-400">
@@ -168,7 +143,15 @@ const AudioPlayer = ({
           </div>
         </PopoverContent>
       </Popover>
-      <audio ref={audioRef} src={src} hidden />
+      <audio
+        ref={audioRef}
+        src={src}
+        hidden
+        onTimeUpdate={handleTimeUpdate}
+        onCanPlay={() => setIsCanPlayThrough(true)}
+        onLoadedMetadata={handleLoadedMetadata}
+        preload="metadata"
+      />
     </div>
   );
 };

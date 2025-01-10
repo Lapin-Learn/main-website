@@ -19,7 +19,7 @@ function useAudioRecording() {
     setAudio,
   } = useRecordingStore();
   const { listening } = useSpeechRecognition();
-  const { testState, addSpeakingSource } = useSpeakingTestState();
+  const { testState, addSpeakingSource, addSpeakingBlobs } = useSpeakingTestState();
   const { toast } = useToast();
   const { t } = useTranslation("simulatedTest");
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -94,6 +94,7 @@ function useAudioRecording() {
         setAudioChunks([]);
         if (testState === EnumSimulatedTestSessionStatus.IN_PROGRESS) {
           addSpeakingSource(audioUrl);
+          addSpeakingBlobs(audioBlob);
         }
       };
     }

@@ -10,6 +10,8 @@ import { DEFAULT_TIME_LIMIT } from "../consts";
 import { EnumMode, EnumRole, EnumSkill } from "../enums";
 import { ROUTE_PERMISSION } from "../route-permission";
 
+export * from "./getTimeStamps";
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
