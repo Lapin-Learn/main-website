@@ -4,6 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useResult } from "@/hooks/zustand/use-result";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { QuestionGroupMatchingHeadings } from "@/lib/types/simulated-test.type";
+import { genQuestionId } from "@/lib/utils";
 
 import AnswerGuidanceContent from "../result/answer-guidance-content";
 
@@ -19,11 +20,7 @@ export default function MatchingHeadingsQuestionGroup({
     <div>
       <h6 className="font-bold">{questionCard}</h6>
       {questions.map((question) => (
-        <div
-          key={question.questionNo}
-          className="mt-4"
-          id={`Question-${question.questionNo.toString()}`}
-        >
+        <div key={question.questionNo} className="mt-4" id={genQuestionId(question.questionNo)}>
           <p>
             <strong className="mr-2">{question.questionNo}.</strong>
             {question.question}
