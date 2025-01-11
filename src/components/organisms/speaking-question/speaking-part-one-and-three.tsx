@@ -1,15 +1,15 @@
 import { ArrowRight } from "lucide-react";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import RecordingButton from "@/components/molecules/recording-button";
 import { Button } from "@/components/ui";
-import useAudioRecording from "@/hooks/use-audio-recording";
 import useCountdown from "@/hooks/use-countdown";
 import useGlobalTimerStore, { timerKeys } from "@/hooks/zustand/use-global-timer";
 import { useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
 import { NEXT_QUESTION_COUNT_DOWN, SPEAKING_PART_ONE_AND_THREE_DURATION } from "@/lib/consts";
 import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
+import { AudioSource } from "@/lib/types";
 
 import { SpeakingQuestionProps } from ".";
 import { getNextButtonText } from "./helpers";
@@ -19,18 +19,26 @@ const SpeakingPartOneAndThree = ({ content, session }: SpeakingQuestionProps) =>
     position: { part: currentPart, question },
     navigateToPart,
     setTestState,
+    addSpeakingSource,
   } = useSpeakingTestState();
-  const { stopRecording } = useAudioRecording();
   const { timeLeft, restart, isRunning, isEnd } = useCountdown(NEXT_QUESTION_COUNT_DOWN);
   const { getTimer } = useGlobalTimerStore();
   const { t } = useTranslation("simulatedTest");
 
   const testTime = getTimer(timerKeys.testDetail(session.id))?.time;
 
-  const handleNextQuestion = useCallback(() => {
+  const handleNextQuestion = (src?: AudioSource) => {
     restart();
-    stopRecording();
-  }, [stopRecording, restart]);
+    if (src) {
+      addSpeakingSource({
+        url: src.audioUrl,
+        blob: src.audioBlob,
+        partNo: currentPart,
+        questionNo: question,
+        file: new File([src.audioBlob], `speaking-${currentPart}-${question}.webm`),
+      });
+    }
+  };
 
   useEffect(() => {
     if (session.mode === EnumMode.FULL_TEST && testTime === 0) {
@@ -57,7 +65,7 @@ const SpeakingPartOneAndThree = ({ content, session }: SpeakingQuestionProps) =>
     } else {
       navigateToPart(question + 1, currentPart);
     }
-  }, [isRunning, isEnd]);
+  }, [isRunning, isEnd, question, content, session, navigateToPart, setTestState]);
 
   return (
     <div className="flex w-[800px] flex-col items-center gap-10 overflow-visible rounded-lg border border-blue-200 bg-white p-12">
@@ -68,14 +76,14 @@ const SpeakingPartOneAndThree = ({ content, session }: SpeakingQuestionProps) =>
       <RecordingButton
         onStop={handleNextQuestion}
         duration={SPEAKING_PART_ONE_AND_THREE_DURATION}
-        diasbled={isRunning}
+        disabled={isRunning}
       />
       <Button
         type="button"
         variant={question === content?.content.length ? "default" : "ghost"}
         className="w-full flex-1 sm:w-fit"
         disabled={isRunning}
-        onClick={handleNextQuestion}
+        onClick={() => handleNextQuestion}
       >
         <div className="flex items-center gap-2">
           {t(

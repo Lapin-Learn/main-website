@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 
 import RecordingButton from "@/components/molecules/recording-button";
 import { Button } from "@/components/ui";
-import useAudioRecording from "@/hooks/use-audio-recording";
 import useCountdown from "@/hooks/use-countdown";
 import useGlobalTimerStore, { timerKeys } from "@/hooks/zustand/use-global-timer";
 import { useRecordingStore, useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
@@ -15,6 +14,7 @@ import {
   SPEAKING_PART_TWO_PREPARE_DURATION,
 } from "@/lib/consts";
 import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
+import { AudioSource } from "@/lib/types";
 
 import { SpeakingQuestionProps } from ".";
 import { getNextButtonText } from "./helpers";
@@ -24,9 +24,9 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
     position: { part: currentPart, question },
     setTestState,
     navigateToPart,
+    addSpeakingSource,
   } = useSpeakingTestState();
   const { recordingStatus } = useRecordingStore();
-  const { stopRecording } = useAudioRecording();
   const { timeLeft, restart, isRunning, isEnd } = useCountdown(NEXT_QUESTION_COUNT_DOWN);
   const {
     time: preparationTime,
@@ -47,10 +47,18 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
     }
   }, [startTimer, session.id]);
 
-  const handleNextPart = useCallback(() => {
+  const handleNextPart = (src?: AudioSource) => {
     restart();
-    stopRecording();
-  }, [stopRecording, restart]);
+    if (src) {
+      addSpeakingSource({
+        url: src.audioUrl,
+        blob: src.audioBlob,
+        partNo: currentPart,
+        questionNo: question,
+        file: new File([src.audioBlob], `speaking-${currentPart}-${question}.webm`),
+      });
+    }
+  };
 
   useEffect(() => {
     resumePreparation();
@@ -109,14 +117,14 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
           onStart={handleStart}
           onStop={handleNextPart}
           duration={SPEAKING_PART_TWO_DURATION}
-          diasbled={isRunning}
+          disabled={isRunning}
           ref={recordingButtonRef}
         />
         <Button
           type="button"
           className="w-full flex-1 sm:w-fit"
           disabled={isRunning}
-          onClick={handleNextPart}
+          onClick={() => handleNextPart}
         >
           <div className="flex items-center gap-2">
             {t(

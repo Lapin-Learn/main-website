@@ -2,8 +2,13 @@ import { create } from "zustand";
 
 import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
 
-export type RecordingStatus = "inactive" | "recording";
-interface RecordingState {
+export enum EnumRecordingStatus {
+  inactive = "inactive",
+  recording = "recording",
+}
+
+export type RecordingStatus = keyof typeof EnumRecordingStatus;
+type RecordingState = {
   permission: boolean;
   stream: MediaStream | null;
   recordingStatus: RecordingStatus;
@@ -11,9 +16,9 @@ interface RecordingState {
   progress: number;
   audioChunks: Blob[];
   audio: string | null;
-}
+};
 
-interface RecordingActions {
+type RecordingActions = {
   setPermission: (permission: boolean) => void;
   setStream: (stream: MediaStream) => void;
   stopStream: () => void;
@@ -24,12 +29,12 @@ interface RecordingActions {
   setAudioChunks: (chunks: Blob[]) => void;
   setAudio: (audio: string | null) => void;
   reset: () => void;
-}
+};
 
 const initialState: RecordingState = {
   permission: false,
   stream: null,
-  recordingStatus: "inactive",
+  recordingStatus: EnumRecordingStatus.inactive,
   audioLevel: 0,
   progress: 0,
   audioChunks: [],
@@ -62,6 +67,14 @@ export const useRecordingStore = create<RecordingState & RecordingActions>((set)
   reset: () => set({ ...initialState }),
 }));
 
+type SpeakingSource = {
+  url: string;
+  blob: Blob;
+  file: File;
+  partNo: number;
+  questionNo: number;
+};
+
 type SpeakingTestState = {
   testState: EnumSimulatedTestSessionStatus;
   position: {
@@ -70,18 +83,16 @@ type SpeakingTestState = {
   };
   mode: EnumMode | null;
   showInstruction: boolean;
-  speakingSources: string[];
-  speakingBlobs: Blob[];
+  speakingSources: SpeakingSource[];
 };
 
 type SpeakingTestActions = {
   setTestState: (state: EnumSimulatedTestSessionStatus) => void;
   navigateToPart: (questionNo: number, partNo: number) => void;
-  addSpeakingSource: (source: string) => void;
+  addSpeakingSource: (source: SpeakingSource) => void;
   setInitialPart: (part: number) => void;
   setMode: (mode: EnumMode) => void;
   reset: () => void;
-  addSpeakingBlobs: (blobs: Blob) => void;
 };
 
 const initialTestState: SpeakingTestState = {
@@ -93,7 +104,6 @@ const initialTestState: SpeakingTestState = {
   mode: null,
   showInstruction: true,
   speakingSources: [],
-  speakingBlobs: [],
 };
 
 export const useSpeakingTestState = create<SpeakingTestState & SpeakingTestActions>((set) => ({
@@ -112,7 +122,4 @@ export const useSpeakingTestState = create<SpeakingTestState & SpeakingTestActio
   setInitialPart: (part) => set((state) => ({ position: { ...state.position, part } })),
   setMode: (mode) => set({ mode }),
   reset: () => set({ ...initialTestState }),
-  addSpeakingBlobs(blobs) {
-    set((state) => ({ speakingBlobs: [...state.speakingBlobs, blobs] }));
-  },
 }));

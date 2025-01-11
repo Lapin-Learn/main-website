@@ -1,22 +1,36 @@
-import { useNavigate } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 
 import { useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
+import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
+import { Route } from "@/routes/_authenticated/practice/simulated-test";
 
 import { Button } from "../ui";
-import AudioPlayer from "./audio-player";
 
 const SpeakingEndTest = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { t } = useTranslation("simulatedTest");
-  const { t: tCommon } = useTranslation("common");
-  const { speakingSources, speakingBlobs } = useSpeakingTestState();
+  const { speakingSources } = useSpeakingTestState();
+  // const { mutate: submitTest } = useSubmitSimulatedTest();
+  const { sessionId } = Route.useSearch();
 
   const handleSubmitSpeaking = () => {
-    console.log(speakingSources);
-    // navigate({
-    //   to: "/practice",
-    // });
+    // TODO: Replace console.log with submitTest
+    console.log({
+      sessionId: Number(sessionId),
+      elapsedTime: 0,
+      response: {
+        skill: EnumSkill.speaking,
+        info: [
+          ...speakingSources.map(({ partNo, questionNo }) => ({
+            answer: 30,
+            questionNo,
+            partNo,
+          })),
+        ],
+      },
+      status: EnumSimulatedTestSessionStatus.FINISHED,
+      files: speakingSources.map((value) => value.file),
+    });
   };
 
   return (
@@ -25,11 +39,11 @@ const SpeakingEndTest = () => {
         <p className="text-center">{t("speaking.endTestMessage")}</p>
         <p className="text-center"> {t("speaking.endTestPlayBack")}</p>
       </div>
-      <AudioPlayer
+      {/* <AudioPlayer
         className="w-full rounded-md border p-4 shadow-background"
-        src={speakingSources[1]}
-      />
-      <Button onClick={handleSubmitSpeaking}>{tCommon("home")}</Button>
+        src={speakingSources[0].url}
+      /> */}
+      <Button onClick={handleSubmitSpeaking}>{t("submitBtn")}</Button>
     </div>
   );
 };

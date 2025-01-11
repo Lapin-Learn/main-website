@@ -2,12 +2,14 @@ import { useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
-import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
-
 import { useToast } from "./use-toast";
-import { useRecordingStore, useSpeakingTestState } from "./zustand/use-speaking-test";
+import { useRecordingStore } from "./zustand/use-speaking-test";
 
-function useAudioRecording() {
+function useAudioRecording({
+  onStop,
+}: {
+  onStop?: (src: { audioBlob: Blob; audioUrl: string }) => void;
+} = {}) {
   const {
     stream,
     setStream,
@@ -19,7 +21,6 @@ function useAudioRecording() {
     setAudio,
   } = useRecordingStore();
   const { listening } = useSpeechRecognition();
-  const { testState, addSpeakingSource, addSpeakingBlobs } = useSpeakingTestState();
   const { toast } = useToast();
   const { t } = useTranslation("simulatedTest");
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -30,6 +31,7 @@ function useAudioRecording() {
 
   const mimeType = "audio/webm";
 
+  // TODO: Extract to a provider component => more reusable, only a few components need to use this
   const getMicrophonePermission = useCallback(async () => {
     if ("MediaRecorder" in window) {
       try {
@@ -92,9 +94,11 @@ function useAudioRecording() {
         const audioUrl = URL.createObjectURL(audioBlob);
         setAudio(audioUrl);
         setAudioChunks([]);
-        if (testState === EnumSimulatedTestSessionStatus.IN_PROGRESS) {
-          addSpeakingSource(audioUrl);
-          addSpeakingBlobs(audioBlob);
+        if (onStop) {
+          onStop({
+            audioUrl,
+            audioBlob,
+          });
         }
       };
     }

@@ -10,6 +10,7 @@ type SpeakingAudioPlayerProps = {
   audioSrc: string;
 };
 
+// CHECK
 const SpeakingAudioPlayer = ({ audioSrc }: SpeakingAudioPlayerProps) => {
   const [progress, setProgress] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
