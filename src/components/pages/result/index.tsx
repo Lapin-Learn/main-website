@@ -2,6 +2,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
+import { ResultAnalysisTable } from "@/components/organisms/result-analysis-table/table";
 import {
   useGetSimulatedTestDetail,
   useGetSTSessionDetail,
@@ -108,7 +109,7 @@ export default function ResultPage() {
             )}
           </div>
         )}
-        <TabsContent value="answerKeys" className="flex flex-col gap-6">
+        <TabsContent value="answerKeys">
           {isLoading ? (
             <SkeletonPartAnswersCard />
           ) : !isAvailableSkill ? (
@@ -117,8 +118,8 @@ export default function ResultPage() {
               <p className="text-center text-sm">This skill is not available yet</p>
             </div>
           ) : (
-            session.parts.map((part, index) => {
-              return (
+            <div className="flex flex-col gap-6">
+              {session.parts.map((part, index) => (
                 <PartAnswersCard
                   key={index}
                   part={part}
@@ -128,11 +129,18 @@ export default function ResultPage() {
                   answers={session.skillTest.answers}
                   guidances={session.skillTest.guidances}
                 />
-              );
-            })
+              ))}
+            </div>
           )}
         </TabsContent>
-        <TabsContent value="analysis">Analysis.</TabsContent>
+        <TabsContent value="analysis">
+          <ResultAnalysisTable
+            session={session}
+            answerStatus={answerStatus}
+            isLoading={isLoading}
+            guidances={session.skillTest.guidances}
+          />
+        </TabsContent>
       </Tabs>
     </div>
   );

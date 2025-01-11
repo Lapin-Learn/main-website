@@ -99,6 +99,11 @@ export type PartDetail = {
   questionTypes: string[];
   startQuestionNo: number;
   endQuestionNo: number;
+  questionTypesIndices: {
+    name: string;
+    endIndex: number;
+    startIndex: number;
+  }[];
 };
 
 export type SkillTest = {
@@ -161,3 +166,17 @@ export type SimulatedTestSessionsHistory = Pick<
     skill: EnumSkill;
     createdAt: Date;
   };
+
+export type AnalysisData = {
+  name: string;
+  answers: {
+    rightOnTotal: string;
+    unanswered: string;
+  };
+  accuracy: number;
+  questions: {
+    questionNo: number;
+    status: boolean;
+    guidances: SkillTestGuidance | null;
+  }[];
+};

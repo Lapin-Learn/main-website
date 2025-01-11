@@ -80,6 +80,7 @@ export enum EnumQuestionGroupLabel {
   multipleChoice = "multiple_choice",
   TFNG = "true_false_not_given",
   YNNG = "yes_no_not_given",
+  listOfOptions = "list_of_options",
 
   // Fill in the blanks group
   // Output: short text
@@ -90,6 +91,7 @@ export enum EnumQuestionGroupLabel {
   tableNoteFlowChartCompletion = "table_note_flow_chart_completion",
   shortAnswer = "short_answer",
   diagramLabelCompletion = "diagram_label_completion",
+  summaryCompletion = "summary_completion",
 
   // Matching group
   // Output: A, B, C, D, E, F, G,...

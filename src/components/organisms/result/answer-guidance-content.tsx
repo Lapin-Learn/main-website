@@ -18,8 +18,9 @@ export default function AnswerGuidanceContent({
   guidance,
 }: AnswerGuidanceContentProps) {
   return (
-    <Dialog>
-      <DialogTrigger asChild disabled={!guidance}>
+    <BaseGuidance
+      guidance={guidance}
+      trigger={
         <button
           className={cn(
             "underline-offset-4 flex items-center gap-1 decoration-blue-500 decoration-2",
@@ -38,7 +39,21 @@ export default function AnswerGuidanceContent({
             <X className="text-red-500" size={16} />
           )}
         </button>
-      </DialogTrigger>
+      }
+    />
+  );
+}
+
+export function BaseGuidance({
+  guidance,
+  trigger,
+}: {
+  guidance: SkillTestGuidance | null;
+  trigger: React.ReactNode;
+}) {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
       {guidance && (
         <DialogContent className="max-w-3xl">
           <DialogHeader />

@@ -135,5 +135,12 @@
         "result": "Result",
         "duration": "Elapsed time",
         "noData": "No data available"
+    },
+    "result": {
+        "questionType": "Question type",
+        "correctAnswers": "Correct answers",
+        "accuracy": "Accuracy",
+        "questions": "Questions",
+        "unanswered": "Skip"
     }
 }
