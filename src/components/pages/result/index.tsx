@@ -7,7 +7,7 @@ import {
   useGetSTSessionDetail,
 } from "@/hooks/react-query/use-simulated-test";
 import { useResult } from "@/hooks/zustand/use-result";
-import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
+import useSimulatedTestState, { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { SimulatedTestSession } from "@/lib/types/simulated-test.type";
 import { Route } from "@/routes/_authenticated/_dashboard/practice/simulated-test/result";
@@ -38,6 +38,7 @@ export default function ResultPage() {
     !isLoading
   );
   const { setAnswerKeys, setGuidances, setStatus, reset } = useResult();
+  const { resetAnswers } = useAnswerStore();
   const { resetTest } = useSimulatedTestState();
 
   useEffect(() => {
@@ -64,6 +65,11 @@ export default function ResultPage() {
     resetTest();
   };
 
+  const onDialogClose = () => {
+    reset();
+    resetAnswers();
+  };
+
   return (
     <div className="flex flex-col gap-6 p-4 pt-8">
       <ResultHeader collectionId={simulatedTest?.collectionId || 0} session={session} />
@@ -80,7 +86,7 @@ export default function ResultPage() {
               <TabsTrigger value="analysis">{t("analysis")}</TabsTrigger>
             </TabsList>
             {isAvailableSkill && (
-              <Dialog onOpenChange={(open) => !open && reset()}>
+              <Dialog onOpenChange={(open) => !open && onDialogClose()}>
                 <DialogTrigger asChild>
                   <Button variant="link" onClick={onDialogOpen}>
                     {t("detail.button")}

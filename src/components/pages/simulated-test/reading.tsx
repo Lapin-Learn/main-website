@@ -9,7 +9,7 @@ import { useGetSkillTestData, useGetSTSessionDetail } from "@/hooks/react-query/
 import useBreakPoint from "@/hooks/use-screen-size";
 import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
 import { STSkillPageProps } from "@/lib/types/simulated-test.type";
-import { scrollToElementById } from "@/lib/utils";
+import { genQuestionId, scrollToElementById } from "@/lib/utils";
 
 const ReadingPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
   const {
@@ -21,7 +21,7 @@ const ReadingPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
 
   useEffect(() => {
     if (!isLoading) {
-      scrollToElementById(`Question-${question}`);
+      scrollToElementById(genQuestionId(question));
     }
   }, [isLoading, question]);
 

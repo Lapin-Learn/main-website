@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Checkbox, Label, RadioGroup, RadioGroupItem } from "@/components/ui";
@@ -6,6 +6,7 @@ import { useResult } from "@/hooks/zustand/use-result";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { Option } from "@/lib/types";
 import { QuestionGroupMultipleChoice } from "@/lib/types/simulated-test.type";
+import { genQuestionId } from "@/lib/utils";
 
 import AnswerGuidanceContent from "../result/answer-guidance-content";
 
@@ -16,19 +17,24 @@ type MultipleSelectProps = {
     options: Option[];
   };
   disabled?: boolean;
+  questionStatus: boolean[];
 };
-function MultipleSelect({ question, disabled }: MultipleSelectProps) {
+function MultipleSelect({ question, disabled, questionStatus }: MultipleSelectProps) {
   const MAX_SELECT = question.questionNo.length;
   const { answer, answerSheet } = useAnswerStore();
-  const [selected, setSelected] = useState<string[]>(
-    question.questionNo.map((qNo) => answerSheet[qNo.toString()] ?? "")
-  );
+
+  const initialSelection = question.questionNo.map((qNo) => answerSheet[qNo.toString()] ?? "");
+  const [selected, setSelected] = useState<string[]>(initialSelection);
+  const prevSelectedRef = useRef<string[]>(initialSelection);
 
   useEffect(() => {
-    for (let i = 0; i < Math.min(MAX_SELECT, selected.length); i++) {
-      answer(question.questionNo[i], selected[i] ?? null);
-    }
-  }, [selected]);
+    selected.forEach((value, index) => {
+      if (prevSelectedRef.current[index] !== value) {
+        answer(question.questionNo[index], value ?? null);
+      }
+    });
+    prevSelectedRef.current = selected;
+  }, [selected, question.questionNo, answer]);
 
   return (
     <div className="mt-2 flex flex-col gap-3">
@@ -47,12 +53,17 @@ function MultipleSelect({ question, disabled }: MultipleSelectProps) {
             }}
             checked={selected.includes(option.value)}
             disabled={disabled}
+            status={
+              questionStatus.length
+                ? questionStatus[selected.findIndex((item) => item === option.value)]
+                : undefined
+            }
           />
           <Label
             className="ml-2 text-base font-normal"
             htmlFor={`${question.questionNo}-${option.value}`}
           >
-            {option.label}
+            {option.value}. {option.label}
           </Label>
         </div>
       ))}
@@ -90,7 +101,7 @@ export default function MultipleChoiceQuestionGroup({
           <div key={question.questionNo[0]} className="mt-4">
             {question.questionNo.length == 1 ? (
               <p>
-                <strong className="mr-2" id={`Question-${question.questionNo.toString()}`}>
+                <strong className="mr-2" id={genQuestionId(question.questionNo[0])}>
                   {question.questionNo[0]}.
                 </strong>
                 {question.question}
@@ -98,14 +109,18 @@ export default function MultipleChoiceQuestionGroup({
             ) : (
               <>
                 {question.questionNo.map((no) => (
-                  <span id={`Question-${no}`} key={no} />
+                  <span id={genQuestionId(no)} key={no} />
                 ))}
                 <strong>{question.question}</strong>
               </>
             )}
             <div className="mt-2">
               {question.questionNo.length > 1 ? (
-                <MultipleSelect question={question} disabled={!!answerKeys.length} />
+                <MultipleSelect
+                  question={question}
+                  disabled={!!answerKeys.length}
+                  questionStatus={questionStatus}
+                />
               ) : (
                 <RadioGroup
                   onValueChange={(value) => {
