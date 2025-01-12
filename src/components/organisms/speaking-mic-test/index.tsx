@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui";
 import useAudioRecording from "@/hooks/use-audio-recording";
+import useGlobalTimerStore, { timerKeys } from "@/hooks/zustand/use-global-timer";
 import { useRecordingStore, useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
 import { MIC_TEST_DURATION } from "@/lib/consts";
 import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
@@ -10,22 +11,26 @@ import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
 import RecordingButton from "../../molecules/recording-button";
 import { InstructionCarousel } from "../instruction-carousel";
 
-const SpeakingMicTest = () => {
+const SpeakingMicTest = ({ mode, sessionId }: { mode: EnumMode; sessionId: number }) => {
   const { permission } = useRecordingStore();
   const { stopRecording } = useAudioRecording();
   const { setTestState } = useSpeakingTestState();
+  const { startTimer } = useGlobalTimerStore();
   const { t } = useTranslation("simulatedTest");
 
   const handleStartTest = () => {
     stopRecording();
     setTestState(EnumSimulatedTestSessionStatus.IN_PROGRESS);
+    if (mode === EnumMode.PRACTICE) {
+      startTimer(timerKeys.testDetail(sessionId));
+    }
   };
 
   return (
     <div className="flex flex-col items-center justify-center gap-3">
-      <h4 className="text-heading-4 font-semibold">{t(`mode.${EnumMode.FULL_TEST}`)}</h4>
+      <h4 className="text-heading-4 font-semibold">{t(`mode.${mode}`)}</h4>
       <div className="flex flex-col items-center gap-10">
-        <InstructionCarousel mode={EnumMode.FULL_TEST} />
+        <InstructionCarousel mode={mode} />
         <div className="flex w-[800px] flex-col items-center gap-8 overflow-visible rounded-lg border border-blue-200 bg-white p-8">
           <div className="relative h-full w-fit overflow-visible">
             <RecordingButton duration={MIC_TEST_DURATION} playBack />

@@ -21,6 +21,7 @@ type Action = {
   resumeTimer: (key: string) => void;
   restartTimer: (key: string) => void;
   deleteTimer: (key: string) => void;
+  resetTimer: (key: string, initialTime: number) => void;
   getTimer: (key: string) => State["timers"][string];
 };
 
@@ -148,6 +149,26 @@ const useGlobalTimerStore = create<State & Action>((set, get) => ({
       clearInterval(timer.intervalId!);
       const { [key]: _, ...remainingTimers } = state.timers;
       return { timers: remainingTimers };
+    }),
+
+  resetTimer: (key, initialTime) =>
+    set((state) => {
+      const timer = state.timers[key];
+      if (!timer) {
+        console.warn(`Timer with key "${key}" does not exist`);
+        return state;
+      }
+      return {
+        timers: {
+          ...state.timers,
+          [key]: {
+            ...timer,
+            initialTime,
+            time: initialTime,
+            running: false,
+          },
+        },
+      };
     }),
   getTimer: (key) => get().timers[key],
 }));

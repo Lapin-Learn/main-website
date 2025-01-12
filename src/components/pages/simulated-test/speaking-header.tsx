@@ -17,11 +17,8 @@ export default function SpeakingHeader({ currentPart, session }: HeaderProps) {
   const { t } = useTranslation("simulatedTest");
   // const { isSuccess } = useGetSkillTestData(session.skillTest.id, currentPart);
   const isSuccess = true;
-  const { createTimer, deleteTimer } = useGlobalTimerStore();
-  const {
-    testState,
-    position: { question },
-  } = useSpeakingTestState();
+  const { createTimer, deleteTimer, resetTimer, stopTimer } = useGlobalTimerStore();
+  const { testState, showInstruction } = useSpeakingTestState();
 
   const { skill } = session.skillTest;
 
@@ -36,21 +33,22 @@ export default function SpeakingHeader({ currentPart, session }: HeaderProps) {
 
   useEffect(() => {
     if (isSuccess && session) {
-      const { mode, timeLimit, id } = session;
       const partTimeLimit =
         currentPart === 1 || currentPart === 3
           ? SPEAKING_PART_ONE_AND_THREE_DURATION
           : SPEAKING_PART_TWO_DURATION;
 
-      if (mode == EnumMode.FULL_TEST || timeLimit !== 0) {
-        if (question === 1) {
-          createTimer(timerKeys.testDetail(id), "countdown", partTimeLimit);
+      if (session.mode == EnumMode.FULL_TEST) {
+        createTimer(timerKeys.testDetail(session.id), "countdown", partTimeLimit);
+        if (showInstruction) {
+          stopTimer(timerKeys.testDetail(session.id));
+          resetTimer(timerKeys.testDetail(session.id), partTimeLimit);
         }
       } else {
-        createTimer(timerKeys.testDetail(id), "stopwatch", 30);
+        createTimer(timerKeys.testDetail(session.id), "stopwatch", 0);
       }
     }
-  }, [isSuccess, session, currentPart]);
+  }, [isSuccess, session, currentPart, showInstruction]);
 
   return (
     <>
@@ -71,10 +69,8 @@ export default function SpeakingHeader({ currentPart, session }: HeaderProps) {
             </Button>
           }
         />
-        {testState === EnumSimulatedTestSessionStatus.IN_PROGRESS ? (
+        {testState === EnumSimulatedTestSessionStatus.IN_PROGRESS && (
           <Timer sessionId={session.id} />
-        ) : (
-          <></>
         )}
       </div>
     </>

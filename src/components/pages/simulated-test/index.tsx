@@ -22,10 +22,8 @@ const SimulatedTestPage = () => {
   const { sessionId } = Route.useSearch();
   const { navigateToPart, position, resetTest } = useSimulatedTestState();
   const {
-    navigateToPart: speakingNavigateToPart,
     position: { part: speakingPart },
     setInitialPart,
-    setMode,
     reset: resetSpeakingTest,
   } = useSpeakingTestState();
   const navigate = useNavigate();
@@ -42,11 +40,11 @@ const SimulatedTestPage = () => {
   }, []);
 
   useEffect(() => {
+    //TODO: Set initial part not working properly
     if (session && session.skillTest.skill === EnumSkill.speaking) {
-      setMode(session.mode);
       setInitialPart(session.parts[0]);
     }
-  }, []);
+  }, [session]);
 
   useEffect(() => {
     if (isSuccess && !session) {
@@ -54,10 +52,7 @@ const SimulatedTestPage = () => {
     } else {
       if (session) {
         if (session.skillTest.skill === EnumSkill.speaking) {
-          speakingNavigateToPart(
-            session.skillTest.partsDetail[0].startQuestionNo,
-            session.parts[0]
-          );
+          setInitialPart(session.parts[0]);
         } else {
           navigateToPart(session.skillTest.partsDetail[0].startQuestionNo, session.parts[0]);
         }

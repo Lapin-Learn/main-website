@@ -24,7 +24,7 @@
     "mode": {
         "title": "Chế độ",
         "practice": "Chế độ luyện tập",
-        "test": "Chế độ thi thử"
+        "full_test": "Chế độ thi thử"
     },
     "tour": {
         "skipBtn": "Bỏ qua",

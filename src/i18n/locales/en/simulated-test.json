@@ -23,7 +23,7 @@
     "mode": {
         "title": "Mode",
         "practice": "Practice Mode",
-        "test": "Full Test Mode"
+        "full_test": "Full Test Mode"
     },
     "tour": {
         "skipBtn": "Skip",

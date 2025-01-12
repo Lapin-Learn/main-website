@@ -8,23 +8,24 @@ import SpeakingMicTest from "@/components/organisms/speaking-mic-test";
 import SpeakingQuestion from "@/components/organisms/speaking-question";
 import { useGetSkillTestData, useGetSTSessionDetail } from "@/hooks/react-query/use-simulated-test";
 import useAudioRecording from "@/hooks/use-audio-recording";
+import useGlobalTimerStore, { timerKeys } from "@/hooks/zustand/use-global-timer";
 import { useRecordingStore, useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
 import { PART_TITLES } from "@/lib/consts";
 import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
 import { SpeakingContent, STSkillPageProps } from "@/lib/types/simulated-test.type";
 
 const SpeakingPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
-  //TODO: Handle get test data
   const {
     testState,
     showInstruction,
     position: { part: currentPart },
     reset: resetSpeakingTest,
   } = useSpeakingTestState();
-  const { data: testContent, isLoading } = useGetSkillTestData(skillTestId, currentPart);
   const { data: session } = useGetSTSessionDetail(sessionId);
+  const { data: testContent, isLoading } = useGetSkillTestData(skillTestId, currentPart);
   const { getMicrophonePermission, stopRecording } = useAudioRecording();
   const { stopStream, reset: resetRecording } = useRecordingStore();
+  const { stopTimer, deleteTimer } = useGlobalTimerStore();
   const { t } = useTranslation("simulatedTest");
 
   useEffect(() => {
@@ -50,6 +51,15 @@ const SpeakingPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (testState === EnumSimulatedTestSessionStatus.FINISHED) {
+      if (session) {
+        stopTimer(timerKeys.testDetail(session.id));
+        deleteTimer(timerKeys.testDetail(session.id));
+      }
+    }
+  }, [testState]);
+
   if (!session) {
     return null;
   }
@@ -57,30 +67,28 @@ const SpeakingPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
   return (
     <div className="flex flex-1 flex-col items-center justify-center bg-gradient-to-b from-[#F0FCFF] to-[#C7E1EF]">
       {testContent && !isLoading ? (
-        <>
-          {testState === EnumSimulatedTestSessionStatus.NOT_STARTED ? (
-            <SpeakingMicTest />
-          ) : (
-            <div className="flex flex-1 flex-col items-center justify-center gap-8">
-              <h4 className="text-heading-4 font-semibold">
-                {testState === EnumSimulatedTestSessionStatus.FINISHED
-                  ? t("speaking.endTestTitle")
-                  : PART_TITLES[currentPart]}
-              </h4>
-              {testState === EnumSimulatedTestSessionStatus.IN_PROGRESS && showInstruction && (
-                <PartInstruction sessionId={sessionId} />
-              )}
-              {testState === EnumSimulatedTestSessionStatus.IN_PROGRESS && !showInstruction && (
-                <SpeakingQuestion
-                  content={testContent as SpeakingContent}
-                  session={session}
-                  audioSrc="audioSrc"
-                />
-              )}
-              {testState === EnumSimulatedTestSessionStatus.FINISHED && <SpeakingEndTest />}
-            </div>
-          )}
-        </>
+        testState === EnumSimulatedTestSessionStatus.NOT_STARTED ? (
+          <SpeakingMicTest mode={session.mode} sessionId={sessionId} />
+        ) : (
+          <div className="flex flex-1 flex-col items-center justify-center gap-8">
+            <h4 className="text-heading-4 font-semibold">
+              {testState === EnumSimulatedTestSessionStatus.FINISHED
+                ? t("speaking.endTestTitle")
+                : PART_TITLES[currentPart]}
+            </h4>
+            {testState === EnumSimulatedTestSessionStatus.IN_PROGRESS && showInstruction && (
+              <PartInstruction sessionId={sessionId} />
+            )}
+            {testState === EnumSimulatedTestSessionStatus.IN_PROGRESS && !showInstruction && (
+              <SpeakingQuestion
+                content={testContent as SpeakingContent}
+                session={session}
+                audioSrc="audioSrc"
+              />
+            )}
+            {testState === EnumSimulatedTestSessionStatus.FINISHED && <SpeakingEndTest />}
+          </div>
+        )
       ) : (
         <div className="grid size-full flex-1 place-items-center">
           <Loader2 className="animate-spin text-neutral-300" size={24} />

@@ -6,9 +6,10 @@ import RecordingButton from "@/components/molecules/recording-button";
 import { Button } from "@/components/ui";
 import useAudioRecording from "@/hooks/use-audio-recording";
 import useCountdown from "@/hooks/use-countdown";
+import useGlobalTimerStore, { timerKeys } from "@/hooks/zustand/use-global-timer";
 import { useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
 import { NEXT_QUESTION_COUNT_DOWN, SPEAKING_PART_ONE_AND_THREE_DURATION } from "@/lib/consts";
-import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
+import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
 
 import { SpeakingQuestionProps } from ".";
 import { getNextButtonText } from "./helpers";
@@ -18,16 +19,30 @@ const SpeakingPartOneAndThree = ({ content, session }: SpeakingQuestionProps) =>
     position: { part: currentPart, question },
     navigateToPart,
     setTestState,
-    addSpeakingSource,
   } = useSpeakingTestState();
   const { stopRecording } = useAudioRecording();
   const { timeLeft, restart, isRunning, isEnd } = useCountdown(NEXT_QUESTION_COUNT_DOWN);
+  const { getTimer } = useGlobalTimerStore();
   const { t } = useTranslation("simulatedTest");
+
+  const testTime = getTimer(timerKeys.testDetail(session.id))?.time;
 
   const handleNextQuestion = useCallback(() => {
     restart();
     stopRecording();
-  }, [stopRecording, restart, addSpeakingSource]);
+  }, [stopRecording, restart]);
+
+  useEffect(() => {
+    if (session.mode === EnumMode.FULL_TEST && testTime === 0) {
+      handleNextQuestion();
+      const currentPartIndex = session.parts.findIndex((part) => part === currentPart);
+      if (currentPartIndex + 1 < session.parts.length) {
+        navigateToPart(1, session.parts[currentPartIndex + 1]);
+      } else {
+        setTestState(EnumSimulatedTestSessionStatus.FINISHED);
+      }
+    }
+  }, [testTime]);
 
   useEffect(() => {
     if (!isRunning || !isEnd) return;
@@ -42,7 +57,7 @@ const SpeakingPartOneAndThree = ({ content, session }: SpeakingQuestionProps) =>
     } else {
       navigateToPart(question + 1, currentPart);
     }
-  }, [isRunning, isEnd, currentPart]);
+  }, [isRunning, isEnd]);
 
   return (
     <div className="flex w-[800px] flex-col items-center gap-10 overflow-visible rounded-lg border border-blue-200 bg-white p-12">
