@@ -20,7 +20,10 @@ const SpeakingPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
     showInstruction,
     position: { part: currentPart },
     reset: resetSpeakingTest,
+    setInitialPart,
+    setMode,
   } = useSpeakingTestState();
+
   const { data: session } = useGetSTSessionDetail(sessionId);
   const { data: testContent, isLoading } = useGetSkillTestData(skillTestId, currentPart);
   const { getMicrophonePermission, stopRecording } = useAudioRecording();
@@ -47,6 +50,19 @@ const SpeakingPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
       stopStream();
       stopRecording();
       resetRecording();
+      resetSpeakingTest();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (session) {
+      setMode(session.mode);
+      setInitialPart(session.parts[0]);
+    }
+  }, [session]);
+
+  useEffect(() => {
+    return () => {
       resetSpeakingTest();
     };
   }, []);

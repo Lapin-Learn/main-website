@@ -54,7 +54,6 @@ export function InstructionCarousel({ mode }: { mode: EnumMode }) {
         <CarouselContent>
           {Array.from({ length: 3 }).map((_, index) => (
             <CarouselItem className="basis-full" key={index}>
-              {/* TODO: Add instruction for full test */}
               <InstructionCard
                 title={t(`speaking.instructions.${mode}.${index}.title`)}
                 content={t(`speaking.instructions.${mode}.${index}.content`)}

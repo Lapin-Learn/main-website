@@ -23,8 +23,6 @@ const SimulatedTestPage = () => {
   const { navigateToPart, position, resetTest } = useSimulatedTestState();
   const {
     position: { part: speakingPart },
-    setInitialPart,
-    reset: resetSpeakingTest,
   } = useSpeakingTestState();
   const navigate = useNavigate();
   const { data: session, isLoading, isSuccess, isError } = useGetSTSessionDetail(sessionId);
@@ -35,35 +33,20 @@ const SimulatedTestPage = () => {
         navigate({ to: "/practice" });
       }
       resetTest();
-      resetSpeakingTest();
     };
   }, []);
-
-  useEffect(() => {
-    //TODO: Set initial part not working properly
-    if (session && session.skillTest.skill === EnumSkill.speaking) {
-      setInitialPart(session.parts[0]);
-    }
-  }, [session]);
 
   useEffect(() => {
     if (isSuccess && !session) {
       navigate({ to: "/practice" });
     } else {
-      if (session) {
-        if (session.skillTest.skill === EnumSkill.speaking) {
-          setInitialPart(session.parts[0]);
-        } else {
-          navigateToPart(session.skillTest.partsDetail[0].startQuestionNo, session.parts[0]);
-        }
-        if (session.status === EnumSimulatedTestSessionStatus.FINISHED) {
-          navigate({
-            to: "result",
-            search: {
-              sessionId,
-            },
-          });
-        }
+      if (session && session.status === EnumSimulatedTestSessionStatus.FINISHED) {
+        navigate({
+          to: "result",
+          search: {
+            sessionId,
+          },
+        });
       }
     }
   }, [isSuccess, session]);
