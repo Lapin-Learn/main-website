@@ -20,7 +20,7 @@ import SpeakingHeader from "./speaking-header";
  */
 const SimulatedTestPage = () => {
   const { sessionId } = Route.useSearch();
-  const { navigateToPart, position, resetTest } = useSimulatedTestState();
+  const { position, resetTest } = useSimulatedTestState();
   const {
     position: { part: speakingPart },
   } = useSpeakingTestState();
