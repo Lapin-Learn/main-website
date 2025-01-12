@@ -177,6 +177,6 @@ export type AnalysisData = {
   questions: {
     questionNo: number;
     status: boolean;
-    guidances: SkillTestGuidance | null;
+    guidance: SkillTestGuidance | null;
   }[];
 };

@@ -44,21 +44,20 @@ export const columns: ColumnDef<AnalysisData>[] = [
               trigger={
                 <div
                   key={question.questionNo}
-                  className={cn(
-                    "rounded-full size-8 flex items-center justify-center hover:cursor-pointer",
-                    {
-                      "border border-green-500 text-green-500 hover:bg-green-100 ": question.status,
-                      "border border-red-500 text-red-500 hover:bg-red-50":
-                        question.status === false,
-                      "border border-neutral-300 text-neutral-300 hover:bg-neutral-50":
-                        question.status === null,
-                    }
-                  )}
+                  className={cn("rounded-full size-8 flex items-center justify-center", {
+                    "border border-green-500 text-green-500": question.status,
+                    "hover:bg-green-100": question.status && question.guidance,
+                    "border border-red-500 text-red-500": question.status === false,
+                    "hover:bg-red-50": question.status === false && question.guidance,
+                    "border border-neutral-300 text-neutral-300": question.status === null,
+                    "hover:bg-neutral-50": question.status === null && question.guidance,
+                    "hover:cursor-pointer": question.guidance,
+                  })}
                 >
                   {question.questionNo}
                 </div>
               }
-              guidance={question.guidances}
+              guidance={question.guidance}
             />
           ))}
         </div>

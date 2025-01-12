@@ -24,7 +24,7 @@ export default function AnswerGuidanceContent({
         <button
           className={cn(
             "underline-offset-4 flex items-center gap-1 decoration-blue-500 decoration-2",
-            guidance && "hover:underline"
+            guidance ? "hover:underline" : "cursor-default"
           )}
         >
           <div className="text-sm">

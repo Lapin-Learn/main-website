@@ -57,7 +57,7 @@ export function ResultAnalysisTable({
             questions: Array.from({ length: endIndex - startIndex + 1 }, (_, i) => ({
               questionNo: startIndex + i,
               status: statuses[i],
-              guidances: guidances ? guidances[startIndex + i - 1] : null,
+              guidance: guidances ? guidances[startIndex + i - 1] : null,
             })),
           };
         })
@@ -95,6 +95,11 @@ export function ResultAnalysisTable({
     getSortedRowModel: getSortedRowModel(),
     manualPagination: true,
     enableSorting: false,
+    defaultColumn: {
+      minSize: 0,
+      size: Number.MAX_SAFE_INTEGER,
+      maxSize: Number.MAX_SAFE_INTEGER,
+    },
   });
 
   return (
