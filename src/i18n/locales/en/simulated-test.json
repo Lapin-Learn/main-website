@@ -138,7 +138,6 @@
     },
     "result": {
         "questionType": "Question type",
-        "correctAnswers": "Correct answers",
         "accuracy": "Accuracy",
         "questions": "Questions",
         "unanswered": "Skip"

@@ -139,7 +139,6 @@
     },
     "result": {
         "questionType": "Phân loại câu hỏi",
-        "correctAnswers": "Số câu đúng",
         "accuracy": "Độ chính xác",
         "questions": "Danh sách câu hỏi",
         "unanswered": "Chưa trả lời"

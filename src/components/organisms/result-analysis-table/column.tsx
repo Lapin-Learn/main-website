@@ -10,21 +10,25 @@ export const columns: ColumnDef<AnalysisData>[] = [
     accessorKey: "name",
     header: "result.questionType",
     cell: ({ row }) => row.original.name,
+    size: 0,
   },
   {
+    id: "rightAnswers",
     accessorKey: "rightAnswers",
-    header: "result.correctAnswers",
+    header: "correctAnswer",
     cell: ({ row }) => (
       <div className="flex flex-col gap-2">
         <div>{row.original.answers.rightOnTotal}</div>
         <div className="text-xs text-neutral-500">{row.original.answers.unanswered}</div>
       </div>
     ),
+    size: 0,
   },
   {
     accessorKey: "accuracy",
     header: "result.accuracy",
     cell: ({ row }) => (row.original.accuracy * 100).toFixed(2) + "%",
+    size: 0,
   },
   {
     accessorKey: "questions",
@@ -33,7 +37,7 @@ export const columns: ColumnDef<AnalysisData>[] = [
       const questions = row.original.questions;
 
       return (
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {questions.map((question) => (
             <BaseGuidance
               key={question.questionNo}
