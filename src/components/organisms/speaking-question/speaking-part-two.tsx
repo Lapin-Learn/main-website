@@ -27,7 +27,7 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
     addSpeakingSource,
   } = useSpeakingTestState();
   const { recordingStatus } = useRecordingStore();
-  const { timeLeft, restart, isRunning, isEnd } = useCountdown(NEXT_QUESTION_COUNT_DOWN);
+  const { timeLeft, restart, isRunning } = useCountdown(NEXT_QUESTION_COUNT_DOWN);
   const {
     time: preparationTime,
     resume: resumePreparation,
@@ -58,6 +58,16 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
         file: new File([src.audioBlob], `speaking-${currentPart}-${question}.webm`),
       });
     }
+    if (question === content?.content.length) {
+      const currentPartIndex = session.parts.findIndex((part) => part === currentPart);
+      if (currentPartIndex + 1 < session.parts.length) {
+        navigateToPart(1, session.parts[currentPartIndex + 1]);
+      } else {
+        setTestState(EnumSimulatedTestSessionStatus.FINISHED);
+      }
+    } else {
+      navigateToPart(question + 1, currentPart);
+    }
   };
 
   useEffect(() => {
@@ -85,21 +95,6 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
     }
   }, [testTime]);
 
-  useEffect(() => {
-    if (!isRunning || !isEnd) return;
-
-    if (question === content?.content.length) {
-      const currentPartIndex = session.parts.findIndex((part) => part === currentPart);
-      if (currentPartIndex + 1 < session.parts.length) {
-        navigateToPart(1, session.parts[currentPartIndex + 1]);
-      } else {
-        setTestState(EnumSimulatedTestSessionStatus.FINISHED);
-      }
-    } else {
-      navigateToPart(question + 1, currentPart);
-    }
-  }, [isRunning, isEnd]);
-
   if (!content) return null;
 
   return (
@@ -122,21 +117,19 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
         />
         <Button
           type="button"
-          className="w-full flex-1 sm:w-fit"
+          className="flex w-full flex-1 items-center gap-2 sm:w-fit"
           disabled={isRunning}
-          onClick={() => handleNextPart}
+          onClick={() => handleNextPart()}
         >
-          <div className="flex items-center gap-2">
-            {t(
-              getNextButtonText(
-                isRunning,
-                currentPart === session.parts[session.parts.length - 1],
-                question === content?.content.length
-              ),
-              { time: timeLeft }
-            )}
-            <ArrowRight className="size-4" />
-          </div>
+          {t(
+            getNextButtonText(
+              isRunning,
+              currentPart === session.parts[session.parts.length - 1],
+              question === content?.content.length
+            ),
+            { time: timeLeft }
+          )}
+          <ArrowRight className="size-4" />
         </Button>
       </div>
     </div>

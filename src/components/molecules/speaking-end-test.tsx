@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 
+import { useSubmitSimulatedTest } from "@/hooks/react-query/use-simulated-test";
 import { useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
 import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { Route } from "@/routes/_authenticated/practice/simulated-test";
@@ -7,22 +8,20 @@ import { Route } from "@/routes/_authenticated/practice/simulated-test";
 import { Button } from "../ui";
 
 const SpeakingEndTest = () => {
-  // const navigate = useNavigate();
   const { t } = useTranslation("simulatedTest");
   const { speakingSources } = useSpeakingTestState();
-  // const { mutate: submitTest } = useSubmitSimulatedTest();
+  const { mutate: submitTest } = useSubmitSimulatedTest();
   const { sessionId } = Route.useSearch();
 
   const handleSubmitSpeaking = () => {
     // TODO: Replace console.log with submitTest
-    console.log({
+    submitTest({
       sessionId: Number(sessionId),
       elapsedTime: 0,
       response: {
         skill: EnumSkill.speaking,
         info: [
           ...speakingSources.map(({ partNo, questionNo }) => ({
-            answer: 30,
             questionNo,
             partNo,
           })),

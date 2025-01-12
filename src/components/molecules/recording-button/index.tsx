@@ -59,10 +59,6 @@ const RecordingButton = forwardRef<HTMLButtonElement, RecordingButtonProps>(
       startRecording();
     };
 
-    const handleStopRecording = () => {
-      stopRecording();
-    };
-
     const handlePlayPause = () => {
       if (audioRef.current) {
         if (isPlaying) {
@@ -114,7 +110,7 @@ const RecordingButton = forwardRef<HTMLButtonElement, RecordingButtonProps>(
           setProgress((prev: number) => {
             if (prev >= 100) {
               clearInterval(intervalRef.current!);
-              handleStopRecording();
+              stopRecording();
               return 100;
             }
             return prev + progressIncrement;
@@ -167,7 +163,7 @@ const RecordingButton = forwardRef<HTMLButtonElement, RecordingButtonProps>(
                 playBack && isPlaying
                   ? handlePlayPause
                   : recordingStatus === "recording"
-                    ? handleStopRecording
+                    ? stopRecording
                     : handleStartRecording
               }
               disabled={!permission || disabled}

@@ -106,7 +106,6 @@ type SpeakingPayload = {
   info: {
     partNo: number;
     questionNo: number;
-    answer: number;
   }[];
 };
 export const submitSimulatedTest = async (

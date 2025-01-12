@@ -21,7 +21,7 @@ const SpeakingPartOneAndThree = ({ content, session }: SpeakingQuestionProps) =>
     setTestState,
     addSpeakingSource,
   } = useSpeakingTestState();
-  const { timeLeft, restart, isRunning, isEnd } = useCountdown(NEXT_QUESTION_COUNT_DOWN);
+  const { timeLeft, restart, isRunning } = useCountdown(NEXT_QUESTION_COUNT_DOWN);
   const { getTimer } = useGlobalTimerStore();
   const { t } = useTranslation("simulatedTest");
 
@@ -52,21 +52,6 @@ const SpeakingPartOneAndThree = ({ content, session }: SpeakingQuestionProps) =>
     }
   }, [testTime]);
 
-  useEffect(() => {
-    if (!isRunning || !isEnd) return;
-
-    if (question === content?.content.length) {
-      const currentPartIndex = session.parts.findIndex((part) => part === currentPart);
-      if (currentPartIndex + 1 < session.parts.length) {
-        navigateToPart(1, session.parts[currentPartIndex + 1]);
-      } else {
-        setTestState(EnumSimulatedTestSessionStatus.FINISHED);
-      }
-    } else {
-      navigateToPart(question + 1, currentPart);
-    }
-  }, [isRunning, isEnd, question, content, session, navigateToPart, setTestState]);
-
   return (
     <div className="flex w-[800px] flex-col items-center gap-10 overflow-visible rounded-lg border border-blue-200 bg-white p-12">
       <div className="flex flex-col items-center gap-3">
@@ -81,21 +66,19 @@ const SpeakingPartOneAndThree = ({ content, session }: SpeakingQuestionProps) =>
       <Button
         type="button"
         variant={question === content?.content.length ? "default" : "ghost"}
-        className="w-full flex-1 sm:w-fit"
+        className="flex w-full flex-1 items-center gap-2 sm:w-fit"
         disabled={isRunning}
-        onClick={() => handleNextQuestion}
+        onClick={() => handleNextQuestion()}
       >
-        <div className="flex items-center gap-2">
-          {t(
-            getNextButtonText(
-              isRunning,
-              currentPart === session.parts[session.parts.length - 1],
-              question === content?.content.length
-            ),
-            { time: timeLeft }
-          )}
-          <ArrowRight className="size-4" />
-        </div>
+        {t(
+          getNextButtonText(
+            isRunning,
+            currentPart === session.parts[session.parts.length - 1],
+            question === content?.content.length
+          ),
+          { time: timeLeft }
+        )}
+        <ArrowRight className="size-4" />
       </Button>
     </div>
   );

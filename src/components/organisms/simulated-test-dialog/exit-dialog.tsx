@@ -19,7 +19,7 @@ import {
 } from "@/hooks/react-query/use-simulated-test";
 import useGlobalTimerStore, { timerKeys, TimerType } from "@/hooks/zustand/use-global-timer";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
-import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
+import { EnumMode, EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { formatAnswerSheetToResponses, getElapsedTime, getInitialTime } from "@/lib/utils";
 import { Route } from "@/routes/_authenticated/practice/simulated-test";
 
@@ -41,15 +41,17 @@ const ExitDialog = ({ triggerButton }: ExitDialogProps) => {
         session.timeLimit == 0 && session.mode == EnumMode.PRACTICE ? "stopwatch" : "countdown";
       const initialTime = getInitialTime(session.mode, session.timeLimit, session.skillTest.skill);
       const currentTime = getTimer(timerKeys.testDetail(sessionId))?.time ?? 0;
-      submitTest({
-        sessionId,
-        elapsedTime: getElapsedTime(type, initialTime, currentTime),
-        status: EnumSimulatedTestSessionStatus.IN_PROGRESS,
-        response: {
-          skill: session.skillTest.skill,
-          info: responses,
-        },
-      });
+      if (session.skillTest.skill !== EnumSkill.speaking) {
+        submitTest({
+          sessionId,
+          elapsedTime: getElapsedTime(type, initialTime, currentTime),
+          status: EnumSimulatedTestSessionStatus.IN_PROGRESS,
+          response: {
+            skill: session.skillTest.skill,
+            info: responses,
+          },
+        });
+      }
     }
     navigate({ to: "/practice" });
   };
