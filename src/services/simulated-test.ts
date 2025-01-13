@@ -8,6 +8,7 @@ import {
   SimulatedTestCollection,
   SimulatedTestSession,
   SimulatedTestSessionsHistory,
+  SpeakingContent,
 } from "@/lib/types/simulated-test.type";
 import { generateSearchParams } from "@/lib/utils";
 
@@ -43,7 +44,7 @@ export const getSimulatedTestBySkill = async ({
         .get(`skill-tests/${skillTestId}`, {
           searchParams,
         })
-        .json<FetchingData<ReadingContent>>()
+        .json<FetchingData<ReadingContent | SpeakingContent>>()
     ).data;
   } catch (error) {
     console.error(error);
@@ -90,18 +91,29 @@ export const startSimulatedTest = async (payload: SimulatedTestSessionPayload) =
 type SubmitSimulatedTestPayload = {
   elapsedTime: number;
   status: EnumSimulatedTestSessionStatus;
-  response: {
-    skill: EnumSkill;
-    info: SimulatedTestAnswer[];
-  };
+  response:
+    | {
+        skill: EnumSkill.listening | EnumSkill.reading | EnumSkill.writing;
+        info: SimulatedTestAnswer[];
+      }
+    | SpeakingPayload;
+  // For speaking test
+  files?: File[];
 };
 
+type SpeakingPayload = {
+  skill: EnumSkill.speaking;
+  info: {
+    partNo: number;
+    questionNo: number;
+  }[];
+};
 export const submitSimulatedTest = async (
   payload: SubmitSimulatedTestPayload & {
     sessionId: number;
   }
 ) => {
-  const { sessionId, response, ...rest } = payload;
+  const { sessionId, response, files, ...rest } = payload;
   if (response.info.length === 0) {
     throw new Error("No responses to submit");
   }
@@ -111,10 +123,15 @@ export const submitSimulatedTest = async (
     formData.append(key, value as string | Blob);
   });
   formData.append("response", JSON.stringify(response));
+  if (files) {
+    files.forEach((file) => {
+      formData.append("files", file);
+    });
+  }
 
   return (
     await api
-      .put(`simulated-tests/session/${sessionId}`, {
+      .put(`simulated-tests/sessions/${sessionId}`, {
         body: formData,
       })
       .json<FetchingData<string>>()

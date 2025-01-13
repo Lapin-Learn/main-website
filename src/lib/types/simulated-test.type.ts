@@ -84,15 +84,13 @@ export type ReadingContent = {
   part: number;
   startQuestionNo: number;
   endQuestionNo: number;
-  content: JSONContent | string;
+  content: JSONContent | string | string[];
   questionGroups: QuestionGroup[];
 };
 
 export type SpeakingContent = {
-  name: string;
-  part1: string[];
-  part2: string[];
-  part3: string[];
+  part: number;
+  content: string[];
 };
 
 export type PartDetail = {

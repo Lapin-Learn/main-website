@@ -2,10 +2,12 @@ import { AudioLines, Square } from "lucide-react";
 import { forwardRef, useEffect, useRef, useState } from "react";
 
 import SpeakingIcon from "@/assets/icons/skills/speaking-filled";
+import { useMicrophone } from "@/components/providers/microphone-permission-provider";
 import { Button } from "@/components/ui";
 import AudioRipple from "@/components/ui/audio-ripple";
 import useAudioRecording from "@/hooks/use-audio-recording";
 import { useRecordingStore } from "@/hooks/zustand/use-speaking-test";
+import { AudioSource } from "@/lib/types";
 
 import { AudioProgress } from "../audio-progress";
 
@@ -20,12 +22,14 @@ type RecordingButtonProps = {
   duration: number;
   playBack?: boolean;
   onStart?: () => void;
-  onStop?: () => void;
-  diasbled?: boolean;
+  onStop?: (src: AudioSource) => void;
+  disabled?: boolean;
 };
 
 const RecordingButton = forwardRef<HTMLButtonElement, RecordingButtonProps>(
-  ({ duration, playBack = false, onStart, onStop, diasbled }: RecordingButtonProps, ref) => {
+  ({ duration, playBack = false, onStart, onStop, disabled }: RecordingButtonProps, ref) => {
+    // Make sure this Recording Button only works inside MicrophonePermissionProvider
+    const { permission, stream } = useMicrophone();
     const {
       startRecording,
       stopRecording,
@@ -33,7 +37,9 @@ const RecordingButton = forwardRef<HTMLButtonElement, RecordingButtonProps>(
       audioContextRef,
       analyserRef,
       dataArrayRef,
-    } = useAudioRecording();
+    } = useAudioRecording({
+      onStop,
+    });
     const {
       audio,
       audioLevel,
@@ -41,9 +47,7 @@ const RecordingButton = forwardRef<HTMLButtonElement, RecordingButtonProps>(
       setAudioLevel,
       progress,
       setProgress,
-      permission,
       recordingStatus,
-      stream,
     } = useRecordingStore();
     const [isPlaying, setIsPlaying] = useState(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -54,13 +58,6 @@ const RecordingButton = forwardRef<HTMLButtonElement, RecordingButtonProps>(
         onStart();
       }
       startRecording();
-    };
-
-    const handleStopRecording = () => {
-      if (onStop) {
-        onStop();
-      }
-      stopRecording();
     };
 
     const handlePlayPause = () => {
@@ -114,7 +111,7 @@ const RecordingButton = forwardRef<HTMLButtonElement, RecordingButtonProps>(
           setProgress((prev: number) => {
             if (prev >= 100) {
               clearInterval(intervalRef.current!);
-              handleStopRecording();
+              stopRecording();
               return 100;
             }
             return prev + progressIncrement;
@@ -167,10 +164,10 @@ const RecordingButton = forwardRef<HTMLButtonElement, RecordingButtonProps>(
                 playBack && isPlaying
                   ? handlePlayPause
                   : recordingStatus === "recording"
-                    ? handleStopRecording
+                    ? stopRecording
                     : handleStartRecording
               }
-              disabled={!permission || diasbled}
+              disabled={permission !== "granted" || disabled}
               className="absolute-center z-10 size-16 rounded-full bg-white shadow-xl transition-colors hover:bg-neutral-50"
               ref={ref}
             >

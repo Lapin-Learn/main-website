@@ -213,7 +213,11 @@ const SelectModeDialog = () => {
                   {t("exam-mode-config.buttons.cancel")}
                 </Button>
               </DialogClose>
-              <Button type="submit" className="w-full flex-1 sm:w-fit">
+              <Button
+                type="submit"
+                className="w-full flex-1 sm:w-fit"
+                disabled={startSimulatedTest.isPending}
+              >
                 <div className="flex items-center gap-2">
                   <Zap fill="white" strokeWidth={0} className="size-4" />
                   {mode === "practice"

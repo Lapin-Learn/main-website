@@ -24,7 +24,7 @@
     "mode": {
         "title": "Chế độ",
         "practice": "Chế độ luyện tập",
-        "test": "Chế độ thi thử"
+        "full_test": "Chế độ thi thử"
     },
     "tour": {
         "skipBtn": "Bỏ qua",
@@ -80,11 +80,6 @@
     },
     "speaking": {
         "microphoneTest": "Bạn có {{ seconds }} giây để thử Microphone",
-        "microphonePermission": "Để có thể sử dụng Microphone, bạn cần cấp quyền cho Microphone của máy",
-        "microphoneDeniedTitle": "Quyền truy cập Microphone bị từ chối",
-        "microphoneDeniedDescription": "Vui lòng cho phép quyền truy cập Microphone để ghi âm.",
-        "browserNotSupportTitle": "Trình duyệt không được hỗ trợ",
-        "browserNotSupportDescription": "Trình duyệt này không hỗ trợ ghi âm.",
         "instructions": {
             "practice": [
                 {
@@ -117,6 +112,7 @@
         },
         "nextQuestionInSeconds": "Câu tiếp theo sau {{ time }}s",
         "nextPartInSeconds": "Part tiếp theo sau {{ time }}s",
+        "nextPart": "Part tiếp theo",
         "preparePartTwo": "Bạn có {{ time }} giây để chuẩn bị",
         "startSpeakingPartTwo": "Bạn hãy bắt đầu nói",
         "endTestInSeconds": "Kết thúc trong {{ time }}s",

@@ -23,7 +23,7 @@
     "mode": {
         "title": "Mode",
         "practice": "Practice Mode",
-        "test": "Full Test Mode"
+        "full_test": "Full Test Mode"
     },
     "tour": {
         "skipBtn": "Skip",
@@ -79,11 +79,6 @@
     },
     "speaking": {
         "microphoneTest": "You have {{ seconds }} seconds to test the Microphone",
-        "microphonePermission": "To use the Microphone, you need to grant permission for the Microphone on your device",
-        "microphoneDeniedTitle": "Microphone permission denied",
-        "microphoneDeniedDescription": "Please allow microphone permission to record audio.",
-        "browserNotSupportTitle": "Browser not supported",
-        "browserNotSupportDescription": "This browser does not support audio recording.",
         "instructions": {
             "practice": [
                 {
@@ -116,6 +111,7 @@
         },
         "nextQuestionInSeconds": "Next question in {{ time }}s",
         "nextPartInSeconds": "Next part in {{ time }}s",
+        "nextPart": "Next part",
         "preparePartTwo": "You have {{ time }} seconds to prepare",
         "startSpeakingPartTwo": "Start speaking now",
         "endTestInSeconds": "Test ends in {{ time }}s",
