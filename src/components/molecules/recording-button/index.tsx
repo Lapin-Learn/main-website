@@ -2,6 +2,7 @@ import { AudioLines, Square } from "lucide-react";
 import { forwardRef, useEffect, useRef, useState } from "react";
 
 import SpeakingIcon from "@/assets/icons/skills/speaking-filled";
+import { useMicrophone } from "@/components/providers/microphone-permission-provider";
 import { Button } from "@/components/ui";
 import AudioRipple from "@/components/ui/audio-ripple";
 import useAudioRecording from "@/hooks/use-audio-recording";
@@ -27,6 +28,8 @@ type RecordingButtonProps = {
 
 const RecordingButton = forwardRef<HTMLButtonElement, RecordingButtonProps>(
   ({ duration, playBack = false, onStart, onStop, disabled }: RecordingButtonProps, ref) => {
+    // Make sure this Recording Button only works inside MicrophonePermissionProvider
+    const { permission, stream } = useMicrophone();
     const {
       startRecording,
       stopRecording,
@@ -44,9 +47,7 @@ const RecordingButton = forwardRef<HTMLButtonElement, RecordingButtonProps>(
       setAudioLevel,
       progress,
       setProgress,
-      permission,
       recordingStatus,
-      stream,
     } = useRecordingStore();
     const [isPlaying, setIsPlaying] = useState(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -166,7 +167,7 @@ const RecordingButton = forwardRef<HTMLButtonElement, RecordingButtonProps>(
                     ? stopRecording
                     : handleStartRecording
               }
-              disabled={!permission || disabled}
+              disabled={permission !== "granted" || disabled}
               className="absolute-center z-10 size-16 rounded-full bg-white shadow-xl transition-colors hover:bg-neutral-50"
               ref={ref}
             >

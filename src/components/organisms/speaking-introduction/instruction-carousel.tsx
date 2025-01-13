@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -21,7 +21,7 @@ const InstructionCard = ({ title, content }: { title: string; content: string })
   );
 };
 
-export function InstructionCarousel({ mode }: { mode: EnumMode }) {
+function InstructionCarousel({ mode }: { mode: EnumMode }) {
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
@@ -85,3 +85,5 @@ export function InstructionCarousel({ mode }: { mode: EnumMode }) {
     </div>
   );
 }
+
+export default memo(InstructionCarousel);

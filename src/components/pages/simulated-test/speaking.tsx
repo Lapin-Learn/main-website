@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import SpeakingEndTest from "@/components/molecules/speaking-end-test";
 import PartInstruction from "@/components/molecules/speaking-part-instruction";
-import SpeakingMicTest from "@/components/organisms/speaking-mic-test";
+import SpeakingMicTest from "@/components/organisms/speaking-introduction";
 import SpeakingQuestion from "@/components/organisms/speaking-question";
 import { useGetSkillTestData, useGetSTSessionDetail } from "@/hooks/react-query/use-simulated-test";
 import useAudioRecording from "@/hooks/use-audio-recording";
@@ -26,28 +26,13 @@ const SpeakingPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
 
   const { data: session } = useGetSTSessionDetail(sessionId);
   const { data: testContent, isLoading } = useGetSkillTestData(skillTestId, currentPart);
-  const { getMicrophonePermission, stopRecording } = useAudioRecording();
-  const { stopStream, reset: resetRecording } = useRecordingStore();
+  const { stopRecording } = useAudioRecording();
+  const { reset: resetRecording } = useRecordingStore();
   const { stopTimer, deleteTimer } = useGlobalTimerStore();
   const { t } = useTranslation("simulatedTest");
 
   useEffect(() => {
-    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-      event.preventDefault();
-      event.returnValue = "";
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
     return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
-
-  useEffect(() => {
-    getMicrophonePermission();
-    return () => {
-      stopStream();
       stopRecording();
       resetRecording();
       resetSpeakingTest();

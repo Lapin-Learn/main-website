@@ -9,8 +9,6 @@ export enum EnumRecordingStatus {
 
 export type RecordingStatus = keyof typeof EnumRecordingStatus;
 type RecordingState = {
-  permission: boolean;
-  stream: MediaStream | null;
   recordingStatus: RecordingStatus;
   audioLevel: number;
   progress: number;
@@ -19,9 +17,6 @@ type RecordingState = {
 };
 
 type RecordingActions = {
-  setPermission: (permission: boolean) => void;
-  setStream: (stream: MediaStream) => void;
-  stopStream: () => void;
   setRecordingStatus: (status: RecordingStatus) => void;
   setAudioLevel: (level: number) => void;
   setProgress: (fn: (prev: number) => number) => void;
@@ -32,8 +27,6 @@ type RecordingActions = {
 };
 
 const initialState: RecordingState = {
-  permission: false,
-  stream: null,
   recordingStatus: EnumRecordingStatus.inactive,
   audioLevel: 0,
   progress: 0,
@@ -43,21 +36,6 @@ const initialState: RecordingState = {
 
 export const useRecordingStore = create<RecordingState & RecordingActions>((set) => ({
   ...initialState,
-  setPermission: (permission) => set({ permission }),
-  setStream: (stream) =>
-    set((state) => {
-      if (state.stream) {
-        state.stream.getTracks().forEach((track) => track.stop());
-      }
-      return { permission: true, stream };
-    }),
-  stopStream: () =>
-    set((state) => {
-      if (state.stream) {
-        state.stream.getTracks().forEach((track) => track.stop());
-      }
-      return { stream: null };
-    }),
   setRecordingStatus: (status) => set({ recordingStatus: status }),
   setAudioLevel: (level) => set({ audioLevel: level }),
   setProgress: (fn) => set((state) => ({ progress: fn(state.progress) })),
