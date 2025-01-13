@@ -38,5 +38,12 @@
     "next": "Next",
     "prev": "Prev",
     "total": "Total: {{number}} {{unit}}",
-    "home": "Go to home"
+    "home": "Go to home",
+    "microphone": {
+        "permission": "To use the Microphone, you need to grant permission for the Microphone on your device",
+        "deniedTitle": "Microphone permission denied",
+        "deniedDescription": "Please allow microphone permission to record audio.",
+        "browserNotSupportTitle": "Browser not supported",
+        "browserNotSupportDescription": "This browser does not support audio recording."
+    }
 }

@@ -1,13 +1,36 @@
-import { useNavigate } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 
+import { useSubmitSimulatedTest } from "@/hooks/react-query/use-simulated-test";
+import { useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
+import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
+import { Route } from "@/routes/_authenticated/practice/simulated-test";
+
 import { Button } from "../ui";
-import AudioPlayer from "./audio-player";
 
 const SpeakingEndTest = () => {
-  const navigate = useNavigate();
   const { t } = useTranslation("simulatedTest");
-  const { t: tCommon } = useTranslation("common");
+  const { speakingSources } = useSpeakingTestState();
+  const { mutate: submitTest } = useSubmitSimulatedTest();
+  const { sessionId } = Route.useSearch();
+
+  const handleSubmitSpeaking = () => {
+    // TODO: Replace console.log with submitTest
+    submitTest({
+      sessionId: Number(sessionId),
+      elapsedTime: 0,
+      response: {
+        skill: EnumSkill.speaking,
+        info: [
+          ...speakingSources.map(({ partNo, questionNo }) => ({
+            questionNo,
+            partNo,
+          })),
+        ],
+      },
+      status: EnumSimulatedTestSessionStatus.FINISHED,
+      files: speakingSources.map((value) => value.file),
+    });
+  };
 
   return (
     <div className="flex w-[800px] flex-col items-center gap-10 overflow-visible rounded-lg border border-blue-200 bg-white p-12">
@@ -15,16 +38,11 @@ const SpeakingEndTest = () => {
         <p className="text-center">{t("speaking.endTestMessage")}</p>
         <p className="text-center"> {t("speaking.endTestPlayBack")}</p>
       </div>
-      <AudioPlayer className="w-full rounded-md border p-4 shadow-background" src={"audioSrc"} />
-      <Button
-        onClick={() =>
-          navigate({
-            to: "/practice",
-          })
-        }
-      >
-        {tCommon("home")}
-      </Button>
+      {/* <AudioPlayer
+        className="w-full rounded-md border p-4 shadow-background"
+        src={speakingSources[0].url}
+      /> */}
+      <Button onClick={handleSubmitSpeaking}>{t("submitBtn")}</Button>
     </div>
   );
 };

@@ -1,5 +1,3 @@
-import { Fragment } from "react";
-
 import { useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
 import { SimulatedTestSession, SpeakingContent } from "@/lib/types/simulated-test.type";
 
@@ -17,14 +15,10 @@ const SpeakingQuestion = (props: SpeakingQuestionProps) => {
     position: { part },
   } = useSpeakingTestState();
 
-  return (
-    <Fragment>
-      {part === 1 || part === 3 ? (
-        <SpeakingPartOneAndThree {...props} />
-      ) : (
-        <SpeakingPartTwo {...props} />
-      )}
-    </Fragment>
-  );
+  if (part === 2) {
+    return <SpeakingPartTwo {...props} />;
+  }
+  return <SpeakingPartOneAndThree {...props} />;
 };
+
 export default SpeakingQuestion;

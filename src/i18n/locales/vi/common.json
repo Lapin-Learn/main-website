@@ -38,5 +38,12 @@
     "next": "Tiếp theo",
     "prev": "Trước",
     "total": "Tổng: {{number}} {{unit}}",
-    "home": "Trang chủ"
+    "home": "Trang chủ",
+    "microphone": {
+        "permission": "Để có thể sử dụng Microphone, bạn cần cấp quyền cho Microphone của máy",
+        "deniedTitle": "Quyền truy cập Microphone bị từ chối",
+        "deniedDescription": "Vui lòng cho phép quyền truy cập Microphone để ghi âm.",
+        "browswerNotSupportTitle": "Trình duyệt không được hỗ trợ",
+        "browswerNotSupportDescription": "Trình duyệt này không hỗ trợ ghi âm."
+    }
 }

@@ -1,16 +1,18 @@
 import { useCallback, useRef } from "react";
-import { useTranslation } from "react-i18next";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
-import { EnumSimulatedTestSessionStatus } from "@/lib/enums";
+import { useMicrophone } from "@/components/providers/microphone-permission-provider";
 
-import { useToast } from "./use-toast";
-import { useRecordingStore, useSpeakingTestState } from "./zustand/use-speaking-test";
+import { useRecordingStore } from "./zustand/use-speaking-test";
 
-function useAudioRecording() {
+function useAudioRecording({
+  onStop,
+}: {
+  onStop?: (src: { audioBlob: Blob; audioUrl: string }) => void;
+} = {}) {
+  // Make sure this hook only works inside MicrophonePermissionProvider
+  const { stream, requestPermission } = useMicrophone();
   const {
-    stream,
-    setStream,
     audioChunks,
     setRecordingStatus,
     setAudioLevel,
@@ -19,9 +21,6 @@ function useAudioRecording() {
     setAudio,
   } = useRecordingStore();
   const { listening } = useSpeechRecognition();
-  const { testState, addSpeakingSource } = useSpeakingTestState();
-  const { toast } = useToast();
-  const { t } = useTranslation("simulatedTest");
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const dataArrayRef = useRef<Uint8Array | null>(null);
@@ -29,25 +28,6 @@ function useAudioRecording() {
   const mediaRecorder = useRef<MediaRecorder | null>(null);
 
   const mimeType = "audio/webm";
-
-  const getMicrophonePermission = useCallback(async () => {
-    if ("MediaRecorder" in window) {
-      try {
-        const streamData = await navigator.mediaDevices.getUserMedia({ audio: true });
-        setStream(streamData);
-      } catch {
-        toast({
-          title: t("speaking.microphoneDeniedTitle"),
-          description: t("speaking.microphoneDeniedDescription"),
-        });
-      }
-    } else {
-      toast({
-        title: t("speaking.browserNotSupportTitle"),
-        description: t("speaking.browserNotSupportDescription"),
-      });
-    }
-  }, [setStream, t, toast]);
 
   const startRecording = useCallback(async () => {
     setRecordingStatus("recording");
@@ -69,9 +49,12 @@ function useAudioRecording() {
         if (event.data.size === 0) return;
         localAudioChunks.push(event.data);
       };
+      console.log("localAudioChunks", localAudioChunks);
       setAudioChunks(localAudioChunks);
     } else {
-      getMicrophonePermission();
+      if (requestPermission) {
+        await requestPermission();
+      }
     }
   }, [listening, setAudio, setAudioChunks, setRecordingStatus, stream]);
 
@@ -92,8 +75,11 @@ function useAudioRecording() {
         const audioUrl = URL.createObjectURL(audioBlob);
         setAudio(audioUrl);
         setAudioChunks([]);
-        if (testState === EnumSimulatedTestSessionStatus.IN_PROGRESS) {
-          addSpeakingSource(audioUrl);
+        if (onStop) {
+          onStop({
+            audioUrl,
+            audioBlob,
+          });
         }
       };
     }
@@ -108,7 +94,6 @@ function useAudioRecording() {
   }, []);
 
   return {
-    getMicrophonePermission,
     startRecording,
     stopRecording,
     updateAudioLevel,

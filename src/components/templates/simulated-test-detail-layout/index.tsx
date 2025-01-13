@@ -4,6 +4,7 @@ import ListeningPage from "@/components/pages/simulated-test/listening";
 import ReadingPage from "@/components/pages/simulated-test/reading";
 import SpeakingPage from "@/components/pages/simulated-test/speaking";
 import WritingPage from "@/components/pages/simulated-test/writing";
+import MicrophonePermissionProvider from "@/components/providers/microphone-permission-provider";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { EnumSkill } from "@/lib/enums";
 import { SimulatedTestAnswer, SimulatedTestSession } from "@/lib/types/simulated-test.type";
@@ -88,7 +89,11 @@ const SkillContentFactory = ({
     case EnumSkill.listening:
       return <ListeningPage skillTestId={skillTestId} sessionId={sessionId} />;
     case EnumSkill.speaking:
-      return <SpeakingPage skillTestId={skillTestId} sessionId={sessionId} />;
+      return (
+        <MicrophonePermissionProvider>
+          <SpeakingPage skillTestId={skillTestId} sessionId={sessionId} />
+        </MicrophonePermissionProvider>
+      );
     case EnumSkill.writing:
       return <WritingPage />;
     default:

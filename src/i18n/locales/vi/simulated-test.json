@@ -80,11 +80,6 @@
     },
     "speaking": {
         "microphoneTest": "Bạn có {{ seconds }} giây để thử Microphone",
-        "microphonePermission": "Để có thể sử dụng Microphone, bạn cần cấp quyền cho Microphone của máy",
-        "microphoneDeniedTitle": "Quyền truy cập Microphone bị từ chối",
-        "microphoneDeniedDescription": "Vui lòng cho phép quyền truy cập Microphone để ghi âm.",
-        "browserNotSupportTitle": "Trình duyệt không được hỗ trợ",
-        "browserNotSupportDescription": "Trình duyệt này không hỗ trợ ghi âm.",
         "instructions": {
             "practice": [
                 {

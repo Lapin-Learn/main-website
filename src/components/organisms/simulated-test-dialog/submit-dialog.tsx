@@ -18,7 +18,7 @@ import {
 } from "@/hooks/react-query/use-simulated-test";
 import useGlobalTimerStore, { timerKeys, TimerType } from "@/hooks/zustand/use-global-timer";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
-import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
+import { EnumMode, EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import {
   formatAnswerSheetToResponses,
   formatTime,
@@ -54,22 +54,24 @@ const SubmitDialog = ({ triggerButton, sessionId }: SubmitDialogProps) => {
         session.timeLimit == 0 && session.mode == EnumMode.PRACTICE ? "stopwatch" : "countdown";
       const initialTime = getInitialTime(session.mode, session.timeLimit, session.skillTest.skill);
       const currentTime = getTimer(timerKeys.testDetail(sessionId))?.time ?? 0;
-      submitTest(
-        {
-          sessionId: session.id,
-          elapsedTime: getElapsedTime(type, initialTime, currentTime),
-          status: EnumSimulatedTestSessionStatus.FINISHED,
-          response: {
-            skill: session.skillTest.skill,
-            info: responses,
+      if (session.skillTest.skill !== EnumSkill.speaking) {
+        submitTest(
+          {
+            sessionId: session.id,
+            elapsedTime: getElapsedTime(type, initialTime, currentTime),
+            status: EnumSimulatedTestSessionStatus.FINISHED,
+            response: {
+              skill: session.skillTest.skill,
+              info: responses,
+            },
           },
-        },
-        {
-          onSuccess: () => {
-            setIsDialogOpen(false);
-          },
-        }
-      );
+          {
+            onSuccess: () => {
+              setIsDialogOpen(false);
+            },
+          }
+        );
+      }
     }
   };
 
