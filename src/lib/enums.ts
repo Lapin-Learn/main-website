@@ -125,3 +125,19 @@ export enum EnumTourElement {
   SUBMIT = "submit",
   QUIT = "quit",
 }
+
+export enum EnumWritingCriteria {
+  Overall = "overall",
+  TaskAchievement = "taskAchievement",
+  CoherenceAndCohesion = "coherenceAndCohesion",
+  LexicalResource = "lexicalResource",
+  GrammaticalRangeAndAccuracy = "grammaticalAndAccuracy",
+}
+
+export enum EnumSpeakingCriteria {
+  Overall = "overall",
+  FluencyAndCoherence = "fluencyAndCoherence",
+  LexicalResource = "lexicalResource",
+  GrammaticalRangeAndAccuracy = "grammaticalAndRangeAccuracy",
+  Pronunciation = "pronounciation",
+}

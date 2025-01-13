@@ -1,7 +1,6 @@
 import { Check } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { PracticeBreadcrumb } from "@/components/molecules/practice-breadcrumb";
 import TestHeaderLayout from "@/components/templates/test-header-layout";
 import { useGetCollectionInfo } from "@/hooks/react-query/use-simulated-test";
 import useBreakPoint from "@/hooks/use-screen-size";
@@ -60,39 +59,36 @@ export function ResultHeader({ collectionId, session }: CollectionDetailHeaderPr
     ) : null;
 
   return (
-    <>
-      <PracticeBreadcrumb collection={collection} session={session} />
-      <TestHeaderLayout
-        title={session?.skillTest.simulatedIeltsTest.testName}
-        tags={tags}
-        description={
-          session && `${t("finished-on")}: ${new Date(session.updatedAt || "").toLocaleString()}`
-        }
-        imageSrc={thumbnail ?? undefined}
-      >
-        <TestHeaderLayout.ContentWrapper>
-          <TestHeaderLayout.Image />
-          <div className="flex w-full flex-col">
-            <div className="flex h-fit flex-col gap-y-3">
-              <TestHeaderLayout.Title />
-              <TestHeaderLayout.TagList
-                format={(tag) =>
-                  t("collection-list.tags." + MAPPED_SIMULATED_TEST_TAGS[tag.trim()], {
-                    ns: "practice",
-                  })
-                }
-              />
-              <TestHeaderLayout.Description />
-            </div>
-            {breakpoint !== "xs" && <AchievementList />}
+    <TestHeaderLayout
+      title={session?.skillTest.simulatedIeltsTest.testName}
+      tags={tags}
+      description={
+        session && `${t("finished-on")}: ${new Date(session.updatedAt || "").toLocaleString()}`
+      }
+      imageSrc={thumbnail ?? undefined}
+    >
+      <TestHeaderLayout.ContentWrapper>
+        <TestHeaderLayout.Image />
+        <div className="flex w-full flex-col">
+          <div className="flex h-fit flex-col gap-y-3">
+            <TestHeaderLayout.Title />
+            <TestHeaderLayout.TagList
+              format={(tag) =>
+                t("collection-list.tags." + MAPPED_SIMULATED_TEST_TAGS[tag.trim()], {
+                  ns: "practice",
+                })
+              }
+            />
+            <TestHeaderLayout.Description />
           </div>
-        </TestHeaderLayout.ContentWrapper>
-        {breakpoint === "xs" && (
-          <div className="flex flex-row justify-center">
-            <AchievementList />
-          </div>
-        )}
-      </TestHeaderLayout>
-    </>
+          {breakpoint !== "xs" && <AchievementList />}
+        </div>
+      </TestHeaderLayout.ContentWrapper>
+      {breakpoint === "xs" && (
+        <div className="flex flex-row justify-center">
+          <AchievementList />
+        </div>
+      )}
+    </TestHeaderLayout>
   );
 }

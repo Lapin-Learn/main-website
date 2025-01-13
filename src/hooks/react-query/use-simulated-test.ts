@@ -9,6 +9,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useMemo } from "react";
 import { create } from "zustand";
 
+import { calculateOverallBandScore } from "@/components/organisms/streak/utils";
 import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { fromPageToOffset, parseInfiniteData } from "@/lib/utils";
 import {
@@ -223,7 +224,9 @@ export const useGetSTSessionDetail = (sessionId: number) => {
   const userAnswers = new Array(session.responses?.length || 0).fill(null);
   const answerStatus = new Array(session.skillTest.answers.length || 0).fill(null);
   session.responses?.forEach((answer, index) => {
-    userAnswers[answer.questionNo - 1] = answer.answer;
+    if ("answer" in answer) {
+      userAnswers[answer.questionNo - 1] = answer.answer;
+    }
     answerStatus[answer.questionNo - 1] = session.results[index];
   });
 
@@ -249,11 +252,10 @@ export const useGetUserBandScoreOverall = () => {
       const bandScores = await getUserBandScoreOverall();
       // All skills available
       if (Object.keys(bandScores).length == 4) {
-        const overall =
-          Object.values(bandScores).reduce((acc, cur) => acc + Number(cur.bandScore), 0) / 4;
+        const overall = calculateOverallBandScore(bandScores.map((item) => item.bandScore));
         return {
           bandScores,
-          overallBandScore: Math.round(overall * 2) / 2,
+          overallBandScore: overall,
         };
       }
       return {
