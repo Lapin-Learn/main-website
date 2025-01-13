@@ -1,7 +1,12 @@
 import { JSONContent } from "@tiptap/core";
 
-import { EnumMode, EnumQuestionGroup, EnumSimulatedTestSessionStatus, EnumSkill } from "../enums";
+import { EnumQuestionGroup, EnumSkill, EnumSpeakingCriteria, EnumWritingCriteria } from "../enums";
 import { Option } from "./common.type";
+import type {
+  ReadingListeningSession,
+  SpeakingSession,
+  WritingSession,
+} from "./simulated-test-session.type";
 
 export type BandScoreSkill = {
   bandScore: number;
@@ -114,24 +119,7 @@ export type SimulatedTest = SimulatedTestSimple & {
   skillTests: SkillTest[];
 };
 
-export type SimulatedTestSession = {
-  elapsedTime: number;
-  estimatedBandScore: number | null;
-  id: number;
-  learnerProfileId: string;
-  mode: EnumMode;
-  parts: number[];
-  responses: SimulatedTestAnswer[];
-  skillTest: SkillTest & {
-    simulatedIeltsTest: Pick<SimulatedTestSimple, "id" | "testName">;
-    answers: STSkillTestAnswer[];
-    guidances: SkillTestGuidance[];
-  };
-  status: EnumSimulatedTestSessionStatus;
-  timeLimit: number;
-  updatedAt: Date;
-  results: boolean[];
-};
+export type SimulatedTestSession = WritingSession | ReadingListeningSession | SpeakingSession;
 
 export type SimulatedTestAnswer = {
   questionNo: number;
@@ -177,4 +165,14 @@ export type AnalysisData = {
     status: boolean;
     guidance: SkillTestGuidance | null;
   }[];
+};
+
+export type STCriteriaEvaluation = {
+  part?: string | "Overall";
+  score?: number;
+} & {
+  [key in EnumWritingCriteria | EnumSpeakingCriteria]?: {
+    score: number;
+    evaluate: string;
+  };
 };

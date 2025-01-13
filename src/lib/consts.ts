@@ -1,6 +1,12 @@
 import icons from "@/assets/icons";
 
-import { EnumBandScore, EnumQuestionGroup, EnumSkill } from "./enums";
+import {
+  EnumBandScore,
+  EnumQuestionGroup,
+  EnumSkill,
+  EnumSpeakingCriteria,
+  EnumWritingCriteria,
+} from "./enums";
 import { EnumQuestion } from "./types/question.type";
 
 export const BAND_SCORES = {
@@ -181,4 +187,18 @@ export const MAPPED_SKILL_ICON_FILLED: Record<
   [EnumSkill.listening]: icons.ListeningFilled,
   [EnumSkill.writing]: icons.WritingFilled,
   [EnumSkill.speaking]: icons.SpeakingFilled,
+};
+
+export const MAPPED_SPEAKING_CRITERIA_TITLES: Record<string, string> = {
+  [EnumSpeakingCriteria.FluencyAndCoherence]: "Fluency and Coherence",
+  [EnumSpeakingCriteria.Pronunciation]: "Pronunciation",
+  [EnumSpeakingCriteria.LexicalResource]: "Lexical Resource",
+  [EnumSpeakingCriteria.GrammaticalRangeAndAccuracy]: "Grammatical Range and Accuracy",
+};
+
+export const MAPPED_WRITING_CRITERIA_TITLES: Record<string, string> = {
+  [EnumWritingCriteria.TaskAchievement]: "Task Achievement",
+  [EnumWritingCriteria.CoherenceAndCohesion]: "Coherence and Cohesion",
+  [EnumWritingCriteria.LexicalResource]: "Lexical Resource",
+  [EnumWritingCriteria.GrammaticalRangeAndAccuracy]: "Grammatical Range and Accuracy",
 };

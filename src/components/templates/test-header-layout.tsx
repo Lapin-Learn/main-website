@@ -113,7 +113,6 @@ const AchievementList = ({ children }: PropsWithChildren) => {
 function HeaderSkeleton() {
   return (
     <div className="flex animate-pulse flex-col gap-6">
-      <Skeleton className="h-5 w-52" />
       <div className="mb-2 flex h-40 flex-row gap-5 md:h-60">
         <Skeleton className="h-40 w-60 md:h-60 md:w-72" />
         <div className="flex w-full flex-col gap-6 py-4">
