@@ -113,6 +113,7 @@ export enum EnumSimulatedTestSessionStatus {
   FINISHED = "finished",
   NOT_STARTED = "not_started",
   CANCELED = "canceled",
+  IN_EVALUATING = "in_evaluating",
 }
 
 export enum EnumTourElement {

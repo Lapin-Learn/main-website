@@ -31,21 +31,24 @@ const ListeningPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
   return (
     <ScrollArea className="inner-shadow-section relative flex h-full w-screen flex-1 flex-col items-center bg-neutral-50">
       <div className="relative flex h-full w-screen flex-1 flex-col items-center px-4">
-        <AudioPlayer
-          className="sticky top-4 z-10 m-4 w-full rounded-md border p-4 shadow-background md:w-1/2"
-          src={typeof testContent?.content == "string" ? testContent.content : ""}
-        />
+        {typeof testContent?.content == "string" ? (
+          <AudioPlayer
+            className="sticky top-4 z-10 m-4 w-full rounded-md border p-4 shadow-background md:w-1/2"
+            src={testContent.content}
+          />
+        ) : null}
         <div className="border-md mb-8 flex w-full flex-col gap-4 rounded-xl bg-white p-4 sm:w-3/4 sm:p-8 md:gap-8">
           {/* For dev testing the data */}
           {/* <QuestionGroupFactory questionGroup={questionGroup.questionGroups[0] as QuestionGroup} /> */}
           {testContent && !isLoading ? (
             <>
-              {testContent.questionGroups.map((questionGroup) => (
-                <QuestionGroupFactory
-                  key={questionGroup.startQuestionNo}
-                  questionGroup={questionGroup}
-                />
-              )) ?? <div>This part is not available. Please contact the administrator.</div>}
+              {("questionGroups" in testContent &&
+                testContent.questionGroups.map((questionGroup) => (
+                  <QuestionGroupFactory
+                    key={questionGroup.startQuestionNo}
+                    questionGroup={questionGroup}
+                  />
+                ))) ?? <div>This part is not available. Please contact the administrator.</div>}
             </>
           ) : (
             <div className="grid size-full flex-1 place-items-center">
