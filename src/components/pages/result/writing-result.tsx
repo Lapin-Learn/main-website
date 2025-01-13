@@ -9,15 +9,31 @@ type WritingResultProps = {
 };
 
 function WritingResult({ session }: WritingResultProps) {
-  if (session.status == EnumSimulatedTestSessionStatus.IN_EVALUATING) {
-    return <div>Đang chấm điểm</div>;
-  }
+  return (
+    <div className="flex flex-col gap-4 lg:gap-8">
+      {session.status == EnumSimulatedTestSessionStatus.IN_EVALUATING ? (
+        <div>Đang chấm điểm</div>
+      ) : (
+        <EvaluationSection session={session} />
+      )}
+      <div className="rounded-xl bg-white p-4 xl:p-8">
+        {session.responses.map((response, index) => (
+          <div key={index} className="mb-8">
+            <div className="mb-4 text-lg font-semibold">Task {index + 1}</div>
+            <div className="rounded-xl bg-gray-100 p-4">{response.answer}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
+function EvaluationSection({ session }: WritingResultProps) {
   const overallScore = session.results.find(
     (item) => item.part?.toLowerCase() === EnumSpeakingCriteria.Overall
   );
 
-  if (!overallScore) return <div>Đã có lỗi xảy ra</div>;
+  if (!overallScore) return <div className="rounded-xl bg-white p-4 xl:p-8">Đã có lỗi xảy ra</div>;
 
   const { part: _part, score: _score, ...overallEvaluation } = overallScore;
 

@@ -35,7 +35,7 @@ export default function PageLayout({
           sessionId={sessionId}
         />
       ) : (
-        <DefaultAnswerWrapper draftAnswers={session.responses}>
+        <DefaultAnswerWrapper draftAnswers={session.responses as SimulatedTestAnswer[]}>
           <SkillContentFactory
             skill={session.skillTest.skill}
             skillTestId={skillTestId}

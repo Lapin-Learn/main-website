@@ -10,6 +10,7 @@ import {
 import { useResult } from "@/hooks/zustand/use-result";
 import useSimulatedTestState, { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
+import { ReadingListeningSession } from "@/lib/types/simulated-test-session.type";
 import { SimulatedTestSession } from "@/lib/types/simulated-test.type";
 import { Route } from "@/routes/_authenticated/_dashboard/practice/simulated-test/result";
 
@@ -58,8 +59,10 @@ export default function ReadingListeningResult() {
 
   const onDialogOpen = () => {
     if (session && session.status === EnumSimulatedTestSessionStatus.FINISHED) {
-      setAnswerKeys(session.skillTest.answers);
-      setGuidances(session.skillTest.guidances);
+      if ("answers" in session.skillTest) {
+        setAnswerKeys(session.skillTest.answers);
+        setGuidances(session.skillTest.guidances);
+      }
       setStatus(answerStatus);
     }
 
@@ -119,15 +122,15 @@ export default function ReadingListeningResult() {
             </div>
           ) : (
             <div className="flex flex-col gap-6">
-              {session.parts.map((part, index) => (
+              {(session as ReadingListeningSession).parts.map((part, index) => (
                 <PartAnswersCard
                   key={index}
                   part={part}
                   partDetail={session.skillTest.partsDetail[index]}
                   userAnswers={userAnswers}
                   answerStatus={answerStatus}
-                  answers={session.skillTest.answers}
-                  guidances={session.skillTest.guidances}
+                  answers={(session as ReadingListeningSession).skillTest.answers}
+                  guidances={(session as ReadingListeningSession).skillTest.guidances}
                 />
               ))}
             </div>
@@ -138,7 +141,7 @@ export default function ReadingListeningResult() {
             session={session}
             answerStatus={answerStatus}
             isLoading={isLoading}
-            guidances={session.skillTest.guidances}
+            guidances={(session as ReadingListeningSession).skillTest.guidances}
           />
         </TabsContent>
       </Tabs>

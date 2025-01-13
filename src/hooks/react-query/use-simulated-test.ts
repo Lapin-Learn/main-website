@@ -224,7 +224,9 @@ export const useGetSTSessionDetail = (sessionId: number) => {
   const userAnswers = new Array(session.responses?.length || 0).fill(null);
   const answerStatus = new Array(session.skillTest.answers.length || 0).fill(null);
   session.responses?.forEach((answer, index) => {
-    userAnswers[answer.questionNo - 1] = answer.answer;
+    if ("answer" in answer) {
+      userAnswers[answer.questionNo - 1] = answer.answer;
+    }
     answerStatus[answer.questionNo - 1] = session.results[index];
   });
 
