@@ -1,20 +1,24 @@
 import { Loader2 } from "lucide-react";
-import { createElement } from "react";
+import { createElement, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { OverallBandScoreChart } from "@/components/molecules/overall-band-score-chart";
+import SkillsFilter from "@/components/molecules/skill-filter";
 import { SimulatedTestHistoryTable } from "@/components/organisms/simulated-test-table/table";
 import { Typography } from "@/components/ui";
 import { Card, CardContent } from "@/components/ui/card";
 import { useGetUserBandScoreOverall } from "@/hooks/react-query/use-simulated-test";
 import useBreakPoint from "@/hooks/use-screen-size";
-import { MAPPED_SKILL_ICON_FILLED } from "@/lib/consts";
+import { MAPPED_SKILL_ICON_FILLED, SKILLS_LIST } from "@/lib/consts";
 import { EnumSkill } from "@/lib/enums";
 import { formatBandScore } from "@/lib/utils";
 
 export default function HistoryPage() {
   const { t } = useTranslation("profile");
   const { data, isLoading } = useGetUserBandScoreOverall();
+  const [selected, setSelected] = useState<EnumSkill>(SKILLS_LIST[0].label);
+  // const { data: questionTypeAccuracy } = useGetQuestionTypeAccuracy(selected);
+  // const { data: sessionProgress } = useGetSessionProgress(selected);
 
   const breakpoint = useBreakPoint();
 
@@ -68,10 +72,11 @@ export default function HistoryPage() {
           );
         })}
       </div>
+      <SkillsFilter skillsList={SKILLS_LIST} selected={selected} setSelected={setSelected} />
+
       <Typography variant="h5" className="mb-4">
         {t("learning_history.simulated_test_history")}
       </Typography>
-
       <SimulatedTestHistoryTable />
     </div>
   );

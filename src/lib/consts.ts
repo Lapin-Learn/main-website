@@ -6,6 +6,7 @@ import {
   EnumSkill,
   EnumSpeakingCriteria,
   EnumWritingCriteria,
+  ExtendEnumSkill,
 } from "./enums";
 import { EnumQuestion } from "./types/question.type";
 
@@ -167,6 +168,7 @@ export const PART_INSTRUCTIONS: { [key: number]: string[] } = {
   ],
 };
 
+import AllSkillsIcon from "@/assets/icons/skills/all";
 import ListeningIcon from "@/assets/icons/skills/listening";
 import ReadingIcon from "@/assets/icons/skills/reading";
 import SpeakingIcon from "@/assets/icons/skills/speaking";
@@ -202,3 +204,20 @@ export const MAPPED_WRITING_CRITERIA_TITLES: Record<string, string> = {
   [EnumWritingCriteria.LexicalResource]: "Lexical Resource",
   [EnumWritingCriteria.GrammaticalRangeAndAccuracy]: "Grammatical Range and Accuracy",
 };
+
+export const SKILLS_LIST = [
+  ...Object.keys(MAPPED_SKILL_ICON).map((key) => ({
+    label: key as EnumSkill,
+    IconOutlined: MAPPED_SKILL_ICON[key as EnumSkill],
+    IconFilled: MAPPED_SKILL_ICON_FILLED[key as EnumSkill],
+  })),
+];
+
+export const ALL_SKILLS_LIST = [
+  {
+    label: ExtendEnumSkill.allSkills,
+    IconOutlined: AllSkillsIcon,
+    IconFilled: AllSkillsIcon,
+  },
+  ...SKILLS_LIST,
+];

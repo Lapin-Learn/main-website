@@ -31,7 +31,7 @@ export function PartAnswersCard({
         <TagsList tags={questionTypes} />
       </div>
       <div className="grid grid-flow-col grid-cols-2 grid-rows-7 gap-4 md:grid-cols-3 md:grid-rows-5">
-        {answers.slice(startQuestionNo - 1, endQuestionNo).map((answer, i) => {
+        {answers?.slice(startQuestionNo - 1, endQuestionNo).map((answer, i) => {
           const id = i + startQuestionNo;
 
           return (

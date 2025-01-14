@@ -2,7 +2,9 @@ import { EnumMode, EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums
 import { FetchingData, OffsetSchema, PagedData, PagingSchema } from "@/lib/types";
 import {
   BandScoreSkill,
+  questionTypeAccuracy,
   ReadingContent,
+  sessionProgress,
   SimulatedTest,
   SimulatedTestAnswer,
   SimulatedTestCollection,
@@ -177,5 +179,21 @@ export const getSTSessionHistoryByST = async (
     await api
       .get(`simulated-tests/${simulatedTestId}/sessions`, { searchParams })
       .json<FetchingData<PagedData<SimulatedTestSessionsHistory>>>()
+  ).data;
+};
+
+export const getQuestionTypeAccuracy = async (skill: EnumSkill) => {
+  const searchParams = generateSearchParams({ skill });
+  return (
+    await api
+      .get(`question-types/accuracy`, { searchParams })
+      .json<FetchingData<questionTypeAccuracy[]>>()
+  ).data;
+};
+
+export const getSessionProgress = async (skill: EnumSkill, from?: string, to?: string) => {
+  const searchParams = generateSearchParams({ skill, from, to });
+  return (
+    await api.get(`sessions/progress`, { searchParams }).json<FetchingData<sessionProgress[]>>()
   ).data;
 };
