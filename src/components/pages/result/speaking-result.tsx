@@ -20,13 +20,13 @@ function SpeakingResult({ session }: SpeakingResultProps) {
     return <div>Đang chấm điểm</div>;
   }
 
-  const overallScore = session.results.find(
-    (item) => item.part?.toLowerCase() === EnumSpeakingCriteria.Overall
+  const overalScore = session.results.find(
+    (item) => typeof item.part === "string" && item.part === EnumSpeakingCriteria.Overall
   );
 
-  if (!overallScore) return <div>Đã có lỗi xảy ra</div>;
+  if (!overalScore) return <div>Đã có lỗi xảy ra</div>;
 
-  const { part: _part, score: _score, ...overallEvaluation } = overallScore;
+  const overallEvaluation = overalScore.criterias;
 
   return (
     <div className="relative flex flex-col items-center gap-4 rounded-xl bg-white p-4 xl:p-8">
@@ -42,13 +42,13 @@ function SpeakingResult({ session }: SpeakingResultProps) {
         </Typography>
       </div>
 
-      {overallScore && <SkillEvaluationChart data={overallScore} />}
+      {overalScore && <SkillEvaluationChart data={overalScore} />}
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-2 xl:gap-8">
         {Object.entries(overallEvaluation).map(([key, value]) => (
           <CriteriaScoreCard
             key={key}
             criteria={MAPPED_SPEAKING_CRITERIA_TITLES[key] ?? key}
-            evaluate={value.evaluate}
+            evaluate={value.evaluate ?? ""}
             score={value.score}
             Icon={icons.SpeakingFilled}
           />

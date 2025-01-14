@@ -28,20 +28,21 @@ type OverallBandScoreChartProps = {
 };
 
 export function getAdaptedChartData(data: STCriteriaEvaluation) {
-  const { part: _part, score, ...adaptedData } = data;
   const chartData =
-    Object.entries(adaptedData).map(([criteria, bandScore]) => ({
+    Object.entries(data.criterias).map(([criteria, bandScore]) => ({
       criteria,
       bandScore: bandScore?.score ?? 0,
     })) ?? [];
 
-  if (score) {
+  if (data.overall) {
     chartData.push({
       criteria: EnumSpeakingCriteria.Overall,
-      bandScore: score,
+      bandScore: data.overall,
     });
   } else {
-    const overall = calculateOverallBandScore(Object.values(adaptedData).map((item) => item.score));
+    const overall = calculateOverallBandScore(
+      Object.values(data.criterias).map((item) => item.score)
+    );
     chartData.push({
       criteria: EnumSpeakingCriteria.Overall,
       bandScore: overall,

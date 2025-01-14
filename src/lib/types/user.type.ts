@@ -40,7 +40,7 @@ export type UserProfile = {
   email: string;
   role: string;
   fullName: string | null;
-  dob: Date | string;
+  dob: Date | null | string;
   gender: EnumGender | null;
   createdAt: string;
   learnerProfile: LearnerProfile | null;

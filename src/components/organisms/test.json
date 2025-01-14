@@ -1,0 +1,70 @@
+[
+    {
+        "part": 1,
+        "score": 6,
+        "criterias": {
+            "P": {
+                "score": 6,
+                "evaluate": "Your pronunciation was generally clear in Part 1, and your words were mostly understandable. However, I did detect some issues with word stress and intonation that occasionally affected clarity. For example, there was some unclear pronunciation of \"city\". Working on these aspects will make your speech easier to understand. Additionally, practicing vowel and consonant sounds that you find challenging can enhance your overall pronunciation."
+            },
+            "LR": {
+                "score": 6,
+                "evaluate": "Your lexical resource in Part 1 was adequate for the task. You used vocabulary relevant to the topic of your hometown, such as \"biggest city,\" \"crowded,\" \"big population,\" \"high buildings,\" and \"entertainment centers.\" However, your range was somewhat limited, and there were instances of repetition. To improve, I encourage you to expand your vocabulary and use more varied expressions. Paraphrasing instead of repeating the same phrases can also boost your score."
+            },
+            "FC": {
+                "score": 6.5,
+                "evaluate": "I noticed that you spoke with a generally good flow in Part 1, with some minor hesitations and repetitions. You were able to organize your ideas coherently, describing Ho Chi Minh City in a logical sequence. However, to improve, I recommend working on reducing pauses and using a wider range of discourse markers to connect your ideas more smoothly."
+            },
+            "GRA": {
+                "score": 6,
+                "evaluate": "Your grammatical range and accuracy in Part 1 were fairly good, though there's room for improvement. I observed that you used a mix of simple and complex sentences. While many were accurate, I noticed a few errors, such as subject-verb agreement (e.g., \"This is the biggest city\") and articles (e.g., \"the city for\" should be \"a city famous for\"). To enhance your score, I suggest focusing on accuracy, particularly in complex sentence structures."
+            }
+        }
+    },
+    {
+        "part": 2,
+        "score": 6,
+        "criterias": {
+
+            "P": {
+                "score": 6,
+                "evaluate": "Without responses for Parts 2 and 3, my assessment is confined to Part 1. In future, please make sure to answer all the questions, so I have enough data for a comprehensive evaluation of your speaking skills."
+            },
+            "LR": {
+                "score": 6,
+                "evaluate": "Because you didn't attempt Parts 2 and 3, I can only comment on your Part 1 performance. Doing all parts of the test in order to have a proper evaluation of the vocabulary that you know."
+            },
+            "FC": {
+                "score": 6.5,
+                "evaluate": "Since you only completed Part 1 of the speaking test, my evaluation is primarily based on that section. I strongly recommend completing all parts of the IELTS Speaking test in order to receive a comprehensive evaluation. A complete assessment is essential to provide a precise band score based on your abilities."
+            },
+            "GRA": {
+                "score": 6,
+                "evaluate": "Given that Part 2 and Part 3 are missing, my feedback is limited to your performance in Part 1. To improve your score, I would like to see your performance in all three parts to have a clear evaluation."
+            }
+        }
+    },
+    {
+        "part": "overall",
+        "score": 6,
+        "criterias": {
+
+            "P": {
+                "score": 6,
+                "evaluate": "Without responses for Parts 2 and 3, my assessment is confined to Part 1. In future, please make sure to answer all the questions, so I have enough data for a comprehensive evaluation of your speaking skills."
+            },
+            "LR": {
+                "score": 6,
+                "evaluate": "Because you didn't attempt Parts 2 and 3, I can only comment on your Part 1 performance. Doing all parts of the test in order to have a proper evaluation of the vocabulary that you know."
+            },
+            "FC": {
+                "score": 6.5,
+                "evaluate": "Since you only completed Part 1 of the speaking test, my evaluation is primarily based on that section. I strongly recommend completing all parts of the IELTS Speaking test in order to receive a comprehensive evaluation. A complete assessment is essential to provide a precise band score based on your abilities."
+            },
+            "GRA": {
+                "score": 6,
+                "evaluate": "Given that Part 2 and Part 3 are missing, my feedback is limited to your performance in Part 1. To improve your score, I would like to see your performance in all three parts to have a clear evaluation."
+            }
+        }
+    }
+]

@@ -128,18 +128,18 @@ export enum EnumTourElement {
 
 export enum EnumWritingCriteria {
   Overall = "overall",
-  TaskAchievement = "taskAchievement",
-  CoherenceAndCohesion = "coherenceAndCohesion",
-  LexicalResource = "lexicalResource",
-  GrammaticalRangeAndAccuracy = "grammaticalAndAccuracy",
+  TaskAchievement = "TR",
+  CoherenceAndCohesion = "CC",
+  LexicalResource = "LR",
+  GrammaticalRangeAndAccuracy = "GRA",
 }
 
 export enum EnumSpeakingCriteria {
   Overall = "overall",
-  FluencyAndCoherence = "fluencyAndCoherence",
-  LexicalResource = "lexicalResource",
-  GrammaticalRangeAndAccuracy = "grammaticalAndRangeAccuracy",
-  Pronunciation = "pronounciation",
+  FluencyAndCoherence = "FC",
+  LexicalResource = "LR",
+  GrammaticalRangeAndAccuracy = "GRA",
+  Pronunciation = "P",
 }
 
 export enum EnumMissionCategory {
