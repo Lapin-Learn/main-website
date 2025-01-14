@@ -34,10 +34,10 @@ export function getAdaptedChartData(data: STCriteriaEvaluation) {
       bandScore: bandScore?.score ?? 0,
     })) ?? [];
 
-  if (data.overall) {
+  if (data.score) {
     chartData.push({
       criteria: EnumSpeakingCriteria.Overall,
-      bandScore: data.overall,
+      bandScore: data.score,
     });
   } else {
     const overall = calculateOverallBandScore(

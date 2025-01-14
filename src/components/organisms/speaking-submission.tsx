@@ -1,3 +1,5 @@
+import parse from "html-react-parser";
+
 import {
   Accordion,
   AccordionContent,
@@ -5,30 +7,27 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
-import type {
-  STCriteriaEvaluation,
-  SimulatedTestAnswer as WritingSubmission,
-} from "@/lib/types/simulated-test.type";
+import { SpeakingSession } from "@/lib/types/simulated-test-session.type";
+import type { STCriteriaEvaluation } from "@/lib/types/simulated-test.type";
 
-import { MAPPED_WRITING_CRITERIA_TITLES } from "../../lib/consts";
+import { MAPPED_SPEAKING_CRITERIA_TITLES } from "../../lib/consts";
+import AudioPlayer from "../molecules/audio-player";
 import CriteriaScoreCardSimple from "../molecules/criteria-score-card-simple";
-import WritingQuestionCard from "../molecules/writing-question-card";
-import { Button, Separator, Typography } from "../ui";
-import { Skeleton } from "../ui/skeleton";
+import { Button, Typography } from "../ui";
 
-type WritingSubmissionProps = {
+type SpeakingSubmissionProps = {
   evaluationResults?: STCriteriaEvaluation[];
-  userSubmissions: WritingSubmission[];
+  userSubmissions: SpeakingSession["responses"];
   skillTestId: number;
   partDetails: string[][];
 };
 
-function WritingSubmission(props: WritingSubmissionProps) {
+function SpeakingSubmission(props: SpeakingSubmissionProps) {
   const { userSubmissions, skillTestId, partDetails, evaluationResults } = props;
 
   return (
     <Accordion type="single" collapsible className="flex flex-col gap-4">
-      {userSubmissions.map((submission, index) => (
+      {userSubmissions?.map((submission, index) => (
         <SubmissionAccordionItem
           key={index}
           submission={submission}
@@ -46,7 +45,7 @@ function WritingSubmission(props: WritingSubmissionProps) {
 }
 
 type SubmissionAccordionItemProps = {
-  submission: WritingSubmission;
+  submission: SpeakingSession["responses"][0];
   skillTestId: number;
   partDetail: string[];
   evaluationResult?: STCriteriaEvaluation;
@@ -54,7 +53,7 @@ type SubmissionAccordionItemProps = {
 
 function SubmissionAccordionItem(props: SubmissionAccordionItemProps) {
   const { submission, skillTestId, partDetail, evaluationResult } = props;
-  const { data, isLoading } = useGetSkillTestData(skillTestId, submission.questionNo);
+  const { data, isLoading } = useGetSkillTestData(skillTestId, submission.partNo);
 
   return (
     <AccordionItem
@@ -68,30 +67,23 @@ function SubmissionAccordionItem(props: SubmissionAccordionItemProps) {
         Part {submission.questionNo}:&nbsp;{partDetail.join(", ")}
       </AccordionTrigger>
       <AccordionContent className="grid grid-cols-1 gap-2 md:grid-cols-6 md:gap-8">
-        <div className="col-span-4 flex flex-col gap-4 pb-0">
-          {isLoading || !data ? (
-            <Skeleton className="h-40 w-full" />
-          ) : (
-            <WritingQuestionCard content={data?.content} imageClassName="!w-1/3 mx-auto" />
-          )}
-          <div className="my-2 flex flex-row items-center gap-5">
-            <Separator className="flex-1" />
-            <Typography variant="h6" className="text-center uppercase text-neutral-500">
-              Your answer
-            </Typography>
-            <Separator className="flex-1" />
-          </div>
-          {submission.answer && (
-            <div
-              dangerouslySetInnerHTML={{ __html: submission.answer }}
-              className="text-justify [&_p]:mb-2"
-            />
-          )}
+        <div className="col-span-3 flex flex-col gap-4 pb-0">
+          {data &&
+            !isLoading &&
+            Array.isArray(data.content) &&
+            data.content.map((question: string, index: number) => (
+              <UserAnswer
+                key={index}
+                question={question}
+                no={index + 1}
+                partNo={submission.partNo}
+              />
+            ))}
         </div>
         {evaluationResult ? (
           <CriteriaScoreList evaluationResult={evaluationResult} />
         ) : (
-          <div className="col-span-2 grid h-full place-items-center content-center gap-2 text-muted-foreground">
+          <div className="col-span-3 grid h-full place-items-center content-center gap-2 text-muted-foreground">
             <Typography variant="h6" className="italic">
               Not evaluated yet
             </Typography>
@@ -107,14 +99,14 @@ function SubmissionAccordionItem(props: SubmissionAccordionItemProps) {
 
 function CriteriaScoreList({ evaluationResult }: { evaluationResult: STCriteriaEvaluation }) {
   return (
-    <div className="col-span-2 flex flex-col rounded-lg bg-secondary/50">
+    <div className="col-span-3 flex flex-col rounded-lg bg-secondary/50">
       <Typography variant="h3" className="mt-6 text-center capitalize text-primary-700">
         Total: {evaluationResult.score}
       </Typography>
       {Object.entries(evaluationResult.criterias).map(([key, value]) => (
         <CriteriaScoreCardSimple
           key={key}
-          criteria={MAPPED_WRITING_CRITERIA_TITLES[key] ?? key}
+          criteria={MAPPED_SPEAKING_CRITERIA_TITLES[key] ?? key}
           evaluate={value.evaluate ?? ""}
           score={value.score}
         />
@@ -123,4 +115,33 @@ function CriteriaScoreList({ evaluationResult }: { evaluationResult: STCriteriaE
   );
 }
 
-export default WritingSubmission;
+function UserAnswer({ question, no, partNo }: { question: string; no: number; partNo: number }) {
+  return (
+    <div className="flex flex-col gap-4 p-4">
+      {partNo == 2 ? (
+        <>
+          <strong>Question {no}:</strong>
+          <p>{parse(question)}</p>
+        </>
+      ) : (
+        <p>
+          <strong>Question {no}:</strong>&nbsp;{question}
+        </p>
+      )}
+      <AudioPlayer src="" className="rounded-lg border px-5 py-3" />
+      {/* Transcript, calling browser API */}
+      <div className="border-l-2 border-neutral-100 pl-4">
+        <p className="text-neutral-400">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+          sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export default SpeakingSubmission;
