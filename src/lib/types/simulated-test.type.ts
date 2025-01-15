@@ -95,6 +95,7 @@ export type ReadingContent = {
 
 export type SpeakingContent = {
   part: number;
+  heading?: string;
   content: string[];
 };
 

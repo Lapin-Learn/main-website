@@ -157,3 +157,7 @@ export const checkRoutePermission = (pathname: string, userRole: EnumRole) => {
 export const genQuestionId = (questionNo: number | string) => {
   return `Question-${questionNo}`;
 };
+
+export const formatBandScore = (bandScore: number): number => {
+  return Math.round(bandScore * 2) / 2;
+};

@@ -1,4 +1,3 @@
-import parse from "html-react-parser";
 import { ArrowRight } from "lucide-react";
 import { useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
@@ -99,8 +98,14 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
 
   return (
     <div className="grid w-[880px] grid-cols-12 gap-6">
-      <div className="col-span-8 flex flex-col justify-center gap-8 overflow-visible rounded-lg border border-blue-200 bg-white p-12">
-        {parse(content.content[0])}
+      <div className="col-span-8 flex flex-col justify-center gap-6 overflow-visible rounded-lg border border-blue-200 bg-white p-12">
+        <h5 className="text-center text-heading-5 font-semibold">{content.heading}</h5>
+        <ul className="list-inside list-disc">
+          <p>You should say:</p>
+          {content.content.map((detail, index) => (
+            <li key={index}>{detail}</li>
+          ))}
+        </ul>
       </div>
       <div className="col-span-4 flex flex-col items-center justify-center gap-8 overflow-visible rounded-lg border border-blue-200 bg-white p-10">
         <p className="text-center">

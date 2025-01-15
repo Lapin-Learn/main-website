@@ -6,8 +6,10 @@ import { AnimatedCircularProgressBar } from "@/components/organisms/circular-pro
 import useSelectModeDialog from "@/components/organisms/select-mode-dialog/use-select-mode-dialog";
 import { Button } from "@/components/ui";
 import { MAPPED_SKILL_ICON } from "@/lib/consts";
+import { ExtendEnumSkill } from "@/lib/enums";
 import { SimulatedTest, SkillTest } from "@/lib/types/simulated-test.type";
 import { cn } from "@/lib/utils";
+import { Route } from "@/routes/_authenticated/_dashboard/practice/$collectionId";
 
 type FilteredSkillCardProps = {
   test: SimulatedTest;
@@ -16,6 +18,7 @@ type FilteredSkillCardProps = {
 };
 
 export function FilteredSkillCard({ test, skillTest, isSupport }: FilteredSkillCardProps) {
+  const { skill } = Route.useSearch();
   const { t } = useTranslation("collection");
   const { setData } = useSelectModeDialog();
 
@@ -49,6 +52,7 @@ export function FilteredSkillCard({ test, skillTest, isSupport }: FilteredSkillC
                 <Link
                   to={`/practice/${test.collectionId}/simulated-test/${test.id}`}
                   className="w-fit"
+                  search={{ skill: skill !== ExtendEnumSkill.allSkills ? skill : undefined }}
                 >
                   <Button
                     className="w-fit gap-2 px-0 text-primary hover:bg-transparent hover:text-primary-700"
