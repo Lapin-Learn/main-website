@@ -44,7 +44,12 @@ export default function ReadingListeningResult() {
   const { resetTest } = useSimulatedTestState();
 
   useEffect(() => {
-    if (session && session.status !== EnumSimulatedTestSessionStatus.FINISHED && simulatedTest) {
+    if (
+      !isLoading &&
+      session &&
+      session.status !== EnumSimulatedTestSessionStatus.FINISHED &&
+      simulatedTest
+    ) {
       navigate({ to: `/practice/${simulatedTest?.collectionId}` });
     }
   }, [session, simulatedTest]);

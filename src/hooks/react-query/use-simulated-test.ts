@@ -52,7 +52,7 @@ const simulatedTestKeys = {
     [...simulatedTestKeys.simulatedTestKey, simulatedTestId] as const,
   overall: () => [...simulatedTestKeys.simulatedTestKey, "overall"] as const,
   questionTypeAccuracy: (skill: EnumSkill) => ["question-type-accuracy", skill] as const,
-  sessionProgress: (skill: EnumSkill) => ["session-progress", skill] as const,
+  sessionProgress: (skill: EnumSkill) => [...simulatedTestKeys.session, "progress", skill] as const,
 };
 
 type State = {
@@ -192,8 +192,8 @@ export const useSubmitSimulatedTest = () => {
         // TODO: should we navigate back to collection/${collectionId}?
         navigate({ to: "/practice" });
       }
-      queryClient.invalidateQueries({
-        queryKey: simulatedTestKeys.sessionDetail(variables.sessionId),
+      queryClient.removeQueries({
+        queryKey: simulatedTestKeys.session,
       });
     },
     onError: (error) => {

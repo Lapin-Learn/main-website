@@ -178,12 +178,12 @@ export type STCriteriaEvaluation = {
   };
 };
 
-export type questionTypeAccuracy = {
+export type QuestionTypeAccuracy = {
   evaluationtype: string;
   accuracy: number;
 };
 
-export type sessionProgress = {
+export type SessionProgress = {
   estimatedBandScore: number;
-  createdAt: Date;
+  createdAt: string;
 };

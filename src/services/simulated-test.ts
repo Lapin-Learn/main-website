@@ -1,10 +1,12 @@
+import { format } from "date-fns";
+
 import { EnumMode, EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { FetchingData, OffsetSchema, PagedData, PagingSchema } from "@/lib/types";
 import {
   BandScoreSkill,
-  questionTypeAccuracy,
+  QuestionTypeAccuracy,
   ReadingContent,
-  sessionProgress,
+  SessionProgress,
   SimulatedTest,
   SimulatedTestAnswer,
   SimulatedTestCollection,
@@ -187,13 +189,18 @@ export const getQuestionTypeAccuracy = async (skill: EnumSkill) => {
   return (
     await api
       .get(`question-types/accuracy`, { searchParams })
-      .json<FetchingData<questionTypeAccuracy[]>>()
+      .json<FetchingData<QuestionTypeAccuracy[]>>()
   ).data;
 };
 
 export const getSessionProgress = async (skill: EnumSkill, from?: string, to?: string) => {
   const searchParams = generateSearchParams({ skill, from, to });
-  return (
-    await api.get(`sessions/progress`, { searchParams }).json<FetchingData<sessionProgress[]>>()
+  const result = (
+    await api.get(`sessions/progress`, { searchParams }).json<FetchingData<SessionProgress[]>>()
   ).data;
+
+  return result.map((item) => ({
+    ...item,
+    createdAt: format(item.createdAt, "dd/MM/yyyy"),
+  }));
 };
