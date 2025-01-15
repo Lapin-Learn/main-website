@@ -10,6 +10,7 @@ import { useGetUserBandScoreOverall } from "@/hooks/react-query/use-simulated-te
 import useBreakPoint from "@/hooks/use-screen-size";
 import { MAPPED_SKILL_ICON_FILLED } from "@/lib/consts";
 import { EnumSkill } from "@/lib/enums";
+import { formatBandScore } from "@/lib/utils";
 
 export default function HistoryPage() {
   const { t } = useTranslation("profile");
@@ -35,8 +36,11 @@ export default function HistoryPage() {
           data={data}
         />
         {Object.values(EnumSkill).map((skill) => {
-          const bandScore =
-            data.bandScores.find((bandScore) => bandScore.skill == skill)?.bandScore ?? "--";
+          const bandScore = data.bandScores.find(
+            (bandScore) => bandScore.skill == skill
+          )?.estimatedBandScore;
+          const formattedBandScore =
+            typeof bandScore === "number" ? formatBandScore(bandScore) : "--";
           return (
             <Card className="h-fit md:h-full" key={skill}>
               <CardContent className="flex h-fit items-center justify-between gap-4 p-3 md:h-full md:px-6 md:py-4">
@@ -45,7 +49,7 @@ export default function HistoryPage() {
                     variant={breakpoint === "sm" ? "h3" : "h2"}
                     className="mb-2 capitalize"
                   >
-                    {bandScore}
+                    {formattedBandScore}
                   </Typography>
                   <Typography
                     variant={breakpoint === "sm" ? "body2" : "body1"}
@@ -57,7 +61,7 @@ export default function HistoryPage() {
                 {createElement(MAPPED_SKILL_ICON_FILLED[skill], {
                   width: breakpoint === "sm" ? 28 : 36,
                   height: breakpoint === "sm" ? 28 : 36,
-                  fill: bandScore === "--" ? "#BDBDBD" : "#F4926F",
+                  fill: formattedBandScore === "--" ? "#BDBDBD" : "#F4926F",
                 })}
               </CardContent>
             </Card>

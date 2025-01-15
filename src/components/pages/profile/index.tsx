@@ -40,7 +40,7 @@ export default function ProfilePage() {
   const onSubmit = (data: FormInputs) => {
     updateProfile.mutate({
       ...data,
-      dob: new Date(data.dob),
+      dob: new Date(data.dob).toLocaleString(),
     });
   };
 

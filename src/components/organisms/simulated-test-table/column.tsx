@@ -23,7 +23,7 @@ function ViewDetailCell({ id }: { id: string | number }) {
 
 function ModeCell({ mode }: { mode: EnumMode }) {
   const { t } = useTranslation("simulatedTest");
-  const text = (mode === EnumMode.FULL_TEST ? t("mode.test") : t("mode.practice"))
+  const text = (mode === EnumMode.FULL_TEST ? t("mode.full_test") : t("mode.practice"))
     .split("Mode")
     .join(" ");
   if (mode == EnumMode.FULL_TEST) {

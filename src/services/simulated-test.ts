@@ -114,9 +114,6 @@ export const submitSimulatedTest = async (
   }
 ) => {
   const { sessionId, response, files, ...rest } = payload;
-  if (response.info.length === 0) {
-    throw new Error("No responses to submit");
-  }
 
   const formData = new FormData();
   Object.entries(rest).forEach(([key, value]) => {
@@ -127,6 +124,10 @@ export const submitSimulatedTest = async (
     files.forEach((file) => {
       formData.append("files", file);
     });
+  }
+
+  if (response.info.length === 0) {
+    formData.set("status", EnumSimulatedTestSessionStatus.CANCELED);
   }
 
   return (

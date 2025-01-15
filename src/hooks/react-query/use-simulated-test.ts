@@ -180,16 +180,16 @@ export const useSubmitSimulatedTest = () => {
             sessionId: variables.sessionId,
           },
         });
+        toast({
+          title: "Success",
+          description: "Submit test successfully",
+        });
       } else {
         // TODO: should we navigate back to collection/${collectionId}?
         navigate({ to: "/practice" });
       }
       queryClient.invalidateQueries({
         queryKey: simulatedTestKeys.sessionDetail(variables.sessionId),
-      });
-      toast({
-        title: "Success",
-        description: "Submit test successfully",
       });
     },
     onError: (error) => {
@@ -222,7 +222,9 @@ export const useGetSTSessionDetail = (sessionId: number) => {
     };
 
   const userAnswers = new Array(session.responses?.length || 0).fill(null);
-  const answerStatus = new Array(session.skillTest.answers.length || 0).fill(null);
+  const answerStatus = new Array(
+    session.skillTest.answers ? session.skillTest.answers.length : 0
+  ).fill(null);
   session.responses?.forEach((answer, index) => {
     if ("answer" in answer) {
       userAnswers[answer.questionNo - 1] = answer.answer;
@@ -252,7 +254,9 @@ export const useGetUserBandScoreOverall = () => {
       const bandScores = await getUserBandScoreOverall();
       // All skills available
       if (Object.keys(bandScores).length == 4) {
-        const overall = calculateOverallBandScore(bandScores.map((item) => item.bandScore));
+        const overall = calculateOverallBandScore(
+          bandScores.map((item) => item.estimatedBandScore)
+        );
         return {
           bandScores,
           overallBandScore: overall,

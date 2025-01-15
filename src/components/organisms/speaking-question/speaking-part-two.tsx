@@ -1,4 +1,3 @@
-import parse from "html-react-parser";
 import { ArrowRight } from "lucide-react";
 import { useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
@@ -27,7 +26,7 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
     addSpeakingSource,
   } = useSpeakingTestState();
   const { recordingStatus } = useRecordingStore();
-  const { timeLeft, restart, isRunning } = useCountdown(NEXT_QUESTION_COUNT_DOWN);
+  const { timeLeft, restart, isRunning, isEnd } = useCountdown(NEXT_QUESTION_COUNT_DOWN);
   const {
     time: preparationTime,
     resume: resumePreparation,
@@ -37,19 +36,24 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
   const { startTimer, getTimer } = useGlobalTimerStore();
   const recordingButtonRef = useRef<HTMLButtonElement | null>(null);
   const { t } = useTranslation("simulatedTest");
-
   const testTime = getTimer(timerKeys.testDetail(session.id))?.time;
-
   const handleStart = useCallback(() => {
     stopPreparation();
     if (session.mode === EnumMode.FULL_TEST) {
       startTimer(timerKeys.testDetail(session.id));
     }
   }, [startTimer, session.id]);
-
+  const handleNavigateToNextPart = () => {
+    const currentPartIndex = session.parts.findIndex((part) => part === currentPart);
+    if (currentPartIndex + 1 < session.parts.length) {
+      navigateToPart(1, session.parts[currentPartIndex + 1]);
+    } else {
+      setTestState(EnumSimulatedTestSessionStatus.FINISHED);
+    }
+  };
   const handleNextPart = (src?: AudioSource) => {
-    restart();
     if (src) {
+      restart();
       addSpeakingSource({
         url: src.audioUrl,
         blob: src.audioBlob,
@@ -57,23 +61,18 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
         questionNo: question,
         file: new File([src.audioBlob], `speaking-${currentPart}-${question}.webm`),
       });
-    }
-    if (question === content?.content.length) {
-      const currentPartIndex = session.parts.findIndex((part) => part === currentPart);
-      if (currentPartIndex + 1 < session.parts.length) {
-        navigateToPart(1, session.parts[currentPartIndex + 1]);
-      } else {
-        setTestState(EnumSimulatedTestSessionStatus.FINISHED);
-      }
     } else {
-      navigateToPart(question + 1, currentPart);
+      handleNavigateToNextPart();
     }
   };
-
+  useEffect(() => {
+    if (isEnd) {
+      handleNavigateToNextPart();
+    }
+  }, [isEnd]);
   useEffect(() => {
     resumePreparation();
   }, [resumePreparation]);
-
   useEffect(() => {
     if (isEndPreparation && recordingButtonRef.current) {
       recordingButtonRef.current.click();
@@ -82,7 +81,6 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
       }
     }
   }, [isEndPreparation]);
-
   useEffect(() => {
     if (session.mode === EnumMode.FULL_TEST && testTime === 0) {
       handleNextPart();
@@ -94,13 +92,17 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
       }
     }
   }, [testTime]);
-
   if (!content) return null;
-
   return (
     <div className="grid w-[880px] grid-cols-12 gap-6">
-      <div className="col-span-8 flex flex-col justify-center gap-8 overflow-visible rounded-lg border border-blue-200 bg-white p-12">
-        {parse(content.content[0])}
+      <div className="col-span-8 flex flex-col justify-center gap-6 overflow-visible rounded-lg border border-blue-200 bg-white p-12">
+        <h5 className="text-center text-heading-5 font-semibold">{content.heading}</h5>
+        <ul className="list-inside list-disc">
+          <p>You should say:</p>
+          {content.content.map((detail, index) => (
+            <li key={index}>{detail}</li>
+          ))}
+        </ul>
       </div>
       <div className="col-span-4 flex flex-col items-center justify-center gap-8 overflow-visible rounded-lg border border-blue-200 bg-white p-10">
         <p className="text-center">
@@ -125,7 +127,7 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
             getNextButtonText(
               isRunning,
               currentPart === session.parts[session.parts.length - 1],
-              question === content?.content.length
+              true
             ),
             { time: timeLeft }
           )}
@@ -135,5 +137,4 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
     </div>
   );
 };
-
 export default SpeakingPartTwo;

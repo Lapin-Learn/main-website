@@ -21,15 +21,28 @@ const SpeakingPartOneAndThree = ({ content, session }: SpeakingQuestionProps) =>
     setTestState,
     addSpeakingSource,
   } = useSpeakingTestState();
-  const { timeLeft, restart, isRunning } = useCountdown(NEXT_QUESTION_COUNT_DOWN);
+  const { timeLeft, restart, isRunning, isEnd } = useCountdown(NEXT_QUESTION_COUNT_DOWN);
   const { getTimer } = useGlobalTimerStore();
   const { t } = useTranslation("simulatedTest");
 
   const testTime = getTimer(timerKeys.testDetail(session.id))?.time;
 
+  const handleNavigateToNextPart = () => {
+    if (question === content?.content.length) {
+      const currentPartIndex = session.parts.findIndex((part) => part === currentPart);
+      if (currentPartIndex + 1 < session.parts.length) {
+        navigateToPart(1, session.parts[currentPartIndex + 1]);
+      } else {
+        setTestState(EnumSimulatedTestSessionStatus.FINISHED);
+      }
+    } else {
+      navigateToPart(question + 1, currentPart);
+    }
+  };
+
   const handleNextQuestion = (src?: AudioSource) => {
-    restart();
     if (src) {
+      restart();
       addSpeakingSource({
         url: src.audioUrl,
         blob: src.audioBlob,
@@ -37,8 +50,16 @@ const SpeakingPartOneAndThree = ({ content, session }: SpeakingQuestionProps) =>
         questionNo: question,
         file: new File([src.audioBlob], `speaking-${currentPart}-${question}.webm`),
       });
+    } else {
+      handleNavigateToNextPart();
     }
   };
+
+  useEffect(() => {
+    if (isEnd) {
+      handleNavigateToNextPart();
+    }
+  }, [isEnd]);
 
   useEffect(() => {
     if (session.mode === EnumMode.FULL_TEST && testTime === 0) {
