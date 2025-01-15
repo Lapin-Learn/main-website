@@ -65,7 +65,7 @@ function EvaluationSection({ session }: SpeakingResultProps) {
           {t("finished-on")}: {new Date(session.updatedAt || "").toLocaleString()}
         </Typography>
       </div>
-      {overalScore && <SkillEvaluationChart data={overalScore} skill={EnumSkill.writing} />}
+      {overalScore && <SkillEvaluationChart data={overalScore} />}
       <div className="3xl:grid-cols-4 grid grid-cols-1 gap-4 xl:grid-cols-2 xl:gap-8 2xl:gap-4">
         {Object.entries(overalScore.criterias).map(([key, value]) => (
           <CriteriaScoreCard
