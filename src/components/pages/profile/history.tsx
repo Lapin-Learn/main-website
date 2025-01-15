@@ -38,7 +38,7 @@ export default function HistoryPage() {
         {Object.values(EnumSkill).map((skill) => {
           const bandScore = data.bandScores.find(
             (bandScore) => bandScore.skill == skill
-          )?.bandScore;
+          )?.estimatedBandScore;
           const formattedBandScore =
             typeof bandScore === "number" ? formatBandScore(bandScore) : "--";
           return (

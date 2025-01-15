@@ -9,7 +9,7 @@ import type {
 } from "./simulated-test-session.type";
 
 export type BandScoreSkill = {
-  bandScore: number;
+  estimatedBandScore: number;
   skill: EnumSkill;
 };
 export type UserBandScoreOverall = {

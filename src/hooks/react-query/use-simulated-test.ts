@@ -254,7 +254,9 @@ export const useGetUserBandScoreOverall = () => {
       const bandScores = await getUserBandScoreOverall();
       // All skills available
       if (Object.keys(bandScores).length == 4) {
-        const overall = calculateOverallBandScore(bandScores.map((item) => item.bandScore));
+        const overall = calculateOverallBandScore(
+          bandScores.map((item) => item.estimatedBandScore)
+        );
         return {
           bandScores,
           overallBandScore: overall,
