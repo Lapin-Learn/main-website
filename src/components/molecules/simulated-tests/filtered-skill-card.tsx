@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { AnimatedCircularProgressBar } from "@/components/organisms/circular-progress";
 import useSelectModeDialog from "@/components/organisms/select-mode-dialog/use-select-mode-dialog";
-import { Button } from "@/components/ui";
+import { buttonVariants } from "@/components/ui";
 import { MAPPED_SKILL_ICON } from "@/lib/consts";
 import { ExtendEnumSkill } from "@/lib/enums";
 import { SimulatedTest, SkillTest } from "@/lib/types/simulated-test.type";
@@ -51,16 +51,17 @@ export function FilteredSkillCard({ test, skillTest, isSupport }: FilteredSkillC
                 </div>
                 <Link
                   to={`/practice/${test.collectionId}/simulated-test/${test.id}`}
-                  className="w-fit"
+                  className={cn(
+                    buttonVariants({
+                      variant: "ghost",
+                    }),
+                    "w-fit gap-2 px-0 text-primary hover:bg-transparent hover:text-primary-700"
+                  )}
                   search={{ skill: skill !== ExtendEnumSkill.allSkills ? skill : undefined }}
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  <Button
-                    className="w-fit gap-2 px-0 text-primary hover:bg-transparent hover:text-primary-700"
-                    variant="ghost"
-                  >
-                    {t("viewHistory")}
-                    <ArrowRight size="16" />
-                  </Button>
+                  {t("viewHistory")}
+                  <ArrowRight size="16" />
                 </Link>
               </>
             ) : (
