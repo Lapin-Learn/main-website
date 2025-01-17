@@ -19,17 +19,19 @@ const chartConfig = {
 
 export function SkillEvaluationLineChart({ data }: { data: SessionProgress[] }) {
   return (
-    <ChartContainer config={chartConfig} className="size-full">
+    <ChartContainer config={chartConfig} className="size-full h-80">
       <LineChart
         accessibilityLayer
         data={data}
         margin={{
+          left: 12,
           right: 12,
         }}
       >
-        <CartesianGrid />
+        <CartesianGrid vertical={true} horizontal={true} />
         <XAxis dataKey="createdAt" tickLine={false} axisLine={false} tickMargin={8} />
         <YAxis
+          width={20}
           tickLine={false}
           axisLine={false}
           domain={[2, 9]}

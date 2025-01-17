@@ -57,7 +57,7 @@ export default function HistoryPage() {
       <Typography variant="h5" className="my-4">
         {t("learning_history.learning_result")}
       </Typography>
-      <div className="mb-9 grid grid-cols-2 gap-4 md:grid-cols-3 md:grid-rows-2">
+      <div className="mb-12 grid grid-cols-2 gap-4 md:grid-cols-3 md:grid-rows-2">
         <OverallBandScoreChart
           className="col-span-2 row-span-1 md:col-span-1 md:row-span-2"
           data={data}
@@ -106,8 +106,13 @@ export default function HistoryPage() {
           {t("history.noData", { ns: "simulatedTest" })}
         </div>
       ) : (
-        <div className="mb-9 mt-5 grid grid-cols-1 gap-4 md:grid-cols-2">
-          <SkillEvaluationLineChart data={formattedData} />
+        <div className="mb-12 mt-5 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div>
+            <Typography variant="h5" className="mb-4">
+              {t("learning_history.simulated_test_history")}
+            </Typography>
+            <SkillEvaluationLineChart data={formattedData} />
+          </div>
           <Card className="flex flex-col shadow-none">
             <CardHeader>
               <CardTitle>{t("learning_history.evaluation.accuracy")}</CardTitle>
@@ -120,9 +125,7 @@ export default function HistoryPage() {
               )}
               {questionTypeAccuracy?.map((questionType) => (
                 <div key={questionType.evaluationtype} className="mb-2 flex justify-between">
-                  <Typography variant="body2" className="capitalize">
-                    {questionType.evaluationtype}
-                  </Typography>
+                  <Typography variant="body1">{questionType.evaluationtype}</Typography>
                   <Typography variant="body1" className="font-bold">
                     {questionType.accuracy}%
                   </Typography>

@@ -47,6 +47,7 @@
     "learning_history": {
         "learning_result": "Estimated learning result",
         "evaluation": {
+            "chart": "Test performance",
             "accuracy": "Accuracy by Question types"
         },
         "simulated_test_history": "Simulated test history"
