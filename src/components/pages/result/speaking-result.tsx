@@ -17,7 +17,7 @@ type SpeakingResultProps = {
 
 function SpeakingResult({ session }: SpeakingResultProps) {
   const { data: stData } = useGetSimulatedTestDetail(session.skillTest.simulatedIeltsTest.id);
-
+  const { t } = useTranslation();
   // Get part types: Line graph, Pie chart, etc.
   const partDetails =
     stData?.skillTests
@@ -27,11 +27,11 @@ function SpeakingResult({ session }: SpeakingResultProps) {
   return (
     <div className="flex flex-col gap-4">
       {session.status == EnumSimulatedTestSessionStatus.IN_EVALUATING ? (
-        <div>Đang chấm điểm</div>
+        <div>{t("status_in_evaluating", { ns: "simulatedTest" })}</div>
       ) : session.results ? (
         <EvaluationSection session={session} />
       ) : (
-        <div className="rounded-xl bg-white p-4 xl:p-8">Đã có lỗi xảy ra</div>
+        <div className="rounded-xl bg-white p-4 xl:p-8">{t("crashMessage")}</div>
       )}
       <SpeakingSubmission
         userSubmissions={session.responses}
@@ -50,7 +50,8 @@ function EvaluationSection({ session }: SpeakingResultProps) {
     (item) => typeof item.part === "string" && item.part === EnumSpeakingCriteria.Overall
   );
 
-  if (!overalScore) return <div className="rounded-xl bg-white p-4 xl:p-8">Đã có lỗi xảy ra</div>;
+  // TODO: add a screen for the user to retake the test, do full part to get the overall score
+  if (session.responses.length < 3 || !overalScore) return null;
 
   return (
     <div className="relative rounded-xl bg-white p-4 xl:p-8">

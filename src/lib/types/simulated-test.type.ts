@@ -170,7 +170,6 @@ export type AnalysisData = {
 
 export type STCriteriaEvaluation = {
   part: number | string;
-  score: number;
   criterias: {
     [key in EnumWritingCriteria | EnumSpeakingCriteria]?: {
       score: number;

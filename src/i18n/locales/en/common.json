@@ -54,5 +54,6 @@
         "week": "week",
         "month": "month",
         "year": "year"
-    }
+    },
+    "crashMessage": "An error occurred, contact the administrator for support"
 }

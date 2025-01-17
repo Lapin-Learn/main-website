@@ -7,13 +7,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
+import { EnumSkill } from "@/lib/enums";
 import { SpeakingSession } from "@/lib/types/simulated-test-session.type";
 import type { STCriteriaEvaluation } from "@/lib/types/simulated-test.type";
 
-import { MAPPED_SPEAKING_CRITERIA_TITLES } from "../../lib/consts";
 import AudioPlayer from "../molecules/audio-player";
-import CriteriaScoreCardSimple from "../molecules/criteria-score-card-simple";
 import { Button, Typography } from "../ui";
+import CriteriaScoreList from "./criteria-score-list";
 
 type SpeakingSubmissionProps = {
   evaluationResults?: STCriteriaEvaluation[];
@@ -81,7 +81,7 @@ function SubmissionAccordionItem(props: SubmissionAccordionItemProps) {
             ))}
         </div>
         {evaluationResult ? (
-          <CriteriaScoreList evaluationResult={evaluationResult} />
+          <CriteriaScoreList evaluationResult={evaluationResult} skill={EnumSkill.speaking} />
         ) : (
           <div className="col-span-3 grid h-full place-items-center content-center gap-2 text-muted-foreground">
             <Typography variant="h6" className="italic">
@@ -94,24 +94,6 @@ function SubmissionAccordionItem(props: SubmissionAccordionItemProps) {
         )}
       </AccordionContent>
     </AccordionItem>
-  );
-}
-
-function CriteriaScoreList({ evaluationResult }: { evaluationResult: STCriteriaEvaluation }) {
-  return (
-    <div className="col-span-3 flex flex-col rounded-lg bg-secondary/50">
-      <Typography variant="h3" className="mt-6 text-center capitalize text-primary-700">
-        Total: {evaluationResult.score}
-      </Typography>
-      {Object.entries(evaluationResult.criterias).map(([key, value]) => (
-        <CriteriaScoreCardSimple
-          key={key}
-          criteria={MAPPED_SPEAKING_CRITERIA_TITLES[key] ?? key}
-          evaluate={value.evaluate ?? ""}
-          score={value.score}
-        />
-      ))}
-    </div>
   );
 }
 

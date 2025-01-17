@@ -1,5 +1,6 @@
 {
     "unit": "test(s)",
+    "status_in_evaluating": "In evaluating",
     "exitDialog": {
         "title": "Are you sure you want to exit?",
         "description": "You have not completed the test. All your answers will be saved as a draft.",
@@ -136,6 +137,7 @@
         "questionType": "Question type",
         "accuracy": "Accuracy",
         "questions": "Questions",
-        "unanswered": "Skip"
+        "unanswered": "Skip",
+        "yourAnswer": "Your answer"
     }
 }

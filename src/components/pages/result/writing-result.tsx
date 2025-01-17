@@ -17,6 +17,8 @@ type WritingResultProps = {
 
 function WritingResult({ session }: WritingResultProps) {
   const { data: stData } = useGetSimulatedTestDetail(session.skillTest.simulatedIeltsTest.id);
+  const isFullParts = session.responses.length == 2;
+  const { t } = useTranslation("simulatedTest");
 
   // Get part types: Line graph, Pie chart, etc.
   const partDetails =
@@ -27,7 +29,7 @@ function WritingResult({ session }: WritingResultProps) {
   return (
     <div className="flex flex-col gap-4">
       {session.status == EnumSimulatedTestSessionStatus.IN_EVALUATING ? (
-        <div>Đang chấm điểm</div>
+        <div>{t("status_in_evaluating")}</div>
       ) : (
         <EvaluationSection session={session} />
       )}
@@ -36,6 +38,9 @@ function WritingResult({ session }: WritingResultProps) {
         skillTestId={session.skillTest.id}
         partDetails={partDetails}
         evaluationResults={session.results}
+        rootComponent={isFullParts ? "accordion" : "card"}
+        finishedOn={session.updatedAt}
+        timeSpent={formatTime(session.elapsedTime)}
       />
     </div>
   );
@@ -44,11 +49,22 @@ function WritingResult({ session }: WritingResultProps) {
 function EvaluationSection({ session }: WritingResultProps) {
   const { t } = useTranslation(["practice", "collection"]);
 
+  const isFullParts = session.responses.length == 2;
+
+  if (!isFullParts) return null;
+
   const overalScore = session.results.find(
     (item) => typeof item.part === "string" && item.part === EnumSpeakingCriteria.Overall
   );
 
-  if (!overalScore) return <div className="rounded-xl bg-white p-4 xl:p-8">Đã có lỗi xảy ra</div>;
+  if (!overalScore)
+    return (
+      <div className="rounded-xl bg-white p-4 xl:p-8">
+        {t("crashMessage", {
+          ns: "common",
+        })}
+      </div>
+    );
 
   return (
     <div className="relative rounded-xl bg-white p-4 xl:p-8">
