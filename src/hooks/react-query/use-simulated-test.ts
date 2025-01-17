@@ -6,6 +6,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
+import { getAnalytics, logEvent } from "firebase/analytics";
 import { useMemo } from "react";
 import { create } from "zustand";
 
@@ -147,6 +148,7 @@ export const useGetCollectionDetail = (collectionId: number) => {
 export const useStartSimulatedTest = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const analytics = getAnalytics();
   return useMutation({
     mutationFn: startSimulatedTest,
     onSuccess: (returnData) => {
@@ -159,6 +161,9 @@ export const useStartSimulatedTest = () => {
           },
         });
       }
+      logEvent(analytics, "start_simulated_test", {
+        skillTestId: returnData.skillTestId,
+      });
     },
     onError: (error) => {
       toast({

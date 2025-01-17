@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { HistoryState, useNavigate } from "@tanstack/react-router";
+import { getAnalytics, logEvent } from "firebase/analytics";
 import { useTranslation } from "react-i18next";
 
 import { EnumActionOTP } from "@/lib/enums";
@@ -26,6 +27,7 @@ export const useSignIn = () => {
   const { t } = useTranslation("error");
   const { toast } = useToast();
   const navigate = useNavigate();
+  const analytics = getAnalytics();
   const { setAccessToken } = useAuthStore();
   return useMutation({
     mutationFn: signIn,
@@ -47,6 +49,10 @@ export const useSignIn = () => {
           variant: "default",
         });
       }
+      logEvent(analytics, "login", {
+        method: "email",
+        email: variables.email,
+      });
     },
     onError: (error) => {
       toast({
