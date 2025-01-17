@@ -40,7 +40,8 @@ export default function HistoryPage() {
       })
       .orderBy((session) => new Date(session.createdAt.split("/").reverse().join("/")), ["asc"])
       .takeRight(10)
-      .value();
+      .value()
+      .filter((s) => s.estimatedBandScore >= 2);
   }, [sessionProgress]);
 
   const breakpoint = useBreakPoint();
@@ -98,18 +99,14 @@ export default function HistoryPage() {
 
       <SkillsFilter skillsList={SKILLS_LIST} selected={selected} setSelected={setSelected} />
       {accuracyLoading ? (
-        <div className="grid min-h-[306px] w-full place-items-center">
+        <div className="grid min-h-96 w-full place-items-center">
           <Loader2 className="animate-spin text-primary-900" size={32} />
-        </div>
-      ) : questionTypeAccuracy?.length === 0 ? (
-        <div className="flex h-[306px] items-center justify-center">
-          {t("history.noData", { ns: "simulatedTest" })}
         </div>
       ) : (
         <div className="mb-12 mt-5 grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
             <Typography variant="h5" className="mb-4">
-              {t("learning_history.simulated_test_history")}
+              {t("learning_history.evaluation.chart")}
             </Typography>
             <SkillEvaluationLineChart data={formattedData} />
           </div>
@@ -123,14 +120,21 @@ export default function HistoryPage() {
                   <Loader2 className="animate-spin text-primary-900" size={32} />
                 </div>
               )}
-              {questionTypeAccuracy?.map((questionType) => (
-                <div key={questionType.evaluationtype} className="mb-2 flex justify-between">
-                  <Typography variant="body1">{questionType.evaluationtype}</Typography>
-                  <Typography variant="body1" className="font-bold">
-                    {questionType.accuracy}%
-                  </Typography>
+              {questionTypeAccuracy?.length === 0 ? (
+                <div className="flex h-full items-center justify-center">
+                  {t("history.noData", { ns: "simulatedTest" })}
                 </div>
-              ))}
+              ) : (
+                questionTypeAccuracy?.map((questionType) => (
+                  <div key={questionType.evaluationtype} className="mb-2 flex justify-between">
+                    <Typography variant="body1">{questionType.evaluationtype}</Typography>
+                    <Typography variant="body1" className="font-bold">
+                      {questionType.accuracy}
+                      {SkillUnitMap[selected]}
+                    </Typography>
+                  </div>
+                ))
+              )}
             </CardContent>
           </Card>
         </div>
@@ -143,3 +147,10 @@ export default function HistoryPage() {
     </div>
   );
 }
+
+const SkillUnitMap = {
+  [EnumSkill.reading]: "%",
+  [EnumSkill.listening]: "%",
+  [EnumSkill.speaking]: "",
+  [EnumSkill.writing]: "",
+};

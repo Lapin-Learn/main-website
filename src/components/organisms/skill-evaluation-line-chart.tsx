@@ -1,6 +1,7 @@
 "use client";
 
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
+import { useTranslation } from "react-i18next";
+import { CartesianGrid, Customized, Line, LineChart, Text, XAxis, YAxis } from "recharts";
 
 import {
   ChartConfig,
@@ -18,6 +19,8 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function SkillEvaluationLineChart({ data }: { data: SessionProgress[] }) {
+  const { t } = useTranslation("profile");
+
   return (
     <ChartContainer config={chartConfig} className="size-full h-80">
       <LineChart
@@ -28,7 +31,7 @@ export function SkillEvaluationLineChart({ data }: { data: SessionProgress[] }) 
           right: 12,
         }}
       >
-        <CartesianGrid vertical={true} horizontal={true} />
+        <CartesianGrid />
         <XAxis dataKey="createdAt" tickLine={false} axisLine={false} tickMargin={8} />
         <YAxis
           width={20}
@@ -45,6 +48,20 @@ export function SkillEvaluationLineChart({ data }: { data: SessionProgress[] }) 
           type="linear"
           stroke="var(--color-estimatedBandScore)"
           strokeWidth={2}
+        />
+        <Customized
+          component={() => {
+            return !data.length ? (
+              <Text
+                className="translate-x-1/2 translate-y-1/2"
+                x={0}
+                textAnchor="middle"
+                verticalAnchor="middle"
+              >
+                {t("history.noData", { ns: "simulatedTest" })}
+              </Text>
+            ) : null;
+          }}
         />
       </LineChart>
     </ChartContainer>
