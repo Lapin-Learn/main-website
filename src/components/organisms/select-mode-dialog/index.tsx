@@ -150,14 +150,18 @@ const SelectModeDialog = () => {
             <CustomAlert
               theme="success"
               title={t("exam-mode-config.alerts.practice.title")}
-              description={t("exam-mode-config.alerts.practice.description")}
+              description={t("exam-mode-config.alerts.practice.description", {
+                context: skillTest.skill.toString(),
+              })}
               icon={<SquarePen className="size-5" color="#166534" />}
             />
           ) : (
             <CustomAlert
               theme="warning"
               title={t("exam-mode-config.alerts.full_test.title")}
-              description={t("exam-mode-config.alerts.full_test.description")}
+              description={t("exam-mode-config.alerts.full_test.description", {
+                context: skillTest.skill.toString(),
+              })}
               icon={<TriangleAlert className="size-5" color="#854D0E" />}
             />
           )}

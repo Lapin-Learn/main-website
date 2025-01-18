@@ -43,11 +43,7 @@ type SignUpPayload = {
 };
 
 export const signUp = async (payload: SignUpPayload) => {
-  const data = (await apiAuth.post("auth/signup", { json: payload }).json<FetchingData<AuthInfo>>())
-    .data;
-  if (data.accessToken) {
-    localStorage.setItem(localStorageTokenKey, JSON.stringify(data));
-  }
+  const data = await apiAuth.post("auth/signup", { json: payload }).json<FetchingData<AuthInfo>>();
   return data;
 };
 
@@ -126,7 +122,8 @@ export const getOtp = async (payload: OTPPayload) => {
 // FIREBASE
 export const signInWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
-  const userCredential = await signInWithPopup(auth, provider);
+  const userCredential = await signInWithPopup(auth, provider).catch(() => null);
+  if (!userCredential) return;
   const credential = GoogleAuthProvider.credentialFromResult(userCredential);
   if (!credential) return;
 
@@ -148,6 +145,7 @@ export const signInWithGoogle = async () => {
 export const signUpWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
   const userCredential = await signInWithPopup(auth, provider);
+  if (!userCredential) return;
 
   const credential = GoogleAuthProvider.credentialFromResult(userCredential);
   if (!credential) return;

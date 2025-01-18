@@ -9,7 +9,7 @@
   },
   "collection-list": {
     "title": "Simulated tests",
-    "numberOfTest" : "{{number}}/{{total}} tests",
+    "numberOfTest": "{{number}}/{{total}} tests",
     "tags": {
       "academic": "Academic",
       "cambridge": "Cambridge",
@@ -41,11 +41,17 @@
     "alerts": {
       "practice": {
         "title": "Practice Mode",
-        "description": "In this mode, you can choose the parts you want to practice, adjust the time according to your ability, and listen to the recording again."
+        "description_speaking": "In this mode, you can choose the parts of the Speaking test you want to practice, adjust the time according to your ability, and listen to the recording again.",
+        "description_reading": "In this mode, you can choose the parts of the Reading test you want to practice, adjust the time according to your ability, and review the questions as needed.",
+        "description_listening": "In this mode, you can choose the parts of the Listening test you want to practice, adjust the time according to your ability, and listen to the recording again.",
+        "description_writing": "In this mode, you can choose the parts of the Writing test you want to practice, adjust the time according to your ability, and review your responses as needed."
       },
       "full_test": {
         "title": "Warning",
-        "description": "During the test, you will not be able to listen again and should not exit to ensure the best evaluation results."
+        "description_speaking": "During the Speaking test, to ensure an accurate assessment of your abilities, please maintain focus throughout the session.",
+        "description_reading": "In the Reading test, to ensure an accurate evaluation of your skills, please avoid exiting the test environment.",
+        "description_listening": "In the Listening test, you will not be able to replay the audio. To achieve an accurate assessment, please stay within the test environment and avoid any interruptions.",
+        "description_writing": "In the Writing test, to receive an accurate evaluation of your skills, please stay focused and do not exit the test environment."
       }
     },
     "buttons": {

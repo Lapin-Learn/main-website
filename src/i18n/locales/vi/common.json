@@ -14,9 +14,6 @@
         "placeholder": "Tìm kiếm",
         "noResults": "Không tìm thấy kết quả"
     },
-    "error": {
-        "INVALID_PASSWORD": "Mật khẩu không đúng"
-    },
     "toast": {
         "update": {
             "success": "Cập nhật {{item, lowercase}} thành công",
@@ -55,5 +52,7 @@
         "month": "tháng",
         "year": "năm"
     },
-    "crashMessage": "Đã có lỗi xảy ra, liên hệ với quản trị viên để được hỗ trợ"
+    "crashMessage": "Đã có lỗi xảy ra, liên hệ với quản trị viên để được hỗ trợ",
+    "success": "Thành công",
+    "error": "Thất bại"
 }

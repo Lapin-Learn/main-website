@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { HistoryState, useNavigate } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 
 import { EnumActionOTP } from "@/lib/enums";
 import {
@@ -22,6 +23,7 @@ export const authKeys = {
 };
 
 export const useSignIn = () => {
+  const { t } = useTranslation("error");
   const { toast } = useToast();
   const navigate = useNavigate();
   const { setAccessToken } = useAuthStore();
@@ -40,16 +42,16 @@ export const useSignIn = () => {
         setAccessToken(data.accessToken);
         navigate({ to: "/practice" });
         toast({
-          title: "Success",
-          description: "You have successfully logged in",
+          title: t("success", { ns: "common" }),
+          description: t("success.login", { ns: "auth" }),
           variant: "default",
         });
       }
     },
     onError: (error) => {
       toast({
-        title: "Error",
-        description: error.message,
+        title: t("error", { ns: "common" }),
+        description: t(error.message),
         variant: "destructive",
       });
     },
@@ -57,6 +59,7 @@ export const useSignIn = () => {
 };
 
 export const useSignUp = () => {
+  const { t } = useTranslation("error");
   const { toast } = useToast();
   const navigate = useNavigate();
   return useMutation({
@@ -70,15 +73,15 @@ export const useSignUp = () => {
         },
       });
       toast({
-        title: "Success",
-        description: "Please verify your email",
+        title: t("success", { ns: "common" }),
+        description: t("VERIFY_EMAIL"),
         variant: "default",
       });
     },
     onError: (error) => {
       toast({
-        title: "Error",
-        description: error.message,
+        title: t("error", { ns: "common" }),
+        description: t(error.message),
         variant: "destructive",
       });
     },
@@ -88,19 +91,21 @@ export const useSignUp = () => {
 export const useSignOut = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const { clearAccessToken } = useAuthStore();
   return useMutation({
     mutationFn: signOut,
     onSuccess: () => {
       navigate({ to: "/log-in" });
-      clearAccessToken();
+      queryClient.invalidateQueries({
+        queryKey: authKeys.key,
+      });
       queryClient.clear();
     },
     onError: (error) => {
       toast({
-        title: "Error",
-        description: error.message,
+        title: t("error"),
+        description: t(error.message, { ns: "error" }),
         variant: "destructive",
       });
     },
@@ -111,23 +116,19 @@ export const useSignInWithGoogle = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const { setAccessToken } = useAuthStore();
+  const { t } = useTranslation();
   return useMutation({
     mutationFn: signInWithGoogle,
     onSuccess: (data) => {
       if (data) {
         setAccessToken(data.accessToken);
         navigate({ to: "/" });
-        toast({
-          title: "Success",
-          description: "You have successfully logged in",
-          variant: "default",
-        });
       }
     },
     onError: (error) => {
       toast({
-        title: "Error",
-        description: error.message,
+        title: t("error"),
+        description: t(error.message, { ns: "error" }),
         variant: "destructive",
       });
     },
@@ -137,10 +138,11 @@ export const useSignInWithGoogle = () => {
 export const useSignUpWithGoogle = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   return useMutation({
     mutationFn: async () => {
       const res = await signUpWithGoogle();
-      if (!res) throw new Error("There was an error, try again later!");
+      if (!res) throw new Error("SIGN_UP_PROVIDER");
       // TODO: May update on BE side or storing data on local storage (not prefer)
       // const { user } = res;
       // const avatar = user.photoURL;
@@ -162,15 +164,15 @@ export const useSignUpWithGoogle = () => {
     onSuccess: () => {
       navigate({ to: "/" });
       toast({
-        title: "Success",
-        description: "You have successfully signed up",
+        title: t("success"),
+        description: t("SIGN_UP", { ns: "success" }),
         variant: "default",
       });
     },
     onError: (error) => {
       toast({
-        title: "Error",
-        description: error.message,
+        title: t("error"),
+        description: t(error.message, { ns: "error" }),
         variant: "destructive",
       });
     },
@@ -179,12 +181,13 @@ export const useSignUpWithGoogle = () => {
 
 export const useGetOtp = () => {
   const { toast } = useToast();
+  const { t } = useTranslation();
   return useMutation({
     mutationFn: getOtp,
     onError: (error) => {
       toast({
-        title: "Error",
-        description: error.message,
+        title: t("error"),
+        description: t(error.message, { ns: "error" }),
         variant: "destructive",
       });
     },
@@ -195,13 +198,15 @@ type OTPState = HistoryState & { accessToken: string };
 export const useVerifyOtp = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
   return useMutation({
     mutationFn: verifyOtp,
     onSuccess: (data, variables) => {
       if (variables.action == EnumActionOTP.verifyEmail) {
         toast({
           variant: "default",
-          title: "Verify email successfully!",
+          title: t("VERIFY_EMAIL", { ns: "success" }),
         });
         navigate({ to: "/log-in" });
       } else {
@@ -211,7 +216,7 @@ export const useVerifyOtp = () => {
     onError: () => {
       toast({
         variant: "destructive",
-        title: "Error verifying OTP",
+        title: t("VERIFY_OTP", { ns: "error" }),
       });
     },
   });
@@ -220,20 +225,21 @@ export const useVerifyOtp = () => {
 export const useUpdatePassword = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   return useMutation({
     mutationFn: resetPassword,
     onSuccess: () => {
       navigate({ to: "/log-in" });
       toast({
-        title: "Success",
-        description: "You have successfully reset your password",
+        title: t("success", { ns: "common" }),
+        description: t("RESET_PASSWORD", { ns: "success" }),
         variant: "default",
       });
     },
     onError: (error) => {
       toast({
-        title: "Error",
-        description: error.message,
+        title: t("error"),
+        description: t(error.message, { ns: "error" }),
         variant: "destructive",
       });
     },
