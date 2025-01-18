@@ -6,10 +6,12 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
+import { getAnalytics, logEvent } from "firebase/analytics";
 import { useMemo } from "react";
 import { create } from "zustand";
 
 import { calculateOverallBandScore } from "@/components/organisms/streak/utils";
+import { FIREBASE_ANALYTICS_EVENTS } from "@/lib/consts";
 import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { fromPageToOffset, parseInfiniteData } from "@/lib/utils";
 import {
@@ -147,6 +149,7 @@ export const useGetCollectionDetail = (collectionId: number) => {
 export const useStartSimulatedTest = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const analytics = getAnalytics();
   return useMutation({
     mutationFn: startSimulatedTest,
     onSuccess: (returnData) => {
@@ -159,6 +162,9 @@ export const useStartSimulatedTest = () => {
           },
         });
       }
+      logEvent(analytics, FIREBASE_ANALYTICS_EVENTS.startSimulatedTest, {
+        skillTestId: returnData.skillTestId,
+      });
     },
     onError: (error) => {
       toast({
