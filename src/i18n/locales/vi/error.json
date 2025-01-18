@@ -1,5 +1,8 @@
 {
     "EMAIL_EXISTS": "Địa chỉ email đã được sử dụng.",
     "EMAIL_NOT_FOUND": "Không tìm thấy địa chỉ email.",
-    "INVALID_PASSWORD": "Mật khẩu không đúng."
+    "INVALID_PASSWORD": "Mật khẩu không đúng.",
+    "VERIFY_EMAIL": "Vui lòng xác thực địa chỉ email",
+    "VERIFY_OTP": "Xác thực OTP thất bại",
+    "SIGN_UP_PROVIDER": "Đã có lỗi xảy ra, vui lòng thử lại sau"
 }
