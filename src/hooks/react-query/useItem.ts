@@ -42,7 +42,7 @@ export const useInventory = () => {
 export const useUseInventoryItem = () => {
   const client = useQueryClient();
   const { toast } = useToast();
-  const { t } = useTranslation("item");
+  const { t } = useTranslation("shop");
 
   return useMutation({
     mutationFn: useItem,

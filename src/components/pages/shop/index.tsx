@@ -1,11 +1,11 @@
 import HeroImageShop from "@/assets/images/hero-image-shop.jpg";
-import { ItemList } from "@/components/organisms/item/item-list";
+import { ShopList } from "@/components/organisms/shop/shop-list";
 import DashboardLayout from "@/components/templates/dashboard-layout";
 
 export default function ShopPage() {
   return (
     <DashboardLayout heroImage={HeroImageShop}>
-      <ItemList />
+      <ShopList />
     </DashboardLayout>
   );
 }

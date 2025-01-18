@@ -6,15 +6,15 @@ import { Button, Card, CardContent } from "@/components/ui";
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@/components/ui/dialog";
 import { useBuyShopItem, useUseInventoryItem } from "@/hooks/react-query/useItem";
 import { ItemEnum } from "@/lib/enums";
-import { IInventory, IShop } from "@/lib/types/item.type";
+import { Inventory, Shop } from "@/lib/types/shop.type";
 
 type ItemDialogProps = {
-  item: IShop | IInventory;
+  item: Shop | Inventory;
   triggerContent: React.ReactNode;
 };
 
-const ItemDialog = ({ item, triggerContent }: ItemDialogProps) => {
-  const { t } = useTranslation("item");
+const ShopDialog = ({ item, triggerContent }: ItemDialogProps) => {
+  const { t } = useTranslation("shop");
   const useItem = useUseInventoryItem();
   const buyItem = useBuyShopItem();
 
@@ -79,12 +79,17 @@ const ItemDialog = ({ item, triggerContent }: ItemDialogProps) => {
                     <p className="text-body font-semibold">{t(`shop.items.${item.name}.name`)}</p>
                   </div>
                   <div className="flex flex-row items-center justify-center space-x-0.5 text-base font-bold text-[#F17D53]">
-                    {item.name === ItemEnum.BILL ? (
-                      <p className="">đ</p>
+                    {item.name === ItemEnum.SUBSCRIPTION ? (
+                      <>
+                        <p className="">đ</p>
+                        <p>{price.toLocaleString()}</p>
+                      </>
                     ) : (
-                      <Carrot className="size-6" />
+                      <>
+                        <Carrot className="size-6" />
+                        <p>{price}</p>
+                      </>
                     )}
-                    <p>{price}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -103,4 +108,4 @@ const ItemDialog = ({ item, triggerContent }: ItemDialogProps) => {
   );
 };
 
-export { ItemDialog };
+export { ShopDialog };

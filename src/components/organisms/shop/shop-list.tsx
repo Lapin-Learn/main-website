@@ -5,9 +5,10 @@ import { useTranslation } from "react-i18next";
 import InventoryEmpty from "@/assets/icons/item/inventory-empty";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useInventory, useShop } from "@/hooks/react-query/useItem";
+import { carrotSubscription } from "@/lib/mock/mock-carrot-subscription";
 import { cn } from "@/lib/utils";
 
-import { ItemCard } from "./item-card";
+import { ShopCard } from "./shop-card";
 
 const ItemListMapping = {
   shop: {
@@ -20,11 +21,17 @@ const ItemListMapping = {
   },
 };
 
-const ItemList = () => {
-  const { t } = useTranslation("item");
+const ShopList = () => {
+  const { t } = useTranslation("shop");
   const [activeTab, setActiveTab] = useState<"shop" | "inventory">("shop");
   const { data, isFetching } = useShop();
   const { data: inventory } = useInventory();
+
+  const mergedData = [
+    ...(Array.isArray(carrotSubscription) ? carrotSubscription : [carrotSubscription]),
+    ...(data || []),
+  ];
+
   if (isFetching) {
     return <div>Loading...</div>;
   }
@@ -55,7 +62,7 @@ const ItemList = () => {
         ))}
       </TabsList>
       <TabsContent value="shop" className="grid grid-cols-4 space-x-5">
-        {data?.map((item) => <ItemCard key={item.id} item={item} />)}
+        {mergedData?.map((item) => <ShopCard key={item.id} item={item} />)}
       </TabsContent>
       <TabsContent value="inventory" className="grid grid-cols-4 space-x-5">
         {inventory?.length === 0 ? (
@@ -64,11 +71,11 @@ const ItemList = () => {
             <p className="text-wrap text-center text-body font-semibold">{t("inventory.empty")}</p>
           </div>
         ) : (
-          inventory?.map((item) => <ItemCard key={item.id} item={item} />)
+          inventory?.map((item) => <ShopCard key={item.id} item={item} />)
         )}
       </TabsContent>
     </Tabs>
   );
 };
 
-export { ItemList };
+export { ShopList };

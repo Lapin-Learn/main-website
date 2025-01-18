@@ -19,7 +19,7 @@
         "name": "Nhận Diện",
         "description": "Loại bỏ các câu sai trong câu hỏi"
       },
-      "BILL": {
+      "SUBSCRIPTION": {
         "name": "Giỏ Cà Rốt",
         "description": "Thêm cà rốt để nhận được nhận xét khi chấm bài"
       }

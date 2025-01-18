@@ -1,4 +1,4 @@
-import { ChevronLeft, Edit, Menu } from "lucide-react";
+import { ChevronLeft, Edit, Menu, Store } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -22,7 +22,7 @@ const features: SideBarFeatureProps[] = [
   },
   {
     to: "/shop",
-    icon: <PracticeIcon />,
+    icon: <Store />,
     label: "shop",
   },
 ];

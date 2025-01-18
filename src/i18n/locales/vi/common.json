@@ -55,7 +55,7 @@
     },
     "crashMessage": "Đã có lỗi xảy ra, liên hệ với quản trị viên để được hỗ trợ",
     "success": "Thành công",
-    "error": "Thất bại",
+    "error": "Không thành công",
     "language": {
         "title": "Ngôn ngữ",
         "vi": "Tiếng Việt",

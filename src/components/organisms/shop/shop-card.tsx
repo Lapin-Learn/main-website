@@ -3,19 +3,19 @@ import { useTranslation } from "react-i18next";
 import Carrot from "@/assets/icons/carrot";
 import { Card, CardContent } from "@/components/ui";
 import { ItemEnum } from "@/lib/enums";
-import { IInventory, IShop } from "@/lib/types/item.type";
+import { Inventory, Shop } from "@/lib/types/shop.type";
 
-import { ItemDialog } from "./item-dialog";
+import { ShopDialog } from "./shop-dialog";
 
 type ItemCardProps = {
-  item: IShop | IInventory;
+  item: Shop | Inventory;
 };
 
-const ItemCard = ({ item }: ItemCardProps) => {
-  const { t } = useTranslation("item");
+const ShopCard = ({ item }: ItemCardProps) => {
+  const { t } = useTranslation("shop");
 
   return (
-    <ItemDialog
+    <ShopDialog
       triggerContent={
         <Card className="flex flex-col" key={item.id}>
           <CardContent
@@ -33,12 +33,17 @@ const ItemCard = ({ item }: ItemCardProps) => {
             </div>
             {!("quantity" in item) && (
               <div className="flex flex-row items-center justify-center space-x-0.5 text-base font-bold text-[#F17D53]">
-                {item.name === ItemEnum.BILL ? (
-                  <p className="">đ</p>
+                {item.name === ItemEnum.SUBSCRIPTION ? (
+                  <>
+                    <p className="">đ</p>
+                    <p>{Object.values(item.price)[0].toLocaleString()}</p>
+                  </>
                 ) : (
-                  <Carrot className="size-6" />
+                  <>
+                    <Carrot className="size-6" />
+                    <p>{Object.values(item.price)[0]}</p>
+                  </>
                 )}
-                <p>{Object.values(item.price)[0]}</p>
               </div>
             )}
             {"quantity" in item && (
@@ -54,4 +59,4 @@ const ItemCard = ({ item }: ItemCardProps) => {
   );
 };
 
-export { ItemCard };
+export { ShopCard };

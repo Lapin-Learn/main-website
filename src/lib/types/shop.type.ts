@@ -1,7 +1,7 @@
 import { ItemEnum, RandomGiftTypeEnum } from "../enums";
 import { IBucket } from "../interfaces";
 
-export type IShop = {
+export type Shop = {
   id: string;
   name: ItemEnum;
   description: string;
@@ -15,7 +15,7 @@ export type IShop = {
   isPopular: boolean;
 };
 
-export type IItem = {
+export type Item = {
   id: string;
   itemId: string;
   profileId: string;
@@ -24,15 +24,30 @@ export type IItem = {
   inUseQuantity: number;
 };
 
-export type IInventory = Pick<IItem, "quantity" | "expAt"> & Omit<IShop, "popular" | "isPopular">;
-
-export type IRandomGift = {
-  type: RandomGiftTypeEnum;
-  value: number | Omit<IShop, "popular" | "isPopular">;
+export type ItemSubscription = {
+  id: string;
+  name: ItemEnum;
+  description: string;
+  price: {
+    [key: string]: number;
+  };
+  image: {
+    name: string;
+    url: string;
+  };
+  popular: string;
+  isPopular: boolean;
 };
 
-export type IReward =
+export type Inventory = Pick<Item, "quantity" | "expAt"> & Omit<Shop, "popular" | "isPopular">;
+
+export type RandomGift = {
+  type: RandomGiftTypeEnum;
+  value: number | Omit<Shop, "popular" | "isPopular">;
+};
+
+export type Reward =
   | {
       message: string;
     }
-  | IRandomGift;
+  | RandomGift;

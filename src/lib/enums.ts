@@ -154,7 +154,7 @@ export enum ItemEnum {
   RANDOM_GIFT = "RANDOM_GIFT",
   ULTIMATE_TIME = "ULTIMATE_TIME",
   IDENTIFICATION = "IDENTIFICATION",
-  BILL = "BILL",
+  SUBSCRIPTION = "SUBSCRIPTION",
 }
 
 export enum RandomGiftTypeEnum {

@@ -22,7 +22,7 @@ const TrackBar = ({ data }: TrackBarProps) => {
 
   return (
     <div className="flex flex-row items-center justify-center gap-6 rounded-2xl bg-white py-4">
-      <button onClick={() => alert("Streak")}>
+      <button onClick={() => {}}>
         <Streak streak={data.streak} />
       </button>
       <button onClick={handleNavigateToShop}>

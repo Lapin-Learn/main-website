@@ -19,7 +19,7 @@
         "name": "Identification",
         "description": "Eliminate the wrong answers"
       },
-      "BILL": {
+      "SUBSCRIPTION": {
         "name": "Carrot Basket",
         "description": "Add carrots to receive feedback when grading"
       }
