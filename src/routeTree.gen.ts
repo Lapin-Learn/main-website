@@ -22,6 +22,8 @@ import { Route as AuthenticatedDashboardPracticeCollectionIdIndexImport } from "
 import { Route as AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdImport } from "./routes/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId";
 import { Route as AuthenticatedDashboardPracticeIndexImport } from "./routes/_authenticated/_dashboard/practice/index";
 import { Route as AuthenticatedDashboardPracticeSimulatedTestResultImport } from "./routes/_authenticated/_dashboard/practice/simulated-test/result";
+import { Route as AuthenticatedDashboardShopIndexImport } from "./routes/_authenticated/_dashboard/shop/index";
+import { Route as AuthenticatedDashboardShopInventoryImport } from "./routes/_authenticated/_dashboard/shop/inventory";
 import { Route as AuthenticatedIndexImport } from "./routes/_authenticated/index";
 import { Route as AuthenticatedPracticeSimulatedTestIndexImport } from "./routes/_authenticated/practice/simulated-test/index";
 import { Route as AuthenticationImport } from "./routes/_authentication";
@@ -102,9 +104,21 @@ const AuthenticatedPracticeSimulatedTestIndexRoute =
     getParentRoute: () => AuthenticatedRoute,
   } as any);
 
+const AuthenticatedDashboardShopIndexRoute = AuthenticatedDashboardShopIndexImport.update({
+  id: "/shop/",
+  path: "/shop/",
+  getParentRoute: () => AuthenticatedDashboardRoute,
+} as any);
+
 const AuthenticatedDashboardPracticeIndexRoute = AuthenticatedDashboardPracticeIndexImport.update({
   id: "/practice/",
   path: "/practice/",
+  getParentRoute: () => AuthenticatedDashboardRoute,
+} as any);
+
+const AuthenticatedDashboardShopInventoryRoute = AuthenticatedDashboardShopInventoryImport.update({
+  id: "/shop/inventory",
+  path: "/shop/inventory",
   getParentRoute: () => AuthenticatedDashboardRoute,
 } as any);
 
@@ -231,11 +245,25 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AuthenticatedDashboardContentEditorImport;
       parentRoute: typeof AuthenticatedDashboardImport;
     };
+    "/_authenticated/_dashboard/shop/inventory": {
+      id: "/_authenticated/_dashboard/shop/inventory";
+      path: "/shop/inventory";
+      fullPath: "/shop/inventory";
+      preLoaderRoute: typeof AuthenticatedDashboardShopInventoryImport;
+      parentRoute: typeof AuthenticatedDashboardImport;
+    };
     "/_authenticated/_dashboard/practice/": {
       id: "/_authenticated/_dashboard/practice/";
       path: "/practice";
       fullPath: "/practice";
       preLoaderRoute: typeof AuthenticatedDashboardPracticeIndexImport;
+      parentRoute: typeof AuthenticatedDashboardImport;
+    };
+    "/_authenticated/_dashboard/shop/": {
+      id: "/_authenticated/_dashboard/shop/";
+      path: "/shop";
+      fullPath: "/shop";
+      preLoaderRoute: typeof AuthenticatedDashboardShopIndexImport;
       parentRoute: typeof AuthenticatedDashboardImport;
     };
     "/_authenticated/practice/simulated-test/": {
@@ -312,7 +340,9 @@ const AuthenticatedDashboardProfileRouteWithChildren =
 interface AuthenticatedDashboardRouteChildren {
   AuthenticatedDashboardProfileRoute: typeof AuthenticatedDashboardProfileRouteWithChildren;
   AuthenticatedDashboardContentEditorRoute: typeof AuthenticatedDashboardContentEditorRoute;
+  AuthenticatedDashboardShopInventoryRoute: typeof AuthenticatedDashboardShopInventoryRoute;
   AuthenticatedDashboardPracticeIndexRoute: typeof AuthenticatedDashboardPracticeIndexRoute;
+  AuthenticatedDashboardShopIndexRoute: typeof AuthenticatedDashboardShopIndexRoute;
   AuthenticatedDashboardPracticeSimulatedTestResultRoute: typeof AuthenticatedDashboardPracticeSimulatedTestResultRoute;
   AuthenticatedDashboardPracticeCollectionIdIndexRoute: typeof AuthenticatedDashboardPracticeCollectionIdIndexRoute;
   AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute: typeof AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute;
@@ -321,7 +351,9 @@ interface AuthenticatedDashboardRouteChildren {
 const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren = {
   AuthenticatedDashboardProfileRoute: AuthenticatedDashboardProfileRouteWithChildren,
   AuthenticatedDashboardContentEditorRoute: AuthenticatedDashboardContentEditorRoute,
+  AuthenticatedDashboardShopInventoryRoute: AuthenticatedDashboardShopInventoryRoute,
   AuthenticatedDashboardPracticeIndexRoute: AuthenticatedDashboardPracticeIndexRoute,
+  AuthenticatedDashboardShopIndexRoute: AuthenticatedDashboardShopIndexRoute,
   AuthenticatedDashboardPracticeSimulatedTestResultRoute:
     AuthenticatedDashboardPracticeSimulatedTestResultRoute,
   AuthenticatedDashboardPracticeCollectionIdIndexRoute:
@@ -379,7 +411,9 @@ export interface FileRoutesByFullPath {
   "/verify-otp": typeof AuthenticationVerifyOtpRoute;
   "/": typeof AuthenticatedIndexRoute;
   "/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
+  "/shop/inventory": typeof AuthenticatedDashboardShopInventoryRoute;
   "/practice": typeof AuthenticatedDashboardPracticeIndexRoute;
+  "/shop": typeof AuthenticatedDashboardShopIndexRoute;
   "/practice/simulated-test": typeof AuthenticatedPracticeSimulatedTestIndexRoute;
   "/profile/change-password": typeof AuthenticatedDashboardProfileProfileChangePasswordRoute;
   "/profile/history": typeof AuthenticatedDashboardProfileProfileHistoryRoute;
@@ -398,7 +432,9 @@ export interface FileRoutesByTo {
   "/verify-otp": typeof AuthenticationVerifyOtpRoute;
   "/": typeof AuthenticatedIndexRoute;
   "/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
+  "/shop/inventory": typeof AuthenticatedDashboardShopInventoryRoute;
   "/practice": typeof AuthenticatedDashboardPracticeIndexRoute;
+  "/shop": typeof AuthenticatedDashboardShopIndexRoute;
   "/practice/simulated-test": typeof AuthenticatedPracticeSimulatedTestIndexRoute;
   "/profile/change-password": typeof AuthenticatedDashboardProfileProfileChangePasswordRoute;
   "/profile/history": typeof AuthenticatedDashboardProfileProfileHistoryRoute;
@@ -421,7 +457,9 @@ export interface FileRoutesById {
   "/_authenticated/": typeof AuthenticatedIndexRoute;
   "/_authenticated/_dashboard/_profile": typeof AuthenticatedDashboardProfileRouteWithChildren;
   "/_authenticated/_dashboard/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
+  "/_authenticated/_dashboard/shop/inventory": typeof AuthenticatedDashboardShopInventoryRoute;
   "/_authenticated/_dashboard/practice/": typeof AuthenticatedDashboardPracticeIndexRoute;
+  "/_authenticated/_dashboard/shop/": typeof AuthenticatedDashboardShopIndexRoute;
   "/_authenticated/practice/simulated-test/": typeof AuthenticatedPracticeSimulatedTestIndexRoute;
   "/_authenticated/_dashboard/_profile/profile/change-password": typeof AuthenticatedDashboardProfileProfileChangePasswordRoute;
   "/_authenticated/_dashboard/_profile/profile/history": typeof AuthenticatedDashboardProfileProfileHistoryRoute;
@@ -442,7 +480,9 @@ export interface FileRouteTypes {
     | "/verify-otp"
     | "/"
     | "/content-editor"
+    | "/shop/inventory"
     | "/practice"
+    | "/shop"
     | "/practice/simulated-test"
     | "/profile/change-password"
     | "/profile/history"
@@ -460,7 +500,9 @@ export interface FileRouteTypes {
     | "/verify-otp"
     | "/"
     | "/content-editor"
+    | "/shop/inventory"
     | "/practice"
+    | "/shop"
     | "/practice/simulated-test"
     | "/profile/change-password"
     | "/profile/history"
@@ -481,7 +523,9 @@ export interface FileRouteTypes {
     | "/_authenticated/"
     | "/_authenticated/_dashboard/_profile"
     | "/_authenticated/_dashboard/content-editor"
+    | "/_authenticated/_dashboard/shop/inventory"
     | "/_authenticated/_dashboard/practice/"
+    | "/_authenticated/_dashboard/shop/"
     | "/_authenticated/practice/simulated-test/"
     | "/_authenticated/_dashboard/_profile/profile/change-password"
     | "/_authenticated/_dashboard/_profile/profile/history"
@@ -540,7 +584,9 @@ export const routeTree = rootRoute
       "children": [
         "/_authenticated/_dashboard/_profile",
         "/_authenticated/_dashboard/content-editor",
+        "/_authenticated/_dashboard/shop/inventory",
         "/_authenticated/_dashboard/practice/",
+        "/_authenticated/_dashboard/shop/",
         "/_authenticated/_dashboard/practice/simulated-test/result",
         "/_authenticated/_dashboard/practice/$collectionId/",
         "/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId"
@@ -583,8 +629,16 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/_dashboard/content-editor.tsx",
       "parent": "/_authenticated/_dashboard"
     },
+    "/_authenticated/_dashboard/shop/inventory": {
+      "filePath": "_authenticated/_dashboard/shop/inventory.tsx",
+      "parent": "/_authenticated/_dashboard"
+    },
     "/_authenticated/_dashboard/practice/": {
       "filePath": "_authenticated/_dashboard/practice/index.tsx",
+      "parent": "/_authenticated/_dashboard"
+    },
+    "/_authenticated/_dashboard/shop/": {
+      "filePath": "_authenticated/_dashboard/shop/index.tsx",
       "parent": "/_authenticated/_dashboard"
     },
     "/_authenticated/practice/simulated-test/": {

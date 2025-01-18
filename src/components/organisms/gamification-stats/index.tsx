@@ -6,10 +6,25 @@ import { Separator } from "@/components/ui";
 import { useGetGamificationProfile } from "@/hooks/react-query/useGamification";
 import { EnumRank } from "@/lib/enums";
 import { formatNumber } from "@/lib/utils";
+import i18next from "i18next";
 
 type GamificationProps = {
   data: ReturnType<typeof useGetGamificationProfile>["data"];
 };
+
+function convertRankName(rank: EnumRank) {
+  const { t } = i18next;
+  const rankTranslations = {
+    [EnumRank.bronze]: "rank.bronze",
+    [EnumRank.silver]: "rank.silver",
+    [EnumRank.gold]: "rank.gold",
+    [EnumRank.platinum]: "rank.platinum",
+    [EnumRank.diamond]: "rank.diamond",
+    [EnumRank.master]: "rank.master",
+  };
+
+  return t(rankTranslations[rank] || "", { ns: "gamification" });
+}
 
 export const GamificationStats = ({ data }: GamificationProps) => {
   const { t } = useTranslation("gamification");
