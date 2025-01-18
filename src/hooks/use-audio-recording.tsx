@@ -49,7 +49,6 @@ function useAudioRecording({
         if (event.data.size === 0) return;
         localAudioChunks.push(event.data);
       };
-      console.log("localAudioChunks", localAudioChunks);
       setAudioChunks(localAudioChunks);
     } else {
       if (requestPermission) {

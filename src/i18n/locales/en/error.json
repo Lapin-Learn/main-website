@@ -1,0 +1,8 @@
+{
+    "EMAIL_EXISTS": "The email address is already in use.",
+    "EMAIL_NOT_FOUND": "The email address could not be found.",
+    "INVALID_PASSWORD": "The password is invalid.",
+    "VERIFY_EMAIL": "Please verify your email address.",
+    "VERIFY_OTP": "OTP verification failed.",
+    "SIGN_UP_PROVIDER": "An error occurred, please try again later."
+}

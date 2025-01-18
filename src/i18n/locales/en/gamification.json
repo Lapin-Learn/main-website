@@ -3,6 +3,20 @@
         "description_true": "Streak days!",
         "description_false": "Study now to keep the streak!",
         "record_true": "This is the longest streak you have achieved!",
-        "record_false": "{{record}} is the longest streak you have achieved!"
+        "record_false": "{{record}} is the longest streak you have achieved!",
+        "record": "Streak record"
+    },
+    "rank": {
+        "current_rank": "Current rank",
+        "bronze": "Bronze",
+        "silver": "Silver",
+        "gold": "Gold",
+        "platinum": "Platinum",
+        "diamond": "Diamond",
+        "master": "Master"
+    },
+    "level": {
+        "label": "Level",
+        "exp": "EXP"
     }
 }

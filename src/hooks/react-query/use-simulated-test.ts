@@ -6,13 +6,18 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
+import { getAnalytics, logEvent } from "firebase/analytics";
 import { useMemo } from "react";
 import { create } from "zustand";
 
+import { calculateOverallBandScore } from "@/components/organisms/streak/utils";
+import { FIREBASE_ANALYTICS_EVENTS } from "@/lib/consts";
 import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { fromPageToOffset, parseInfiniteData } from "@/lib/utils";
 import {
   CollectionParams,
+  getQuestionTypeAccuracy,
+  getSessionProgress,
   getSimulatedTestBySkill,
   getSimulatedTestCollectionDetail,
   getSimulatedTestCollections,
@@ -48,6 +53,8 @@ const simulatedTestKeys = {
   simulatedTestDetail: (simulatedTestId: number) =>
     [...simulatedTestKeys.simulatedTestKey, simulatedTestId] as const,
   overall: () => [...simulatedTestKeys.simulatedTestKey, "overall"] as const,
+  questionTypeAccuracy: (skill: EnumSkill) => ["question-type-accuracy", skill] as const,
+  sessionProgress: (skill: EnumSkill) => [...simulatedTestKeys.session, "progress", skill] as const,
 };
 
 type State = {
@@ -142,6 +149,7 @@ export const useGetCollectionDetail = (collectionId: number) => {
 export const useStartSimulatedTest = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const analytics = getAnalytics();
   return useMutation({
     mutationFn: startSimulatedTest,
     onSuccess: (returnData) => {
@@ -154,6 +162,9 @@ export const useStartSimulatedTest = () => {
           },
         });
       }
+      logEvent(analytics, FIREBASE_ANALYTICS_EVENTS.startSimulatedTest, {
+        skillTestId: returnData.skillTestId,
+      });
     },
     onError: (error) => {
       toast({
@@ -179,16 +190,16 @@ export const useSubmitSimulatedTest = () => {
             sessionId: variables.sessionId,
           },
         });
+        toast({
+          title: "Success",
+          description: "Submit test successfully",
+        });
       } else {
         // TODO: should we navigate back to collection/${collectionId}?
         navigate({ to: "/practice" });
       }
-      queryClient.invalidateQueries({
-        queryKey: simulatedTestKeys.sessionDetail(variables.sessionId),
-      });
-      toast({
-        title: "Success",
-        description: "Submit test successfully",
+      queryClient.removeQueries({
+        queryKey: simulatedTestKeys.session,
       });
     },
     onError: (error) => {
@@ -221,9 +232,11 @@ export const useGetSTSessionDetail = (sessionId: number) => {
     };
 
   const userAnswers = new Array(session.responses?.length || 0).fill(null);
-  const answerStatus = new Array(session.skillTest.answers.length || 0).fill(null);
+  const answerStatus = new Array(session.skillTest.answers?.length || 0).fill(null);
   session.responses?.forEach((answer, index) => {
-    userAnswers[answer.questionNo - 1] = answer.answer;
+    if ("answer" in answer) {
+      userAnswers[answer.questionNo - 1] = answer.answer;
+    }
     answerStatus[answer.questionNo - 1] = session.results[index];
   });
 
@@ -249,11 +262,12 @@ export const useGetUserBandScoreOverall = () => {
       const bandScores = await getUserBandScoreOverall();
       // All skills available
       if (Object.keys(bandScores).length == 4) {
-        const overall =
-          Object.values(bandScores).reduce((acc, cur) => acc + Number(cur.bandScore), 0) / 4;
+        const overall = calculateOverallBandScore(
+          bandScores.map((item) => item.estimatedBandScore)
+        );
         return {
           bandScores,
-          overallBandScore: Math.round(overall * 2) / 2,
+          overallBandScore: overall,
         };
       }
       return {
@@ -281,5 +295,19 @@ export const useGetSTSessionsHistoryByST = (
     queryFn: async () => getSTSessionHistoryByST(simulatedTestId, params),
     placeholderData: keepPreviousData,
     enabled: !!simulatedTestId,
+  });
+};
+
+export const useGetQuestionTypeAccuracy = (skill: EnumSkill) => {
+  return useQuery({
+    queryKey: simulatedTestKeys.questionTypeAccuracy(skill),
+    queryFn: async () => getQuestionTypeAccuracy(skill),
+  });
+};
+
+export const useGetSessionProgress = (skill: EnumSkill, from?: string, to?: string) => {
+  return useQuery({
+    queryKey: simulatedTestKeys.sessionProgress(skill),
+    queryFn: async () => getSessionProgress(skill, from, to),
   });
 };

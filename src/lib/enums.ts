@@ -125,3 +125,26 @@ export enum EnumTourElement {
   SUBMIT = "submit",
   QUIT = "quit",
 }
+
+export enum EnumWritingCriteria {
+  Overall = "overall",
+  TaskAchievement = "TR",
+  CoherenceAndCohesion = "CC",
+  LexicalResource = "LR",
+  GrammaticalRangeAndAccuracy = "GRA",
+}
+
+export enum EnumSpeakingCriteria {
+  Overall = "overall",
+  FluencyAndCoherence = "FC",
+  LexicalResource = "LR",
+  GrammaticalRangeAndAccuracy = "GRA",
+  Pronunciation = "P",
+}
+
+export enum EnumMissionCategory {
+  COMPLETE_LESSON_WITH_PERCENTAGE_SCORE = "COMPLETE_LESSON_WITH_PERCENTAGE_SCORE",
+  COMPLETE_LESSON_WITH_DIFFERENT_SKILLS = "COMPLETE_LESSON_WITH_DIFFERENT_SKILLS",
+  TOTAL_DURATION_OF_LEARN_DAILY_LESSON = "TOTAL_DURATION_OF_LEARN_DAILY_LESSON",
+  EXCEED_LEARNING_STREAK_WITHOUT_BREAK = "EXCEED_LEARNING_STREAK_WITHOUT_BREAK",
+}

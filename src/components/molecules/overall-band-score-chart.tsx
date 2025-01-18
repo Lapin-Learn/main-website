@@ -13,10 +13,10 @@ import { EnumSkill } from "@/lib/enums";
 import { BandScoreSkill, UserBandScoreOverall } from "@/lib/types/simulated-test.type";
 
 const DEFAULT_DATA: BandScoreSkill[] = [
-  { skill: EnumSkill.reading, bandScore: 0 },
-  { skill: EnumSkill.listening, bandScore: 0 },
-  { skill: EnumSkill.writing, bandScore: 0 },
-  { skill: EnumSkill.speaking, bandScore: 0 },
+  { skill: EnumSkill.reading, estimatedBandScore: 0 },
+  { skill: EnumSkill.listening, estimatedBandScore: 0 },
+  { skill: EnumSkill.writing, estimatedBandScore: 0 },
+  { skill: EnumSkill.speaking, estimatedBandScore: 0 },
 ];
 
 const chartConfig = {
@@ -42,7 +42,7 @@ export function OverallBandScoreChart({ className, data }: OverallBandScoreChart
           <RadarChart
             data={DEFAULT_DATA.map((item) => {
               const bandScore = data.bandScores.find((bandScore) => bandScore.skill === item.skill);
-              return { ...item, bandScore: bandScore?.bandScore ?? 0 };
+              return { ...item, bandScore: bandScore?.estimatedBandScore ?? 0 };
             })}
           >
             <ChartTooltip cursor={false} content={<ChartTooltipContent className="capitalize" />} />

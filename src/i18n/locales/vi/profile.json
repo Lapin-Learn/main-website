@@ -46,6 +46,10 @@
     },
     "learning_history": {
         "learning_result": "Kết quả dự đoán",
+        "evaluation": {
+            "chart": "Hiệu suất thi",
+            "accuracy": "Độ chính xác theo loại câu hỏi"
+        },
         "simulated_test_history": "Lịch sử luyện thi"
     }
 }

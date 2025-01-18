@@ -9,7 +9,7 @@
   },
   "collection-list": {
     "title": "Simulated tests",
-    "numberOfTest" : "{{number}}/{{total}} tests",
+    "numberOfTest": "{{number}}/{{total}} tests",
     "tags": {
       "academic": "Academic",
       "cambridge": "Cambridge",
@@ -41,11 +41,17 @@
     "alerts": {
       "practice": {
         "title": "Practice Mode",
-        "description": "In this mode, you can choose the parts you want to practice, adjust the time according to your ability, and listen to the recording again."
+        "description_speaking": "In this mode, you can choose the parts of the Speaking test you want to practice, adjust the time according to your ability, and listen to the recording again.",
+        "description_reading": "In this mode, you can choose the parts of the Reading test you want to practice, adjust the time according to your ability, and review the questions as needed.",
+        "description_listening": "In this mode, you can choose the parts of the Listening test you want to practice, adjust the time according to your ability, and listen to the recording again.",
+        "description_writing": "In this mode, you can choose the parts of the Writing test you want to practice, adjust the time according to your ability, and review your responses as needed."
       },
       "full_test": {
         "title": "Warning",
-        "description": "During the test, you will not be able to listen again and should not exit to ensure the best evaluation results."
+        "description_speaking": "During the Speaking test, to ensure an accurate assessment of your abilities, please maintain focus throughout the session.",
+        "description_reading": "In the Reading test, to ensure an accurate evaluation of your skills, please avoid exiting the test environment.",
+        "description_listening": "In the Listening test, you will not be able to replay the audio. To achieve an accurate assessment, please stay within the test environment and avoid any interruptions.",
+        "description_writing": "In the Writing test, to receive an accurate evaluation of your skills, please stay focused and do not exit the test environment."
       }
     },
     "buttons": {
@@ -63,6 +69,23 @@
   "finished-on": "Finished on",
   "finished-on_latest": "Latest finished on",
   "total-time-practice": "Practice times",
-  "latest-band": "Latest band"
-
+  "latest-band": "Latest band",
+  "mission": {
+    "types": {
+        "daily": "Daily Missions",
+        "monthly": "Monthly Missions"
+    },
+    "month_mission": "{{month}}",
+    "time_remaining": "{{time}} left",
+    "guildline": "Complete the monthly mission to receive rewards and badges!",
+    "description": {
+        "COMPLETE_LESSON": "Complete {{quantity}} lessons",
+        "COMPLETE_LESSON_WITH_PERCENTAGE_SCORE": "Complete {{quantity}} lessons with at least {{requirements}}% score",
+        "COMPLETE_LESSON_WITH_PERCENTAGE_SCORE_PERFECT": "Complete {{quantity}} perfect lessons",
+        "COMPLETE_LESSON_WITH_DIFFERENT_SKILLS": "Practice {{requirements}} different skills",
+        "TOTAL_DURATION_OF_LEARN_DAILY_LESSON": "Study for {{requirements}}",
+        "EXCEED_LEARNING_STREAK_WITHOUT_BREAK": "Study for {{requirements}} consecutive days",
+        "EXCEED_STREAK": "Study for {{requirements}} consecutive days"
+    }
+  }
 }

@@ -1,8 +1,12 @@
+import { format } from "date-fns";
+
 import { EnumMode, EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { FetchingData, OffsetSchema, PagedData, PagingSchema } from "@/lib/types";
 import {
   BandScoreSkill,
+  QuestionTypeAccuracy,
   ReadingContent,
+  SessionProgress,
   SimulatedTest,
   SimulatedTestAnswer,
   SimulatedTestCollection,
@@ -114,9 +118,6 @@ export const submitSimulatedTest = async (
   }
 ) => {
   const { sessionId, response, files, ...rest } = payload;
-  if (response.info.length === 0) {
-    throw new Error("No responses to submit");
-  }
 
   const formData = new FormData();
   Object.entries(rest).forEach(([key, value]) => {
@@ -127,6 +128,10 @@ export const submitSimulatedTest = async (
     files.forEach((file) => {
       formData.append("files", file);
     });
+  }
+
+  if (response.info.length === 0) {
+    formData.set("status", EnumSimulatedTestSessionStatus.CANCELED);
   }
 
   return (
@@ -177,4 +182,25 @@ export const getSTSessionHistoryByST = async (
       .get(`simulated-tests/${simulatedTestId}/sessions`, { searchParams })
       .json<FetchingData<PagedData<SimulatedTestSessionsHistory>>>()
   ).data;
+};
+
+export const getQuestionTypeAccuracy = async (skill: EnumSkill) => {
+  const searchParams = generateSearchParams({ skill });
+  return (
+    await api
+      .get(`question-types/accuracy`, { searchParams })
+      .json<FetchingData<QuestionTypeAccuracy[]>>()
+  ).data;
+};
+
+export const getSessionProgress = async (skill: EnumSkill, from?: string, to?: string) => {
+  const searchParams = generateSearchParams({ skill, from, to });
+  const result = (
+    await api.get(`sessions/progress`, { searchParams }).json<FetchingData<SessionProgress[]>>()
+  ).data;
+
+  return result.map((item) => ({
+    ...item,
+    createdAt: format(item.createdAt, "dd/MM/yyyy"),
+  }));
 };

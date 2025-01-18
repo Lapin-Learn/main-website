@@ -7,10 +7,13 @@ import Text from "@tiptap/extension-text";
 import TextStyle from "@tiptap/extension-text-style";
 import { EditorContent } from "@tiptap/react";
 
+import { cn } from "@/lib/utils";
+
 type WritingQuestionCardProps = {
   content: JSONContent | string;
+  imageClassName?: string;
 };
-export default function WritingQuestionCard({ content }: WritingQuestionCardProps) {
+export default function WritingQuestionCard({ content, imageClassName }: WritingQuestionCardProps) {
   const editor = new Editor({
     extensions: [
       Paragraph,
@@ -18,7 +21,7 @@ export default function WritingQuestionCard({ content }: WritingQuestionCardProp
       Heading,
       Image.configure({
         HTMLAttributes: {
-          class: "!w-3/4 !self-center",
+          class: cn("!w-3/4 !self-center", imageClassName),
         },
       }),
       Document,

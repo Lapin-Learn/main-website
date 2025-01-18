@@ -14,9 +14,6 @@
         "placeholder": "Tìm kiếm",
         "noResults": "Không tìm thấy kết quả"
     },
-    "error": {
-        "INVALID_PASSWORD": "Mật khẩu không đúng"
-    },
     "toast": {
         "update": {
             "success": "Cập nhật {{item, lowercase}} thành công",
@@ -45,5 +42,22 @@
         "deniedDescription": "Vui lòng cho phép quyền truy cập Microphone để ghi âm.",
         "browswerNotSupportTitle": "Trình duyệt không được hỗ trợ",
         "browswerNotSupportDescription": "Trình duyệt này không hỗ trợ ghi âm."
+    },
+    "time_units": {
+        "second": "giây",
+        "minute": "phút",
+        "hour": "giờ",
+        "day": "ngày",
+        "week": "tuần",
+        "month": "tháng",
+        "year": "năm"
+    },
+    "crashMessage": "Đã có lỗi xảy ra, liên hệ với quản trị viên để được hỗ trợ",
+    "success": "Thành công",
+    "error": "Thất bại",
+    "language": {
+        "title": "Ngôn ngữ",
+        "vi": "Tiếng Việt",
+        "en": "Tiếng Anh"
     }
 }
