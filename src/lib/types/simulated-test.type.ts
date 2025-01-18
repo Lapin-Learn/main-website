@@ -169,12 +169,12 @@ export type AnalysisData = {
 };
 
 export type STCriteriaEvaluation = {
-  part?: string | "Overall";
-  score?: number;
-} & {
-  [key in EnumWritingCriteria | EnumSpeakingCriteria]?: {
-    score: number;
-    evaluate: string;
+  part: number | string;
+  criterias: {
+    [key in EnumWritingCriteria | EnumSpeakingCriteria]?: {
+      score: number;
+      evaluate: string;
+    };
   };
 };
 

@@ -54,5 +54,6 @@
         "week": "tuần",
         "month": "tháng",
         "year": "năm"
-    }
+    },
+    "crashMessage": "Đã có lỗi xảy ra, liên hệ với quản trị viên để được hỗ trợ"
 }

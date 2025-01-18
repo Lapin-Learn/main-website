@@ -193,7 +193,7 @@ export const MAPPED_SKILL_ICON_FILLED: Record<
 
 export const MAPPED_SPEAKING_CRITERIA_TITLES: Record<string, string> = {
   [EnumSpeakingCriteria.FluencyAndCoherence]: "Fluency and Coherence",
-  [EnumSpeakingCriteria.Pronunciation]: "Pronunciation",
+  [EnumSpeakingCriteria.Pronunciation]: "Pronounciation",
   [EnumSpeakingCriteria.LexicalResource]: "Lexical Resource",
   [EnumSpeakingCriteria.GrammaticalRangeAndAccuracy]: "Grammatical Range and Accuracy",
 };
