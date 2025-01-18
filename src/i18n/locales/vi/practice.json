@@ -9,7 +9,7 @@
     },
     "collection-list": {
         "title": "Danh sách các bộ đề",
-        "numberOfTest" : "{{number}}/{{total}} đề",
+        "numberOfTest": "{{number}}/{{total}} đề",
         "tags": {
             "academic": "Academic",
             "cambridge": "Cambridge",
@@ -41,11 +41,17 @@
         "alerts": {
             "practice": {
                 "title": "Chế độ luyện tập",
-                "description": "Trong chế độ này, bạn có thể tự chọn phần mình muốn làm, tự điều chỉnh thời gian tuỳ vào khả năng của mình và nghe lại đoạn thu âm."
+                "description_speaking": "Trong chế độ này, bạn có thể chọn các phần của bài thi Speaking bạn muốn luyện tập, điều chỉnh thời gian theo khả năng của mình và nghe lại bản ghi âm.",
+                "description_reading": "Trong chế độ này, bạn có thể chọn các phần của bài thi Reading bạn muốn luyện tập, điều chỉnh thời gian theo khả năng của mình và xem lại câu hỏi khi cần.",
+                "description_listening": "Trong chế độ này, bạn có thể chọn các phần của bài thi Listening bạn muốn luyện tập, điều chỉnh thời gian theo khả năng của mình và nghe lại bản ghi âm.",
+                "description_writing": "Trong chế độ này, bạn có thể chọn các phần của bài thi Writing bạn muốn luyện tập, điều chỉnh thời gian theo khả năng của mình và xem lại câu trả lời của mình khi cần."
             },
             "full_test": {
                 "title": "Lưu ý",
-                "description": "Trong quá trình làm bài, bạn sẽ không thể nghe lại và không nên thoát ra để kết quả được đánh giá một cách tốt nhất."
+                "description_speaking": "Trong quá trình làm bài Speaking, để đảm bảo việc đánh giá chính xác khả năng của bạn, hãy duy trì sự tập trung suốt buổi thi.",
+                "description_reading": "Trong bài thi Reading, để đảm bảo kết quả đánh giá chính xác khả năng của bạn, xin đừng thoát khỏi môi trường thi.",
+                "description_listening": "Trong bài thi Listening, bạn sẽ không thể nghe lại phần audio. Để đạt được kết quả đánh giá chính xác, vui lòng không thoát khỏi môi trường thi và tránh bất kỳ sự gián đoạn nào.",
+                "description_writing": "Trong bài thi Writing, để có kết quả đánh giá chính xác kỹ năng của bạn, xin hãy tập trung và không thoát khỏi môi trường thi."
             }
         },
         "buttons": {
@@ -55,15 +61,15 @@
         }
     },
     "skills": {
-      "part_reading":"Phần {{ number }}",
-      "part_listening": "Phần {{ number }}",
-      "part_writing": "Phần {{ number }}",
-      "part_speaking": "Phần {{ number }}"
-  },
-  "finished-on": "Hoàn thành lúc",
-  "finished-on_latest": "Hoàn thành gần nhất",
-  "total-time-practice": "Số lần luyện thi",
-  "latest-band": "Band gần nhất",
+        "part_reading": "Phần {{ number }}",
+        "part_listening": "Phần {{ number }}",
+        "part_writing": "Phần {{ number }}",
+        "part_speaking": "Phần {{ number }}"
+    },
+    "finished-on": "Hoàn thành lúc",
+    "finished-on_latest": "Hoàn thành gần nhất",
+    "total-time-practice": "Số lần luyện thi",
+    "latest-band": "Band gần nhất",
   "mission": {
     "types": {
       "daily": "Nhiệm vụ hàng ngày",

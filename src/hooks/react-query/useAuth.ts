@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { HistoryState, useNavigate } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 
 import { EnumActionOTP } from "@/lib/enums";
 import {
@@ -22,6 +23,7 @@ export const authKeys = {
 };
 
 export const useSignIn = () => {
+  const { t } = useTranslation("error");
   const { toast } = useToast();
   const navigate = useNavigate();
   const { setAccessToken } = useAuthStore();
@@ -41,7 +43,7 @@ export const useSignIn = () => {
         navigate({ to: "/practice" });
         toast({
           title: "Success",
-          description: "You have successfully logged in",
+          description: t("success.login", { ns: "auth" }),
           variant: "default",
         });
       }
@@ -49,7 +51,7 @@ export const useSignIn = () => {
     onError: (error) => {
       toast({
         title: "Error",
-        description: error.message,
+        description: t(error.message),
         variant: "destructive",
       });
     },
@@ -57,6 +59,7 @@ export const useSignIn = () => {
 };
 
 export const useSignUp = () => {
+  const { t } = useTranslation("error");
   const { toast } = useToast();
   const navigate = useNavigate();
   return useMutation({
@@ -78,7 +81,7 @@ export const useSignUp = () => {
     onError: (error) => {
       toast({
         title: "Error",
-        description: error.message,
+        description: t(error.message),
         variant: "destructive",
       });
     },

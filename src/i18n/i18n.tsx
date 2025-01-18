@@ -5,6 +5,7 @@ import { initReactI18next } from "react-i18next";
 import authEn from "./locales/en/auth.json";
 import collectionEn from "./locales/en/collection.json";
 import commonEn from "./locales/en/common.json";
+import errorEn from "./locales/en/error.json";
 import gamificationEn from "./locales/en/gamification.json";
 import practiceEn from "./locales/en/practice.json";
 import profileEn from "./locales/en/profile.json";
@@ -12,6 +13,7 @@ import simulatedTestEn from "./locales/en/simulated-test.json";
 import authVi from "./locales/vi/auth.json";
 import collectionVi from "./locales/vi/collection.json";
 import commonVi from "./locales/vi/common.json";
+import errorVi from "./locales/vi/error.json";
 import gamificationVi from "./locales/vi/gamification.json";
 import practiceVi from "./locales/vi/practice.json";
 import profileVi from "./locales/vi/profile.json";
@@ -30,6 +32,8 @@ const resources = {
 
     simulatedTest: simulatedTestEn,
     collection: collectionEn,
+
+    error: errorEn,
   },
   vi: {
     common: commonVi,
@@ -43,6 +47,8 @@ const resources = {
 
     simulatedTest: simulatedTestVi,
     collection: collectionVi,
+
+    error: errorVi,
   },
 };
 

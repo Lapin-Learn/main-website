@@ -1,0 +1,5 @@
+{
+    "EMAIL_EXISTS": "Địa chỉ email đã được sử dụng.",
+    "EMAIL_NOT_FOUND": "Không tìm thấy địa chỉ email.",
+    "INVALID_PASSWORD": "Mật khẩu không đúng."
+}
