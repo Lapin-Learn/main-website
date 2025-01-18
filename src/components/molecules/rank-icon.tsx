@@ -12,22 +12,17 @@ type RankIconProps = {
 };
 
 const RankIcon = ({ name, className }: RankIconProps) => {
-  switch (name) {
-    case EnumRank.bronze:
-      return <BronzeIcon className={className} />;
-    case EnumRank.silver:
-      return <SilverIcon className={className} />;
-    case EnumRank.gold:
-      return <GoldIcon className={className} />;
-    case EnumRank.platinum:
-      return <PlatinumIcon className={className} />;
-    case EnumRank.diamond:
-      return <DiamondIcon className={className} />;
-    case EnumRank.master:
-      return <MasterIcon className={className} />;
-    default:
-      return null;
-  }
+  const icons = {
+    [EnumRank.bronze]: BronzeIcon,
+    [EnumRank.silver]: SilverIcon,
+    [EnumRank.gold]: GoldIcon,
+    [EnumRank.platinum]: PlatinumIcon,
+    [EnumRank.diamond]: DiamondIcon,
+    [EnumRank.master]: MasterIcon,
+  };
+
+  const IconComponent = icons[name];
+  return IconComponent ? <IconComponent className={className} /> : null;
 };
 
 export default RankIcon;

@@ -19,11 +19,9 @@ export const MissionSection = ({ title, timeRemaining, missions }: MissionSectio
           className="flex items-end"
           textClassName="font-semibold text-body text-dark"
         >
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 text-sm font-medium text-orange-400">
             <Clock size={16} color="#F17D53" />
-            <span className="text-sm font-medium text-orange-400">
-              {t("mission.time_remaining", { time: formatRemainingToDateTime(timeRemaining) })}
-            </span>
+            {t("mission.time_remaining", { time: formatRemainingToDateTime(timeRemaining) })}
           </div>
         </Section.Title>
       )}
@@ -44,9 +42,7 @@ export const ListMissions = ({ data = [] }: { data?: MissionProps[] }) => {
           <div key={index} className={`${progressValue >= 1 ? "bg-yellow-100" : ""}`}>
             <Section.Item className="flex flex-1 items-center justify-between px-2 py-4">
               <div className="flex flex-1 items-center gap-1">
-                <div className="size-10">
-                  <DailyTestIcon className="size-10" />
-                </div>
+                <DailyTestIcon className="size-10" />
                 <Section.Title
                   label={convertMissionNameCategory(item)}
                   textClassName="text-sm font-semibold"
