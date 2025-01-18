@@ -205,6 +205,12 @@ export const MAPPED_WRITING_CRITERIA_TITLES: Record<string, string> = {
   [EnumWritingCriteria.GrammaticalRangeAndAccuracy]: "Grammatical Range and Accuracy",
 };
 
+export const FIREBASE_ANALYTICS_EVENTS = {
+  screenView: "screen_view",
+  login: "login",
+  startSimulatedTest: "start_simulated_test",
+};
+
 export const SKILLS_LIST = [
   ...Object.keys(MAPPED_SKILL_ICON).map((key) => ({
     label: key as EnumSkill,

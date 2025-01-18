@@ -12,6 +12,8 @@ import PageNotFound from "@/components/PageNotFound";
 import { Toaster } from "@/components/ui/toaster";
 import { routeTree } from "@/routeTree.gen";
 
+import { FIREBASE_ANALYTICS_EVENTS } from "./lib/consts";
+
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -47,8 +49,8 @@ const router = createRouter({
 router.history.subscribe(() => {
   const analytics = getAnalytics();
   const url = router.history.location.href;
-  logEvent(analytics, "screen_view", {
-    firebase_screen: url,
+  logEvent(analytics, FIREBASE_ANALYTICS_EVENTS.screenView, {
+    firebase_screen: `web/${url}`,
     firebase_screen_class: "App",
   });
 });

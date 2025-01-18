@@ -11,6 +11,7 @@ import { useMemo } from "react";
 import { create } from "zustand";
 
 import { calculateOverallBandScore } from "@/components/organisms/streak/utils";
+import { FIREBASE_ANALYTICS_EVENTS } from "@/lib/consts";
 import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { fromPageToOffset, parseInfiniteData } from "@/lib/utils";
 import {
@@ -161,7 +162,7 @@ export const useStartSimulatedTest = () => {
           },
         });
       }
-      logEvent(analytics, "start_simulated_test", {
+      logEvent(analytics, FIREBASE_ANALYTICS_EVENTS.startSimulatedTest, {
         skillTestId: returnData.skillTestId,
       });
     },
