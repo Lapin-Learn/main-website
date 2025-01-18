@@ -45,5 +45,14 @@
         "deniedDescription": "Vui lòng cho phép quyền truy cập Microphone để ghi âm.",
         "browswerNotSupportTitle": "Trình duyệt không được hỗ trợ",
         "browswerNotSupportDescription": "Trình duyệt này không hỗ trợ ghi âm."
+    },
+    "time_units": {
+        "second": "giây",
+        "minute": "phút",
+        "hour": "giờ",
+        "day": "ngày",
+        "week": "tuần",
+        "month": "tháng",
+        "year": "năm"
     }
 }

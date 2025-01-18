@@ -45,5 +45,14 @@
         "deniedDescription": "Please allow microphone permission to record audio.",
         "browserNotSupportTitle": "Browser not supported",
         "browserNotSupportDescription": "This browser does not support audio recording."
+    },
+    "time_units": {
+        "second": "second",
+        "minute": "minute",
+        "hour": "hour",
+        "day": "day",
+        "week": "week",
+        "month": "month",
+        "year": "year"
     }
 }

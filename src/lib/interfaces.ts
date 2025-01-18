@@ -38,6 +38,7 @@ export interface IStreak {
   current: number;
   target: number;
   record: number;
+  extended: boolean;
 }
 
 export interface IQuestionType {

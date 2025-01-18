@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getGamificationProfile, getStreak } from "@/services/gamification";
+import { getGamificationProfile, getMissions, getStreak } from "@/services/gamification";
 
 const KEYS = {
   gamificationProfile: ["gamificationProfile"] as const,
   streak: "streak",
+  missions: "missions",
 };
 
 export const useGetGamificationProfile = () => {
@@ -21,5 +22,12 @@ export const useGetStreakHistory = ({ startDate }: { startDate?: string }) => {
     queryFn: () => getStreak(startDate ?? ""),
     staleTime: Infinity,
     retry: 3,
+  });
+};
+export const useMissions = () => {
+  return useQuery({
+    queryKey: [KEYS.missions],
+    queryFn: getMissions,
+    staleTime: Infinity,
   });
 };
