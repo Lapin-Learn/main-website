@@ -20,12 +20,12 @@ const ShopCard = ({ item }: ItemCardProps) => {
         <Card className="flex flex-col" key={item.id}>
           <CardContent
             key={item.id}
-            className="relative flex size-full flex-col items-center justify-between space-y-2 p-4 pb-3 hover:cursor-pointer"
+            className="relative flex size-full flex-col items-center justify-between space-y-3 p-4 pb-3 hover:cursor-pointer"
           >
             <div className="size-20">
               <img src={item.image.url} alt={item.name} className="size-20 object-scale-down" />
             </div>
-            <div className="flex w-full flex-col text-center">
+            <div className="flex w-full flex-col space-y-1 text-center">
               <p className="text-body font-semibold">{t(`shop.items.${item.name}.name`)}</p>
               <p className="text-xs font-normal text-[#929292]">
                 {t(`shop.items.${item.name}.description`)}

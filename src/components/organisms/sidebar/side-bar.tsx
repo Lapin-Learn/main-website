@@ -1,3 +1,4 @@
+import { useNavigate } from "@tanstack/react-router";
 import { ChevronLeft, Edit, Menu, Store } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -40,6 +41,7 @@ export default function SideBar() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const { checkRole } = useAccountIdentifier();
   const { t, i18n } = useTranslation("common");
+  const navigate = useNavigate();
 
   const toggleLanguage = () => {
     setLanguage(language === "en" ? "vi" : "en");
@@ -49,7 +51,12 @@ export default function SideBar() {
   return (
     <>
       <div className="fixed flex w-full items-center justify-between bg-white p-4 pt-8 sm:hidden">
-        <img src={Logo} alt="App Logo" className="h-6" />
+        <img
+          src={Logo}
+          alt="App Logo"
+          className="h-6 cursor-pointer"
+          onClick={() => navigate({ to: "/" })}
+        />
         <button onClick={() => setSidebarOpen((prev) => !prev)} aria-label="Open Sidebar">
           <Menu size={24} />
         </button>
@@ -73,10 +80,11 @@ export default function SideBar() {
                 <img
                   src={isSidebarOpen ? Logo : AppIcon}
                   className={cn(
-                    "hidden h-6 transition-transform duration-300 ease-in-out sm:flex",
+                    "hidden h-6 transition-transform duration-300 ease-in-out sm:flex cursor-pointer",
                     isSidebarOpen ? "pl-4" : "h-10 rounded-md"
                   )}
                   alt="App Logo"
+                  onClick={() => navigate({ to: "/" })}
                 />
 
                 <button
@@ -101,7 +109,7 @@ export default function SideBar() {
               </ul>
             </div>
             <div>
-              <div className="flex items-center justify-between px-2">
+              <div className="hidden items-center justify-between px-2">
                 <div className="flex flex-col justify-center gap-1">
                   <p className="text-xs text-neutral-400">{t("language.title")}</p>
                   <p className="text-sm">{t(`language.${language}`)}</p>

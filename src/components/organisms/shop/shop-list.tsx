@@ -42,7 +42,7 @@ const ShopList = () => {
       onValueChange={(value) => {
         setActiveTab(value as "shop" | "inventory");
       }}
-      className="w-full items-center justify-center"
+      className="w-full items-center justify-center space-y-6"
     >
       <TabsList className="flex w-full flex-row items-center justify-center border-b-0 border-neutral-100">
         {Object.entries(ItemListMapping).map(([key, { title, Icon }]) => (
