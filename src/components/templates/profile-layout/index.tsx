@@ -1,7 +1,9 @@
 import { Outlet } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 
+import { GamificationStats } from "@/components/organisms/gamification-stats";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useGetGamificationProfile } from "@/hooks/react-query/useGamification";
 import { useUserProfile } from "@/hooks/react-query/useUsers";
 
 import Avatar from "./avatar";
@@ -24,6 +26,7 @@ const profileTabItems = [
 
 const ProfileLayout = () => {
   const { data: user, isLoading } = useUserProfile();
+  const { data: gamificationData } = useGetGamificationProfile();
   const { t } = useTranslation("profile");
   return (
     <div className="col-span-3 p-8">
@@ -36,19 +39,22 @@ const ProfileLayout = () => {
         <div className="grid grid-cols-4 gap-8 px-8 pt-4">
           <ProfileTab items={profileTabItems} />
           <div className="relative col-span-3 pt-16">
-            <div className="absolute top-0 -mt-4 flex -translate-y-1/2 flex-row items-end gap-4">
+            <div className="absolute top-0 -mt-4 flex w-full -translate-y-1/2 flex-row items-end gap-4">
               <Avatar />
-              <div>
+              <div className="flex flex-1 grow">
                 {isLoading ? (
                   <>
                     <Skeleton className="mb-2 h-6 w-32" />
                     <Skeleton className="h-4 w-24" />
                   </>
                 ) : (
-                  <>
-                    <h5 className="text-xl font-semibold">{user?.fullName}</h5>
-                    <h6 className="text-muted-foreground">@{user?.username}</h6>
-                  </>
+                  <div className="flex flex-1 items-center justify-between">
+                    <div>
+                      <h5 className="text-xl font-semibold">{user?.fullName}</h5>
+                      <h6 className="text-muted-foreground">@{user?.username}</h6>
+                    </div>
+                    <GamificationStats data={gamificationData} />
+                  </div>
                 )}
               </div>
             </div>

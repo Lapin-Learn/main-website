@@ -23,3 +23,11 @@ export type AudioSource = {
   audioUrl: string;
   audioBlob: Blob;
 };
+
+export type IStreak = {
+  id: number;
+  current: number;
+  target: number;
+  record: number;
+  extended: boolean;
+};

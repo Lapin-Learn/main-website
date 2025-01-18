@@ -22,7 +22,7 @@ const StreakSection = () => {
   };
 
   return (
-    <div className="rounded-2xl bg-[#e2f2ff] p-4 md:sticky md:top-8">
+    <div className="rounded-2xl bg-[#e2f2ff] p-4">
       <div className="flex flex-row justify-between">
         {data && !isLoading ? (
           <div>

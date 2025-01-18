@@ -1,7 +1,6 @@
 import { ChevronLeft, Edit, Menu } from "lucide-react";
 import { useState } from "react";
 
-import MissionsIcon from "@/assets/icons/missions";
 import PracticeIcon from "@/assets/icons/practice";
 import AppIcon from "@/assets/images/app.jpg";
 import Logo from "@/assets/logo.svg";
@@ -19,7 +18,6 @@ const features: SideBarFeatureProps[] = [
     icon: <PracticeIcon />,
     label: "practice",
   },
-  { to: "/missions", icon: <MissionsIcon />, label: "mission" },
 ];
 
 const adminFeatures: SideBarFeatureProps[] = [

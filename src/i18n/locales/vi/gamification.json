@@ -3,6 +3,20 @@
         "description_true": "Ngày liên tiếp!",
         "description_false": "Học ngay để giữ streak!",
         "record_true": "Đây là streak dài nhất bạn đạt được!",
-        "record_false": "{{record}} là streak dài nhất bạn đạt được!"
+        "record_false": "{{record}} là streak dài nhất bạn đạt được!",
+        "record": "Kỷ lục streak"
+    },
+    "rank": {
+        "current_rank": "Hạng hiện tại",
+        "bronze": "Đồng",
+        "silver": "Bạc",
+        "gold": "Vàng",
+        "platinum": "Bạch kim",
+        "diamond": "Kim cương",
+        "master": "Cao thủ"
+    },
+    "level": {
+        "label": "Cấp",
+        "exp": "EXP"
     }
 }

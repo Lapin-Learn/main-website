@@ -1,13 +1,15 @@
 import { InfiniteData } from "@tanstack/react-query";
 import { type ClassValue, clsx } from "clsx";
+import i18next from "i18next";
 import { twMerge } from "tailwind-merge";
 import { z } from "zod";
 
+import { IMission } from "@/components/organisms/mission-section/types";
 import { TimerType } from "@/hooks/zustand/use-global-timer";
 import { PagedData, PagingSchema } from "@/lib/types/pagination.type";
 
 import { DEFAULT_TIME_LIMIT } from "../consts";
-import { EnumMode, EnumRole, EnumSkill } from "../enums";
+import { EnumMissionCategory, EnumMode, EnumRole, EnumSkill } from "../enums";
 import { ROUTE_PERMISSION } from "../route-permission";
 
 export function cn(...inputs: ClassValue[]) {
@@ -161,3 +163,71 @@ export const genQuestionId = (questionNo: number | string) => {
 export const formatBandScore = (bandScore: number): number => {
   return Math.round(bandScore * 2) / 2;
 };
+
+export function formatUnit(value: number, unit: string) {
+  const { t, language: currentLanguage } = i18next;
+  return `${value} ${t(`time_units.${unit}`, {
+    ns: "common",
+  })}${currentLanguage === "en" && value > 1 ? "s" : ""}`;
+}
+
+export const formatLearningDuration = (duration: number) => {
+  const hour = (duration / 3600).toFixed(1);
+  const min = (duration / 60).toFixed(0);
+  return duration > 3600
+    ? formatUnit(parseFloat(hour), "hour")
+    : formatUnit(parseFloat(min), "minute");
+};
+
+export const formatNumber = (num: number) => {
+  if (num < 1000) {
+    return num.toString();
+  } else if (num < 1000000) {
+    return (Math.floor(num / 100) / 10).toFixed(1) + "K";
+  } else if (num < 1000000000) {
+    return (Math.floor(num / 100000) / 10).toFixed(1) + "M";
+  } else {
+    return (Math.floor(num / 100000000) / 10).toFixed(1) + "B";
+  }
+};
+
+export function formatRemainingToDateTime(targetTime: number) {
+  const currentTime = Date.now();
+  const remainingTime = targetTime - currentTime;
+
+  if (remainingTime <= 0) return "0 seconds";
+
+  const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+  if (days > 0) return formatUnit(days, "day");
+  if (hours > 0) return formatUnit(hours, "hour");
+  if (minutes > 0) return formatUnit(minutes, "minute");
+  return formatUnit(seconds, "second");
+}
+
+export function convertMissionNameCategory(item: IMission) {
+  const { t } = i18next;
+  switch (item.category) {
+    case EnumMissionCategory.COMPLETE_LESSON_WITH_PERCENTAGE_SCORE:
+      return t(`mission.description.${item.requirements ? item.category : "COMPLETE_LESSON"}`, {
+        context: item.requirements === 100 ? "PERFECT" : "",
+        quantity: item.quantity,
+        requirements: item.requirements,
+        ns: "practice",
+      });
+    case EnumMissionCategory.TOTAL_DURATION_OF_LEARN_DAILY_LESSON:
+      return t(`mission.description.${item.category}`, {
+        requirements: formatLearningDuration(item.requirements),
+        ns: "practice",
+      });
+    default:
+      return t(`mission.description.${item.category}`, {
+        quantity: item.quantity,
+        requirements: item.requirements,
+        ns: "practice",
+      });
+  }
+}
