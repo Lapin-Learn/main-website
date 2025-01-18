@@ -54,5 +54,10 @@
     },
     "crashMessage": "An error occurred, contact the administrator for support",
     "success": "Success",
-    "error": "Failed"
+    "error": "Failed",
+    "language": {
+        "title": "Language",
+        "vi": "Vietnamese",
+        "en": "English"
+    }
 }
