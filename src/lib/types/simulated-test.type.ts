@@ -177,3 +177,13 @@ export type STCriteriaEvaluation = {
     evaluate: string;
   };
 };
+
+export type QuestionTypeAccuracy = {
+  evaluationtype: string;
+  accuracy: number;
+};
+
+export type SessionProgress = {
+  estimatedBandScore: number;
+  createdAt: string;
+};

@@ -1,8 +1,12 @@
+import { format } from "date-fns";
+
 import { EnumMode, EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { FetchingData, OffsetSchema, PagedData, PagingSchema } from "@/lib/types";
 import {
   BandScoreSkill,
+  QuestionTypeAccuracy,
   ReadingContent,
+  SessionProgress,
   SimulatedTest,
   SimulatedTestAnswer,
   SimulatedTestCollection,
@@ -178,4 +182,25 @@ export const getSTSessionHistoryByST = async (
       .get(`simulated-tests/${simulatedTestId}/sessions`, { searchParams })
       .json<FetchingData<PagedData<SimulatedTestSessionsHistory>>>()
   ).data;
+};
+
+export const getQuestionTypeAccuracy = async (skill: EnumSkill) => {
+  const searchParams = generateSearchParams({ skill });
+  return (
+    await api
+      .get(`question-types/accuracy`, { searchParams })
+      .json<FetchingData<QuestionTypeAccuracy[]>>()
+  ).data;
+};
+
+export const getSessionProgress = async (skill: EnumSkill, from?: string, to?: string) => {
+  const searchParams = generateSearchParams({ skill, from, to });
+  const result = (
+    await api.get(`sessions/progress`, { searchParams }).json<FetchingData<SessionProgress[]>>()
+  ).data;
+
+  return result.map((item) => ({
+    ...item,
+    createdAt: format(item.createdAt, "dd/MM/yyyy"),
+  }));
 };
