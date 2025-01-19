@@ -1,10 +1,16 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 
 import { EnumRole } from "@/lib/enums";
 import { Image } from "@/lib/types";
 import { getAccountIdentifier } from "@/services";
-import { getUserProfile, updateUserPassword, updateUserProfile } from "@/services/user";
+import {
+  getUserProfile,
+  getUserTransactionDetail,
+  getUserTransactionsHistory,
+  updateUserPassword,
+  updateUserProfile,
+} from "@/services/user";
 
 import { useToast } from "../use-toast";
 
@@ -99,5 +105,21 @@ export const useUpdateUserPassword = () => {
         variant: "destructive",
       });
     },
+  });
+};
+
+export const useGetUserTransactionHistory = (offset: number, limit: number) => {
+  return useQuery({
+    queryKey: ["transactions"],
+    queryFn: async () => getUserTransactionsHistory({ offset, limit }),
+    placeholderData: keepPreviousData,
+  });
+};
+
+export const useGetUserTransactionDetail = (transactionId: number, enabled = false) => {
+  return useQuery({
+    queryKey: ["transaction", transactionId],
+    queryFn: async () => getUserTransactionDetail(transactionId),
+    enabled,
   });
 };
