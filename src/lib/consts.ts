@@ -1,7 +1,9 @@
+import BillCarrots from "@/assets/billCarrots.svg";
 import icons from "@/assets/icons";
 
 import {
   EnumBandScore,
+  EnumItemShop,
   EnumQuestionGroup,
   EnumSkill,
   EnumSpeakingCriteria,
@@ -174,6 +176,8 @@ import ReadingIcon from "@/assets/icons/skills/reading";
 import SpeakingIcon from "@/assets/icons/skills/speaking";
 import WritingIcon from "@/assets/icons/skills/writing";
 
+import { ItemSubscription } from "./types/shop.type";
+
 export const MAPPED_SKILL_ICON: Record<EnumSkill, React.FC<React.SVGProps<SVGSVGElement>>> = {
   [EnumSkill.reading]: ReadingIcon,
   [EnumSkill.listening]: ListeningIcon,
@@ -227,3 +231,18 @@ export const ALL_SKILLS_LIST = [
   },
   ...SKILLS_LIST,
 ];
+
+const carrotSubscription: ItemSubscription = {
+  id: "subscription",
+  name: EnumItemShop.SUBSCRIPTION,
+  price: { 100: 10000, 450: 45000, 900: 90000 },
+  image: {
+    name: "Bill Carrots",
+    url: BillCarrots,
+  },
+  description: "Buy bill to get more time",
+  popular: "1",
+  isPopular: false,
+};
+
+export { carrotSubscription };

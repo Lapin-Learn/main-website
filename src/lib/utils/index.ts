@@ -231,3 +231,7 @@ export function convertMissionNameCategory(item: IMission) {
       });
   }
 }
+
+export function formatVNDCurrency(value: number) {
+  return "đ " + value.toLocaleString();
+}

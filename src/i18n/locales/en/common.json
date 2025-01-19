@@ -23,6 +23,7 @@
     "navigation": {
         "practice": "Practice",
         "mission": "Mission",
+        "shop": "Shop",
         "simulatedTest": "Simulated test",
         "result": "Result",
         "contentEditor": "Content editor"

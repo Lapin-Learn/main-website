@@ -1,7 +1,9 @@
+import { useNavigate } from "@tanstack/react-router";
 import { ChevronLeft, Edit, Menu } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import Icons from "@/assets/icons";
 import PracticeIcon from "@/assets/icons/practice";
 import AppIcon from "@/assets/images/app.jpg";
 import Logo from "@/assets/logo.svg";
@@ -17,15 +19,23 @@ import { SideBarProfile } from "./side-bar-profile";
 const features: SideBarFeatureProps[] = [
   {
     to: "/practice",
-    icon: <PracticeIcon />,
+    icon: <PracticeIcon fill="#929292" color="#929292" />,
+    activeIcon: <PracticeIcon fill="#c2410c" color="#c2410c" />,
     label: "practice",
+  },
+  {
+    to: "/shop",
+    icon: <Icons.Store fill="#929292" color="#929292" />,
+    activeIcon: <Icons.Store fill="#c2410c" color="#c2410c" />,
+    label: "shop",
   },
 ];
 
 const adminFeatures: SideBarFeatureProps[] = [
   {
     to: "/content-editor",
-    icon: <Edit fillOpacity={0} />,
+    icon: <Edit fillOpacity={0} fill="#929292" color="#929292" />,
+    activeIcon: <Edit fill="#c2410c" color="#c2410c" />,
     label: "contentEditor",
   },
 ];
@@ -35,16 +45,26 @@ export default function SideBar() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const { checkRole } = useAccountIdentifier();
   const { t, i18n } = useTranslation("common");
+  const navigate = useNavigate();
 
   const toggleLanguage = () => {
     setLanguage(language === "en" ? "vi" : "en");
     i18n.changeLanguage(language === "en" ? "vi" : "en");
   };
 
+  const handleNavigateHome = () => {
+    navigate({ to: "/" });
+  };
+
   return (
     <>
       <div className="fixed flex w-full items-center justify-between bg-white p-4 pt-8 sm:hidden">
-        <img src={Logo} alt="App Logo" className="h-6" />
+        <img
+          src={Logo}
+          alt="App Logo"
+          className="h-6 cursor-pointer"
+          onClick={handleNavigateHome}
+        />
         <button onClick={() => setSidebarOpen((prev) => !prev)} aria-label="Open Sidebar">
           <Menu size={24} />
         </button>
@@ -68,10 +88,11 @@ export default function SideBar() {
                 <img
                   src={isSidebarOpen ? Logo : AppIcon}
                   className={cn(
-                    "hidden h-6 transition-transform duration-300 ease-in-out sm:flex",
+                    "hidden h-6 transition-transform duration-300 ease-in-out sm:flex cursor-pointer",
                     isSidebarOpen ? "pl-4" : "h-10 rounded-md"
                   )}
                   alt="App Logo"
+                  onClick={handleNavigateHome}
                 />
 
                 <button
@@ -96,7 +117,9 @@ export default function SideBar() {
               </ul>
             </div>
             <div>
-              <div className="flex items-center justify-between px-2">
+              <div
+                className={cn("flex items-center justify-between px-2", !isSidebarOpen && "hidden")}
+              >
                 <div className="flex flex-col justify-center gap-1">
                   <p className="text-xs text-neutral-400">{t("language.title")}</p>
                   <p className="text-sm">{t(`language.${language}`)}</p>
