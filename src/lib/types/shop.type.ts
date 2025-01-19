@@ -24,21 +24,6 @@ export type Item = {
   inUseQuantity: number;
 };
 
-export type ItemSubscription = {
-  id: string;
-  name: EnumItemShop;
-  description: string;
-  price: {
-    [key: string]: number;
-  };
-  image: {
-    name: string;
-    url: string;
-  };
-  popular: string;
-  isPopular: boolean;
-};
-
 export type Inventory = Pick<Item, "quantity" | "expAt"> & Omit<Shop, "popular" | "isPopular">;
 
 export type RandomGift = {

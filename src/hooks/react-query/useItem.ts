@@ -8,8 +8,8 @@ import { gamificationKeys } from "./useGamification";
 
 export const itemKeys = {
   key: ["item"] as const,
-  shop: () => [itemKeys.key, "shop"] as const,
-  inventory: () => [itemKeys.key, "inventory"] as const,
+  shop: () => [...itemKeys.key, "shop"] as const,
+  inventory: () => [...itemKeys.key, "inventory"] as const,
 };
 
 export const useShop = () => {

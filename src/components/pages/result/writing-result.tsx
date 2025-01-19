@@ -1,15 +1,28 @@
+import { ItemPricingPlans } from "@components/molecules/item-pricing-plans.tsx";
+import { useGetGamificationProfile } from "@hooks/react-query/useGamification.ts";
+import { CheckIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import CarrotBasket from "@/assets/carrotBasket.svg";
 import icons from "@/assets/icons";
 import CriteriaScoreCard from "@/components/molecules/criteria-score-card";
 import { SkillEvaluationChart } from "@/components/organisms/skill-evaluation-chart";
 import WritingSubmission from "@/components/organisms/writing-submission";
-import { Typography } from "@/components/ui";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Separator,
+  Typography,
+} from "@/components/ui";
 import { useGetSimulatedTestDetail } from "@/hooks/react-query/use-simulated-test";
-import { MAPPED_WRITING_CRITERIA_TITLES } from "@/lib/consts";
+import { carrotSubscription, MAPPED_WRITING_CRITERIA_TITLES } from "@/lib/consts";
 import { EnumSimulatedTestSessionStatus, EnumSkill, EnumSpeakingCriteria } from "@/lib/enums";
 import { WritingSession } from "@/lib/types/simulated-test-session.type";
-import { formatTime } from "@/lib/utils";
+import { cn, formatTime } from "@/lib/utils";
 
 type WritingResultProps = {
   session: WritingSession;
@@ -17,8 +30,10 @@ type WritingResultProps = {
 
 function WritingResult({ session }: WritingResultProps) {
   const { data: stData } = useGetSimulatedTestDetail(session.skillTest.simulatedIeltsTest.id);
+  const { data: profile } = useGetGamificationProfile();
   const isFullParts = session.responses.length == 2;
-  const { t } = useTranslation("simulatedTest");
+  const isAffordable = (profile?.carrots || 0) >= 100;
+  const { t } = useTranslation(["simulatedTest", "subscription"]);
 
   // Get part types: Line graph, Pie chart, etc.
   const partDetails =
@@ -33,15 +48,53 @@ function WritingResult({ session }: WritingResultProps) {
       ) : (
         <EvaluationSection session={session} />
       )}
-      <WritingSubmission
-        userSubmissions={session.responses}
-        skillTestId={session.skillTest.id}
-        partDetails={partDetails}
-        evaluationResults={session.results}
-        rootComponent={isFullParts ? "accordion" : "card"}
-        finishedOn={session.updatedAt}
-        timeSpent={formatTime(session.elapsedTime)}
-      />
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-6 md:gap-8">
+        <div className={cn("flex gap-4 pb-0", !session.results ? "col-span-4" : "col-span-full")}>
+          <WritingSubmission
+            userSubmissions={session.responses}
+            skillTestId={session.skillTest.id}
+            partDetails={partDetails}
+            evaluationResults={session.results}
+            rootComponent={isFullParts ? "accordion" : "card"}
+            finishedOn={session.updatedAt}
+            timeSpent={formatTime(session.elapsedTime)}
+          />
+        </div>
+        {!session.results && (
+          <Card className="col-span-2 h-fit border-none bg-gradient-to-b from-[#FCE3B4] px-6 shadow-none">
+            <CardHeader className="px-0">
+              <CardTitle className="text-primary-700">
+                {t("evaluation", { ns: "subscription" })}
+              </CardTitle>
+              <CardDescription>{t("description", { ns: "subscription" })}</CardDescription>
+            </CardHeader>
+            <Separator />
+            <CardContent className="mt-6 px-0">
+              {!isAffordable ? (
+                <div className="flex flex-col items-center justify-center gap-4">
+                  <img src={CarrotBasket} alt="carrot-basket" />
+                  <Typography variant="body2">Ban dang co: {profile?.carrots} </Typography>
+                  <Button className="w-full">{t("evaluateNow", { ns: "subscription" })}</Button>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-4">
+                  {["features.criteria", "features.price"].map((key) => (
+                    <div key={key} className="flex gap-2">
+                      <div className="flex size-5 items-center justify-center rounded-full bg-primary p-1">
+                        <CheckIcon color="white" />
+                      </div>
+                      <Typography variant="body2">{t(key, { ns: "subscription" })}</Typography>
+                    </div>
+                  ))}
+                  <div className="flex w-full flex-wrap justify-center gap-4">
+                    <ItemPricingPlans item={carrotSubscription} />
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
+      </div>
     </div>
   );
 }

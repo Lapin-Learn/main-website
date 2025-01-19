@@ -8,19 +8,17 @@ import {
 } from "@/components/ui/accordion";
 import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
 import { EnumSkill } from "@/lib/enums";
-import type {
-  STCriteriaEvaluation,
-  SimulatedTestAnswer as WritingSubmission,
-} from "@/lib/types/simulated-test.type";
+import type { SimulatedTestAnswer, STCriteriaEvaluation } from "@/lib/types/simulated-test.type";
+import { cn } from "@/lib/utils";
 
 import WritingQuestionCard from "../molecules/writing-question-card";
-import { Button, Separator, Typography } from "../ui";
+import { Separator, Typography } from "../ui";
 import { Skeleton } from "../ui/skeleton";
 import CriteriaScoreList from "./criteria-score-list";
 
 type WritingSubmissionProps = {
   evaluationResults?: STCriteriaEvaluation[];
-  userSubmissions: WritingSubmission[];
+  userSubmissions: SimulatedTestAnswer[];
   skillTestId: number;
   partDetails: string[][];
   rootComponent?: "card" | "accordion";
@@ -78,7 +76,12 @@ function WritingSubmission(props: WritingSubmissionProps) {
   }
 
   return (
-    <Accordion type="single" collapsible className="flex flex-col gap-4">
+    <Accordion
+      type="single"
+      collapsible
+      className="flex w-full flex-col gap-4"
+      defaultValue={!evaluationResults ? "0" : undefined}
+    >
       {userSubmissions.map((submission, index) => {
         const partDetail =
           submission.questionNo <= partDetails.length
@@ -86,7 +89,7 @@ function WritingSubmission(props: WritingSubmissionProps) {
             : [""];
         return (
           <AccordionItem
-            value={submission.questionNo.toString()}
+            value={index.toString()}
             key={index}
             className="flex flex-col gap-4 rounded-xl border-none bg-white p-5"
           >
@@ -112,7 +115,7 @@ function WritingSubmission(props: WritingSubmissionProps) {
 }
 
 type SubmissionContentProps = {
-  submission: WritingSubmission;
+  submission: SimulatedTestAnswer;
   skillTestId: number;
   partDetail: string[];
   evaluationResult?: STCriteriaEvaluation;
@@ -125,7 +128,12 @@ function SubmissionContent(props: SubmissionContentProps) {
 
   return (
     <div className="grid grid-cols-1 gap-2 md:grid-cols-6 md:gap-8">
-      <div className="col-span-4 flex flex-col gap-4 pb-0">
+      <div
+        className={cn(
+          "flex flex-col gap-4 pb-0",
+          evaluationResult ? "col-span-4" : "col-span-full"
+        )}
+      >
         {isLoading || !data ? (
           <Skeleton className="h-40 w-full" />
         ) : (
@@ -145,15 +153,15 @@ function SubmissionContent(props: SubmissionContentProps) {
           />
         )}
       </div>
-      {evaluationResult ? (
+      {evaluationResult && (
         <CriteriaScoreList evaluationResult={evaluationResult} skill={EnumSkill.writing} />
-      ) : (
-        <div className="col-span-2 grid h-full place-items-center content-center gap-2 text-muted-foreground">
-          <Typography className="italic">Not evaluated yet</Typography>
-          <Button variant="secondary" size="sm">
-            Evaluate now
-          </Button>
-        </div>
+        // ) : (
+        //   <div className="col-span-2 grid h-full place-items-center content-center gap-2 text-muted-foreground">
+        //     <Typography className="italic">Not evaluated yet</Typography>
+        //     <Button variant="secondary" size="sm">
+        //       Evaluate now
+        //     </Button>
+        //   </div>
       )}
     </div>
   );

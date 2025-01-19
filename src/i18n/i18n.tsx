@@ -11,6 +11,7 @@ import practiceEn from "./locales/en/practice.json";
 import profileEn from "./locales/en/profile.json";
 import shopEn from "./locales/en/shop.json";
 import simulatedTestEn from "./locales/en/simulated-test.json";
+import subscriptionEn from "./locales/en/subscription.json";
 import successEn from "./locales/en/success.json";
 import authVi from "./locales/vi/auth.json";
 import collectionVi from "./locales/vi/collection.json";
@@ -21,6 +22,7 @@ import practiceVi from "./locales/vi/practice.json";
 import profileVi from "./locales/vi/profile.json";
 import shopVi from "./locales/vi/shop.json";
 import simulatedTestVi from "./locales/vi/simulated-test.json";
+import subscriptionVi from "./locales/vi/subscription.json";
 import successVi from "./locales/vi/success.json";
 
 const resources = {
@@ -33,6 +35,7 @@ const resources = {
 
     profile: profileEn,
     gamification: gamificationEn,
+    subscription: subscriptionEn,
 
     simulatedTest: simulatedTestEn,
     collection: collectionEn,
@@ -50,6 +53,7 @@ const resources = {
 
     profile: profileVi,
     gamification: gamificationVi,
+    subscription: subscriptionVi,
 
     simulatedTest: simulatedTestVi,
     collection: collectionVi,

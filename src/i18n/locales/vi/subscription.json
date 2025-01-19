@@ -1,0 +1,9 @@
+{
+    "evaluation": "Đánh giá",
+    "description": "Nhận đánh giá chi tiết cho từng kỹ năng",
+    "evaluateNow": "Đánh giá ngay với 100 cà rốt",
+    "features": {
+        "criteria": "Nhận xét chi tiết sẽ bao gồm đánh giá theo từng tiêu chí cụ thể của kỹ năng cùng band điểm dự kiến",
+        "price": "Mỗi lượt chấm bài sẽ tương ứng với 100 điểm cà rốt mà bạn có"
+    }
+}
