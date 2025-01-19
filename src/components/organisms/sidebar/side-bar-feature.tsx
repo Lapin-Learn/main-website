@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 export interface SideBarFeatureProps {
   to: string;
   icon: React.ReactNode;
+  activeIcon: React.ReactNode;
   label: string;
   child?: SideBarFeatureProps[];
 }
@@ -19,7 +20,7 @@ export const SideBarFeature = (props: {
   isChild?: boolean;
 }) => {
   const { feature, isExpanded, isChild = false } = props;
-  const { to, icon, label } = feature;
+  const { to, icon, activeIcon, label } = feature;
   const { t } = useTranslation();
   const location = useLocation();
 
@@ -57,16 +58,7 @@ export const SideBarFeature = (props: {
               >
                 <div className="relative h-full w-8 items-center justify-center">
                   <div className="flex h-full flex-1 items-center justify-center">
-                    {
-                      <>
-                        {React.cloneElement(
-                          icon as React.ReactElement,
-                          isActive
-                            ? { fill: "#c2410c", color: "#c2410c" }
-                            : { fill: "#929292", color: "#929292" }
-                        )}
-                      </>
-                    }
+                    {React.cloneElement((isActive ? activeIcon : icon) as React.ReactElement)}
                   </div>
                 </div>
 

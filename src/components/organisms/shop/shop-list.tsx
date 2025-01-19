@@ -1,7 +1,7 @@
-import { ShoppingBag, Store } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import Icons from "@/assets/icons";
 import InventoryEmpty from "@/assets/icons/item/inventory-empty";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useInventory, useShop } from "@/hooks/react-query/useItem";
@@ -13,11 +13,13 @@ import { ShopCard } from "./shop-card";
 const ItemListMapping = {
   shop: {
     title: "shop.title",
-    Icon: Store,
+    Icon: <Icons.Store fill="#B4B4B4" height={20} width={20} />,
+    ActiveIcon: <Icons.Store height={20} width={20} />,
   },
   inventory: {
     title: "inventory.title",
-    Icon: ShoppingBag,
+    Icon: <Icons.ShoppingBag fill="#B4B4B4" height={20} width={20} />,
+    ActiveIcon: <Icons.ShoppingBag fill="#A9421C" height={20} width={20} />,
   },
 };
 
@@ -45,18 +47,18 @@ const ShopList = () => {
       className="w-full items-center justify-center space-y-6"
     >
       <TabsList className="flex w-full flex-row items-center justify-center border-b-0 border-neutral-100">
-        {Object.entries(ItemListMapping).map(([key, { title, Icon }]) => (
+        {Object.entries(ItemListMapping).map(([key, { title, Icon, ActiveIcon }]) => (
           <TabsTrigger
             key={key}
             value={key}
             className={cn(
-              "text-small font-medium gap-3 border-b",
+              "text-base font-medium gap-3 border-b",
               activeTab === key
                 ? "text-primary-700 border-b-primary-700"
                 : "text-neutral-200 border-b-neutral-200"
             )}
           >
-            <Icon className="inline-block size-4" />
+            {activeTab === key ? ActiveIcon : Icon}
             {t(title)}
           </TabsTrigger>
         ))}

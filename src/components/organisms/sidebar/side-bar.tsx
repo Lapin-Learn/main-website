@@ -1,8 +1,9 @@
 import { useNavigate } from "@tanstack/react-router";
-import { ChevronLeft, Edit, Menu, Store } from "lucide-react";
+import { ChevronLeft, Edit, Menu } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import Icons from "@/assets/icons";
 import PracticeIcon from "@/assets/icons/practice";
 import AppIcon from "@/assets/images/app.jpg";
 import Logo from "@/assets/logo.svg";
@@ -18,12 +19,14 @@ import { SideBarProfile } from "./side-bar-profile";
 const features: SideBarFeatureProps[] = [
   {
     to: "/practice",
-    icon: <PracticeIcon />,
+    icon: <PracticeIcon fill="#929292" color="#929292" />,
+    activeIcon: <PracticeIcon fill="#c2410c" color="#c2410c" />,
     label: "practice",
   },
   {
     to: "/shop",
-    icon: <Store />,
+    icon: <Icons.Store fill="#929292" color="#929292" />,
+    activeIcon: <Icons.Store fill="#c2410c" color="#c2410c" />,
     label: "shop",
   },
 ];
@@ -31,7 +34,8 @@ const features: SideBarFeatureProps[] = [
 const adminFeatures: SideBarFeatureProps[] = [
   {
     to: "/content-editor",
-    icon: <Edit fillOpacity={0} />,
+    icon: <Edit fillOpacity={0} fill="#929292" color="#929292" />,
+    activeIcon: <Edit fill="#c2410c" color="#c2410c" />,
     label: "contentEditor",
   },
 ];
