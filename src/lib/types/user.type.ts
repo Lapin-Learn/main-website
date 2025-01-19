@@ -47,3 +47,47 @@ export type UserProfile = {
   avatarId: string | null;
   avatar?: Image;
 };
+
+export type PayOsTransaction = {
+  id: string;
+  amount: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type TransactionHistory = {
+  id: number;
+  accountId: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  payosTransaction?: PayOsTransaction;
+};
+
+export type Transaction = {
+  accountNumber: string;
+  amount: number;
+  counterAccountBankId: string | null;
+  counterAccountBankName: string;
+  counterAccountName: string;
+  counterAccountNumber: string;
+  description: string;
+  reference: string;
+  transactionDateTime: string;
+  virtualAccountName: string;
+  virtualAccountNumber: string;
+};
+
+export type Order = {
+  id: string;
+  orderCode: number;
+  amount: number;
+  amountPaid: number;
+  amountRemaining: number;
+  status: string;
+  createdAt: string;
+  transactions: Transaction[];
+  canceledAt: string | null;
+  cancellationReason: string | null;
+};

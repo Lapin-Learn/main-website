@@ -3,6 +3,7 @@
     "tab_profile": "Thông tin cá nhân",
     "tab_changePassword": "Đổi mật khẩu",
     "tab_history": "Lịch sử học tập",
+    "tab_transactions": "Lịch sử giao dịch",
     "saveBtn": "Lưu thay đổi",
     "formProfile": {
         "username": {
@@ -51,5 +52,14 @@
             "accuracy": "Độ chính xác theo loại câu hỏi"
         },
         "simulated_test_history": "Lịch sử luyện thi"
+    },
+    "transaction": {
+        "title": "Lịch sử giao dịch",
+        "list": "Danh sách giao dịch",
+        "name": "Tên giao dịch",
+        "time": "Thời gian",
+        "amount": "Giá trị",
+        "status": "Trạng thái",
+        "noTransaction": "Không có giao dịch nào"
     }
 }

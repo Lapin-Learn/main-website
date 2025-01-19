@@ -3,6 +3,7 @@
     "tab_profile": "Personal information",
     "tab_changePassword": "Change password",
     "tab_history": "Learning history",
+    "tab_transactions": "Transaction history",
     "saveBtn": "Save changes",
     "formProfile": {
         "username": {
@@ -51,5 +52,14 @@
             "accuracy": "Accuracy by Question types"
         },
         "simulated_test_history": "Simulated test history"
+    },
+    "transaction": {
+        "title": "Transaction history",
+        "list": "Transaction list",
+        "name": "Transaction name",
+        "time": "Time",
+        "amount": "Amount",
+        "status": "Status",
+        "noTransaction": "No transaction found"
     }
 }
