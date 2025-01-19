@@ -63,19 +63,29 @@ const ShopList = () => {
           </TabsTrigger>
         ))}
       </TabsList>
-      <TabsContent value="shop" className="grid grid-cols-4 space-x-5">
+      <TabsContent
+        value="shop"
+        className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+      >
         {mergedData?.map((item) => <ShopCard key={item.id} item={item} />)}
       </TabsContent>
-      {inventory?.length === 0 ? (
-        <div className="flex w-full flex-col items-center justify-center space-y-6">
-          <InventoryEmpty />
-          <p className="text-wrap text-center text-body font-semibold">{t("inventory.empty")}</p>
-        </div>
-      ) : (
-        <TabsContent value="inventory" className="grid grid-cols-4 space-x-5">
-          {inventory?.map((item) => <ShopCard key={item.id} item={item} />)}
-        </TabsContent>
-      )}
+      <TabsContent
+        value="inventory"
+        className={cn(
+          inventory?.length === 0
+            ? "flex flex-row items-center justify-center space-y-6"
+            : "place-content-center grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"
+        )}
+      >
+        {inventory?.length === 0 ? (
+          <div className="flex flex-col items-center justify-center space-y-6">
+            <InventoryEmpty />
+            <p className="text-wrap text-center text-body font-semibold">{t("inventory.empty")}</p>
+          </div>
+        ) : (
+          inventory?.map((item) => <ShopCard key={item.id} item={item} />)
+        )}
+      </TabsContent>
     </Tabs>
   );
 };

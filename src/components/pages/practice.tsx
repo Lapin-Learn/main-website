@@ -1,4 +1,4 @@
-import HeroImage from "@/assets/images/hero-image.jpg";
+import HeroImage from "@/assets/images/hero-image.webp";
 
 import { CollectionList } from "../organisms/collection-list";
 import DashboardLayout from "../templates/dashboard-layout";

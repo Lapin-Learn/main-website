@@ -1,4 +1,4 @@
-import HeroImageShop from "@/assets/images/hero-image-shop.jpg";
+import HeroImageShop from "@/assets/images/hero-image-shop.webp";
 import { ShopList } from "@/components/organisms/shop/shop-list";
 import DashboardLayout from "@/components/templates/dashboard-layout";
 

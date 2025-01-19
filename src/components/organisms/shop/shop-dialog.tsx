@@ -71,7 +71,7 @@ const ShopDialog = ({ item, triggerContent }: ItemDialogProps) => {
     <Dialog>
       <DialogTrigger asChild>{triggerContent}</DialogTrigger>
 
-      <DialogContent className="w-full max-w-[720px]">
+      <DialogContent className="w-fit rounded-md md:w-full md:max-w-[720px]">
         <DialogHeader className="flex flex-col space-y-1.5">
           <DialogTitle>
             <p className="text-heading-4 font-bold">{t(`shop.items.${item.name}.name`)}</p>
@@ -101,21 +101,21 @@ const ShopDialog = ({ item, triggerContent }: ItemDialogProps) => {
             </Card>
           ) : (
             Object.entries(item.price).map(([key, value]) => (
-              <Card className="flex aspect-square w-fit min-w-44 flex-col" key={item.id}>
+              <Card className="flex aspect-square w-fit flex-col md:min-w-44" key={item.id}>
                 <Button
                   key={item.id}
                   variant="ghost"
-                  className="relative flex size-full flex-col items-center justify-between space-y-2 p-4 pb-3 hover:cursor-pointer"
+                  className="relative flex size-full flex-col items-center justify-center space-y-2 p-4 pb-3 hover:cursor-pointer md:justify-between"
                   onClick={() => handleBuyItem({ quantity: parseInt(key) })}
                   disabled={buyItem.isPending}
                 >
                   {String(key) === item.popular && <PopularTag />}
 
-                  <div className="size-20">
+                  <div className="hidden size-20 md:flex">
                     <img
                       src={item.image.url}
                       alt={item.name}
-                      className="size-20 object-scale-down"
+                      className="size-full object-scale-down"
                     />
                   </div>
                   <div className="flex w-full flex-col text-center">
