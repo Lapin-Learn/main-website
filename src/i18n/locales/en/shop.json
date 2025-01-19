@@ -35,7 +35,7 @@
       "no_thank": "No, Thank You"
     },
     "buy_success": "You have bought {{quantity}} {{name}}",
-    "buy_error": "You don't have enough carrots to buy {{name}}",
+    "buy_error": "You don't have enough carrots to buy",
     "use_modal": {
       "description": "Use <color>{{quantity}} {{name}}</color> to {{description, lowercase}}!",
       "amount": "You have: {{amount}} {{name}}",

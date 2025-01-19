@@ -1,5 +1,5 @@
+import BillCarrots from "@/assets/billCarrots.svg";
 import icons from "@/assets/icons";
-import BillCarrots from "@/assets/images/bill-carrots.jpg";
 
 import {
   EnumBandScore,

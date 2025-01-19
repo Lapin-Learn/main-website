@@ -22,11 +22,20 @@ export const useShop = () => {
 
 export const useBuyShopItem = () => {
   const client = useQueryClient();
+  const { toast } = useToast();
+  const { t } = useTranslation("shop");
   return useMutation({
     mutationFn: buyItem,
     onSuccess: () => {
       client.invalidateQueries({ queryKey: itemKeys.inventory() });
       client.invalidateQueries({ queryKey: gamificationKeys.gamificationProfile });
+    },
+    onError: () => {
+      toast({
+        title: t("error", { ns: "common" }),
+        description: t("shop.buy_error"),
+        variant: "destructive",
+      });
     },
   });
 };

@@ -113,7 +113,9 @@ export default function SideBar() {
               </ul>
             </div>
             <div>
-              <div className="hidden items-center justify-between px-2">
+              <div
+                className={cn("flex items-center justify-between px-2", !isSidebarOpen && "hidden")}
+              >
                 <div className="flex flex-col justify-center gap-1">
                   <p className="text-xs text-neutral-400">{t("language.title")}</p>
                   <p className="text-sm">{t(`language.${language}`)}</p>

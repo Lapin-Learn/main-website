@@ -36,7 +36,7 @@
       "no_thank": "Không, cảm ơn"
     },
     "buy_success": "Bạn đã mua {{quantity}} vật phẩm {{name}}",
-    "buy_error": "Bạn không có đủ cà rốt để mua {{name}}",
+    "buy_error": "Bạn không có đủ cà rốt để mua",
     "use_modal": {
       "description": "Dùng <color>{{quantity}} {{name}}</color> để {{description, lowercase}}!",
       "amount": "Bạn đang có: {{amount}} {{name}}",

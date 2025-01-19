@@ -35,22 +35,14 @@ const ShopDialog = ({ item, triggerContent }: ItemDialogProps) => {
     useItem.mutate(
       { itemId: item.id },
       {
-        onSuccess: (response) => {
-          if ("message" in response) {
-            toast({
-              title: t("error", { ns: "common" }),
-              description: t("inventory.notSupport"),
-              variant: "destructive",
-            });
-          } else {
-            toast({
-              title: t("success", { ns: "common" }),
-              description: t("shop.use_success", {
-                name: t(`shop.items.${item.name}.name`),
-                quantity: 1,
-              }),
-            });
-          }
+        onSuccess: () => {
+          toast({
+            title: t("success", { ns: "common" }),
+            description: t("shop.use_success", {
+              name: t(`shop.items.${item.name}.name`),
+              quantity: 1,
+            }),
+          });
         },
       }
     );
@@ -62,22 +54,14 @@ const ShopDialog = ({ item, triggerContent }: ItemDialogProps) => {
         quantity: quantity,
       },
       {
-        onSuccess: (response) => {
-          if ("message" in response) {
-            toast({
-              title: t("error", { ns: "common" }),
-              description: t("shop.buy_error"),
-              variant: "destructive",
-            });
-          } else {
-            toast({
-              title: t("success", { ns: "common" }),
-              description: t("shop.buy_success", {
-                name: t(`shop.items.${item.name}.name`),
-                quantity: quantity,
-              }),
-            });
-          }
+        onSuccess: () => {
+          toast({
+            title: t("success", { ns: "common" }),
+            description: t("shop.buy_success", {
+              name: t(`shop.items.${item.name}.name`),
+              quantity: quantity,
+            }),
+          });
         },
       }
     );

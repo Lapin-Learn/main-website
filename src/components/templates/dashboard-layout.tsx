@@ -30,7 +30,7 @@ export default function DashboardLayout({ heroImage, children }: DashboardLayout
   const dailyMissions = missionData?.filter((item) => item.interval === "daily") || [];
   const monthlyMissions = missionData?.filter((item) => item.interval === "monthly") || [];
 
-  if (isFetchingMissionData || isFetchingGamificationProfileData) {
+  if (isFetchingMissionData) {
     return <div className="size-screen grid place-items-center">Loading...</div>;
   }
 
@@ -41,21 +41,31 @@ export default function DashboardLayout({ heroImage, children }: DashboardLayout
         {children}
       </div>
       <div className="col-span-4 flex flex-col gap-6 pt-8 md:sticky md:top-8">
-        <TrackBar data={gamificationProfile} />
-        <StreakSection />
-        {dailyMissions?.length > 0 && (
-          <MissionSection
-            title={t("mission.types.daily")}
-            timeRemaining={remainingDailyTime.timeLeft}
-            missions={dailyMissions}
-          />
+        {isFetchingGamificationProfileData ? (
+          <div className="size-screen grid place-items-center">Loading...</div>
+        ) : (
+          <TrackBar data={gamificationProfile} />
         )}
-        {monthlyMissions?.length > 0 && (
-          <MissionSection
-            title={t("mission.types.monthly")}
-            timeRemaining={remainingMonthlyTime.timeLeft}
-            missions={monthlyMissions}
-          />
+        <StreakSection />
+        {isFetchingMissionData ? (
+          <div className="size-screen grid place-items-center">Loading...</div>
+        ) : (
+          <>
+            {dailyMissions?.length > 0 && (
+              <MissionSection
+                title={t("mission.types.daily")}
+                timeRemaining={remainingDailyTime.timeLeft}
+                missions={dailyMissions}
+              />
+            )}
+            {monthlyMissions?.length > 0 && (
+              <MissionSection
+                title={t("mission.types.monthly")}
+                timeRemaining={remainingMonthlyTime.timeLeft}
+                missions={monthlyMissions}
+              />
+            )}
+          </>
         )}
       </div>
     </div>
