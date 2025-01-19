@@ -48,6 +48,10 @@ export default function SideBar() {
     i18n.changeLanguage(language === "en" ? "vi" : "en");
   };
 
+  const handleNavigateHome = () => {
+    navigate({ to: "/" });
+  };
+
   return (
     <>
       <div className="fixed flex w-full items-center justify-between bg-white p-4 pt-8 sm:hidden">
@@ -55,7 +59,7 @@ export default function SideBar() {
           src={Logo}
           alt="App Logo"
           className="h-6 cursor-pointer"
-          onClick={() => navigate({ to: "/" })}
+          onClick={handleNavigateHome}
         />
         <button onClick={() => setSidebarOpen((prev) => !prev)} aria-label="Open Sidebar">
           <Menu size={24} />
@@ -84,7 +88,7 @@ export default function SideBar() {
                     isSidebarOpen ? "pl-4" : "h-10 rounded-md"
                   )}
                   alt="App Logo"
-                  onClick={() => navigate({ to: "/" })}
+                  onClick={handleNavigateHome}
                 />
 
                 <button

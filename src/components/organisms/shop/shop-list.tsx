@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import InventoryEmpty from "@/assets/icons/item/inventory-empty";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useInventory, useShop } from "@/hooks/react-query/useItem";
-import { carrotSubscription } from "@/lib/mock/mock-carrot-subscription";
+import { carrotSubscription } from "@/lib/consts";
 import { cn } from "@/lib/utils";
 
 import { ShopCard } from "./shop-card";

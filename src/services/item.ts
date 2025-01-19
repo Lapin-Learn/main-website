@@ -1,4 +1,4 @@
-import { ItemEnum } from "@/lib/enums";
+import { EnumItemShop } from "@/lib/enums";
 import { FetchingData } from "@/lib/types";
 import { Inventory, Item, Reward, Shop } from "@/lib/types/shop.type";
 
@@ -15,9 +15,7 @@ export const getShop = async () => {
 };
 
 export const buyItem = async (payload: BuyItemPayload) => {
-  const response = (
-    await api.post("inventories/buy-item", { json: payload }).json<FetchingData<Item>>()
-  ).data;
+  const response = (await api.post("shops/buy", { json: payload }).json<FetchingData<Item>>()).data;
 
   return response;
 };
@@ -36,7 +34,7 @@ export const useItem = async (payload: UseItemPayload) => {
       .put("inventories/use-item", {
         json: payload,
       })
-      .json<FetchingData<Reward | { type: ItemEnum }>>()
+      .json<FetchingData<Reward | { type: EnumItemShop }>>()
   ).data;
   return response;
 };

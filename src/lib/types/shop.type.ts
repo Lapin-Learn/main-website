@@ -1,9 +1,9 @@
-import { ItemEnum, RandomGiftTypeEnum } from "../enums";
+import { EnumItemShop, EnumRandomGiftType } from "../enums";
 import { IBucket } from "../interfaces";
 
 export type Shop = {
   id: string;
-  name: ItemEnum;
+  name: EnumItemShop;
   description: string;
   price: {
     [key: string]: number;
@@ -26,7 +26,7 @@ export type Item = {
 
 export type ItemSubscription = {
   id: string;
-  name: ItemEnum;
+  name: EnumItemShop;
   description: string;
   price: {
     [key: string]: number;
@@ -42,7 +42,7 @@ export type ItemSubscription = {
 export type Inventory = Pick<Item, "quantity" | "expAt"> & Omit<Shop, "popular" | "isPopular">;
 
 export type RandomGift = {
-  type: RandomGiftTypeEnum;
+  type: EnumRandomGiftType;
   value: number | Omit<Shop, "popular" | "isPopular">;
 };
 

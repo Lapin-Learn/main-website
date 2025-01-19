@@ -5,8 +5,10 @@ import Carrot from "@/assets/icons/carrot";
 import { Button, Card, CardContent } from "@/components/ui";
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@/components/ui/dialog";
 import { useBuyShopItem, useUseInventoryItem } from "@/hooks/react-query/useItem";
-import { ItemEnum } from "@/lib/enums";
+import { useToast } from "@/hooks/use-toast";
+import { EnumItemShop } from "@/lib/enums";
 import { Inventory, Shop } from "@/lib/types/shop.type";
+import { formatVNDCurrency } from "@/lib/utils";
 
 type ItemDialogProps = {
   item: Shop | Inventory;
@@ -25,24 +27,67 @@ const PopularTag = () => {
 
 const ShopDialog = ({ item, triggerContent }: ItemDialogProps) => {
   const { t } = useTranslation("shop");
+  const { toast } = useToast();
   const useItem = useUseInventoryItem();
   const buyItem = useBuyShopItem();
 
   const handleUseItem = () => {
-    useItem.mutate({ itemId: item.id });
+    useItem.mutate(
+      { itemId: item.id },
+      {
+        onSuccess: (response) => {
+          if ("message" in response) {
+            toast({
+              title: t("error", { ns: "common" }),
+              description: t("inventory.notSupport"),
+              variant: "destructive",
+            });
+          } else {
+            toast({
+              title: t("success", { ns: "common" }),
+              description: t("shop.use_success", {
+                name: t(`shop.items.${item.name}.name`),
+                quantity: 1,
+              }),
+            });
+          }
+        },
+      }
+    );
   };
   const handleBuyItem = ({ quantity }: { quantity: number }) => {
-    buyItem.mutate({
-      id: item.id,
-      quantity: quantity,
-    });
+    buyItem.mutate(
+      {
+        id: item.id,
+        quantity: quantity,
+      },
+      {
+        onSuccess: (response) => {
+          if ("message" in response) {
+            toast({
+              title: t("error", { ns: "common" }),
+              description: t("shop.buy_error"),
+              variant: "destructive",
+            });
+          } else {
+            toast({
+              title: t("success", { ns: "common" }),
+              description: t("shop.buy_success", {
+                name: t(`shop.items.${item.name}.name`),
+                quantity: quantity,
+              }),
+            });
+          }
+        },
+      }
+    );
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>{triggerContent}</DialogTrigger>
 
-      <DialogContent className="sm:w-fit sm:max-w-[720px]">
+      <DialogContent className="w-full max-w-[720px]">
         <DialogHeader className="flex flex-col space-y-1.5">
           <DialogTitle>
             <p className="text-heading-4 font-bold">{t(`shop.items.${item.name}.name`)}</p>
@@ -72,14 +117,13 @@ const ShopDialog = ({ item, triggerContent }: ItemDialogProps) => {
             </Card>
           ) : (
             Object.entries(item.price).map(([key, value]) => (
-              <Card
-                className="flex aspect-square w-fit min-w-44 flex-col"
-                key={item.id}
-                onClick={() => handleBuyItem({ quantity: parseInt(key) })}
-              >
-                <CardContent
+              <Card className="flex aspect-square w-fit min-w-44 flex-col" key={item.id}>
+                <Button
                   key={item.id}
+                  variant="ghost"
                   className="relative flex size-full flex-col items-center justify-between space-y-2 p-4 pb-3 hover:cursor-pointer"
+                  onClick={() => handleBuyItem({ quantity: parseInt(key) })}
+                  disabled={buyItem.isPending}
                 >
                   {String(key) === item.popular && <PopularTag />}
 
@@ -92,17 +136,16 @@ const ShopDialog = ({ item, triggerContent }: ItemDialogProps) => {
                   </div>
                   <div className="flex w-full flex-col text-center">
                     <p className="text-body font-semibold">
-                      {parseInt(key) === 1
-                        ? t("shop.price.single_pack")
-                        : t("shop.price.pack", { quantity: parseInt(key) })}
+                      {item.name === EnumItemShop.SUBSCRIPTION
+                        ? t(`shop.price.pack`, { context: "subscription", quantity: parseInt(key) })
+                        : parseInt(key) === 1
+                          ? t("shop.price.single_pack")
+                          : t("shop.price.pack", { quantity: parseInt(key) })}
                     </p>
                   </div>
                   <div className="flex flex-row items-center justify-center space-x-0.5 text-base font-bold text-[#F17D53]">
-                    {item.name === ItemEnum.SUBSCRIPTION ? (
-                      <>
-                        <p className="">đ</p>
-                        <p>{value.toLocaleString()}</p>
-                      </>
+                    {item.name === EnumItemShop.SUBSCRIPTION ? (
+                      <p>{formatVNDCurrency(value)}</p>
                     ) : (
                       <>
                         <Carrot className="size-6" />
@@ -110,7 +153,7 @@ const ShopDialog = ({ item, triggerContent }: ItemDialogProps) => {
                       </>
                     )}
                   </div>
-                </CardContent>
+                </Button>
               </Card>
             ))
           )}

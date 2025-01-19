@@ -2,8 +2,9 @@ import { useTranslation } from "react-i18next";
 
 import Carrot from "@/assets/icons/carrot";
 import { Card, CardContent } from "@/components/ui";
-import { ItemEnum } from "@/lib/enums";
+import { EnumItemShop } from "@/lib/enums";
 import { Inventory, Shop } from "@/lib/types/shop.type";
+import { formatVNDCurrency } from "@/lib/utils";
 
 import { ShopDialog } from "./shop-dialog";
 
@@ -33,11 +34,8 @@ const ShopCard = ({ item }: ItemCardProps) => {
             </div>
             {!("quantity" in item) && (
               <div className="flex flex-row items-center justify-center space-x-0.5 text-base font-bold text-[#F17D53]">
-                {item.name === ItemEnum.SUBSCRIPTION ? (
-                  <>
-                    <p className="">đ</p>
-                    <p>{Object.values(item.price)[0].toLocaleString()}</p>
-                  </>
+                {item.name === EnumItemShop.SUBSCRIPTION ? (
+                  <p>{formatVNDCurrency(Object.values(item.price)[0])}</p>
                 ) : (
                   <>
                     <Carrot className="size-6" />

@@ -27,6 +27,7 @@
     "price": {
       "popular": "Phổ biến",
       "pack": "Gói {{quantity}}",
+      "pack_subscription": "{{quantity}} cà rốt",
       "single_pack": "Gói đơn"
     },
     "buy_modal": {

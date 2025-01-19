@@ -13,11 +13,13 @@ type TrackBarProps = {
 const TrackBar = ({ data }: TrackBarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
+
   if (!data) return null;
 
   const handleNavigateToShop = () => {
-    if (location.pathname === "/shop") return;
-    navigate({ to: "/shop" });
+    if (location.pathname !== "/shop") {
+      navigate({ to: "/shop" });
+    }
   };
 
   return (
