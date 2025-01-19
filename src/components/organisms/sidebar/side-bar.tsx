@@ -50,7 +50,7 @@ export default function SideBar() {
 
   return (
     <>
-      <div className="fixed flex w-full items-center justify-between bg-white p-4 pt-8 sm:hidden">
+      <div className="sticky top-0 flex w-full items-center justify-between bg-white p-4 md:hidden md:pt-8">
         <img
           src={Logo}
           alt="App Logo"
@@ -64,11 +64,11 @@ export default function SideBar() {
 
       <aside
         className={cn(
-          "fixed h-full border-r bg-white transition-all duration-500 ease-in-out sm:static",
+          "fixed h-full border-r bg-white transition-all duration-500 ease-in-out hidden md:flex md:static",
           isSidebarOpen ? "right-0 w-[280px] sm:left-0" : "right-[-280px] w-0 sm:left-0 sm:w-fit"
         )}
       >
-        <div className={"relative flex h-full flex-col px-3 pb-4 pt-9"}>
+        <div className="relative flex h-full flex-col px-3 pb-4 pt-9">
           <nav className="flex h-screen w-full flex-col justify-between">
             <div>
               <div

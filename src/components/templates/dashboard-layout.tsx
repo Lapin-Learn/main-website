@@ -35,12 +35,12 @@ export default function DashboardLayout({ heroImage, children }: DashboardLayout
   }
 
   return (
-    <div className="flex flex-col-reverse px-8 md:grid md:grid-cols-12 md:gap-6">
+    <div className="flex flex-col-reverse px-4 md:grid md:grid-cols-12 md:gap-6 md:px-8">
       <div className="col-span-8 flex h-screen w-full flex-col justify-start gap-9 pt-8">
         <img src={heroImage} alt="hero" className="rounded-2xl object-cover" />
         {children}
       </div>
-      <div className="col-span-4 flex flex-col gap-6 pt-8 md:sticky md:top-8">
+      <div className="col-span-4 flex flex-col gap-6 pt-4 md:sticky md:top-8 md:pt-8">
         {isFetchingGamificationProfileData ? (
           <div className="size-screen grid place-items-center">Loading...</div>
         ) : (
