@@ -1,18 +1,17 @@
 import { useNavigate } from "@tanstack/react-router";
 import { ChevronLeft, Edit, Menu } from "lucide-react";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 
 import Icons from "@/assets/icons";
 import PracticeIcon from "@/assets/icons/practice";
 import AppIcon from "@/assets/images/app.jpg";
 import Logo from "@/assets/logo.svg";
-import { Switch } from "@/components/ui/switch";
 import { useAccountIdentifier } from "@/hooks/react-query/useUsers";
 import { EnumRole } from "@/lib/enums";
 import { cn } from "@/lib/utils";
 
 import { Separator } from "../../ui";
+import ChangeLanguageSwitch from "./change-language-switch";
 import { SideBarFeature, SideBarFeatureProps } from "./side-bar-feature";
 import { SideBarProfile } from "./side-bar-profile";
 
@@ -41,16 +40,9 @@ const adminFeatures: SideBarFeatureProps[] = [
 ];
 
 export default function SideBar() {
-  const [language, setLanguage] = useState(localStorage.getItem("i18nextLng") || "en");
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const { checkRole } = useAccountIdentifier();
-  const { t, i18n } = useTranslation("common");
   const navigate = useNavigate();
-
-  const toggleLanguage = () => {
-    setLanguage(language === "en" ? "vi" : "en");
-    i18n.changeLanguage(language === "en" ? "vi" : "en");
-  };
 
   const handleNavigateHome = () => {
     navigate({ to: "/" });
@@ -58,7 +50,7 @@ export default function SideBar() {
 
   return (
     <>
-      <div className="fixed flex w-full items-center justify-between bg-white p-4 pt-8 sm:hidden">
+      <div className="sticky top-0 flex w-full items-center justify-between bg-white p-4 md:hidden md:pt-8">
         <img
           src={Logo}
           alt="App Logo"
@@ -72,11 +64,11 @@ export default function SideBar() {
 
       <aside
         className={cn(
-          "fixed h-full border-r bg-white transition-all duration-500 ease-in-out sm:static",
+          "fixed h-full border-r bg-white transition-all duration-500 ease-in-out hidden md:flex md:static",
           isSidebarOpen ? "right-0 w-[280px] sm:left-0" : "right-[-280px] w-0 sm:left-0 sm:w-fit"
         )}
       >
-        <div className={"relative flex h-full flex-col px-3 pb-4 pt-9"}>
+        <div className="relative flex h-full flex-col px-3 pb-4 pt-9">
           <nav className="flex h-screen w-full flex-col justify-between">
             <div>
               <div
@@ -117,15 +109,7 @@ export default function SideBar() {
               </ul>
             </div>
             <div>
-              <div
-                className={cn("flex items-center justify-between px-2", !isSidebarOpen && "hidden")}
-              >
-                <div className="flex flex-col justify-center gap-1">
-                  <p className="text-xs text-neutral-400">{t("language.title")}</p>
-                  <p className="text-sm">{t(`language.${language}`)}</p>
-                </div>
-                <Switch checked={language === "vi"} onCheckedChange={toggleLanguage} />
-              </div>
+              <ChangeLanguageSwitch className={!isSidebarOpen ? "hidden" : ""} />
               <SideBarProfile isSidebarOpen={isSidebarOpen} />
             </div>
           </nav>
