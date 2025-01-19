@@ -29,6 +29,12 @@ const features: SideBarFeatureProps[] = [
     activeIcon: <Icons.Store fill="#c2410c" color="#c2410c" />,
     label: "shop",
   },
+  {
+    to: "/daily-lesson",
+    icon: <Icons.Book fill="#929292" color="#929292" height={20} width={20} />,
+    activeIcon: <Icons.Book fill="#c2410c" color="#c2410c" height={20} width={20} />,
+    label: "dailyLesson",
+  },
 ];
 
 const adminFeatures: SideBarFeatureProps[] = [

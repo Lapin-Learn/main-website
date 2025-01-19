@@ -1,3 +1,4 @@
+import Book from "./book";
 import InProgress from "./exam/inprogress";
 import Missions from "./missions";
 import Practice from "./practice";
@@ -17,6 +18,7 @@ import Volume from "./volume";
 import VolumeOff from "./volume-off";
 
 export default {
+  Book,
   Missions,
   Practice,
   InProgress,
