@@ -1,18 +1,17 @@
 import { useNavigate } from "@tanstack/react-router";
 import { ChevronLeft, Edit, Menu } from "lucide-react";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 
 import Icons from "@/assets/icons";
 import PracticeIcon from "@/assets/icons/practice";
 import AppIcon from "@/assets/images/app.jpg";
 import Logo from "@/assets/logo.svg";
-import { Switch } from "@/components/ui/switch";
 import { useAccountIdentifier } from "@/hooks/react-query/useUsers";
 import { EnumRole } from "@/lib/enums";
 import { cn } from "@/lib/utils";
 
 import { Separator } from "../../ui";
+import ChangeLanguageSwitch from "./change-language-switch";
 import { SideBarFeature, SideBarFeatureProps } from "./side-bar-feature";
 import { SideBarProfile } from "./side-bar-profile";
 
@@ -41,16 +40,9 @@ const adminFeatures: SideBarFeatureProps[] = [
 ];
 
 export default function SideBar() {
-  const [language, setLanguage] = useState(localStorage.getItem("i18nextLng") || "en");
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const { checkRole } = useAccountIdentifier();
-  const { t, i18n } = useTranslation("common");
   const navigate = useNavigate();
-
-  const toggleLanguage = () => {
-    setLanguage(language === "en" ? "vi" : "en");
-    i18n.changeLanguage(language === "en" ? "vi" : "en");
-  };
 
   const handleNavigateHome = () => {
     navigate({ to: "/" });
@@ -117,15 +109,7 @@ export default function SideBar() {
               </ul>
             </div>
             <div>
-              <div
-                className={cn("flex items-center justify-between px-2", !isSidebarOpen && "hidden")}
-              >
-                <div className="flex flex-col justify-center gap-1">
-                  <p className="text-xs text-neutral-400">{t("language.title")}</p>
-                  <p className="text-sm">{t(`language.${language}`)}</p>
-                </div>
-                <Switch checked={language === "vi"} onCheckedChange={toggleLanguage} />
-              </div>
+              <ChangeLanguageSwitch className={!isSidebarOpen ? "hidden" : ""} />
               <SideBarProfile isSidebarOpen={isSidebarOpen} />
             </div>
           </nav>
