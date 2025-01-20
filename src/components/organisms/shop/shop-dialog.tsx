@@ -1,6 +1,6 @@
 import { ItemPricingPlans } from "@components/molecules/item-pricing-plans.tsx";
 import { DialogTitle, DialogTrigger } from "@radix-ui/react-dialog";
-import { ReactNode } from "react";
+import { ReactNode, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button, Card, CardContent } from "@/components/ui";
@@ -18,6 +18,8 @@ const ShopDialog = ({ item, triggerContent }: ItemDialogProps) => {
   const { t } = useTranslation("shop");
   const { toast } = useToast();
   const useItem = useUseInventoryItem();
+  const [open, setOpen] = useState(false);
+  const paymentRef = useRef<HTMLIFrameElement>(null);
 
   const handleUseItem = () => {
     useItem.mutate(
@@ -37,7 +39,7 @@ const ShopDialog = ({ item, triggerContent }: ItemDialogProps) => {
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{triggerContent}</DialogTrigger>
 
       <DialogContent className="w-fit rounded-md md:w-full md:max-w-[720px]">
@@ -50,7 +52,7 @@ const ShopDialog = ({ item, triggerContent }: ItemDialogProps) => {
           </DialogTitle>
         </DialogHeader>
 
-        <div className="flex w-full items-center justify-center space-x-4">
+        <div className="flex w-full items-center justify-center gap-4">
           {"quantity" in item ? (
             <Card className="flex w-fit flex-col border-0 shadow-none" key={item.id}>
               <CardContent
@@ -69,9 +71,14 @@ const ShopDialog = ({ item, triggerContent }: ItemDialogProps) => {
               </CardContent>
             </Card>
           ) : (
-            <ItemPricingPlans item={item} />
+            <ItemPricingPlans
+              item={item}
+              closeDialog={() => setOpen(false)}
+              paymentRef={paymentRef}
+            />
           )}
         </div>
+        <iframe ref={paymentRef} className="h-80 w-full"></iframe>
         {"quantity" in item && (
           <DialogFooter className="place-self-end">
             <Button onClick={handleUseItem} disabled={useItem.isPending}>

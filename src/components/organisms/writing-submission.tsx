@@ -155,13 +155,6 @@ function SubmissionContent(props: SubmissionContentProps) {
       </div>
       {evaluationResult && (
         <CriteriaScoreList evaluationResult={evaluationResult} skill={EnumSkill.writing} />
-        // ) : (
-        //   <div className="col-span-2 grid h-full place-items-center content-center gap-2 text-muted-foreground">
-        //     <Typography className="italic">Not evaluated yet</Typography>
-        //     <Button variant="secondary" size="sm">
-        //       Evaluate now
-        //     </Button>
-        //   </div>
       )}
     </div>
   );
