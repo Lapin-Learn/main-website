@@ -4,8 +4,8 @@ import i18next from "i18next";
 import { twMerge } from "tailwind-merge";
 import { z } from "zod";
 
-import { IMission } from "@/components/organisms/mission-section/types";
 import { TimerType } from "@/hooks/zustand/use-global-timer";
+import { Mission } from "@/lib/types/mission.type";
 import { PagedData, PagingSchema } from "@/lib/types/pagination.type";
 
 import { DEFAULT_TIME_LIMIT } from "../consts";
@@ -208,7 +208,7 @@ export function formatRemainingToDateTime(targetTime: number) {
   return formatUnit(seconds, "second");
 }
 
-export function convertMissionNameCategory(item: IMission) {
+export function convertMissionNameCategory(item: Mission) {
   const { t } = i18next;
   switch (item.category) {
     case EnumMissionCategory.COMPLETE_LESSON_WITH_PERCENTAGE_SCORE:

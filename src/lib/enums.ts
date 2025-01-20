@@ -158,6 +158,21 @@ export enum EnumRandomGiftType {
   ITEM = "item",
 }
 
+export enum EnumDLContentType {
+  MULTIPLE_CHOICE = "multiple_choice",
+  FILL_IN_THE_BLANK = "fill_in_the_blank",
+  MATCHING = "matching",
+  PRONUNCIATION = "pronunciation",
+}
+
+export enum EnumMileStone {
+  DAILY_STREAK = "daily_streak",
+  LEVEL_UP = "level_up",
+  RANK_UP = "rank_up",
+  BAND_SCORE_UP = "band_score_question_type_up",
+  MISSION_COMPLETED = "mission_completed",
+}
+
 export enum EnumTransactionStatus {
   PENDING = "pending",
   CANCELLED = "cancelled",

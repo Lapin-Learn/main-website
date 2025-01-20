@@ -1,5 +1,5 @@
 import { EnumItemShop, EnumRandomGiftType } from "../enums";
-import { IBucket } from "../interfaces";
+import type { Image } from "./common.type";
 
 export type Shop = {
   id: string;
@@ -10,7 +10,7 @@ export type Shop = {
   };
   duration: number;
   imageId: string;
-  image: IBucket;
+  image: Image;
   popular: string;
   isPopular: boolean;
 };

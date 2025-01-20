@@ -4,8 +4,8 @@ import { getGamificationProfile, getMissions, getStreak } from "@/services/gamif
 
 export const gamificationKeys = {
   gamificationProfile: ["gamificationProfile"] as const,
-  streak: "streak",
-  missions: "missions",
+  streak: () => [...gamificationKeys.gamificationProfile, "streak"] as const,
+  missions: () => [...gamificationKeys.gamificationProfile, "missions"] as const,
 };
 
 export const useGetGamificationProfile = () => {
@@ -18,7 +18,7 @@ export const useGetGamificationProfile = () => {
 
 export const useGetStreakHistory = ({ startDate }: { startDate?: string }) => {
   return useQuery({
-    queryKey: [gamificationKeys.streak, startDate ?? ""],
+    queryKey: [...gamificationKeys.streak(), startDate ?? ""],
     queryFn: () => getStreak(startDate ?? ""),
     staleTime: Infinity,
     retry: 3,
@@ -26,7 +26,7 @@ export const useGetStreakHistory = ({ startDate }: { startDate?: string }) => {
 };
 export const useMissions = () => {
   return useQuery({
-    queryKey: [gamificationKeys.missions],
+    queryKey: gamificationKeys.missions(),
     queryFn: getMissions,
     staleTime: Infinity,
   });

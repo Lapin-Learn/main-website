@@ -7,8 +7,8 @@ import TooltipWrapper from "@/components/molecules/tooltip-wrapper";
 import { Progress } from "@/components/ui/progress";
 import { convertMissionNameCategory, formatRemainingToDateTime } from "@/lib/utils";
 
+import { MissionProps, MissionSectionProps } from "../../../lib/types/mission.type";
 import { ProfileSection as Section } from "./section";
-import { MissionProps, MissionSectionProps } from "./types";
 
 export const MissionSection = ({ title, type, timeRemaining, missions }: MissionSectionProps) => {
   const { t } = useTranslation("practice");

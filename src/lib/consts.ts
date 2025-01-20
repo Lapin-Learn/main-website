@@ -9,6 +9,7 @@ import { Shop } from "@/lib/types/shop.type.ts";
 
 import {
   EnumBandScore,
+  EnumDLContentType,
   EnumItemShop,
   EnumQuestionGroup,
   EnumSkill,
@@ -16,7 +17,6 @@ import {
   EnumWritingCriteria,
   ExtendEnumSkill,
 } from "./enums";
-import { EnumQuestion } from "./types/question.type";
 
 export const BAND_SCORES = {
   [EnumBandScore.PRE_IELTS]: "Pre IELTS",
@@ -29,9 +29,9 @@ export const BAND_SCORES = {
 };
 
 export const CONTENT_TYPE_OPTIONS = [
-  { value: EnumQuestion.MultipleChoice, label: "Multiple choice" },
-  { value: EnumQuestion.FillInTheBlank, label: "Fill in the blanks" },
-  { value: EnumQuestion.Matching, label: "Matching" },
+  { value: EnumDLContentType.MULTIPLE_CHOICE, label: "Multiple choice" },
+  { value: EnumDLContentType.FILL_IN_THE_BLANK, label: "Fill in the blanks" },
+  { value: EnumDLContentType.MATCHING, label: "Matching" },
 ];
 
 export const DEFAULT_PAGE_SIZE = 10;

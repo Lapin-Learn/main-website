@@ -1,7 +1,7 @@
-import { IMission } from "@/components/organisms/mission-section/types";
 import { EnumMissionCategory } from "@/lib/enums";
 import { FetchingData } from "@/lib/types";
 import { GamificationProfile, StreakHistory } from "@/lib/types/gamification";
+import { Mission } from "@/lib/types/mission.type";
 import { generateSearchParams } from "@/lib/utils";
 
 import api from "./kyInstance";
@@ -31,7 +31,7 @@ const checkMissionEnum = (category: EnumMissionCategory) => {
 
 export const getMissions = async () => {
   try {
-    const response = await api.get(`missions`).json<FetchingData<IMission[]>>();
+    const response = await api.get(`missions`).json<FetchingData<Mission[]>>();
     return response.data.map((mission) => ({
       ...mission,
       current: checkMissionEnum(mission.category) ? Math.min(1, mission.current) : mission.current,
