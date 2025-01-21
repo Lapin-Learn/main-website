@@ -10,5 +10,9 @@
     "answerKeys": "Đáp án",
     "analysis": "Phân tích chi tiết",
     "correctAnswer_single": "Đáp án đúng",
-    "correctAnswer_plural": "Trả lời đúng"
+    "correctAnswer_plural": "Trả lời đúng",
+    "correctAnswer_reading": "Trả lời đúng",
+    "correctAnswer_listening": "Trả lời đúng",
+    "correctAnswer_speaking": "Hoàn thành",
+    "correctAnswer_writing": "Hoàn thành"
 }

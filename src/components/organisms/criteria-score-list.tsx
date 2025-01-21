@@ -1,11 +1,10 @@
 import { MAPPED_SPEAKING_CRITERIA_TITLES, MAPPED_WRITING_CRITERIA_TITLES } from "@/lib/consts";
 import { EnumSkill } from "@/lib/enums";
 import { STCriteriaEvaluation } from "@/lib/types/simulated-test.type";
-import { cn } from "@/lib/utils";
+import { calculateOverallBandScore, cn } from "@/lib/utils";
 
 import CriteriaScoreCardSimple from "../molecules/criteria-score-card-simple";
 import { Typography } from "../ui";
-import { calculateOverallBandScore } from "./streak/utils";
 
 type CriteriaScoreListProps = {
   evaluationResult: STCriteriaEvaluation;

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { EnumSkill } from "@/lib/enums";
 import { SimulatedTest } from "@/lib/types/simulated-test.type";
+import { calculateOverallBandScore, formatTime } from "@/lib/utils";
 
 import TestSkillCard from "../../molecules/simulated-tests/test-skill-card";
 import { Button, Separator } from "../../ui";
@@ -16,7 +17,10 @@ export function SimulatedTestCard(
 ) {
   const { t } = useTranslation(["collection", "practice"]);
   const { setData } = useSelectModeDialog();
-  const { testName, skillTests } = props;
+  const { testName, skillTests, totalTimeSpent } = props;
+  const overallBandScore = calculateOverallBandScore(
+    skillTests.map((test) => test.estimatedBandScore)
+  );
 
   return (
     <div className="rounded-2xl border bg-white p-5">
@@ -26,12 +30,12 @@ export function SimulatedTestCard(
           <div className="flex flex-row gap-3">
             <div className="flex flex-col gap-2">
               <span className="text-sm font-semibold text-neutral-200">Band</span>
-              <span className="text-sm font-semibold">--</span>
+              <span className="text-sm font-semibold">{overallBandScore ?? "--"}</span>
             </div>
             <Separator orientation="vertical" className="flex h-full min-h-12" />
             <div className="flex flex-col gap-2">
               <span className="text-sm font-semibold text-neutral-200">{t("timeSpent")}</span>
-              <span className="text-sm font-semibold">44:11</span>
+              <span className="text-sm font-semibold">{formatTime(totalTimeSpent)}</span>
             </div>
           </div>
           <Link to={`/practice/${props.collectionId}/simulated-test/${props.id}`}>
@@ -48,13 +52,18 @@ export function SimulatedTestCard(
         <div className="grid w-full flex-1 grid-cols-2 gap-3 lg:grid-cols-4">
           {Object.values(EnumSkill).map((skill) => {
             const skillTest = skillTests.find((st) => st.skill === skill);
+            const numberOfQuestions =
+              skillTest?.skill === EnumSkill.speaking
+                ? skillTest?.partsDetail[skillTest?.partsDetail?.length - 1].part
+                : skillTest?.partsDetail[skillTest?.partsDetail?.length - 1].endQuestionNo;
             const isComingSoon =
               !skillTest || !skillTest.partsDetail || skillTest.partsDetail.length === 0;
 
             return (
               <TestSkillCard
                 key={skill}
-                skill={skill}
+                skillTest={skillTest}
+                numberOfQuestions={numberOfQuestions}
                 isComingSoon={isComingSoon}
                 onClick={() => {
                   if (skillTest) {

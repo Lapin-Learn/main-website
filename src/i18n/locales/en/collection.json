@@ -10,5 +10,9 @@
     "answerKeys": "Answer Keys",
     "analysis": "Analysis",
     "correctAnswer_single": "Correct answer",
-    "correctAnswer_plural": "Correct answers"
+    "correctAnswer_plural": "Correct answers",
+    "correctAnswer_reading": "Correct answers",
+    "correctAnswer_listening": "Correct answers",
+    "correctAnswer_speaking": "Complete",
+    "correctAnswer_writing": "Complete"
 }

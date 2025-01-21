@@ -11,9 +11,7 @@ import {
 import { MAPPED_SPEAKING_CRITERIA_TITLES, MAPPED_WRITING_CRITERIA_TITLES } from "@/lib/consts";
 import { EnumSkill, EnumSpeakingCriteria } from "@/lib/enums";
 import { STCriteriaEvaluation } from "@/lib/types/simulated-test.type";
-import { cn } from "@/lib/utils";
-
-import { calculateOverallBandScore } from "./streak/utils";
+import { calculateOverallBandScore, cn } from "@/lib/utils";
 
 const chartConfig = {
   bandScore: {
@@ -39,7 +37,7 @@ export function getAdaptedChartData(data: STCriteriaEvaluation) {
   );
   chartData.push({
     criteria: EnumSpeakingCriteria.Overall,
-    bandScore: overall,
+    bandScore: overall ?? 0,
   });
 
   return chartData.reverse();
