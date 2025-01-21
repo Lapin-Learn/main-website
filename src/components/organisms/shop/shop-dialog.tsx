@@ -1,6 +1,6 @@
 import { ItemPricingPlans } from "@components/molecules/item-pricing-plans.tsx";
 import { DialogTitle, DialogTrigger } from "@radix-ui/react-dialog";
-import { ReactNode, useRef, useState } from "react";
+import { ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button, Card, CardContent } from "@/components/ui";
@@ -19,7 +19,6 @@ const ShopDialog = ({ item, triggerContent }: ItemDialogProps) => {
   const { toast } = useToast();
   const useItem = useUseInventoryItem();
   const [open, setOpen] = useState(false);
-  const paymentRef = useRef<HTMLIFrameElement>(null);
 
   const handleUseItem = () => {
     useItem.mutate(
@@ -71,14 +70,9 @@ const ShopDialog = ({ item, triggerContent }: ItemDialogProps) => {
               </CardContent>
             </Card>
           ) : (
-            <ItemPricingPlans
-              item={item}
-              closeDialog={() => setOpen(false)}
-              paymentRef={paymentRef}
-            />
+            <ItemPricingPlans item={item} closeDialog={() => setOpen(false)} />
           )}
         </div>
-        <iframe ref={paymentRef} className="h-80 w-full"></iframe>
         {"quantity" in item && (
           <DialogFooter className="place-self-end">
             <Button onClick={handleUseItem} disabled={useItem.isPending}>

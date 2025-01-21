@@ -2,7 +2,6 @@ import { Button, Card } from "@components/ui";
 import { useBuyShopItem } from "@hooks/react-query/useItem.ts";
 import { useCreateLink } from "@hooks/react-query/usePayment.ts";
 import { useToast } from "@hooks/use-toast.ts";
-import { RefObject } from "react";
 import { useTranslation } from "react-i18next";
 
 import Carrot from "@/assets/icons/carrot.tsx";
@@ -11,15 +10,7 @@ import { Shop } from "@/lib/types/shop.type.ts";
 import { formatVNDCurrency } from "@/lib/utils";
 import { PaymentTypeEnum } from "@/services/payment.ts";
 
-export function ItemPricingPlans({
-  item,
-  closeDialog,
-  paymentRef,
-}: {
-  item: Shop;
-  closeDialog: () => void;
-  paymentRef: RefObject<HTMLIFrameElement>;
-}) {
+export function ItemPricingPlans({ item, closeDialog }: { item: Shop; closeDialog?: () => void }) {
   const buyItem = useBuyShopItem();
   const createPaymentLink = useCreateLink();
   const { toast } = useToast();
@@ -33,7 +24,7 @@ export function ItemPricingPlans({
         quantity,
       }),
     });
-    closeDialog();
+    closeDialog?.();
   };
 
   const handleBuyItem = ({ quantity }: { quantity: number }) => {
@@ -55,7 +46,7 @@ export function ItemPricingPlans({
         quantity,
       },
       {
-        onSuccess: (result) => paymentRef.current?.setAttribute("src", result.checkoutUrl),
+        onSuccess: ({ checkoutUrl }) => (window.location.href = checkoutUrl),
       }
     );
   };
