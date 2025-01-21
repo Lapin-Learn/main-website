@@ -21,7 +21,7 @@ export function SubscriptionPromotion({ results }: { results: STCriteriaEvaluati
   const { data: profile } = useGetGamificationProfile();
   const isAffordable = (profile?.carrots || 0) >= 100;
 
-  const { t } = useTranslation("subscription");
+  const { t } = useTranslation(["subscription", "shop"]);
 
   return (
     !results && (
@@ -35,7 +35,9 @@ export function SubscriptionPromotion({ results }: { results: STCriteriaEvaluati
           {!isAffordable ? (
             <div className="flex flex-col items-center justify-center gap-4">
               <img src={CarrotBasket} alt="carrot-basket" />
-              <Typography variant="body2">Ban dang co: {profile?.carrots} </Typography>
+              <Typography variant="body2">
+                {t(`shop.use_modal.amount`, { ns: "shop", amount: profile?.carrots, name: "" })}
+              </Typography>
               <Button className="w-full">{t("evaluateNow", { ns: "subscription" })}</Button>
             </div>
           ) : (
