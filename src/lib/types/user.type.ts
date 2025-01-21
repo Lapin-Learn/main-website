@@ -1,4 +1,4 @@
-import { EnumGender, EnumRank, EnumRole } from "../enums";
+import { EnumGender, EnumRank, EnumRole, EnumTransactionStatus } from "../enums";
 import { Image } from "./common.type";
 
 export type AccountIdentifier = {
@@ -48,10 +48,16 @@ export type UserProfile = {
   avatar?: Image;
 };
 
+export type OrderItem = {
+  name: string;
+  price: number;
+  quantity: number;
+};
+
 export type PayOsTransaction = {
   id: string;
   amount: string;
-  status: string;
+  status: EnumTransactionStatus;
   createdAt: string;
   updatedAt: string;
 };
@@ -59,9 +65,11 @@ export type PayOsTransaction = {
 export type TransactionHistory = {
   id: number;
   accountId: string;
-  status: string;
+  status: EnumTransactionStatus;
+  amount: number;
   createdAt: string;
   updatedAt: string;
+  items: OrderItem[];
   payosTransaction?: PayOsTransaction;
 };
 
@@ -85,9 +93,9 @@ export type Order = {
   amount: number;
   amountPaid: number;
   amountRemaining: number;
-  status: string;
+  status: EnumTransactionStatus;
   createdAt: string;
-  transactions: Transaction[];
+  transactions?: Transaction[];
   canceledAt: string | null;
   cancellationReason: string | null;
 };

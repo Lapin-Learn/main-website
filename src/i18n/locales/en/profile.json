@@ -60,6 +60,28 @@
         "time": "Time",
         "amount": "Amount",
         "status": "Status",
-        "noTransaction": "No transaction found"
+        "noTransaction": "No transaction found",
+        "statusOptions": {
+            "pending": "Pending",
+            "paid": "Paid",
+            "underpaid": "Underpaid",
+            "cancelled": "Cancelled",
+            "error": "Error"
+        },
+        "transactionName": "BUY {{ quantity }} CARROTS",
+        "viewDetail": "View detail",
+        "transactionDetail": {
+            "title": "Transaction details",
+            "id": "TransactionID",
+            "time": "Time",
+            "status": "Status",
+            "accountNumber": "Account",
+            "bank": "Bank",
+            "amount": "Amount",
+            "description": "Description",
+            "contact": "Contact support"
+        },
+        "cancel": "Cancel",
+        "transferMore": "Transfer more"
     }
 }

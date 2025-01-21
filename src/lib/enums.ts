@@ -161,3 +161,11 @@ export enum EnumRandomGiftType {
   CARROTS = "carrots",
   ITEM = "item",
 }
+
+export enum EnumTransactionStatus {
+  PENDING = "pending",
+  CANCELLED = "cancelled",
+  PAID = "paid",
+  UNDERPAID = "underpaid",
+  ERROR = "error",
+}
