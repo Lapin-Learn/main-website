@@ -5,5 +5,14 @@
     "features": {
         "criteria": "Nhận xét chi tiết sẽ bao gồm đánh giá theo từng tiêu chí cụ thể của kỹ năng cùng band điểm dự kiến",
         "price": "Mỗi lượt chấm bài sẽ tương ứng với 100 điểm cà rốt mà bạn có"
+    },
+    "redirect": {
+        "PAID": {
+            "title": "Chúc mừng!"
+        },
+        "CANCELLED": {
+            "title": "Đã hủy!",
+            "description": "Bạn đã hủy đơn hàng {{quantity}} cà rốt của mình."
+        }
     }
 }

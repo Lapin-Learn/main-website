@@ -9,6 +9,7 @@ export enum PaymentTypeEnum {
 type CreateLinkPayload = {
   type: PaymentTypeEnum;
   quantity: number;
+  redirectUrl: string;
 };
 
 export const createLink = async (payload: CreateLinkPayload) => {

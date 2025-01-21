@@ -1,4 +1,5 @@
 import { SubscriptionPromotion } from "@components/molecules/subscription-promotion.tsx";
+import { SubscriptionRedirectDialog } from "@components/molecules/subscription-redirect-dialog.tsx";
 import { useTranslation } from "react-i18next";
 
 import icons from "@/assets/icons";
@@ -45,6 +46,7 @@ function SpeakingResult({ session }: SpeakingResultProps) {
         </div>
         <SubscriptionPromotion results={session.results} />
       </div>
+      <SubscriptionRedirectDialog />
     </div>
   );
 }

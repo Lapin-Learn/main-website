@@ -5,5 +5,14 @@
     "features": {
         "criteria": "Detailed feedback will include evaluations based on specific criteria of the skill along with the expected band score",
         "price": "Each grading will correspond to 100 carrots you have"
+    },
+    "redirect": {
+        "PAID": {
+            "title": "Congratulations!"
+        },
+        "CANCELLED": {
+            "title": "Cancelled!",
+            "description": "You have cancelled your order for {{quantity}} carrots."
+        }
     }
 }

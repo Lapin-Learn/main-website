@@ -44,6 +44,7 @@ export function ItemPricingPlans({ item, closeDialog }: { item: Shop; closeDialo
       {
         type: PaymentTypeEnum.CARROTS,
         quantity,
+        redirectUrl: window.location.href,
       },
       {
         onSuccess: ({ checkoutUrl }) => (window.location.href = checkoutUrl),
@@ -61,7 +62,7 @@ export function ItemPricingPlans({ item, closeDialog }: { item: Shop; closeDialo
             ? handlePurchase({ quantity: parseInt(key) })
             : handleBuyItem({ quantity: parseInt(key) })
         }
-        disabled={buyItem.isPending}
+        disabled={buyItem.isPending || createPaymentLink.isPending}
       >
         {String(key) === item.popular && <PopularTag />}
 

@@ -11,9 +11,6 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.53.0(react@18.3.1))
-      '@payos/payos-checkout':
-        specifier: ^1.0.8
-        version: 1.0.8
       '@radix-ui/react-accordion':
         specifier: ^1.2.0
         version: 1.2.1(@types/react-dom@18.3.2)(@types/react@18.3.14)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1252,9 +1249,6 @@ packages:
   '@nodelib/fs.walk@1.2.8':
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
-
-  '@payos/payos-checkout@1.0.8':
-    resolution: {integrity: sha512-9h2sZ/QeOIsOR3+6LDswDMYPfRGQ9kXiWJC4yrWFbpAzUYoI3gH84oFRHlAmx4CRFh2SCBKE1Q2pdzJ1atPRCA==}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -6441,8 +6435,6 @@ snapshots:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
-
-  '@payos/payos-checkout@1.0.8': {}
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
