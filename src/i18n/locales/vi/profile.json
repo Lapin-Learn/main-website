@@ -60,6 +60,28 @@
         "time": "Thời gian",
         "amount": "Giá trị",
         "status": "Trạng thái",
-        "noTransaction": "Không có giao dịch nào"
+        "noTransaction": "Không có giao dịch nào",
+        "statusOptions": {
+            "pending": "Chờ thanh toán",
+            "paid": "Thành công",
+            "underpaid": "Chưa hoàn tất",
+            "cancelled": "Huỷ",
+            "error": "Không thành công"
+        },
+        "transactionName": "MUA {{ quantity }} CÀ RỐT",
+        "viewDetail": "Xem chi tiết",
+        "transactionDetail": {
+            "title": "Chi tiết giao dịch",
+            "id": "Mã giao dịch",
+            "time": "Thời gian",
+            "status": "Trạng thái",
+            "accountNumber": "Số thẻ/TK",
+            "bank": "Ngân hàng",
+            "amount": "Số tiền",
+            "description": "Tin nhắn",
+            "contact": "Liên hệ hỗ trợ"
+        },
+        "cancel": "Huỷ",
+        "transferMore": "Chuyển thêm"
     }
 }

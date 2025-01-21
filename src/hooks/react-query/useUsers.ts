@@ -116,10 +116,9 @@ export const useGetUserTransactionHistory = (offset: number, limit: number) => {
   });
 };
 
-export const useGetUserTransactionDetail = (transactionId: number, enabled = false) => {
+export const useGetUserTransactionDetail = (transactionId: number) => {
   return useQuery({
     queryKey: ["transaction", transactionId],
     queryFn: async () => getUserTransactionDetail(transactionId),
-    enabled,
   });
 };

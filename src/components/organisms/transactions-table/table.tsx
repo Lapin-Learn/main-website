@@ -11,9 +11,13 @@ import { useTranslation } from "react-i18next";
 import { useGetUserTransactionHistory } from "@/hooks/react-query/useUsers";
 
 import { BaseTable } from "../base-table";
-import { columns } from "./column";
+import { columns as createColumns } from "./column";
 
-export function TransactionsHistoryTable() {
+export function TransactionsHistoryTable({
+  onViewDetailClick,
+}: {
+  onViewDetailClick: (id: number) => void;
+}) {
   const { t } = useTranslation("profile");
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -25,6 +29,7 @@ export function TransactionsHistoryTable() {
     pagination.pageSize
   );
 
+  const columns = createColumns(onViewDetailClick);
   const i18nColumns = columns.map((column) => ({
     ...column,
     header: t(column.header as string),

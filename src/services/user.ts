@@ -39,5 +39,5 @@ export const getUserTransactionsHistory = async (payload: OffsetSchema) => {
 };
 
 export const getUserTransactionDetail = async (transactionId: number) => {
-  return (await api.get(`payment/payment-link/${transactionId}`).json<FetchingData<Order>>()).data;
+  return (await api.get(`payment/transactions/${transactionId}`).json<FetchingData<Order>>()).data;
 };
