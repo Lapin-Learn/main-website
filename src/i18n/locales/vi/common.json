@@ -37,6 +37,7 @@
     "prev": "Trước",
     "total": "Tổng: {{number}} {{unit}}",
     "home": "Trang chủ",
+    "question": "Câu hỏi",
     "microphone": {
         "permission": "Để có thể sử dụng Microphone, bạn cần cấp quyền cho Microphone của máy",
         "deniedTitle": "Quyền truy cập Microphone bị từ chối",

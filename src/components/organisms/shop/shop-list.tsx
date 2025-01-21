@@ -67,7 +67,7 @@ const ShopList = () => {
         value="shop"
         className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
       >
-        {mergedData?.map((item) => <ShopCard key={item.id} item={item} />)}
+        {mergedData?.map((item) => <ShopCard key={item.id} item={item} type="shop" />)}
       </TabsContent>
       <TabsContent
         value="inventory"
@@ -83,7 +83,7 @@ const ShopList = () => {
             <p className="text-wrap text-center text-body font-semibold">{t("inventory.empty")}</p>
           </div>
         ) : (
-          inventory?.map((item) => <ShopCard key={item.id} item={item} />)
+          inventory?.map((item) => <ShopCard key={item.id} item={item} type="inventory" />)
         )}
       </TabsContent>
     </Tabs>

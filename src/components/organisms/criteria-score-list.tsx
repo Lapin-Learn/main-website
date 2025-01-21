@@ -1,6 +1,7 @@
 import { MAPPED_SPEAKING_CRITERIA_TITLES, MAPPED_WRITING_CRITERIA_TITLES } from "@/lib/consts";
 import { EnumSkill } from "@/lib/enums";
 import { STCriteriaEvaluation } from "@/lib/types/simulated-test.type";
+import { cn } from "@/lib/utils";
 
 import CriteriaScoreCardSimple from "../molecules/criteria-score-card-simple";
 import { Typography } from "../ui";
@@ -19,7 +20,12 @@ function CriteriaScoreList({ evaluationResult, skill }: CriteriaScoreListProps) 
     skill == EnumSkill.writing ? MAPPED_WRITING_CRITERIA_TITLES : MAPPED_SPEAKING_CRITERIA_TITLES;
 
   return (
-    <div className="col-span-2 flex flex-col rounded-lg bg-secondary/50">
+    <div
+      className={cn(
+        "col-span-2 flex flex-col rounded-lg bg-secondary/50",
+        skill == EnumSkill.speaking && "col-span-3"
+      )}
+    >
       <Typography variant="h3" className="mt-6 text-center capitalize text-primary-700">
         Total: {overall}
       </Typography>
