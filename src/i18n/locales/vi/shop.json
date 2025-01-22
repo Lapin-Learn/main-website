@@ -54,8 +54,9 @@
   "reward": {
     "carrot": "cà rốt",
     "button": "Nhận thưởng",
-    "receive": "Chúc mừng! Bạn đã nhận được",
-    "activate": "Chúc mừng! Bạn đã kích hoạt"
+    "paid": "Chúc mừng! Bạn đã nhận được",
+    "activate": "Chúc mừng! Bạn đã kích hoạt",
+    "cancelled": "Đã huỷ! Bạn đã huỷ đơn hàng"
   },
   "streak_freeze": {
     "buy_and_use": "Mua và sử dụng ngay",

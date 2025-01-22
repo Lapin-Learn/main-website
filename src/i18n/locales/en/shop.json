@@ -53,8 +53,9 @@
   "reward": {
     "carrot": "carrots",
     "button": "Claim",
-    "receive": "Congratulations! You have received",
-    "activate": "Congratulations! You have activated"
+    "paid": "Congratulations! You have received",
+    "activate": "Congratulations! You have activated",
+    "cancelled": "Cancelled! You have cancelled your order for"
   },
   "streak_freeze": {
     "buy_and_use": "Buy and Use Now",

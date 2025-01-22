@@ -1,12 +1,6 @@
 import { Typography } from "@components/ui";
 import Confetti, { ConfettiRef } from "@components/ui/confetti.tsx";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@components/ui/dialog.tsx";
+import { Dialog, DialogContent } from "@components/ui/dialog.tsx";
 import { useGetUserTransactionDetail } from "@hooks/react-query/useUsers.ts";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
@@ -25,26 +19,20 @@ export function SubscriptionRedirectDialog() {
   return (
     <Dialog defaultOpen={!!orderCode}>
       <DialogContent className="overflow-hidden p-0">
-        <div className="relative flex h-72 items-center justify-center bg-blue-radial">
+        <div
+          className={cn(
+            "relative flex h-72 items-center justify-center",
+            status?.toLowerCase() === EnumTransactionStatus.PAID && "bg-blue-radial"
+          )}
+        >
           <div
             className={cn(
-              "bg-rewards bg-center size-[600px] absolute animate-spin-slow duration-[5000]",
+              "bg-center absolute animate-spin-slow duration-[5000]",
+              status?.toLowerCase() === EnumTransactionStatus.PAID && "bg-rewards size-[600px]",
               status?.toLowerCase() === EnumTransactionStatus.CANCELLED && "grayscale"
             )}
           />
-          <div className="absolute">
-            <DialogHeader>
-              {status?.toLowerCase() !== EnumTransactionStatus.PAID && (
-                <>
-                  <DialogTitle>{t(`redirect.${status}.title`)}</DialogTitle>
-                  <DialogDescription>
-                    {t(`redirect.${status}.description`, {
-                      quantity: data?.items[0].quantity,
-                    })}
-                  </DialogDescription>
-                </>
-              )}
-            </DialogHeader>
+          <div className="absolute w-full px-6">
             <div className="flex flex-col items-center justify-center gap-4">
               <img
                 src={CarrotBasket}
@@ -54,14 +42,12 @@ export function SubscriptionRedirectDialog() {
                   status?.toLowerCase() === EnumTransactionStatus.CANCELLED && "grayscale"
                 )}
               />
-              {status?.toLowerCase() === EnumTransactionStatus.PAID && (
-                <div className="text-center">
-                  <Typography>{t("reward.receive", { ns: "shop" })}</Typography>
-                  <Typography variant="h3">
-                    {data?.items[0].quantity} {t("reward.carrot", { ns: "shop" })}
-                  </Typography>
-                </div>
-              )}
+              <div className="text-center">
+                <Typography>{t(`reward.${status?.toLowerCase()}`, { ns: "shop" })}</Typography>
+                <Typography variant="h3">
+                  {data?.items[0].quantity} {t("reward.carrot", { ns: "shop" })}
+                </Typography>
+              </div>
             </div>
           </div>
           {status?.toLowerCase() === EnumTransactionStatus.PAID && (
