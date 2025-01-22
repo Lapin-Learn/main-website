@@ -37,7 +37,7 @@ export function SimulatedTestCard(
                     <span className="text-sm font-semibold">{overallBandScore ?? "--"}</span>
                   </div>
                 </TooltipTrigger>
-                <TooltipContent>
+                <TooltipContent className="bg-neutral-300">
                   <Trans i18nKey="practice:tooltip.band" components={{ bold: <strong /> }} />
                 </TooltipContent>
               </Tooltip>
@@ -51,7 +51,7 @@ export function SimulatedTestCard(
                     <span className="text-sm font-semibold">{formatTime(totalTimeSpent)}</span>
                   </div>
                 </TooltipTrigger>
-                <TooltipContent>
+                <TooltipContent className="bg-neutral-300">
                   <Trans i18nKey="practice:tooltip.timeSpent" components={{ bold: <strong /> }} />
                 </TooltipContent>
               </Tooltip>
@@ -71,12 +71,18 @@ export function SimulatedTestCard(
         <div className="grid w-full flex-1 grid-cols-2 gap-3 lg:grid-cols-4">
           {Object.values(EnumSkill).map((skill) => {
             const skillTest = skillTests.find((st) => st.skill === skill);
-            const numberOfQuestions =
-              skillTest?.skill === EnumSkill.speaking
-                ? skillTest?.partsDetail[skillTest?.partsDetail?.length - 1].part
-                : skillTest?.partsDetail[skillTest?.partsDetail?.length - 1].endQuestionNo;
+            let numberOfQuestions;
             const isComingSoon =
               !skillTest || !skillTest.partsDetail || skillTest.partsDetail.length === 0;
+
+            if (isComingSoon) {
+              numberOfQuestions = 0;
+            } else {
+              numberOfQuestions =
+                skillTest?.skill === EnumSkill.speaking
+                  ? skillTest?.partsDetail[skillTest?.partsDetail?.length - 1]?.part
+                  : skillTest?.partsDetail[skillTest?.partsDetail?.length - 1]?.endQuestionNo;
+            }
 
             return (
               <TestSkillCard

@@ -32,6 +32,13 @@ export default function TestSkillCard({
         : 0),
   };
 
+  const score =
+    skillTest?.status === EnumSimulatedTestSessionStatus.IN_PROGRESS ||
+    skillTest?.skill === EnumSkill.writing ||
+    skillTest?.skill === EnumSkill.speaking
+      ? `${skillTest?.submittedAnswers}`
+      : `${skillTest?.correctAnswers}`;
+
   return (
     <Button
       variant="ghost"
@@ -50,7 +57,7 @@ export default function TestSkillCard({
           </div>
           {!isComingSoon && (
             <div className="font-semibold">
-              {skillTest?.submittedAnswers}/{numberOfQuestions}
+              {score}/{numberOfQuestions}
             </div>
           )}
         </div>

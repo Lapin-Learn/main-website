@@ -6,7 +6,7 @@ import { AnimatedCircularProgressBar } from "@/components/organisms/circular-pro
 import useSelectModeDialog from "@/components/organisms/select-mode-dialog/use-select-mode-dialog";
 import { buttonVariants } from "@/components/ui";
 import { MAPPED_SKILL_ICON } from "@/lib/consts";
-import { ExtendEnumSkill } from "@/lib/enums";
+import { EnumSimulatedTestSessionStatus, EnumSkill, ExtendEnumSkill } from "@/lib/enums";
 import { SimulatedTest, SkillTest } from "@/lib/types/simulated-test.type";
 import { cn } from "@/lib/utils";
 import { Route } from "@/routes/_authenticated/_dashboard/practice/$collectionId";
@@ -21,6 +21,29 @@ export function FilteredSkillCard({ test, skillTest, isSupport }: FilteredSkillC
   const { skill } = Route.useSearch();
   const { t } = useTranslation("collection");
   const { setData } = useSelectModeDialog();
+
+  const numberOfQuestions =
+    skillTest?.skill === EnumSkill.speaking
+      ? skillTest?.partsDetail[skillTest?.partsDetail?.length - 1]?.part
+      : skillTest?.partsDetail[skillTest?.partsDetail?.length - 1]?.endQuestionNo;
+
+  const score =
+    skillTest?.status === EnumSimulatedTestSessionStatus.IN_PROGRESS ||
+    skillTest?.skill === EnumSkill.writing ||
+    skillTest?.skill === EnumSkill.speaking
+      ? `${skillTest?.submittedAnswers}`
+      : `${skillTest?.correctAnswers}`;
+
+  const mappingProgress = {
+    max:
+      skillTest?.estimatedBandScore ??
+      (skillTest?.status === EnumSimulatedTestSessionStatus.IN_PROGRESS ? numberOfQuestions : 0),
+    value:
+      skillTest?.estimatedBandScore ??
+      (skillTest?.status === EnumSimulatedTestSessionStatus.IN_PROGRESS
+        ? skillTest.submittedAnswers
+        : 0),
+  };
 
   return (
     <button
@@ -40,8 +63,14 @@ export function FilteredSkillCard({ test, skillTest, isSupport }: FilteredSkillC
                 <div className="flex flex-col items-start gap-2">
                   <div className="flex flex-col items-start">
                     <div className="text-sm text-neutral-200">
-                      {t("correctAnswer", { context: "plural" })}:{" "}
-                      <span className="text-sm font-semibold text-neutral-950">--/40</span>
+                      {t([
+                        `correctAnswer_${skillTest?.skill}_${skillTest?.status}`,
+                        `correctAnswer_${skillTest?.skill}`,
+                      ])}
+                      :{" "}
+                      <span className="text-sm font-semibold text-neutral-950">
+                        {score}/{numberOfQuestions}
+                      </span>
                     </div>
                     <div className="text-sm text-neutral-200">
                       {t("timeSpent")}:{" "}
@@ -69,7 +98,14 @@ export function FilteredSkillCard({ test, skillTest, isSupport }: FilteredSkillC
             )}
           </div>
         </div>
-        <AnimatedCircularProgressBar value={0} icon={MAPPED_SKILL_ICON[skillTest.skill]} />
+        <AnimatedCircularProgressBar
+          max={mappingProgress.max}
+          value={mappingProgress.value}
+          icon={MAPPED_SKILL_ICON[skillTest?.skill as EnumSkill]}
+          className={cn(
+            skillTest?.estimatedBandScore && "rounded-full bg-[#FCE3B4] text-primary-700"
+          )}
+        />
       </div>
     </button>
   );

@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { PracticeBreadcrumb } from "@/components/molecules/practice-breadcrumb";
 import TestHeaderLayout from "@/components/templates/test-header-layout";
 import {
-  useGetCollectionDetail,
   useGetCollectionInfo,
   useGetSTSessionsHistoryByST,
 } from "@/hooks/react-query/use-simulated-test";
@@ -33,11 +32,9 @@ export function SimulatedTestDetailHeader({
   );
   const { data } = useGetSTSessionsHistoryByST(simulatedTest?.id ?? 0, {
     offset: 0,
-    limit: 1,
+    limit: 10000,
     ...filter,
   });
-
-  const { list } = useGetCollectionDetail(simulatedTest?.collectionId || 0);
 
   const latestSessionTest = useMemo(() => {
     if (!data) return null;
@@ -50,7 +47,7 @@ export function SimulatedTestDetailHeader({
   }
 
   const { tags, thumbnail } = collection;
-  const simulatedTestDetail = list?.find((item) => item.id === simulatedTest.id);
+  const totalTimeSpent = data?.items.reduce((acc, item) => acc + item.elapsedTime, 0) ?? 0;
 
   const AchievementList = () => (
     <TestHeaderLayout.AchievementList>
@@ -64,7 +61,7 @@ export function SimulatedTestDetailHeader({
       />
       <TestHeaderLayout.Achievement
         title={t("timeSpent", { ns: "collection" })}
-        description={formatTime(simulatedTestDetail?.totalTimeSpent ?? 0)}
+        description={formatTime(totalTimeSpent ?? 0)}
       />
     </TestHeaderLayout.AchievementList>
   );
