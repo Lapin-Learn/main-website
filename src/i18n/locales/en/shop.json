@@ -26,7 +26,7 @@
     },
     "price": {
       "popular": "Popular",
-      "pack": "{{quantity}} packs",
+      "pack": "{{quantity}} carrots",
       "single_pack": "Single"
     },
     "buy_modal": {
@@ -61,5 +61,5 @@
     "use": "Use Now",
     "ALREADY_EXTENDED_STREAK": "You have already extended your streak"
   },
-  "STREAK_NOT_STARTED": "Chuỗi streak chưa bắt đầu"
+  "STREAK_NOT_STARTED": "Your streak has not been started yet"
 }

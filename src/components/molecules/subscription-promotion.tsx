@@ -1,4 +1,4 @@
-import { ItemPricingPlans } from "@components/molecules/item-pricing-plans.tsx";
+import { PricingPlanItemList } from "@components/organisms/pricing-plan-item-list.tsx";
 import {
   Button,
   Card,
@@ -51,7 +51,7 @@ export function SubscriptionPromotion({ results }: { results: STCriteriaEvaluati
                 </div>
               ))}
               <div className="flex w-full flex-wrap justify-center gap-4">
-                <ItemPricingPlans item={carrotSubscription} />
+                <PricingPlanItemList item={carrotSubscription} />
               </div>
             </div>
           )}

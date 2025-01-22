@@ -10,7 +10,13 @@ import { Shop } from "@/lib/types/shop.type.ts";
 import { formatVNDCurrency } from "@/lib/utils";
 import { PaymentTypeEnum } from "@/services/payment.ts";
 
-export function ItemPricingPlans({ item, closeDialog }: { item: Shop; closeDialog?: () => void }) {
+export function PricingPlanItemList({
+  item,
+  closeDialog,
+}: {
+  item: Shop;
+  closeDialog?: () => void;
+}) {
   const buyItem = useBuyShopItem();
   const createPaymentLink = useCreateLink();
   const { toast } = useToast();
@@ -53,7 +59,7 @@ export function ItemPricingPlans({ item, closeDialog }: { item: Shop; closeDialo
   };
 
   return Object.entries(item.price).map(([key, value]) => (
-    <Card className="flex aspect-square size-40 flex-col" key={item.price.toString()}>
+    <Card className="flex aspect-square size-40 flex-col" key={key}>
       <Button
         variant="ghost"
         className="relative flex h-fit w-full flex-col items-center justify-center gap-2 pt-6 hover:cursor-pointer md:justify-between"

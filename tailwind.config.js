@@ -130,7 +130,12 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         ripple: "ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite",
+        'spin-slow': 'spin 4s linear infinite',
       },
+      backgroundImage: {
+        'rewards': "url('/rewards.svg')",
+        'blue-radial': 'radial-gradient(162.79% 75.11% at 50% 24.89%, rgba(242, 252, 254, 1) 0%, rgba(215, 247, 255, 1) 45.42%, rgba(198  , 245, 255, 1) 100%)'
+      }
     },
   },
   plugins: [

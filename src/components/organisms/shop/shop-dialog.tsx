@@ -1,4 +1,4 @@
-import { ItemPricingPlans } from "@components/molecules/item-pricing-plans.tsx";
+import { PricingPlanItemList } from "@components/organisms/pricing-plan-item-list.tsx";
 import { DialogTitle, DialogTrigger } from "@radix-ui/react-dialog";
 import { ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -70,7 +70,7 @@ const ShopDialog = ({ item, triggerContent }: ItemDialogProps) => {
               </CardContent>
             </Card>
           ) : (
-            <ItemPricingPlans item={item} closeDialog={() => setOpen(false)} />
+            <PricingPlanItemList item={item} closeDialog={() => setOpen(false)} />
           )}
         </div>
         {"quantity" in item && (
