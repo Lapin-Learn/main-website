@@ -8,10 +8,14 @@ import { useTranslation } from "react-i18next";
 import CarrotBasket from "@/assets/carrotBasket.svg";
 import { EnumTransactionStatus } from "@/lib/enums.ts";
 import { cn } from "@/lib/utils";
-import { Route } from "@/routes/_authenticated/_dashboard/shop";
 
-export function SubscriptionRedirectDialog() {
-  const { status, orderCode } = Route.useSearch();
+export function SubscriptionRedirectDialog({
+  status,
+  orderCode,
+}: {
+  status: EnumTransactionStatus;
+  orderCode: number;
+}) {
   const confettiRef = useRef<ConfettiRef>(null);
   const { t } = useTranslation(["subscription", "shop"]);
   const { data } = useGetUserTransactionDetail(orderCode);

@@ -12,16 +12,17 @@ import { MAPPED_SPEAKING_CRITERIA_TITLES } from "@/lib/consts";
 import { EnumSimulatedTestSessionStatus, EnumSkill, EnumSpeakingCriteria } from "@/lib/enums";
 import { SpeakingSession } from "@/lib/types/simulated-test-session.type";
 import { cn, formatTime } from "@/lib/utils";
+import { Route } from "@/routes/_authenticated/_dashboard/practice/simulated-test/result";
 
 type SpeakingResultProps = {
   session: SpeakingSession;
 };
 
 function SpeakingResult({ session }: SpeakingResultProps) {
+  const { status, orderCode } = Route.useSearch();
   const { data: stData } = useGetSimulatedTestDetail(session.skillTest.simulatedIeltsTest.id);
   const { t } = useTranslation();
-  // Get part types: Line graph, Pie chart, etc.
-  const partDetails =
+  const questionTypes =
     stData?.skillTests
       .find((skill) => skill.skill === EnumSkill.speaking)
       ?.partsDetail.map((item) => item.questionTypes) ?? [];
@@ -40,13 +41,15 @@ function SpeakingResult({ session }: SpeakingResultProps) {
           <SpeakingSubmission
             userSubmissions={session.responses}
             skillTestId={session.skillTest.id}
-            partDetails={partDetails}
+            questionTypes={questionTypes}
             evaluationResults={session.results}
+            parts={session.parts}
+            resource={session.resource}
           />
         </div>
         <SubscriptionPromotion results={session.results} />
       </div>
-      <SubscriptionRedirectDialog />
+      <SubscriptionRedirectDialog status={status} orderCode={orderCode} />
     </div>
   );
 }

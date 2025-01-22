@@ -12,12 +12,14 @@ import { MAPPED_WRITING_CRITERIA_TITLES } from "@/lib/consts";
 import { EnumSimulatedTestSessionStatus, EnumSkill, EnumSpeakingCriteria } from "@/lib/enums";
 import { WritingSession } from "@/lib/types/simulated-test-session.type";
 import { cn, formatTime } from "@/lib/utils";
+import { Route } from "@/routes/_authenticated/_dashboard/practice/simulated-test/result";
 
 type WritingResultProps = {
   session: WritingSession;
 };
 
 function WritingResult({ session }: WritingResultProps) {
+  const { status, orderCode } = Route.useSearch();
   const { data: stData } = useGetSimulatedTestDetail(session.skillTest.simulatedIeltsTest.id);
   const isFullParts = session.responses.length == 2;
   const { t } = useTranslation(["simulatedTest", "subscription"]);
@@ -49,7 +51,7 @@ function WritingResult({ session }: WritingResultProps) {
         </div>
         <SubscriptionPromotion results={session.results} />
       </div>
-      <SubscriptionRedirectDialog />
+      <SubscriptionRedirectDialog status={status} orderCode={orderCode} />
     </div>
   );
 }
