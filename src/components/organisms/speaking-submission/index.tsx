@@ -41,7 +41,7 @@ function SpeakingSubmission(props: SpeakingSubmissionProps) {
     <Accordion
       type="single"
       collapsible
-      className="flex flex-col gap-4"
+      className="flex w-full flex-col gap-4"
       defaultValue={parts[0].toString()}
     >
       <SpeakingResourceProvider resource={resource} audioList={formattedUserSubmissions}>
