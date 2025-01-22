@@ -10,21 +10,27 @@ import { ShopDialog } from "./shop-dialog";
 
 type ItemCardProps = {
   item: Shop | Inventory;
+  type: "shop" | "inventory";
 };
 
-const ShopCard = ({ item }: ItemCardProps) => {
+const ShopCard = ({ item, type }: ItemCardProps) => {
   const { t } = useTranslation("shop");
 
   return (
     <ShopDialog
+      dialogContentClassName={type === "shop" ? "md:max-w-2xl w-2xl" : "md:max-w-lg"}
       triggerContent={
-        <Card className="flex flex-col" key={item.id}>
+        <Card className="flex min-h-56 flex-col" key={item.id}>
           <CardContent
             key={item.id}
-            className="relative flex size-full flex-col items-center justify-between space-y-3 p-4 pb-3 hover:cursor-pointer"
+            className="relative flex size-full flex-col items-center justify-between space-y-3 p-4 pb-5 hover:cursor-pointer"
           >
-            <div className="h-20 w-full">
-              <img src={item.image.url} alt={item.name} className="size-full object-contain" />
+            <div className="grid size-full flex-1 items-center">
+              <img
+                src={item.image.url}
+                alt={item.name}
+                className="max-h-20 w-full object-contain"
+              />
             </div>
             <div className="flex w-full flex-col space-y-1 text-center">
               <p className="text-body font-semibold">{t(`shop.items.${item.name}.name`)}</p>
@@ -45,7 +51,7 @@ const ShopCard = ({ item }: ItemCardProps) => {
               </div>
             )}
             {"quantity" in item && (
-              <div className="absolute right-4 top-0 md:right-2 md:top-2">
+              <div className="absolute right-4 top-0 md:right-3 md:top-3">
                 <p className="text-base font-bold text-[#F17D53]">{"x" + item.quantity}</p>
               </div>
             )}

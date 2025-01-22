@@ -137,7 +137,7 @@
         "questionType": "Question type",
         "accuracy": "Accuracy",
         "questions": "Questions",
-        "unanswered": "Skip",
+        "unanswered": "Skipped",
         "yourAnswer": "Your answer"
     }
 }

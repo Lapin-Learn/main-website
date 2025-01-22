@@ -18,8 +18,7 @@ type SpeakingResultProps = {
 function SpeakingResult({ session }: SpeakingResultProps) {
   const { data: stData } = useGetSimulatedTestDetail(session.skillTest.simulatedIeltsTest.id);
   const { t } = useTranslation();
-  // Get part types: Line graph, Pie chart, etc.
-  const partDetails =
+  const questionTypes =
     stData?.skillTests
       .find((skill) => skill.skill === EnumSkill.speaking)
       ?.partsDetail.map((item) => item.questionTypes) ?? [];
@@ -36,8 +35,10 @@ function SpeakingResult({ session }: SpeakingResultProps) {
       <SpeakingSubmission
         userSubmissions={session.responses}
         skillTestId={session.skillTest.id}
-        partDetails={partDetails}
+        questionTypes={questionTypes}
         evaluationResults={session.results}
+        parts={session.parts}
+        resource={session.resource}
       />
     </div>
   );
