@@ -25,10 +25,10 @@ export function TransactionsHistoryTable({
     pageSize: 10,
   });
 
-  const { data, isLoading, isRefetching } = useGetUserTransactionHistory(
-    pagination.pageIndex * pagination.pageSize,
-    pagination.pageSize
-  );
+  const { data, isLoading, isRefetching } = useGetUserTransactionHistory({
+    offset: pagination.pageIndex * pagination.pageSize,
+    limit: pagination.pageSize,
+  });
 
   const columns = createColumns(onViewDetailClick);
   const i18nColumns = columns.map((column) => ({

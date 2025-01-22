@@ -2,7 +2,7 @@ import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tansta
 import { useTranslation } from "react-i18next";
 
 import { EnumRole } from "@/lib/enums";
-import { Image } from "@/lib/types";
+import { Image, OffsetSchema } from "@/lib/types";
 import { getAccountIdentifier } from "@/services";
 import {
   getUserProfile,
@@ -21,13 +21,10 @@ export const userKeys = {
   avatar: () => [...userKeys.key, "avatar"] as const,
 };
 
-const baseKey = ["transactions"] as const;
-
 export const transactionKeys = {
-  key: baseKey,
-  lists: [...baseKey, "lists"] as const,
-  list: (filter: object) => [...baseKey, "lists", filter] as const,
-  detail: (id: number) => [...baseKey, id] as const,
+  key: ["transactions"] as const,
+  transactionList: (filter: OffsetSchema) => [...transactionKeys.key, filter] as const,
+  detail: (id: number) => [...transactionKeys.key, id] as const,
 };
 
 export const useAccountIdentifier = () => {
@@ -117,10 +114,10 @@ export const useUpdateUserPassword = () => {
   });
 };
 
-export const useGetUserTransactionHistory = (offset: number, limit: number) => {
+export const useGetUserTransactionHistory = (filter: OffsetSchema) => {
   return useQuery({
-    queryKey: transactionKeys.lists,
-    queryFn: async () => getUserTransactionsHistory({ offset, limit }),
+    queryKey: transactionKeys.transactionList(filter),
+    queryFn: async () => getUserTransactionsHistory(filter),
     placeholderData: keepPreviousData,
   });
 };
