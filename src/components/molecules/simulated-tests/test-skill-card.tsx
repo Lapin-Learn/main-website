@@ -19,6 +19,18 @@ export default function TestSkillCard({
   skillTest,
 }: TestSkillCardProps) {
   const { t } = useTranslation("collection");
+
+  const mappingProgress = {
+    max:
+      skillTest?.estimatedBandScore ??
+      (skillTest?.status === EnumSimulatedTestSessionStatus.IN_PROGRESS ? numberOfQuestions : 0),
+    value:
+      skillTest?.estimatedBandScore ??
+      (skillTest?.status === EnumSimulatedTestSessionStatus.IN_PROGRESS
+        ? skillTest.submittedAnswers
+        : 0),
+  };
+
   return (
     <button
       key={skillTest?.skill}
@@ -32,7 +44,7 @@ export default function TestSkillCard({
           <div className="text-start text-xs text-supporting-text">
             {isComingSoon
               ? `${t("comingSoon")}...`
-              : `${t("correctAnswer", { context: skillTest?.skill })}:`}
+              : `${t([`correctAnswer_${skillTest?.skill}_${skillTest?.status}`, `correctAnswer_${skillTest?.skill}`])}:`}
           </div>
           {!isComingSoon && (
             <div className="font-semibold">
@@ -42,20 +54,12 @@ export default function TestSkillCard({
         </div>
       </div>
       <AnimatedCircularProgressBar
-        max={
-          skillTest?.estimatedBandScore ??
-          (skillTest?.status === EnumSimulatedTestSessionStatus.IN_PROGRESS ? numberOfQuestions : 0)
-        }
-        value={
-          skillTest?.estimatedBandScore ??
-          (skillTest?.status === EnumSimulatedTestSessionStatus.IN_PROGRESS
-            ? skillTest.submittedAnswers
-            : 0)
-        }
+        max={mappingProgress.max}
+        value={mappingProgress.value}
+        icon={MAPPED_SKILL_ICON[skillTest?.skill as EnumSkill]}
         className={cn(
           skillTest?.estimatedBandScore && "rounded-full bg-[#FCE3B4] text-primary-700"
         )}
-        icon={MAPPED_SKILL_ICON[skillTest?.skill as EnumSkill]}
       />
     </button>
   );

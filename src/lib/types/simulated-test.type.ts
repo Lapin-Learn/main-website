@@ -124,7 +124,7 @@ export type SkillTest = {
   partsDetail: PartDetail[];
   status: EnumSimulatedTestSessionStatus;
   submittedAnswers: number;
-  estimatedBandScore: number;
+  estimatedBandScore: number | null;
   correctAnswers: number;
 };
 
