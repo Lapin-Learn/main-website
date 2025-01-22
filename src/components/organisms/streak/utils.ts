@@ -106,8 +106,4 @@ const parseActiveDays = (originalDays: DayProps[], activeDays: Date[] = []) => {
   return newDays;
 };
 
-const calculateOverallBandScore = (scores: number[]) => {
-  const overall = scores.reduce((acc, score) => acc + score, 0) / scores.length;
-  return Math.round(overall * 2) / 2;
-};
-export { calculateOverallBandScore, generateCalendar, getDaysInWeek, parseActiveDays };
+export { generateCalendar, getDaysInWeek, parseActiveDays };

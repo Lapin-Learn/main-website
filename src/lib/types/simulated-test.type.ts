@@ -1,6 +1,12 @@
 import { JSONContent } from "@tiptap/core";
 
-import { EnumQuestionGroup, EnumSkill, EnumSpeakingCriteria, EnumWritingCriteria } from "../enums";
+import {
+  EnumQuestionGroup,
+  EnumSimulatedTestSessionStatus,
+  EnumSkill,
+  EnumSpeakingCriteria,
+  EnumWritingCriteria,
+} from "../enums";
 import { Option } from "./common.type";
 import type {
   ReadingListeningSession,
@@ -32,6 +38,9 @@ export type SimulatedTestSimple = {
   collectionId: number;
   order: string;
   testName: string;
+  totalTimeSpent: number;
+  status: EnumSimulatedTestSessionStatus;
+  estimatedBandScore: number | null;
 };
 
 export type QuestionGroup =
@@ -108,12 +117,17 @@ export type PartDetail = {
     endIndex: number;
     startIndex: number;
   }[];
+  part?: number;
 };
 
 export type SkillTest = {
   id: number;
   skill: EnumSkill;
   partsDetail: PartDetail[];
+  status: EnumSimulatedTestSessionStatus;
+  submittedAnswers: number;
+  estimatedBandScore: number | null;
+  correctAnswers: number;
 };
 
 export type SimulatedTest = SimulatedTestSimple & {

@@ -11,6 +11,7 @@ import useBreakPoint from "@/hooks/use-screen-size";
 import { MAPPED_SIMULATED_TEST_TAGS } from "@/lib/consts";
 import { EnumSkill } from "@/lib/enums";
 import { SimulatedTest } from "@/lib/types/simulated-test.type";
+import { formatTime } from "@/lib/utils";
 
 type SimulatedTestDetailHeaderProps = {
   simulatedTest?: SimulatedTest;
@@ -31,7 +32,7 @@ export function SimulatedTestDetailHeader({
   );
   const { data } = useGetSTSessionsHistoryByST(simulatedTest?.id ?? 0, {
     offset: 0,
-    limit: 1,
+    limit: 10000,
     ...filter,
   });
 
@@ -46,6 +47,7 @@ export function SimulatedTestDetailHeader({
   }
 
   const { tags, thumbnail } = collection;
+  const totalTimeSpent = data?.items.reduce((acc, item) => acc + item.elapsedTime, 0) ?? 0;
 
   const AchievementList = () => (
     <TestHeaderLayout.AchievementList>
@@ -59,7 +61,7 @@ export function SimulatedTestDetailHeader({
       />
       <TestHeaderLayout.Achievement
         title={t("timeSpent", { ns: "collection" })}
-        description="1:24:45"
+        description={formatTime(totalTimeSpent ?? 0)}
       />
     </TestHeaderLayout.AchievementList>
   );

@@ -10,10 +10,9 @@ import { getAnalytics, logEvent } from "firebase/analytics";
 import { useMemo } from "react";
 import { create } from "zustand";
 
-import { calculateOverallBandScore } from "@/components/organisms/streak/utils";
 import { FIREBASE_ANALYTICS_EVENTS } from "@/lib/consts";
 import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
-import { fromPageToOffset, parseInfiniteData } from "@/lib/utils";
+import { calculateOverallBandScore, fromPageToOffset, parseInfiniteData } from "@/lib/utils";
 import {
   CollectionParams,
   getQuestionTypeAccuracy,
@@ -267,7 +266,7 @@ export const useGetUserBandScoreOverall = () => {
         );
         return {
           bandScores,
-          overallBandScore: overall,
+          overallBandScore: overall ?? 0,
         };
       }
       return {

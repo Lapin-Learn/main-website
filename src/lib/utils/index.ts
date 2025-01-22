@@ -239,3 +239,9 @@ export function formatVNDCurrency(value: number) {
 export function assertFallback<T>(value: T | undefined, fallback: T): T {
   return value ?? fallback;
 }
+export const calculateOverallBandScore = (scores: (number | null)[]) => {
+  const validScores = scores.filter((score): score is number => score !== null);
+  if (validScores.length !== 4) return undefined;
+  const overall = validScores.reduce((acc, score) => acc + score, 0) / validScores.length;
+  return Math.round(overall * 2) / 2;
+};
