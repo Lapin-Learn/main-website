@@ -56,7 +56,7 @@ export type OrderItem = {
 
 export type PayOsTransaction = {
   id: string;
-  amount: string;
+  amount: number;
   status: EnumTransactionStatus;
   createdAt: string;
   updatedAt: string;
@@ -96,6 +96,7 @@ export type Order = {
   status: EnumTransactionStatus;
   createdAt: string;
   transactions?: Transaction[];
+  items: OrderItem[];
   canceledAt: string | null;
   cancellationReason: string | null;
 };

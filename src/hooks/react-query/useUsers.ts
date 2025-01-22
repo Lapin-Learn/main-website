@@ -21,6 +21,15 @@ export const userKeys = {
   avatar: () => [...userKeys.key, "avatar"] as const,
 };
 
+const baseKey = ["transactions"] as const;
+
+export const transactionKeys = {
+  key: baseKey,
+  lists: [...baseKey, "lists"] as const,
+  list: (filter: object) => [...baseKey, "lists", filter] as const,
+  detail: (id: number) => [...baseKey, id] as const,
+};
+
 export const useAccountIdentifier = () => {
   const result = useQuery({
     queryKey: userKeys.identifier(),
@@ -110,7 +119,7 @@ export const useUpdateUserPassword = () => {
 
 export const useGetUserTransactionHistory = (offset: number, limit: number) => {
   return useQuery({
-    queryKey: ["transactions"],
+    queryKey: transactionKeys.lists,
     queryFn: async () => getUserTransactionsHistory({ offset, limit }),
     placeholderData: keepPreviousData,
   });
@@ -118,7 +127,7 @@ export const useGetUserTransactionHistory = (offset: number, limit: number) => {
 
 export const useGetUserTransactionDetail = (transactionId: number) => {
   return useQuery({
-    queryKey: ["transaction", transactionId],
+    queryKey: transactionKeys.detail(transactionId),
     queryFn: async () => getUserTransactionDetail(transactionId),
   });
 };

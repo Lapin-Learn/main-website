@@ -74,6 +74,8 @@
             "title": "Chi tiết giao dịch",
             "id": "Mã giao dịch",
             "time": "Thời gian",
+            "cancelTime": "Huỷ vào lúc",
+            "cancelReason": "Lý do huỷ",
             "status": "Trạng thái",
             "accountNumber": "Số thẻ/TK",
             "bank": "Ngân hàng",
@@ -82,6 +84,10 @@
             "contact": "Liên hệ hỗ trợ"
         },
         "cancel": "Huỷ",
-        "transferMore": "Chuyển thêm"
+        "transferMore": "Chuyển thêm",
+        "cancelReason": {
+            "DUPLICATED": "Giao dịch bị trùng",
+            "EXPIRED": "Giao dịch hết hạn"
+        }
     }
 }
