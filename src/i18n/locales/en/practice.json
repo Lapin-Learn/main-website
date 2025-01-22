@@ -72,20 +72,24 @@
   "latest-band": "Latest band",
   "mission": {
     "types": {
-        "daily": "Daily Missions",
-        "monthly": "Monthly Missions"
+      "daily": "Daily Missions",
+      "monthly": "Monthly Missions"
     },
     "month_mission": "{{month}}",
     "time_remaining": "{{time}} left",
     "guildline": "Complete the monthly mission to receive rewards and badges!",
     "description": {
-        "COMPLETE_LESSON": "Complete {{quantity}} lessons",
-        "COMPLETE_LESSON_WITH_PERCENTAGE_SCORE": "Complete {{quantity}} lessons with at least {{requirements}}% score",
-        "COMPLETE_LESSON_WITH_PERCENTAGE_SCORE_PERFECT": "Complete {{quantity}} perfect lessons",
-        "COMPLETE_LESSON_WITH_DIFFERENT_SKILLS": "Practice {{requirements}} different skills",
-        "TOTAL_DURATION_OF_LEARN_DAILY_LESSON": "Study for {{requirements}}",
-        "EXCEED_LEARNING_STREAK_WITHOUT_BREAK": "Study for {{requirements}} consecutive days",
-        "EXCEED_STREAK": "Study for {{requirements}} consecutive days"
+      "COMPLETE_LESSON": "Complete {{quantity}} lessons",
+      "COMPLETE_LESSON_WITH_PERCENTAGE_SCORE": "Complete {{quantity}} lessons with at least {{requirements}}% score",
+      "COMPLETE_LESSON_WITH_PERCENTAGE_SCORE_PERFECT": "Complete {{quantity}} perfect lessons",
+      "COMPLETE_LESSON_WITH_DIFFERENT_SKILLS": "Practice {{requirements}} different skills",
+      "TOTAL_DURATION_OF_LEARN_DAILY_LESSON": "Study for {{requirements}}",
+      "EXCEED_LEARNING_STREAK_WITHOUT_BREAK": "Study for {{requirements}} consecutive days",
+      "EXCEED_STREAK": "Study for {{requirements}} consecutive days"
     }
+  },
+  "tooltip": {
+    "band": "Average band of <bold>the latest practice</bold>",
+    "timeSpent": "Total time of <bold>the latest practice</bold>"
   }
 }

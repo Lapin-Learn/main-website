@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { EnumSkill } from "@/lib/enums";
 import { SimulatedTest } from "@/lib/types/simulated-test.type";
 import { calculateOverallBandScore, formatTime } from "@/lib/utils";
@@ -28,19 +29,37 @@ export function SimulatedTestCard(
       <div className="flex flex-col gap-3 md:flex-row md:items-start md:gap-8 lg:items-center">
         <div className="flex min-w-36 flex-col justify-between gap-4">
           <div className="flex flex-row gap-3">
-            <div className="flex flex-col gap-2">
-              <span className="text-sm font-semibold text-neutral-200">Band</span>
-              <span className="text-sm font-semibold">{overallBandScore ?? "--"}</span>
-            </div>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <div className="flex flex-col items-start gap-2">
+                    <span className="text-sm font-semibold text-neutral-200">Band</span>
+                    <span className="text-sm font-semibold">{overallBandScore ?? "--"}</span>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <Trans i18nKey="practice:tooltip.band" components={{ bold: <strong /> }} />
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
             <Separator orientation="vertical" className="flex h-full min-h-12" />
-            <div className="flex flex-col gap-2">
-              <span className="text-sm font-semibold text-neutral-200">{t("timeSpent")}</span>
-              <span className="text-sm font-semibold">{formatTime(totalTimeSpent)}</span>
-            </div>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <div className="flex flex-col items-start gap-2">
+                    <span className="text-sm font-semibold text-neutral-200">{t("timeSpent")}</span>
+                    <span className="text-sm font-semibold">{formatTime(totalTimeSpent)}</span>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <Trans i18nKey="practice:tooltip.timeSpent" components={{ bold: <strong /> }} />
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
           <Link to={`/practice/${props.collectionId}/simulated-test/${props.id}`}>
             <Button
-              className="size-fit gap-2 p-0 text-primary hover:bg-transparent hover:text-primary-700"
+              className="size-fit cursor-pointer gap-2 p-0 text-primary hover:bg-transparent hover:text-primary-700"
               variant="ghost"
             >
               {t("viewHistory")}

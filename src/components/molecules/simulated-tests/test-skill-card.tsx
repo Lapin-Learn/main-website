@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 import { AnimatedCircularProgressBar } from "@/components/organisms/circular-progress";
+import { Button } from "@/components/ui";
 import { MAPPED_SKILL_ICON } from "@/lib/consts";
 import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { SkillTest } from "@/lib/types/simulated-test.type";
@@ -32,9 +33,10 @@ export default function TestSkillCard({
   };
 
   return (
-    <button
+    <Button
+      variant="ghost"
       key={skillTest?.skill}
-      className="flex h-28 w-full flex-row items-center justify-between rounded-lg border border-neutral-100 p-3"
+      className="flex h-28 w-full cursor-pointer flex-row items-center justify-between rounded-lg border border-neutral-100 p-3"
       disabled={isComingSoon}
       onClick={onClick}
     >
@@ -61,6 +63,6 @@ export default function TestSkillCard({
           skillTest?.estimatedBandScore && "rounded-full bg-[#FCE3B4] text-primary-700"
         )}
       />
-    </button>
+    </Button>
   );
 }

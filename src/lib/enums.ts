@@ -61,12 +61,6 @@ export enum EnumAction {
   FREEZE_STREAK = "freeze_streak",
 }
 
-export enum EnumTestRecordStatus {
-  InProgress = "In Progress",
-  Completed = "Completed",
-  NotStarted = "Not Started",
-}
-
 export enum EnumQuestionGroup {
   multipleChoice = "multiple_choice",
   matchingHeadings = "matching_headings",

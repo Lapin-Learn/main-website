@@ -39,6 +39,8 @@ export type SimulatedTestSimple = {
   order: string;
   testName: string;
   totalTimeSpent: number;
+  status: EnumSimulatedTestSessionStatus;
+  estimatedBandScore: number | null;
 };
 
 export type QuestionGroup =
