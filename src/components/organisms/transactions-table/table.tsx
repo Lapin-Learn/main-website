@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useGetUserTransactionHistory } from "@/hooks/react-query/useUsers";
+import { EnumTransactionStatus } from "@/lib/enums";
 
 import { BaseTable } from "../base-table";
 import { columns as createColumns } from "./column";
@@ -16,7 +17,7 @@ import { columns as createColumns } from "./column";
 export function TransactionsHistoryTable({
   onViewDetailClick,
 }: {
-  onViewDetailClick: (id: number) => void;
+  onViewDetailClick: (id: number, status: EnumTransactionStatus) => void;
 }) {
   const { t } = useTranslation("profile");
   const [pagination, setPagination] = useState<PaginationState>({

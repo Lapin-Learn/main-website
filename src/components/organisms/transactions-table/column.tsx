@@ -2,23 +2,24 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import i18next from "i18next";
+import { toNumber } from "lodash";
 
 import TransactionStatusBadge from "@/components/molecules/transaction-status-badge";
 import { EnumTransactionStatus } from "@/lib/enums";
 import { TransactionHistory } from "@/lib/types";
+import { formatVNDCurrency } from "@/lib/utils";
 
 export const columns = (
-  onViewDetailClick: (id: number) => void
+  onViewDetailClick: (id: number, status: EnumTransactionStatus) => void
 ): ColumnDef<TransactionHistory>[] => {
   return [
     {
-      accessorKey: "transactionId",
+      accessorKey: "id",
       header: "ID",
       cell: ({ row }) => {
-        const testName = row.original.id;
         return (
           <div className="flex items-center gap-2">
-            <div className="text-[#4B5563]">{testName}</div>
+            <div className="text-[#4B5563]">{row.original.id}</div>
           </div>
         );
       },
@@ -28,9 +29,7 @@ export const columns = (
       header: "transaction.name",
       cell: ({ row }) => {
         const { t } = i18next;
-        //TODO: Get quantity from transaction
-        const quantity = 10;
-        console.log(row.original); //Temporary log for passing eslint check
+        const quantity = row.original.items.length > 0 ? row.original.items[0].quantity : 0;
 
         return (
           <div className="flex items-center gap-2">
@@ -42,14 +41,19 @@ export const columns = (
       },
     },
     {
-      accessorKey: "transactionTime",
+      accessorKey: "createdAt",
       header: "transaction.time",
-      cell: ({ row }) => format(row.original.createdAt, "dd/MM/yyyy HH:mm"),
+      accessorFn: (value) => format(value.createdAt, "dd/MM/yyyy HH:mm"),
     },
     {
       accessorKey: "transactionAmount",
       header: "transaction.amount",
-      cell: ({ row }) => (row.original.payosTransaction ? row.original.payosTransaction.amount : 0),
+      cell: ({ row }) => {
+        const amountToPaid = toNumber(
+          row.original.payosTransaction ? row.original.payosTransaction.amount : 0
+        );
+        return formatVNDCurrency(amountToPaid);
+      },
     },
     {
       accessorKey: "transactionStatus",
@@ -67,18 +71,12 @@ export const columns = (
 
         switch (status) {
           case EnumTransactionStatus.PAID:
+          case EnumTransactionStatus.CANCELLED:
             return (
               <button
                 className="text-blue-600 underline"
-                onClick={() => onViewDetailClick(transactionId)}
+                onClick={() => onViewDetailClick(transactionId, status)}
               >
-                {t("transaction.viewDetail", { ns: "profile" })}
-              </button>
-            );
-          // TODO: Handle cancelled transaction
-          case EnumTransactionStatus.CANCELLED:
-            return (
-              <button className="text-blue-600 underline">
                 {t("transaction.viewDetail", { ns: "profile" })}
               </button>
             );
