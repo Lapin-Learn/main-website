@@ -5,10 +5,11 @@ import { useTranslation } from "react-i18next";
 import { AnimatedCircularProgressBar } from "@/components/organisms/circular-progress";
 import useSelectModeDialog from "@/components/organisms/select-mode-dialog/use-select-mode-dialog";
 import { buttonVariants } from "@/components/ui";
+import { useGetSTSessionsHistoryByST } from "@/hooks/react-query/use-simulated-test";
 import { MAPPED_SKILL_ICON } from "@/lib/consts";
 import { EnumSimulatedTestSessionStatus, EnumSkill, ExtendEnumSkill } from "@/lib/enums";
 import { SimulatedTest, SkillTest } from "@/lib/types/simulated-test.type";
-import { cn } from "@/lib/utils";
+import { cn, formatTime } from "@/lib/utils";
 import { Route } from "@/routes/_authenticated/_dashboard/practice/$collectionId";
 
 type FilteredSkillCardProps = {
@@ -21,6 +22,11 @@ export function FilteredSkillCard({ test, skillTest, isSupport }: FilteredSkillC
   const { skill } = Route.useSearch();
   const { t } = useTranslation("collection");
   const { setData } = useSelectModeDialog();
+  const { data } = useGetSTSessionsHistoryByST(test?.id ?? 0, {
+    offset: 0,
+    limit: 10000,
+    skill: skill !== ExtendEnumSkill.allSkills ? skill : undefined,
+  });
 
   const numberOfQuestions =
     skillTest?.skill === EnumSkill.speaking
@@ -44,6 +50,8 @@ export function FilteredSkillCard({ test, skillTest, isSupport }: FilteredSkillC
         ? skillTest.submittedAnswers
         : 0),
   };
+
+  const totalTimeSpent = data?.items.reduce((acc, item) => acc + item.elapsedTime, 0) ?? 0;
 
   return (
     <button
@@ -74,7 +82,9 @@ export function FilteredSkillCard({ test, skillTest, isSupport }: FilteredSkillC
                     </div>
                     <div className="text-sm text-neutral-200">
                       {t("timeSpent")}:{" "}
-                      <span className="text-sm font-semibold text-neutral-950">44:11</span>
+                      <span className="text-sm font-semibold text-neutral-950">
+                        {formatTime(totalTimeSpent)}
+                      </span>
                     </div>
                   </div>
                 </div>
