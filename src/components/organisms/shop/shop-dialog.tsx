@@ -8,13 +8,15 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@/components/
 import { useUseInventoryItem } from "@/hooks/react-query/useItem";
 import { useToast } from "@/hooks/use-toast";
 import { Inventory, Shop } from "@/lib/types/shop.type";
+import { cn } from "@/lib/utils";
 
 type ItemDialogProps = {
   item: Shop | Inventory;
   triggerContent: ReactNode;
+  dialogContentClassName?: string;
 };
 
-const ShopDialog = ({ item, triggerContent }: ItemDialogProps) => {
+const ShopDialog = ({ item, triggerContent, dialogContentClassName }: ItemDialogProps) => {
   const { t } = useTranslation("shop");
   const { toast } = useToast();
   const useItem = useUseInventoryItem();
@@ -41,7 +43,9 @@ const ShopDialog = ({ item, triggerContent }: ItemDialogProps) => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{triggerContent}</DialogTrigger>
 
-      <DialogContent className="w-fit rounded-md md:w-full md:max-w-[720px]">
+      <DialogContent
+        className={cn("md:w-full w-fit rounded-md md:max-w-2xl", dialogContentClassName)}
+      >
         <DialogHeader className="flex flex-col space-y-1.5">
           <DialogTitle>
             <p className="text-heading-4 font-bold">{t(`shop.items.${item.name}.name`)}</p>
