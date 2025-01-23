@@ -10,14 +10,11 @@ export type BuyItemPayload = {
 };
 
 export const getShop = async () => {
-  const response = (await api.get("shops").json<FetchingData<Shop[]>>()).data;
-  return response;
+  return (await api.get("shops").json<FetchingData<Shop[]>>()).data;
 };
 
 export const buyItem = async (payload: BuyItemPayload) => {
-  const response = (await api.post("shops/buy", { json: payload }).json<FetchingData<Item>>()).data;
-
-  return response;
+  return (await api.post("shops/buy", { json: payload }).json<FetchingData<Item>>()).data;
 };
 
 export const getInventory = async () => {
@@ -29,12 +26,11 @@ export type UseItemPayload = {
   itemId: string;
 };
 export const useItem = async (payload: UseItemPayload) => {
-  const response = (
+  return (
     await api
       .put("inventories/use-item", {
         json: payload,
       })
       .json<FetchingData<Reward | { type: EnumItemShop }>>()
   ).data;
-  return response;
 };

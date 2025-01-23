@@ -1,5 +1,11 @@
-import BillCarrots from "@/assets/billCarrots.svg";
+import CarrotBasket from "@/assets/carrotBasket.svg";
 import icons from "@/assets/icons";
+import AllSkillsIcon from "@/assets/icons/skills/all";
+import ListeningIcon from "@/assets/icons/skills/listening";
+import ReadingIcon from "@/assets/icons/skills/reading";
+import SpeakingIcon from "@/assets/icons/skills/speaking";
+import WritingIcon from "@/assets/icons/skills/writing";
+import { Shop } from "@/lib/types/shop.type.ts";
 
 import {
   EnumBandScore,
@@ -170,14 +176,6 @@ export const PART_INSTRUCTIONS: { [key: number]: string[] } = {
   ],
 };
 
-import AllSkillsIcon from "@/assets/icons/skills/all";
-import ListeningIcon from "@/assets/icons/skills/listening";
-import ReadingIcon from "@/assets/icons/skills/reading";
-import SpeakingIcon from "@/assets/icons/skills/speaking";
-import WritingIcon from "@/assets/icons/skills/writing";
-
-import { ItemSubscription } from "./types/shop.type";
-
 export const MAPPED_SKILL_ICON: Record<EnumSkill, React.FC<React.SVGProps<SVGSVGElement>>> = {
   [EnumSkill.reading]: ReadingIcon,
   [EnumSkill.listening]: ListeningIcon,
@@ -232,17 +230,18 @@ export const ALL_SKILLS_LIST = [
   ...SKILLS_LIST,
 ];
 
-const carrotSubscription: ItemSubscription = {
+const carrotSubscription: Shop = {
   id: "subscription",
   name: EnumItemShop.SUBSCRIPTION,
-  price: { 100: 10000, 450: 45000, 900: 90000 },
+  price: { 500: 10000, 2500: 45000, 5000: 90000 },
   image: {
-    name: "Bill Carrots",
-    url: BillCarrots,
+    url: CarrotBasket,
   },
+  imageId: "",
   description: "Buy bill to get more time",
   popular: "1",
   isPopular: false,
+  duration: 0,
 };
 
 export { carrotSubscription };

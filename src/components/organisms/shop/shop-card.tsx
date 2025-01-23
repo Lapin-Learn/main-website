@@ -23,7 +23,7 @@ const ShopCard = ({ item, type }: ItemCardProps) => {
         <Card className="flex min-h-56 flex-col" key={item.id}>
           <CardContent
             key={item.id}
-            className="relative flex size-full flex-col items-center justify-between space-y-3 p-4 pb-5 hover:cursor-pointer"
+            className="relative flex size-full flex-col items-center justify-between gap-2 p-4 pb-5 hover:cursor-pointer"
           >
             <div className="grid size-full flex-1 items-center">
               <img

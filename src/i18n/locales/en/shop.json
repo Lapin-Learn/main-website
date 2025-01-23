@@ -26,7 +26,7 @@
     },
     "price": {
       "popular": "Popular",
-      "pack": "{{quantity}} packs",
+      "pack": "{{quantity}} carrots",
       "single_pack": "Single"
     },
     "buy_modal": {
@@ -53,13 +53,14 @@
   "reward": {
     "carrot": "carrots",
     "button": "Claim",
-    "receive": "Congratulations! You have received",
-    "activate": "Congratulations! You have activated"
+    "paid": "Congratulations! You have received",
+    "activate": "Congratulations! You have activated",
+    "cancelled": "Cancelled! You have cancelled your order for"
   },
   "streak_freeze": {
     "buy_and_use": "Buy and Use Now",
     "use": "Use Now",
     "ALREADY_EXTENDED_STREAK": "You have already extended your streak"
   },
-  "STREAK_NOT_STARTED": "Chuỗi streak chưa bắt đầu"
+  "STREAK_NOT_STARTED": "Your streak has not been started yet"
 }
