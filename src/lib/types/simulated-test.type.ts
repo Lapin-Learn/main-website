@@ -121,7 +121,7 @@ export type PartDetail = {
 };
 
 export type SkillTest = {
-  id: number;
+  skillTestId: number;
   skill: EnumSkill;
   partsDetail: PartDetail[];
   status: EnumSimulatedTestSessionStatus;
