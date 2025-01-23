@@ -1,12 +1,13 @@
 import { useNavigate } from "@tanstack/react-router";
 import { ChevronLeft, Edit, Menu } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Icons from "@/assets/icons";
 import PracticeIcon from "@/assets/icons/practice";
 import AppIcon from "@/assets/images/app.jpg";
 import Logo from "@/assets/logo.svg";
 import { useAccountIdentifier } from "@/hooks/react-query/useUsers";
+import useBreakPoint from "@/hooks/use-screen-size";
 import { EnumRole } from "@/lib/enums";
 import { cn } from "@/lib/utils";
 
@@ -48,6 +49,12 @@ export default function SideBar() {
     navigate({ to: "/" });
   };
 
+  const breakpoint = useBreakPoint();
+
+  useEffect(() => {
+    if (breakpoint === "md") setSidebarOpen(false);
+  }, [breakpoint]);
+
   return (
     <>
       <div className="sticky top-0 flex w-full items-center justify-between bg-white p-4 md:hidden md:pt-8">
@@ -64,7 +71,7 @@ export default function SideBar() {
 
       <aside
         className={cn(
-          "fixed h-full border-r bg-white transition-all duration-500 ease-in-out hidden md:flex md:static",
+          "fixed h-full border-r bg-white transition-all duration-500 ease-in-out md:flex md:static top-0",
           isSidebarOpen ? "right-0 w-[280px] sm:left-0" : "right-[-280px] w-0 sm:left-0 sm:w-fit"
         )}
       >

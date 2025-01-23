@@ -5,7 +5,7 @@ import SideBar from "@/components/organisms/sidebar/side-bar";
 export default function SidebarLayout({ children }: PropsWithChildren) {
   return (
     <div className="relative flex h-screen flex-col bg-[#F8F8F8] md:flex-row">
-      <div className="sticky top-0 h-fit md:h-screen">
+      <div className="sticky top-0 z-10 h-fit md:h-screen">
         <SideBar />
       </div>
 

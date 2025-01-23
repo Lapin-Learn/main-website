@@ -11,9 +11,9 @@ const Streak = ({ streak }: StreakProps) => {
   return (
     <div className="flex items-center gap-1">
       {streak.extended ? (
-        <StreakIcon className="size-6" />
+        <StreakIcon className="size-5 md:size-6" />
       ) : (
-        <StreakLostIcon className="size-6" fill="blue" />
+        <StreakLostIcon className="size-5 md:size-6" fill="blue" />
       )}
       <span
         className={cn("font-semibold", streak.extended ? "text-orange-500" : "text-neutral-300")}

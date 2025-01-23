@@ -9,7 +9,7 @@ type CarrotsProps = {
 
 const sizeClasses = {
   sm: "w-4 h-4",
-  base: "w-6 h-6",
+  base: "md:size-6 size-5",
   md: "w-8 h-8",
   lg: "w-10 h-10",
 };

@@ -23,7 +23,7 @@ const TrackBar = ({ data }: TrackBarProps) => {
   };
 
   return (
-    <div className="flex flex-row items-center justify-center gap-6 rounded-2xl bg-white py-4">
+    <div className="flex flex-row items-center justify-center gap-4 rounded-2xl bg-white py-4 md:gap-6">
       <button onClick={() => {}}>
         <Streak streak={data.streak} />
       </button>
