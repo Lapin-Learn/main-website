@@ -59,10 +59,10 @@ export function PricingPlanItemList({
   };
 
   return Object.entries(item.price).map(([key, value]) => (
-    <Card className="flex aspect-square size-40 flex-col" key={key}>
+    <Card className="flex aspect-square size-36 flex-col" key={key}>
       <Button
         variant="ghost"
-        className="relative flex h-fit w-full flex-col items-center justify-center gap-2 pt-6 hover:cursor-pointer md:justify-between"
+        className="relative flex h-fit w-full flex-col items-center justify-center gap-2 pt-4 hover:cursor-pointer md:justify-between"
         onClick={() =>
           item.name === EnumItemShop.SUBSCRIPTION
             ? handlePurchase({ quantity: parseInt(key) })

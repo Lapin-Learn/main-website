@@ -1,6 +1,5 @@
 import { PricingPlanItemList } from "@components/organisms/pricing-plan-item-list.tsx";
 import {
-  Button,
   Card,
   CardContent,
   CardDescription,
@@ -9,6 +8,7 @@ import {
   Separator,
   Typography,
 } from "@components/ui";
+import { PulsatingButton } from "@components/ui/pulsating-button.tsx";
 import { useGetGamificationProfile } from "@hooks/react-query/useGamification.ts";
 import { CheckIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -32,13 +32,13 @@ export function SubscriptionPromotion({ results }: { results: STCriteriaEvaluati
         </CardHeader>
         <Separator />
         <CardContent className="mt-6 px-0">
-          {!isAffordable ? (
+          {isAffordable ? (
             <div className="flex flex-col items-center justify-center gap-4">
               <img src={CarrotBasket} alt="carrot-basket" />
               <Typography variant="body2">
                 {t(`shop.use_modal.amount`, { ns: "shop", amount: profile?.carrots, name: "" })}
               </Typography>
-              <Button className="w-full">{t("evaluateNow", { ns: "subscription" })}</Button>
+              <PulsatingButton>{t("evaluateNow", { ns: "subscription" })}</PulsatingButton>
             </div>
           ) : (
             <div className="flex flex-col gap-4">

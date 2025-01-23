@@ -10,9 +10,9 @@ import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
 import { EnumSkill, EnumWritingCriteria } from "@/lib/enums";
 import { SpeakingSession } from "@/lib/types/simulated-test-session.type";
 import type { STCriteriaEvaluation } from "@/lib/types/simulated-test.type";
+import { cn } from "@/lib/utils";
 
 import SpeakingSingleQuestionSubmission from "../../molecules/speaking-single-question-submission";
-import { Button, Typography } from "../../ui";
 import CriteriaScoreList from "../criteria-score-list";
 import EmptySubmission from "./EmptySubmission";
 import { ExtendedSpeakingResponse, parseTimestampsToStartEnd } from "./helpers";
@@ -97,7 +97,12 @@ function SubmissionAccordionItem(props: SubmissionAccordionItemProps) {
         Part {partNo}:&nbsp;{partDetail?.join(", ")}
       </AccordionTrigger>
       <AccordionContent className="grid grid-cols-1 gap-2 md:grid-cols-6 md:gap-8">
-        <div className="col-span-3 flex flex-col gap-4 pb-0">
+        <div
+          className={cn(
+            "flex flex-col gap-4 pb-0",
+            evaluationResult ? "col-span-3" : "col-span-full"
+          )}
+        >
           {data &&
             !isLoading &&
             Array.isArray(data.content) &&
@@ -111,17 +116,8 @@ function SubmissionAccordionItem(props: SubmissionAccordionItemProps) {
               />
             ))}
         </div>
-        {evaluationResult ? (
+        {evaluationResult && (
           <CriteriaScoreList evaluationResult={evaluationResult} skill={EnumSkill.speaking} />
-        ) : (
-          <div className="col-span-3 grid h-full place-items-center content-center gap-2 text-muted-foreground">
-            <Typography variant="h6" className="italic">
-              Not evaluated yet
-            </Typography>
-            <Button variant="secondary" size="sm">
-              Evaluate now
-            </Button>
-          </div>
         )}
       </AccordionContent>
     </AccordionItem>
