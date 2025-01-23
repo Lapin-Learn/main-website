@@ -144,8 +144,8 @@ export const BaseTable = <TData, TValue>(props: BaseTableProps<TData, TValue>) =
               {loading && (
                 <div
                   className={cn(
-                    "absolute inset-y-0 left-0 z-0 grid w-full place-items-center bg-white/50 backdrop-blur-[1px]",
-                    table.getRowModel().rows?.length ? "h-0" : "min-h-20"
+                    "absolute top-0 left-0 z-0 grid w-full place-items-center bg-white/50 backdrop-blur-[1px]",
+                    table.getRowModel().rows?.length ? "h-full" : "min-h-20"
                   )}
                 >
                   <Loader2 className="size-8 animate-spin text-muted-foreground" />

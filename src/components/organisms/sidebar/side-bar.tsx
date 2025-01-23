@@ -52,7 +52,8 @@ export default function SideBar() {
   const breakpoint = useBreakPoint();
 
   useEffect(() => {
-    if (breakpoint === "md") setSidebarOpen(false);
+    const upperBreakpoints = ["2xl", "xl", "lg", "md"];
+    if (!upperBreakpoints.includes(breakpoint)) setSidebarOpen(false);
   }, [breakpoint]);
 
   return (
