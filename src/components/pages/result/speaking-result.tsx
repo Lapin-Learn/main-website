@@ -32,10 +32,15 @@ function SpeakingResult({ session }: SpeakingResultProps) {
       {session.status == EnumSimulatedTestSessionStatus.IN_EVALUATING ? (
         <div>{t("status.in_evaluating", { ns: "simulatedTest" })}</div>
       ) : (
-        session.results.length && <EvaluationSection session={session} />
+        <EvaluationSection session={session} />
       )}
       <div className="grid grid-cols-1 gap-2 md:grid-cols-6 md:gap-4">
-        <div className={cn("flex gap-4 pb-0", !session.results ? "col-span-4" : "col-span-full")}>
+        <div
+          className={cn(
+            "flex gap-4 pb-0",
+            !session.results.length ? "col-span-4" : "col-span-full"
+          )}
+        >
           <SpeakingSubmission
             userSubmissions={session.responses}
             skillTestId={session.skillTest.id}

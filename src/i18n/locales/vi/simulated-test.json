@@ -3,7 +3,8 @@
   "status": {
     "in_evaluating": "Đang chấm điểm",
     "not_evaluated": "Chưa chấm điểm",
-    "evaluation_failed": "Có lỗi xảy ra"
+    "evaluation_failed": "Có lỗi xảy ra",
+    "finished": "Hoàn thành"
   },
   "exitDialog": {
     "title": "Bạn chắc chắn muốn thoát không?",

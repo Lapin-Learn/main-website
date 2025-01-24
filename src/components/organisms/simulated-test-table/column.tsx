@@ -71,7 +71,7 @@ export const columns: ColumnDef<SimulatedTestSessionsHistory>[] = [
     cell: ({ row }) => {
       const estimatedBandScore = row.original.estimatedBandScore;
 
-      return estimatedBandScore ?? "--";
+      return estimatedBandScore ?? <EvaluationStatusBadge status={row.original.status} />;
     },
   },
   {

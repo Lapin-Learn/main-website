@@ -4,7 +4,8 @@
     "evaluate": {
         "not_evaluated": "Đánh giá ngay với 100 cà rốt",
         "in_evaluating": "Đang chấm bài...",
-        "evaluation_failed": "Chấm lại bài với 100 cà rốt"
+        "evaluation_failed": "Chấm lại bài với 100 cà rốt",
+        "finished": "Đánh giá ngay với 100 cà rốt"
     },
     "features": {
         "criteria": "Nhận xét chi tiết sẽ bao gồm đánh giá theo từng tiêu chí cụ thể của kỹ năng cùng band điểm dự kiến",

@@ -25,7 +25,7 @@ type PromotionProps = {
 } & Pick<BaseSTSession, "id" | "status">;
 
 export function SubscriptionPromotion({ results, id, status }: PromotionProps) {
-  const { data: profile } = useGetGamificationProfile();
+  const { data: profile, isLoading } = useGetGamificationProfile();
   const isAffordable = (profile?.carrots || 0) >= 100;
 
   const evaluateMutation = useEvaluateSimulatedTest();
@@ -33,7 +33,8 @@ export function SubscriptionPromotion({ results, id, status }: PromotionProps) {
   const { t } = useTranslation(["subscription", "shop"]);
 
   return (
-    !results.length && (
+    !results.length &&
+    !isLoading && (
       <Card className="col-span-2 h-fit border-none bg-gradient-to-b from-[#FCE3B4] px-6 shadow-none">
         <CardHeader className="px-0">
           <CardTitle className="text-primary-700">{t("evaluation")}</CardTitle>

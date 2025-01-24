@@ -3,7 +3,8 @@
   "status": {
     "in_evaluating": "In evaluating",
     "not_evaluated": "Not evaluated yet",
-    "evaluation_failed": "Evaluation failed"
+    "evaluation_failed": "Evaluation failed",
+    "finished": "Finished"
   },
   "exitDialog": {
     "title": "Are you sure you want to exit?",
