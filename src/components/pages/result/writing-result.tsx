@@ -22,7 +22,6 @@ function WritingResult({ session }: WritingResultProps) {
   const { status, orderCode } = Route.useSearch();
   const { data: stData } = useGetSimulatedTestDetail(session.skillTest.simulatedIeltsTest.id);
   const isFullParts = session.responses.length == 2;
-  const { t } = useTranslation(["simulatedTest", "subscription"]);
 
   // Get part types: Line graph, Pie chart, etc.
   const partDetails =
@@ -33,7 +32,8 @@ function WritingResult({ session }: WritingResultProps) {
   return (
     <div className="flex flex-col gap-4">
       {session.status == EnumSimulatedTestSessionStatus.IN_EVALUATING ? (
-        <div>{t("status.in_evaluating")}</div>
+        // TODO: Redesign in evaluating state
+        <div />
       ) : (
         <EvaluationSection session={session} />
       )}
@@ -72,14 +72,17 @@ function EvaluationSection({ session }: WritingResultProps) {
     (item) => typeof item.part === "string" && item.part === EnumSpeakingCriteria.Overall
   );
 
-  if (!overalScore)
-    return (
-      <div className="rounded-xl bg-white p-4 xl:p-8">
-        {t("crashMessage", {
-          ns: "common",
-        })}
-      </div>
-    );
+  if (!overalScore) {
+    if (session.status !== EnumSimulatedTestSessionStatus.NOT_EVALUATED)
+      return (
+        <div className="rounded-xl bg-white p-4 xl:p-8">
+          {t("crashMessage", {
+            ns: "common",
+          })}
+        </div>
+      );
+    return;
+  }
 
   return (
     <div className="relative rounded-xl bg-white p-4 xl:p-8">

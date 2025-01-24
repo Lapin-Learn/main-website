@@ -21,7 +21,6 @@ type SpeakingResultProps = {
 function SpeakingResult({ session }: SpeakingResultProps) {
   const { status, orderCode } = Route.useSearch();
   const { data: stData } = useGetSimulatedTestDetail(session.skillTest.simulatedIeltsTest.id);
-  const { t } = useTranslation();
   const questionTypes =
     stData?.skillTests
       .find((skill) => skill.skill === EnumSkill.speaking)
@@ -30,7 +29,8 @@ function SpeakingResult({ session }: SpeakingResultProps) {
   return (
     <div className="flex flex-col gap-4">
       {session.status == EnumSimulatedTestSessionStatus.IN_EVALUATING ? (
-        <div>{t("status.in_evaluating", { ns: "simulatedTest" })}</div>
+        // TODO: Redesign in evaluating state
+        <div />
       ) : (
         <EvaluationSection session={session} />
       )}
