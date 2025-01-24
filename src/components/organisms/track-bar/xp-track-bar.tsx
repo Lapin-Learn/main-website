@@ -17,10 +17,10 @@ const XpTrackBar = ({
 }: XpTrackBarProps) => {
   return (
     <div className="flex items-center gap-2">
-      <RankIcon name={rank} className="size-6" />
-      <div className="w-40">
+      <RankIcon name={rank} className="size-5 md:size-6" />
+      <div className="w-28 md:w-40">
         <div className="flex items-center justify-between">
-          <span className="font-semibold text-blue-700">Lv. {level}</span>
+          <span className="text-sm font-semibold text-blue-700 md:text-base">Lv. {level}</span>
           <span className="text-xs text-blue-700">
             {formatNumber(currentXp)}/{formatNumber(levelXp)}
           </span>
