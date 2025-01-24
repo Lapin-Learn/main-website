@@ -33,13 +33,15 @@ export default function ResultPage() {
   const resultStatues = [
     EnumSimulatedTestSessionStatus.FINISHED,
     EnumSimulatedTestSessionStatus.IN_EVALUATING,
+    EnumSimulatedTestSessionStatus.NOT_EVALUATED,
+    EnumSimulatedTestSessionStatus.EVALUATION_FAILED,
   ];
 
   useEffect(() => {
-    if (session && !resultStatues.includes(session.status) && simulatedTest) {
+    if (!isLoading && session && !resultStatues.includes(session.status) && simulatedTest) {
       navigate({ to: `/practice/${simulatedTest?.collectionId}` });
     }
-  }, [session, simulatedTest]);
+  }, [isLoading, navigate, session, simulatedTest]);
 
   if (isLoading || !session) {
     return <div className="size-screen grid place-items-center">Loading...</div>;

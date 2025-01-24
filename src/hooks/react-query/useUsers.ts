@@ -126,5 +126,6 @@ export const useGetUserTransactionDetail = (transactionId: number) => {
   return useQuery({
     queryKey: transactionKeys.detail(transactionId),
     queryFn: async () => getUserTransactionDetail(transactionId),
+    enabled: !!transactionId,
   });
 };

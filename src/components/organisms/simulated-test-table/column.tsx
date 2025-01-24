@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import EvaluationStatusBadge from "@components/molecules/evaluation-status-badge.tsx";
 import { Link } from "@tanstack/react-router";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
@@ -116,7 +117,7 @@ export const extendedColumns: ColumnDef<SimulatedTestSessionsHistory>[] = [
     cell: ({ row }) => {
       const estimatedBandScore = row.original.estimatedBandScore;
 
-      return estimatedBandScore ?? "--";
+      return estimatedBandScore ?? <EvaluationStatusBadge status={row.original.status} />;
     },
   },
   {

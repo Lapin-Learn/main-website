@@ -160,7 +160,7 @@ export type SkillTestGuidance = {
 
 export type SimulatedTestSessionsHistory = Pick<
   SimulatedTestSession,
-  "id" | "elapsedTime" | "estimatedBandScore" | "mode"
+  "id" | "elapsedTime" | "estimatedBandScore" | "mode" | "status"
 > &
   Pick<SimulatedTestSimple, "testName"> & {
     totalQuestions: number;

@@ -30,13 +30,11 @@ function SpeakingResult({ session }: SpeakingResultProps) {
   return (
     <div className="flex flex-col gap-4">
       {session.status == EnumSimulatedTestSessionStatus.IN_EVALUATING ? (
-        <div>{t("status_in_evaluating", { ns: "simulatedTest" })}</div>
-      ) : session.results ? (
-        <EvaluationSection session={session} />
+        <div>{t("status.in_evaluating", { ns: "simulatedTest" })}</div>
       ) : (
-        <div className="rounded-xl bg-white p-4 xl:p-8">{t("crashMessage")}</div>
+        session.results.length && <EvaluationSection session={session} />
       )}
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-6 md:gap-8">
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-6 md:gap-4">
         <div className={cn("flex gap-4 pb-0", !session.results ? "col-span-4" : "col-span-full")}>
           <SpeakingSubmission
             userSubmissions={session.responses}
@@ -47,7 +45,7 @@ function SpeakingResult({ session }: SpeakingResultProps) {
             resource={session.resource}
           />
         </div>
-        <SubscriptionPromotion results={session.results} />
+        <SubscriptionPromotion results={session.results} status={session.status} id={session.id} />
       </div>
       <SubscriptionRedirectDialog status={status} orderCode={orderCode} />
     </div>

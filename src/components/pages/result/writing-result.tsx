@@ -33,12 +33,17 @@ function WritingResult({ session }: WritingResultProps) {
   return (
     <div className="flex flex-col gap-4">
       {session.status == EnumSimulatedTestSessionStatus.IN_EVALUATING ? (
-        <div>{t("status_in_evaluating")}</div>
+        <div>{t("status.in_evaluating")}</div>
       ) : (
         <EvaluationSection session={session} />
       )}
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-6 md:gap-8">
-        <div className={cn("flex gap-4 pb-0", !session.results ? "col-span-4" : "col-span-full")}>
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-6 md:gap-4">
+        <div
+          className={cn(
+            "flex gap-4 pb-0",
+            !session.results.length ? "col-span-4" : "col-span-full"
+          )}
+        >
           <WritingSubmission
             userSubmissions={session.responses}
             skillTestId={session.skillTest.id}
@@ -49,7 +54,7 @@ function WritingResult({ session }: WritingResultProps) {
             timeSpent={formatTime(session.elapsedTime)}
           />
         </div>
-        <SubscriptionPromotion results={session.results} />
+        <SubscriptionPromotion results={session.results} id={session.id} status={session.status} />
       </div>
       <SubscriptionRedirectDialog status={status} orderCode={orderCode} />
     </div>
