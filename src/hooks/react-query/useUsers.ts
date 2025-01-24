@@ -1,10 +1,16 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 
 import { EnumRole } from "@/lib/enums";
-import { Image } from "@/lib/types";
+import { Image, OffsetSchema } from "@/lib/types";
 import { getAccountIdentifier } from "@/services";
-import { getUserProfile, updateUserPassword, updateUserProfile } from "@/services/user";
+import {
+  getUserProfile,
+  getUserTransactionDetail,
+  getUserTransactionsHistory,
+  updateUserPassword,
+  updateUserProfile,
+} from "@/services/user";
 
 import { useToast } from "../use-toast";
 
@@ -13,6 +19,12 @@ export const userKeys = {
   identifier: () => [...userKeys.key, "identifier"] as const,
   profile: () => [...userKeys.key, "profile"] as const,
   avatar: () => [...userKeys.key, "avatar"] as const,
+};
+
+export const transactionKeys = {
+  key: ["transactions"] as const,
+  transactionList: (filter: OffsetSchema) => [...transactionKeys.key, filter] as const,
+  detail: (id: number) => [...transactionKeys.key, id] as const,
 };
 
 export const useAccountIdentifier = () => {
@@ -99,5 +111,20 @@ export const useUpdateUserPassword = () => {
         variant: "destructive",
       });
     },
+  });
+};
+
+export const useGetUserTransactionHistory = (filter: OffsetSchema) => {
+  return useQuery({
+    queryKey: transactionKeys.transactionList(filter),
+    queryFn: async () => getUserTransactionsHistory(filter),
+    placeholderData: keepPreviousData,
+  });
+};
+
+export const useGetUserTransactionDetail = (transactionId: number) => {
+  return useQuery({
+    queryKey: transactionKeys.detail(transactionId),
+    queryFn: async () => getUserTransactionDetail(transactionId),
   });
 };

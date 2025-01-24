@@ -8,11 +8,7 @@ import { cn } from "@/lib/utils";
 
 import { Button } from "../ui";
 
-const SkillsFilter = ({
-  skillsList = ALL_SKILLS_LIST,
-  selected,
-  setSelected,
-}: {
+type SkillsFilterProps = {
   skillsList?: {
     label: EnumSkill | ExtendEnumSkill;
     IconOutlined: FC<SVGProps<SVGSVGElement>>;
@@ -20,7 +16,13 @@ const SkillsFilter = ({
   }[];
   selected?: string;
   setSelected?: (selected: EnumSkill) => void;
-}) => {
+};
+
+const SkillsFilter = ({
+  skillsList = ALL_SKILLS_LIST,
+  selected = skillsList[0].label,
+  setSelected,
+}: SkillsFilterProps) => {
   const { t } = useTranslation();
   const { search, pathname } = useLocation();
   const navigate = useNavigate();
@@ -39,7 +41,7 @@ const SkillsFilter = ({
               : "bg-neutral-50 text-gray-700 hover:bg-neutral-100/50 hover:text-gray-800"
           )}
           onClick={() =>
-            !selected
+            !setSelected
               ? navigate({
                   to: pathname,
                   search: { skill: label !== ExtendEnumSkill.allSkills ? label : undefined },

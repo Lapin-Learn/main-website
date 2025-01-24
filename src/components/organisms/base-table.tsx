@@ -104,12 +104,7 @@ export const BaseTable = <TData, TValue>(props: BaseTableProps<TData, TValue>) =
                     <TableRow
                       key={row.id}
                       data-state={row.getIsSelected() && "selected"}
-                      className={cn(
-                        !!onClickItem && "cursor-pointer",
-                        row.getIsSelected()
-                          ? ""
-                          : "[&:hover_button]:opacity-100 [&_button]:opacity-0"
-                      )}
+                      className={cn(!!onClickItem && "cursor-pointer")}
                       {...(onClickItem ? { onClick: () => onClickItem(row.original) } : {})}
                     >
                       {row.getVisibleCells().map((cell) => {

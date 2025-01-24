@@ -1,3 +1,5 @@
+import { SubscriptionPromotion } from "@components/molecules/subscription-promotion.tsx";
+import { SubscriptionRedirectDialog } from "@components/molecules/subscription-redirect-dialog.tsx";
 import { useTranslation } from "react-i18next";
 
 import icons from "@/assets/icons";
@@ -9,16 +11,18 @@ import { useGetSimulatedTestDetail } from "@/hooks/react-query/use-simulated-tes
 import { MAPPED_WRITING_CRITERIA_TITLES } from "@/lib/consts";
 import { EnumSimulatedTestSessionStatus, EnumSkill, EnumSpeakingCriteria } from "@/lib/enums";
 import { WritingSession } from "@/lib/types/simulated-test-session.type";
-import { formatTime } from "@/lib/utils";
+import { cn, formatTime } from "@/lib/utils";
+import { Route } from "@/routes/_authenticated/_dashboard/practice/simulated-test/result";
 
 type WritingResultProps = {
   session: WritingSession;
 };
 
 function WritingResult({ session }: WritingResultProps) {
+  const { status, orderCode } = Route.useSearch();
   const { data: stData } = useGetSimulatedTestDetail(session.skillTest.simulatedIeltsTest.id);
   const isFullParts = session.responses.length == 2;
-  const { t } = useTranslation("simulatedTest");
+  const { t } = useTranslation(["simulatedTest", "subscription"]);
 
   // Get part types: Line graph, Pie chart, etc.
   const partDetails =
@@ -33,15 +37,21 @@ function WritingResult({ session }: WritingResultProps) {
       ) : (
         <EvaluationSection session={session} />
       )}
-      <WritingSubmission
-        userSubmissions={session.responses}
-        skillTestId={session.skillTest.id}
-        partDetails={partDetails}
-        evaluationResults={session.results}
-        rootComponent={isFullParts ? "accordion" : "card"}
-        finishedOn={session.updatedAt}
-        timeSpent={formatTime(session.elapsedTime)}
-      />
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-6 md:gap-8">
+        <div className={cn("flex gap-4 pb-0", !session.results ? "col-span-4" : "col-span-full")}>
+          <WritingSubmission
+            userSubmissions={session.responses}
+            skillTestId={session.skillTest.id}
+            partDetails={partDetails}
+            evaluationResults={session.results}
+            rootComponent={isFullParts ? "accordion" : "card"}
+            finishedOn={session.updatedAt}
+            timeSpent={formatTime(session.elapsedTime)}
+          />
+        </div>
+        <SubscriptionPromotion results={session.results} />
+      </div>
+      <SubscriptionRedirectDialog status={status} orderCode={orderCode} />
     </div>
   );
 }

@@ -3,6 +3,7 @@
     "tab_profile": "Thông tin cá nhân",
     "tab_changePassword": "Đổi mật khẩu",
     "tab_history": "Lịch sử học tập",
+    "tab_transactions": "Lịch sử giao dịch",
     "saveBtn": "Lưu thay đổi",
     "formProfile": {
         "username": {
@@ -51,5 +52,42 @@
             "accuracy": "Độ chính xác theo loại câu hỏi"
         },
         "simulated_test_history": "Lịch sử luyện thi"
+    },
+    "transaction": {
+        "title": "Lịch sử giao dịch",
+        "list": "Danh sách giao dịch",
+        "name": "Tên giao dịch",
+        "time": "Thời gian",
+        "amount": "Giá trị",
+        "status": "Trạng thái",
+        "noTransaction": "Không có giao dịch nào",
+        "statusOptions": {
+            "pending": "Chờ thanh toán",
+            "paid": "Thành công",
+            "underpaid": "Chưa hoàn tất",
+            "cancelled": "Huỷ",
+            "error": "Không thành công"
+        },
+        "transactionName": "MUA {{ quantity }} CÀ RỐT",
+        "viewDetail": "Xem chi tiết",
+        "transactionDetail": {
+            "title": "Chi tiết giao dịch",
+            "id": "Mã giao dịch",
+            "time": "Thời gian",
+            "cancelTime": "Huỷ vào lúc",
+            "cancelReason": "Lý do huỷ",
+            "status": "Trạng thái",
+            "accountNumber": "Số thẻ/TK",
+            "bank": "Ngân hàng",
+            "amount": "Số tiền",
+            "description": "Tin nhắn",
+            "contact": "Liên hệ hỗ trợ"
+        },
+        "cancel": "Huỷ",
+        "transferMore": "Chuyển thêm",
+        "cancelReason": {
+            "DUPLICATED": "Giao dịch bị trùng",
+            "EXPIRED": "Giao dịch hết hạn"
+        }
     }
 }

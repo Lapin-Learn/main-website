@@ -1,0 +1,9 @@
+{
+    "evaluation": "Evaluation",
+    "description": "Get a detailed evaluation for each skill",
+    "evaluateNow": "Evaluate now with 100 carrots",
+    "features": {
+        "criteria": "Detailed feedback will include evaluations based on specific criteria of the skill along with the expected band score",
+        "price": "Each grading will correspond to 100 carrots you have"
+    }
+}

@@ -19,6 +19,10 @@ const profileTabItems = [
     to: "/profile",
   },
   {
+    label: "transactions",
+    to: "/profile/transactions",
+  },
+  {
     label: "changePassword",
     to: "/profile/change-password",
   },
