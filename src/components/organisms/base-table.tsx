@@ -68,11 +68,13 @@ export const BaseTable = <TData, TValue>(props: BaseTableProps<TData, TValue>) =
 
   const paginationPageList = useMemo(() => {
     const pageList = [currentPage];
-    if (currentPage == 0) return [currentPage, nextPage, nextPage + 1];
-    if (currentPage == lastPage - 1) return [prevPage - 1, prevPage, currentPage];
+    if (currentPage == 0)
+      return [currentPage, nextPage, nextPage + 1].filter((page) => page < lastPage);
+    if (currentPage == lastPage - 1)
+      return [prevPage - 1, prevPage, currentPage].filter((page) => page >= 0);
     if (currentPage > 0) pageList.unshift(prevPage);
     if (currentPage < lastPage - 1) pageList.push(nextPage);
-    return pageList;
+    return pageList.filter((page) => page >= 0 && page < lastPage);
   }, [currentPage, lastPage, prevPage, nextPage]);
 
   return (
@@ -139,8 +141,8 @@ export const BaseTable = <TData, TValue>(props: BaseTableProps<TData, TValue>) =
               {loading && (
                 <div
                   className={cn(
-                    "absolute top-0 left-0 z-0 grid w-full place-items-center bg-white/50 backdrop-blur-[1px]",
-                    table.getRowModel().rows?.length ? "h-full" : "min-h-20"
+                    "absolute top-0 left-0 z-0 grid size-full place-items-center bg-white/50 backdrop-blur-[1px]",
+                    table.getRowModel().rows?.length ? "" : "min-h-20"
                   )}
                 >
                   <Loader2 className="size-8 animate-spin text-muted-foreground" />
