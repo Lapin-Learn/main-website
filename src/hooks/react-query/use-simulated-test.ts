@@ -17,6 +17,7 @@ import { calculateOverallBandScore, fromPageToOffset, parseInfiniteData } from "
 import {
   CollectionParams,
   evaluateSimulatedTest,
+  getLatestInprogressSTSession,
   getQuestionTypeAccuracy,
   getSessionProgress,
   getSimulatedTestBySkill,
@@ -56,6 +57,9 @@ const simulatedTestKeys = {
   overall: () => [...simulatedTestKeys.simulatedTestKey, "overall"] as const,
   questionTypeAccuracy: (skill: EnumSkill) => ["question-type-accuracy", skill] as const,
   sessionProgress: (skill: EnumSkill) => [...simulatedTestKeys.session, "progress", skill] as const,
+  latestSession: ["latest"] as const,
+  latestSessionByCollection: (collectionId: number) =>
+    [...simulatedTestKeys.latestSession, collectionId] as const,
 };
 
 type State = {
@@ -147,7 +151,7 @@ export const useGetCollectionDetail = (collectionId: number) => {
   };
 };
 
-export const useStartSimulatedTest = () => {
+export const useStartSimulatedTest = (collectionId: number) => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const analytics = getAnalytics();
@@ -158,6 +162,7 @@ export const useStartSimulatedTest = () => {
         navigate({
           to: "/practice/simulated-test",
           search: {
+            collectionId: collectionId,
             skillTestId: returnData.skillTestId,
             sessionId: returnData.id,
           },
@@ -177,7 +182,7 @@ export const useStartSimulatedTest = () => {
   });
 };
 
-export const useSubmitSimulatedTest = () => {
+export const useSubmitSimulatedTest = (collectionId: number) => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -196,8 +201,13 @@ export const useSubmitSimulatedTest = () => {
           description: "Submit test successfully",
         });
       } else {
-        // TODO: should we navigate back to collection/${collectionId}?
-        navigate({ to: "/practice" });
+        if (variables.status == EnumSimulatedTestSessionStatus.IN_PROGRESS) {
+          queryClient.invalidateQueries({ queryKey: simulatedTestKeys.latestSession });
+          queryClient.invalidateQueries({
+            queryKey: simulatedTestKeys.latestSessionByCollection(collectionId),
+          });
+        }
+        navigate({ to: `/practice/${collectionId}` });
       }
       queryClient.removeQueries({
         queryKey: simulatedTestKeys.session,
@@ -286,6 +296,16 @@ export const useGetSTSessionsHistory = (offset: number, limit: number) => {
   return useQuery({
     queryKey: simulatedTestKeys.sessionList({ offset, limit }),
     queryFn: async () => getSimulatedTestSessionHistory({ offset, limit }),
+    placeholderData: keepPreviousData,
+  });
+};
+
+export const useGetLatestInprogressSTSession = (collectionId?: number) => {
+  return useQuery({
+    queryKey: collectionId
+      ? simulatedTestKeys.latestSessionByCollection(collectionId)
+      : simulatedTestKeys.latestSession,
+    queryFn: async () => getLatestInprogressSTSession({ collectionId }),
     placeholderData: keepPreviousData,
   });
 };

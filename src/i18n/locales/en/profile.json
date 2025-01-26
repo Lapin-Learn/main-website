@@ -74,6 +74,7 @@
             "title": "Transaction details",
             "id": "TransactionID",
             "time": "Time",
+            "amountPaid": "Amount paid",
             "cancelTime": "Cancelled at",
             "cancelReason": "Cancelled reason",
             "status": "Status",
@@ -84,6 +85,7 @@
             "contact": "Contact support"
         },
         "cancel": "Cancel",
+        "pay": "Pay",
         "transferMore": "Transfer more",
         "cancelReason": {
             "DUPLICATED": "Duplicated transaction",

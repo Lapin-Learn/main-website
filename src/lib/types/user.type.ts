@@ -100,3 +100,9 @@ export type Order = {
   canceledAt: string | null;
   cancellationReason: string | null;
 };
+
+export type PaymentLinkInfo = Order & {
+  qrCode: string;
+  checkoutUrl: string;
+  paymentLinkId: string;
+};

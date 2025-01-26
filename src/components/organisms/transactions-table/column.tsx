@@ -69,34 +69,14 @@ export const columns = (
         const transactionId = row.original.id;
         const status = row.original.status;
 
-        switch (status) {
-          case EnumTransactionStatus.PAID:
-          case EnumTransactionStatus.CANCELLED:
-            return (
-              <button
-                className="text-blue-600 underline"
-                onClick={() => onViewDetailClick(transactionId, status)}
-              >
-                {t("transaction.viewDetail", { ns: "profile" })}
-              </button>
-            );
-          // TODO: Handle pending transaction
-          case EnumTransactionStatus.PENDING:
-            return (
-              <button className="text-blue-600 underline">
-                {t("transaction.cancel", { ns: "profile" })}
-              </button>
-            );
-          //TODO: Handle underpaid transaction
-          case EnumTransactionStatus.UNDERPAID:
-            return (
-              <button className="text-blue-600 underline">
-                {t("transaction.transferMore", { ns: "profile" })}
-              </button>
-            );
-          default:
-            return null;
-        }
+        return (
+          <button
+            className="text-blue-600 underline"
+            onClick={() => onViewDetailClick(transactionId, status)}
+          >
+            {t("transaction.viewDetail", { ns: "profile" })}
+          </button>
+        );
       },
     },
   ];

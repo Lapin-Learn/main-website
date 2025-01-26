@@ -74,6 +74,7 @@
             "title": "Chi tiết giao dịch",
             "id": "Mã giao dịch",
             "time": "Thời gian",
+            "amountPaid": "Số tiền đã thanh toán",
             "cancelTime": "Huỷ vào lúc",
             "cancelReason": "Lý do huỷ",
             "status": "Trạng thái",
@@ -84,6 +85,7 @@
             "contact": "Liên hệ hỗ trợ"
         },
         "cancel": "Huỷ",
+        "pay": "Thanh toán",
         "transferMore": "Chuyển thêm",
         "cancelReason": {
             "DUPLICATED": "Giao dịch bị trùng",
