@@ -1,0 +1,121 @@
+{
+  "simulatedTest": {
+    "overall_band": "Overall band score of the test, ranging from 1.0 to 9.0",
+    "skill_band": "Skill band score, calculated based on the number of correct answers",
+    "recent_band": "Average band score of your most recent practice test or exam",
+    "total_taken_times": "Total number of practice sessions you have completed for this test",
+    "practiced_time": "Total time you have spent practicing this test",
+    "correct_answers": {
+      "description": "Number of correct answers corresponding to the band scores:",
+      "bands": [
+        { "range": "39 - 40", "score": 9 },
+        { "range": "37 - 38", "score": 8.5 },
+        { "range": "35 - 36", "score": 8 },
+        { "range": "32 - 34", "score": 7.5 },
+        { "range": "30 - 31", "score": 7 },
+        { "range": "26 - 29", "score": 6.5 },
+        { "range": "23 - 25", "score": 6 },
+        { "range": "18 - 22", "score": 5.5 },
+        { "range": "16 - 17", "score": 5 },
+        { "range": "13 - 15", "score": 4.5 },
+        { "range": "11 - 12", "score": 4 }
+      ]
+    },
+    "speaking": {
+      "test_info": {
+        "title": "Test Information",
+        "part1": "Answer short questions about familiar topics (family, hobbies, work...). Common question types include personal information, habits, and preferences.",
+        "part2": "Present a topic for 1-2 minutes, with 1 minute to prepare. Common question types include describing events, people, places, objects, and experiences.",
+        "part3": "In-depth discussion related to the topic in Part 2, requiring you to present your viewpoint. Common question types include giving opinions, analyzing, comparing, and predicting."
+      },
+      "criteria": {
+        "title": "Scoring Criteria",
+        "P": "Accurate pronunciation and natural intonation",
+        "FC": "Ability to speak fluently, coherently, and stay on topic",
+        "GRA": "Ability to use a range of grammatical structures from simple to complex and minimize verb tense errors",
+        "LR": "Flexible use of vocabulary depending on the topic and context"
+      }
+    },
+    "writing": {
+      "test_info": {
+        "title": "Test Information",
+        "task1": "Write a report of at least 150 words, describing, analyzing, or comparing information from charts, tables, maps, or processes. Types of tasks: Bar, Line, Pie, Table charts, Maps, Processes.",
+        "task2": "Write an essay of at least 250 words, presenting arguments, explanations, or discussions. Types of tasks: Opinion (Agree/Disagree), Discussion, Problem-Solution, Advantages-Disadvantages, Two-part Question."
+      },
+      "criteria": {
+        "title": "Scoring Criteria",
+        "TR": "Degree of completion of Writing Task 1 and Writing Task 2",
+        "CC": "Logical and cohesive structure in writing through sentence structure, grammar, and connectors",
+        "LR": "Accurate and appropriate use of vocabulary in context",
+        "GRA": "Variety and accuracy in grammar usage, avoiding basic grammatical errors"
+      }
+    }
+  },
+  "gamification": {
+    "streak": "Number of consecutive days the user has studied in the system, encouraging daily English practice",
+    "carrot": {
+      "description": "Carrots can be used to exchange for items or purchase Speaking and Writing assessment packages. Ways to collect carrots:",
+      "ways": [
+        "Complete daily lessons",
+        "Complete missions",
+        "Purchase Blind Box items"
+      ]
+    },
+    "level": "Users are classified based on levels in the system, each level has corresponding <bold>experience points</bold> required for promotion",
+    "rank": {
+      "description": "Ranks are arranged and calculated based on the user's level. There are a total of <bold>6 ranks</bold> in the system:",
+      "ranks": [
+        { "key": "bronze", "value": "Bronze: Level 1" },
+        { "key": "silver", "value": "Silver: Level 10" },
+        { "key": "gold", "value": "Gold: Level 20" },
+        { "key": "platinum", "value": "Platinum: Level 50" },
+        { "key": "diamond", "value": "Diamond: Level 100" },
+        { "key": "master", "value": "Master: Level 150" }
+      ]
+    },
+    "daily_mission": "Complete daily missions to receive rewards, the system will reset and randomly select 3 missions at 0:00 each day",
+    "monthly_mission": "Complete monthly missions to receive rewards, the system will reset and randomly select 1 mission at 0:00 on the first day of each month"
+  },
+  "learningHistory": {
+    "reading": {
+      "description": "Consists of <bold>3 reading passages</bold> with <bold>40 questions</bold>, 60 minutes to complete. Assesses reading comprehension, analysis, and information retrieval skills",
+      "number_of_question_types": 6,
+      "questionTypes": [
+        "True/False/Not Given",
+        "Multiple Choice",
+        "Matching Headings/Features/Information",
+        "Sentence Completion",
+        "Summary/Diagram/Table Completion",
+        "Short Answer Questions"
+      ]
+    },
+    "listening": {
+      "description": "Consists of <bold>4 sections</bold> with <bold>40 questions</bold>, 30 minutes to complete (plus 10 minutes to transfer answers). Assesses listening comprehension and information retention skills",
+      "number_of_question_types": 5,
+      "questionTypes": [
+        "Multiple Choice",
+        "Sentence/Note/Table/Flowchart/Diagram Completion",
+        "Matching",
+        "Map/Plan/Diagram Labelling",
+        "Short Answer Questions"
+      ]
+    },
+    "writing": {
+      "description": "Consists of <bold>2 tasks</bold>, 60 minutes to complete. Assesses the ability to write coherently, logically, and clearly",
+      "number_of_question_types": 2,
+      "questionTypes": [
+        "<bold>Task 1:</bold> Write a report (charts, tables, processes, maps)",
+        "<bold>Task 2:</bold> Write an essay (Opinion, Discussion, Problem-Solution, Advantages-Disadvantages, Two-part Question)"
+      ]
+    },
+    "speaking": {
+      "description": "Consists of <bold>3 parts</bold>, approximately <bold>11-14 minutes</bold> to complete. Assesses the ability to communicate and use English in real-life situations",
+      "number_of_question_types": 3,
+      "questionTypes": [
+        "<bold>Part 1:</bold> Answer questions about personal information, hobbies, habits",
+        "<bold>Part 2:</bold> Present a topic for 1-2 minutes (describe a person, object, event)",
+        "<bold>Part 3:</bold> Discuss and present viewpoints, analyze issues, provide solutions or opinions"
+      ]
+    }
+  }
+}

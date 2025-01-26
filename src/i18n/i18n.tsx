@@ -13,6 +13,7 @@ import shopEn from "./locales/en/shop.json";
 import simulatedTestEn from "./locales/en/simulated-test.json";
 import subscriptionEn from "./locales/en/subscription.json";
 import successEn from "./locales/en/success.json";
+import tooltipEn from "./locales/en/tooltip.json";
 import authVi from "./locales/vi/auth.json";
 import collectionVi from "./locales/vi/collection.json";
 import commonVi from "./locales/vi/common.json";
@@ -24,6 +25,7 @@ import shopVi from "./locales/vi/shop.json";
 import simulatedTestVi from "./locales/vi/simulated-test.json";
 import subscriptionVi from "./locales/vi/subscription.json";
 import successVi from "./locales/vi/success.json";
+import tooltipVi from "./locales/vi/tooltip.json";
 
 const resources = {
   en: {
@@ -43,6 +45,7 @@ const resources = {
     error: errorEn,
     success: successEn,
     shop: shopEn,
+    tooltip: tooltipEn,
   },
   vi: {
     common: commonVi,
@@ -61,6 +64,7 @@ const resources = {
     error: errorVi,
     success: successVi,
     shop: shopVi,
+    tooltip: tooltipVi,
   },
 };
 

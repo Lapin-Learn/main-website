@@ -55,6 +55,7 @@ export default function DashboardLayout({ heroImage, children }: DashboardLayout
             {dailyMissions?.length > 0 && (
               <MissionSection
                 title={t("mission.types.daily")}
+                type="daily_mission"
                 timeRemaining={remainingDailyTime.timeLeft}
                 missions={dailyMissions}
               />
@@ -62,6 +63,7 @@ export default function DashboardLayout({ heroImage, children }: DashboardLayout
             {monthlyMissions?.length > 0 && (
               <MissionSection
                 title={t("mission.types.monthly")}
+                type="monthly_mission"
                 timeRemaining={remainingMonthlyTime.timeLeft}
                 missions={monthlyMissions}
               />

@@ -1,7 +1,8 @@
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 import { PracticeBreadcrumb } from "@/components/molecules/practice-breadcrumb";
+import TooltipWrapper from "@/components/molecules/tooltip-wrapper";
 import TestHeaderLayout from "@/components/templates/test-header-layout";
 import {
   useGetCollectionInfo,
@@ -51,17 +52,41 @@ export function SimulatedTestDetailHeader({
 
   const AchievementList = () => (
     <TestHeaderLayout.AchievementList>
-      <TestHeaderLayout.Achievement
-        title={t("latest-band", { ns: "practice" })}
-        description={latestSessionTest?.estimatedBandScore ?? "--"}
+      <TooltipWrapper
+        triggerNode={
+          <TestHeaderLayout.Achievement
+            title={t("latest-band", { ns: "practice" })}
+            description={latestSessionTest?.estimatedBandScore ?? "--"}
+          />
+        }
+        contentNode={
+          <Trans i18nKey="tooltip:simulatedTest.recent_band" components={{ bold: <strong /> }} />
+        }
       />
-      <TestHeaderLayout.Achievement
-        title={t("total-time-practice", { ns: "practice" })}
-        description={data?.total ?? 0}
+      <TooltipWrapper
+        triggerNode={
+          <TestHeaderLayout.Achievement
+            title={t("total-time-practice", { ns: "practice" })}
+            description={data?.total ?? 0}
+          />
+        }
+        contentNode={
+          <Trans
+            i18nKey="tooltip:simulatedTest.total_taken_times"
+            components={{ bold: <strong /> }}
+          />
+        }
       />
-      <TestHeaderLayout.Achievement
-        title={t("timeSpent", { ns: "collection" })}
-        description={formatTime(totalTimeSpent ?? 0)}
+      <TooltipWrapper
+        triggerNode={
+          <TestHeaderLayout.Achievement
+            title={t("timeSpent", { ns: "collection" })}
+            description={formatTime(totalTimeSpent ?? 0)}
+          />
+        }
+        contentNode={
+          <Trans i18nKey="tooltip:simulatedTest.practiced_time" components={{ bold: <strong /> }} />
+        }
       />
     </TestHeaderLayout.AchievementList>
   );

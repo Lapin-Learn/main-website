@@ -1,0 +1,121 @@
+{
+  "simulatedTest": {
+    "overall_band": "Band điểm tổng của bài thi, thang điểm từ 1.0 đến 9.0",
+    "skill_band": "Band điểm của kĩ năng, được tính dựa trên số câu trả lời đúng",
+    "recent_band": "Band điểm trung bình của lần thi thử hoặc làm bài <bold>gần đây nhất</bold> của bạn",
+    "total_taken_times": "Tổng số lần luyện mà bạn đã hoàn thành cho bài thi này",
+    "practiced_time": "Tổng thời gian bạn đã dành cho việc luyện tập bài thi này",
+    "correct_answers": {
+      "description": "Số câu đúng tương ứng với các band điểm:",
+      "bands": [
+        { "range": "39 - 40 câu", "score": "Band 9.0" },
+        { "range": "37 - 38 câu", "score": "Band 8.5" },
+        { "range": "35 - 36 câu", "score": "Band 8.0" },
+        { "range": "32 - 34 câu", "score": "Band 7.5" },
+        { "range": "30 - 31 câu", "score": "Band 7.0" },
+        { "range": "26 - 29 câu", "score": "Band 6.5" },
+        { "range": "23 - 25 câu", "score": "Band 6.0" },
+        { "range": "18 - 22 câu", "score": "Band 5.5" },
+        { "range": "16 - 17 câu", "score": "Band 5.0" },
+        { "range": "13 - 15 câu", "score": "Band 4.5" },
+        { "range": "11 - 12 câu", "score": "Band 4.0" }
+      ]
+    },
+    "speaking": {
+      "test_info": {
+        "title": "Thông tin dạng bài",
+        "part1": "Trả lời câu hỏi ngắn về các chủ đề quen thuộc (gia đình, sở thích, công việc...). Các dạng câu hỏi thường gặp chủ yếu là hỏi thông tin cá nhân, thói quen, sở thích.",
+        "part2": "Trình bày một chủ đề trong 1-2 phút, có 1 phút chuẩn bị. Các dạng câu hỏi thường gặp là miêu tả sự kiện, người, địa điểm, vật, trải nghiệm.",
+        "part3": "Thảo luận chuyên sâu liên quan đến chủ đề Part 2, yêu cầu trình bày quan điểm. Các dạng câu hỏi thường gặp là đưa ý kiến, phân tích, so sánh, dự đoán."  
+      },
+      "criteria": {
+        "title": "Các tiêu chí chấm điểm",
+        "P": "Phát âm chính xác và sử dụng giọng điệu tự nhiên",
+        "FC": "Đánh giá khả năng nói trôi chảy, liên kết ý mạch lạc và trả lời đúng trọng tâm",
+        "GRA": "Khả năng sử dụng nhiều cấu trúc ngữ pháp từ đơn giản đến phức tạp và hạn chế việc chia sai động từ",
+        "LR": "Sử dụng từ vựng một cách linh hoạt tùy vào từng chủ đề, từng hoàn cảnh"
+      }
+    },
+    "writing": {
+      "test_info": {
+        "title": "Thông tin dạng bài",
+        "task1": "Yêu cầu viết báo cáo ít nhất 150 từ, mô tả, phân tích hoặc so sánh thông tin từ biểu đồ, bảng, bản đồ, quy trình. Các dạng bài: Biểu đồ (Bar, Line, Pie, Table), Bản đồ, Quy trình (Process)",
+        "task2": "Viết bài luận tối thiểu 250 từ, trình bày quan điểm, lập luận hoặc giải thích vấn đề. Các dạng bài: Opinion (Agree/Disagree), Discussion, Problem-Solution, Advantages-Disadvantages, Two-part Question"
+      },
+      "criteria": {
+        "title": "Các tiêu chí chấm điểm",
+        "TR": "Mức độ hoàn thành bài thi Writing Task 1 và bài thi Writing Task 2",
+        "CC": "Sự mạnh lạc và liên kết trong bài viết thông qua cấu trúc câu logic, ngữ pháp và từ nối",
+        "LR": "Khả năng sử dụng từ vựng chính xác và phù hợp với ngữ cảnh trong từng trường hợp",
+        "GRA": "Sự đa dạng và chính xác trong sử dụng ngữ pháp, tránh lỗi ngữ pháp cơ bản"
+      }
+    }
+  },
+  "gamification": {
+    "streak": "Số ngày học liên tục của người dùng trong hệ thống, khuyến khích người dùng luyện tập tiếng Anh mỗi ngày",
+    "carrot": {
+      "description": "Có thể dùng cà rốt để quy đổi vật phẩm hoặc mua gói chấm bài Speaking, Writing. Những cách để thu thập cà rốt:",
+      "ways": [
+        "Hoàn thành bài học hàng ngày",
+        "Hoàn thành nhiệm vụ",
+        "Mua vật phẩm Túi mù"
+      ]
+    },
+    "level": "Người dùng được phân loại dựa trên các cấp bậc level trong hệ thống, mỗi level có <bold>số điểm kinh nghiệm</bold> yêu cầu tương ứng để thăng hạng",
+    "rank": {
+      "description": "Các thứ hạng được sắp xếp và tính toán dựa trên số level của người dùng. Có tổng cộng <bold>6 thứ hạng</bold> trong hệ thống:",
+      "ranks": [
+        { "key": "bronze", "value": "Đồng: Level 1" },
+        { "key": "silver", "value": "Bạc: Level 10" },
+        { "key": "gold", "value": "Vàng: Level 20" },
+        { "key": "platinum", "value": "Bạch kim: Level 50" },
+        { "key": "diamond", "value": "Kim cương: Level 100" },
+        { "key": "master", "value": "Cao thủ: Level 150" }
+      ]
+    },
+    "daily_mission": " Hoàn thành nhiệm vụ hàng ngày để nhận thưởng, hệ thống sẽ reset và chọn ngẫu nhiên <bold>3 nhiệm vụ</bold> vào 0h mỗi ngày",
+    "monthly_mission": "Hoàn thành nhiệm vụ hàng tháng để nhận thưởng, hệ thống sẽ reset và chọn ngẫu nhiên <bold>1 nhiệm vụ</bold> vào 0h ngày đầu tiên của mỗi tháng"
+  },
+  "learningHistory": {
+    "reading": {
+      "description": "Gồm <bold>3 bài đọc</bold> với <bold>40 câu hỏi</bold>, thời gian làm bài <bold>60 phút</bold>. Đánh giá kỹ năng đọc hiểu, phân tích, và tìm thông tin",
+      "number_of_question_types": 6,
+      "questionTypes": [
+        "True/False/Not Given",
+        "Multiple Choice",
+        "Matching Headings/Features/Information",
+        "Sentence Completion",
+        "Summary/Diagram/Table Completion",
+        "Short Answer Questions"
+      ]
+    },
+    "listening": {
+      "description": "Gồm <bold>4 phần</bold> với <bold>40 câu hỏi</bold>, thời gian làm bài <bold>30 phút</bold> (thêm 10 phút để điền đáp án). Đánh giá khả năng nghe hiểu và ghi nhận thông tin",
+      "number_of_question_types": 5,
+      "questionTypes": [
+        "Multiple Choice",
+        "Sentence/Note/Table/Flowchart/Diagram Completion",
+        "Matching",
+        "Map/Plan/Diagram Labelling",
+        "Short Answer Questions"
+      ]
+    },
+    "writing": {
+      "description": "Gồm <bold>2 phần</bold>, thời gian làm bài <bold>60 phút</bold>. Đánh giá khả năng viết mạch lạc, hợp lý và rõ ràng",
+      "number_of_question_types": 2,
+      "questionTypes": [
+        "<bold>Task 1:</bold> Viết báo cáo (biểu đồ, bảng, quy trình, bản đồ)",
+        "<bold>Task 2:</bold> Viết bài luận (Opinion, Discussion, Problem-Solution, Advantages-Disadvantages, Two-part Question)"
+      ]
+    },
+    "speaking": {
+      "description": "Gồm <bold>3 phần</bold>, thời gian làm bài khoảng <bold>11-14 phút</bold>. Đánh giá khả năng giao tiếp và sử dụng tiếng Anh trong các tình huống thực tế",
+      "number_of_question_types": 3,
+      "questionTypes": [
+        "<bold>Part 1:</bold> Hỏi về thông tin cá nhân, sở thích, thói quen",
+        "<bold>Part 2:</bold> Trình bày một chủ đề trong 1-2 phút (miêu tả người, vật, sự kiện)",
+        "<bold>Part 3:</bold> Thảo luận và trình bày quan điểm, phân tích vấn đề, đưa ra giải pháp hoặc ý kiến"
+      ]
+    }
+  }
+}

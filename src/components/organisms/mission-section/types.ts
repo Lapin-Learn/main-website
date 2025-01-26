@@ -16,5 +16,6 @@ export type MissionProps = IMission;
 export type MissionSectionProps = {
   title?: string;
   timeRemaining?: number;
+  type: "daily_mission" | "monthly_mission";
   missions: IMission[];
 };

@@ -1,29 +1,41 @@
 import { Clock } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 import CarrotIcon from "@/assets/icons/carrot";
 import DailyTestIcon from "@/assets/icons/daily-test";
+import TooltipWrapper from "@/components/molecules/tooltip-wrapper";
 import { Progress } from "@/components/ui/progress";
 import { convertMissionNameCategory, formatRemainingToDateTime } from "@/lib/utils";
 
 import { ProfileSection as Section } from "./section";
 import { MissionProps, MissionSectionProps } from "./types";
 
-export const MissionSection = ({ title, timeRemaining, missions }: MissionSectionProps) => {
+export const MissionSection = ({ title, type, timeRemaining, missions }: MissionSectionProps) => {
   const { t } = useTranslation("practice");
   return (
     <Section className="rounded-2xl bg-white p-4">
       {title && timeRemaining && (
-        <Section.Title
-          label={title}
-          className="flex items-end"
-          textClassName="font-semibold text-body text-dark"
-        >
-          <div className="flex items-center gap-1 text-sm font-medium text-orange-400">
-            <Clock size={16} color="#F17D53" />
-            {t("mission.time_remaining", { time: formatRemainingToDateTime(timeRemaining) })}
-          </div>
-        </Section.Title>
+        <TooltipWrapper
+          triggerNode={
+            <Section.Title
+              label={title}
+              className="flex items-end"
+              textClassName="font-semibold text-body text-dark"
+            >
+              <div className="flex items-center gap-1 text-sm font-medium text-orange-400">
+                <Clock size={16} color="#F17D53" />
+                {t("mission.time_remaining", { time: formatRemainingToDateTime(timeRemaining) })}
+              </div>
+            </Section.Title>
+          }
+          contentNode={
+            <span>
+              <Trans i18nKey={`tooltip:gamification.${type}`} components={{ bold: <strong /> }} />
+            </span>
+          }
+          className="flex max-w-80 flex-col gap-1 bg-neutral-300"
+          sideOffset={4}
+        />
       )}
       <Section.Group className="bg-white py-0">
         <ListMissions data={missions} />

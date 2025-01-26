@@ -86,8 +86,10 @@ function EvaluationSection({ session }: SpeakingResultProps) {
           <CriteriaScoreCard
             key={key}
             criteria={MAPPED_SPEAKING_CRITERIA_TITLES[key] ?? key}
+            criteriaKey={key as EnumSpeakingCriteria}
             evaluate={value.evaluate ?? ""}
             score={value.score}
+            skill={EnumSkill.speaking}
             Icon={icons.WritingFilled}
           />
         ))}
