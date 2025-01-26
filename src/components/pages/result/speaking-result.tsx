@@ -21,7 +21,6 @@ type SpeakingResultProps = {
 function SpeakingResult({ session }: SpeakingResultProps) {
   const { status, orderCode } = Route.useSearch();
   const { data: stData } = useGetSimulatedTestDetail(session.skillTest.simulatedIeltsTest.id);
-  const { t } = useTranslation();
   const questionTypes =
     stData?.skillTests
       .find((skill) => skill.skill === EnumSkill.speaking)
@@ -30,14 +29,18 @@ function SpeakingResult({ session }: SpeakingResultProps) {
   return (
     <div className="flex flex-col gap-4">
       {session.status == EnumSimulatedTestSessionStatus.IN_EVALUATING ? (
-        <div>{t("status_in_evaluating", { ns: "simulatedTest" })}</div>
-      ) : session.results ? (
-        <EvaluationSection session={session} />
+        // TODO: Redesign in evaluating state
+        <div />
       ) : (
-        <div className="rounded-xl bg-white p-4 xl:p-8">{t("crashMessage")}</div>
+        <EvaluationSection session={session} />
       )}
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-6 md:gap-8">
-        <div className={cn("flex gap-4 pb-0", !session.results ? "col-span-4" : "col-span-full")}>
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-6 md:gap-4">
+        <div
+          className={cn(
+            "flex gap-4 pb-0",
+            !session.results.length ? "col-span-4" : "col-span-full"
+          )}
+        >
           <SpeakingSubmission
             userSubmissions={session.responses}
             skillTestId={session.skillTest.id}
@@ -47,7 +50,7 @@ function SpeakingResult({ session }: SpeakingResultProps) {
             resource={session.resource}
           />
         </div>
-        <SubscriptionPromotion results={session.results} />
+        <SubscriptionPromotion results={session.results} status={session.status} id={session.id} />
       </div>
       <SubscriptionRedirectDialog status={status} orderCode={orderCode} />
     </div>

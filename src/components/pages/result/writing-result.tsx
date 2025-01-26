@@ -22,7 +22,6 @@ function WritingResult({ session }: WritingResultProps) {
   const { status, orderCode } = Route.useSearch();
   const { data: stData } = useGetSimulatedTestDetail(session.skillTest.simulatedIeltsTest.id);
   const isFullParts = session.responses.length == 2;
-  const { t } = useTranslation(["simulatedTest", "subscription"]);
 
   // Get part types: Line graph, Pie chart, etc.
   const partDetails =
@@ -33,12 +32,18 @@ function WritingResult({ session }: WritingResultProps) {
   return (
     <div className="flex flex-col gap-4">
       {session.status == EnumSimulatedTestSessionStatus.IN_EVALUATING ? (
-        <div>{t("status_in_evaluating")}</div>
+        // TODO: Redesign in evaluating state
+        <div />
       ) : (
         <EvaluationSection session={session} />
       )}
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-6 md:gap-8">
-        <div className={cn("flex gap-4 pb-0", !session.results ? "col-span-4" : "col-span-full")}>
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-6 md:gap-4">
+        <div
+          className={cn(
+            "flex gap-4 pb-0",
+            !session.results.length ? "col-span-4" : "col-span-full"
+          )}
+        >
           <WritingSubmission
             userSubmissions={session.responses}
             skillTestId={session.skillTest.id}
@@ -49,7 +54,7 @@ function WritingResult({ session }: WritingResultProps) {
             timeSpent={formatTime(session.elapsedTime)}
           />
         </div>
-        <SubscriptionPromotion results={session.results} />
+        <SubscriptionPromotion results={session.results} id={session.id} status={session.status} />
       </div>
       <SubscriptionRedirectDialog status={status} orderCode={orderCode} />
     </div>
@@ -67,14 +72,17 @@ function EvaluationSection({ session }: WritingResultProps) {
     (item) => typeof item.part === "string" && item.part === EnumSpeakingCriteria.Overall
   );
 
-  if (!overalScore)
-    return (
-      <div className="rounded-xl bg-white p-4 xl:p-8">
-        {t("crashMessage", {
-          ns: "common",
-        })}
-      </div>
-    );
+  if (!overalScore) {
+    if (session.status !== EnumSimulatedTestSessionStatus.NOT_EVALUATED)
+      return (
+        <div className="rounded-xl bg-white p-4 xl:p-8">
+          {t("crashMessage", {
+            ns: "common",
+          })}
+        </div>
+      );
+    return;
+  }
 
   return (
     <div className="relative rounded-xl bg-white p-4 xl:p-8">

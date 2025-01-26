@@ -104,6 +104,8 @@ export enum EnumMode {
 
 export enum EnumSimulatedTestSessionStatus {
   IN_PROGRESS = "in_progress",
+  NOT_EVALUATED = "not_evaluated",
+  EVALUATION_FAILED = "evaluation_failed",
   FINISHED = "finished",
   NOT_STARTED = "not_started",
   CANCELED = "canceled",

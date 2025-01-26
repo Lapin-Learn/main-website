@@ -1,144 +1,149 @@
 {
-    "unit": "bài",
-    "status_in_evaluating": "Đang chấm điểm",
-    "exitDialog": {
-        "title": "Bạn chắc chắn muốn thoát không?",
-        "description": " Bạn chưa hoàn thành bài thi. Tất cả câu trả lời của bạn sẽ được lưu thành bản nháp.",
-        "exitBtn": "Thoát",
-        "continueBtn": "Tiếp tục làm bài"
-    },
-    "startDialog": {
-        "title": "Bắt đầu làm bài",
-        "description_default": "Bài thi gồm <1>{{parts}} phần</1> và bạn sẽ có <1>{{minutes}} phút</1> để hoàn thành bài thi. Bạn <1>không thể dừng giữa chừng</1> và bài thi sẽ tự động nộp sau {{minutes}} phút.",
-        "description_unlimited": "Bài thi gồm <1>{{parts}} phần</1> và bạn sẽ có <1>không giới hạn thời gian</1> để hoàn thành bài thi. Nhấn <1>nộp bài</1> để kết thúc bài thi.",
-        "startBtn": "Bắt đầu"
-    },
-    "submitDialog": {
-        "title": "Bạn chắc chắn nộp bài không?",
-        "description": "Bạn chưa hoàn thành tất cả câu hỏi trong bài thi và còn",
-        "submitBtn": "Nộp bài",
-        "cancelBtn": "Hủy"
-    },
-    "nextBtn": "Tiếp theo",
-    "prevBtn": "Quay lại",
+  "unit": "bài",
+  "status": {
+    "in_evaluating": "Đang chấm điểm",
+    "not_evaluated": "Chưa chấm điểm",
+    "evaluation_failed": "Có lỗi xảy ra",
+    "finished": "Hoàn thành"
+  },
+  "exitDialog": {
+    "title": "Bạn chắc chắn muốn thoát không?",
+    "description": " Bạn chưa hoàn thành bài thi. Tất cả câu trả lời của bạn sẽ được lưu thành bản nháp.",
+    "exitBtn": "Thoát",
+    "continueBtn": "Tiếp tục làm bài"
+  },
+  "startDialog": {
+    "title": "Bắt đầu làm bài",
+    "description_default": "Bài thi gồm <1>{{parts}} phần</1> và bạn sẽ có <1>{{minutes}} phút</1> để hoàn thành bài thi. Bạn <1>không thể dừng giữa chừng</1> và bài thi sẽ tự động nộp sau {{minutes}} phút.",
+    "description_unlimited": "Bài thi gồm <1>{{parts}} phần</1> và bạn sẽ có <1>không giới hạn thời gian</1> để hoàn thành bài thi. Nhấn <1>nộp bài</1> để kết thúc bài thi.",
+    "startBtn": "Bắt đầu"
+  },
+  "submitDialog": {
+    "title": "Bạn chắc chắn nộp bài không?",
+    "description": "Bạn chưa hoàn thành tất cả câu hỏi trong bài thi và còn",
     "submitBtn": "Nộp bài",
-    "mode": {
-        "title": "Chế độ",
-        "practice": "Chế độ luyện tập",
-        "full_test": "Chế độ thi thử"
+    "cancelBtn": "Hủy"
+  },
+  "nextBtn": "Tiếp theo",
+  "prevBtn": "Quay lại",
+  "submitBtn": "Nộp bài",
+  "mode": {
+    "title": "Chế độ",
+    "practice": "Chế độ luyện tập",
+    "full_test": "Chế độ thi thử"
+  },
+  "tour": {
+    "skipBtn": "Bỏ qua",
+    "beforeStart": {
+      "title": "Trước khi bắt đầu",
+      "welcome": "Chào mừng bạn đến với chế độ luyện thi của LapinLearn!",
+      "steps": [
+        "Hướng dẫn này sẽ giúp bạn hiểu rõ các tính năng chính của ứng dụng.",
+        "Bộ đếm giờ sẽ không bắt đầu cho đến khi bạn hoàn thành hướng dẫn này.",
+        "Bạn có thể bỏ qua hướng dẫn hoặc xem lại bất kỳ lúc nào trong phần cài đặt."
+      ],
+      "startBtn": "Bắt đầu"
     },
-    "tour": {
-        "skipBtn": "Bỏ qua",
-        "beforeStart": {
-            "title": "Trước khi bắt đầu",
-            "welcome": "Chào mừng bạn đến với chế độ luyện thi của LapinLearn!",
-            "steps": [
-                "Hướng dẫn này sẽ giúp bạn hiểu rõ các tính năng chính của ứng dụng.",
-                "Bộ đếm giờ sẽ không bắt đầu cho đến khi bạn hoàn thành hướng dẫn này.",
-                "Bạn có thể bỏ qua hướng dẫn hoặc xem lại bất kỳ lúc nào trong phần cài đặt."
-            ],
-            "startBtn": "Bắt đầu"
-        },
-        "end": {
-            "title": "Kết thúc",
-            "congratulations": "Chúc mừng bạn đã hoàn thành hướng dẫn!",
-            "steps": [
-                "Bây giờ bạn có thể bắt đầu bài thi hoặc xem lại hướng dẫn này bất cứ lúc nào.",
-                "Chúc bạn ôn luyện hiệu quả và đạt điểm số mong muốn!"
-            ],
-            "lastBtn": "Bắt đầu làm bài"
-        },
-        "elements": {
-            "timer": {
-                "title": "Bộ đếm giờ",
-                "description": "Bộ đếm giờ được hiển thị ở góc trên bên phải màn hình, cho biết thời gian còn lại cho phần thi hiện tại."
-            },
-            "content": {
-                "title": "Phần bài đọc",
-                "description": "Đây là phần bài đọc, cuộn xuống để đọc toàn bộ nội dung của đoạn văn. Các đoạn văn được chia thành các phần nhỏ hơn để dễ theo dõi."
-            },
-            "answerSheet": {
-                "title": "Phần làm bài",
-                "description": "Chọn đáp án đúng (nếu là câu hỏi trắc nghiệm) hoặc điền câu trả lời vào ô trống (nếu là câu hỏi tự luận)."
-            },
-            "questionNavigator": {
-                "title": "Phần chuyển câu",
-                "description": "Ở dưới cùng màn hình, bạn sẽ thấy thanh điều hướng câu hỏi, nhấn vào số để nhảy đến câu hỏi tương ứng. Câu hỏi hiện tại sẽ được làm nổi bật, và các câu hỏi chưa trả lời sẽ được đánh dấu."
-            },
-            "backAndNext": {
-                "title": "Nút quay lại và tiếp theo",
-                "description": "Sử dụng nút Quay lại để trở về phần trước đó. Sử dụng nút Tiếp theo để chuyển sang phần tiếp theo."
-            },
-            "submit": {
-                "title": "Nút nộp bài",
-                "description": "Khi đã hoàn thành tất cả câu hỏi, nhấn nút Nộp bài để kết thúc bài thi. Nếu hết giờ, bài làm của bạn sẽ được tự động nộp."
-            },
-            "quit": {
-                "title": "Nút thoát",
-                "description": "Nhấn nút Thoát để rời khỏi bài thi bất kỳ lúc nào. Tiến trình của bạn có thể không được lưu nếu thoát mà không nộp bài."
-            }
-        }
+    "end": {
+      "title": "Kết thúc",
+      "congratulations": "Chúc mừng bạn đã hoàn thành hướng dẫn!",
+      "steps": [
+        "Bây giờ bạn có thể bắt đầu bài thi hoặc xem lại hướng dẫn này bất cứ lúc nào.",
+        "Chúc bạn ôn luyện hiệu quả và đạt điểm số mong muốn!"
+      ],
+      "lastBtn": "Bắt đầu làm bài"
     },
-    "speaking": {
-        "microphoneTest": "Bạn có {{ seconds }} giây để thử Microphone",
-        "instructions": {
-            "practice": [
-                {
-                    "title": "Thời gian không giới hạn",
-                    "content": "Trong chế độ này, thời gian suy nghĩ và nói của bạn sẽ không bị giới hạn, cho phép bạn thoải mái luyện tập mà không cần lo lắng về thời gian."
-                },
-                {
-                    "title": "Luyện tập theo phần",
-                    "content": "Giúp bạn tập trung luyện tập từng phần chi tiết trước khi kết hợp toàn bộ bài thi. Không được quay lại, hệ thống sẽ thu âm lại toàn bộ bài và bạn chỉ có thể nghe lại khi hoàn thành."
-                },
-                {
-                    "title": "Hệ thống tự động đọc câu hỏi",
-                    "content": "Hệ thống tự động đọc câu hỏi cho từng phần, với giọng đọc rõ ràng và tốc độ chuẩn. Ngoài ra, hệ thống cho phép bạn hỏi lại và nghe lại câu hỏi nhiều nhất 2 lần, giúp làm rõ nội dung câu hỏi."
-                }
-            ],
-            "full_test": [
-                {
-                    "title": "Thời gian thi thật",
-                    "content": "Trong chế độ này, bạn sẽ có thời gian suy nghĩ và nói như trong bài thi thật, giúp bạn làm quen với áp lực thời gian và cải thiện kỹ năng quản lý thời gian."
-                },
-                {
-                    "title": "Làm tất cả các phần",
-                    "content": "Bạn sẽ hoàn thành bài thi như một bài thi thật gồm 3 phần"
-                },
-                {
-                    "title": "Hệ thống tự động đọc câu hỏi",
-                    "content": "Hệ thống tự động đọc câu hỏi cho từng phần, với giọng đọc rõ ràng và tốc độ chuẩn. Ngoài ra, hệ thống cho phép bạn hỏi lại và nghe lại câu hỏi nhiều nhất 2 lần, giúp làm rõ nội dung câu hỏi."
-                }
-            ]
-        },
-        "nextQuestionInSeconds": "Câu tiếp theo sau {{ time }}s",
-        "nextPartInSeconds": "Part tiếp theo sau {{ time }}s",
-        "nextPart": "Part tiếp theo",
-        "preparePartTwo": "Bạn có {{ time }} giây để chuẩn bị",
-        "startSpeakingPartTwo": "Bạn hãy bắt đầu nói",
-        "endTestInSeconds": "Kết thúc trong {{ time }}s",
-        "endTest": "Kết thúc bài làm",
-        "endTestTitle": "Kết thúc bài thi Speaking",
-        "endTestMessage": "Bạn đã hoàn thành bài thi Speaking. Vui lòng chờ kết quả từ chúng tôi.",
-        "endTestPlayBack": "Bạn có thể nghe lại phần bài nói của mình ở đây:"
-    },
-    "startTest": "Bắt đầu làm bài",
-    "start": "Bắt đầu",
-    "nextQuestion": "Câu kế tiếp",
-    "history": {
-        "viewDetail": "Xem chi tiết",
-        "assignment": "Bài làm",
-        "skill": "Kỹ năng",
-        "date_completed": "Ngày hoàn thành",
-        "result": "Kết quả",
-        "duration": "Thời gian",
-        "noData": "Không có dữ liệu bài làm"
-    },
-    "result": {
-        "questionType": "Phân loại câu hỏi",
-        "accuracy": "Độ chính xác",
-        "questions": "Danh sách câu hỏi",
-        "unanswered": "Chưa trả lời",
-        "yourAnswer": "Câu trả lời của bạn"
+    "elements": {
+      "timer": {
+        "title": "Bộ đếm giờ",
+        "description": "Bộ đếm giờ được hiển thị ở góc trên bên phải màn hình, cho biết thời gian còn lại cho phần thi hiện tại."
+      },
+      "content": {
+        "title": "Phần bài đọc",
+        "description": "Đây là phần bài đọc, cuộn xuống để đọc toàn bộ nội dung của đoạn văn. Các đoạn văn được chia thành các phần nhỏ hơn để dễ theo dõi."
+      },
+      "answerSheet": {
+        "title": "Phần làm bài",
+        "description": "Chọn đáp án đúng (nếu là câu hỏi trắc nghiệm) hoặc điền câu trả lời vào ô trống (nếu là câu hỏi tự luận)."
+      },
+      "questionNavigator": {
+        "title": "Phần chuyển câu",
+        "description": "Ở dưới cùng màn hình, bạn sẽ thấy thanh điều hướng câu hỏi, nhấn vào số để nhảy đến câu hỏi tương ứng. Câu hỏi hiện tại sẽ được làm nổi bật, và các câu hỏi chưa trả lời sẽ được đánh dấu."
+      },
+      "backAndNext": {
+        "title": "Nút quay lại và tiếp theo",
+        "description": "Sử dụng nút Quay lại để trở về phần trước đó. Sử dụng nút Tiếp theo để chuyển sang phần tiếp theo."
+      },
+      "submit": {
+        "title": "Nút nộp bài",
+        "description": "Khi đã hoàn thành tất cả câu hỏi, nhấn nút Nộp bài để kết thúc bài thi. Nếu hết giờ, bài làm của bạn sẽ được tự động nộp."
+      },
+      "quit": {
+        "title": "Nút thoát",
+        "description": "Nhấn nút Thoát để rời khỏi bài thi bất kỳ lúc nào. Tiến trình của bạn có thể không được lưu nếu thoát mà không nộp bài."
+      }
     }
+  },
+  "speaking": {
+    "microphoneTest": "Bạn có {{ seconds }} giây để thử Microphone",
+    "instructions": {
+      "practice": [
+        {
+          "title": "Thời gian không giới hạn",
+          "content": "Trong chế độ này, thời gian suy nghĩ và nói của bạn sẽ không bị giới hạn, cho phép bạn thoải mái luyện tập mà không cần lo lắng về thời gian."
+        },
+        {
+          "title": "Luyện tập theo phần",
+          "content": "Giúp bạn tập trung luyện tập từng phần chi tiết trước khi kết hợp toàn bộ bài thi. Không được quay lại, hệ thống sẽ thu âm lại toàn bộ bài và bạn chỉ có thể nghe lại khi hoàn thành."
+        },
+        {
+          "title": "Hệ thống tự động đọc câu hỏi",
+          "content": "Hệ thống tự động đọc câu hỏi cho từng phần, với giọng đọc rõ ràng và tốc độ chuẩn. Ngoài ra, hệ thống cho phép bạn hỏi lại và nghe lại câu hỏi nhiều nhất 2 lần, giúp làm rõ nội dung câu hỏi."
+        }
+      ],
+      "full_test": [
+        {
+          "title": "Thời gian thi thật",
+          "content": "Trong chế độ này, bạn sẽ có thời gian suy nghĩ và nói như trong bài thi thật, giúp bạn làm quen với áp lực thời gian và cải thiện kỹ năng quản lý thời gian."
+        },
+        {
+          "title": "Làm tất cả các phần",
+          "content": "Bạn sẽ hoàn thành bài thi như một bài thi thật gồm 3 phần"
+        },
+        {
+          "title": "Hệ thống tự động đọc câu hỏi",
+          "content": "Hệ thống tự động đọc câu hỏi cho từng phần, với giọng đọc rõ ràng và tốc độ chuẩn. Ngoài ra, hệ thống cho phép bạn hỏi lại và nghe lại câu hỏi nhiều nhất 2 lần, giúp làm rõ nội dung câu hỏi."
+        }
+      ]
+    },
+    "nextQuestionInSeconds": "Câu tiếp theo sau {{ time }}s",
+    "nextPartInSeconds": "Part tiếp theo sau {{ time }}s",
+    "nextPart": "Part tiếp theo",
+    "preparePartTwo": "Bạn có {{ time }} giây để chuẩn bị",
+    "startSpeakingPartTwo": "Bạn hãy bắt đầu nói",
+    "endTestInSeconds": "Kết thúc trong {{ time }}s",
+    "endTest": "Kết thúc bài làm",
+    "endTestTitle": "Kết thúc bài thi Speaking",
+    "endTestMessage": "Bạn đã hoàn thành bài thi Speaking. Vui lòng chờ kết quả từ chúng tôi.",
+    "endTestPlayBack": "Bạn có thể nghe lại phần bài nói của mình ở đây:"
+  },
+  "startTest": "Bắt đầu làm bài",
+  "start": "Bắt đầu",
+  "nextQuestion": "Câu kế tiếp",
+  "history": {
+    "viewDetail": "Xem chi tiết",
+    "assignment": "Bài làm",
+    "skill": "Kỹ năng",
+    "date_completed": "Ngày hoàn thành",
+    "result": "Kết quả",
+    "duration": "Thời gian",
+    "noData": "Không có dữ liệu bài làm"
+  },
+  "result": {
+    "questionType": "Phân loại câu hỏi",
+    "accuracy": "Độ chính xác",
+    "questions": "Danh sách câu hỏi",
+    "unanswered": "Chưa trả lời",
+    "yourAnswer": "Câu trả lời của bạn"
+  }
 }

@@ -9,22 +9,32 @@ import {
   Typography,
 } from "@components/ui";
 import { PulsatingButton } from "@components/ui/pulsating-button.tsx";
+import { useEvaluateSimulatedTest } from "@hooks/react-query/use-simulated-test.ts";
 import { useGetGamificationProfile } from "@hooks/react-query/useGamification.ts";
 import { CheckIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import CarrotBasket from "@/assets/carrotBasket.svg";
 import { carrotSubscription } from "@/lib/consts.ts";
+import { EnumSimulatedTestSessionStatus } from "@/lib/enums.ts";
+import { BaseSTSession } from "@/lib/types/simulated-test-session.type.ts";
 import { STCriteriaEvaluation } from "@/lib/types/simulated-test.type.ts";
 
-export function SubscriptionPromotion({ results }: { results: STCriteriaEvaluation[] }) {
-  const { data: profile } = useGetGamificationProfile();
+type PromotionProps = {
+  results: STCriteriaEvaluation[];
+} & Pick<BaseSTSession, "id" | "status">;
+
+export function SubscriptionPromotion({ results, id, status }: PromotionProps) {
+  const { data: profile, isLoading } = useGetGamificationProfile();
   const isAffordable = (profile?.carrots || 0) >= 100;
+
+  const evaluateMutation = useEvaluateSimulatedTest();
 
   const { t } = useTranslation(["subscription", "shop"]);
 
   return (
-    !results && (
+    !results.length &&
+    !isLoading && (
       <Card className="col-span-2 h-fit border-none bg-gradient-to-b from-[#FCE3B4] px-6 shadow-none">
         <CardHeader className="px-0">
           <CardTitle className="text-primary-700">{t("evaluation")}</CardTitle>
@@ -38,7 +48,12 @@ export function SubscriptionPromotion({ results }: { results: STCriteriaEvaluati
               <Typography variant="body2">
                 {t(`shop.use_modal.amount`, { ns: "shop", amount: profile?.carrots, name: "" })}
               </Typography>
-              <PulsatingButton>{t("evaluateNow", { ns: "subscription" })}</PulsatingButton>
+              <PulsatingButton
+                onClick={() => evaluateMutation.mutate(id)}
+                disabled={status == EnumSimulatedTestSessionStatus.IN_EVALUATING}
+              >
+                {t(`evaluate.${status}`, { ns: "subscription" })}
+              </PulsatingButton>
             </div>
           ) : (
             <div className="flex flex-col gap-4">

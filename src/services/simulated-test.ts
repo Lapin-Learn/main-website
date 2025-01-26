@@ -204,3 +204,9 @@ export const getSessionProgress = async (skill: EnumSkill, from?: string, to?: s
     createdAt: format(item.createdAt, "dd/MM/yyyy"),
   }));
 };
+
+export const evaluateSimulatedTest = async (sessionId: number) => {
+  return (
+    await api.post(`simulated-tests/sessions/${sessionId}/evaluating`).json<FetchingData<string>>()
+  ).data;
+};

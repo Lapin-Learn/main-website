@@ -1,3 +1,4 @@
+import { gamificationKeys } from "@hooks/react-query/useGamification.ts";
 import {
   keepPreviousData,
   useInfiniteQuery,
@@ -15,6 +16,7 @@ import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { calculateOverallBandScore, fromPageToOffset, parseInfiniteData } from "@/lib/utils";
 import {
   CollectionParams,
+  evaluateSimulatedTest,
   getQuestionTypeAccuracy,
   getSessionProgress,
   getSimulatedTestBySkill,
@@ -200,6 +202,9 @@ export const useSubmitSimulatedTest = () => {
       queryClient.removeQueries({
         queryKey: simulatedTestKeys.session,
       });
+      queryClient.invalidateQueries({
+        queryKey: simulatedTestKeys.collectionKey,
+      });
     },
     onError: (error) => {
       toast({
@@ -308,5 +313,32 @@ export const useGetSessionProgress = (skill: EnumSkill, from?: string, to?: stri
   return useQuery({
     queryKey: simulatedTestKeys.sessionProgress(skill),
     queryFn: async () => getSessionProgress(skill, from, to),
+  });
+};
+
+export const useEvaluateSimulatedTest = () => {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: evaluateSimulatedTest,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: simulatedTestKeys.session,
+      });
+      queryClient.invalidateQueries({
+        queryKey: simulatedTestKeys.collectionKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: gamificationKeys.gamificationProfile,
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
   });
 };

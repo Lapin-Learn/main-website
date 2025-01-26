@@ -80,7 +80,7 @@ function WritingSubmission(props: WritingSubmissionProps) {
       type="single"
       collapsible
       className="flex w-full flex-col gap-4"
-      defaultValue={!evaluationResults ? "0" : undefined}
+      defaultValue={!evaluationResults?.length ? "0" : undefined}
     >
       {userSubmissions.map((submission, index) => {
         const partDetail =
