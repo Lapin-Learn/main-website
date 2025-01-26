@@ -25,7 +25,6 @@ import {
   getElapsedTime,
   getInitialTime,
 } from "@/lib/utils";
-import { Route } from "@/routes/_authenticated/practice/simulated-test";
 
 type SubmitDialogProps = {
   triggerButton: React.ReactNode;
@@ -37,9 +36,8 @@ const SubmitDialog = ({ triggerButton, sessionId }: SubmitDialogProps) => {
   });
   const { answerSheet } = useAnswerStore();
   const { getTimer } = useGlobalTimerStore();
-  const { collectionId } = Route.useSearch();
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
-  const { mutate: submitTest, isPending } = useSubmitSimulatedTest(collectionId);
+  const { mutate: submitTest, isPending } = useSubmitSimulatedTest();
   const { data: session } = useGetSTSessionDetail(sessionId);
 
   const timer = getTimer(timerKeys.testDetail(sessionId));

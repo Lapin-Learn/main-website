@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useParams } from "@tanstack/react-router";
 import { SquarePen, TriangleAlert, Zap } from "lucide-react";
 import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
@@ -25,9 +24,8 @@ import useSelectModeDialog from "./use-select-mode-dialog";
 
 const SelectModeDialog = () => {
   const { t } = useTranslation("practice");
-  const { collectionId } = useParams({ strict: false });
   const { test, skillTest, open, setOpen } = useSelectModeDialog();
-  const startSimulatedTest = useStartSimulatedTest(parseInt(collectionId, 10));
+  const startSimulatedTest = useStartSimulatedTest();
 
   const parts: {
     value: string;

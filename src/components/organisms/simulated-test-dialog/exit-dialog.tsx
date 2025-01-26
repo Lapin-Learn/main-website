@@ -28,11 +28,11 @@ type ExitDialogProps = {
 };
 const ExitDialog = ({ triggerButton }: ExitDialogProps) => {
   const navigate = useNavigate();
-  const { sessionId, collectionId } = Route.useSearch();
+  const { sessionId } = Route.useSearch();
   const { answerSheet } = useAnswerStore();
   const { data: session } = useGetSTSessionDetail(sessionId);
   const { getTimer } = useGlobalTimerStore();
-  const { mutate: submitTest } = useSubmitSimulatedTest(collectionId);
+  const { mutate: submitTest } = useSubmitSimulatedTest();
 
   const onClose = () => {
     const responses = formatAnswerSheetToResponses(answerSheet);

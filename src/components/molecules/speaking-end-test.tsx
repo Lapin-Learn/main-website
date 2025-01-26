@@ -9,9 +9,8 @@ import { Button } from "../ui";
 
 const SpeakingEndTest = () => {
   const { t } = useTranslation("simulatedTest");
-  const { collectionId } = Route.useSearch();
   const { speakingSources } = useSpeakingTestState();
-  const { mutate: submitTest } = useSubmitSimulatedTest(collectionId);
+  const { mutate: submitTest } = useSubmitSimulatedTest();
   const { sessionId } = Route.useSearch();
 
   const handleSubmitSpeaking = () => {

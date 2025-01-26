@@ -151,7 +151,7 @@ export const useGetCollectionDetail = (collectionId: number) => {
   };
 };
 
-export const useStartSimulatedTest = (collectionId: number) => {
+export const useStartSimulatedTest = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const analytics = getAnalytics();
@@ -162,7 +162,6 @@ export const useStartSimulatedTest = (collectionId: number) => {
         navigate({
           to: "/practice/simulated-test",
           search: {
-            collectionId: collectionId,
             skillTestId: returnData.skillTestId,
             sessionId: returnData.id,
           },
@@ -182,7 +181,7 @@ export const useStartSimulatedTest = (collectionId: number) => {
   });
 };
 
-export const useSubmitSimulatedTest = (collectionId: number) => {
+export const useSubmitSimulatedTest = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -203,11 +202,8 @@ export const useSubmitSimulatedTest = (collectionId: number) => {
       } else {
         if (variables.status == EnumSimulatedTestSessionStatus.IN_PROGRESS) {
           queryClient.invalidateQueries({ queryKey: simulatedTestKeys.latestSession });
-          queryClient.invalidateQueries({
-            queryKey: simulatedTestKeys.latestSessionByCollection(collectionId),
-          });
         }
-        navigate({ to: `/practice/${collectionId}` });
+        navigate({ to: "/practice" });
       }
       queryClient.removeQueries({
         queryKey: simulatedTestKeys.session,
