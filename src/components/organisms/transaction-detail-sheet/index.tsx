@@ -146,7 +146,7 @@ const TransactionDetailSheet = ({
                       label={t("transaction.transactionDetail.amount")}
                       value={
                         transactionDetail.transactions
-                          ? transactionDetail.transactions[0].amount
+                          ? formatVNDCurrency(toNumber(transactionDetail.transactions[0].amount))
                           : "--"
                       }
                     />

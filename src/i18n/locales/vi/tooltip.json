@@ -53,6 +53,7 @@
   },
   "gamification": {
     "streak": "Số ngày học liên tục của người dùng trong hệ thống, khuyến khích người dùng luyện tập tiếng Anh mỗi ngày",
+    "streak_record": "Số ngày học liên tục dài nhất của người dùng trong hệ thống",
     "carrot": {
       "description": "Có thể dùng cà rốt để quy đổi vật phẩm hoặc mua gói chấm bài Speaking, Writing. Những cách để thu thập cà rốt:",
       "ways": [

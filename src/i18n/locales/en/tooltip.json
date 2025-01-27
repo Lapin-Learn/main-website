@@ -53,6 +53,7 @@
   },
   "gamification": {
     "streak": "Number of consecutive days the user has studied in the system, encouraging daily English practice",
+    "streak_record": "The longest streak of consecutive days the user has studied in the system",
     "carrot": {
       "description": "Carrots can be used to exchange for items or purchase Speaking and Writing assessment packages. Ways to collect carrots:",
       "ways": [
