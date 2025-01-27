@@ -69,7 +69,9 @@ export function OverallBandScoreChart({ className, data }: OverallBandScoreChart
       </CardContent>
       <CardFooter className="flex-col gap-2 text-xl font-semibold">
         <TooltipWrapper
-          triggerNode={<span>Overall:&nbsp;{data.overallBandScore ?? "--"}</span>}
+          triggerNode={
+            <span className="hover:opacity-80">Overall:&nbsp;{data.overallBandScore ?? "--"}</span>
+          }
           contentNode={<Trans i18nKey="tooltip:simulatedTest.overall_band" />}
         />
       </CardFooter>

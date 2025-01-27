@@ -1,11 +1,11 @@
 import { Typography } from "@components/ui";
 import Confetti, { ConfettiRef } from "@components/ui/confetti.tsx";
 import { Dialog, DialogContent } from "@components/ui/dialog.tsx";
-import { useGetUserTransactionDetail } from "@hooks/react-query/useUsers.ts";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 
 import CarrotBasket from "@/assets/carrotBasket.svg";
+import { useGetUserTransactionDetail } from "@/hooks/react-query/usePayment";
 import { EnumTransactionStatus } from "@/lib/enums.ts";
 import { cn } from "@/lib/utils";
 

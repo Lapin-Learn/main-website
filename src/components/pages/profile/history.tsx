@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Loader2 } from "lucide-react";
+import { Info, Loader2 } from "lucide-react";
 import { createElement, useMemo, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
@@ -69,61 +69,66 @@ export default function HistoryPage() {
             const formattedBandScore =
               typeof bandScore === "number" ? formatBandScore(bandScore) : "--";
             return (
-              <TooltipWrapper
-                triggerNode={
-                  <Card className="h-fit md:h-full" key={skill}>
-                    <CardContent className="flex h-fit items-center justify-between gap-4 p-3 md:h-full md:px-6 md:py-4">
-                      <div>
-                        <Typography
-                          variant={breakpoint === "sm" ? "h3" : "h2"}
-                          className="mb-2 text-left capitalize"
-                        >
-                          {formattedBandScore}
-                        </Typography>
-                        <Typography
-                          variant={breakpoint === "sm" ? "body2" : "body1"}
-                          className="text-left capitalize text-supporting-text"
-                        >
-                          {skill}
-                        </Typography>
-                      </div>
-                      {createElement(MAPPED_SKILL_ICON_FILLED[skill], {
-                        width: breakpoint === "sm" ? 28 : 36,
-                        height: breakpoint === "sm" ? 28 : 36,
-                        fill: formattedBandScore === "--" ? "#BDBDBD" : "#F4926F",
-                      })}
-                    </CardContent>
-                  </Card>
-                }
-                contentNode={
-                  <>
-                    <span>
-                      <Trans
-                        i18nKey={`tooltip:learningHistory.${skill}.description`}
-                        components={{ bold: <strong /> }}
+              <Card className="h-fit md:h-full" key={skill}>
+                <CardContent className="flex h-fit items-center justify-between gap-4 p-3 md:h-full md:px-6 md:py-4">
+                  <div>
+                    <Typography
+                      variant={breakpoint === "sm" ? "h3" : "h2"}
+                      className="mb-2 text-left capitalize"
+                    >
+                      {formattedBandScore}
+                    </Typography>
+                    <div className="flex items-center gap-1">
+                      <Typography
+                        variant={breakpoint === "sm" ? "body2" : "body1"}
+                        className="text-left capitalize text-supporting-text"
+                      >
+                        {skill}
+                      </Typography>
+                      <TooltipWrapper
+                        triggerNode={
+                          <Info className="size-3 text-supporting-text" strokeWidth={2} />
+                        }
+                        contentNode={
+                          <>
+                            <span>
+                              <Trans
+                                i18nKey={`tooltip:learningHistory.${skill}.description`}
+                                components={{ bold: <strong /> }}
+                              />
+                            </span>
+                            <ul className="list-disc pl-4">
+                              {Array.from({
+                                length: parseInt(
+                                  t(`learningHistory.${skill}.number_of_question_types`, {
+                                    ns: "tooltip",
+                                  }),
+                                  10
+                                ),
+                              }).map((_, index) => (
+                                <li key={index} className="pb-1">
+                                  <span>
+                                    <Trans
+                                      i18nKey={`tooltip:learningHistory.${skill}.questionTypes.${index}`}
+                                      components={{ bold: <strong /> }}
+                                    />
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                          </>
+                        }
+                        className="flex max-w-80 flex-col gap-1 bg-neutral-300"
                       />
-                    </span>
-                    <ul className="list-disc pl-4">
-                      {Array.from({
-                        length: parseInt(
-                          t(`learningHistory.${skill}.number_of_question_types`, { ns: "tooltip" }),
-                          10
-                        ),
-                      }).map((_, index) => (
-                        <li key={index} className="pb-1">
-                          <span>
-                            <Trans
-                              i18nKey={`tooltip:learningHistory.${skill}.questionTypes.${index}`}
-                              components={{ bold: <strong /> }}
-                            />
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                }
-                className="flex max-w-80 flex-col gap-1 bg-neutral-300"
-              />
+                    </div>
+                  </div>
+                  {createElement(MAPPED_SKILL_ICON_FILLED[skill], {
+                    width: breakpoint === "sm" ? 28 : 36,
+                    height: breakpoint === "sm" ? 28 : 36,
+                    fill: formattedBandScore === "--" ? "#BDBDBD" : "#F4926F",
+                  })}
+                </CardContent>
+              </Card>
             );
           })}
         </div>

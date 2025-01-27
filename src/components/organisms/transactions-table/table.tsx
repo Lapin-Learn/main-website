@@ -8,7 +8,7 @@ import {
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useGetUserTransactionHistory } from "@/hooks/react-query/useUsers";
+import { useGetUserTransactionHistory } from "@/hooks/react-query/usePayment";
 import { EnumTransactionStatus } from "@/lib/enums";
 
 import { BaseTable } from "../base-table";

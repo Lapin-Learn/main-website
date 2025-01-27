@@ -54,21 +54,26 @@ export function SimulatedTestDetailHeader({
     <TestHeaderLayout.AchievementList>
       <TooltipWrapper
         triggerNode={
-          <TestHeaderLayout.Achievement
-            title={t("latest-band", { ns: "practice" })}
-            description={latestSessionTest?.estimatedBandScore ?? "--"}
-          />
+          <div className="hover:opacity-80">
+            <TestHeaderLayout.Achievement
+              title={t("latest-band", { ns: "practice" })}
+              description={latestSessionTest?.estimatedBandScore ?? "--"}
+            />
+          </div>
         }
         contentNode={
           <Trans i18nKey="tooltip:simulatedTest.recent_band" components={{ bold: <strong /> }} />
         }
+        side="top"
       />
       <TooltipWrapper
         triggerNode={
-          <TestHeaderLayout.Achievement
-            title={t("total-time-practice", { ns: "practice" })}
-            description={data?.total ?? 0}
-          />
+          <div className="hover:opacity-80">
+            <TestHeaderLayout.Achievement
+              title={t("total-time-practice", { ns: "practice" })}
+              description={data?.total ?? 0}
+            />
+          </div>
         }
         contentNode={
           <Trans
@@ -76,17 +81,21 @@ export function SimulatedTestDetailHeader({
             components={{ bold: <strong /> }}
           />
         }
+        side="top"
       />
       <TooltipWrapper
         triggerNode={
-          <TestHeaderLayout.Achievement
-            title={t("timeSpent", { ns: "collection" })}
-            description={formatTime(totalTimeSpent ?? 0)}
-          />
+          <div className="hover:opacity-80">
+            <TestHeaderLayout.Achievement
+              title={t("timeSpent", { ns: "collection" })}
+              description={formatTime(totalTimeSpent ?? 0)}
+            />
+          </div>
         }
         contentNode={
           <Trans i18nKey="tooltip:simulatedTest.practiced_time" components={{ bold: <strong /> }} />
         }
+        side="top"
       />
     </TestHeaderLayout.AchievementList>
   );

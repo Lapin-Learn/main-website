@@ -3,6 +3,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@compo
 interface TooltipWrapperProps {
   triggerNode: React.ReactNode;
   contentNode: React.ReactNode;
+  side?: "top" | "right" | "bottom" | "left";
   sideOffset?: number;
   className?: string;
   asChild?: boolean;
@@ -11,6 +12,7 @@ interface TooltipWrapperProps {
 const TooltipWrapper: React.FC<TooltipWrapperProps> = ({
   triggerNode,
   contentNode,
+  side = "bottom",
   sideOffset = 4,
   className = "bg-neutral-300",
   asChild = false,
@@ -18,9 +20,9 @@ const TooltipWrapper: React.FC<TooltipWrapperProps> = ({
 }) => {
   return (
     <TooltipProvider>
-      <Tooltip>
+      <Tooltip delayDuration={400}>
         <TooltipTrigger asChild={asChild}>{triggerNode}</TooltipTrigger>
-        <TooltipContent className={className} sideOffset={sideOffset} {...props}>
+        <TooltipContent className={className} sideOffset={sideOffset} side={side} {...props}>
           {contentNode}
         </TooltipContent>
       </Tooltip>

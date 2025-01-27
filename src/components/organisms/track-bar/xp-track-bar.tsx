@@ -25,7 +25,7 @@ const XpTrackBar = ({
       <TooltipWrapper
         triggerNode={
           <div className="cursor-pointer">
-            <RankIcon name={rank} className="size-5 md:size-6" />
+            <RankIcon name={rank} className="size-5 hover:opacity-80 md:size-6" />
           </div>
         }
         contentNode={
@@ -50,7 +50,7 @@ const XpTrackBar = ({
       />
       <TooltipWrapper
         triggerNode={
-          <div className="w-28 cursor-pointer md:w-40">
+          <div className="w-28 cursor-pointer hover:opacity-80 md:w-40">
             <div className="flex items-center justify-between">
               <span className="text-sm font-semibold text-blue-700 md:text-base">Lv. {level}</span>
               <span className="text-xs text-blue-700">

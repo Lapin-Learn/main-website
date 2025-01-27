@@ -30,7 +30,7 @@ const TrackBar = ({ data }: TrackBarProps) => {
       <TooltipWrapper
         triggerNode={
           <button onClick={() => {}}>
-            <Streak streak={data.streak} />
+            <Streak className="hover:opacity-80" streak={data.streak} />
           </button>
         }
         contentNode={<Trans i18nKey="tooltip:gamification.streak" />}
@@ -39,7 +39,12 @@ const TrackBar = ({ data }: TrackBarProps) => {
       <TooltipWrapper
         triggerNode={
           <button onClick={handleNavigateToShop}>
-            <Carrots carrots={data.carrots} size="base" textStyle="text-orange-400" />
+            <Carrots
+              className="hover:opacity-80"
+              carrots={data.carrots}
+              size="base"
+              textStyle="text-orange-400"
+            />
           </button>
         }
         contentNode={

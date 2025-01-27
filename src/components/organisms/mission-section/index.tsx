@@ -1,4 +1,4 @@
-import { Clock } from "lucide-react";
+import { Clock, Info } from "lucide-react";
 import { Trans, useTranslation } from "react-i18next";
 
 import CarrotIcon from "@/assets/icons/carrot";
@@ -15,27 +15,31 @@ export const MissionSection = ({ title, type, timeRemaining, missions }: Mission
   return (
     <Section className="rounded-2xl bg-white p-4">
       {title && timeRemaining && (
-        <TooltipWrapper
-          triggerNode={
-            <Section.Title
-              label={title}
-              className="flex items-end"
-              textClassName="font-semibold text-body text-dark"
-            >
-              <div className="flex items-center gap-1 text-sm font-medium text-orange-400">
-                <Clock size={16} color="#F17D53" />
-                {t("mission.time_remaining", { time: formatRemainingToDateTime(timeRemaining) })}
-              </div>
-            </Section.Title>
+        <Section.Title
+          label={title}
+          className="flex items-end"
+          textClassName="font-semibold text-body text-dark"
+          infoNode={
+            <TooltipWrapper
+              triggerNode={<Info className="size-4 text-blue-600" strokeWidth={2} />}
+              contentNode={
+                <span>
+                  <Trans
+                    i18nKey={`tooltip:gamification.${type}`}
+                    components={{ bold: <strong /> }}
+                  />
+                </span>
+              }
+              className="flex max-w-80 flex-col gap-1 bg-neutral-300"
+              sideOffset={4}
+            />
           }
-          contentNode={
-            <span>
-              <Trans i18nKey={`tooltip:gamification.${type}`} components={{ bold: <strong /> }} />
-            </span>
-          }
-          className="flex max-w-80 flex-col gap-1 bg-neutral-300"
-          sideOffset={4}
-        />
+        >
+          <div className="flex items-center gap-1 text-sm font-medium text-orange-400">
+            <Clock size={16} color="#F17D53" />
+            {t("mission.time_remaining", { time: formatRemainingToDateTime(timeRemaining) })}
+          </div>
+        </Section.Title>
       )}
       <Section.Group className="bg-white py-0">
         <ListMissions data={missions} />

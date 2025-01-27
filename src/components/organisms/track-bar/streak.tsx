@@ -5,11 +5,12 @@ import { cn, formatNumber } from "@/lib/utils";
 
 type StreakProps = {
   streak: IStreak;
+  className?: string;
 };
 
-const Streak = ({ streak }: StreakProps) => {
+const Streak = ({ streak, className }: StreakProps) => {
   return (
-    <div className="flex items-center gap-1">
+    <div className={cn("flex items-center gap-1", className)}>
       {streak.extended ? (
         <StreakIcon className="size-5 md:size-6" />
       ) : (

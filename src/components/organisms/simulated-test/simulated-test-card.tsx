@@ -31,7 +31,7 @@ export function SimulatedTestCard(
           <div className="flex flex-row gap-3">
             <TooltipWrapper
               triggerNode={
-                <div className="flex flex-col items-start gap-2">
+                <div className="flex flex-col items-start gap-2 hover:opacity-80">
                   <span className="text-sm font-semibold text-neutral-200">Band</span>
                   <span className="text-sm font-semibold">{overallBandScore ?? "--"}</span>
                 </div>
@@ -43,7 +43,7 @@ export function SimulatedTestCard(
             <Separator orientation="vertical" className="flex h-full min-h-12" />
             <TooltipWrapper
               triggerNode={
-                <div className="flex flex-col items-start gap-2">
+                <div className="flex flex-col items-start gap-2 hover:opacity-80">
                   <span className="text-sm font-semibold text-neutral-200">{t("timeSpent")}</span>
                   <span className="text-sm font-semibold">{formatTime(totalTimeSpent)}</span>
                 </div>

@@ -36,29 +36,37 @@ export function ResultHeader({ collectionId, session }: CollectionDetailHeaderPr
         {session.estimatedBandScore && (
           <TooltipWrapper
             triggerNode={
-              <TestHeaderLayout.Achievement title="Band" description={session.estimatedBandScore} />
+              <div className="hover:opacity-80">
+                <TestHeaderLayout.Achievement
+                  title="Band"
+                  description={session.estimatedBandScore}
+                />
+              </div>
             }
             contentNode={<Trans i18nKey="tooltip:simulatedTest.skill_band" />}
+            side="top"
           />
         )}
 
         {session.results && (
           <TooltipWrapper
             triggerNode={
-              <TestHeaderLayout.Achievement
-                title={t("correctAnswer", { ns: "collection", context: "plural" })}
-                description={
-                  <>
-                    <Check className="text-green-500" />
-                    <span className="text-2xl font-semibold">
-                      {session.results.filter((res) => res).length}
-                      <span className="text-sm font-normal text-neutral-300">
-                        / {totalQuestions}
+              <div className="hover:opacity-80">
+                <TestHeaderLayout.Achievement
+                  title={t("correctAnswer", { ns: "collection", context: "plural" })}
+                  description={
+                    <>
+                      <Check className="text-green-500" />
+                      <span className="text-2xl font-semibold">
+                        {session.results.filter((res) => res).length}
+                        <span className="text-sm font-normal text-neutral-300">
+                          / {totalQuestions}
+                        </span>
                       </span>
-                    </span>
-                  </>
-                }
-              />
+                    </>
+                  }
+                />
+              </div>
             }
             contentNode={
               <>
@@ -74,21 +82,25 @@ export function ResultHeader({ collectionId, session }: CollectionDetailHeaderPr
               </>
             }
             className="flex flex-col gap-1 bg-neutral-300"
+            side="top"
           />
         )}
 
         <TooltipWrapper
           triggerNode={
-            <TestHeaderLayout.Achievement
-              title={t("timeSpent", { ns: "collection" })}
-              description={
-                <span className="text-2xl font-semibold">
-                  {formatTime(session.elapsedTime || 0)}
-                </span>
-              }
-            />
+            <div className="hover:opacity-80">
+              <TestHeaderLayout.Achievement
+                title={t("timeSpent", { ns: "collection" })}
+                description={
+                  <span className="text-2xl font-semibold">
+                    {formatTime(session.elapsedTime || 0)}
+                  </span>
+                }
+              />
+            </div>
           }
           contentNode={<Trans i18nKey="tooltip:simulatedTest.practiced_time" />}
+          side="top"
         />
       </TestHeaderLayout.AchievementList>
     ) : null;
