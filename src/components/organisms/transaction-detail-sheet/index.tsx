@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import TransactionStatusBadge from "@/components/molecules/transaction-status-badge";
 import { Button } from "@/components/ui";
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { useGetPaymentLink } from "@/hooks/react-query/usePayment";
 import { useGetUserTransactionDetail } from "@/hooks/react-query/useUsers";
 import { EnumTransactionStatus } from "@/lib/enums";
 import { formatVNDCurrency } from "@/lib/utils";
@@ -32,13 +33,22 @@ const TransactionDetailSheet = ({
   transactionId,
   status,
 }: TransactionDetailSheetProps) => {
-  const { data, isLoading } = useGetUserTransactionDetail(transactionId);
+  const { data: transactionDetail, isLoading } = useGetUserTransactionDetail(transactionId);
+  const { data: paymentLinkInfo } = useGetPaymentLink(
+    transactionId,
+    status === EnumTransactionStatus.PENDING || status === EnumTransactionStatus.UNDERPAID
+  );
   const { t } = useTranslation("profile");
-  if (!data) return null;
+  if (!transactionDetail) return null;
   if (!transactionId) return null;
 
-  const quantity = data?.items.length > 0 ? data.items[0].quantity : 0;
-  console.log(status);
+  const quantity = transactionDetail?.items.length > 0 ? transactionDetail.items[0].quantity : 0;
+
+  const onClose = () => {
+    if (onOpenChange) {
+      onOpenChange(false);
+    }
+  };
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -58,7 +68,7 @@ const TransactionDetailSheet = ({
                       {t("transaction.transactionName", { quantity, ns: "profile" })}
                     </p>
                     <h5 className="text-heading-5 font-bold">
-                      {formatVNDCurrency(toNumber(data?.amount))}
+                      {formatVNDCurrency(toNumber(transactionDetail?.amount))}
                     </h5>
                   </div>
                   <div className="grid grid-cols-4 items-center">
@@ -66,37 +76,51 @@ const TransactionDetailSheet = ({
                       {t("transaction.transactionDetail.status")}
                     </p>
                     <p className="col-span-3 text-end text-xs font-semibold">
-                      <TransactionStatusBadge status={data?.status} />
+                      <TransactionStatusBadge status={transactionDetail?.status} />
                     </p>
                   </div>
-                  {status === EnumTransactionStatus.PAID ? (
-                    <>
-                      <DetailItem
-                        label={t("transaction.transactionDetail.time")}
-                        value={
-                          data.transactions
-                            ? format(data.transactions[0].transactionDateTime, "dd/MM/yyyy HH:mm")
-                            : "--"
-                        }
-                      />
-                      <DetailItem
-                        label={t("transaction.transactionDetail.id")}
-                        value={data?.orderCode}
-                      />
-                    </>
-                  ) : (
+                  {status === EnumTransactionStatus.CANCELLED ? (
                     <>
                       <DetailItem
                         label={t("transaction.transactionDetail.cancelTime")}
-                        value={data.canceledAt ? format(data.canceledAt, "dd/MM/yyyy HH:mm") : "--"}
+                        value={
+                          transactionDetail.canceledAt
+                            ? format(transactionDetail.canceledAt, "dd/MM/yyyy HH:mm")
+                            : "--"
+                        }
                       />
                       <DetailItem
                         label={t("transaction.transactionDetail.cancelReason")}
                         value={
-                          data.cancellationReason
-                            ? t(`transaction.cancelReason.${data.cancellationReason}`)
+                          transactionDetail.cancellationReason
+                            ? t(`transaction.cancelReason.${transactionDetail.cancellationReason}`)
                             : "--"
                         }
+                      />
+                    </>
+                  ) : (
+                    <>
+                      {status === EnumTransactionStatus.UNDERPAID && (
+                        <DetailItem
+                          label={t("transaction.transactionDetail.amountPaid")}
+                          value={formatVNDCurrency(toNumber(transactionDetail?.amountPaid))}
+                        />
+                      )}
+                      <DetailItem
+                        label={t("transaction.transactionDetail.time")}
+                        value={
+                          transactionDetail.transactions &&
+                          transactionDetail.transactions.length > 0
+                            ? format(
+                                transactionDetail.transactions[0].transactionDateTime,
+                                "dd/MM/yyyy HH:mm"
+                              )
+                            : format(transactionDetail.createdAt, "dd/MM/yyyy HH:mm")
+                        }
+                      />
+                      <DetailItem
+                        label={t("transaction.transactionDetail.id")}
+                        value={transactionDetail?.orderCode}
                       />
                     </>
                   )}
@@ -105,31 +129,68 @@ const TransactionDetailSheet = ({
                   <div className="flex flex-col gap-2 rounded-lg border border-neutral-100 p-4">
                     <DetailItem
                       label={t("transaction.transactionDetail.accountNumber")}
-                      value={data.transactions ? data.transactions[0].accountNumber : "--"}
+                      value={
+                        transactionDetail.transactions
+                          ? transactionDetail.transactions[0].accountNumber
+                          : "--"
+                      }
                     />
                     <DetailItem
                       label={t("transaction.transactionDetail.bank")}
-                      value={data.transactions ? data.transactions[0].counterAccountBankName : "--"}
+                      value={
+                        transactionDetail.transactions
+                          ? transactionDetail.transactions[0].counterAccountBankName
+                          : "--"
+                      }
                     />
                     <DetailItem
                       label={t("transaction.transactionDetail.amount")}
-                      value={data.transactions ? data.transactions[0].amount : "--"}
+                      value={
+                        transactionDetail.transactions
+                          ? transactionDetail.transactions[0].amount
+                          : "--"
+                      }
                     />
                     <DetailItem
                       label={t("transaction.transactionDetail.description")}
-                      value={data.transactions ? data.transactions[0].description : "--"}
+                      value={
+                        transactionDetail.transactions
+                          ? transactionDetail.transactions[0].description
+                          : "--"
+                      }
                     />
                   </div>
                 )}
               </div>
             </SheetHeader>
             <SheetFooter>
-              <a href="mailto:lapinlearnproject@gmail.com" className="flex w-full">
-                <Button className="flex w-full gap-2">
-                  <MailIcon className="size-4" />
-                  {t("transaction.transactionDetail.contact")}
-                </Button>
-              </a>
+              {(status === EnumTransactionStatus.PAID ||
+                status === EnumTransactionStatus.CANCELLED) && (
+                <a href="mailto:lapinlearnproject@gmail.com" className="flex w-full">
+                  <Button className="flex w-full gap-2">
+                    <MailIcon className="size-4" />
+                    {t("transaction.transactionDetail.contact")}
+                  </Button>
+                </a>
+              )}
+              {(status === EnumTransactionStatus.PENDING ||
+                status === EnumTransactionStatus.UNDERPAID) && (
+                <div className="flex flex-1 gap-6">
+                  <Button onClick={onClose} variant="ghost">
+                    {t("transaction.cancel")}
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      if (paymentLinkInfo) {
+                        window.location.href = paymentLinkInfo.checkoutUrl;
+                      }
+                    }}
+                    className="w-full"
+                  >
+                    {t("transaction.pay")}
+                  </Button>
+                </div>
+              )}
             </SheetFooter>
           </>
         )}

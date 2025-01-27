@@ -91,5 +91,9 @@
     "tooltip": {
         "band": "Trung bình lần <bold>làm bài gần nhất</bold> của mỗi skill",
         "timeSpent": "Tổng thời lượng lần <bold>làm bài gần nhất</bold> của mỗi skill"
+    },
+    "latest-test": {
+        "continue": "Tiếp tục làm",
+        "continueDoing": "Tiếp tục làm bài"
     }
 }

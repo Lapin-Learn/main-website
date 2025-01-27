@@ -4,6 +4,7 @@ import { EnumMode, EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums
 import { FetchingData, OffsetSchema, PagedData, PagingSchema } from "@/lib/types";
 import {
   BandScoreSkill,
+  LatestInprogressSession,
   QuestionTypeAccuracy,
   ReadingContent,
   SessionProgress,
@@ -166,6 +167,15 @@ export const getSimulatedTestSessionHistory = async (payload: OffsetSchema) => {
     await api
       .get("simulated-tests/sessions", { searchParams })
       .json<FetchingData<PagedData<SimulatedTestSessionsHistory>>>()
+  ).data;
+};
+
+export const getLatestInprogressSTSession = async (payload: { collectionId?: number }) => {
+  const searchParams = generateSearchParams(payload || {});
+  return (
+    await api
+      .get("simulated-tests/sessions/latest", { searchParams })
+      .json<FetchingData<LatestInprogressSession>>()
   ).data;
 };
 

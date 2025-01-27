@@ -1,6 +1,7 @@
 import { JSONContent } from "@tiptap/core";
 
 import {
+  EnumMode,
   EnumQuestionGroup,
   EnumSimulatedTestSessionStatus,
   EnumSkill,
@@ -200,4 +201,14 @@ export type QuestionTypeAccuracy = {
 export type SessionProgress = {
   estimatedBandScore: number;
   createdAt: string;
+};
+
+export type LatestInprogressSession = {
+  sessionId: number;
+  mode: EnumMode;
+  status: EnumSimulatedTestSessionStatus;
+  parts: number[];
+  skill: EnumSkill;
+  testName: string;
+  testCollectionName: string;
 };

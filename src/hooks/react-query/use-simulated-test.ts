@@ -17,6 +17,7 @@ import { calculateOverallBandScore, fromPageToOffset, parseInfiniteData } from "
 import {
   CollectionParams,
   evaluateSimulatedTest,
+  getLatestInprogressSTSession,
   getQuestionTypeAccuracy,
   getSessionProgress,
   getSimulatedTestBySkill,
@@ -56,6 +57,9 @@ const simulatedTestKeys = {
   overall: () => [...simulatedTestKeys.simulatedTestKey, "overall"] as const,
   questionTypeAccuracy: (skill: EnumSkill) => ["question-type-accuracy", skill] as const,
   sessionProgress: (skill: EnumSkill) => [...simulatedTestKeys.session, "progress", skill] as const,
+  latestSession: ["latest"] as const,
+  latestSessionByCollection: (collectionId: number) =>
+    [...simulatedTestKeys.latestSession, collectionId] as const,
 };
 
 type State = {
@@ -196,7 +200,9 @@ export const useSubmitSimulatedTest = () => {
           description: "Submit test successfully",
         });
       } else {
-        // TODO: should we navigate back to collection/${collectionId}?
+        if (variables.status == EnumSimulatedTestSessionStatus.IN_PROGRESS) {
+          queryClient.invalidateQueries({ queryKey: simulatedTestKeys.latestSession });
+        }
         navigate({ to: "/practice" });
       }
       queryClient.removeQueries({
@@ -286,6 +292,16 @@ export const useGetSTSessionsHistory = (offset: number, limit: number) => {
   return useQuery({
     queryKey: simulatedTestKeys.sessionList({ offset, limit }),
     queryFn: async () => getSimulatedTestSessionHistory({ offset, limit }),
+    placeholderData: keepPreviousData,
+  });
+};
+
+export const useGetLatestInprogressSTSession = (collectionId?: number) => {
+  return useQuery({
+    queryKey: collectionId
+      ? simulatedTestKeys.latestSessionByCollection(collectionId)
+      : simulatedTestKeys.latestSession,
+    queryFn: async () => getLatestInprogressSTSession({ collectionId }),
     placeholderData: keepPreviousData,
   });
 };

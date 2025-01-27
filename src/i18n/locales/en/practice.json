@@ -91,5 +91,9 @@
   "tooltip": {
     "band": "Average band of <bold>the latest practice</bold>",
     "timeSpent": "Total time of <bold>the latest practice</bold>"
+  },
+  "latest-test": {
+      "continue": "Continue",
+      "continueDoing": "Continue doing"
   }
 }

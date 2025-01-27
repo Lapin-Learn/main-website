@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useGetGamificationProfile, useMissions } from "@/hooks/react-query/useGamification";
 import useCountdown from "@/hooks/use-countdown";
 
+import { LatestTestSection } from "../organisms/latest-test-section";
 import { MissionSection } from "../organisms/mission-section";
 import { StreakSection } from "../organisms/streak";
 import TrackBar from "../organisms/track-bar";
@@ -67,6 +68,7 @@ export default function DashboardLayout({ heroImage, children }: DashboardLayout
             )}
           </>
         )}
+        <LatestTestSection />
       </div>
     </div>
   );

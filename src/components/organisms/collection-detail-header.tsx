@@ -5,6 +5,7 @@ import { MAPPED_SIMULATED_TEST_TAGS } from "@/lib/consts";
 
 import { PracticeBreadcrumb } from "../molecules/practice-breadcrumb";
 import TestHeaderLayout from "../templates/test-header-layout";
+import { LatestTestSection } from "./latest-test-section";
 
 type CollectionDetailHeaderProps = {
   collectionId: number;
@@ -44,6 +45,7 @@ export function CollectionDetailHeader({ collectionId }: CollectionDetailHeaderP
               <TestHeaderLayout.Description />
             </div>
           </div>
+          <LatestTestSection collectionId={collectionId} />
         </TestHeaderLayout.ContentWrapper>
       </TestHeaderLayout>
     </>
