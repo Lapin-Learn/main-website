@@ -22,7 +22,7 @@ const questionTypeKeys = {
 };
 
 const lessonKeys = {
-  key: ["lessons"] as const,
+  key: ["daily-lessons"] as const,
   detail: (lessonId: string) => [...lessonKeys.key, lessonId] as const,
 };
 

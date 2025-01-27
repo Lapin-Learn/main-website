@@ -10,6 +10,7 @@ import gamificationEn from "./locales/en/gamification.json";
 import landingPageEn from "./locales/en/landing-page.json";
 import practiceEn from "./locales/en/practice.json";
 import profileEn from "./locales/en/profile.json";
+import questionEn from "./locales/en/question.json";
 import shopEn from "./locales/en/shop.json";
 import simulatedTestEn from "./locales/en/simulated-test.json";
 import subscriptionEn from "./locales/en/subscription.json";
@@ -23,6 +24,7 @@ import gamificationVi from "./locales/vi/gamification.json";
 import landingPageVi from "./locales/vi/landing-page.json";
 import practiceVi from "./locales/vi/practice.json";
 import profileVi from "./locales/vi/profile.json";
+import questionVi from "./locales/vi/question.json";
 import shopVi from "./locales/vi/shop.json";
 import simulatedTestVi from "./locales/vi/simulated-test.json";
 import subscriptionVi from "./locales/vi/subscription.json";
@@ -48,6 +50,7 @@ const resources = {
     success: successEn,
     shop: shopEn,
     tooltip: tooltipEn,
+    question: questionEn,
     landingPage: landingPageEn,
   },
   vi: {
@@ -68,6 +71,7 @@ const resources = {
     success: successVi,
     shop: shopVi,
     tooltip: tooltipVi,
+    question: questionVi,
     landingPage: landingPageVi,
   },
 };

@@ -18,6 +18,12 @@ import { SideBarProfile } from "./side-bar-profile";
 
 const features: SideBarFeatureProps[] = [
   {
+    to: "/daily-lesson",
+    icon: <Icons.Book fill="#929292" color="#929292" height={20} width={20} />,
+    activeIcon: <Icons.Book fill="#c2410c" color="#c2410c" height={20} width={20} />,
+    label: "dailyLesson",
+  },
+  {
     to: "/practice",
     icon: <PracticeIcon fill="#929292" color="#929292" />,
     activeIcon: <PracticeIcon fill="#c2410c" color="#c2410c" />,
@@ -28,12 +34,6 @@ const features: SideBarFeatureProps[] = [
     icon: <Icons.Store fill="#929292" color="#929292" />,
     activeIcon: <Icons.Store fill="#c2410c" color="#c2410c" />,
     label: "shop",
-  },
-  {
-    to: "/daily-lesson",
-    icon: <Icons.Book fill="#929292" color="#929292" height={20} width={20} />,
-    activeIcon: <Icons.Book fill="#c2410c" color="#c2410c" height={20} width={20} />,
-    label: "dailyLesson",
   },
 ];
 

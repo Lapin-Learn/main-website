@@ -46,8 +46,8 @@ type LessonQuestionsResponse = {
 export const getLessonQuestions = async (lessonId: string) => {
   return (
     await api
-      .get<FetchingData<LessonQuestionsResponse>>(`/daily-lessons/lessons/${lessonId}/questions`)
-      .json()
+      .get(`daily-lessons/lessons/${lessonId}/questions`)
+      .json<FetchingData<LessonQuestionsResponse>>()
   ).data;
 };
 
@@ -59,14 +59,14 @@ type LessonCompletionPayload = {
 };
 export const confirmLessonCompletion = async (payload: LessonCompletionPayload) => {
   return (
-    await api.post<FetchingData<LessonResult>>(`/lessons/completion`, { json: payload }).json()
+    await api.post<FetchingData<LessonResult>>(`lessons/completion`, { json: payload }).json()
   ).data;
 };
 
 export const getInstruction = async (questionTypeId: string) => {
   return (
     await api
-      .get<FetchingData<Instruction>>(`/daily-lessons/question-types/${questionTypeId}/instruction`)
-      .json()
+      .get(`daily-lessons/question-types/${questionTypeId}/instruction`)
+      .json<FetchingData<Instruction>>()
   ).data;
 };
