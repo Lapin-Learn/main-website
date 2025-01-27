@@ -1,12 +1,4 @@
-import {
-  FetchingData,
-  OffsetSchema,
-  Order,
-  PagedData,
-  TransactionHistory,
-  UserProfile,
-} from "@/lib/types";
-import { generateSearchParams } from "@/lib/utils";
+import { FetchingData, UserProfile } from "@/lib/types";
 
 import api from "./kyInstance";
 
@@ -27,17 +19,4 @@ type UpdateUserPasswordPayload = {
 
 export const updateUserPassword = async (payload: UpdateUserPasswordPayload) => {
   return await api.put("users/profile/password", { json: payload }).json();
-};
-
-export const getUserTransactionsHistory = async (payload: OffsetSchema) => {
-  const searchParams = generateSearchParams(payload);
-  return (
-    await api
-      .get("payment/transactions", { searchParams })
-      .json<FetchingData<PagedData<TransactionHistory>>>()
-  ).data;
-};
-
-export const getUserTransactionDetail = async (transactionId: number) => {
-  return (await api.get(`payment/transactions/${transactionId}`).json<FetchingData<Order>>()).data;
 };

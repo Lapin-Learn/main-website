@@ -1,6 +1,7 @@
 import { Check } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
+import TooltipWrapper from "@/components/molecules/tooltip-wrapper";
 import TestHeaderLayout from "@/components/templates/test-header-layout";
 import { useGetCollectionInfo } from "@/hooks/react-query/use-simulated-test";
 import useBreakPoint from "@/hooks/use-screen-size";
@@ -14,7 +15,7 @@ type CollectionDetailHeaderProps = {
 };
 
 export function ResultHeader({ collectionId, session }: CollectionDetailHeaderProps) {
-  const { t } = useTranslation(["practice", "collection"]);
+  const { t } = useTranslation(["practice", "collection", "tooltip"]);
   const breakpoint = useBreakPoint();
   const { collection, isLoading: collectionLoading } = useGetCollectionInfo(collectionId);
 
@@ -33,27 +34,73 @@ export function ResultHeader({ collectionId, session }: CollectionDetailHeaderPr
     session ? (
       <TestHeaderLayout.AchievementList>
         {session.estimatedBandScore && (
-          <TestHeaderLayout.Achievement title="Band" description={session.estimatedBandScore} />
-        )}
-        {session.results && (
-          <TestHeaderLayout.Achievement
-            title={t("correctAnswer", { ns: "collection", context: "plural" })}
-            description={
-              <>
-                <Check className="text-green-500" />
-                <span className="text-2xl font-semibold">
-                  {session.results.filter((res) => res).length}
-                  <span className="text-sm font-normal text-neutral-300">/ {totalQuestions}</span>
-                </span>
-              </>
+          <TooltipWrapper
+            triggerNode={
+              <div className="hover:opacity-80">
+                <TestHeaderLayout.Achievement
+                  title="Band"
+                  description={session.estimatedBandScore}
+                />
+              </div>
             }
+            contentNode={<Trans i18nKey="tooltip:simulatedTest.skill_band" />}
+            side="top"
           />
         )}
-        <TestHeaderLayout.Achievement
-          title={t("timeSpent", { ns: "collection" })}
-          description={
-            <span className="text-2xl font-semibold">{formatTime(session.elapsedTime || 0)}</span>
+
+        {session.results && (
+          <TooltipWrapper
+            triggerNode={
+              <div className="hover:opacity-80">
+                <TestHeaderLayout.Achievement
+                  title={t("correctAnswer", { ns: "collection", context: "plural" })}
+                  description={
+                    <>
+                      <Check className="text-green-500" />
+                      <span className="text-2xl font-semibold">
+                        {session.results.filter((res) => res).length}
+                        <span className="text-sm font-normal text-neutral-300">
+                          / {totalQuestions}
+                        </span>
+                      </span>
+                    </>
+                  }
+                />
+              </div>
+            }
+            contentNode={
+              <>
+                <Trans i18nKey="tooltip:simulatedTest.correct_answers.description" />
+                <ul className="list-disc pl-4">
+                  {Array.from({ length: 11 }).map((_, index) => (
+                    <li key={index} className="pb-1">
+                      {t(`simulatedTest.correct_answers.bands.${index}.score`, { ns: "tooltip" })}:{" "}
+                      {t(`simulatedTest.correct_answers.bands.${index}.range`, { ns: "tooltip" })}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            }
+            className="flex flex-col gap-1 bg-neutral-300"
+            side="top"
+          />
+        )}
+
+        <TooltipWrapper
+          triggerNode={
+            <div className="hover:opacity-80">
+              <TestHeaderLayout.Achievement
+                title={t("timeSpent", { ns: "collection" })}
+                description={
+                  <span className="text-2xl font-semibold">
+                    {formatTime(session.elapsedTime || 0)}
+                  </span>
+                }
+              />
+            </div>
           }
+          contentNode={<Trans i18nKey="tooltip:simulatedTest.practiced_time" />}
+          side="top"
         />
       </TestHeaderLayout.AchievementList>
     ) : null;

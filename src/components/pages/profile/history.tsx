@@ -1,10 +1,11 @@
 import _ from "lodash";
-import { Loader2 } from "lucide-react";
+import { Info, Loader2 } from "lucide-react";
 import { createElement, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 import { OverallBandScoreChart } from "@/components/molecules/overall-band-score-chart";
 import SkillsFilter from "@/components/molecules/skill-filter";
+import TooltipWrapper from "@/components/molecules/tooltip-wrapper";
 import { SimulatedTestHistoryTable } from "@/components/organisms/simulated-test-table/table";
 import { SkillEvaluationLineChart } from "@/components/organisms/skill-evaluation-line-chart";
 import { Typography } from "@/components/ui";
@@ -20,7 +21,7 @@ import { EnumSkill } from "@/lib/enums";
 import { formatBandScore } from "@/lib/utils";
 
 export default function HistoryPage() {
-  const { t } = useTranslation(["profile", "simulatedTest"]);
+  const { t } = useTranslation(["profile", "simulatedTest", "tooltip"]);
   const { data, isLoading } = useGetUserBandScoreOverall();
   const [selected, setSelected] = useState<EnumSkill>(SKILLS_LIST[0].label);
   const { data: questionTypeAccuracy, isLoading: accuracyLoading } =
@@ -73,16 +74,53 @@ export default function HistoryPage() {
                   <div>
                     <Typography
                       variant={breakpoint === "sm" ? "h3" : "h2"}
-                      className="mb-2 capitalize"
+                      className="mb-2 text-left capitalize"
                     >
                       {formattedBandScore}
                     </Typography>
-                    <Typography
-                      variant={breakpoint === "sm" ? "body2" : "body1"}
-                      className="capitalize text-supporting-text"
-                    >
-                      {skill}
-                    </Typography>
+                    <div className="flex items-center gap-1">
+                      <Typography
+                        variant={breakpoint === "sm" ? "body2" : "body1"}
+                        className="text-left capitalize text-supporting-text"
+                      >
+                        {skill}
+                      </Typography>
+                      <TooltipWrapper
+                        triggerNode={
+                          <Info className="size-3 text-supporting-text" strokeWidth={2} />
+                        }
+                        contentNode={
+                          <>
+                            <span>
+                              <Trans
+                                i18nKey={`tooltip:learningHistory.${skill}.description`}
+                                components={{ bold: <strong /> }}
+                              />
+                            </span>
+                            <ul className="list-disc pl-4">
+                              {Array.from({
+                                length: parseInt(
+                                  t(`learningHistory.${skill}.number_of_question_types`, {
+                                    ns: "tooltip",
+                                  }),
+                                  10
+                                ),
+                              }).map((_, index) => (
+                                <li key={index} className="pb-1">
+                                  <span>
+                                    <Trans
+                                      i18nKey={`tooltip:learningHistory.${skill}.questionTypes.${index}`}
+                                      components={{ bold: <strong /> }}
+                                    />
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                          </>
+                        }
+                        className="flex max-w-80 flex-col gap-1 bg-neutral-300"
+                      />
+                    </div>
                   </div>
                   {createElement(MAPPED_SKILL_ICON_FILLED[skill], {
                     width: breakpoint === "sm" ? 28 : 36,

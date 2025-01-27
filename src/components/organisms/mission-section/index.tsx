@@ -1,15 +1,16 @@
-import { Clock } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { Clock, Info } from "lucide-react";
+import { Trans, useTranslation } from "react-i18next";
 
 import CarrotIcon from "@/assets/icons/carrot";
 import DailyTestIcon from "@/assets/icons/daily-test";
+import TooltipWrapper from "@/components/molecules/tooltip-wrapper";
 import { Progress } from "@/components/ui/progress";
 import { convertMissionNameCategory, formatRemainingToDateTime } from "@/lib/utils";
 
 import { ProfileSection as Section } from "./section";
 import { MissionProps, MissionSectionProps } from "./types";
 
-export const MissionSection = ({ title, timeRemaining, missions }: MissionSectionProps) => {
+export const MissionSection = ({ title, type, timeRemaining, missions }: MissionSectionProps) => {
   const { t } = useTranslation("practice");
   return (
     <Section className="rounded-2xl bg-white p-4">
@@ -18,6 +19,21 @@ export const MissionSection = ({ title, timeRemaining, missions }: MissionSectio
           label={title}
           className="flex items-end"
           textClassName="font-semibold text-body text-dark"
+          infoNode={
+            <TooltipWrapper
+              triggerNode={<Info className="size-4 text-blue-600" strokeWidth={2} />}
+              contentNode={
+                <span>
+                  <Trans
+                    i18nKey={`tooltip:gamification.${type}`}
+                    components={{ bold: <strong /> }}
+                  />
+                </span>
+              }
+              className="flex max-w-80 flex-col gap-1 bg-neutral-300"
+              sideOffset={4}
+            />
+          }
         >
           <div className="flex items-center gap-1 text-sm font-medium text-orange-400">
             <Clock size={16} color="#F17D53" />

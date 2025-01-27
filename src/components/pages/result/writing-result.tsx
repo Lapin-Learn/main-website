@@ -9,7 +9,12 @@ import WritingSubmission from "@/components/organisms/writing-submission";
 import { Typography } from "@/components/ui";
 import { useGetSimulatedTestDetail } from "@/hooks/react-query/use-simulated-test";
 import { MAPPED_WRITING_CRITERIA_TITLES } from "@/lib/consts";
-import { EnumSimulatedTestSessionStatus, EnumSkill, EnumSpeakingCriteria } from "@/lib/enums";
+import {
+  EnumSimulatedTestSessionStatus,
+  EnumSkill,
+  EnumSpeakingCriteria,
+  EnumWritingCriteria,
+} from "@/lib/enums";
 import { WritingSession } from "@/lib/types/simulated-test-session.type";
 import { cn, formatTime } from "@/lib/utils";
 import { Route } from "@/routes/_authenticated/_dashboard/practice/simulated-test/result";
@@ -103,8 +108,10 @@ function EvaluationSection({ session }: WritingResultProps) {
           <CriteriaScoreCard
             key={key}
             criteria={MAPPED_WRITING_CRITERIA_TITLES[key] ?? key}
+            criteriaKey={key as EnumWritingCriteria}
             evaluate={value.evaluate ?? ""}
             score={value.score}
+            skill={EnumSkill.writing}
             Icon={icons.WritingFilled}
           />
         ))}

@@ -21,14 +21,15 @@ const ProfileSection: FC<ProfileProps> & {
   );
 };
 
-const Title: FC<ProfileProps & { label: string; textClassName?: string }> = ({
-  label,
-  textClassName = "",
-  ...props
-}) => {
+const Title: FC<
+  ProfileProps & { label: string; textClassName?: string; infoNode?: React.ReactNode }
+> = ({ label, textClassName = "", infoNode, ...props }) => {
   return (
     <div className={`flex flex-row justify-between ${props.className}`}>
-      <span className={`text-title-4 text-dark font-bold ${textClassName}`}>{label}</span>
+      <div className="flex flex-row gap-1">
+        <span className={`text-title-4 text-dark font-bold ${textClassName}`}>{label}</span>
+        {infoNode}
+      </div>
       {props.children}
     </div>
   );

@@ -6,8 +6,7 @@ import { useTranslation } from "react-i18next";
 import TransactionStatusBadge from "@/components/molecules/transaction-status-badge";
 import { Button } from "@/components/ui";
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { useGetPaymentLink } from "@/hooks/react-query/usePayment";
-import { useGetUserTransactionDetail } from "@/hooks/react-query/useUsers";
+import { useGetPaymentLink, useGetUserTransactionDetail } from "@/hooks/react-query/usePayment";
 import { EnumTransactionStatus } from "@/lib/enums";
 import { formatVNDCurrency } from "@/lib/utils";
 
@@ -147,7 +146,7 @@ const TransactionDetailSheet = ({
                       label={t("transaction.transactionDetail.amount")}
                       value={
                         transactionDetail.transactions
-                          ? transactionDetail.transactions[0].amount
+                          ? formatVNDCurrency(toNumber(transactionDetail.transactions[0].amount))
                           : "--"
                       }
                     />
