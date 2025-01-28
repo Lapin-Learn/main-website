@@ -15,7 +15,7 @@ const AccordionItem = React.forwardRef<
 AccordionItem.displayName = "AccordionItem";
 
 type AccordionTriggerCustomProps = {
-  iconPosition?: "left" | "right";
+  iconPosition?: "left" | "right" | "none";
 };
 const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,

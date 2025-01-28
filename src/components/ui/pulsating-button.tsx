@@ -4,18 +4,20 @@ import { cn } from "@/lib/utils";
 
 interface PulsatingButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   pulseColor?: string;
+  pulseStyle?: string;
   duration?: string;
 }
 
 export const PulsatingButton = React.forwardRef<HTMLButtonElement, PulsatingButtonProps>(
-  ({ className, children, pulseColor = "#F17D53", duration = "1.5s", ...props }, ref) => {
-    const { disabled } = props;
-
+  (
+    { className, children, pulseColor = "#0096ff", pulseStyle, duration = "1.5s", ...props },
+    ref
+  ) => {
     return (
       <button
         ref={ref}
         className={cn(
-          "relative flex cursor-pointer items-center justify-center rounded-lg bg-primary px-4 py-2 text-center text-primary-foreground disabled:pointer-events-none disabled:opacity-50",
+          "relative flex cursor-pointer items-center justify-center rounded-lg bg-primary px-4 py-2 text-center text-primary-foreground",
           className
         )}
         style={
@@ -30,7 +32,7 @@ export const PulsatingButton = React.forwardRef<HTMLButtonElement, PulsatingButt
         <div
           className={cn(
             "absolute left-1/2 top-1/2 size-full -translate-x-1/2 -translate-y-1/2 animate-pulse rounded-lg bg-inherit",
-            disabled && "animate-none"
+            pulseStyle
           )}
         />
       </button>

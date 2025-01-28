@@ -4,6 +4,8 @@
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const colors = require("tailwindcss/colors");
+const svgToDataUri = require("mini-svg-data-uri");
+const { default: flattenColorPalette } = require("tailwindcss/lib/util/flattenColorPalette");
 
 module.exports = {
   content: ["./src/components/**/*.{js,ts,jsx,tsx,mdx}", "./src/routes/**/*.{js,ts,jsx,tsx,mdx}"],
@@ -134,17 +136,46 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         ripple: "ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite",
-        'spin-slow': 'spin 4s linear infinite',
+        "spin-slow": "spin 4s linear infinite",
         pulse: "pulse var(--duration) ease-out infinite",
       },
       backgroundImage: {
-        'rewards': "url('/rewards.svg')",
-        'blue-radial': 'radial-gradient(162.79% 75.11% at 50% 24.89%, rgba(242, 252, 254, 1) 0%, rgba(215, 247, 255, 1) 45.42%, rgba(198  , 245, 255, 1) 100%)'
-      }
+        rewards: "url('/rewards.svg')",
+        "blue-radial":
+          "radial-gradient(162.79% 75.11% at 50% 24.89%, rgba(242, 252, 254, 1) 0%, rgba(215, 247, 255, 1) 45.42%, rgba(198  , 245, 255, 1) 100%)",
+        "linear-hero-banner":
+          "linear-gradient(258deg, rgba(255, 241, 228, 1) 0.98%, rgba(255, 255, 255, 1) 49.97%, rgba(255, 241, 228, 1) 87.01%)",
+        "red-yellow-linear":
+          "linear-gradient(90deg, rgba(238, 76, 40, 1) 0%, rgba(255, 175, 25, 1) 100%)",
+      },
     },
   },
   plugins: [
     require("tailwindcss-animate"),
     require("@tailwindcss/typography"), // Add the typography plugin
+    addVariablesForColors,
+    function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          "bg-dot-thick": (value) => ({
+            backgroundImage: `url("${svgToDataUri(
+              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" fill="none"><circle fill="${value}" id="pattern-circle" cx="10" cy="10" r="2.5"></circle></svg>`
+            )}")`,
+          }),
+        },
+        { values: flattenColorPalette(theme("backgroundColor")), type: "color" }
+      );
+    },
   ],
 };
+
+function addVariablesForColors({ addBase, theme }) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+
+  addBase({
+    ":root": newVars,
+  });
+}
