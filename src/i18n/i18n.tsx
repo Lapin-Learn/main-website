@@ -5,6 +5,7 @@ import { initReactI18next } from "react-i18next";
 import authEn from "./locales/en/auth.json";
 import collectionEn from "./locales/en/collection.json";
 import commonEn from "./locales/en/common.json";
+import dailyLessonEn from "./locales/en/daily-lesson.json";
 import errorEn from "./locales/en/error.json";
 import gamificationEn from "./locales/en/gamification.json";
 import landingPageEn from "./locales/en/landing-page.json";
@@ -19,6 +20,7 @@ import tooltipEn from "./locales/en/tooltip.json";
 import authVi from "./locales/vi/auth.json";
 import collectionVi from "./locales/vi/collection.json";
 import commonVi from "./locales/vi/common.json";
+import dailyLessonVi from "./locales/vi/daily-lesson.json";
 import errorVi from "./locales/vi/error.json";
 import gamificationVi from "./locales/vi/gamification.json";
 import landingPageVi from "./locales/vi/landing-page.json";
@@ -51,6 +53,7 @@ const resources = {
     shop: shopEn,
     tooltip: tooltipEn,
     question: questionEn,
+    dailyLesson: dailyLessonEn,
     landingPage: landingPageEn,
   },
   vi: {
@@ -72,6 +75,7 @@ const resources = {
     shop: shopVi,
     tooltip: tooltipVi,
     question: questionVi,
+    dailyLesson: dailyLessonVi,
     landingPage: landingPageVi,
   },
 };

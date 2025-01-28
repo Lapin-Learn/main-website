@@ -1,5 +1,6 @@
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
 import { MoveRight } from "lucide-react";
+import { motion } from "motion/react";
 import { useState } from "react";
 
 import DraggableItem from "@/components/molecules/draggable-item";
@@ -68,7 +69,11 @@ const Matching = (props: MatchingProps) => {
 
   return (
     <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <div
+      <motion.div
+        initial={{ x: 100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        exit={{ x: -100, opacity: 0 }}
+        transition={{ duration: 0.5 }}
         className={cn(
           "grid w-3/4 gap-8",
           isAnswered ? "grid-cols-1 place-items-center" : "grid-cols-2"
@@ -152,7 +157,7 @@ const Matching = (props: MatchingProps) => {
             </MatchingButton>
           ) : null}
         </DragOverlay>
-      </div>
+      </motion.div>
       {renderCheckButton && renderCheckButton(getCorrectAnswers, !canShowCheckButton)}
     </DndContext>
   );

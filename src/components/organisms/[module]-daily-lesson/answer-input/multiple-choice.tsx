@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 import ChoiceButton from "@/components/molecules/choice-button";
@@ -9,7 +10,7 @@ import { BaseAnswerInputProps } from ".";
 type MultipleChoiceProps = MultipleChoiceContent & BaseAnswerInputProps;
 
 const MultipleChoice = (props: MultipleChoiceProps) => {
-  const { answer, options, renderCheckButton, isAnswered } = props;
+  const { answer, options, renderCheckButton, isAnswered, currentQuestionIndex } = props;
   const [selected, setSelected] = useState<number[]>([]);
   const isSingleSelect = answer.length === 1;
   const canShowCheckButton = selected.length > (isSingleSelect ? 0 : 1);
@@ -57,7 +58,14 @@ const MultipleChoice = (props: MultipleChoiceProps) => {
 
   return (
     <>
-      <div className="flex flex-col items-center gap-4">
+      <motion.div
+        initial={{ x: "100%", opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        exit={{ x: -100, opacity: 0 }}
+        transition={{ duration: 1 }}
+        className="flex flex-col items-center gap-4"
+        key={currentQuestionIndex}
+      >
         {options.map((option, index) => (
           <ChoiceButton
             key={index}
@@ -67,7 +75,7 @@ const MultipleChoice = (props: MultipleChoiceProps) => {
             disabled={isAnswered}
           />
         ))}
-      </div>
+      </motion.div>
       {renderCheckButton && renderCheckButton(getCorrectAnswers, !canShowCheckButton)}
     </>
   );

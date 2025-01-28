@@ -6,6 +6,14 @@ export type SpeakingAnswer = {
   correct_letters?: string;
 };
 
+export type LessonResult = {
+  percent: number;
+  exp: number;
+  carrot: number;
+  timer: number;
+  [key: string]: number;
+};
+
 export type DLAnswer = {
   numberOfCorrect: number;
   totalOfQuestions: number;
@@ -24,6 +32,7 @@ type State = {
     isCompleted: boolean;
     isStarted: boolean;
     startTime: number;
+    result: LessonResult | null;
   };
   learnerAnswers: DLAnswer[];
 };
@@ -33,6 +42,7 @@ type Action = {
   nextQuestion: VoidFunction;
   clear: VoidFunction;
   answerQuestion: (newAnswer: DLAnswer) => void;
+  setResult: (result: LessonResult) => void;
 };
 
 const initialValue: State = {
@@ -45,6 +55,7 @@ const initialValue: State = {
     isCompleted: false,
     isStarted: false,
     startTime: 0,
+    result: null,
   },
   learnerAnswers: [],
 };
@@ -65,7 +76,12 @@ const useDailyLessonStore = create<State & Action>((set, get) => ({
         startTime: Date.now(),
       },
     })),
-  clear: () => set(initialValue),
+  clear: () => {
+    set({
+      ...initialValue,
+      learnerAnswers: [],
+    });
+  },
   nextQuestion: () => {
     const {
       lessonState,
@@ -101,6 +117,14 @@ const useDailyLessonStore = create<State & Action>((set, get) => ({
     if (!currentQuestion) return;
     learnerAnswers[currentQuestion.index] = newAnswer;
     set({ learnerAnswers });
+  },
+  setResult: (result) => {
+    set((state) => ({
+      lessonState: {
+        ...state.lessonState,
+        result,
+      },
+    }));
   },
 }));
 

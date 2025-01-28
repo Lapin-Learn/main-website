@@ -6,6 +6,7 @@ import MultipleChoice from "./multiple-choice";
 
 export type BaseAnswerInputProps = AnswerInputProps & {
   isAnswered: boolean;
+  currentQuestionIndex: number;
 };
 
 type AnswerInputProps = {
@@ -20,18 +21,22 @@ const AnswerInput = (props: AnswerInputProps) => {
   } = useDailyLessonStore();
   if (!currentQuestion?.question) return null;
   const { contentType, content } = currentQuestion.question;
+  const index = currentQuestion.index;
   const isAnswered = currentQuestion ? learnerAnswers[currentQuestion.index] !== undefined : false;
 
   switch (contentType) {
     case EnumDLContentType.MULTIPLE_CHOICE:
-      return <MultipleChoice {...content} {...props} isAnswered={isAnswered} />;
-    case EnumDLContentType.MATCHING:
       return (
-        <Matching
+        <MultipleChoice
           {...content}
           {...props}
-          isAnswered={currentQuestion ? learnerAnswers[currentQuestion.index] !== undefined : false}
+          isAnswered={isAnswered}
+          currentQuestionIndex={index}
         />
+      );
+    case EnumDLContentType.MATCHING:
+      return (
+        <Matching {...content} {...props} currentQuestionIndex={index} isAnswered={isAnswered} />
       );
     // case ContentTypeEnum.FILL_IN_THE_BLANK:
     //   return <FillInTheBlank {...content} {...rest} />;

@@ -245,3 +245,8 @@ export const calculateOverallBandScore = (scores: (number | null)[]) => {
   const overall = validScores.reduce((acc, score) => acc + score, 0) / validScores.length;
   return Math.round(overall * 2) / 2;
 };
+
+export const getDuration = (startTime: number): number => {
+  const endTime = new Date().getTime();
+  return Math.round(Math.abs(endTime - startTime) / 1000);
+};

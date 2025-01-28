@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 import AnswerInput from "@/components/organisms/[module]-daily-lesson/answer-input";
 import QuestionCard from "@/components/organisms/[module]-daily-lesson/question-card";
+import LessonResultDialog from "@/components/organisms/lesson-result-dialog";
 import { Button } from "@/components/ui";
 import { Progress } from "@/components/ui/progress";
 import { useLessonQuestions } from "@/hooks/react-query/use-daily-lesson";
@@ -11,22 +12,30 @@ import useDailyLessonStore from "@/hooks/zustand/use-daily-lesson-store";
 import { cn } from "@/lib/utils";
 import { Route } from "@/routes/_authenticated/_dashboard/daily-lesson/$dailyLessonId";
 
-import QuestionActionButtons from "./question-action-buttons";
+import QuestionActionButtons from "../../organisms/question-action-buttons";
 
 const DailyLessonContent = () => {
   const { dailyLessonId } = Route.useParams();
   const { data, isLoading, isSuccess } = useLessonQuestions(dailyLessonId);
 
-  const { startLesson, clear, learnerAnswers } = useDailyLessonStore();
+  const {
+    startLesson,
+    clear,
+    learnerAnswers,
+    lessonState: { result, isCompleted },
+  } = useDailyLessonStore();
 
   useEffect(() => {
     if (isSuccess && data) {
       startLesson(data.questionToLessons.map((q) => q.question));
     }
+  }, [isSuccess, data, startLesson]);
+
+  useEffect(() => {
     return () => {
       clear();
     };
-  }, [isSuccess, data, clear, startLesson]);
+  }, [clear]);
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -65,6 +74,7 @@ const DailyLessonContent = () => {
             )}
           />
         </div>
+        <LessonResultDialog open={isCompleted && result !== null} />
       </div>
     );
   }

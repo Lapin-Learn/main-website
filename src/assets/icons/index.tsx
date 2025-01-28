@@ -1,5 +1,8 @@
 import Book from "./book";
+import CarrotIcon from "./carrot";
+import Clock from "./clock";
 import InProgress from "./exam/inprogress";
+import Flash from "./flash";
 import Missions from "./missions";
 import Practice from "./practice";
 import ShoppingBag from "./shopping-bag";
@@ -36,4 +39,7 @@ export default {
   Writing,
   Volume,
   VolumeOff,
+  Carrot: CarrotIcon,
+  Clock,
+  Flash,
 };
