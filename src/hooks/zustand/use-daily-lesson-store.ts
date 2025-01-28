@@ -25,13 +25,14 @@ type State = {
     isStarted: boolean;
     startTime: number;
   };
-  userAnswer: DLAnswer[];
+  learnerAnswers: DLAnswer[];
 };
 
 type Action = {
   startLesson: (questions: DLQuestion[]) => void;
   nextQuestion: VoidFunction;
   clear: VoidFunction;
+  answerQuestion: (newAnswer: DLAnswer) => void;
 };
 
 const initialValue: State = {
@@ -45,7 +46,7 @@ const initialValue: State = {
     isStarted: false,
     startTime: 0,
   },
-  userAnswer: [],
+  learnerAnswers: [],
 };
 
 const useDailyLessonStore = create<State & Action>((set, get) => ({
@@ -91,6 +92,15 @@ const useDailyLessonStore = create<State & Action>((set, get) => ({
         });
       }
     }
+  },
+  answerQuestion: (newAnswer) => {
+    const {
+      learnerAnswers,
+      lessonState: { currentQuestion },
+    } = get();
+    if (!currentQuestion) return;
+    learnerAnswers[currentQuestion.index] = newAnswer;
+    set({ learnerAnswers });
   },
 }));
 

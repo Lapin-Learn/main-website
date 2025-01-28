@@ -5,14 +5,16 @@ type DraggableItemProps = {
   type: string;
   draggingClassName?: string;
   renderChildren: (isDragging: boolean) => React.ReactNode;
+  disabled?: boolean;
 };
 
-const DraggableItem = ({ id, type, renderChildren }: DraggableItemProps) => {
+const DraggableItem = ({ id, type, renderChildren, disabled = false }: DraggableItemProps) => {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id,
     data: {
       type,
     },
+    disabled,
   });
 
   return (

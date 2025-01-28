@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { MoveLeft } from "lucide-react";
 import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
 
 import AnswerInput from "@/components/organisms/[module]-daily-lesson/answer-input";
 import QuestionCard from "@/components/organisms/[module]-daily-lesson/question-card";
@@ -12,12 +11,13 @@ import useDailyLessonStore from "@/hooks/zustand/use-daily-lesson-store";
 import { cn } from "@/lib/utils";
 import { Route } from "@/routes/_authenticated/_dashboard/daily-lesson/$dailyLessonId";
 
+import QuestionActionButtons from "./question-action-buttons";
+
 const DailyLessonContent = () => {
   const { dailyLessonId } = Route.useParams();
   const { data, isLoading, isSuccess } = useLessonQuestions(dailyLessonId);
-  const { t } = useTranslation("question");
 
-  const { startLesson, clear, lessonState, nextQuestion } = useDailyLessonStore();
+  const { startLesson, clear, learnerAnswers } = useDailyLessonStore();
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -32,37 +32,39 @@ const DailyLessonContent = () => {
 
   if (isSuccess && data) {
     const numberOfQuestions = data.questionToLessons.length;
-    const currentQuestion = lessonState.currentQuestion?.index ?? 0;
+    const currentQuestion = learnerAnswers.length ?? 0;
     const currentProgress = Math.max(1, (currentQuestion / numberOfQuestions) * 100);
 
     return (
       <div className="mx-auto flex h-screen flex-col items-center gap-2 p-8">
         <div className="mb-4 flex w-full flex-row items-center gap-4">
           <Link to="/daily-lesson">
-            <MoveLeft size={24} />
+            <Button
+              variant="ghost"
+              size="icon"
+              className="size-12 rounded-full hover:text-neutral-500"
+            >
+              <MoveLeft size={24} />
+            </Button>
           </Link>
           <Progress
             className="h-4 w-full"
             value={currentProgress}
             indicatorClassName={cn(
               "bg-gradient-to-r duration-500",
-              currentProgress > 50 ? " from-secondary to-primary" : " from-blue-100 to-blue-500"
+              currentProgress > 50 ? " from-primary-300 to-primary" : " from-blue-100 to-blue-500"
             )}
           />
           <div>{`${currentQuestion}/${numberOfQuestions}`}</div>
         </div>
-        <div className="h-full flex-1">
+        <div className="flex h-full flex-1 flex-col items-center justify-between gap-4">
           <QuestionCard />
-          <AnswerInput />
+          <AnswerInput
+            renderCheckButton={(getCorrectAnswers, disabled) => (
+              <QuestionActionButtons getCorrectAnswers={getCorrectAnswers} disabled={disabled} />
+            )}
+          />
         </div>
-        <Button
-          onClick={nextQuestion}
-          variant="black"
-          size="lg"
-          className="bottom-8 my-8 h-12 w-96 max-w-full"
-        >
-          {t("general.check")}
-        </Button>
       </div>
     );
   }

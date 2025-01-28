@@ -29,12 +29,13 @@ const DroppableMatchingZone = ({
       ) : (
         <div
           className={cn(
-            "min-w-48 transition-all duration-200 h-10",
-            isOver && " border-blue-500 bg-blue-50 text-blue-500",
-            !children && " border border-dashed bg-white/50 rounded-md text-supporting-text "
+            "min-w-48 transition-all duration-200 h-12 inline-flex items-center p-4",
+            isOver && " border-blue-500 bg-blue-100 text-blue-500",
+            !children &&
+              " border-[1.5px] border-dashed bg-white/80 rounded-lg text-supporting-text "
           )}
         >
-          <p className={cn("text-sm p-2")}>{placeholder}</p>
+          <p>{placeholder}</p>
         </div>
       )}
     </div>
