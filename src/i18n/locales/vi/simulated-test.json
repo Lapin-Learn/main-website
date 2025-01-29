@@ -145,5 +145,9 @@
     "questions": "Danh sách câu hỏi",
     "unanswered": "Chưa trả lời",
     "yourAnswer": "Câu trả lời của bạn"
+  },
+  "noteBtn": {
+    "title": "Ghi chú",
+    "placeholder": "Viết ghi chú của bạn ở đây..."
   }
 }

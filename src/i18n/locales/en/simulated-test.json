@@ -144,5 +144,9 @@
     "questions": "Questions",
     "unanswered": "Skipped",
     "yourAnswer": "Your answer"
+  },
+  "noteBtn": {
+    "title": "Take note",
+    "placeholder": "Write your note here..."
   }
 }
