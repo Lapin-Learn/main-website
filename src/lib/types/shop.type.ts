@@ -10,7 +10,7 @@ export type Shop = {
   };
   duration: number;
   imageId: string;
-  image: Image;
+  image: Partial<Image>;
   popular: string;
   isPopular: boolean;
 };

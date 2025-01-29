@@ -9,6 +9,7 @@ import dailyLessonEn from "./locales/en/daily-lesson.json";
 import errorEn from "./locales/en/error.json";
 import gamificationEn from "./locales/en/gamification.json";
 import landingPageEn from "./locales/en/landing-page.json";
+import milestoneEn from "./locales/en/milestone.json";
 import practiceEn from "./locales/en/practice.json";
 import profileEn from "./locales/en/profile.json";
 import questionEn from "./locales/en/question.json";
@@ -24,6 +25,7 @@ import dailyLessonVi from "./locales/vi/daily-lesson.json";
 import errorVi from "./locales/vi/error.json";
 import gamificationVi from "./locales/vi/gamification.json";
 import landingPageVi from "./locales/vi/landing-page.json";
+import milestoneVi from "./locales/vi/milestone.json";
 import practiceVi from "./locales/vi/practice.json";
 import profileVi from "./locales/vi/profile.json";
 import questionVi from "./locales/vi/question.json";
@@ -54,6 +56,7 @@ const resources = {
     tooltip: tooltipEn,
     question: questionEn,
     dailyLesson: dailyLessonEn,
+    milestone: milestoneEn,
     landingPage: landingPageEn,
   },
   vi: {
@@ -76,6 +79,7 @@ const resources = {
     tooltip: tooltipVi,
     question: questionVi,
     dailyLesson: dailyLessonVi,
+    milestone: milestoneVi,
     landingPage: landingPageVi,
   },
 };
