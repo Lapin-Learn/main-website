@@ -39,14 +39,17 @@ export const LandingPage = () => {
         <div className="mx-auto w-full max-w-7xl px-4">
           <div className="flex h-14 items-center justify-between">
             <Link href="/" className="flex items-center">
-              <img src={Logo} alt="App Logo" className="h-6 cursor-pointer" />
+              <img src={Logo} alt="App Logo" className="h-5 cursor-pointer md:h-6" />
             </Link>
             <div className="flex items-center gap-4">
-              <Button variant="ghost" size="xl" className="w-fit text-neutral-300">
+              <Button
+                variant="ghost"
+                className="h-8 w-fit rounded-md px-3 text-xs text-neutral-300 md:h-11 md:rounded-lg md:px-8 md:text-small"
+              >
                 Phản hồi
               </Button>
               <Separator orientation="vertical" className="flex h-full min-h-6 bg-neutral-300" />
-              <Button size="xl" className="w-fit">
+              <Button className="h-8 w-fit rounded-md px-3 text-xs md:h-11 md:rounded-lg md:px-8 md:text-small">
                 Bắt đầu
               </Button>
             </div>
@@ -61,7 +64,7 @@ export const LandingPage = () => {
       <AiAssistant />
       <MobileApp />
       <div className="bg-[#6B96D5] py-6 text-white md:px-40">
-        <div className="container mx-auto flex items-center justify-between px-4">
+        <div className="container mx-auto flex flex-col justify-center gap-4 px-4 md:flex-row md:items-center md:justify-between md:gap-0">
           <p className="text-small">© 2025 LapinLearn. All rights reserved.</p>
           <div className="flex gap-4">
             <a href="mailto:lapinlearnproject@gmail.com">

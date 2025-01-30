@@ -4,19 +4,19 @@ import { AnimatedListDemo } from "./item-list";
 
 export const Gamification = () => {
   return (
-    <div className="relative flex max-h-screen w-full flex-col items-center justify-center overflow-hidden bg-background">
-      <div className="grid grid-cols-12 gap-4 p-4">
-        <div className="col-span-1" />
-        <div className="col-span-6 flex flex-col justify-center gap-10">
-          <div className="flex flex-col gap-8">
-            <h4 className="text-heading-4 font-bold">CHÚNG MÌNH CÓ GÌ?</h4>
+    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-background md:max-h-screen">
+      <div className="grid grid-cols-1 gap-4 px-4 py-6 md:grid-cols-12">
+        <div className="hidden md:col-span-1 md:block" />
+        <div className="col-span-1 flex flex-col justify-center gap-10 md:col-span-6">
+          <div className="flex flex-col gap-4 md:gap-8">
+            <h4 className="text-heading-5 font-bold md:text-heading-4">CHÚNG MÌNH CÓ GÌ?</h4>
             <AnimatedListDemo />
           </div>
         </div>
-        <div className="col-span-4 flex flex-col items-center justify-center">
-          <GamificationImage className="max-w-md" />
+        <div className="col-span-1 flex flex-col items-center justify-center md:col-span-4">
+          <GamificationImage className="h-fit w-[448px] md:w-[480px]" />
         </div>
-        <div className="col-span-1" />
+        <div className="hidden md:col-span-1 md:block" />
       </div>
     </div>
   );

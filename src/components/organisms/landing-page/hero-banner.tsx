@@ -7,10 +7,10 @@ import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern
 
 export const HeroBanner = () => {
   return (
-    <div className="relative flex max-h-screen w-full flex-col items-center justify-center overflow-hidden bg-linear-hero-banner">
-      <div className="grid grid-cols-12 items-center gap-4 p-4">
-        <div className="col-span-1" />
-        <div className="z-10 col-span-5 flex max-h-fit flex-col gap-10 p-10">
+    <div className="relative flex h-[800px] w-full items-center justify-center bg-linear-hero-banner md:h-screen">
+      <div className="grid grid-cols-1 gap-8 p-4 md:grid-cols-12 md:gap-4">
+        <div className="hidden md:col-span-1 md:block" />
+        <div className="z-10 col-span-1 flex h-fit flex-col gap-5 p-2 md:col-span-5 md:gap-10 md:p-10">
           <div className="flex flex-col gap-5">
             <HeroHighlight>
               <motion.h3
@@ -26,7 +26,7 @@ export const HeroBanner = () => {
                   duration: 0.5,
                   ease: [0.4, 0.0, 0.2, 1],
                 }}
-                className="text-heading-3 font-bold"
+                className="text-heading-5 font-bold md:text-heading-3"
               >
                 <span className="text-orange-700">VẪN LÀ IELTS</span> NHƯNG <br /> THEO CÁCH{" "}
                 <Highlight className="rounded-full bg-gradient-to-r from-secondary to-secondary px-4 py-0.5 italic">
@@ -35,25 +35,23 @@ export const HeroBanner = () => {
                 HƠN
               </motion.h3>
             </HeroHighlight>
-
-            <p>
+            <p className="text-small md:text-body">
               Nền tảng học IELTS sáng tạo của chúng mình kết hợp sức mạnh của trò chơi hóa với kế
               hoạch học tập cá nhân hóa, giúp việc chuẩn bị cho kỳ thi IELTS trở nên thú vị và hiệu
               quả. Hãy bắt đầu hành trình chinh phục IELTS của bạn ngay hôm nay!
             </p>
           </div>
-          <button className="w-fit rounded-full bg-red-yellow-linear px-6 py-3.5">
+          <button className="w-fit rounded-full bg-red-yellow-linear px-5 py-3 md:px-6 md:py-3.5">
             <div className="flex items-center gap-2 text-white">
               <p className="font-medium">Đăng ký ngay</p>
               <ArrowRight className="size-6" />
             </div>
           </button>
         </div>
-        <div className="col-span-1" />
-        <div className="z-10 col-span-4 flex max-h-fit flex-col items-center justify-center">
-          <HeroBannerImage className="max-w-md" />
+        <div className="z-10 col-span-1 flex h-fit flex-col items-center justify-center md:col-span-6">
+          <HeroBannerImage className="h-fit w-[360px] md:w-[480px]" />
         </div>
-        <div className="col-span-1" />
+        <div className="hidden md:col-span-1 md:block" />
         <InteractiveGridPattern
           width={64}
           height={64}
