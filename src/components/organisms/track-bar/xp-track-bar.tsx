@@ -45,7 +45,7 @@ const XpTrackBar = ({
             </ul>
           </>
         }
-        className="flex max-w-80 flex-col gap-1 bg-neutral-300"
+        className="flex max-w-80 flex-col gap-1"
         asChild
       />
       <TooltipWrapper
@@ -70,7 +70,7 @@ const XpTrackBar = ({
             <Trans i18nKey="tooltip:gamification.level" components={{ bold: <strong /> }} />
           </span>
         }
-        className="max-w-80 bg-neutral-300"
+        className="max-w-80"
         asChild
       />
     </div>

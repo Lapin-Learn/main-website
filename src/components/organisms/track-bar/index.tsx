@@ -35,6 +35,7 @@ const TrackBar = ({ data }: TrackBarProps) => {
         }
         contentNode={<Trans i18nKey="tooltip:gamification.streak" />}
         asChild
+        className="max-w-60"
       />
       <TooltipWrapper
         triggerNode={
@@ -59,7 +60,7 @@ const TrackBar = ({ data }: TrackBarProps) => {
             </ul>
           </>
         }
-        className="flex max-w-80 flex-col gap-1 bg-neutral-300"
+        className="flex max-w-80 flex-col gap-1"
         asChild
       />
       <XpTrackBar

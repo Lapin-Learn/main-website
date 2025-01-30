@@ -39,7 +39,7 @@ export const GamificationStats = ({ data }: GamificationProps) => {
             <Trans i18nKey="tooltip:gamification.level" components={{ bold: <strong /> }} />
           </span>
         }
-        className="flex max-w-80 flex-col gap-1 bg-neutral-300"
+        className="flex max-w-80 flex-col gap-1"
       />
       <Separator orientation="vertical" className="flex h-full min-h-10" />
       <TooltipWrapper
@@ -53,7 +53,7 @@ export const GamificationStats = ({ data }: GamificationProps) => {
           </div>
         }
         contentNode={<Trans i18nKey="tooltip:gamification.streak_record" />}
-        className="flex max-w-80 flex-col gap-1 bg-neutral-300"
+        className="flex max-w-80 flex-col gap-1"
       />
       <Separator orientation="vertical" className="flex h-full min-h-10" />
       <TooltipWrapper
@@ -87,7 +87,7 @@ export const GamificationStats = ({ data }: GamificationProps) => {
             </ul>
           </>
         }
-        className="flex max-w-80 flex-col gap-1 bg-neutral-300"
+        className="flex max-w-80 flex-col gap-1"
       />
     </div>
   );
