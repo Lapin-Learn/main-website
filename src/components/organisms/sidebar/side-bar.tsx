@@ -82,7 +82,7 @@ export default function SideBar() {
           isSidebarOpen ? "right-0 w-[280px] sm:left-0" : "right-[-280px] w-0 sm:left-0 sm:w-fit"
         )}
       >
-        <div className="relative flex h-full flex-col px-3 pb-4 pt-9">
+        <div className="relative flex size-full flex-col px-3 pb-4 pt-9">
           <nav className="flex h-screen w-full flex-col justify-between">
             <div>
               <div
