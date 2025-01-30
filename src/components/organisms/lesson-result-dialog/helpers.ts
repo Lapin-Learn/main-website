@@ -1,4 +1,5 @@
 import { EnumMileStone, EnumRank } from "@/lib/enums";
+import { Level } from "@/lib/types";
 import { LessonResult, MissionMilestone } from "@/lib/types/daily-lesson.type";
 import { formatTime } from "@/lib/utils";
 
@@ -82,7 +83,7 @@ const transformStepper = (result: LessonResult) => {
       steps[EnumResultStepper.LEVEL_RANK] = {
         type: EnumResultStepper.LEVEL_RANK,
         value: {
-          level: levelMilestone.newValue as number,
+          level: (levelMilestone.newValue as Level).id,
           rank: rankMilestone.newValue as EnumRank,
         },
       };

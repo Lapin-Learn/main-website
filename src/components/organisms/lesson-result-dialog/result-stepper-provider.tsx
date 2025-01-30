@@ -2,7 +2,7 @@ import { createContext, PropsWithChildren, useContext, useState } from "react";
 
 import { LessonResult } from "@/lib/types/daily-lesson.type";
 
-import { transformStepper } from "./helper";
+import { transformStepper } from "./helpers";
 import { EnumResultStepper, ResultStepperContextType } from "./type";
 
 const nextStepMapper: Record<string, EnumResultStepper> = {

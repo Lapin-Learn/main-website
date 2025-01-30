@@ -46,6 +46,10 @@ export const useReceiveMissionReward = () => {
       queryClient.invalidateQueries({
         queryKey: gamificationKeys.missions(),
       });
+      queryClient.invalidateQueries({
+        queryKey: gamificationKeys.gamificationProfile,
+        exact: true,
+      });
     },
   });
 };

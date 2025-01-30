@@ -9,7 +9,7 @@ import flame from "@/assets/lotties/streak-flame.json";
 import { Button, Typography } from "@/components/ui";
 import { gamificationKeys, useGetStreakHistory } from "@/hooks/react-query/useGamification";
 
-import { getCurrentWeekBooleanObject } from "./helper";
+import { getCurrentWeekBooleanObject } from "./helpers";
 import { useResultStepperContext } from "./result-stepper-provider";
 import { EnumResultStepper } from "./type";
 

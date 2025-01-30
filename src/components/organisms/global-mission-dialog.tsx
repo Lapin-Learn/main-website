@@ -11,35 +11,28 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 
 const GlobalMissionDialog = () => {
   const { t } = useTranslation("milestone");
-  const [isError, setIsError] = useState(false);
   const [open, setOpen] = useState(false);
-  const { data: missions, isLoading } = useMissions();
-  const { mutate: receiveMissionReward, isPending } = useReceiveMissionReward();
+  const { data: missions, isLoading, isRefetching } = useMissions();
+  const { mutate: receiveMissionReward, isPending, isError } = useReceiveMissionReward();
 
   useEffect(() => {
-    if (missions && missions.length > 0) {
+    if (missions && missions.length > 0 && !isLoading && !isRefetching) {
       if (missions.find((mission) => mission.status === EnumMissionStatus.COMPLETED)) {
         setOpen(true);
       }
     }
-    if (!isLoading) {
-      setIsError(false);
-    }
-  }, [missions, isLoading]);
+  }, [missions, isLoading, isRefetching]);
 
   const handleReceive = () => {
     receiveMissionReward(undefined, {
       onSuccess: () => {
         setOpen(false);
       },
-      onError: () => {
-        setIsError(true);
-      },
     });
   };
 
   return (
-    <Dialog open={open && !isError}>
+    <Dialog open={open && !isError && !isRefetching && !isLoading}>
       <DialogHeader>
         <DialogTitle />
       </DialogHeader>
