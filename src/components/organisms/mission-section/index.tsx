@@ -1,19 +1,32 @@
 import { Clock, Info } from "lucide-react";
 import { Trans, useTranslation } from "react-i18next";
 
-import CarrotIcon from "@/assets/icons/carrot";
-import DailyTestIcon from "@/assets/icons/daily-test";
 import TooltipWrapper from "@/components/molecules/tooltip-wrapper";
-import { Progress } from "@/components/ui/progress";
-import { convertMissionNameCategory, formatRemainingToDateTime } from "@/lib/utils";
+import { Mission } from "@/lib/types/mission.type";
+import { cn, formatRemainingToDateTime } from "@/lib/utils";
 
-import { MissionProps, MissionSectionProps } from "../../../lib/types/mission.type";
-import { ProfileSection as Section } from "./section";
+import { MissionList } from "./mission-list";
+import { Section } from "./section";
 
-export const MissionSection = ({ title, type, timeRemaining, missions }: MissionSectionProps) => {
+type MissionSectionProps = {
+  title?: string;
+  timeRemaining?: number;
+  type: "daily_mission" | "monthly_mission";
+  missions: Mission[];
+  className?: string;
+};
+
+export const MissionSection = ({
+  title,
+  type,
+  timeRemaining,
+  missions,
+  className,
+}: MissionSectionProps) => {
   const { t } = useTranslation("practice");
+
   return (
-    <Section className="rounded-2xl bg-white p-4">
+    <Section className={cn("rounded-2xl bg-white p-4", className)}>
       {title && timeRemaining && (
         <Section.Title
           label={title}
@@ -21,7 +34,9 @@ export const MissionSection = ({ title, type, timeRemaining, missions }: Mission
           textClassName="font-semibold text-body text-dark"
           infoNode={
             <TooltipWrapper
-              triggerNode={<Info className="size-4 text-blue-600" strokeWidth={2} />}
+              triggerNode={
+                <Info className="size-4 text-blue-600 hover:cursor-pointer" strokeWidth={2} />
+              }
               contentNode={
                 <span>
                   <Trans
@@ -32,6 +47,7 @@ export const MissionSection = ({ title, type, timeRemaining, missions }: Mission
               }
               className="flex max-w-80 flex-col gap-1"
               sideOffset={4}
+              asChild
             />
           }
         >
@@ -42,47 +58,8 @@ export const MissionSection = ({ title, type, timeRemaining, missions }: Mission
         </Section.Title>
       )}
       <Section.Group className="bg-white py-0">
-        <ListMissions data={missions} />
+        <MissionList data={missions} />
       </Section.Group>
     </Section>
-  );
-};
-
-export const ListMissions = ({ data = [] }: { data?: MissionProps[] }) => {
-  return (
-    <>
-      {data.map((item, index) => {
-        const progressValue = item.current / item.quantity;
-        const isLastItem = index === data.length - 1;
-        return (
-          <div key={index} className={`${progressValue >= 1 ? "bg-yellow-100" : ""}`}>
-            <Section.Item className="flex flex-1 items-center justify-between px-2 py-4">
-              <div className="flex flex-1 items-center gap-1">
-                <DailyTestIcon className="size-10" />
-                <Section.Title
-                  label={convertMissionNameCategory(item)}
-                  textClassName="text-sm font-semibold"
-                  className="flex flex-1 flex-col justify-start gap-1"
-                >
-                  <div className="w-full">
-                    <Progress
-                      className="h-3"
-                      indicatorStyle={{ backgroundColor: "#F17D53" }}
-                      value={progressValue * 100}
-                      label={`${item.current}/${item.quantity}`}
-                    />
-                  </div>
-                </Section.Title>
-              </div>
-              <div className="flex w-16 items-center justify-end gap-1">
-                <p className="text-dark text-sm font-semibold">+{item.rewards}</p>
-                <CarrotIcon className="size-5" />
-              </div>
-            </Section.Item>
-            {!isLastItem && <div className="border-t border-neutral-100" />}
-          </div>
-        );
-      })}
-    </>
   );
 };

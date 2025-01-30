@@ -1,28 +1,28 @@
 import { ChevronRight } from "lucide-react";
 import { createContext, FC } from "react";
 
-const ProfileContext = createContext({});
+const SectionContext = createContext({});
 
-export type ProfileProps = React.HTMLAttributes<HTMLDivElement>;
+export type SectionProps = React.HTMLAttributes<HTMLDivElement>;
 
-const ProfileSection: FC<ProfileProps> & {
+const Section: FC<SectionProps> & {
   Title: typeof Title;
   Item: typeof Item;
   Group: typeof Group;
   List: typeof List;
   ListItem: typeof ListItem;
-} = ({ children, className, ...props }: ProfileProps) => {
+} = ({ children, className, ...props }: SectionProps) => {
   return (
-    <ProfileContext.Provider value={{}}>
+    <SectionContext.Provider value={{}}>
       <div className={`flex w-full flex-col gap-2 ${className}`} {...props}>
         {children}
       </div>
-    </ProfileContext.Provider>
+    </SectionContext.Provider>
   );
 };
 
 const Title: FC<
-  ProfileProps & { label: string; textClassName?: string; infoNode?: React.ReactNode }
+  SectionProps & { label: string; textClassName?: string; infoNode?: React.ReactNode }
 > = ({ label, textClassName = "", infoNode, ...props }) => {
   return (
     <div className={`flex flex-row justify-between ${props.className}`}>
@@ -35,7 +35,7 @@ const Title: FC<
   );
 };
 
-const Group: FC<ProfileProps> = ({ children, className }) => (
+const Group: FC<SectionProps> = ({ children, className }) => (
   <div className={`overflow-hidden rounded-lg ${className}`}>{children}</div>
 );
 
@@ -44,7 +44,7 @@ const ListItem: FC<{
   onClick: () => void;
   rightIcon?: typeof ChevronRight;
 }> = ({ label, onClick, rightIcon: Icon = ChevronRight }) => (
-  <Item className="border-b border-neutral-100 p-4">
+  <Item className="border-b p-4">
     <button onClick={onClick} className="flex w-full flex-row items-center justify-between">
       <span className="text-body font-semibold">{label}</span>
       <Icon size={24} color="#737373" />
@@ -53,7 +53,7 @@ const ListItem: FC<{
 );
 
 const List: FC<
-  ProfileProps & {
+  SectionProps & {
     data?: { label: string; action: () => void }[];
     rightIcon?: typeof ChevronRight;
   }
@@ -69,7 +69,7 @@ const List: FC<
   </Group>
 );
 
-const Item: FC<ProfileProps & { label?: string; value?: string }> = ({
+const Item: FC<SectionProps & { label?: string; value?: string }> = ({
   label,
   value,
   className,
@@ -84,10 +84,10 @@ const Item: FC<ProfileProps & { label?: string; value?: string }> = ({
   </div>
 );
 
-ProfileSection.Title = Title;
-ProfileSection.Item = Item;
-ProfileSection.Group = Group;
-ProfileSection.List = List;
-ProfileSection.ListItem = ListItem;
+Section.Title = Title;
+Section.Item = Item;
+Section.Group = Group;
+Section.List = List;
+Section.ListItem = ListItem;
 
-export { ProfileSection };
+export { Section };

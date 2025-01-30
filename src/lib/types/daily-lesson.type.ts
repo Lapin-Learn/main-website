@@ -1,6 +1,6 @@
-import { EnumBandScore, EnumMileStone, EnumRank, EnumSkill } from "../enums";
+import { EnumBandScore, EnumMileStone, EnumMissionStatus, EnumRank, EnumSkill } from "../enums";
 import type { Image } from "./common.type";
-import { Mission } from "./mission.type";
+import { Quest, QuestType } from "./mission.type";
 import { Level } from "./user.type";
 
 export type QuestionTypeProgress = {
@@ -56,10 +56,11 @@ export type MissionMilestone = {
   mission: {
     id: string;
     quantity: number;
-    quest: Omit<Mission, "interval">;
-    type: "daily" | "monthly";
+    quest: Quest;
+    type: QuestType;
   };
   missionId: string;
+  status: EnumMissionStatus;
 };
 
 export type SpeakingServiceResponse = {

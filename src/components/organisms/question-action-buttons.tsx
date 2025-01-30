@@ -59,13 +59,8 @@ const QuestionActionButtons = ({ getCorrectAnswers, disabled }: QuestionActionBu
           duration: getDuration(startTime),
         },
         {
-          onSuccess: ({ bonusCarrot, bonusXP, correctAnswers, duration }) => {
-            setResult({
-              carrot: bonusCarrot,
-              exp: bonusXP,
-              percent: Math.ceil((correctAnswers / statistic.totalOfQuestions) * 100),
-              timer: duration,
-            });
+          onSuccess: (returnData) => {
+            setResult(returnData);
           },
         }
       );
@@ -84,6 +79,7 @@ const QuestionActionButtons = ({ getCorrectAnswers, disabled }: QuestionActionBu
         variant={isCorrectAll ? "green" : "red"}
         size="lg"
         className="bottom-8 my-8 h-14 w-96 max-w-full rounded-xl"
+        disabled={lessonCompletionMutation.isPending || isCompleted}
       >
         {t("general.continue")}
       </Button>

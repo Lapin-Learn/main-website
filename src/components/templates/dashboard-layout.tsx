@@ -15,21 +15,8 @@ type DashboardLayoutProps = {
 };
 
 export default function DashboardLayout({ heroImage, children }: DashboardLayoutProps) {
-  const { t } = useTranslation("practice");
-
-  const { data: missionData, isFetching: isFetchingMissionData } = useMissions();
   const { data: gamificationProfile, isFetching: isFetchingGamificationProfileData } =
     useGetGamificationProfile();
-
-  const monthIndex = new Date().getMonth();
-  const NewDate = new Date().setHours(24, 0, 0, 0);
-  const NewMonth = new Date().setMonth(monthIndex + 1, 0);
-
-  const remainingDailyTime = useCountdown(NewDate);
-  const remainingMonthlyTime = useCountdown(NewMonth);
-
-  const dailyMissions = missionData?.filter((item) => item.interval === "daily") || [];
-  const monthlyMissions = missionData?.filter((item) => item.interval === "monthly") || [];
 
   return (
     <div className="flex flex-col-reverse px-4 md:grid md:grid-cols-12 md:gap-6 md:px-8">
@@ -45,27 +32,48 @@ export default function DashboardLayout({ heroImage, children }: DashboardLayout
         )}
         <StreakSection />
         <LatestTestSection />
-        {!isFetchingMissionData && (
-          <>
-            {dailyMissions?.length > 0 && (
-              <MissionSection
-                title={t("mission.types.daily")}
-                type="daily_mission"
-                timeRemaining={remainingDailyTime.timeLeft}
-                missions={dailyMissions}
-              />
-            )}
-            {monthlyMissions?.length > 0 && (
-              <MissionSection
-                title={t("mission.types.monthly")}
-                type="monthly_mission"
-                timeRemaining={remainingMonthlyTime.timeLeft}
-                missions={monthlyMissions}
-              />
-            )}
-          </>
-        )}
+        <MissionLayout />
       </div>
     </div>
   );
 }
+
+export const MissionLayout = ({ border = false }: { border?: boolean }) => {
+  const { t } = useTranslation("practice");
+
+  const { data: missionData, isFetching: isFetchingMissionData } = useMissions();
+
+  const monthIndex = new Date().getMonth();
+  const NewDate = new Date().setHours(24, 0, 0, 0);
+  const NewMonth = new Date().setMonth(monthIndex + 1, 0);
+
+  const remainingDailyTime = useCountdown(NewDate);
+  const remainingMonthlyTime = useCountdown(NewMonth);
+
+  const dailyMissions = missionData?.filter((item) => item.interval === "daily") || [];
+  const monthlyMissions = missionData?.filter((item) => item.interval === "monthly") || [];
+
+  if (isFetchingMissionData) return null;
+  return (
+    <div className="flex flex-col gap-2 md:gap-4">
+      {dailyMissions?.length > 0 && (
+        <MissionSection
+          title={t("mission.types.daily")}
+          type="daily_mission"
+          timeRemaining={remainingDailyTime.timeLeft}
+          missions={dailyMissions}
+          className={border ? "border" : ""}
+        />
+      )}
+      {monthlyMissions?.length > 0 && (
+        <MissionSection
+          title={t("mission.types.monthly")}
+          type="monthly_mission"
+          timeRemaining={remainingMonthlyTime.timeLeft}
+          missions={monthlyMissions}
+          className={border ? "border" : ""}
+        />
+      )}
+    </div>
+  );
+};

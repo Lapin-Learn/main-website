@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import AnswerInput from "@/components/organisms/[module]-daily-lesson/answer-input";
 import QuestionCard from "@/components/organisms/[module]-daily-lesson/question-card";
 import LessonResultDialog from "@/components/organisms/lesson-result-dialog";
-import TestRiveDialog from "@/components/organisms/test-rive-dialog";
+import ResultStepperProvider from "@/components/organisms/lesson-result-dialog/result-stepper-provider";
 import { Button } from "@/components/ui";
 import { Progress } from "@/components/ui/progress";
 import { useLessonQuestions } from "@/hooks/react-query/use-daily-lesson";
@@ -23,7 +23,7 @@ const DailyLessonContent = () => {
     startLesson,
     clear,
     learnerAnswers,
-    lessonState: { result, isCompleted },
+    lessonState: { result },
   } = useDailyLessonStore();
 
   useEffect(() => {
@@ -75,8 +75,11 @@ const DailyLessonContent = () => {
             )}
           />
         </div>
-        <LessonResultDialog open={isCompleted && result !== null} />
-        <TestRiveDialog />
+        {result && (
+          <ResultStepperProvider result={result}>
+            <LessonResultDialog />
+          </ResultStepperProvider>
+        )}
       </div>
     );
   }

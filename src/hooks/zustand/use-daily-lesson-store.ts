@@ -1,17 +1,10 @@
 import { create } from "zustand";
 
 import { DLQuestion } from "@/lib/types";
+import { LessonResult } from "@/lib/types/daily-lesson.type";
 
 export type SpeakingAnswer = {
   correct_letters?: string;
-};
-
-export type LessonResult = {
-  percent: number;
-  exp: number;
-  carrot: number;
-  timer: number;
-  [key: string]: number;
 };
 
 export type DLAnswer = {

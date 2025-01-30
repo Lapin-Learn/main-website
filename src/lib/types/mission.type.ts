@@ -1,7 +1,7 @@
-import { EnumMissionCategory } from "@/lib/enums";
+import { EnumMissionCategory, EnumMissionStatus } from "@/lib/enums";
 
 export type Mission = {
-  interval: "daily" | "monthly";
+  interval: QuestType;
   name: string;
   description: string;
   rewards: number;
@@ -9,13 +9,19 @@ export type Mission = {
   quantity: number;
   requirements: number;
   category: EnumMissionCategory;
+  status: EnumMissionStatus;
+  missionId: string;
+  questId: string;
 };
 
-export type MissionProps = Mission;
+export type QuestType = "daily" | "monthly";
 
-export type MissionSectionProps = {
-  title?: string;
-  timeRemaining?: number;
-  type: "daily_mission" | "monthly_mission";
-  missions: Mission[];
+export type Quest = {
+  id: string;
+  name: string;
+  description: string;
+  requirements: number;
+  rewards: number;
+  type: QuestType;
+  category: EnumMissionCategory;
 };

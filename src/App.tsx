@@ -12,6 +12,7 @@ import PageNotFound from "@/components/PageNotFound";
 import { Toaster } from "@/components/ui/toaster";
 import { routeTree } from "@/routeTree.gen";
 
+import GlobalMissionDialog from "./components/organisms/global-mission-dialog";
 import { FIREBASE_ANALYTICS_EVENTS } from "./lib/consts";
 
 export const queryClient = new QueryClient({
@@ -62,6 +63,7 @@ function App() {
         <RouterProvider router={router} />
         <ReactQueryDevtools />
         <Toaster />
+        <GlobalMissionDialog />
       </QueryClientProvider>
     </ErrorBoundary>
   );

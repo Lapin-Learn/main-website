@@ -8,7 +8,7 @@ const SkillListPage = () => {
     <main className="grid h-screen w-screen place-items-center">
       <div className="flex flex-col items-center gap-4">
         {Object.keys(EnumSkill).map((skill) => (
-          <Link to="question-types" search={{ skill }}>
+          <Link to="question-types" search={{ skill }} key={skill}>
             <Button className="h-20 w-60" key={skill}>
               <h1 className="text-xl font-bold capitalize">{skill}</h1>
             </Button>

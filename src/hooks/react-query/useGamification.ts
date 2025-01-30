@@ -1,6 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { getGamificationProfile, getMissions, getStreak } from "@/services/gamification";
+import {
+  getGamificationProfile,
+  getMissions,
+  getStreak,
+  receiveMissionReward,
+} from "@/services/gamification";
 
 export const gamificationKeys = {
   gamificationProfile: ["gamificationProfile"] as const,
@@ -24,10 +29,23 @@ export const useGetStreakHistory = ({ startDate }: { startDate?: string }) => {
     retry: 3,
   });
 };
+
 export const useMissions = () => {
   return useQuery({
     queryKey: gamificationKeys.missions(),
     queryFn: getMissions,
     staleTime: Infinity,
+  });
+};
+
+export const useReceiveMissionReward = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: receiveMissionReward,
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: gamificationKeys.missions(),
+      });
+    },
   });
 };

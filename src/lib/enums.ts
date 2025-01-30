@@ -145,6 +145,12 @@ export enum EnumMissionCategory {
   EXCEED_LEARNING_STREAK_WITHOUT_BREAK = "EXCEED_LEARNING_STREAK_WITHOUT_BREAK",
 }
 
+export enum EnumMissionStatus {
+  COMPLETED = "completed",
+  ASSIGNED = "assigned",
+  RECEIVED = "received",
+}
+
 export enum EnumItemShop {
   STREAK_FREEZE = "STREAK_FREEZE",
   RANDOM_GIFT = "RANDOM_GIFT",

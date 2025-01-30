@@ -12,7 +12,7 @@ const QuestionTypeDetailPage = () => {
       {isSuccess && (
         <div className="flex w-full flex-col items-center gap-5">
           {list.lessons.map((lesson) => (
-            <Link to={`/daily-lesson/${lesson.id}`}>
+            <Link to={`/daily-lesson/${lesson.id}`} search={{ questionTypeId }}>
               <Card
                 key={lesson.id}
                 className="w-80 transition-all duration-300 hover:cursor-pointer hover:shadow-lg"

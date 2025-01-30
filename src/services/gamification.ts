@@ -31,7 +31,7 @@ const checkMissionEnum = (category: EnumMissionCategory) => {
 
 export const getMissions = async () => {
   try {
-    const response = await api.get(`missions`).json<FetchingData<Mission[]>>();
+    const response = await api.get("missions").json<FetchingData<Mission[]>>();
     return response.data.map((mission) => ({
       ...mission,
       current: checkMissionEnum(mission.category) ? Math.min(1, mission.current) : mission.current,
@@ -41,4 +41,8 @@ export const getMissions = async () => {
     console.error("Error fetching question types:", error);
     throw error;
   }
+};
+
+export const receiveMissionReward = async () => {
+  return await api.post("missions/receive").json();
 };

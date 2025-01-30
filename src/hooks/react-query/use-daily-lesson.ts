@@ -9,6 +9,7 @@ import {
 } from "@/services/daily-lesson";
 import { evaluateSpeaking } from "@/services/speaking";
 
+import { useMilestoneStore } from "../zustand/use-milestone-store";
 import { gamificationKeys } from "./useGamification";
 
 const questionTypeKeys = {
@@ -57,15 +58,15 @@ export const useInstruction = (questionTypeId: string) => {
 };
 
 export const useLessonCompletion = () => {
-  // const { setMilestones } = useMilestoneStore();
+  const { setMilestones } = useMilestoneStore();
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: confirmLessonCompletion,
-    onSuccess: ({ milestones: _ }) => {
+    onSuccess: ({ milestones }) => {
+      setMilestones(milestones);
       queryClient.invalidateQueries({ queryKey: gamificationKeys.gamificationProfile });
       queryClient.invalidateQueries({ queryKey: questionTypeKeys.key });
-      // setMilestones(milestones);
     },
     onError: (error) => {
       console.error("Lesson completion mutation error:", error);
