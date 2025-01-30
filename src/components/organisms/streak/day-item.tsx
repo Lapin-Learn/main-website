@@ -19,9 +19,9 @@ const dayItemVariants = cva("", {
     container: {
       default: "relative",
       first:
-        "relative after:absolute after:top-0 after:right-0 after:w-2 after:h-full after:bg-[#FCE3B4]",
+        "relative after:absolute after:top-0 after:right-0 after:w-1/2 after:z-0 after:h-full after:bg-[#FCE3B4]",
       middle: "relative bg-[#FCE3B4]",
-      last: "relative before:absolute before:top-0 before:left-0 before:w-2 before:h-full before:bg-[#FCE3B4]",
+      last: "relative before:absolute before:top-0 before:left-0 before:w-1/2 before:h-full before:bg-[#FCE3B4]",
       single: "",
     },
     today: {
@@ -59,7 +59,7 @@ const DayItem = React.forwardRef<HTMLDivElement, DayItemProps>(
         <span
           className={cn(
             dayItemVariants({ position, active, today, isActiveToday: active && today }),
-            "grid size-8 place-items-center"
+            "grid size-8 place-items-center z-10"
           )}
         >
           {dayNumber}

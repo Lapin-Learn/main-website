@@ -81,7 +81,7 @@ export function ResultHeader({ collectionId, session }: CollectionDetailHeaderPr
                 </ul>
               </>
             }
-            className="flex flex-col gap-1 bg-neutral-300"
+            className="flex flex-col gap-1"
             side="top"
           />
         )}

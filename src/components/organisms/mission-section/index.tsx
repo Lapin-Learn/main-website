@@ -30,7 +30,7 @@ export const MissionSection = ({ title, type, timeRemaining, missions }: Mission
                   />
                 </span>
               }
-              className="flex max-w-80 flex-col gap-1 bg-neutral-300"
+              className="flex max-w-80 flex-col gap-1"
               sideOffset={4}
             />
           }
