@@ -8,6 +8,47 @@ import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern
 
 export const HeroBanner = () => {
   const { t } = useTranslation("landingPage");
+  const { rive, RiveComponent } = useRive({
+    src: "hero_banner.riv",
+    stateMachines: "main",
+    autoplay: false,
+    layout: new Layout({
+      fit: Fit.Contain,
+      alignment: Alignment.Center,
+    }),
+  });
+
+  const ref = useRef(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (rive) {
+          if (entry.isIntersecting) {
+            rive.play();
+          } else {
+            rive.reset({
+              stateMachines: "main",
+            });
+          }
+        }
+      },
+      {
+        rootMargin: "0px",
+        threshold: 0.1,
+      }
+    );
+
+    if (ref && ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref && ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [rive]);
+
   return (
     <div className="relative flex h-[800px] w-full items-center justify-center bg-linear-hero-banner md:h-screen">
       <div className="grid grid-cols-1 gap-8 p-4 md:grid-cols-12 md:gap-4">
