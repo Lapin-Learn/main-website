@@ -59,7 +59,7 @@ type LessonCompletionPayload = {
 };
 export const confirmLessonCompletion = async (payload: LessonCompletionPayload) => {
   return (
-    await api.post<FetchingData<LessonResult>>(`lessons/completion`, { json: payload }).json()
+    await api.post<FetchingData<LessonResult>>(`daily-lessons/completion`, { json: payload }).json()
   ).data;
 };
 

@@ -113,14 +113,12 @@ const transformStepper = (result: LessonResult) => {
     steps[EnumResultStepper.MISSION_COMPLETED] = {
       type: EnumResultStepper.MISSION_COMPLETED,
       value: (missionMilestone.newValue as MissionMilestone[]).map((d) => {
-        const { name, rewards, description, requirements, category } = d.mission.quest;
+        const { rewards, requirements, category } = d.mission.quest;
         return {
-          name,
           interval: d.mission.type,
           rewards,
           current: d.current,
           quantity: d.mission.quantity,
-          description,
           requirements,
           category,
           missionId: d.missionId,
