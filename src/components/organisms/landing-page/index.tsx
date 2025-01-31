@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import EmailIcon from "@/assets/icons/email";
 import FacebookLogo from "@/assets/icons/FacebookLogo";
@@ -15,6 +16,7 @@ import { SimulatedTest } from "./simulated-test";
 
 export const LandingPage = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { t } = useTranslation("landingPage");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,11 +48,11 @@ export const LandingPage = () => {
                 variant="ghost"
                 className="h-8 w-fit rounded-md px-3 text-xs text-neutral-300 md:h-11 md:rounded-lg md:px-8 md:text-small"
               >
-                Phản hồi
+                {t("navBar.feedback")}
               </Button>
               <Separator orientation="vertical" className="flex h-full min-h-6 bg-neutral-300" />
               <Button className="h-8 w-fit rounded-md px-3 text-xs md:h-11 md:rounded-lg md:px-8 md:text-small">
-                Bắt đầu
+                {t("navBar.start")}
               </Button>
             </div>
           </div>

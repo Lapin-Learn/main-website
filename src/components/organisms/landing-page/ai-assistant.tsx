@@ -1,29 +1,23 @@
 import { CheckIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import Star from "@/assets/icons/landing-page/star";
 import { PulsatingButton } from "@/components/ui/pulsating-button";
 
-const description = [
-  "Nhận xét chi tiết các phần thi Writing và Speaking, bao gồm đánh giá theo từng tiêu chí cụ thể và band điểm dự kiến.",
-  "Chủ động và linh hoạt thời gian hơn.",
-  "Chi phí tiết kiệm gấp 10 lần.",
-];
-
 export const AiAssistant = () => {
+  const { t } = useTranslation("landingPage");
   return (
-    <div className="relative flex max-h-screen w-full flex-col items-center justify-center overflow-hidden bg-background px-4 py-9 md:px-32 md:py-20">
+    <div className="relative flex max-h-screen w-full flex-col items-center justify-center bg-background px-4 py-9 md:px-32 md:py-20">
       <div className="flex size-full flex-col gap-6 rounded-3xl bg-[#D9F0FF] p-6 md:gap-10 md:px-16 md:py-12">
         <div className="flex flex-col gap-4 md:gap-5">
-          <h4 className="text-heading-5 font-bold md:text-heading-4">
-            TRẢI NGHIỆM HỌC CÙNG VỚI TRỢ LÝ AI
-          </h4>
+          <h3 className="text-heading-5 font-bold md:text-heading-3">{t("aiAssistant.title")}</h3>
           <div className="flex flex-col gap-3">
-            {description.map((desc, index) => (
+            {Array.from({ length: 3 }).map((_, index) => (
               <div key={index} className="flex flex-row gap-2">
                 <div className="relative size-4 shrink-0 rounded-full bg-blue-500">
                   <CheckIcon strokeWidth={4} className="absolute-center size-2.5 text-white" />
                 </div>
-                <p className="text-small">{desc}</p>
+                <p className="text-small">{t(`aiAssistant.description.${index}`)}</p>
               </div>
             ))}
           </div>
@@ -32,7 +26,7 @@ export const AiAssistant = () => {
           className="w-fit rounded-full bg-[#1C64F2] px-5 py-2 md:px-6 md:py-3.5"
           pulseStyle="rounded-full"
         >
-          <p className="text-small font-medium">Đăng ký miễn phí ngay</p>
+          <p className="text-small font-medium">{t("aiAssistant.registerNow")}</p>
         </PulsatingButton>
       </div>
       <Star className="absolute bottom-36 left-8 hidden size-8 rotate-[-0.5rad] md:block" />

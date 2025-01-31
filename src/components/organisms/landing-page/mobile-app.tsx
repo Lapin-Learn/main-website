@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import AppStore from "@/assets/icons/AppStore";
 import GooglePlay from "@/assets/icons/GooglePlay";
 import Donut from "@/assets/icons/landing-page/donut";
@@ -8,6 +10,7 @@ import MobileAppImage1 from "@/assets/images/mobile-app-1.png";
 import MobileAppImage2 from "@/assets/images/mobile-app-2.png";
 
 export const MobileApp = () => {
+  const { t } = useTranslation("landingPage");
   return (
     <div className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-[#0B2A46] text-white md:h-[500px]">
       <div className="z-10 grid h-full grid-cols-1 gap-4 md:grid-cols-12 md:items-center">
@@ -16,12 +19,9 @@ export const MobileApp = () => {
           <div className="flex flex-col gap-8 md:gap-12">
             <div className="flex flex-col gap-2 md:gap-4">
               <h3 className="text-heading-5 font-semibold md:text-heading-3">
-                HỌC MỌI LÚC MỌI NƠI VỚI PHIÊN BẢN DI ĐỘNG
+                {t("mobileApp.title")}
               </h3>
-              <p className="text-small opacity-70 md:text-body">
-                Bất kể bạn đang ở đâu, LapinLearn đều có thể đồng hành với bạn. Chỉ với 5 phút mỗi
-                ngày, bạn vẫn có thể trau dồi kỹ năng IELTS của mình.
-              </p>
+              <p className="text-small opacity-70 md:text-body">{t("mobileApp.description")}</p>
             </div>
             <div className="flex gap-3">
               <button>

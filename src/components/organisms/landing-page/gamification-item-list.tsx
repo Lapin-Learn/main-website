@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui";
 import { AnimatedList } from "@/components/ui/animated-list";
@@ -15,28 +16,27 @@ interface Item {
 const gamificationInfo = [
   {
     no: 3,
-    name: "Trao đổi vật phẩm lấy sức mạnh và lượt chấm bài miễn phí",
-    description:
-      "Figma ipsum component variant main layer. Rectangle prototype vertical group comment blur opacity ipsum link blur. List duplicate component edit arrow editor font component. ",
+    name: "gamification.gamificationInfo.2.name",
+    description: "gamification.gamificationInfo.2.description",
     color: "yellow",
   },
   {
     no: 2,
-    name: "Thăng hạng, thăng cấp với điểm kinh nghiệm tích luỹ",
-    description:
-      "Figma ipsum component variant main layer. Rectangle prototype vertical group comment blur opacity ipsum link blur. List duplicate component edit arrow editor font component. ",
+    name: "gamification.gamificationInfo.1.name",
+    description: "gamification.gamificationInfo.1.description",
     color: "green",
   },
   {
     no: 1,
-    name: "Hệ thống bài học 5 phút mỗi ngày",
-    description:
-      "Figma ipsum component variant main layer. Rectangle prototype vertical group comment blur opacity ipsum link blur. List duplicate component edit arrow editor font component. ",
+    name: "gamification.gamificationInfo.0.name",
+    description: "gamification.gamificationInfo.0.description",
     color: "blue",
   },
 ];
 
-const Notification = ({ no, name, description, color, opacity }: Item) => {
+const GamificationItem = ({ no, name, description, color, opacity }: Item) => {
+  const { t } = useTranslation("landingPage");
+
   return (
     <figure
       className={cn(
@@ -50,7 +50,7 @@ const Notification = ({ no, name, description, color, opacity }: Item) => {
       <div className="flex flex-row gap-3">
         <div
           className={cn(
-            "flex size-8 md:size-10 items-center justify-center rounded-sm",
+            "flex shrink-0 size-8 md:size-10 items-center justify-center rounded-sm",
             `bg-${color}-100`
           )}
         >
@@ -61,10 +61,10 @@ const Notification = ({ no, name, description, color, opacity }: Item) => {
         <div className="flex w-full flex-col justify-center">
           <AccordionItem value={`item-${no}`} className="flex flex-col gap-2 border-none">
             <AccordionTrigger className="w-full items-center p-0" iconPosition="none">
-              <p className="text-left text-small md:text-body">{name}</p>
+              <p className="text-left text-small md:text-body">{t(name)}</p>
             </AccordionTrigger>
             <AccordionContent className="p-0">
-              <p className="text-xs md:text-small">{description}</p>
+              <p className="text-xs md:text-small">{t(description)}</p>
             </AccordionContent>
           </AccordionItem>
         </div>
@@ -73,7 +73,7 @@ const Notification = ({ no, name, description, color, opacity }: Item) => {
   );
 };
 
-export function AnimatedListDemo({ className }: { className?: string }) {
+export function GamificationItemList({ className }: { className?: string }) {
   const [activeItem, setActiveItem] = useState<string | null>(null);
 
   const handleAccordionChange = (value: string | null) => {
@@ -97,7 +97,7 @@ export function AnimatedListDemo({ className }: { className?: string }) {
       <Accordion type="single" collapsible onValueChange={handleAccordionChange}>
         <AnimatedList>
           {gamificationInfo.map((item, idx) => (
-            <Notification {...item} key={idx} opacity={getOpacity(item.no)} />
+            <GamificationItem {...item} key={idx} opacity={getOpacity(item.no)} />
           ))}
         </AnimatedList>
       </Accordion>

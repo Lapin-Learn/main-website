@@ -145,6 +145,7 @@ module.exports = {
           "radial-gradient(162.79% 75.11% at 50% 24.89%, rgba(242, 252, 254, 1) 0%, rgba(215, 247, 255, 1) 45.42%, rgba(198  , 245, 255, 1) 100%)",
         "linear-hero-banner":
           "linear-gradient(258deg, rgba(255, 241, 228, 1) 0.98%, rgba(255, 255, 255, 1) 49.97%, rgba(255, 241, 228, 1) 87.01%)",
+        "linear-blue": "linear-gradient(180deg, #FFF 0%, rgba(217, 240, 255, 0.50) 100%)",
         "red-yellow-linear":
           "linear-gradient(90deg, rgba(238, 76, 40, 1) 0%, rgba(255, 175, 25, 1) 100%)",
       },

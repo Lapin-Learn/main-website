@@ -1,0 +1,44 @@
+{
+  "navBar": {
+    "feedback": "Feedback",
+    "start": "Start"
+  },
+  "heroBanner": {
+    "title": "<0>STILL IELTS</0> BUT <br /> IN AN <1>INTERESTING</1> WAY",
+    "description": "Our innovative IELTS learning platform combines the power of gamification with personalized study plans, making IELTS preparation fun and effective. Start your journey to conquer IELTS today!",
+    "registerNow": "Register Now"
+  },
+  "gamification": {
+    "title": "WHAT DO WE HAVE?",
+    "gamificationInfo": [
+      {
+        "name": "5-minute daily lesson system",
+        "description": "Just 5 minutes a day to learn a concise but effective lesson, helping you maintain the habit and improve your IELTS skills."
+      },
+      {
+        "name": "Level up with accumulated experience points",
+        "description": "Study hard to accumulate experience points, upgrade your personal level, and unlock attractive rewards."
+      },
+      {
+        "name": "Exchange items for power and free grading turns",
+        "description": "Collect and exchange items to gain more power, unlock special privileges, and get free grading turns every day."
+      }
+    ]
+  },
+  "simulatedTest": {
+    "title": "PRACTICE WITH 40+ TESTS"
+  },
+  "mobileApp": {
+    "title": "LEARN ANYTIME, ANYWHERE WITH THE MOBILE VERSION",
+    "description": "No matter where you are, LapinLearn can accompany you. With just 5 minutes a day, you can still hone your IELTS skills."
+  },
+  "aiAssistant": {
+    "title": "LEARN WITH AI ASSISTANT",
+    "description": [
+      "Detailed feedback on Writing and Speaking tests, including specific criteria assessments and estimated band scores.",
+      "More proactive and flexible time management.",
+      "Cost savings up to 10 times."
+    ],
+    "registerNow": "Register for free now"
+  }
+}

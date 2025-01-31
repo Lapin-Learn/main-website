@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { Trans, useTranslation } from "react-i18next";
 
 import { HeroBannerImage } from "@/assets/icons/landing-page/hero-banner-image";
 import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
 import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern";
 
 export const HeroBanner = () => {
+  const { t } = useTranslation("landingPage");
   return (
     <div className="relative flex h-[800px] w-full items-center justify-center bg-linear-hero-banner md:h-screen">
       <div className="grid grid-cols-1 gap-8 p-4 md:grid-cols-12 md:gap-4">
@@ -26,24 +28,22 @@ export const HeroBanner = () => {
                   duration: 0.5,
                   ease: [0.4, 0.0, 0.2, 1],
                 }}
-                className="text-heading-5 font-bold md:text-heading-3"
+                className="text-heading-5 font-bold md:text-heading-2"
               >
-                <span className="text-orange-700">VẪN LÀ IELTS</span> NHƯNG <br /> THEO CÁCH{" "}
-                <Highlight className="rounded-full bg-gradient-to-r from-secondary to-secondary px-4 py-0.5 italic">
-                  THÚ VỊ
-                </Highlight>{" "}
-                HƠN
+                <Trans
+                  i18nKey="landingPage:heroBanner.title"
+                  components={[
+                    <span className="text-orange-700" />,
+                    <Highlight className="rounded-full bg-gradient-to-r from-secondary to-secondary px-2 py-0.5 italic md:px-4" />,
+                  ]}
+                />
               </motion.h3>
             </HeroHighlight>
-            <p className="text-small md:text-body">
-              Nền tảng học IELTS sáng tạo của chúng mình kết hợp sức mạnh của trò chơi hóa với kế
-              hoạch học tập cá nhân hóa, giúp việc chuẩn bị cho kỳ thi IELTS trở nên thú vị và hiệu
-              quả. Hãy bắt đầu hành trình chinh phục IELTS của bạn ngay hôm nay!
-            </p>
+            <p className="text-small md:text-xl">{t("heroBanner.description")}</p>
           </div>
           <button className="w-fit rounded-full bg-red-yellow-linear px-5 py-3 md:px-6 md:py-3.5">
             <div className="flex items-center gap-2 text-white">
-              <p className="font-medium">Đăng ký ngay</p>
+              <p className="font-medium">{t("heroBanner.registerNow")}</p>
               <ArrowRight className="size-6" />
             </div>
           </button>
