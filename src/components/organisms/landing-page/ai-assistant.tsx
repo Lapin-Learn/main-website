@@ -29,11 +29,11 @@ export const AiAssistant = () => {
           <p className="text-small font-medium">{t("aiAssistant.registerNow")}</p>
         </PulsatingButton>
       </div>
-      <Star className="absolute bottom-36 left-8 hidden size-8 rotate-[-0.5rad] md:block" />
-      <Star className="absolute bottom-12 left-10 hidden size-16 rotate-[0.4rad] md:block" />
-      <Star className="absolute bottom-16 right-4 hidden size-16 rotate-[-0.5rad] md:block" />
-      <Star className="absolute bottom-32 right-20 hidden size-3.5 rotate-12 md:block" />
-      <Star className="absolute bottom-40 right-10 hidden size-8 rotate-12 md:block" />
+      <Star className="absolute bottom-36 left-8 hidden size-8 animate-[spin_3s_linear_infinite] md:block" />
+      <Star className="absolute bottom-12 left-10 hidden size-16 animate-[spin_5s_linear_infinite] md:block" />
+      <Star className="absolute bottom-16 right-4 hidden size-16 animate-[spin_4.5s_linear_infinite] md:block" />
+      <Star className="absolute bottom-32 right-20 hidden size-3.5 animate-[spin_3s_linear_infinite] md:block" />
+      <Star className="absolute bottom-40 right-10 hidden size-8 animate-[spin_10s_linear_infinite] md:block" />
     </div>
   );
 };

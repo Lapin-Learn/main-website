@@ -13,7 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthenticationImport } from './routes/_authentication'
 import { Route as AuthenticatedImport } from './routes/_authenticated'
-import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index'
+import { Route as IndexImport } from './routes/index'
 import { Route as AuthenticationVerifyOtpImport } from './routes/_authentication/verify-otp'
 import { Route as AuthenticationSignUpImport } from './routes/_authentication/sign-up'
 import { Route as AuthenticationResetPasswordImport } from './routes/_authentication/reset-password'
@@ -45,10 +45,10 @@ const AuthenticatedRoute = AuthenticatedImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthenticatedIndexRoute = AuthenticatedIndexImport.update({
+const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AuthenticatedRoute,
+  getParentRoute: () => rootRoute,
 } as any)
 
 const AuthenticationVerifyOtpRoute = AuthenticationVerifyOtpImport.update({
@@ -177,6 +177,13 @@ const AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRout
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
@@ -232,13 +239,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/verify-otp'
       preLoaderRoute: typeof AuthenticationVerifyOtpImport
       parentRoute: typeof AuthenticationImport
-    }
-    '/_authenticated/': {
-      id: '/_authenticated/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedIndexImport
-      parentRoute: typeof AuthenticatedImport
     }
     '/_authenticated/_dashboard/_profile': {
       id: '/_authenticated/_dashboard/_profile'
@@ -387,13 +387,11 @@ const AuthenticatedDashboardRouteWithChildren =
 
 interface AuthenticatedRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRouteWithChildren
-  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedPracticeSimulatedTestIndexRoute: typeof AuthenticatedPracticeSimulatedTestIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRouteWithChildren,
-  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedPracticeSimulatedTestIndexRoute:
     AuthenticatedPracticeSimulatedTestIndexRoute,
 }
@@ -423,13 +421,13 @@ const AuthenticationRouteWithChildren = AuthenticationRoute._addFileChildren(
 )
 
 export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
   '': typeof AuthenticatedDashboardProfileRouteWithChildren
   '/forgot-password': typeof AuthenticationForgotPasswordRoute
   '/log-in': typeof AuthenticationLogInRoute
   '/reset-password': typeof AuthenticationResetPasswordRoute
   '/sign-up': typeof AuthenticationSignUpRoute
   '/verify-otp': typeof AuthenticationVerifyOtpRoute
-  '/': typeof AuthenticatedIndexRoute
   '/content-editor': typeof AuthenticatedDashboardContentEditorRoute
   '/practice': typeof AuthenticatedDashboardPracticeIndexRoute
   '/shop': typeof AuthenticatedDashboardShopIndexRoute
@@ -444,13 +442,13 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
   '': typeof AuthenticatedDashboardProfileRouteWithChildren
   '/forgot-password': typeof AuthenticationForgotPasswordRoute
   '/log-in': typeof AuthenticationLogInRoute
   '/reset-password': typeof AuthenticationResetPasswordRoute
   '/sign-up': typeof AuthenticationSignUpRoute
   '/verify-otp': typeof AuthenticationVerifyOtpRoute
-  '/': typeof AuthenticatedIndexRoute
   '/content-editor': typeof AuthenticatedDashboardContentEditorRoute
   '/practice': typeof AuthenticatedDashboardPracticeIndexRoute
   '/shop': typeof AuthenticatedDashboardShopIndexRoute
@@ -466,6 +464,7 @@ export interface FileRoutesByTo {
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
+  '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/_authentication': typeof AuthenticationRouteWithChildren
   '/_authenticated/_dashboard': typeof AuthenticatedDashboardRouteWithChildren
@@ -474,7 +473,6 @@ export interface FileRoutesById {
   '/_authentication/reset-password': typeof AuthenticationResetPasswordRoute
   '/_authentication/sign-up': typeof AuthenticationSignUpRoute
   '/_authentication/verify-otp': typeof AuthenticationVerifyOtpRoute
-  '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/_dashboard/_profile': typeof AuthenticatedDashboardProfileRouteWithChildren
   '/_authenticated/_dashboard/content-editor': typeof AuthenticatedDashboardContentEditorRoute
   '/_authenticated/_dashboard/practice/': typeof AuthenticatedDashboardPracticeIndexRoute
@@ -492,13 +490,13 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | ''
     | '/forgot-password'
     | '/log-in'
     | '/reset-password'
     | '/sign-up'
     | '/verify-otp'
-    | '/'
     | '/content-editor'
     | '/practice'
     | '/shop'
@@ -512,13 +510,13 @@ export interface FileRouteTypes {
     | '/practice/$collectionId/simulated-test/$simulatedTestId'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
     | ''
     | '/forgot-password'
     | '/log-in'
     | '/reset-password'
     | '/sign-up'
     | '/verify-otp'
-    | '/'
     | '/content-editor'
     | '/practice'
     | '/shop'
@@ -532,6 +530,7 @@ export interface FileRouteTypes {
     | '/practice/$collectionId/simulated-test/$simulatedTestId'
   id:
     | '__root__'
+    | '/'
     | '/_authenticated'
     | '/_authentication'
     | '/_authenticated/_dashboard'
@@ -540,7 +539,6 @@ export interface FileRouteTypes {
     | '/_authentication/reset-password'
     | '/_authentication/sign-up'
     | '/_authentication/verify-otp'
-    | '/_authenticated/'
     | '/_authenticated/_dashboard/_profile'
     | '/_authenticated/_dashboard/content-editor'
     | '/_authenticated/_dashboard/practice/'
@@ -557,11 +555,13 @@ export interface FileRouteTypes {
 }
 
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AuthenticationRoute: typeof AuthenticationRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AuthenticationRoute: AuthenticationRouteWithChildren,
 }
@@ -576,15 +576,18 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
+        "/",
         "/_authenticated",
         "/_authentication"
       ]
+    },
+    "/": {
+      "filePath": "index.tsx"
     },
     "/_authenticated": {
       "filePath": "_authenticated.tsx",
       "children": [
         "/_authenticated/_dashboard",
-        "/_authenticated/",
         "/_authenticated/practice/simulated-test/"
       ]
     },
@@ -630,10 +633,6 @@ export const routeTree = rootRoute
     "/_authentication/verify-otp": {
       "filePath": "_authentication/verify-otp.tsx",
       "parent": "/_authentication"
-    },
-    "/_authenticated/": {
-      "filePath": "_authenticated/index.tsx",
-      "parent": "/_authenticated"
     },
     "/_authenticated/_dashboard/_profile": {
       "filePath": "_authenticated/_dashboard/_profile.tsx",

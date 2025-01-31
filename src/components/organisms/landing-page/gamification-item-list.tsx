@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui";
@@ -93,14 +93,39 @@ export function GamificationItemList({ className }: { className?: string }) {
     }
   };
 
+  const [isInView, setIsInView] = useState(false);
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+
+    const observer = new IntersectionObserver(([entry]) => setIsInView(entry.isIntersecting), {
+      threshold: 0.1,
+    });
+
+    observer.observe(ref.current);
+
+    return () => {
+      if (ref.current) observer.unobserve(ref.current);
+    };
+  }, []);
+
   return (
     <div className={cn("relative flex h-56 md:h-64 w-full flex-col bg-background", className)}>
-      <Accordion type="single" collapsible onValueChange={handleAccordionChange}>
-        <AnimatedList>
-          {gamificationInfo.map((item, idx) => (
-            <GamificationItem {...item} key={idx} opacity={getOpacity(item.no)} />
-          ))}
-        </AnimatedList>
+      <Accordion
+        type="single"
+        collapsible
+        onValueChange={handleAccordionChange}
+        defaultValue={`item-${1}`}
+        ref={ref}
+      >
+        {isInView && (
+          <AnimatedList>
+            {gamificationInfo.map((item, idx) => (
+              <GamificationItem {...item} key={idx} opacity={getOpacity(item.no)} />
+            ))}
+          </AnimatedList>
+        )}
       </Accordion>
     </div>
   );

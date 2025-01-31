@@ -80,6 +80,9 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.1.5
         version: 1.1.5(@types/react-dom@18.3.2)(@types/react@18.3.14)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@rive-app/react-canvas':
+        specifier: ^4.17.10
+        version: 4.17.10(react@18.3.1)
       '@tailwindcss/typography':
         specifier: ^0.5.15
         version: 0.5.15(tailwindcss@3.4.16)
@@ -2257,6 +2260,14 @@ packages:
 
   '@remirror/core-constants@3.0.0':
     resolution: {integrity: sha512-42aWfPrimMfDKDi4YegyS7x+/0tlzaqwPQCULLanv3DMIlu96KTJR0fM5isWX2UViOqlGnX6YFgqWepcX+XMNg==}
+
+  '@rive-app/canvas@2.25.7':
+    resolution: {integrity: sha512-cxC9MrjaYw6VBtZFyXHvwXukERSsdrQP9/48rQkaBysS3+WQbv5XQRzgxFsaj4sYWUgoZu57vHa27o6ktSrY7g==}
+
+  '@rive-app/react-canvas@4.17.10':
+    resolution: {integrity: sha512-fYRG1KSqR8V0lc7quwGWwocrw+1kYinTq88R+SwDJYG3zeT22mJ58kPVAZsm2Gt3JLrJsuSWc5RtOq9fyBnfmw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0
 
   '@rollup/pluginutils@5.1.4':
     resolution: {integrity: sha512-USm05zrsFxYLPdWWq+K3STlWiT/3ELn3RcV5hJMghpeAIhxfsUIg6mt12CBJBInWMV4VneoV7SfGv8xIwo2qNQ==}
@@ -7495,6 +7506,13 @@ snapshots:
   '@react-dnd/shallowequal@4.0.2': {}
 
   '@remirror/core-constants@3.0.0': {}
+
+  '@rive-app/canvas@2.25.7': {}
+
+  '@rive-app/react-canvas@4.17.10(react@18.3.1)':
+    dependencies:
+      '@rive-app/canvas': 2.25.7
+      react: 18.3.1
 
   '@rollup/pluginutils@5.1.4(rollup@4.28.1)':
     dependencies:

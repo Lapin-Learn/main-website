@@ -16,6 +16,7 @@ import { Gamification } from "../organisms/landing-page/gamification";
 import { HeroBanner } from "../organisms/landing-page/hero-banner";
 import { MobileApp } from "../organisms/landing-page/mobile-app";
 import { SimulatedTest } from "../organisms/landing-page/simulated-test";
+import ChangeLanguageSwitch from "../organisms/sidebar/change-language-switch";
 import { Button, Separator } from "../ui";
 
 export default function HomePage() {
@@ -62,31 +63,25 @@ export default function HomePage() {
           <div className="relative">
             <nav
               className={cn(
-                "fixed inset-x-0 top-0 z-50",
+                "fixed w-full top-0 z-50 flex h-16 items-center justify-between px-6 md:px-20",
                 isScrolled ? "bg-white shadow" : "bg-transparent"
               )}
             >
-              <div className="mx-auto w-full max-w-7xl px-4">
-                <div className="flex h-14 items-center justify-between">
-                  <Link href="/" className="flex items-center" onClick={handleLogoClick}>
-                    <img src={Logo} alt="App Logo" className="h-5 cursor-pointer md:h-6" />
-                  </Link>
-                  <div className="flex items-center gap-4">
-                    <Button
-                      variant="ghost"
-                      className="w-fit rounded-md px-3 py-2 text-neutral-300 md:rounded-lg md:px-6 md:py-3.5"
-                    >
-                      {t("navBar.feedback")}
-                    </Button>
-                    <Separator
-                      orientation="vertical"
-                      className="flex h-full min-h-6 bg-neutral-300"
-                    />
-                    <Button className="w-fit rounded-md px-3 py-2 md:rounded-lg md:px-6 md:py-3.5">
-                      {t("navBar.start")}
-                    </Button>
-                  </div>
-                </div>
+              <Link href="/" className="flex items-center" onClick={handleLogoClick}>
+                <img src={Logo} alt="App Logo" className="h-4 cursor-pointer md:h-6" />
+              </Link>
+              <div className="flex items-center gap-2 md:gap-4">
+                <ChangeLanguageSwitch className="p-0" hideLabel />
+                <Button
+                  variant="ghost"
+                  className="w-fit shrink-0 rounded-md px-3 py-2 text-xs text-neutral-300 md:rounded-lg md:px-6 md:py-3.5 md:text-small"
+                >
+                  {t("navBar.feedback")}
+                </Button>
+                <Separator orientation="vertical" className="flex h-full min-h-6 bg-neutral-300" />
+                <Button className="w-fit rounded-md px-3 py-2 text-xs md:rounded-lg md:px-6 md:py-3.5 md:text-small">
+                  {t("navBar.start")}
+                </Button>
               </div>
             </nav>
             <div id="hero-banner">

@@ -1,8 +1,9 @@
+import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useEffect, useRef } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
-import { HeroBannerImage } from "@/assets/icons/landing-page/hero-banner-image";
 import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
 import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern";
 
@@ -50,10 +51,10 @@ export const HeroBanner = () => {
   }, [rive]);
 
   return (
-    <div className="relative flex h-[800px] w-full items-center justify-center bg-linear-hero-banner md:h-screen">
-      <div className="grid grid-cols-1 gap-8 p-4 md:grid-cols-12 md:gap-4">
+    <div className="relative flex h-[800px] w-full flex-col items-center justify-center bg-linear-hero-banner px-4 py-20 md:h-screen md:px-20 md:py-40">
+      <div className="flex h-full flex-col items-center gap-8 md:grid md:grid-cols-12 md:gap-6">
         <div className="hidden md:col-span-1 md:block" />
-        <div className="z-10 col-span-1 flex h-fit flex-col gap-5 p-2 md:col-span-5 md:gap-10 md:p-10">
+        <div className="z-10 flex h-fit flex-col gap-5 md:col-span-5 md:gap-10">
           <div className="flex flex-col gap-5">
             <HeroHighlight>
               <motion.h3
@@ -89,10 +90,12 @@ export const HeroBanner = () => {
             </div>
           </button>
         </div>
-        <div className="z-10 col-span-1 flex h-fit flex-col items-center justify-center md:col-span-6">
-          <HeroBannerImage className="h-fit w-[360px] md:w-[480px]" />
+        <div
+          className="z-10 col-span-1 flex size-full h-fit flex-1 flex-col items-center justify-center shadow-sm md:col-span-6 md:col-start-7"
+          ref={ref}
+        >
+          <RiveComponent />
         </div>
-        <div className="hidden md:col-span-1 md:block" />
         <InteractiveGridPattern
           width={64}
           height={64}

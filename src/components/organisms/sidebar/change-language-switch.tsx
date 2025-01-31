@@ -7,10 +7,11 @@ import { cn } from "@/lib/utils";
 
 type ChangeLanguageSwitchProps = {
   className?: string;
+  hideLabel?: boolean;
 };
 
 function ChangeLanguageSwitch(props: ChangeLanguageSwitchProps) {
-  const { className } = props;
+  const { className, hideLabel = false } = props;
   const [language, setLanguage] = useState(localStorage.getItem("i18nextLng") || "en");
 
   const toggleLanguage = () => {
@@ -20,10 +21,12 @@ function ChangeLanguageSwitch(props: ChangeLanguageSwitchProps) {
 
   return (
     <div className={cn("flex items-center justify-between px-2", className)}>
-      <div className="flex flex-col justify-center gap-1">
-        <p className="text-xs text-neutral-400">{t("language.title")}</p>
-        <p className="text-sm">{t(`language.${language}`)}</p>
-      </div>
+      {!hideLabel && (
+        <div className="flex flex-col justify-center gap-1">
+          <p className="text-xs text-neutral-400">{t("language.title")}</p>
+          <p className="text-sm">{t(`language.${language}`)}</p>
+        </div>
+      )}
       <Switch checked={language === "vi"} onCheckedChange={toggleLanguage} />
     </div>
   );
