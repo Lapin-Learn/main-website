@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, redirect } from "@tanstack/react-router";
 
 import AppLogo from "@/assets/icons/AppLogo";
 import Auth from "@/assets/images/auth-bg.jpg";
@@ -27,7 +27,9 @@ export default function AuthLayout() {
         className="h-40 w-full rounded-none object-cover sm:h-full sm:flex-1 md:rounded-3xl"
       />
       <div className="relative flex h-full flex-col items-center justify-between md:flex-1">
-        <AppLogo />
+        <Link to="/">
+          <AppLogo />
+        </Link>
         <Outlet />
       </div>
     </div>
