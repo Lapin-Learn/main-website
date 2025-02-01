@@ -47,6 +47,7 @@ const GamificationItem = ({ no, name, description, color, opacity }: Item) => {
         opacity
       )}
     >
+      {/* TODO: Not applying the correct color to the background and text */}
       <div className="flex flex-row gap-3">
         <div
           className={cn(
