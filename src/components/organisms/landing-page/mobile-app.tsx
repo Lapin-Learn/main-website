@@ -18,18 +18,26 @@ export const MobileApp = () => {
         <div className="col-span-1 flex flex-col px-4 py-8 md:col-span-4 md:p-10">
           <div className="flex flex-col gap-8 md:gap-12">
             <div className="flex flex-col gap-2 md:gap-4">
-              <h3 className="text-heading-5 font-semibold md:text-heading-3">
+              <h3 className="text-heading-5 font-semibold leading-8 md:text-heading-3 md:leading-[44px]">
                 {t("mobileApp.title")}
               </h3>
               <p className="text-small opacity-70 md:text-body">{t("mobileApp.description")}</p>
             </div>
             <div className="flex gap-3">
-              <button>
+              <a
+                href="https://play.google.com/store/apps/details?id=com.datn.lapinlearn&pcampaignid=web_share"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <GooglePlay />
-              </button>
-              <button>
+              </a>
+              <a
+                href="https://apps.apple.com/vn/app/lapinlearn/id6739158736"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <AppStore />
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -38,12 +46,12 @@ export const MobileApp = () => {
           <img
             src={MobileAppImage1}
             alt="Mobile App 1"
-            className="absolute bottom-28 left-8 w-36 md:bottom-16 md:left-6 md:w-60"
+            className="absolute bottom-28 left-9 w-36 md:bottom-16 md:left-6 md:w-60"
           />
           <img
             src={MobileAppImage2}
             alt="Mobile App 2"
-            className="absolute right-8 top-28 w-36 md:right-8 md:top-16 md:w-60"
+            className="absolute right-9 top-28 w-36 md:right-8 md:top-16 md:w-60"
           />
         </div>
         <div className="hidden md:col-span-1 md:block" />

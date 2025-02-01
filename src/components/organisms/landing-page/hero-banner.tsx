@@ -28,7 +28,7 @@ export const HeroBanner = () => {
                   duration: 0.5,
                   ease: [0.4, 0.0, 0.2, 1],
                 }}
-                className="text-heading-5 font-bold md:text-heading-2"
+                className="text-heading-5 font-bold md:text-heading-2 md:leading-[48px]"
               >
                 <Trans
                   i18nKey="landingPage:heroBanner.title"
@@ -41,7 +41,7 @@ export const HeroBanner = () => {
             </HeroHighlight>
             <p className="text-small md:text-xl">{t("heroBanner.description")}</p>
           </div>
-          <button className="w-fit rounded-full bg-red-yellow-linear px-5 py-3 md:px-6 md:py-3.5">
+          <button className="w-fit rounded-full bg-red-yellow-linear px-5 py-3 hover:opacity-90 md:px-6 md:py-3.5">
             <div className="flex items-center gap-2 text-white">
               <p className="font-medium">{t("heroBanner.registerNow")}</p>
               <ArrowRight className="size-6" />

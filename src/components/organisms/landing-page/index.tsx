@@ -30,6 +30,10 @@ export const LandingPage = () => {
     };
   }, []);
 
+  const handleLogoClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="relative">
       <nav
@@ -40,18 +44,18 @@ export const LandingPage = () => {
       >
         <div className="mx-auto w-full max-w-7xl px-4">
           <div className="flex h-14 items-center justify-between">
-            <Link href="/" className="flex items-center">
+            <Link href="/" className="flex items-center" onClick={handleLogoClick}>
               <img src={Logo} alt="App Logo" className="h-5 cursor-pointer md:h-6" />
             </Link>
             <div className="flex items-center gap-4">
               <Button
                 variant="ghost"
-                className="h-8 w-fit rounded-md px-3 text-xs text-neutral-300 md:h-11 md:rounded-lg md:px-8 md:text-small"
+                className="w-fit rounded-md px-3 py-2 text-neutral-300 md:rounded-lg md:px-6 md:py-3.5"
               >
                 {t("navBar.feedback")}
               </Button>
               <Separator orientation="vertical" className="flex h-full min-h-6 bg-neutral-300" />
-              <Button className="h-8 w-fit rounded-md px-3 text-xs md:h-11 md:rounded-lg md:px-8 md:text-small">
+              <Button className="w-fit rounded-md px-3 py-2 md:rounded-lg md:px-6 md:py-3.5">
                 {t("navBar.start")}
               </Button>
             </div>

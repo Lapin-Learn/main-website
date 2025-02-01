@@ -51,10 +51,10 @@ const GamificationItem = ({ no, name, description, color, opacity }: Item) => {
         <div
           className={cn(
             "flex shrink-0 size-8 md:size-10 items-center justify-center rounded-sm",
-            `bg-${color}-100`
+            `bg-${color}-50`
           )}
         >
-          <span className={cn("text-small md:text-heading-6 font-semibold", `text-${color}-700`)}>
+          <span className={cn("text-small md:text-heading-6 font-semibold", `text-${color}-600`)}>
             {no}
           </span>
         </div>
