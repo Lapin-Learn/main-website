@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { CheckIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -22,12 +23,14 @@ export const AiAssistant = () => {
             ))}
           </div>
         </div>
-        <PulsatingButton
-          className="w-fit rounded-full bg-[#1C64F2] px-5 py-2 hover:opacity-90 md:px-6 md:py-3.5"
-          pulseStyle="rounded-full"
-        >
-          <p className="text-small font-medium">{t("aiAssistant.registerNow")}</p>
-        </PulsatingButton>
+        <Link to="/log-in">
+          <PulsatingButton
+            className="w-fit rounded-full bg-[#1C64F2] px-5 py-2 hover:opacity-90 md:px-6 md:py-3.5"
+            pulseStyle="rounded-full"
+          >
+            <p className="text-small font-medium">{t("aiAssistant.registerNow")}</p>
+          </PulsatingButton>
+        </Link>
       </div>
       <Star className="absolute bottom-36 left-8 hidden size-8 animate-[spin_3s_linear_infinite] md:block" />
       <Star className="absolute bottom-12 left-10 hidden size-16 animate-[spin_5s_linear_infinite] md:block" />

@@ -42,6 +42,7 @@
     "@radix-ui/react-toggle-group": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.5",
     "@rive-app/react-canvas": "^4.17.10",
+    "@rive-app/react-canvas-lite": "^4.17.10",
     "@tailwindcss/typography": "^0.5.15",
     "@tanstack/react-query": "^5.56.2",
     "@tanstack/react-router": "^1.57.17",

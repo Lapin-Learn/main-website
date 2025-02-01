@@ -18,19 +18,19 @@ const gamificationInfo = [
     no: 3,
     name: "gamification.gamificationInfo.2.name",
     description: "gamification.gamificationInfo.2.description",
-    color: "yellow",
+    color: "text-yellow-600 bg-yellow-50",
   },
   {
     no: 2,
     name: "gamification.gamificationInfo.1.name",
     description: "gamification.gamificationInfo.1.description",
-    color: "green",
+    color: "text-green-600 bg-green-50",
   },
   {
     no: 1,
     name: "gamification.gamificationInfo.0.name",
     description: "gamification.gamificationInfo.0.description",
-    color: "blue",
+    color: "text-blue-600 bg-blue-50",
   },
 ];
 
@@ -52,12 +52,10 @@ const GamificationItem = ({ no, name, description, color, opacity }: Item) => {
         <div
           className={cn(
             "flex shrink-0 size-8 md:size-10 items-center justify-center rounded-sm",
-            `bg-${color}-50`
+            color
           )}
         >
-          <span className={cn("text-small md:text-heading-6 font-semibold", `text-${color}-600`)}>
-            {no}
-          </span>
+          <span className="text-small font-semibold md:text-heading-6">{no}</span>
         </div>
         <div className="flex w-full flex-col justify-center">
           <AccordionItem value={`item-${no}`} className="flex flex-col gap-2 border-none">

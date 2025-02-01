@@ -1,4 +1,5 @@
-import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
+import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas-lite";
+import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useRef } from "react";
@@ -53,8 +54,7 @@ export const HeroBanner = () => {
   return (
     <div className="relative flex h-[800px] w-full flex-col items-center justify-center bg-linear-hero-banner px-4 py-20 md:h-screen md:px-20 md:py-40">
       <div className="flex h-full flex-col items-center gap-8 md:grid md:grid-cols-12 md:gap-6">
-        <div className="hidden md:col-span-1 md:block" />
-        <div className="z-10 flex h-fit flex-col gap-5 md:col-span-5 md:gap-10">
+        <div className="bg-red z-10 col-start-1 flex h-fit flex-col gap-5 md:col-span-5 md:col-start-2 md:gap-10">
           <div className="flex flex-col gap-5">
             <HeroHighlight>
               <motion.h3
@@ -83,15 +83,18 @@ export const HeroBanner = () => {
             </HeroHighlight>
             <p className="text-small md:text-xl">{t("heroBanner.description")}</p>
           </div>
-          <button className="w-fit rounded-full bg-red-yellow-linear px-5 py-3 hover:opacity-90 md:px-6 md:py-3.5">
+          <Link
+            to="/log-in"
+            className="w-fit rounded-full bg-red-yellow-linear px-5 py-3 hover:opacity-90 md:px-6 md:py-3.5"
+          >
             <div className="flex items-center gap-2 text-white">
               <p className="font-medium">{t("heroBanner.registerNow")}</p>
               <ArrowRight className="size-6" />
             </div>
-          </button>
+          </Link>
         </div>
         <div
-          className="z-10 col-span-1 flex size-full h-fit flex-1 flex-col items-center justify-center shadow-sm md:col-span-6 md:col-start-7"
+          className="pointer-events-none z-10 col-span-1 flex size-full flex-1 flex-col items-center justify-center shadow-sm md:col-span-6 md:col-start-7"
           ref={ref}
         >
           <RiveComponent />

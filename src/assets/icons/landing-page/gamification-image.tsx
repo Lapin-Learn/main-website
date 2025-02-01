@@ -673,7 +673,7 @@ const GamificationImage = (props: SVGProps<SVGSVGElement>) => (
         gradientTransform="translate(289.5 289.5) rotate(90) scale(289.5)"
       >
         <stop stop-color="#FFE4B0" />
-        <stop offset="1" stop-color="#FFE4B0" stop-opacity="0" />
+        <stop offset="1" stop-color="#FFE4B0" stopOpacity="0" />
       </radialGradient>
       <linearGradient
         id="paint1_linear_1819_17524"
