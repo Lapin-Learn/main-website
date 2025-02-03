@@ -28,11 +28,12 @@ const lessonKeys = {
 };
 
 export const useGetQuestionTypes = (skill: EnumSkill) => {
-  return useQuery({
+  const { data, ...rest } = useQuery({
     queryKey: questionTypeKeys.bySkill(skill),
     queryFn: () => getQuestionTypes(skill),
     staleTime: Infinity,
   });
+  return { data: data ? data.filter((item) => item.lessons) : data, ...rest };
 };
 
 export const useGetLessonList = (questionTypeId: string) => {

@@ -46,7 +46,7 @@ type LessonQuestionsResponse = {
 export const getLessonQuestions = async (lessonId: string) => {
   return (
     await api
-      .get(`daily-lessons/lessons/${lessonId}/questions`)
+      .get(`daily-lessons/${lessonId}/questions`)
       .json<FetchingData<LessonQuestionsResponse>>()
   ).data;
 };

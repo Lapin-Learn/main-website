@@ -11,7 +11,7 @@ const QuestionTypeListPage = () => {
     <main className="px-40 pt-20">
       {isSuccess && (
         <div className="flex w-full flex-col items-center gap-5">
-          {questionTypes.map((questionType) => (
+          {questionTypes?.map((questionType) => (
             <Link to={`${questionType.id}`}>
               <Card
                 key={questionType.id}

@@ -22,6 +22,7 @@ export type QuestionType = {
   imageId: string | null; // The image ID to update via bucket service
   image: Image | null; // The image URL
   updatedAt: string;
+  lessons: number;
 };
 
 export type LessonResult = {
