@@ -110,7 +110,7 @@ const SelectModeDialog = () => {
     if (skillTest) {
       startSimulatedTest.mutate(
         {
-          skillTestId: skillTest.id,
+          skillTestId: skillTest.skillTestId,
           timeLimit: data.timeLimit === "no_limit" ? 0 : parseInt(data.timeLimit, 10),
           mode: data.mode,
           parts: data.parts.map((part) => (typeof part === "string" ? parseInt(part, 10) : part)),

@@ -61,12 +61,6 @@ export enum EnumAction {
   FREEZE_STREAK = "freeze_streak",
 }
 
-export enum EnumTestRecordStatus {
-  InProgress = "In Progress",
-  Completed = "Completed",
-  NotStarted = "Not Started",
-}
-
 export enum EnumQuestionGroup {
   multipleChoice = "multiple_choice",
   matchingHeadings = "matching_headings",
@@ -110,6 +104,8 @@ export enum EnumMode {
 
 export enum EnumSimulatedTestSessionStatus {
   IN_PROGRESS = "in_progress",
+  NOT_EVALUATED = "not_evaluated",
+  EVALUATION_FAILED = "evaluation_failed",
   FINISHED = "finished",
   NOT_STARTED = "not_started",
   CANCELED = "canceled",
@@ -146,5 +142,54 @@ export enum EnumMissionCategory {
   COMPLETE_LESSON_WITH_PERCENTAGE_SCORE = "COMPLETE_LESSON_WITH_PERCENTAGE_SCORE",
   COMPLETE_LESSON_WITH_DIFFERENT_SKILLS = "COMPLETE_LESSON_WITH_DIFFERENT_SKILLS",
   TOTAL_DURATION_OF_LEARN_DAILY_LESSON = "TOTAL_DURATION_OF_LEARN_DAILY_LESSON",
+  EXCEED_LEARNING_STREAK = "EXCEED_LEARNING_STREAK",
   EXCEED_LEARNING_STREAK_WITHOUT_BREAK = "EXCEED_LEARNING_STREAK_WITHOUT_BREAK",
+  COMPLETE_LISTENING_SESSION = "COMPLETE_LISTENING_SESSION",
+  COMPLETE_READING_SESSION = "COMPLETE_READING_SESSION",
+  COMPLETE_SPEAKING_SESSION = "COMPLETE_SPEAKING_SESSION",
+  COMPLETE_WRITING_SESSION = "COMPLETE_WRITING_SESSION",
+  COMPLETE_DISTINCT_SKILL_SESSION = "COMPLETE_DISTINCT_SKILL_SESSION",
+  COMPLETE_DISTINCT_SKILL_TEST_SESSION = "COMPLETE_DISTINCT_SKILL_TEST_SESSION",
+}
+
+export enum EnumMissionStatus {
+  COMPLETED = "completed",
+  ASSIGNED = "assigned",
+  RECEIVED = "received",
+}
+
+export enum EnumItemShop {
+  STREAK_FREEZE = "STREAK_FREEZE",
+  RANDOM_GIFT = "RANDOM_GIFT",
+  ULTIMATE_TIME = "ULTIMATE_TIME",
+  IDENTIFICATION = "IDENTIFICATION",
+  SUBSCRIPTION = "SUBSCRIPTION",
+}
+
+export enum EnumRandomGiftType {
+  CARROTS = "carrots",
+  ITEM = "item",
+}
+
+export enum EnumDLContentType {
+  MULTIPLE_CHOICE = "multiple_choice",
+  FILL_IN_THE_BLANK = "fill_in_the_blank",
+  MATCHING = "matching",
+  PRONUNCIATION = "pronunciation",
+}
+
+export enum EnumMileStone {
+  DAILY_STREAK = "daily_streak",
+  LEVEL_UP = "level_up",
+  RANK_UP = "rank_up",
+  BAND_SCORE_UP = "band_score_question_type_up",
+  MISSION_COMPLETED = "mission_completed",
+}
+
+export enum EnumTransactionStatus {
+  PENDING = "pending",
+  CANCELLED = "cancelled",
+  PAID = "paid",
+  UNDERPAID = "underpaid",
+  ERROR = "error",
 }

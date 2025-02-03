@@ -1,3 +1,4 @@
+import { gamificationKeys } from "@hooks/react-query/useGamification.ts";
 import {
   keepPreviousData,
   useInfiniteQuery,
@@ -10,12 +11,13 @@ import { getAnalytics, logEvent } from "firebase/analytics";
 import { useMemo } from "react";
 import { create } from "zustand";
 
-import { calculateOverallBandScore } from "@/components/organisms/streak/utils";
 import { FIREBASE_ANALYTICS_EVENTS } from "@/lib/consts";
 import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
-import { fromPageToOffset, parseInfiniteData } from "@/lib/utils";
+import { calculateOverallBandScore, fromPageToOffset, parseInfiniteData } from "@/lib/utils";
 import {
   CollectionParams,
+  evaluateSimulatedTest,
+  getLatestInprogressSTSession,
   getQuestionTypeAccuracy,
   getSessionProgress,
   getSimulatedTestBySkill,
@@ -55,6 +57,9 @@ const simulatedTestKeys = {
   overall: () => [...simulatedTestKeys.simulatedTestKey, "overall"] as const,
   questionTypeAccuracy: (skill: EnumSkill) => ["question-type-accuracy", skill] as const,
   sessionProgress: (skill: EnumSkill) => [...simulatedTestKeys.session, "progress", skill] as const,
+  latestSession: ["latest"] as const,
+  latestSessionByCollection: (collectionId: number) =>
+    [...simulatedTestKeys.latestSession, collectionId] as const,
 };
 
 type State = {
@@ -195,11 +200,16 @@ export const useSubmitSimulatedTest = () => {
           description: "Submit test successfully",
         });
       } else {
-        // TODO: should we navigate back to collection/${collectionId}?
+        if (variables.status == EnumSimulatedTestSessionStatus.IN_PROGRESS) {
+          queryClient.invalidateQueries({ queryKey: simulatedTestKeys.latestSession });
+        }
         navigate({ to: "/practice" });
       }
       queryClient.removeQueries({
         queryKey: simulatedTestKeys.session,
+      });
+      queryClient.invalidateQueries({
+        queryKey: simulatedTestKeys.collectionKey,
       });
     },
     onError: (error) => {
@@ -267,7 +277,7 @@ export const useGetUserBandScoreOverall = () => {
         );
         return {
           bandScores,
-          overallBandScore: overall,
+          overallBandScore: overall ?? 0,
         };
       }
       return {
@@ -282,6 +292,16 @@ export const useGetSTSessionsHistory = (offset: number, limit: number) => {
   return useQuery({
     queryKey: simulatedTestKeys.sessionList({ offset, limit }),
     queryFn: async () => getSimulatedTestSessionHistory({ offset, limit }),
+    placeholderData: keepPreviousData,
+  });
+};
+
+export const useGetLatestInprogressSTSession = (collectionId?: number) => {
+  return useQuery({
+    queryKey: collectionId
+      ? simulatedTestKeys.latestSessionByCollection(collectionId)
+      : simulatedTestKeys.latestSession,
+    queryFn: async () => getLatestInprogressSTSession({ collectionId }),
     placeholderData: keepPreviousData,
   });
 };
@@ -309,5 +329,32 @@ export const useGetSessionProgress = (skill: EnumSkill, from?: string, to?: stri
   return useQuery({
     queryKey: simulatedTestKeys.sessionProgress(skill),
     queryFn: async () => getSessionProgress(skill, from, to),
+  });
+};
+
+export const useEvaluateSimulatedTest = () => {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: evaluateSimulatedTest,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: simulatedTestKeys.session,
+      });
+      queryClient.invalidateQueries({
+        queryKey: simulatedTestKeys.collectionKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: gamificationKeys.gamificationProfile,
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
   });
 };

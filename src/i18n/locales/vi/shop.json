@@ -1,0 +1,67 @@
+{
+  "shop": {
+    "title": "Cửa hàng",
+    "greetings": "Chào mừng bạn đến với cửa hàng!",
+    "items": {
+      "STREAK_FREEZE": {
+        "name": "Streak Freeze",
+        "description": "Bảo vệ chuỗi streak tới 3 ngày"
+      },
+      "RANDOM_GIFT": {
+        "name": "Túi Mù",
+        "description": "Nhận phần thưởng với các quà tặng bất ngờ"
+      },
+      "ULTIMATE_TIME": {
+        "name": "Thời Gian Siêu Cấp",
+        "description": "Nhân đôi điểm kinh nghiệm trong 15 phút"
+      },
+      "IDENTIFICATION": {
+        "name": "Nhận Diện",
+        "description": "Loại bỏ các câu sai trong câu hỏi"
+      },
+      "SUBSCRIPTION": {
+        "name": "Giỏ Cà Rốt",
+        "description": "Thêm cà rốt để nhận được nhận xét khi chấm bài"
+      }
+    },
+    "price": {
+      "popular": "Phổ biến",
+      "pack": "Gói {{quantity}}",
+      "pack_subscription": "{{quantity}} cà rốt",
+      "single_pack": "Gói đơn"
+    },
+    "buy_modal": {
+      "description": "Mua <color>{{quantity}} {{name}}</color> để {{description, lowercase}}!",
+      "buy_now": "Mua ngay",
+      "no_thank": "Không, cảm ơn"
+    },
+    "buy_success": "Bạn đã mua {{quantity}} vật phẩm {{name}}",
+    "buy_error": "Bạn không có đủ cà rốt để mua",
+    "use_modal": {
+      "description": "Dùng <color>{{quantity}} {{name}}</color> để {{description, lowercase}}!",
+      "amount": "Bạn đang có: {{amount}} {{name}}",
+      "use_now": "Sử dụng ngay",
+      "no_thank": "Hủy"
+    },
+    "use_success": "Bạn đã sử dụng {{quantity}} vật phẩm {{name}}"
+  },
+  "inventory": {
+    "title": "Túi của tôi",
+    "Amount": "Số lượng: {{amount}}",
+    "empty": "Oops, túi đồ của bạn thật trống trải, ghé cửa hàng để trang bị thêm vật phẩm nhé!",
+    "notSupport": "Vật phẩm này chưa được hỗ trợ"
+  },
+  "reward": {
+    "carrot": "cà rốt",
+    "button": "Nhận thưởng",
+    "paid": "Chúc mừng! Bạn đã nhận được",
+    "activate": "Chúc mừng! Bạn đã kích hoạt",
+    "cancelled": "Đã huỷ! Bạn đã huỷ đơn hàng"
+  },
+  "streak_freeze": {
+    "buy_and_use": "Mua và sử dụng ngay",
+    "use": "Sử dụng ngay",
+    "ALREADY_EXTENDED_STREAK": "Bạn đã bảo vệ chuỗi streak rồi"
+  },
+  "STREAK_NOT_STARTED": "Chuỗi streak chưa bắt đầu"
+}

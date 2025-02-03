@@ -5,8 +5,8 @@ import {
   SortDirection,
   Table as TableProps,
 } from "@tanstack/react-table";
-import { ArrowDown, ArrowDownUp, ArrowUp, ChevronLeft, ChevronRight } from "lucide-react";
-import { ReactNode, useEffect } from "react";
+import { ArrowDown, ArrowDownUp, ArrowUp, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import { ReactNode, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -61,55 +61,61 @@ export const BaseTable = <TData, TValue>(props: BaseTableProps<TData, TValue>) =
     return <Icon className="ml-2 size-3 text-[#676879]" />;
   };
 
+  const currentPage = table.getState().pagination.pageIndex;
+  const lastPage = table.getPageCount();
+  const prevPage = currentPage - 1;
+  const nextPage = currentPage + 1;
+
+  const paginationPageList = useMemo(() => {
+    const pageList = [currentPage];
+    if (currentPage == 0)
+      return [currentPage, nextPage, nextPage + 1].filter((page) => page < lastPage);
+    if (currentPage == lastPage - 1)
+      return [prevPage - 1, prevPage, currentPage].filter((page) => page >= 0);
+    if (currentPage > 0) pageList.unshift(prevPage);
+    if (currentPage < lastPage - 1) pageList.push(nextPage);
+    return pageList.filter((page) => page >= 0 && page < lastPage);
+  }, [currentPage, lastPage, prevPage, nextPage]);
+
   return (
     <div>
       <div className="overflow-hidden rounded-md border">
-        <Table className={cn("", classNames?.table)}>
-          <TableHeader className="">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className=" ">
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {!header.isPlaceholder && header.column.columnDef.header !== "undefined" ? (
-                        <Typography variant="body2" className="font-semibold text-black" comp="div">
-                          <div className="flex cursor-pointer items-center justify-between truncate p-4">
-                            {flexRender(header.column.columnDef.header, header.getContext())}
-                            {header.column.getCanSort() && (
-                              <SortIcon isSorted={header.column.getIsSorted()} />
-                            )}
-                          </div>
-                        </Typography>
-                      ) : null}
-                    </TableHead>
-                  );
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-
-          {loading ? (
-            <TableBody className="bg-white">
-              <TableRow className="h-36 w-full">
-                <TableCell colSpan={columns.length} className="items-center text-center">
-                  Loading...
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          ) : (
-            <TableBody className="bg-white">
+        <div className="relative">
+          <Table className={cn("", classNames?.table)}>
+            <TableHeader className="z-10">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id} className="w-full">
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <TableHead key={header.id}>
+                        {!header.isPlaceholder && header.column.columnDef.header !== "undefined" ? (
+                          <Typography
+                            variant="body2"
+                            className="font-semibold text-black"
+                            comp="div"
+                          >
+                            <div className="flex cursor-pointer items-center justify-between truncate p-4">
+                              {flexRender(header.column.columnDef.header, header.getContext())}
+                              {header.column.getCanSort() && (
+                                <SortIcon isSorted={header.column.getIsSorted()} />
+                              )}
+                            </div>
+                          </Typography>
+                        ) : null}
+                      </TableHead>
+                    );
+                  })}
+                </TableRow>
+              ))}
+            </TableHeader>
+            <TableBody className="relative w-full bg-white">
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => {
                   return (
                     <TableRow
                       key={row.id}
                       data-state={row.getIsSelected() && "selected"}
-                      className={cn(
-                        !!onClickItem && "cursor-pointer",
-                        row.getIsSelected()
-                          ? ""
-                          : "[&:hover_button]:opacity-100 [&_button]:opacity-0"
-                      )}
+                      className={cn(!!onClickItem && "cursor-pointer")}
                       {...(onClickItem ? { onClick: () => onClickItem(row.original) } : {})}
                     >
                       {row.getVisibleCells().map((cell) => {
@@ -132,9 +138,19 @@ export const BaseTable = <TData, TValue>(props: BaseTableProps<TData, TValue>) =
                   </TableCell>
                 </TableRow>
               )}
+              {loading && (
+                <div
+                  className={cn(
+                    "absolute top-0 left-0 z-0 grid size-full place-items-center bg-white/50 backdrop-blur-[1px]",
+                    table.getRowModel().rows?.length ? "" : "min-h-20"
+                  )}
+                >
+                  <Loader2 className="size-8 animate-spin text-muted-foreground" />
+                </div>
+              )}
             </TableBody>
-          )}
-        </Table>
+          </Table>
+        </div>
       </div>
       <div className="mt-4 flex flex-row items-center justify-between">
         <Typography variant="body2" className="text-neutral-500">
@@ -162,7 +178,7 @@ export const BaseTable = <TData, TValue>(props: BaseTableProps<TData, TValue>) =
               </Button>
             </PaginationItem>
             {table.getPageCount() > 0 &&
-              [...Array(table.getPageCount()).keys()].map((page) => (
+              paginationPageList.map((page) => (
                 <PaginationItem key={page}>
                   <PaginationLink
                     onClick={() => {

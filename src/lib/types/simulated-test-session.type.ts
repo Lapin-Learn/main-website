@@ -55,7 +55,9 @@ type SpeakingSession = BaseSTSession & {
   responses: {
     questionNo: number;
     partNo: number;
+    timeStamp?: number;
   }[];
+  resource?: string;
 };
 
 export type { BaseSTSession, ReadingListeningSession, SpeakingSession, WritingSession };

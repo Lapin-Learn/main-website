@@ -23,9 +23,11 @@
     "navigation": {
         "practice": "Practice",
         "mission": "Mission",
+        "shop": "Shop",
         "simulatedTest": "Simulated test",
         "result": "Result",
-        "contentEditor": "Content editor"
+        "contentEditor": "Content editor",
+        "dailyLesson": "Daily lesson"
     },
     "allSkills": "All skills",
     "reading": "reading",
@@ -36,6 +38,7 @@
     "prev": "Prev",
     "total": "Total: {{number}} {{unit}}",
     "home": "Go to home",
+    "question": "Question",
     "microphone": {
         "permission": "To use the Microphone, you need to grant permission for the Microphone on your device",
         "deniedTitle": "Microphone permission denied",
@@ -59,5 +62,30 @@
         "title": "Language",
         "vi": "Vietnamese",
         "en": "English"
-    }
+    },
+    "calendar": {
+    "days_of_week": [
+      "SU",
+      "MO",
+      "TU",
+      "WE",
+      "TH",
+      "FR",
+      "SA"
+    ],
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ]
+  }
 }

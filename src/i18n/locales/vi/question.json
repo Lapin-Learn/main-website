@@ -1,0 +1,34 @@
+{
+    "general": {
+      "check": "Kiểm tra",
+      "correct": ["Chính xác!", "Tốt lắm!", "Rất tốt!"],
+      "incorrect": ["Chưa chính xác!", "Thử lại nhé!", "Sai rồi!"],
+      "explanation": "Xem giải thích",
+      "correctAnswer": "Câu trả lời đúng là:",
+      "continue": "Tiếp tục",
+      "noQuestionFound": "Không có câu hỏi",
+      "unsupportedQuestionType": "Loại câu hỏi không được hỗ trợ"
+    },
+    "explanation": {
+      "title": "Giải thích",
+      "evidence": "Dẫn chứng nằm ở đoạn",
+      "answer": "Vậy đáp án cho câu hỏi:",
+      "understood": "Đã hiểu"
+    },
+    "fillInTheBlank": {
+      "enterTheAnswer": "Nhập câu trả lời"
+    },
+    "recording": {
+      "recorded": "Chạm khi bạn đã ghi âm xong",
+      "permission": {
+        "title": "Yêu cầu quyền",
+        "message": "Bạn đã từ chối quyền âm thanh trước đó. Để bật chúng, hãy vào Cài đặt."
+      },
+      "openSettings": "Mở Cài đặt",
+      "cancel": "Hủy"
+    },
+    "speaking": {
+      "result": "Bạn nói giống {{percentage}}% người bản xứ!"
+    }
+  }
+  

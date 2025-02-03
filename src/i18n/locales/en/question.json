@@ -1,0 +1,41 @@
+{
+    "general": {
+      "check": "Check",
+      "correct": [
+        "Correct!",
+        "Good job!",
+        "Well done!"
+      ],
+      "incorrect": [
+        "Incorrect!",
+        "Try again!",
+        "Not quite!"
+      ],
+      "explanation": "Explanation",
+      "correctAnswer": "The correct answer is:",
+      "continue": "Continue",
+      "noQuestionFound": "No question found",
+      "unsupportedQuestionType": "Unsupported question type"
+    },
+    "explanation": {
+      "title": "Explanation",
+      "evidence": "The evidence is in the paragraph",
+      "answer": "So the answer to the question:",
+      "understood": "Understood"
+    },
+    "fillInTheBlank": {
+      "enterTheAnswer": "Nhập câu trả lời"
+    },
+    "recording": {
+      "recorded": "Tap when you're done recording",
+      "permission": {
+        "title": "Permission Required",
+        "message": "You have previously denied audio permissions. To enable them, go to settings."
+      },
+      "openSettings": "Open Settings",
+      "cancel": "Cancel"
+    },
+    "speaking": {
+      "result": "You said {{percentage}}% like a native speaker!"
+    }
+  }

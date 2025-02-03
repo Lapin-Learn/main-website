@@ -1,5 +1,6 @@
 "use client";
 
+import { Trans } from "react-i18next";
 import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart } from "recharts";
 
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -11,6 +12,8 @@ import {
 } from "@/components/ui/chart";
 import { EnumSkill } from "@/lib/enums";
 import { BandScoreSkill, UserBandScoreOverall } from "@/lib/types/simulated-test.type";
+
+import TooltipWrapper from "./tooltip-wrapper";
 
 const DEFAULT_DATA: BandScoreSkill[] = [
   { skill: EnumSkill.reading, estimatedBandScore: 0 },
@@ -65,7 +68,12 @@ export function OverallBandScoreChart({ className, data }: OverallBandScoreChart
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-xl font-semibold">
-        Overall:&nbsp;{data.overallBandScore ?? "--"}
+        <TooltipWrapper
+          triggerNode={
+            <span className="hover:opacity-80">Overall:&nbsp;{data.overallBandScore ?? "--"}</span>
+          }
+          contentNode={<Trans i18nKey="tooltip:simulatedTest.overall_band" />}
+        />
       </CardFooter>
     </Card>
   );

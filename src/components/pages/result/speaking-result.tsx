@@ -1,3 +1,5 @@
+import { SubscriptionPromotion } from "@components/molecules/subscription-promotion.tsx";
+import { SubscriptionRedirectDialog } from "@components/molecules/subscription-redirect-dialog.tsx";
 import { useTranslation } from "react-i18next";
 
 import icons from "@/assets/icons";
@@ -9,17 +11,17 @@ import { useGetSimulatedTestDetail } from "@/hooks/react-query/use-simulated-tes
 import { MAPPED_SPEAKING_CRITERIA_TITLES } from "@/lib/consts";
 import { EnumSimulatedTestSessionStatus, EnumSkill, EnumSpeakingCriteria } from "@/lib/enums";
 import { SpeakingSession } from "@/lib/types/simulated-test-session.type";
-import { formatTime } from "@/lib/utils/index";
+import { cn, formatTime } from "@/lib/utils";
+import { Route } from "@/routes/_authenticated/_dashboard/practice/simulated-test/result";
 
 type SpeakingResultProps = {
   session: SpeakingSession;
 };
 
 function SpeakingResult({ session }: SpeakingResultProps) {
+  const { status, orderCode } = Route.useSearch();
   const { data: stData } = useGetSimulatedTestDetail(session.skillTest.simulatedIeltsTest.id);
-  const { t } = useTranslation();
-  // Get part types: Line graph, Pie chart, etc.
-  const partDetails =
+  const questionTypes =
     stData?.skillTests
       .find((skill) => skill.skill === EnumSkill.speaking)
       ?.partsDetail.map((item) => item.questionTypes) ?? [];
@@ -27,18 +29,30 @@ function SpeakingResult({ session }: SpeakingResultProps) {
   return (
     <div className="flex flex-col gap-4">
       {session.status == EnumSimulatedTestSessionStatus.IN_EVALUATING ? (
-        <div>{t("status_in_evaluating", { ns: "simulatedTest" })}</div>
-      ) : session.results ? (
-        <EvaluationSection session={session} />
+        // TODO: Redesign in evaluating state
+        <div />
       ) : (
-        <div className="rounded-xl bg-white p-4 xl:p-8">{t("crashMessage")}</div>
+        <EvaluationSection session={session} />
       )}
-      <SpeakingSubmission
-        userSubmissions={session.responses}
-        skillTestId={session.skillTest.id}
-        partDetails={partDetails}
-        evaluationResults={session.results}
-      />
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-6 md:gap-4">
+        <div
+          className={cn(
+            "flex gap-4 pb-0",
+            !session.results.length ? "col-span-4" : "col-span-full"
+          )}
+        >
+          <SpeakingSubmission
+            userSubmissions={session.responses}
+            skillTestId={session.skillTest.id}
+            questionTypes={questionTypes}
+            evaluationResults={session.results}
+            parts={session.parts}
+            resource={session.resource}
+          />
+        </div>
+        <SubscriptionPromotion results={session.results} status={session.status} id={session.id} />
+      </div>
+      <SubscriptionRedirectDialog status={status} orderCode={orderCode} />
     </div>
   );
 }
@@ -72,8 +86,10 @@ function EvaluationSection({ session }: SpeakingResultProps) {
           <CriteriaScoreCard
             key={key}
             criteria={MAPPED_SPEAKING_CRITERIA_TITLES[key] ?? key}
+            criteriaKey={key as EnumSpeakingCriteria}
             evaluate={value.evaluate ?? ""}
             score={value.score}
+            skill={EnumSkill.speaking}
             Icon={icons.WritingFilled}
           />
         ))}

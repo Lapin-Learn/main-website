@@ -1,50 +1,76 @@
+import { useNavigate } from "@tanstack/react-router";
 import { ChevronLeft, Edit, Menu } from "lucide-react";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
 
+import Icons from "@/assets/icons";
 import PracticeIcon from "@/assets/icons/practice";
 import AppIcon from "@/assets/images/app.jpg";
 import Logo from "@/assets/logo.svg";
-import { Switch } from "@/components/ui/switch";
 import { useAccountIdentifier } from "@/hooks/react-query/useUsers";
+import useBreakPoint from "@/hooks/use-screen-size";
 import { EnumRole } from "@/lib/enums";
 import { cn } from "@/lib/utils";
 
 import { Separator } from "../../ui";
+import ChangeLanguageSwitch from "./change-language-switch";
 import { SideBarFeature, SideBarFeatureProps } from "./side-bar-feature";
 import { SideBarProfile } from "./side-bar-profile";
 
 const features: SideBarFeatureProps[] = [
   {
+    to: "/daily-lesson",
+    icon: <Icons.Book fill="#929292" color="#929292" height={20} width={20} />,
+    activeIcon: <Icons.Book fill="#c2410c" color="#c2410c" height={20} width={20} />,
+    label: "dailyLesson",
+  },
+  {
     to: "/practice",
-    icon: <PracticeIcon />,
+    icon: <PracticeIcon fill="#929292" color="#929292" />,
+    activeIcon: <PracticeIcon fill="#c2410c" color="#c2410c" />,
     label: "practice",
+  },
+  {
+    to: "/shop",
+    icon: <Icons.Store fill="#929292" color="#929292" />,
+    activeIcon: <Icons.Store fill="#c2410c" color="#c2410c" />,
+    label: "shop",
   },
 ];
 
 const adminFeatures: SideBarFeatureProps[] = [
   {
     to: "/content-editor",
-    icon: <Edit fillOpacity={0} />,
+    icon: <Edit fillOpacity={0} fill="#929292" color="#929292" />,
+    activeIcon: <Edit fill="#c2410c" color="#c2410c" />,
     label: "contentEditor",
   },
 ];
 
 export default function SideBar() {
-  const [language, setLanguage] = useState(localStorage.getItem("i18nextLng") || "en");
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const { checkRole } = useAccountIdentifier();
-  const { t, i18n } = useTranslation("common");
+  const navigate = useNavigate();
 
-  const toggleLanguage = () => {
-    setLanguage(language === "en" ? "vi" : "en");
-    i18n.changeLanguage(language === "en" ? "vi" : "en");
+  const handleNavigateHome = () => {
+    navigate({ to: "/" });
   };
+
+  const breakpoint = useBreakPoint();
+
+  useEffect(() => {
+    const upperBreakpoints = ["2xl", "xl", "lg", "md"];
+    if (!upperBreakpoints.includes(breakpoint)) setSidebarOpen(false);
+  }, [breakpoint]);
 
   return (
     <>
-      <div className="fixed flex w-full items-center justify-between bg-white p-4 pt-8 sm:hidden">
-        <img src={Logo} alt="App Logo" className="h-6" />
+      <div className="sticky top-0 flex w-full items-center justify-between bg-white p-4 md:hidden md:pt-8">
+        <img
+          src={Logo}
+          alt="App Logo"
+          className="h-6 cursor-pointer"
+          onClick={handleNavigateHome}
+        />
         <button onClick={() => setSidebarOpen((prev) => !prev)} aria-label="Open Sidebar">
           <Menu size={24} />
         </button>
@@ -52,11 +78,11 @@ export default function SideBar() {
 
       <aside
         className={cn(
-          "fixed h-full border-r bg-white transition-all duration-500 ease-in-out sm:static",
+          "fixed h-full border-r bg-white transition-all duration-500 ease-in-out md:flex md:static top-0",
           isSidebarOpen ? "right-0 w-[280px] sm:left-0" : "right-[-280px] w-0 sm:left-0 sm:w-fit"
         )}
       >
-        <div className={"relative flex h-full flex-col px-3 pb-4 pt-9"}>
+        <div className="relative flex size-full flex-col px-3 pb-4 pt-9">
           <nav className="flex h-screen w-full flex-col justify-between">
             <div>
               <div
@@ -68,10 +94,11 @@ export default function SideBar() {
                 <img
                   src={isSidebarOpen ? Logo : AppIcon}
                   className={cn(
-                    "hidden h-6 transition-transform duration-300 ease-in-out sm:flex",
+                    "hidden h-6 transition-transform duration-300 ease-in-out sm:flex cursor-pointer",
                     isSidebarOpen ? "pl-4" : "h-10 rounded-md"
                   )}
                   alt="App Logo"
+                  onClick={handleNavigateHome}
                 />
 
                 <button
@@ -96,13 +123,7 @@ export default function SideBar() {
               </ul>
             </div>
             <div>
-              <div className="flex items-center justify-between px-2">
-                <div className="flex flex-col justify-center gap-1">
-                  <p className="text-xs text-neutral-400">{t("language.title")}</p>
-                  <p className="text-sm">{t(`language.${language}`)}</p>
-                </div>
-                <Switch checked={language === "vi"} onCheckedChange={toggleLanguage} />
-              </div>
+              <ChangeLanguageSwitch className={!isSidebarOpen ? "hidden" : ""} />
               <SideBarProfile isSidebarOpen={isSidebarOpen} />
             </div>
           </nav>

@@ -1,143 +1,148 @@
 {
-    "unit": "test(s)",
-    "status_in_evaluating": "In evaluating",
-    "exitDialog": {
-        "title": "Are you sure you want to exit?",
-        "description": "You have not completed the test. All your answers will be saved as a draft.",
-        "exitBtn": "Back",
-        "continueBtn": "Continue"
-    },
-    "startDialog": {
-        "title": "Start the test",
-        "description": "The test consists of <1>{{parts}} parts</1> and you will have <1>{{minutes}} minutes</1> to complete it. You <1>cannot stop midway</1> and the test will be automatically submitted after {{minutes}} minutes.",
-        "startBtn": "Start"
-    },
-    "submitDialog": {
-        "title": "Are you sure you want to submit?",
-        "description": "You have not completed all the questions in the test and there is still time left.",
-        "submitBtn": "Submit",
-        "cancelBtn": "Cancel"
-    },
-    "nextBtn": "Next",
-    "prevBtn": "Previous",
+  "unit": "test(s)",
+  "status": {
+    "in_evaluating": "In evaluating",
+    "not_evaluated": "Not evaluated yet",
+    "evaluation_failed": "Evaluation failed",
+    "finished": "Finished"
+  },
+  "exitDialog": {
+    "title": "Are you sure you want to exit?",
+    "description": "You have not completed the test. All your answers will be saved as a draft.",
+    "exitBtn": "Back",
+    "continueBtn": "Continue"
+  },
+  "startDialog": {
+    "title": "Start the test",
+    "description": "The test consists of <1>{{parts}} parts</1> and you will have <1>{{minutes}} minutes</1> to complete it. You <1>cannot stop midway</1> and the test will be automatically submitted after {{minutes}} minutes.",
+    "startBtn": "Start"
+  },
+  "submitDialog": {
+    "title": "Are you sure you want to submit?",
+    "description": "You have not completed all the questions in the test and there is still time left.",
     "submitBtn": "Submit",
-    "mode": {
-        "title": "Mode",
-        "practice": "Practice Mode",
-        "full_test": "Full Test Mode"
+    "cancelBtn": "Cancel"
+  },
+  "nextBtn": "Next",
+  "prevBtn": "Previous",
+  "submitBtn": "Submit",
+  "mode": {
+    "title": "Mode",
+    "practice": "Practice Mode",
+    "full_test": "Full Test Mode"
+  },
+  "tour": {
+    "skipBtn": "Skip",
+    "beforeStart": {
+      "title": "Before you start",
+      "welcome": "Welcome to the LapinLearn test mode!",
+      "steps": [
+        "This guide will help you understand the main features of the application.",
+        "The timer will not start until you complete this guide.",
+        "You can skip the guide or review it at any time in the settings."
+      ],
+      "startBtn": "Start tour"
     },
-    "tour": {
-        "skipBtn": "Skip",
-        "beforeStart": {
-            "title": "Before you start",
-            "welcome": "Welcome to the LapinLearn test mode!",
-            "steps": [
-                "This guide will help you understand the main features of the application.",
-                "The timer will not start until you complete this guide.",
-                "You can skip the guide or review it at any time in the settings."
-            ],
-            "startBtn": "Start tour"
-        },
-        "end": {
-            "title": "End",
-            "congratulations": "You have completed the guide!",
-            "steps": [
-                "You can now start the test or review this guide at any time.",
-                "Good luck with your practice and achieving your desired score!"
-            ],
-            "lastBtn": "Start the test"
-        },
-        "elements": {
-            "timer": {
-                "title": "Timer",
-                "description": "The timer is displayed at the top right corner of the screen, indicating the remaining time for the current section."
-            },
-            "content": {
-                "title": "Reading Section",
-                "description": "This is the reading section. Scroll down to read the entire content of the passage. The passages are divided into smaller sections for easier navigation."
-            },
-            "answerSheet": {
-                "title": "Answer Sheet",
-                "description": "Select the correct answer (if it's a multiple-choice question) or fill in the blank (if it's an essay question)."
-            },
-            "questionNavigator": {
-                "title": "Question Navigator",
-                "description": "At the bottom of the screen, you will see the question navigation bar. Click on a number to jump to the corresponding question. The current question will be highlighted, and unanswered questions will be marked."
-            },
-            "backAndNext": {
-                "title": "Back and Next Buttons",
-                "description": "Use the Back button to return to the previous part. Use the Next button to move to the next part."
-            },
-            "submit": {
-                "title": "Submit Button",
-                "description": "When you have completed all the questions, click the Submit button to finish the test. If time runs out, your test will be automatically submitted."
-            },
-            "quit": {
-                "title": "Quit Button",
-                "description": "Click the Quit button to leave the test at any time. Your progress may not be saved if you quit without submitting."
-            }
-        }
+    "end": {
+      "title": "End",
+      "congratulations": "You have completed the guide!",
+      "steps": [
+        "You can now start the test or review this guide at any time.",
+        "Good luck with your practice and achieving your desired score!"
+      ],
+      "lastBtn": "Start the test"
     },
-    "speaking": {
-        "microphoneTest": "You have {{ seconds }} seconds to test the Microphone",
-        "instructions": {
-            "practice": [
-                {
-                    "title": "Unlimited Time",
-                    "content": "In this mode, your thinking and speaking time will not be limited, allowing you to practice comfortably without worrying about time."
-                },
-                {
-                    "title": "Practice by Section",
-                    "content": "Helps you focus on practicing each detailed section before combining the entire test. You cannot go back, the system will record the entire test and you can only listen back when completed."
-                },
-                {
-                    "title": "Automatic Question Reading System",
-                    "content": "The system automatically reads the questions for each section, with a clear voice and standard speed. Additionally, the system allows you to ask and listen to the question again up to 2 times, helping to clarify the content of the question."
-                }
-            ],
-            "full_test": [
-                {
-                    "title": "Real Test Time",
-                    "content": "In this mode, you will have thinking and speaking time as in the real test, helping you get used to the time pressure and improve your time management skills."
-                },
-                {
-                    "title": "Complete All Sections",
-                    "content": "You will complete the test as a real test consisting of 3 sections."
-                },
-                {
-                    "title": "Automatic Question Reading System",
-                    "content": "The system automatically reads the questions for each section, with a clear voice and standard speed. Additionally, the system allows you to ask and listen to the question again up to 2 times, helping to clarify the content of the question."
-                }
-            ]
-        },
-        "nextQuestionInSeconds": "Next question in {{ time }}s",
-        "nextPartInSeconds": "Next part in {{ time }}s",
-        "nextPart": "Next part",
-        "preparePartTwo": "You have {{ time }} seconds to prepare",
-        "startSpeakingPartTwo": "Start speaking now",
-        "endTestInSeconds": "Test ends in {{ time }}s",
-        "endTest": "End the Test" ,
-        "endTestTitle": "That's the end of the Speaking test",
-        "endTestMessage": "You have completed the test. Please wait for us to evaluate your speaking test.",
-        "endTestPlayBack": "You can listen to your speaking test below:"
-    },
-    "startTest": "Start the Test",
-    "start": "Start",
-    "nextQuestion": "Next Question",
-    "history": {
-        "viewDetail": "View details",
-        "assignment": "Simulated test",
-        "skill": "Skill",
-        "date_completed": "Date completed",
-        "result": "Result",
-        "duration": "Elapsed time",
-        "noData": "No data available"
-    },
-    "result": {
-        "questionType": "Question type",
-        "accuracy": "Accuracy",
-        "questions": "Questions",
-        "unanswered": "Skip",
-        "yourAnswer": "Your answer"
+    "elements": {
+      "timer": {
+        "title": "Timer",
+        "description": "The timer is displayed at the top right corner of the screen, indicating the remaining time for the current section."
+      },
+      "content": {
+        "title": "Reading Section",
+        "description": "This is the reading section. Scroll down to read the entire content of the passage. The passages are divided into smaller sections for easier navigation."
+      },
+      "answerSheet": {
+        "title": "Answer Sheet",
+        "description": "Select the correct answer (if it's a multiple-choice question) or fill in the blank (if it's an essay question)."
+      },
+      "questionNavigator": {
+        "title": "Question Navigator",
+        "description": "At the bottom of the screen, you will see the question navigation bar. Click on a number to jump to the corresponding question. The current question will be highlighted, and unanswered questions will be marked."
+      },
+      "backAndNext": {
+        "title": "Back and Next Buttons",
+        "description": "Use the Back button to return to the previous part. Use the Next button to move to the next part."
+      },
+      "submit": {
+        "title": "Submit Button",
+        "description": "When you have completed all the questions, click the Submit button to finish the test. If time runs out, your test will be automatically submitted."
+      },
+      "quit": {
+        "title": "Quit Button",
+        "description": "Click the Quit button to leave the test at any time. Your progress may not be saved if you quit without submitting."
+      }
     }
+  },
+  "speaking": {
+    "microphoneTest": "You have {{ seconds }} seconds to test the Microphone",
+    "instructions": {
+      "practice": [
+        {
+          "title": "Unlimited Time",
+          "content": "In this mode, your thinking and speaking time will not be limited, allowing you to practice comfortably without worrying about time."
+        },
+        {
+          "title": "Practice by Section",
+          "content": "Helps you focus on practicing each detailed section before combining the entire test. You cannot go back, the system will record the entire test and you can only listen back when completed."
+        },
+        {
+          "title": "Automatic Question Reading System",
+          "content": "The system automatically reads the questions for each section, with a clear voice and standard speed. Additionally, the system allows you to ask and listen to the question again up to 2 times, helping to clarify the content of the question."
+        }
+      ],
+      "full_test": [
+        {
+          "title": "Real Test Time",
+          "content": "In this mode, you will have thinking and speaking time as in the real test, helping you get used to the time pressure and improve your time management skills."
+        },
+        {
+          "title": "Complete All Sections",
+          "content": "You will complete the test as a real test consisting of 3 sections."
+        },
+        {
+          "title": "Automatic Question Reading System",
+          "content": "The system automatically reads the questions for each section, with a clear voice and standard speed. Additionally, the system allows you to ask and listen to the question again up to 2 times, helping to clarify the content of the question."
+        }
+      ]
+    },
+    "nextQuestionInSeconds": "Next question in {{ time }}s",
+    "nextPartInSeconds": "Next part in {{ time }}s",
+    "nextPart": "Next part",
+    "preparePartTwo": "You have {{ time }} seconds to prepare",
+    "startSpeakingPartTwo": "Start speaking now",
+    "endTestInSeconds": "Test ends in {{ time }}s",
+    "endTest": "End the Test",
+    "endTestTitle": "That's the end of the Speaking test",
+    "endTestMessage": "You have completed the test. Please wait for us to evaluate your speaking test.",
+    "endTestPlayBack": "You can listen to your speaking test below:"
+  },
+  "startTest": "Start the Test",
+  "start": "Start",
+  "nextQuestion": "Next Question",
+  "history": {
+    "viewDetail": "View details",
+    "assignment": "Simulated test",
+    "skill": "Skill",
+    "date_completed": "Date completed",
+    "result": "Result",
+    "duration": "Elapsed time",
+    "noData": "No data available"
+  },
+  "result": {
+    "questionType": "Question type",
+    "accuracy": "Accuracy",
+    "questions": "Questions",
+    "unanswered": "Skipped",
+    "yourAnswer": "Your answer"
+  }
 }

@@ -93,7 +93,11 @@ export function AnimatedCircularProgressBar({
         data-current-value={currentPercent}
         className="duration-[var(--transition-length)] delay-[var(--delay)] absolute inset-0 m-auto size-fit ease-linear animate-in fade-in"
       >
-        {value ? `${currentPercent}%` : Icon && <Icon className="size-5" fill="#929292" />}
+        {value
+          ? value === max
+            ? value
+            : `${currentPercent}%`
+          : Icon && <Icon className="size-5" fill="#929292" />}
       </span>
     </div>
   );

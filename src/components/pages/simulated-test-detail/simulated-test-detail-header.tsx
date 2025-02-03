@@ -1,7 +1,8 @@
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 import { PracticeBreadcrumb } from "@/components/molecules/practice-breadcrumb";
+import TooltipWrapper from "@/components/molecules/tooltip-wrapper";
 import TestHeaderLayout from "@/components/templates/test-header-layout";
 import {
   useGetCollectionInfo,
@@ -11,6 +12,7 @@ import useBreakPoint from "@/hooks/use-screen-size";
 import { MAPPED_SIMULATED_TEST_TAGS } from "@/lib/consts";
 import { EnumSkill } from "@/lib/enums";
 import { SimulatedTest } from "@/lib/types/simulated-test.type";
+import { formatTime } from "@/lib/utils";
 
 type SimulatedTestDetailHeaderProps = {
   simulatedTest?: SimulatedTest;
@@ -31,7 +33,7 @@ export function SimulatedTestDetailHeader({
   );
   const { data } = useGetSTSessionsHistoryByST(simulatedTest?.id ?? 0, {
     offset: 0,
-    limit: 1,
+    limit: 10000,
     ...filter,
   });
 
@@ -46,20 +48,54 @@ export function SimulatedTestDetailHeader({
   }
 
   const { tags, thumbnail } = collection;
+  const totalTimeSpent = data?.items.reduce((acc, item) => acc + item.elapsedTime, 0) ?? 0;
 
   const AchievementList = () => (
     <TestHeaderLayout.AchievementList>
-      <TestHeaderLayout.Achievement
-        title={t("latest-band", { ns: "practice" })}
-        description={latestSessionTest?.estimatedBandScore ?? "--"}
+      <TooltipWrapper
+        triggerNode={
+          <div className="hover:opacity-80">
+            <TestHeaderLayout.Achievement
+              title={t("latest-band", { ns: "practice" })}
+              description={latestSessionTest?.estimatedBandScore ?? "--"}
+            />
+          </div>
+        }
+        contentNode={
+          <Trans i18nKey="tooltip:simulatedTest.recent_band" components={{ bold: <strong /> }} />
+        }
+        side="top"
       />
-      <TestHeaderLayout.Achievement
-        title={t("total-time-practice", { ns: "practice" })}
-        description={data?.total ?? 0}
+      <TooltipWrapper
+        triggerNode={
+          <div className="hover:opacity-80">
+            <TestHeaderLayout.Achievement
+              title={t("total-time-practice", { ns: "practice" })}
+              description={data?.total ?? 0}
+            />
+          </div>
+        }
+        contentNode={
+          <Trans
+            i18nKey="tooltip:simulatedTest.total_taken_times"
+            components={{ bold: <strong /> }}
+          />
+        }
+        side="top"
       />
-      <TestHeaderLayout.Achievement
-        title={t("timeSpent", { ns: "collection" })}
-        description="1:24:45"
+      <TooltipWrapper
+        triggerNode={
+          <div className="hover:opacity-80">
+            <TestHeaderLayout.Achievement
+              title={t("timeSpent", { ns: "collection" })}
+              description={formatTime(totalTimeSpent ?? 0)}
+            />
+          </div>
+        }
+        contentNode={
+          <Trans i18nKey="tooltip:simulatedTest.practiced_time" components={{ bold: <strong /> }} />
+        }
+        side="top"
       />
     </TestHeaderLayout.AchievementList>
   );

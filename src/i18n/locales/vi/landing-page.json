@@ -1,0 +1,44 @@
+{
+  "navBar": {
+    "feedback": "Phản hồi",
+    "start": "Bắt đầu"
+  },
+  "heroBanner": {
+    "title": "<0>VẪN LÀ IELTS</0> NHƯNG <br /> THEO CÁCH <1>THÚ VỊ</1> HƠN",
+    "description": "Nền tảng học IELTS sáng tạo của chúng mình kết hợp sức mạnh của trò chơi hóa với kế hoạch học tập cá nhân hóa, giúp việc chuẩn bị cho kỳ thi IELTS trở nên thú vị và hiệu quả. Hãy bắt đầu hành trình chinh phục IELTS của bạn ngay hôm nay!",
+    "registerNow": "Đăng ký ngay"
+  },
+  "gamification": {
+    "title": "CHÚNG MÌNH CÓ GÌ?",
+    "gamificationInfo": [
+      {
+        "name": "Hệ thống bài học 5 phút mỗi ngày",
+        "description": "Mỗi ngày chỉ cần 5 phút để học một bài ngắn gọn nhưng hiệu quả, giúp bạn duy trì thói quen và cải thiện kỹ năng IELTS."
+      },
+      {
+        "name": "Thăng hạng, thăng cấp với điểm kinh nghiệm tích luỹ",
+        "description": "Học tập chăm chỉ để tích lũy điểm kinh nghiệm, nâng cấp cấp độ cá nhân và mở khóa những phần thưởng hấp dẫn."
+      },
+      {
+        "name": "Trao đổi vật phẩm lấy sức mạnh và lượt chấm bài miễn phí",
+        "description": "Thu thập và trao đổi vật phẩm để nhận thêm sức mạnh, mở khóa quyền lợi đặc biệt và lượt chấm bài miễn phí mỗi ngày."
+      }
+    ]
+  },
+  "simulatedTest": {
+    "title": "THI THỬ VỚI 40+ ĐỀ THI"
+  },
+  "mobileApp": {
+    "title": "HỌC MỌI LÚC MỌI NƠI VỚI PHIÊN BẢN DI ĐỘNG",
+    "description": "Bất kể bạn đang ở đâu, LapinLearn đều có thể đồng hành với bạn. Chỉ với 5 phút mỗi ngày, bạn vẫn có thể trau dồi kỹ năng IELTS của mình."
+  },
+  "aiAssistant": {
+    "title": "TRẢI NGHIỆM HỌC CÙNG VỚI TRỢ LÝ AI",
+    "description": [
+      "Nhận xét chi tiết các phần thi Writing và Speaking, bao gồm đánh giá theo từng tiêu chí cụ thể và band điểm dự kiến.",
+      "Chủ động và linh hoạt thời gian hơn.",
+      "Chi phí tiết kiệm gấp 10 lần."
+    ],
+    "registerNow": "Đăng ký miễn phí ngay"
+  }
+}

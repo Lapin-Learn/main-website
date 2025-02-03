@@ -1,14 +1,22 @@
+import CarrotBasket from "@/assets/carrotBasket.svg";
 import icons from "@/assets/icons";
+import AllSkillsIcon from "@/assets/icons/skills/all";
+import ListeningIcon from "@/assets/icons/skills/listening";
+import ReadingIcon from "@/assets/icons/skills/reading";
+import SpeakingIcon from "@/assets/icons/skills/speaking";
+import WritingIcon from "@/assets/icons/skills/writing";
+import { Shop } from "@/lib/types/shop.type.ts";
 
 import {
   EnumBandScore,
+  EnumDLContentType,
+  EnumItemShop,
   EnumQuestionGroup,
   EnumSkill,
   EnumSpeakingCriteria,
   EnumWritingCriteria,
   ExtendEnumSkill,
 } from "./enums";
-import { EnumQuestion } from "./types/question.type";
 
 export const BAND_SCORES = {
   [EnumBandScore.PRE_IELTS]: "Pre IELTS",
@@ -21,9 +29,9 @@ export const BAND_SCORES = {
 };
 
 export const CONTENT_TYPE_OPTIONS = [
-  { value: EnumQuestion.MultipleChoice, label: "Multiple choice" },
-  { value: EnumQuestion.FillInTheBlank, label: "Fill in the blanks" },
-  { value: EnumQuestion.Matching, label: "Matching" },
+  { value: EnumDLContentType.MULTIPLE_CHOICE, label: "Multiple choice" },
+  { value: EnumDLContentType.FILL_IN_THE_BLANK, label: "Fill in the blanks" },
+  { value: EnumDLContentType.MATCHING, label: "Matching" },
 ];
 
 export const DEFAULT_PAGE_SIZE = 10;
@@ -168,12 +176,6 @@ export const PART_INSTRUCTIONS: { [key: number]: string[] } = {
   ],
 };
 
-import AllSkillsIcon from "@/assets/icons/skills/all";
-import ListeningIcon from "@/assets/icons/skills/listening";
-import ReadingIcon from "@/assets/icons/skills/reading";
-import SpeakingIcon from "@/assets/icons/skills/speaking";
-import WritingIcon from "@/assets/icons/skills/writing";
-
 export const MAPPED_SKILL_ICON: Record<EnumSkill, React.FC<React.SVGProps<SVGSVGElement>>> = {
   [EnumSkill.reading]: ReadingIcon,
   [EnumSkill.listening]: ListeningIcon,
@@ -193,7 +195,7 @@ export const MAPPED_SKILL_ICON_FILLED: Record<
 
 export const MAPPED_SPEAKING_CRITERIA_TITLES: Record<string, string> = {
   [EnumSpeakingCriteria.FluencyAndCoherence]: "Fluency and Coherence",
-  [EnumSpeakingCriteria.Pronunciation]: "Pronounciation",
+  [EnumSpeakingCriteria.Pronunciation]: "Pronunciation",
   [EnumSpeakingCriteria.LexicalResource]: "Lexical Resource",
   [EnumSpeakingCriteria.GrammaticalRangeAndAccuracy]: "Grammatical Range and Accuracy",
 };
@@ -227,3 +229,19 @@ export const ALL_SKILLS_LIST = [
   },
   ...SKILLS_LIST,
 ];
+
+const carrotSubscription: Shop = {
+  id: "subscription",
+  name: EnumItemShop.SUBSCRIPTION,
+  price: { 500: 10000, 2500: 45000, 5000: 90000 },
+  image: {
+    url: CarrotBasket,
+  },
+  imageId: "",
+  description: "Buy bill to get more time",
+  popular: "1",
+  isPopular: false,
+  duration: 0,
+};
+
+export { carrotSubscription };

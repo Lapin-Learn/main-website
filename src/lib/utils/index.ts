@@ -4,8 +4,8 @@ import i18next from "i18next";
 import { twMerge } from "tailwind-merge";
 import { z } from "zod";
 
-import { IMission } from "@/components/organisms/mission-section/types";
 import { TimerType } from "@/hooks/zustand/use-global-timer";
+import { Mission } from "@/lib/types/mission.type";
 import { PagedData, PagingSchema } from "@/lib/types/pagination.type";
 
 import { DEFAULT_TIME_LIMIT } from "../consts";
@@ -208,7 +208,7 @@ export function formatRemainingToDateTime(targetTime: number) {
   return formatUnit(seconds, "second");
 }
 
-export function convertMissionNameCategory(item: IMission) {
+export function convertMissionNameCategory(item: Mission) {
   const { t } = i18next;
   switch (item.category) {
     case EnumMissionCategory.COMPLETE_LESSON_WITH_PERCENTAGE_SCORE:
@@ -220,7 +220,7 @@ export function convertMissionNameCategory(item: IMission) {
       });
     case EnumMissionCategory.TOTAL_DURATION_OF_LEARN_DAILY_LESSON:
       return t(`mission.description.${item.category}`, {
-        requirements: formatLearningDuration(item.requirements),
+        requirements: formatUnit(item.quantity, "minute"),
         ns: "practice",
       });
     default:
@@ -231,3 +231,22 @@ export function convertMissionNameCategory(item: IMission) {
       });
   }
 }
+
+export function formatVNDCurrency(value: number) {
+  return "đ " + value.toLocaleString();
+}
+
+export function assertFallback<T>(value: T | undefined, fallback: T): T {
+  return value ?? fallback;
+}
+export const calculateOverallBandScore = (scores: (number | null)[]) => {
+  const validScores = scores.filter((score): score is number => score !== null);
+  if (validScores.length !== 4) return undefined;
+  const overall = validScores.reduce((acc, score) => acc + score, 0) / validScores.length;
+  return Math.round(overall * 2) / 2;
+};
+
+export const getDuration = (startTime: number): number => {
+  const endTime = new Date().getTime();
+  return Math.round(Math.abs(endTime - startTime) / 1000);
+};

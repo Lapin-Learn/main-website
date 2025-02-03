@@ -1,4 +1,4 @@
-import { EnumGender, EnumRank, EnumRole } from "../enums";
+import { EnumGender, EnumRank, EnumRole, EnumTransactionStatus } from "../enums";
 import { Image } from "./common.type";
 
 export type AccountIdentifier = {
@@ -46,4 +46,63 @@ export type UserProfile = {
   learnerProfile: LearnerProfile | null;
   avatarId: string | null;
   avatar?: Image;
+};
+
+export type OrderItem = {
+  name: string;
+  price: number;
+  quantity: number;
+};
+
+export type PayOsTransaction = {
+  id: string;
+  amount: number;
+  status: EnumTransactionStatus;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type TransactionHistory = {
+  id: number;
+  accountId: string;
+  status: EnumTransactionStatus;
+  amount: number;
+  createdAt: string;
+  updatedAt: string;
+  items: OrderItem[];
+  payosTransaction?: PayOsTransaction;
+};
+
+export type Transaction = {
+  accountNumber: string;
+  amount: number;
+  counterAccountBankId: string | null;
+  counterAccountBankName: string;
+  counterAccountName: string;
+  counterAccountNumber: string;
+  description: string;
+  reference: string;
+  transactionDateTime: string;
+  virtualAccountName: string;
+  virtualAccountNumber: string;
+};
+
+export type Order = {
+  id: string;
+  orderCode: number;
+  amount: number;
+  amountPaid: number;
+  amountRemaining: number;
+  status: EnumTransactionStatus;
+  createdAt: string;
+  transactions?: Transaction[];
+  items: OrderItem[];
+  canceledAt: string | null;
+  cancellationReason: string | null;
+};
+
+export type PaymentLinkInfo = Order & {
+  qrCode: string;
+  checkoutUrl: string;
+  paymentLinkId: string;
 };
