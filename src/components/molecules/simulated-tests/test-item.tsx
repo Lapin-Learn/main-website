@@ -19,7 +19,6 @@ export const TestItem = ({ testName, status, estimatedBandScore }: SimulatedTest
         <div className="flex w-full flex-col gap-2">
           <div className="flex flex-row items-center justify-between gap-2 py-1">
             <p className="grow-0 truncate text-small text-neutral-900">{testName}</p>
-            {/* TODO: integrate test user record */}
             <TestResult score={estimatedBandScore} status={status} />
           </div>
         </div>

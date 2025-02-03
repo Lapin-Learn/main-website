@@ -1,3 +1,4 @@
+import { EnumMissionCategory } from "@/lib/enums";
 import { FetchingData } from "@/lib/types";
 import { GamificationProfile, StreakHistory } from "@/lib/types/gamification";
 import { Mission } from "@/lib/types/mission.type";
@@ -21,21 +22,22 @@ export const getStreak = async (startDate: string) => {
   ).data;
 };
 
-// const checkMissionEnum = (category: EnumMissionCategory) => {
-//   return (
-//     category === EnumMissionCategory.TOTAL_DURATION_OF_LEARN_DAILY_LESSON ||
-//     category === EnumMissionCategory.COMPLETE_LESSON_WITH_DIFFERENT_SKILLS
-//   );
-// };
+export const parseMission = (mission: Mission) => {
+  switch (mission.category) {
+    case EnumMissionCategory.TOTAL_DURATION_OF_LEARN_DAILY_LESSON:
+      return {
+        ...mission,
+        current: Math.round(mission.current / 60),
+        quantity: Math.round(mission.quantity / 60),
+      };
+    default:
+      return mission;
+  }
+};
 
 export const getMissions = async () => {
-  try {
-    const response = await api.get("missions").json<FetchingData<Mission[]>>();
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching question types:", error);
-    throw error;
-  }
+  const rawMissions = (await api.get("missions").json<FetchingData<Mission[]>>()).data;
+  return rawMissions.map(parseMission);
 };
 
 export const receiveMissionReward = async () => {

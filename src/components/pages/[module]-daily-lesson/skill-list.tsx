@@ -5,7 +5,7 @@ import { EnumSkill } from "@/lib/enums";
 
 const SkillListPage = () => {
   return (
-    <main className="grid h-screen w-screen place-items-center">
+    <main className="grid h-screen w-full place-items-center">
       <div className="flex flex-col items-center gap-4">
         {Object.keys(EnumSkill).map((skill) => (
           <Link to="question-types" search={{ skill }} key={skill}>

@@ -2,6 +2,7 @@ import { EnumMileStone, EnumRank } from "@/lib/enums";
 import { Level } from "@/lib/types";
 import { LessonResult, MissionMilestone } from "@/lib/types/daily-lesson.type";
 import { formatTime } from "@/lib/utils";
+import { parseMission } from "@/services/gamification";
 
 import { EnumResultStepper, StepperProps } from "./type";
 
@@ -64,6 +65,10 @@ export const mockNewValue = [
   },
 ];
 
+/**
+ * This function is used to transform the milestone data to the stepper data.
+ * Advantage: Don't have to change the stepper component when the milestone data changes
+ * */
 const transformStepper = (result: LessonResult) => {
   const { milestones, correctAnswers, wrongAnswers } = result;
   const steps: Record<string, StepperProps> = {};
@@ -113,18 +118,18 @@ const transformStepper = (result: LessonResult) => {
     steps[EnumResultStepper.MISSION_COMPLETED] = {
       type: EnumResultStepper.MISSION_COMPLETED,
       value: (missionMilestone.newValue as MissionMilestone[]).map((d) => {
-        const { rewards, requirements, category } = d.mission.quest;
-        return {
+        const { rewards, requirements, category, quantity } = d.mission.quest;
+        return parseMission({
           interval: d.mission.type,
           rewards,
           current: d.current,
-          quantity: d.mission.quantity,
+          quantity: quantity,
           requirements,
           category,
           missionId: d.missionId,
           status: d.status,
           questId: d.mission.quest.id,
-        };
+        });
       }),
     };
   }

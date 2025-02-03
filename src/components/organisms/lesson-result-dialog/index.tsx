@@ -11,8 +11,8 @@ import { useResultStepperContext } from "./result-stepper-provider";
 import StreakStep from "./streak-step";
 import { EnumResultStepper } from "./type";
 
-const LessonResultDialog = () => {
-  const [open, setOpen] = useState(false);
+const LessonResultDialog = ({ defaultOpen = false }: { defaultOpen?: boolean }) => {
+  const [open, setOpen] = useState(defaultOpen);
 
   const { questionTypeId } = Route.useSearch();
   const navigate = useNavigate();
@@ -26,12 +26,6 @@ const LessonResultDialog = () => {
       });
     }
   }, [currentStep]);
-
-  useEffect(() => {
-    return () => {
-      setOpen(true);
-    };
-  }, []);
 
   return (
     <Dialog open={open}>

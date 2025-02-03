@@ -75,11 +75,9 @@ const DailyLessonContent = () => {
             )}
           />
         </div>
-        {result && (
-          <ResultStepperProvider result={result}>
-            <LessonResultDialog />
-          </ResultStepperProvider>
-        )}
+        <ResultStepperProvider result={result}>
+          <LessonResultDialog defaultOpen={result !== null} />
+        </ResultStepperProvider>
       </div>
     );
   }

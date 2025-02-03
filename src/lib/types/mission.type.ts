@@ -17,6 +17,7 @@ export type QuestType = "daily" | "monthly";
 export type Quest = {
   id: string;
   requirements: number;
+  quantity: number;
   rewards: number;
   type: QuestType;
   category: EnumMissionCategory;

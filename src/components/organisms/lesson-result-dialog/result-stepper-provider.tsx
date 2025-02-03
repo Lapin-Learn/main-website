@@ -27,6 +27,16 @@ const ResultStepperProvider = ({
   children,
   result,
 }: PropsWithChildren<{
+  result: LessonResult | null;
+}>) => {
+  if (!result) return null;
+  return LocalProvider({ children, result });
+};
+
+const LocalProvider = ({
+  children,
+  result,
+}: PropsWithChildren<{
   result: LessonResult;
 }>) => {
   const [step, setStep] = useState<EnumResultStepper>(EnumResultStepper.RESULT);
