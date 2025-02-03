@@ -18,6 +18,12 @@ import { SideBarProfile } from "./side-bar-profile";
 
 const features: SideBarFeatureProps[] = [
   {
+    to: "/daily-lesson",
+    icon: <Icons.Book fill="#929292" color="#929292" height={20} width={20} />,
+    activeIcon: <Icons.Book fill="#c2410c" color="#c2410c" height={20} width={20} />,
+    label: "dailyLesson",
+  },
+  {
     to: "/practice",
     icon: <PracticeIcon fill="#929292" color="#929292" />,
     activeIcon: <PracticeIcon fill="#c2410c" color="#c2410c" />,
@@ -76,7 +82,7 @@ export default function SideBar() {
           isSidebarOpen ? "right-0 w-[280px] sm:left-0" : "right-[-280px] w-0 sm:left-0 sm:w-fit"
         )}
       >
-        <div className="relative flex h-full flex-col px-3 pb-4 pt-9">
+        <div className="relative flex size-full flex-col px-3 pb-4 pt-9">
           <nav className="flex h-screen w-full flex-col justify-between">
             <div>
               <div

@@ -1,7 +1,7 @@
-import { IMission } from "@/components/organisms/mission-section/types";
 import { EnumMissionCategory } from "@/lib/enums";
 import { FetchingData } from "@/lib/types";
 import { GamificationProfile, StreakHistory } from "@/lib/types/gamification";
+import { Mission } from "@/lib/types/mission.type";
 import { generateSearchParams } from "@/lib/utils";
 
 import api from "./kyInstance";
@@ -22,23 +22,24 @@ export const getStreak = async (startDate: string) => {
   ).data;
 };
 
-const checkMissionEnum = (category: EnumMissionCategory) => {
-  return (
-    category === EnumMissionCategory.TOTAL_DURATION_OF_LEARN_DAILY_LESSON ||
-    category === EnumMissionCategory.COMPLETE_LESSON_WITH_DIFFERENT_SKILLS
-  );
+export const parseMission = (mission: Mission) => {
+  switch (mission.category) {
+    case EnumMissionCategory.TOTAL_DURATION_OF_LEARN_DAILY_LESSON:
+      return {
+        ...mission,
+        current: Math.round(mission.current / 60),
+        quantity: Math.round(mission.quantity / 60),
+      };
+    default:
+      return mission;
+  }
 };
 
 export const getMissions = async () => {
-  try {
-    const response = await api.get(`missions`).json<FetchingData<IMission[]>>();
-    return response.data.map((mission) => ({
-      ...mission,
-      current: checkMissionEnum(mission.category) ? Math.min(1, mission.current) : mission.current,
-      quantity: checkMissionEnum(mission.category) ? 1 : mission.quantity,
-    }));
-  } catch (error) {
-    console.error("Error fetching question types:", error);
-    throw error;
-  }
+  const rawMissions = (await api.get("missions").json<FetchingData<Mission[]>>()).data;
+  return rawMissions.map(parseMission);
+};
+
+export const receiveMissionReward = async () => {
+  return await api.post("missions/receive").json();
 };

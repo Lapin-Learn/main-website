@@ -14,7 +14,6 @@ const SpeakingEndTest = () => {
   const { sessionId } = Route.useSearch();
 
   const handleSubmitSpeaking = () => {
-    // TODO: Replace console.log with submitTest
     submitTest({
       sessionId: Number(sessionId),
       elapsedTime: 0,

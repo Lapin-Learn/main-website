@@ -1,10 +1,10 @@
 import StreakIcon from "@/assets/icons/streak";
 import StreakLostIcon from "@/assets/icons/streak-lost";
-import { IStreak } from "@/lib/interfaces";
+import type { Streak } from "@/lib/types";
 import { cn, formatNumber } from "@/lib/utils";
 
 type StreakProps = {
-  streak: IStreak;
+  streak: Streak;
   className?: string;
 };
 

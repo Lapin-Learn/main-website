@@ -56,11 +56,6 @@ export default function ProfilePage() {
     }
   }, [data, isSuccess]);
 
-  useEffect(() => {
-    console.log("isValid", form.formState.isValid);
-    console.log("isDiry", form.formState.isDirty);
-  }, [form.formState]);
-
   return (
     <div className="flex flex-col items-center justify-center gap-2">
       <div className="w-full">

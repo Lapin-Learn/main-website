@@ -26,7 +26,8 @@
         "shop": "Shop",
         "simulatedTest": "Simulated test",
         "result": "Result",
-        "contentEditor": "Content editor"
+        "contentEditor": "Content editor",
+        "dailyLesson": "Daily lesson"
     },
     "allSkills": "All skills",
     "reading": "reading",
@@ -61,5 +62,30 @@
         "title": "Language",
         "vi": "Vietnamese",
         "en": "English"
-    }
+    },
+    "calendar": {
+    "days_of_week": [
+      "SU",
+      "MO",
+      "TU",
+      "WE",
+      "TH",
+      "FR",
+      "SA"
+    ],
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ]
+  }
 }

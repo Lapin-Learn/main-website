@@ -6,6 +6,7 @@ import EmailIcon from "@/assets/icons/email";
 import FacebookLogo from "@/assets/icons/FacebookLogo";
 import Logo from "@/assets/logo.svg";
 import { cn } from "@/lib/utils";
+import { getAuthValueFromStorage } from "@/services";
 
 import { AiAssistant } from "../organisms/landing-page/ai-assistant";
 import { Gamification } from "../organisms/landing-page/gamification";
@@ -35,6 +36,8 @@ export default function HomePage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const isLoggedIn = getAuthValueFromStorage();
+
   return (
     <main className="size-screen">
       <div className="relative">
@@ -61,7 +64,7 @@ export default function HomePage() {
               </Button>
             </Link>
             <Separator orientation="vertical" className="flex h-full min-h-6 bg-neutral-300" />
-            <Link to="/log-in">
+            <Link to={isLoggedIn ? "/practice" : "/log-in"}>
               <Button className="w-fit rounded-md px-3 py-2 text-xs md:rounded-lg md:px-6 md:py-3.5 md:text-small">
                 {t("navBar.start")}
               </Button>

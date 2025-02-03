@@ -5,11 +5,14 @@ import { initReactI18next } from "react-i18next";
 import authEn from "./locales/en/auth.json";
 import collectionEn from "./locales/en/collection.json";
 import commonEn from "./locales/en/common.json";
+import dailyLessonEn from "./locales/en/daily-lesson.json";
 import errorEn from "./locales/en/error.json";
 import gamificationEn from "./locales/en/gamification.json";
 import landingPageEn from "./locales/en/landing-page.json";
+import milestoneEn from "./locales/en/milestone.json";
 import practiceEn from "./locales/en/practice.json";
 import profileEn from "./locales/en/profile.json";
+import questionEn from "./locales/en/question.json";
 import shopEn from "./locales/en/shop.json";
 import simulatedTestEn from "./locales/en/simulated-test.json";
 import subscriptionEn from "./locales/en/subscription.json";
@@ -18,11 +21,14 @@ import tooltipEn from "./locales/en/tooltip.json";
 import authVi from "./locales/vi/auth.json";
 import collectionVi from "./locales/vi/collection.json";
 import commonVi from "./locales/vi/common.json";
+import dailyLessonVi from "./locales/vi/daily-lesson.json";
 import errorVi from "./locales/vi/error.json";
 import gamificationVi from "./locales/vi/gamification.json";
 import landingPageVi from "./locales/vi/landing-page.json";
+import milestoneVi from "./locales/vi/milestone.json";
 import practiceVi from "./locales/vi/practice.json";
 import profileVi from "./locales/vi/profile.json";
+import questionVi from "./locales/vi/question.json";
 import shopVi from "./locales/vi/shop.json";
 import simulatedTestVi from "./locales/vi/simulated-test.json";
 import subscriptionVi from "./locales/vi/subscription.json";
@@ -48,6 +54,9 @@ const resources = {
     success: successEn,
     shop: shopEn,
     tooltip: tooltipEn,
+    question: questionEn,
+    dailyLesson: dailyLessonEn,
+    milestone: milestoneEn,
     landingPage: landingPageEn,
   },
   vi: {
@@ -68,6 +77,9 @@ const resources = {
     success: successVi,
     shop: shopVi,
     tooltip: tooltipVi,
+    question: questionVi,
+    dailyLesson: dailyLessonVi,
+    milestone: milestoneVi,
     landingPage: landingPageVi,
   },
 };
@@ -84,12 +96,12 @@ const languageDetectorOptions = {
   lookupFromSubdomainIndex: 0,
 
   // cache user language on
-  caches: ["localStorage", "cookie"],
+  caches: ["cookie", "localStorage"],
   excludeCacheFor: ["cimode"], // languages to not persist (cookie, localStorage)
 
   // optional expire and domain for set cookie
   cookieMinutes: 10,
-  cookieDomain: "myDomain",
+  cookieDomain: "ielts.lapinlearn.edu.vn",
 
   // optional htmlTag with lang attribute, the default is:
   htmlTag: document.documentElement,
