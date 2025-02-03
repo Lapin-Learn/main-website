@@ -66,7 +66,7 @@ type LessonCompletionPayload = {
 };
 export const confirmLessonCompletion = async (payload: LessonCompletionPayload) => {
   return (
-    await api.post<FetchingData<LessonResult>>(`daily-lessons/completion`, { json: payload }).json()
+    await api.post<FetchingData<LessonResult>>("daily-lessons/completion", { json: payload }).json()
   ).data;
 };
 
@@ -79,23 +79,19 @@ export const getInstruction = async (questionTypeId: string) => {
 };
 
 type SpeakingEvaluation = {
-  original: string;
-  uri: string;
+  originalQuestion: string;
+  blob: Blob;
 };
 
 export const evaluateSpeaking = async (params: SpeakingEvaluation) => {
   try {
     const formData = new FormData();
-    formData.append("file", {
-      uri: params.uri,
-      name: "recording.wav",
-      type: "audio/wav",
-    } as unknown as Blob);
-    formData.append("original", params.original);
+    formData.append("file", params.blob);
+    formData.append("original", params.originalQuestion);
 
     const response = (
       await api
-        .post<FetchingData<SpeakingServiceResponse>>(`api/ai/speech-evaluation`, {
+        .post<FetchingData<SpeakingServiceResponse>>("ai/speaking/speech-evaluation", {
           body: formData,
         })
         .json()

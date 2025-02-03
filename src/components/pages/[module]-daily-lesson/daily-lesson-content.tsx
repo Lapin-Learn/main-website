@@ -48,7 +48,7 @@ const DailyLessonContent = () => {
     const currentProgress = Math.max(1, (currentQuestion / numberOfQuestions) * 100);
 
     return (
-      <div className="mx-auto flex h-screen flex-col items-center bg-[#F8F8F8]">
+      <div className="mx-auto flex h-screen w-full flex-col items-center bg-[#F8F8F8]">
         <div className="sticky top-0 z-10 flex w-full flex-row items-center gap-4 border-b bg-white md:px-48">
           <DailyLessonExitDialog
             triggerButton={
@@ -71,8 +71,8 @@ const DailyLessonContent = () => {
           />
           <div>{`${currentQuestion}/${numberOfQuestions}`}</div>
         </div>
-        <ScrollArea className="h-screen flex-1">
-          <div className="mt-4 flex h-screen w-full flex-1 flex-col items-center justify-between gap-4 ">
+        <ScrollArea className="size-screen flex-1">
+          <div className="mt-4 flex h-screen w-screen flex-1 flex-col items-center justify-between gap-4 ">
             <QuestionCard />
             <AnswerInput
               renderCheckButton={(getCorrectAnswers, disabled) => (

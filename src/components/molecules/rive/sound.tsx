@@ -3,8 +3,9 @@ import Rive, { Fit, Layout } from "@rive-app/react-canvas";
 export function RiveSound() {
   return (
     <Rive
-      src="https://uilztdvkyvgjgeqd.public.blob.vercel-storage.com/Rive%20Editor%20File-ldcBVPPRhR9Fc5NG4XrY8wC0Y55DTR.riv"
-      artboard="Artboard"
+      src="https://firebasestorage.googleapis.com/v0/b/lapin-learn.appspot.com/o/rive%2Fspeaker.riv?alt=media&token=9bf6095e-e794-4cd2-be47-5d541b0c3dee"
+      artboard="sound"
+      stateMachines="main"
       layout={new Layout({ fit: Fit.Cover })}
     />
   );
