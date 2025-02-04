@@ -23,7 +23,7 @@ export const AiAssistant = () => {
             ))}
           </div>
         </div>
-        <Link to="/log-in">
+        <Link to="/sign-up">
           <PulsatingButton
             className="w-fit rounded-full bg-[#1C64F2] px-5 py-2 hover:opacity-90 md:px-6 md:py-3.5"
             pulseStyle="rounded-full"

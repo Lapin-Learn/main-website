@@ -42,7 +42,7 @@ export const HeroBanner = () => {
             <p className="text-small md:text-xl">{t("heroBanner.description")}</p>
           </div>
           <Link
-            to="/log-in"
+            to="/sign-up"
             className="w-fit rounded-full bg-red-yellow-linear px-5 py-3 hover:opacity-90 md:px-6 md:py-3.5"
           >
             <div className="flex items-center gap-2 text-white">
@@ -52,13 +52,14 @@ export const HeroBanner = () => {
           </Link>
         </div>
         <RiveHeroBanner
-          className="pointer-events-none z-10 col-span-1 flex size-full flex-1 flex-col items-center justify-center shadow-sm md:col-span-6 md:col-start-7"
+          className="pointer-events-none z-10 col-span-1 flex size-full flex-1 flex-col items-center justify-center md:col-span-6 md:col-start-7"
           fallback={<img src="/fallback_rive/hero-banner.svg" alt="hero-banner" />}
         />
         <InteractiveGridPattern
           height={64}
+          width={64}
           squares={[80, 80]}
-          squaresClassName="hover:fill-orange-200"
+          squaresClassName="hover:fill-orange-100"
         />
       </div>
     </div>
