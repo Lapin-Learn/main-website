@@ -71,7 +71,7 @@ export function FloatingNote() {
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 placeholder={t("noteBtn.placeholder")}
-                className="size-full resize-none"
+                className="size-full resize-none focus-visible:ring-0"
               />
             </Card>
           </div>
