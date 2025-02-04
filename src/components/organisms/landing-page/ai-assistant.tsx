@@ -9,7 +9,7 @@ export const AiAssistant = () => {
   const { t } = useTranslation("landingPage");
   return (
     <div className="relative flex max-h-screen w-full flex-col items-center justify-center bg-background px-4 py-9 md:px-32 md:py-20">
-      <div className="flex size-full flex-col gap-6 rounded-3xl bg-[#D9F0FF] p-6 md:gap-10 md:px-16 md:py-12">
+      <div className="flex w-full flex-col gap-6 rounded-3xl bg-[#D9F0FF] p-6 md:w-3/4 md:gap-10 md:px-16 md:py-12">
         <div className="flex flex-col gap-4 md:gap-5">
           <h3 className="text-heading-5 font-bold md:text-heading-3">{t("aiAssistant.title")}</h3>
           <div className="flex flex-col gap-3">

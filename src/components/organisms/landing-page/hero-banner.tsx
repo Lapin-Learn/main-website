@@ -1,60 +1,18 @@
-import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas-lite";
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { useEffect, useRef } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
+import { RiveHeroBanner } from "@/components/rive/hero-banner";
 import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
 import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern";
-
 export const HeroBanner = () => {
   const { t } = useTranslation("landingPage");
-  const { rive, RiveComponent } = useRive({
-    src: "hero_banner.riv",
-    stateMachines: "main",
-    autoplay: false,
-    layout: new Layout({
-      fit: Fit.Contain,
-      alignment: Alignment.Center,
-    }),
-  });
-
-  const ref = useRef(null);
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (rive) {
-          if (entry.isIntersecting) {
-            rive.play();
-          } else {
-            rive.reset({
-              stateMachines: "main",
-            });
-          }
-        }
-      },
-      {
-        rootMargin: "0px",
-        threshold: 0.1,
-      }
-    );
-
-    if (ref && ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      if (ref && ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, [rive]);
 
   return (
     <div className="relative flex h-[800px] w-full flex-col items-center justify-center bg-linear-hero-banner px-4 py-20 md:h-screen md:px-20 md:py-40">
-      <div className="flex h-full flex-col items-center gap-8 md:grid md:grid-cols-12 md:gap-6">
-        <div className="bg-red z-10 col-start-1 flex h-fit flex-col gap-5 md:col-span-5 md:col-start-2 md:gap-10">
+      <div className="flex h-full flex-col items-center gap-6 md:grid md:grid-cols-12 md:gap-6">
+        <div className="z-10 col-start-1 flex h-fit flex-col gap-5 md:col-span-5 md:col-start-2 md:gap-10">
           <div className="flex flex-col gap-5">
             <HeroHighlight>
               <motion.h3
@@ -93,14 +51,11 @@ export const HeroBanner = () => {
             </div>
           </Link>
         </div>
-        <div
+        <RiveHeroBanner
           className="pointer-events-none z-10 col-span-1 flex size-full flex-1 flex-col items-center justify-center shadow-sm md:col-span-6 md:col-start-7"
-          ref={ref}
-        >
-          <RiveComponent />
-        </div>
+          fallback={<img src="/fallback_rive/hero-banner.svg" alt="hero-banner" />}
+        />
         <InteractiveGridPattern
-          width={64}
           height={64}
           squares={[80, 80]}
           squaresClassName="hover:fill-orange-200"
