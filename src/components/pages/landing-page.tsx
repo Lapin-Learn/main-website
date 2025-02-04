@@ -16,7 +16,7 @@ import { SimulatedTest } from "../organisms/landing-page/simulated-test";
 import ChangeLanguageSwitch from "../organisms/sidebar/change-language-switch";
 import { Button, Separator } from "../ui";
 
-export default function HomePage() {
+export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const { t } = useTranslation("landingPage");
 
@@ -64,7 +64,7 @@ export default function HomePage() {
               </Button>
             </Link>
             <Separator orientation="vertical" className="flex h-full min-h-6 bg-neutral-300" />
-            <Link to={isLoggedIn ? "/practice" : "/log-in"}>
+            <Link to={isLoggedIn ? "/practice" : "/sign-up"}>
               <Button className="w-fit rounded-md px-3 py-2 text-xs md:rounded-lg md:px-6 md:py-3.5 md:text-small">
                 {t("navBar.start")}
               </Button>
