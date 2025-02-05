@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /log-in/
+Disallow: /sign-up/
+Disallow: /profile/
+Allow: /profile/history
+Disallow: /forgot-password/
+Disallow: /reset-password/
+Disallow: /verify-otp/
