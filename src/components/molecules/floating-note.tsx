@@ -1,4 +1,4 @@
-import { Button, Card } from "@components/ui";
+import { Button, Card, Typography } from "@components/ui";
 import { Textarea } from "@components/ui/textarea.tsx";
 import {
   DndContext,
@@ -8,44 +8,33 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import { NotebookPenIcon } from "lucide-react";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { NotebookPenIcon, XIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 export function FloatingNote() {
   const { t } = useTranslation("simulatedTest");
   const [note, setNote] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const noteRef = useRef<HTMLDivElement | null>(null);
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
   const [isTextareaFocused, setIsTextareaFocused] = useState(false);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        noteRef.current &&
-        !noteRef.current.contains(event.target as Node) &&
-        buttonRef.current &&
-        !buttonRef.current.contains(event.target as Node)
-      ) {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
         setIsOpen(false);
       }
     };
 
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpen]);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   return (
     <DndContext>
-      <div className="absolute bottom-28 right-5 z-50">
+      <div className="absolute bottom-28 right-5">
         <Button
-          ref={buttonRef}
           variant="secondary"
           onClick={(e) => {
             e.stopPropagation();
@@ -61,17 +50,35 @@ export function FloatingNote() {
       </div>
 
       {isOpen && (
-        <DraggableNote noteRef={noteRef} isTextareaFocused={isTextareaFocused}>
-          <Card className="relative size-full border bg-blue-50 p-4 shadow-lg">
-            <Textarea
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              onFocus={() => setIsTextareaFocused(true)}
-              onBlur={() => setIsTextareaFocused(false)}
-              placeholder={t("noteBtn.placeholder")}
-              className="size-full resize-none border-none shadow-none focus-visible:ring-0"
-            />
-          </Card>
+        <DraggableNote isTextareaFocused={isTextareaFocused}>
+          <div className="relative z-50">
+            <Button
+              variant="ghost"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsOpen(false);
+              }}
+              className="absolute right-0 top-1 z-50 text-gray-500 hover:bg-transparent"
+            >
+              <XIcon size={16} />
+            </Button>
+            <Card className="relative z-40 size-full border bg-blue-50 p-4 shadow-lg">
+              <Textarea
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+                onFocus={() => setIsTextareaFocused(true)}
+                onBlur={() => setIsTextareaFocused(false)}
+                placeholder={t("noteBtn.placeholder")}
+                style={{
+                  scrollbarWidth: "thin",
+                }}
+                className="z-50 size-full h-52 resize-none border-none shadow-none focus-visible:ring-0"
+              />
+              <Typography variant="caption" className=" text-gray-500">
+                Use Esc to quickly close this note, and you can drag it around based on your needs.
+              </Typography>
+            </Card>
+          </div>
         </DraggableNote>
       )}
     </DndContext>
@@ -80,11 +87,9 @@ export function FloatingNote() {
 
 const DraggableNote = ({
   children,
-  noteRef,
   isTextareaFocused,
 }: {
   children: React.ReactNode;
-  noteRef: MutableRefObject<HTMLDivElement | null>;
   isTextareaFocused: boolean;
 }) => {
   const [position, setPosition] = useState({
@@ -105,7 +110,7 @@ const DraggableNote = ({
 
   return (
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-      <DraggableContent noteRef={noteRef} position={position} isTextareaFocused={isTextareaFocused}>
+      <DraggableContent position={position} isTextareaFocused={isTextareaFocused}>
         {children}
       </DraggableContent>
     </DndContext>
@@ -115,29 +120,24 @@ const DraggableNote = ({
 const DraggableContent = ({
   children,
   position,
-  noteRef,
   isTextareaFocused,
 }: {
   children: React.ReactNode;
   position: { x: number; y: number };
-  noteRef: MutableRefObject<HTMLDivElement | null>;
   isTextareaFocused: boolean;
 }) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({ id: "draggable-note" });
 
   return (
     <div
-      ref={(node) => {
-        setNodeRef(node);
-        noteRef.current = node;
-      }}
+      ref={setNodeRef}
       style={{
         position: "fixed",
         left: `${position.x + (transform?.x || 0)}px`,
         top: `${position.y + (transform?.y || 0)}px`,
         cursor: isTextareaFocused ? "default" : "move",
       }}
-      className="z-50 h-[200px] w-[300px]"
+      className="w-[300px]"
       {...(!isTextareaFocused && listeners)}
       {...(!isTextareaFocused && attributes)}
       role="none"
