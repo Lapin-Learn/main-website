@@ -1,9 +1,16 @@
 import { Button, Card } from "@components/ui";
 import { Textarea } from "@components/ui/textarea.tsx";
+import {
+  DndContext,
+  DragEndEvent,
+  PointerSensor,
+  useDraggable,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import { NotebookPenIcon } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Rnd } from "react-rnd";
 
 export function FloatingNote() {
   const { t } = useTranslation("simulatedTest");
@@ -11,6 +18,7 @@ export function FloatingNote() {
   const [isOpen, setIsOpen] = useState(false);
   const noteRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const [isTextareaFocused, setIsTextareaFocused] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -34,7 +42,7 @@ export function FloatingNote() {
   }, [isOpen]);
 
   return (
-    <>
+    <DndContext>
       <div className="absolute bottom-28 right-5 z-50">
         <Button
           ref={buttonRef}
@@ -53,30 +61,88 @@ export function FloatingNote() {
       </div>
 
       {isOpen && (
-        <Rnd
-          default={{
-            x: window.innerWidth - 350,
-            y: window.innerHeight - 350,
-            width: 300,
-            height: 200,
-          }}
-          minWidth={250}
-          minHeight={150}
-          bounds="window"
-          className="z-50"
-        >
-          <div ref={noteRef} className="size-full">
-            <Card className="relative size-full border bg-white p-4 shadow-lg">
-              <Textarea
-                value={note}
-                onChange={(e) => setNote(e.target.value)}
-                placeholder={t("noteBtn.placeholder")}
-                className="size-full resize-none focus-visible:ring-0"
-              />
-            </Card>
-          </div>
-        </Rnd>
+        <DraggableNote noteRef={noteRef} isTextareaFocused={isTextareaFocused}>
+          <Card className="relative size-full border bg-blue-50 p-4 shadow-lg">
+            <Textarea
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              onFocus={() => setIsTextareaFocused(true)}
+              onBlur={() => setIsTextareaFocused(false)}
+              placeholder={t("noteBtn.placeholder")}
+              className="size-full resize-none border-none shadow-none focus-visible:ring-0"
+            />
+          </Card>
+        </DraggableNote>
       )}
-    </>
+    </DndContext>
   );
 }
+
+const DraggableNote = ({
+  children,
+  noteRef,
+  isTextareaFocused,
+}: {
+  children: React.ReactNode;
+  noteRef: MutableRefObject<HTMLDivElement | null>;
+  isTextareaFocused: boolean;
+}) => {
+  const [position, setPosition] = useState({
+    x: window.innerWidth - 350,
+    y: window.innerHeight - 350,
+  });
+
+  const sensors = useSensors(useSensor(PointerSensor));
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    if (!event.delta) return;
+
+    setPosition((prev) => ({
+      x: prev.x + event.delta.x,
+      y: prev.y + event.delta.y,
+    }));
+  };
+
+  return (
+    <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+      <DraggableContent noteRef={noteRef} position={position} isTextareaFocused={isTextareaFocused}>
+        {children}
+      </DraggableContent>
+    </DndContext>
+  );
+};
+
+const DraggableContent = ({
+  children,
+  position,
+  noteRef,
+  isTextareaFocused,
+}: {
+  children: React.ReactNode;
+  position: { x: number; y: number };
+  noteRef: MutableRefObject<HTMLDivElement | null>;
+  isTextareaFocused: boolean;
+}) => {
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({ id: "draggable-note" });
+
+  return (
+    <div
+      ref={(node) => {
+        setNodeRef(node);
+        noteRef.current = node;
+      }}
+      style={{
+        position: "fixed",
+        left: `${position.x + (transform?.x || 0)}px`,
+        top: `${position.y + (transform?.y || 0)}px`,
+        cursor: isTextareaFocused ? "default" : "move",
+      }}
+      className="z-50 h-[200px] w-[300px]"
+      {...(!isTextareaFocused && listeners)}
+      {...(!isTextareaFocused && attributes)}
+      role="none"
+    >
+      {children}
+    </div>
+  );
+};
