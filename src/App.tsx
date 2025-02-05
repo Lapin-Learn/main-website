@@ -5,7 +5,9 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { getAnalytics, logEvent } from "firebase/analytics";
 import { HTTPError } from "ky";
+import { useEffect } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { useTranslation } from "react-i18next";
 
 import ErrorFallback from "@/components/ErrorFallback";
 import PageNotFound from "@/components/PageNotFound";
@@ -56,6 +58,24 @@ router.history.subscribe(() => {
 });
 
 function App() {
+  const { t } = useTranslation("metadata");
+
+  useEffect(() => {
+    document.title = t("title");
+    const ogTitleMetaTag = document.querySelector('meta[property="og:title"]');
+    const facebookTitleMetaTag = document.querySelector('meta[property="facebook:title"]');
+    const description = document.querySelector('meta[name="description"]');
+    if (ogTitleMetaTag) {
+      ogTitleMetaTag.setAttribute("content", t("title"));
+    }
+    if (facebookTitleMetaTag) {
+      facebookTitleMetaTag.setAttribute("content", t("title"));
+    }
+    if (description) {
+      description.setAttribute("content", t("description"));
+    }
+  }, [t]);
+
   return (
     <ErrorBoundary fallback={<ErrorFallback />}>
       <QueryClientProvider client={queryClient}>
