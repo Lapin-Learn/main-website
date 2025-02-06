@@ -101,5 +101,9 @@
     "latest-test": {
         "continue": "Tiếp tục làm",
         "continueDoing": "Tiếp tục làm bài"
+    },
+    "banner": {
+        "title": "Chào buổi sáng, {{name}} 👋",
+        "greetings": "Chào mừng bạn đến với LapinLearn! Bắt đầu luyện tập nào."
     }
 }

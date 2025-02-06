@@ -11,18 +11,18 @@ import { StreakSection } from "../organisms/streak";
 import TrackBar from "../organisms/track-bar";
 
 type DashboardLayoutProps = {
-  heroImage: string;
+  banner: ReactNode;
   children: ReactNode;
 };
 
-export default function DashboardLayout({ heroImage, children }: DashboardLayoutProps) {
+export default function DashboardLayout({ banner, children }: DashboardLayoutProps) {
   const { data: gamificationProfile, isFetching: isFetchingGamificationProfileData } =
     useGetGamificationProfile();
 
   return (
     <div className="flex flex-col-reverse px-4 md:grid md:grid-cols-12 md:gap-6 md:px-8">
       <div className="col-span-8 flex h-screen w-full flex-col justify-start gap-9 pt-8">
-        <img src={heroImage} alt="hero" className="rounded-2xl object-cover" />
+        {banner}
         {children}
       </div>
       <div className="col-span-4 flex flex-col gap-6 pt-4 md:sticky md:top-8 md:pt-8">

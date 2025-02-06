@@ -101,5 +101,9 @@
   "latest-test": {
       "continue": "Continue",
       "continueDoing": "Continue doing"
+  },
+  "banner": {
+    "title": "Good morning, {{name}} 👋",
+    "greetings": "Welcome to LapinLearn! Start your day with a new practice to improve your English skills."
   }
 }
