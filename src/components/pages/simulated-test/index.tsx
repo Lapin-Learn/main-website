@@ -1,8 +1,8 @@
-import { FloatingNote } from "@components/molecules/floating-note.tsx";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 
 import ErrorFallback from "@/components/ErrorFallback";
+import { FloatingNote } from "@/components/molecules/floating-note";
 import PageLayout from "@/components/templates/simulated-test-detail-layout";
 import { useGetSTSessionDetail } from "@/hooks/react-query/use-simulated-test";
 import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";

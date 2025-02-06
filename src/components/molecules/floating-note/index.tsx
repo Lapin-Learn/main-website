@@ -1,16 +1,11 @@
 import { Button, Card, Typography } from "@components/ui";
 import { Textarea } from "@components/ui/textarea.tsx";
-import {
-  DndContext,
-  DragEndEvent,
-  PointerSensor,
-  useDraggable,
-  useSensor,
-  useSensors,
-} from "@dnd-kit/core";
+import { DndContext, DragEndEvent, useDraggable, useSensor, useSensors } from "@dnd-kit/core";
 import { NotebookPenIcon, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+
+import { SmartPointerSensor } from "./smart-pointer-sensor";
 
 export function FloatingNote() {
   const { t } = useTranslation("simulatedTest");
@@ -75,7 +70,7 @@ export function FloatingNote() {
                 className="z-50 size-full h-52 resize-none border-none shadow-none focus-visible:ring-0"
               />
               <Typography variant="caption" className=" text-gray-500">
-                Use Esc to quickly close this note, and you can drag it around based on your needs.
+                {t("noteBtn.guide")}
               </Typography>
             </Card>
           </div>
@@ -97,7 +92,7 @@ const DraggableNote = ({
     y: window.innerHeight - 350,
   });
 
-  const sensors = useSensors(useSensor(PointerSensor));
+  const sensors = useSensors(useSensor(SmartPointerSensor));
 
   const handleDragEnd = (event: DragEndEvent) => {
     if (!event.delta) return;
