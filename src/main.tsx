@@ -1,6 +1,6 @@
+import "./i18n/i18n.tsx";
 import "./styles/globals.css";
 import "./styles/index.css";
-import "./i18n/i18n.tsx";
 
 import React from "react";
 import ReactDOM from "react-dom/client";

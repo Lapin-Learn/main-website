@@ -145,5 +145,10 @@
     "questions": "Danh sách câu hỏi",
     "unanswered": "Chưa trả lời",
     "yourAnswer": "Câu trả lời của bạn"
+  },
+  "noteBtn": {
+    "title": "Ghi chú",
+    "placeholder": "Viết ghi chú của bạn ở đây...",
+    "guide": "Nhấn phím Esc để đóng ghi chú này, và bạn có thể di chuyển ghi chú xung quanh dựa trên nhu cầu của mình."
   }
 }

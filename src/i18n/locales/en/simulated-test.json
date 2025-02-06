@@ -144,5 +144,10 @@
     "questions": "Questions",
     "unanswered": "Skipped",
     "yourAnswer": "Your answer"
+  },
+  "noteBtn": {
+    "title": "Take note",
+    "placeholder": "Write your note here...",
+    "guide": "Use Esc to quickly close this note, and you can drag it around based on your needs."
   }
 }
