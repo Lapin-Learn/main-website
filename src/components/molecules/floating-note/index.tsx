@@ -64,10 +64,7 @@ export function FloatingNote() {
                 onFocus={() => setIsTextareaFocused(true)}
                 onBlur={() => setIsTextareaFocused(false)}
                 placeholder={t("noteBtn.placeholder")}
-                style={{
-                  scrollbarWidth: "thin",
-                }}
-                className="z-50 size-full h-52 resize-none border-none shadow-none focus-visible:ring-0"
+                className="scrollbar z-50 size-full h-52 resize-none border-none shadow-none focus-visible:ring-0"
               />
               <Typography variant="caption" className=" text-gray-500">
                 {t("noteBtn.guide")}

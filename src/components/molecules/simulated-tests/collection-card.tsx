@@ -24,12 +24,8 @@ export const CollectionCard = ({
   //   return acc;
   // }, 0);
   return (
-    <div className="grid h-60 grid-cols-[2fr_5fr] gap-5 overflow-hidden rounded-2xl border bg-white shadow-sm hover:cursor-pointer hover:shadow-[0px_9px_24.1px_0px_rgba(101,105,115,0.1)]">
-      {thumbnail ? (
-        <img src={thumbnail} className="h-60 w-72 object-cover" />
-      ) : (
-        <Skeleton className="w-72" />
-      )}
+    <div className="grid h-60 max-w-4xl grid-cols-[2fr_5fr] gap-5 overflow-hidden rounded-2xl border bg-white shadow-sm hover:cursor-pointer hover:shadow-[0px_9px_24.1px_0px_rgba(101,105,115,0.1)]">
+      {thumbnail ? <img src={thumbnail} className="h-60 w-72 object-cover" /> : <Skeleton />}
       <div className="flex w-full flex-col justify-between gap-2 py-4 md:gap-6">
         <div className="flex h-fit w-full flex-row items-start justify-between gap-2 md:gap-8">
           <div className="flex flex-col gap-y-2">
@@ -55,6 +51,7 @@ export const CollectionCard = ({
                 ns: "practice",
                 number: 0,
                 total: totalTests,
+                context: simulatedIeltsTests[0].id ? "private" : "public",
               })}
             </span>
           </div>

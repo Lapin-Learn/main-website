@@ -57,7 +57,7 @@ const api = ky.create({
   },
 });
 
-export const apiAuth = ky.create({
+export const apiPublic = ky.create({
   prefixUrl: BASE_URL,
   hooks: {
     afterResponse: [

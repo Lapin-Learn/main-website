@@ -7,7 +7,11 @@ import { SimulatedTestSimple } from "@/lib/types/simulated-test.type";
 
 import { Separator } from "../../ui/separator";
 
-export const TestItem = ({ testName, status, estimatedBandScore }: SimulatedTestSimple) => {
+export const TestItem = ({
+  testName,
+  status,
+  estimatedBandScore,
+}: Partial<SimulatedTestSimple>) => {
   // TODO: Navigate to test history detail page
   // const handleExam = () => {
   //   console.log("exam clicked");
@@ -19,7 +23,10 @@ export const TestItem = ({ testName, status, estimatedBandScore }: SimulatedTest
         <div className="flex w-full flex-col gap-2">
           <div className="flex flex-row items-center justify-between gap-2 py-1">
             <p className="grow-0 truncate text-small text-neutral-900">{testName}</p>
-            <TestResult score={estimatedBandScore} status={status} />
+            <TestResult
+              score={estimatedBandScore}
+              status={status || EnumSimulatedTestSessionStatus.NOT_STARTED}
+            />
           </div>
         </div>
       </Button>
@@ -30,7 +37,7 @@ export const TestItem = ({ testName, status, estimatedBandScore }: SimulatedTest
   );
 };
 
-type TestResultProps = { score: number | null; status: EnumSimulatedTestSessionStatus };
+type TestResultProps = { score?: number | null; status: EnumSimulatedTestSessionStatus };
 export const TestResult = ({ score, status }: TestResultProps) => {
   return (
     <div className="items-center justify-center text-center">
