@@ -47,19 +47,33 @@ export const ColorPicker = ({ color, onChange, onClear }: ColorPickerProps) => {
         onChange={handleColorUpdate}
         onBlur={handleColorChange}
       />
-      <div className="flex max-w-60 flex-wrap items-center gap-1">
-        {themeColors.map((currentColor) => (
-          <ColorButton
-            active={currentColor === color}
-            color={currentColor}
-            key={currentColor}
-            onColorChange={onChange}
-          />
-        ))}
-        <Toolbar.Button tooltip="Reset color to default" onClick={onClear}>
-          <Icon name="Undo" />
-        </Toolbar.Button>
-      </div>
+      <ColorButtons color={color} onChange={onChange} onClear={onClear} />
+    </div>
+  );
+};
+
+export const ColorButtons = ({
+  color,
+  onChange,
+  onClear,
+}: {
+  color: string | undefined;
+  onChange: ((color: string) => void) | undefined;
+  onClear: (() => void) | undefined;
+}) => {
+  return (
+    <div className="flex max-w-60 flex-wrap items-center gap-1">
+      {themeColors.map((currentColor) => (
+        <ColorButton
+          active={currentColor === color}
+          color={currentColor}
+          key={currentColor}
+          onColorChange={onChange}
+        />
+      ))}
+      <Toolbar.Button tooltip="Reset color to default" onClick={onClear}>
+        <Icon name="Undo" />
+      </Toolbar.Button>
     </div>
   );
 };

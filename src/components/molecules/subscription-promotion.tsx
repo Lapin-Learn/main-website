@@ -14,7 +14,7 @@ import { useGetGamificationProfile } from "@hooks/react-query/useGamification.ts
 import { CheckIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import CarrotBasket from "@/assets/carrotBasket.svg";
+import CarrotBasket from "@/assets/carrot-basket.svg";
 import { carrotSubscription } from "@/lib/consts.ts";
 import { EnumSimulatedTestSessionStatus } from "@/lib/enums.ts";
 import { BaseSTSession } from "@/lib/types/simulated-test-session.type.ts";
