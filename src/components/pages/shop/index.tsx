@@ -11,7 +11,7 @@ function Banner() {
   return (
     <div className="flex w-full items-end justify-between rounded-2xl bg-[#FDF2E1] px-4 pb-4 pt-3 md:px-6">
       <div className=" flex flex-col gap-1 pb-4">
-        <div className="font-manrope text-xl font-extrabold text-[#0B0084] md:text-2xl">
+        <div className="font-manrope text-xl font-extrabold text-blue-800 md:text-2xl">
           {t("shop.title")}
         </div>
         <div className="text-xs font-normal text-blue-700 md:text-small">{t("shop.greetings")}</div>

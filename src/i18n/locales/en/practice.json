@@ -103,7 +103,11 @@
       "continueDoing": "Continue doing"
   },
   "banner": {
-    "title": "Good morning, {{name}} 👋",
+    "title": {
+        "morning": "Good morning, {{name}} 👋",
+        "afternoon": "Good afternoon, {{name}} 👋",
+        "evening": "Good evening, {{name}} 👋"
+    },
     "greetings": "Welcome to LapinLearn! Start your day with a new practice to improve your English skills."
   }
 }
