@@ -9,7 +9,8 @@
     },
     "collection-list": {
         "title": "Danh sách các bộ đề",
-        "numberOfTest": "{{number}}/{{total}} đề",
+        "numberOfTest_public": "{{total}} đề",
+        "numberOfTest_private": "{{number}}/{{total}} đề",
         "tags": {
             "academic": "Academic",
             "cambridge": "Cambridge",

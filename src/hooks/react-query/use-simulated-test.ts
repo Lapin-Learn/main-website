@@ -13,9 +13,9 @@ import { create } from "zustand";
 
 import { FIREBASE_ANALYTICS_EVENTS } from "@/lib/consts";
 import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
+import { PagingSchema } from "@/lib/types";
 import { calculateOverallBandScore, fromPageToOffset, parseInfiniteData } from "@/lib/utils";
 import {
-  CollectionParams,
   evaluateSimulatedTest,
   getLatestInprogressSTSession,
   getQuestionTypeAccuracy,
@@ -38,7 +38,7 @@ import { useToast } from "../use-toast";
 
 const simulatedTestKeys = {
   collectionKey: ["collection"] as const,
-  collectionList: (params: Partial<CollectionParams>) =>
+  collectionList: (params: Partial<PagingSchema>) =>
     [...simulatedTestKeys.collectionKey, params] as const,
   collectionDetail: (collectionId: number) =>
     [...simulatedTestKeys.collectionKey, collectionId] as const,
@@ -67,24 +67,24 @@ type State = {
 };
 
 type Action = {
-  clearFilter: () => void;
-  setFilter: (filter: State) => void;
+  clearSearch: () => void;
+  setSearch: (search: State) => void;
 };
 
-export const useFilter = create<Action & State>((set) => ({
+export const useSearch = create<Action & State>((set) => ({
   keyword: "",
-  clearFilter: () => set({ keyword: "" }),
-  setFilter: (filter: State) => set(filter),
+  clearSearch: () => set({ keyword: "" }),
+  setSearch: (search: State) => set(search),
 }));
 
 export const useGetListSimulatedTestCollection = () => {
-  const { keyword } = useFilter();
   const { fetchNextPage, isFetchingNextPage, hasNextPage, data, refetch, isLoading, isRefetching } =
     useInfiniteQuery({
-      queryKey: simulatedTestKeys.collectionList({ keyword }),
+      queryKey: simulatedTestKeys.collectionList({}),
       queryFn: ({ pageParam }) => {
         const page = pageParam || 1;
-        return getSimulatedTestCollections({ keyword, ...fromPageToOffset({ page }) });
+        const { offset, limit } = fromPageToOffset({ page });
+        return getSimulatedTestCollections({ page: offset, pageSize: limit });
       },
       getNextPageParam: (lastPage) => {
         const { total, offset, limit, page } = lastPage;

@@ -9,7 +9,8 @@
   },
   "collection-list": {
     "title": "Simulated tests",
-    "numberOfTest": "{{number}}/{{total}} tests",
+    "numberOfTest_public": "{{total}} tests",
+    "numberOfTest_private": "{{number}}/{{total}} tests",
     "tags": {
       "academic": "Academic",
       "cambridge": "Cambridge",

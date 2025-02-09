@@ -31,3 +31,13 @@ export type IStreak = {
   record: number;
   extended: boolean;
 };
+
+export type LandingPageCollection = {
+  collectionId: number;
+  collectionName: string;
+  description: string;
+  tags: string[];
+  thumbnail: string | null;
+  totalTests: number;
+  testNames: string[];
+};

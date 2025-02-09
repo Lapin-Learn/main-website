@@ -6,8 +6,8 @@ import Donut from "@/assets/icons/landing-page/donut";
 import Flower from "@/assets/icons/landing-page/flower";
 import Star1 from "@/assets/icons/landing-page/star-1";
 import Star2 from "@/assets/icons/landing-page/star-2";
-import MobileAppImage1 from "@/assets/images/mobile-app-1.png";
-import MobileAppImage2 from "@/assets/images/mobile-app-2.png";
+import MobileAppImage1 from "@/assets/images/mobile-app-1.webp";
+import MobileAppImage2 from "@/assets/images/mobile-app-2.webp";
 
 export const MobileApp = () => {
   const { t } = useTranslation("landingPage");

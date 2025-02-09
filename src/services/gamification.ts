@@ -1,6 +1,6 @@
 import { EnumMissionCategory } from "@/lib/enums";
 import { FetchingData } from "@/lib/types";
-import { GamificationProfile, StreakHistory } from "@/lib/types/gamification";
+import { GamificationProfile, StreakHistory } from "@/lib/types/gamification.type";
 import { Mission } from "@/lib/types/mission.type";
 import { generateSearchParams } from "@/lib/utils";
 
