@@ -15,5 +15,5 @@ export const searchCollections = async (keyword: string) => {
 export const getCollectionIntroduction = async () => {
   return (
     await apiPublic.get("collections/introduction").json<FetchingData<LandingPageCollection[]>>()
-  ).data;
+  ).data.slice(0, 3);
 };

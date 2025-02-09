@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 import { MAPPED_SIMULATED_TEST_TAGS } from "@/lib/consts";
-import { SimulatedTestCollection } from "@/lib/types/simulated-test.type";
+import { SimulatedTestCollection, SimulatedTestSimple } from "@/lib/types/simulated-test.type";
 import { cn } from "@/lib/utils";
 
 import { Skeleton } from "../../ui/skeleton";
@@ -24,51 +24,71 @@ export const CollectionCard = ({
   //   return acc;
   // }, 0);
   return (
-    <div className="grid h-60 max-w-4xl grid-cols-[2fr_5fr] gap-5 overflow-hidden rounded-2xl border bg-white shadow-sm hover:cursor-pointer hover:shadow-[0px_9px_24.1px_0px_rgba(101,105,115,0.1)]">
-      {thumbnail ? <img src={thumbnail} className="h-60 w-72 object-cover" /> : <Skeleton />}
-      <div className="flex w-full flex-col justify-between gap-2 py-4 md:gap-6">
-        <div className="flex h-fit w-full flex-row items-start justify-between gap-2 md:gap-8">
-          <div className="flex flex-col gap-y-2">
-            <div>
-              <span className="mr-2 text-lg font-semibold leading-8">{name}</span>
-              <TagsList
-                tags={tags}
-                format={(tag) =>
-                  t("collection-list.tags." + MAPPED_SIMULATED_TEST_TAGS[tag.trim()], {
-                    ns: "practice",
-                  })
-                }
-              />
-            </div>
+    <div className="overflow-hidden rounded-2xl border bg-white shadow-sm hover:cursor-pointer hover:shadow-[0px_9px_24.1px_0px_rgba(101,105,115,0.1)]">
+      <div className="grid min-h-36 max-w-4xl grid-cols-[2fr_5fr] gap-5 md:min-h-60">
+        {thumbnail ? (
+          <img src={thumbnail} className="h-36 w-72 object-cover md:h-60" />
+        ) : (
+          <Skeleton className="rounded-none" />
+        )}
+        <div className="flex w-full flex-col justify-between gap-2 py-4 md:gap-6">
+          <div className="flex h-fit w-full flex-row items-start justify-between gap-2 md:gap-8">
+            <div className="flex flex-col gap-y-2">
+              <div>
+                <span className="mr-2 text-lg font-semibold leading-8">{name}</span>
+                <TagsList
+                  tags={tags}
+                  format={(tag) =>
+                    t("collection-list.tags." + MAPPED_SIMULATED_TEST_TAGS[tag.trim()], {
+                      ns: "practice",
+                    })
+                  }
+                />
+              </div>
 
-            <p className="line-clamp-1 truncate text-wrap text-sm font-normal text-neutral-400 sm:line-clamp-2 md:line-clamp-3">
-              {description}
-            </p>
+              <p className="line-clamp-1 truncate text-wrap text-sm font-normal text-neutral-400 sm:line-clamp-2 md:line-clamp-3">
+                {description}
+              </p>
+            </div>
+            <div className="clip-custom bg-[#FCE3B4] p-2 pl-7 pr-3.5">
+              <span className="text-nowrap text-sm text-[#A9421C]">
+                {t("collection-list.numberOfTest", {
+                  ns: "practice",
+                  number: 0,
+                  total: totalTests,
+                  context: simulatedIeltsTests[0].id ? "private" : "public",
+                })}
+              </span>
+            </div>
           </div>
-          <div className="clip-custom bg-[#FCE3B4] p-2 pl-7 pr-3.5">
-            <span className="text-nowrap text-sm text-[#A9421C]">
-              {t("collection-list.numberOfTest", {
-                ns: "practice",
-                number: 0,
-                total: totalTests,
-                context: simulatedIeltsTests[0].id ? "private" : "public",
-              })}
-            </span>
-          </div>
-        </div>
-        <div
-          className={cn(
-            "grid grid-cols-1 items-center justify-between gap-x-8 gap-y-1.5 pr-10 md:grid-cols-2",
-            simulatedIeltsTests.length % 2 == 0
-              ? "[&>*:nth-last-child(-n+2)>span]:hidden"
-              : "[&>*:nth-last-child(-n+1)>span]:hidden"
-          )}
-        >
-          {simulatedIeltsTests.map((test, index) => (
-            <TestItem key={index} {...test} />
-          ))}
+          <TestList tests={simulatedIeltsTests} className="hidden md:grid" />
         </div>
       </div>
+      <TestList tests={simulatedIeltsTests} className="p-4 md:hidden" />
+    </div>
+  );
+};
+
+const TestList = ({
+  tests,
+  className,
+}: {
+  tests: Partial<SimulatedTestSimple>[];
+  className?: string;
+}) => {
+  return (
+    <div
+      className={cn(
+        "grid grid-cols-2 items-center justify-between gap-x-8 gap-y-1.5 pr-10",
+        className,
+        tests.length % 2 == 0
+          ? "[&>*:nth-last-child(-n+2)>span]:hidden"
+          : "[&>*:nth-last-child(-n+1)>span]:hidden"
+      )}
+    >
+      {tests.map((test, index) => (
+        <TestItem key={index} {...test} />
+      ))}
     </div>
   );
 };
