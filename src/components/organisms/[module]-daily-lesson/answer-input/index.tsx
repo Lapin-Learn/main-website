@@ -1,6 +1,7 @@
 import useDailyLessonStore, { DLAnswer } from "@/hooks/zustand/use-daily-lesson-store";
 import { EnumDLContentType } from "@/lib/enums";
 
+import FillInTheBlank from "./fill-in-the-blank";
 import Matching from "./matching";
 import MultipleChoice from "./multiple-choice";
 
@@ -38,8 +39,15 @@ const AnswerInput = (props: AnswerInputProps) => {
       return (
         <Matching {...content} {...props} currentQuestionIndex={index} isAnswered={isAnswered} />
       );
-    // case ContentTypeEnum.FILL_IN_THE_BLANK:
-    //   return <FillInTheBlank {...content} {...rest} />;
+    case EnumDLContentType.FILL_IN_THE_BLANK:
+      return (
+        <FillInTheBlank
+          {...content}
+          {...props}
+          currentQuestionIndex={index}
+          isAnswered={isAnswered}
+        />
+      );
     default:
       return null;
   }
