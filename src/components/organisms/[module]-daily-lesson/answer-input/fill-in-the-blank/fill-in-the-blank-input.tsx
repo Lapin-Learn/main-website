@@ -17,7 +17,7 @@ type FillInTheBlankInputProps = {
 
 const getBlankStyles = (isCorrect: boolean | null, hasText: boolean, isFocused: boolean) => ({
   indexCircle: cn(
-    "h-8 w-8 rounded-full flex items-center justify-center",
+    "size-8 rounded-full flex items-center justify-center",
     isCorrect === null
       ? hasText
         ? "bg-blue-500"
@@ -37,16 +37,18 @@ const getBlankStyles = (isCorrect: boolean | null, hasText: boolean, isFocused: 
         : "text-red-50"
   ),
   input: cn(
-    "border-b text-center pt-1 w-36",
+    "border-border text-center w-36 h-10 flex items-center",
     isCorrect === null
       ? isFocused
         ? "text-blue-600 border-blue-600"
         : hasText
-          ? "text-black border-black"
-          : "text-neutral-300 border-neutral-200"
+          ? "text-black"
+          : "text-neutral-300"
       : `w-auto ${isCorrect ? "text-green-600 border-green-600" : "text-red-600 border-red-600 line-through"}`
   ),
-  correctAnswer: cn("border-b text-center pt-1 w-auto text-green-600 border-green-600"),
+  correctAnswer: cn(
+    "border-border text-center w-auto text-green-600 border-green-600 h-10 flex items-center"
+  ),
 });
 
 const FillInTheBlankInput = ({
