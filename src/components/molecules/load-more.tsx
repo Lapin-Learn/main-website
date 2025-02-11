@@ -1,33 +1,19 @@
 import { InfiniteQueryObserverBaseResult } from "@tanstack/react-query";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
+
+import useInView from "@/hooks/use-in-view";
 
 export interface LoadMoreProps {
   hasNextPage: InfiniteQueryObserverBaseResult["hasNextPage"];
   fetchNextPage: InfiniteQueryObserverBaseResult["fetchNextPage"];
   isFetchingNextPage: InfiniteQueryObserverBaseResult["isFetchingNextPage"];
-  // TODO: inject React.ReactNode
   label?: string;
 }
 
 export const LoadMore = (props: LoadMoreProps) => {
   const { hasNextPage, isFetchingNextPage, fetchNextPage, label = "Loading more..." } = props;
 
-  const [isInView, setIsInView] = useState(false);
-  const ref = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (!ref.current) return;
-
-    const observer = new IntersectionObserver(([entry]) => setIsInView(entry.isIntersecting), {
-      threshold: 0.1,
-    });
-
-    observer.observe(ref.current);
-
-    return () => {
-      if (ref.current) observer.unobserve(ref.current);
-    };
-  }, []);
+  const { ref, isInView } = useInView();
 
   useEffect(() => {
     if (!isFetchingNextPage && isInView && hasNextPage) {
