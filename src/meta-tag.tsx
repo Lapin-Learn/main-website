@@ -3,9 +3,9 @@ import { Helmet } from "react-helmet";
 const metaTags: Record<string, Record<string, string>> = {
   en: {
     ogTitle: "LapinLearn - learn IELTS with more interesting things",
-    fbTitle:
+    fbTitle: "LapinLearn - learn IELTS with more interesting things",
+    description:
       "Our creative IELTS learning platform combines the power of gamification with personalized study plans, making IELTS preparation fun and effective. Start your IELTS conquering journey today!",
-    description: "Discover a wide range of services tailored to your needs.",
   },
   vi: {
     ogTitle: "LapinLearn - học IELTS với nhiều điều thú vị hơn",
