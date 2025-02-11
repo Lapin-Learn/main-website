@@ -5,7 +5,10 @@ import { useTranslation } from "react-i18next";
 import Star from "@/assets/icons/landing-page/star";
 import { PulsatingButton } from "@/components/ui/pulsating-button";
 
-export const AiAssistant = () => {
+type AiAssistantProps = {
+  isLoggedIn?: boolean;
+};
+export const AiAssistant = ({ isLoggedIn = false }: AiAssistantProps) => {
   const { t } = useTranslation("landingPage");
   return (
     <div className="relative flex max-h-screen w-full flex-col items-center justify-center bg-background px-4 py-9 md:px-32 md:py-20">
@@ -23,12 +26,14 @@ export const AiAssistant = () => {
             ))}
           </div>
         </div>
-        <Link to="/sign-up">
+        <Link to={isLoggedIn ? "/daily-lesson" : "/sign-up"}>
           <PulsatingButton
             className="w-fit rounded-full bg-[#1C64F2] px-5 py-2 hover:opacity-90 md:px-6 md:py-3.5"
             pulseStyle="rounded-full"
           >
-            <p className="text-small font-medium">{t("aiAssistant.registerNow")}</p>
+            <p className="text-small font-medium">
+              {isLoggedIn ? t("navBar.start") : t("aiAssistant.registerNow")}
+            </p>
           </PulsatingButton>
         </Link>
       </div>

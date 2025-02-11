@@ -128,7 +128,7 @@ export const useSignInWithGoogle = () => {
     onSuccess: (data) => {
       if (data) {
         setAccessToken(data.accessToken);
-        navigate({ to: "/" });
+        navigate({ to: "/lessons" });
       }
     },
     onError: (error) => {
@@ -168,7 +168,7 @@ export const useSignUpWithGoogle = () => {
       // }
     },
     onSuccess: () => {
-      navigate({ to: "/" });
+      navigate({ to: "/lessons" });
       toast({
         title: t("success"),
         description: t("SIGN_UP", { ns: "success" }),

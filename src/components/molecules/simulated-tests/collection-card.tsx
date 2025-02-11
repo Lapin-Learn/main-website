@@ -25,7 +25,7 @@ export const CollectionCard = ({
   // }, 0);
   return (
     <div className="overflow-hidden rounded-2xl border bg-white shadow-sm hover:cursor-pointer hover:shadow-[0px_9px_24.1px_0px_rgba(101,105,115,0.1)]">
-      <div className="grid min-h-36 max-w-4xl grid-cols-[2fr_5fr] gap-5 md:min-h-60">
+      <div className="grid min-h-36 max-w-full grid-cols-[2fr_5fr] gap-5 md:min-h-60">
         {thumbnail ? (
           <img src={thumbnail} className="h-36 w-72 object-cover md:h-60" />
         ) : (
