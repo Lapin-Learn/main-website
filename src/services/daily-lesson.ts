@@ -1,4 +1,4 @@
-import { EnumSkill } from "@/lib/enums";
+import { EnumBandScore, EnumSkill } from "@/lib/enums";
 import { DLQuestion, FetchingData } from "@/lib/types";
 import {
   DailyLesson,
@@ -14,9 +14,17 @@ import api from "./kyInstance";
 export const getQuestionTypes = async (skill: EnumSkill) => {
   const searchParams = generateSearchParams({ skill });
   return (
-    await api
-      .get("daily-lessons/question-types", { searchParams })
-      .json<FetchingData<(QuestionType & { progress: QuestionTypeProgress })[]>>()
+    await api.get("daily-lessons/question-types", { searchParams }).json<
+      FetchingData<
+        (QuestionType & { progress: QuestionTypeProgress } & {
+          instructions: Instruction[];
+          bandScoreRequires: {
+            bandScore: EnumBandScore;
+            requireXP: number;
+          }[];
+        })[]
+      >
+    >()
   ).data;
 };
 

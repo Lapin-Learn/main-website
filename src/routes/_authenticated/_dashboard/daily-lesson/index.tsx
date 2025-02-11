@@ -1,11 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import SkillListPage from "@/components/pages/[module]-daily-lesson/skill-list";
+import DailyLessonPage from "@/components/pages/[module]-daily-lesson";
 
 export const Route = createFileRoute("/_authenticated/_dashboard/daily-lesson/")({
-  component: RouteComponent,
+  component: DailyLessonPage,
 });
-
-function RouteComponent() {
-  return <SkillListPage />;
-}

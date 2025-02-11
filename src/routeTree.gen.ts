@@ -141,13 +141,6 @@ const AuthenticatedDashboardPracticeCollectionIdIndexRoute =
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any);
 
-const AuthenticatedDashboardDailyLessonQuestionTypesIndexRoute =
-  AuthenticatedDashboardDailyLessonQuestionTypesIndexImport.update({
-    id: "/daily-lesson/question-types/",
-    path: "/daily-lesson/question-types/",
-    getParentRoute: () => AuthenticatedDashboardRoute,
-  } as any);
-
 const AuthenticatedDashboardProfileProfileIndexRoute =
   AuthenticatedDashboardProfileProfileIndexImport.update({
     id: "/profile/",
@@ -159,13 +152,6 @@ const AuthenticatedDashboardPracticeSimulatedTestResultRoute =
   AuthenticatedDashboardPracticeSimulatedTestResultImport.update({
     id: "/practice/simulated-test/result",
     path: "/practice/simulated-test/result",
-    getParentRoute: () => AuthenticatedDashboardRoute,
-  } as any);
-
-const AuthenticatedDashboardDailyLessonQuestionTypesQuestionTypeIdRoute =
-  AuthenticatedDashboardDailyLessonQuestionTypesQuestionTypeIdImport.update({
-    id: "/daily-lesson/question-types/$questionTypeId",
-    path: "/daily-lesson/question-types/$questionTypeId",
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any);
 
@@ -570,10 +556,8 @@ export interface FileRouteTypes {
     | "/profile/change-password"
     | "/profile/history"
     | "/profile/transactions"
-    | "/daily-lesson/question-types/$questionTypeId"
     | "/practice/simulated-test/result"
     | "/profile"
-    | "/daily-lesson/question-types"
     | "/practice/$collectionId"
     | "/practice/$collectionId/simulated-test/$simulatedTestId";
   fileRoutesByTo: FileRoutesByTo;
@@ -594,10 +578,8 @@ export interface FileRouteTypes {
     | "/profile/change-password"
     | "/profile/history"
     | "/profile/transactions"
-    | "/daily-lesson/question-types/$questionTypeId"
     | "/practice/simulated-test/result"
     | "/profile"
-    | "/daily-lesson/question-types"
     | "/practice/$collectionId"
     | "/practice/$collectionId/simulated-test/$simulatedTestId";
   id:
@@ -687,9 +669,7 @@ export const routeTree = rootRoute
         "/_authenticated/_dashboard/daily-lesson/",
         "/_authenticated/_dashboard/practice/",
         "/_authenticated/_dashboard/shop/",
-        "/_authenticated/_dashboard/daily-lesson/question-types/$questionTypeId",
         "/_authenticated/_dashboard/practice/simulated-test/result",
-        "/_authenticated/_dashboard/daily-lesson/question-types/",
         "/_authenticated/_dashboard/practice/$collectionId/",
         "/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId"
       ]
@@ -760,10 +740,6 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/_dashboard/_profile/profile/transactions.tsx",
       "parent": "/_authenticated/_dashboard/_profile"
     },
-    "/_authenticated/_dashboard/daily-lesson/question-types/$questionTypeId": {
-      "filePath": "_authenticated/_dashboard/daily-lesson/question-types/$questionTypeId.tsx",
-      "parent": "/_authenticated/_dashboard"
-    },
     "/_authenticated/_dashboard/practice/simulated-test/result": {
       "filePath": "_authenticated/_dashboard/practice/simulated-test/result.tsx",
       "parent": "/_authenticated/_dashboard"
@@ -771,10 +747,6 @@ export const routeTree = rootRoute
     "/_authenticated/_dashboard/_profile/profile/": {
       "filePath": "_authenticated/_dashboard/_profile/profile/index.tsx",
       "parent": "/_authenticated/_dashboard/_profile"
-    },
-    "/_authenticated/_dashboard/daily-lesson/question-types/": {
-      "filePath": "_authenticated/_dashboard/daily-lesson/question-types/index.tsx",
-      "parent": "/_authenticated/_dashboard"
     },
     "/_authenticated/_dashboard/practice/$collectionId/": {
       "filePath": "_authenticated/_dashboard/practice/$collectionId/index.tsx",
