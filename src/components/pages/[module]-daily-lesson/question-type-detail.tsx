@@ -4,14 +4,15 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import PracticeIcon from "@/assets/icons/practice";
+import BandScoreSelect from "@/components/molecules/daily-lesson/bandscore-select";
 import { Button } from "@/components/ui";
 import {
   Carousel,
+  type CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  type CarouselApi,
 } from "@/components/ui/carousel";
 import {
   Dialog,
@@ -49,6 +50,7 @@ const QuestionTypeDetail = ({
     (questionType) => questionType.id === Number(questionTypeId)
   );
   const { bandScore } = currentQuestionType?.progress || { bandScore: "pre_ielts" };
+  const [bandSelected, setBandSelected] = useState<EnumBandScore>(bandScore as EnumBandScore);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const navigate = useNavigate();
@@ -74,7 +76,11 @@ const QuestionTypeDetail = ({
           className="m-0 flex h-[95%] flex-col items-center justify-between md:left-[98%] md:w-[50vw] md:-translate-x-full md:overflow-y-scroll lg:w-[30vw]"
         >
           <div className="flex w-full flex-col">
-            <div className="flex w-full flex-row items-center justify-end">
+            <div className="flex w-full flex-row items-center justify-between">
+              <BandScoreSelect
+                value={bandSelected}
+                setValue={(value) => setBandSelected(() => value)}
+              />
               <DialogClose>
                 <X className="text-black" />
               </DialogClose>
