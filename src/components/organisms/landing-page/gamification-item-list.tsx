@@ -127,7 +127,7 @@ export function GamificationItemList({
         {isInView && (
           <AnimatedList>
             {gamificationInfo.map((item) => (
-              <GamificationItem {...item} opacity={getOpacity(item.no)} />
+              <GamificationItem {...item} opacity={getOpacity(item.no)} key={item.key} />
             ))}
           </AnimatedList>
         )}

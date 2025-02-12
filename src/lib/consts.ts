@@ -1,4 +1,4 @@
-import CarrotBasket from "@/assets/carrotBasket.svg";
+import CarrotBasket from "@/assets/carrot-basket.svg";
 import icons from "@/assets/icons";
 import AllSkillsIcon from "@/assets/icons/skills/all";
 import ListeningIcon from "@/assets/icons/skills/listening";

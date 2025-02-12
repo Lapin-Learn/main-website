@@ -19,11 +19,7 @@ import { generateSearchParams } from "@/lib/utils";
 
 import api from "./kyInstance";
 
-export type CollectionParams = {
-  keyword?: string;
-} & PagingSchema;
-
-export const getSimulatedTestCollections = async (payload: CollectionParams) => {
+export const getSimulatedTestCollections = async (payload: PagingSchema) => {
   const searchParams = generateSearchParams(payload);
   return (
     await api

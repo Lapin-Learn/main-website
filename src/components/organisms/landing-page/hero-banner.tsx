@@ -6,11 +6,19 @@ import { Trans, useTranslation } from "react-i18next";
 import { RiveHeroBanner } from "@/components/rive/hero-banner";
 import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
 import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern";
-export const HeroBanner = () => {
+
+type HeroBannerProps = {
+  id: string;
+  isLoggedIn?: boolean;
+};
+export const HeroBanner = ({ id, isLoggedIn = false }: HeroBannerProps) => {
   const { t } = useTranslation("landingPage");
 
   return (
-    <div className="relative flex h-[800px] w-full flex-col items-center justify-center bg-linear-hero-banner px-4 py-20 md:h-screen md:px-20 md:py-40">
+    <div
+      id={id}
+      className="relative flex h-[800px] w-full flex-col items-center justify-center bg-linear-hero-banner px-4 py-20 md:h-screen md:px-20 md:py-40"
+    >
       <div className="flex h-full flex-col items-center gap-6 md:grid md:grid-cols-12 md:gap-6">
         <div className="z-10 col-start-1 flex h-fit flex-col gap-5 md:col-span-5 md:col-start-2 md:gap-10">
           <div className="flex flex-col gap-5">
@@ -42,11 +50,13 @@ export const HeroBanner = () => {
             <p className="text-small md:text-xl">{t("heroBanner.description")}</p>
           </div>
           <Link
-            to="/sign-up"
+            to={isLoggedIn ? "/daily-lesson" : "/sign-up"}
             className="w-fit rounded-full bg-red-yellow-linear px-5 py-3 hover:opacity-90 md:px-6 md:py-3.5"
           >
             <div className="flex items-center gap-2 text-white">
-              <p className="font-medium">{t("heroBanner.registerNow")}</p>
+              <p className="font-medium">
+                {isLoggedIn ? t("navBar.start") : t("heroBanner.registerNow")}
+              </p>
               <ArrowRight className="size-6" />
             </div>
           </Link>

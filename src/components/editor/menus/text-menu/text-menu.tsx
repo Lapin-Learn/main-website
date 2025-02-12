@@ -7,6 +7,7 @@ import { Icon } from "@/components/ui/icon";
 import { Surface } from "@/components/ui/surface";
 import { Toolbar } from "@/components/ui/toolbar";
 
+import { TIPPY_OPTIONS } from "../consts";
 import { ContentTypePicker } from "./components/content-type-picker";
 import { useTextmenuCommands } from "./hooks/useTextmenuCommands";
 import { useTextmenuContentTypes } from "./hooks/useTextmenuContentTypes";
@@ -29,27 +30,7 @@ export const TextMenu = ({ editor }: TextMenuProps) => {
 
   return (
     <BubbleMenu
-      tippyOptions={{
-        popperOptions: {
-          placement: "top-start",
-          modifiers: [
-            {
-              name: "preventOverflow",
-              options: {
-                boundary: "viewport",
-                padding: 8,
-              },
-            },
-            {
-              name: "flip",
-              options: {
-                fallbackPlacements: ["bottom-start", "top-end", "bottom-end"],
-              },
-            },
-          ],
-        },
-        maxWidth: "calc(100vw - 16px)",
-      }}
+      tippyOptions={TIPPY_OPTIONS}
       editor={editor}
       pluginKey="textMenu"
       shouldShow={states.shouldShow}
@@ -84,7 +65,7 @@ export const TextMenu = ({ editor }: TextMenuProps) => {
           <Icon name="Underline" />
         </MemoButton>
         <MemoButton
-          tooltip="Strikehrough"
+          tooltip="Strikethrough"
           tooltipShortcut={["Mod", "Shift", "S"]}
           onClick={commands.onStrike}
           active={states.isStrike}

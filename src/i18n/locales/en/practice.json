@@ -9,7 +9,8 @@
   },
   "collection-list": {
     "title": "Simulated tests",
-    "numberOfTest": "{{number}}/{{total}} tests",
+    "numberOfTest_public": "{{total}} tests",
+    "numberOfTest_private": "{{number}}/{{total}} tests",
     "tags": {
       "academic": "Academic",
       "cambridge": "Cambridge",
@@ -101,5 +102,13 @@
   "latest-test": {
       "continue": "Continue",
       "continueDoing": "Continue doing"
+  },
+  "banner": {
+    "title": {
+        "morning": "Good morning, {{name}} 👋",
+        "afternoon": "Good afternoon, {{name}} 👋",
+        "evening": "Good evening, {{name}} 👋"
+    },
+    "greetings": "Welcome to LapinLearn! Start your day with a new practice to improve your English skills."
   }
 }

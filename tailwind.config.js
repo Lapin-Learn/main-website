@@ -13,6 +13,7 @@ module.exports = {
   theme: {
     fontFamily: {
       sans: ["Inter", "sans-serif"],
+      manrope: ["Manrope", "sans-serif"],
     },
     extend: {
       fontSize: {

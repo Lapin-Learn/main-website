@@ -31,7 +31,7 @@ export type SimulatedTestCollection = {
   tags: string[];
   thumbnail: string | null;
   testCount: number;
-  simulatedIeltsTests: SimulatedTestSimple[];
+  simulatedIeltsTests: Partial<SimulatedTestSimple>[];
 };
 
 export type SimulatedTestSimple = {

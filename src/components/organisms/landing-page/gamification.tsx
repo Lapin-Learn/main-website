@@ -2,6 +2,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { RiveAboutUsIntroduce } from "@/components/rive/about-us-introduce";
+import useInView from "@/hooks/use-in-view";
 
 import { GamificationItemList } from "./gamification-item-list";
 
@@ -22,20 +23,37 @@ const imgs: ReactNode[] = [
 export const Gamification = () => {
   const { t } = useTranslation("landingPage");
   const [activeItem, setActiveItem] = useState<string>("0");
+  const { ref, isInView } = useInView();
 
   useEffect(() => {
-    const progressChanging = setInterval(() => {
-      setActiveItem((prev) => {
-        return ((parseInt(prev) + 1) % 3).toString();
-      });
-    }, 10000); // 10s
+    let progressChanging: NodeJS.Timeout;
+
+    const startInterval = () => {
+      progressChanging = setInterval(() => {
+        setActiveItem((prev) => {
+          return ((parseInt(prev) + 1) % 3).toString();
+        });
+      }, 10000);
+    };
+
+    startInterval();
+
     return () => {
       clearInterval(progressChanging);
     };
-  }, []);
+  }, [activeItem]);
+
+  useEffect(() => {
+    if (!isInView) {
+      setActiveItem("0");
+    }
+  }, [isInView]);
 
   return (
-    <div className="relative flex w-full flex-col items-center justify-center bg-background px-4 py-6 md:max-h-screen md:px-20 md:py-12">
+    <div
+      className="relative flex w-full flex-col items-center justify-center bg-background px-4 py-6 md:max-h-screen md:px-20 md:py-12"
+      ref={ref}
+    >
       <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-12">
         <RiveAboutUsIntroduce
           variant={Number(activeItem)}

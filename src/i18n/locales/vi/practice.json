@@ -9,7 +9,8 @@
     },
     "collection-list": {
         "title": "Danh sách các bộ đề",
-        "numberOfTest": "{{number}}/{{total}} đề",
+        "numberOfTest_public": "{{total}} đề",
+        "numberOfTest_private": "{{number}}/{{total}} đề",
         "tags": {
             "academic": "Academic",
             "cambridge": "Cambridge",
@@ -101,5 +102,13 @@
     "latest-test": {
         "continue": "Tiếp tục làm",
         "continueDoing": "Tiếp tục làm bài"
+    },
+    "banner": {
+        "title": {
+            "morning": "Chào buổi sáng, {{name}} 👋",
+            "afternoon": "Chào buổi chiều, {{name}} 👋",
+            "evening": "Chào buổi tối, {{name}} 👋"
+        },
+        "greetings": "Chào mừng bạn đến với LapinLearn! Bắt đầu luyện tập nào."
     }
 }

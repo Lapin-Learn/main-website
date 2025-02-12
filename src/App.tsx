@@ -14,7 +14,9 @@ import PageNotFound from "@/components/PageNotFound";
 import { Toaster } from "@/components/ui/toaster";
 import { routeTree } from "@/routeTree.gen";
 
+import i18n from "./i18n/i18n";
 import { FIREBASE_ANALYTICS_EVENTS } from "./lib/consts";
+import MetaTags from "./meta-tag";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -62,28 +64,19 @@ function App() {
 
   useEffect(() => {
     document.title = t("title");
-    const ogTitleMetaTag = document.querySelector('meta[property="og:title"]');
-    const facebookTitleMetaTag = document.querySelector('meta[property="facebook:title"]');
-    const description = document.querySelector('meta[name="description"]');
-    if (ogTitleMetaTag) {
-      ogTitleMetaTag.setAttribute("content", t("title"));
-    }
-    if (facebookTitleMetaTag) {
-      facebookTitleMetaTag.setAttribute("content", t("title"));
-    }
-    if (description) {
-      description.setAttribute("content", t("description"));
-    }
   }, [t]);
 
   return (
-    <ErrorBoundary fallback={<ErrorFallback />}>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <ReactQueryDevtools />
-        <Toaster />
-      </QueryClientProvider>
-    </ErrorBoundary>
+    <>
+      <MetaTags language={i18n.language} />
+      <ErrorBoundary fallback={<ErrorFallback />}>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+          <ReactQueryDevtools />
+          <Toaster />
+        </QueryClientProvider>
+      </ErrorBoundary>
+    </>
   );
 }
 

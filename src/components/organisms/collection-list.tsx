@@ -1,22 +1,24 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link, useLocation } from "@tanstack/react-router";
+import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { Search } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
 
 import { LoadMore } from "@/components/molecules/load-more";
-import { Form, FormControl, FormField, FormItem, Input } from "@/components/ui";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui";
+import { useSearchCollection } from "@/hooks/react-query/use-public";
 import {
-  useFilter,
   useGetListSimulatedTestCollection,
+  useSearch,
 } from "@/hooks/react-query/use-simulated-test";
 import { useDebounce } from "@/hooks/use-debounce";
-import { SIMULATED_TEST_TAGS } from "@/lib/consts";
+import { SimulatedTestCollection } from "@/lib/types/simulated-test.type";
 import { generateKeyword } from "@/lib/utils";
 
-import FormSelect from "../molecules/form-inputs/form-select";
+import { AutoComplete, AutocompleteOption } from "../molecules/autocomplete";
+import { SearchTagsList } from "../molecules/search-tags-list";
 import {
   CollectionCard,
   SkeletonCollectionCard,
@@ -25,36 +27,43 @@ import SkillsFilter from "../molecules/skill-filter";
 
 const formSchema = z.object({
   search: z.string().optional(),
-  filter: z.string().optional(),
 });
 
 type FormInputs = z.infer<typeof formSchema>;
 
 export const CollectionList = () => {
+  const [selectedValue, setSelectedValue] = useState("");
   const location = useLocation();
+  const navigate = useNavigate();
   const { t } = useTranslation("practice");
 
   const form = useForm<FormInputs>({
     defaultValues: {
       search: "",
-      filter: "",
     },
     resolver: zodResolver(formSchema),
   });
   const searchText = useDebounce(form.watch("search"), 300);
-  // TODO: update multiple filter
-  const tag = form.watch("filter") || "";
 
   const { list, loadMoreProps, isLoading } = useGetListSimulatedTestCollection();
-  const { setFilter, clearFilter } = useFilter();
+  const { data: searchResponse, isLoading: isSearching } = useSearchCollection();
+  const { setSearch: setFilter, clearSearch: clearFilter } = useSearch();
 
   useEffect(() => {
-    setFilter({ keyword: generateKeyword({ tag, searchText: searchText || "" }) });
-  }, [searchText, tag]);
+    setFilter({ keyword: generateKeyword({ searchText: searchText || "" }) });
+  }, [searchText]);
 
   useEffect(() => {
     return () => clearFilter();
   }, []);
+
+  const onSelectedValueChange = (value: string) => {
+    setSelectedValue(value);
+
+    navigate({
+      to: `/practice/${value}`,
+    });
+  };
 
   return (
     <div className="container flex flex-col items-center gap-2 md:gap-8">
@@ -72,28 +81,32 @@ export const CollectionList = () => {
               control={form.control}
               name="search"
               render={({ field }) => (
-                <FormItem className="w-full lg:w-auto">
+                <FormItem className="w-full lg:w-64">
                   <FormControl>
-                    <Input
+                    <AutoComplete
+                      selectedValue={selectedValue}
+                      onSelectedValueChange={onSelectedValueChange}
                       placeholder={t("search.placeholder")}
-                      className="h-9 w-full bg-white placeholder:text-neutral-300 focus:outline-none"
+                      inputClassName="h-9 w-full bg-white placeholder:text-neutral-300 focus:outline-none"
                       StartIcon={Search}
-                      {...field}
+                      searchValue={field.value || ""}
+                      onSearchValueChange={field.onChange}
+                      items={
+                        searchResponse?.map((collection) => {
+                          const { id: value, name: label, ...rest } = collection;
+                          return {
+                            label,
+                            value: String(value),
+                            data: { ...rest },
+                          };
+                        }) || []
+                      }
+                      isLoading={isSearching}
+                      renderItem={renderSearchItem}
                     />
                   </FormControl>
                 </FormItem>
               )}
-            />
-            <FormSelect
-              name="filter"
-              inputClassName="bg-white h-9"
-              placeholder={t("collection-list.tagPlaceholder")}
-              options={SIMULATED_TEST_TAGS.map(({ value, labelKey }) => {
-                return {
-                  label: t(`collection-list.tags.${labelKey}`, { ns: "practice" }),
-                  value,
-                };
-              })}
             />
           </form>
         </Form>
@@ -117,6 +130,17 @@ export const CollectionList = () => {
         )}
         {loadMoreProps.hasNextPage && <LoadMore {...loadMoreProps} />}
       </div>
+    </div>
+  );
+};
+
+const renderSearchItem = (
+  item: AutocompleteOption<Omit<SimulatedTestCollection, "id" | "name">>
+) => {
+  return (
+    <div className="flex w-full flex-col gap-2">
+      <span>{item.label}</span>
+      <SearchTagsList tags={item.data.tags} />
     </div>
   );
 };

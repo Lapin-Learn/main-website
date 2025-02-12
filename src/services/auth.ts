@@ -10,7 +10,7 @@ import { EnumActionOTP } from "@/lib/enums";
 import { FetchingData } from "@/lib/types";
 import { AccountIdentifier } from "@/lib/types/user.type";
 import { generateSearchParams } from "@/lib/utils";
-import api, { apiAuth, apiCustomToken } from "@/services/kyInstance";
+import api, { apiCustomToken, apiPublic } from "@/services/kyInstance";
 
 export const localStorageTokenKey = "auth_client_token";
 
@@ -31,8 +31,9 @@ export const getAuthValueFromStorage = () => {
 };
 
 export const signIn = async (payload: SignInPayload) => {
-  const data = (await apiAuth.post("auth/signin", { json: payload }).json<FetchingData<AuthInfo>>())
-    .data;
+  const data = (
+    await apiPublic.post("auth/signin", { json: payload }).json<FetchingData<AuthInfo>>()
+  ).data;
   localStorage.setItem(localStorageTokenKey, JSON.stringify(data));
   return data;
 };
@@ -43,7 +44,9 @@ type SignUpPayload = {
 };
 
 export const signUp = async (payload: SignUpPayload) => {
-  const data = await apiAuth.post("auth/signup", { json: payload }).json<FetchingData<AuthInfo>>();
+  const data = await apiPublic
+    .post("auth/signup", { json: payload })
+    .json<FetchingData<AuthInfo>>();
   return data;
 };
 
@@ -93,7 +96,7 @@ export const refreshToken = async () => {
   const authInfo = getAuthValueFromStorage();
   if (authInfo?.refreshToken) {
     const data = (
-      await apiAuth
+      await apiPublic
         .post("auth/refresh", {
           json: { refreshToken: authInfo.refreshToken },
         })
@@ -128,7 +131,7 @@ export const signInWithGoogle = async () => {
   if (!credential) return;
 
   const data = (
-    await apiAuth
+    await apiPublic
       .post("auth/provider", {
         json: {
           credential: credential.idToken,
@@ -151,7 +154,7 @@ export const signUpWithGoogle = async () => {
   if (!credential) return;
 
   const data = (
-    await apiAuth
+    await apiPublic
       .post("auth/provider", {
         json: {
           credential: credential.idToken,

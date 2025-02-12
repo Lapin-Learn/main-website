@@ -2,6 +2,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 
 import ErrorFallback from "@/components/ErrorFallback";
+import { FloatingNote } from "@/components/molecules/floating-note";
 import PageLayout from "@/components/templates/simulated-test-detail-layout";
 import { useGetSTSessionDetail } from "@/hooks/react-query/use-simulated-test";
 import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
@@ -61,17 +62,20 @@ const SimulatedTestPage = () => {
   }
 
   return (
-    <PageLayout
-      header={
-        session.skillTest.skill === EnumSkill.speaking ? (
-          <SpeakingHeader currentPart={speakingPart} session={session} />
-        ) : (
-          <Header currentPart={position.part} session={session} />
-        )
-      }
-      session={session}
-      renderFooter={renderFooter}
-    />
+    <>
+      <PageLayout
+        header={
+          session.skillTest.skill === EnumSkill.speaking ? (
+            <SpeakingHeader currentPart={speakingPart} session={session} />
+          ) : (
+            <Header currentPart={position.part} session={session} />
+          )
+        }
+        session={session}
+        renderFooter={renderFooter}
+      />
+      <FloatingNote />
+    </>
   );
 };
 
