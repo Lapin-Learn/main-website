@@ -26,17 +26,22 @@ export const ExplanationDialog = () => {
         setShowExplanation(open);
       }}
     >
-      <DialogContent className="gap-2 md:h-[500px]">
+      <DialogContent className="max-h-[560px] max-w-4xl gap-6">
         <DialogHeader>
           <DialogTitle>
             <h4 className="text-heading-4 font-semibold">{t("explanation.title")}</h4>
           </DialogTitle>
         </DialogHeader>
-        <div className="h-full overflow-y-auto">
+        <div className="max-h-[380px] overflow-y-auto">
           {parse(currentQuestion?.question?.explanation ?? "")}
         </div>
         <DialogFooter className="items-end md:w-full md:justify-center">
-          <Button variant="black" className="w-full" onClick={() => setShowExplanation(false)}>
+          <Button
+            variant="black"
+            size="2xl"
+            className="w-full"
+            onClick={() => setShowExplanation(false)}
+          >
             {t("explanation.understood")}
           </Button>
         </DialogFooter>

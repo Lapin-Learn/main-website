@@ -47,8 +47,8 @@ const DailyLessonContent = () => {
     const currentProgress = Math.max(1, (currentQuestion / numberOfQuestions) * 100);
 
     return (
-      <div className="mx-auto flex h-screen flex-col items-center gap-2">
-        <div className="mb-4 flex w-full flex-row items-center gap-4 border-b md:px-36 md:py-2">
+      <div className="mx-auto flex h-full flex-col items-center gap-2 bg-[#F8F8F8]">
+        <div className="mb-4 flex w-full flex-row items-center gap-4 border-b bg-white md:px-36 md:py-2">
           <DailyLessonExitDialog
             triggerButton={
               <Button
