@@ -84,7 +84,7 @@ const Matching = (props: MatchingProps) => {
           {columnA.options.map((option, index) => {
             return (
               <div key={index} className="flex items-center gap-4">
-                <div className="flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-900">
+                <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-900">
                   {index + 1}
                 </div>
                 <div>{option}</div>

@@ -28,6 +28,7 @@ type State = {
     result: LessonResult | null;
   };
   learnerAnswers: DLAnswer[];
+  showExplanation: boolean;
 };
 
 type Action = {
@@ -36,6 +37,7 @@ type Action = {
   clear: VoidFunction;
   answerQuestion: (newAnswer: DLAnswer) => void;
   setResult: (result: LessonResult) => void;
+  setShowExplanation: (show: boolean) => void;
 };
 
 const initialValue: State = {
@@ -51,6 +53,7 @@ const initialValue: State = {
     result: null,
   },
   learnerAnswers: [],
+  showExplanation: false,
 };
 
 const useDailyLessonStore = create<State & Action>((set, get) => ({
@@ -117,6 +120,11 @@ const useDailyLessonStore = create<State & Action>((set, get) => ({
         ...state.lessonState,
         result,
       },
+    }));
+  },
+  setShowExplanation: (show) => {
+    set(() => ({
+      showExplanation: show,
     }));
   },
 }));

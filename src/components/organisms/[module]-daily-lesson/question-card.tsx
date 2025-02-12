@@ -11,7 +11,7 @@ const QuestionCard = () => {
   if (!currentQuestion?.question) return null;
   const { content, audioId, audio } = currentQuestion.question as DLQuestion;
   return (
-    <div>
+    <div className="px-4 md:px-40">
       {audioId && audio?.url && <AudioPlayer src={audio.url} className="h-12 w-96 rounded-xl" />}
       {content.paragraph && (
         <ScrollArea className="h-60 rounded-xl border bg-white px-4">
