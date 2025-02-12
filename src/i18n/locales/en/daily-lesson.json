@@ -35,7 +35,6 @@
     "continue": "Continue lesson",
     "quit": "Quit"
   },
-  "studied": "Studied",
   "questionType": {
     "totalLearnedTime": "Total",
     "theoryPractice": "Practice theory",
@@ -43,5 +42,9 @@
     "practiceBtn": "Start now",
     "jumpNextBtn": "Jump to next band",
     "comingSoon": "Coming soon..."
+  },
+  "questionTypes": {
+    "experience": "Progress",
+    "xp": "XP"
   }
 }

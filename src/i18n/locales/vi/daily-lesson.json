@@ -1,6 +1,6 @@
 {
   "title": "Bài học hàng ngày",
-  "progress": "Tiến độ",
+  "progress": "Kinh nghiệm",
   "loading": {
     "tips": [
       "Bạn có thể làm bài tập nâng band mà không cần tích lũy đủ điểm kinh nghiệm",
@@ -35,17 +35,16 @@
     "continue": "Tiếp tục làm bài",
     "quit": "Thoát"
   },
-  "studied": "Đã học",
   "questionType": {
     "totalLearnedTime": "Đã học",
-    "theoryPractice": "Ôn tập lý thuyết",
+    "theoryPractice": "Ôn lý thuyết",
     "noLessonFound": "Không tìm thấy bài học",
     "practiceBtn": "Luyện tập",
     "jumpNextBtn": "Thử thách nâng band",
     "comingSoon": "Sắp ra mắt..."
   },
   "questionTypes": {
-    "experience": "Progress",
-    "xp": "XP"
+    "experience": "Tiến độ",
+    "xp": "KN"
   }
 }

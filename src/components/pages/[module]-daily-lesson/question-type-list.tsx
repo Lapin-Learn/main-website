@@ -5,6 +5,7 @@ import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetQuestionTypes } from "@/hooks/react-query/use-daily-lesson";
 import { EnumBandScore, EnumSkill } from "@/lib/enums";
+import { cn } from "@/lib/utils";
 
 import QuestionTypeDetail from "./question-type-detail";
 type QuestionTypeListPageProps = {
@@ -20,28 +21,32 @@ const QuestionTypeList = ({ skill }: QuestionTypeListPageProps) => {
       {isSuccess && (
         <div className="flex w-full flex-col items-center gap-5">
           {questionTypes?.map((questionType) => {
-            const xpRequired = questionType.bandScoreRequires.find(
-              (bandScore) => bandScore.bandScore === questionType.progress.bandScore
-            )?.requireXP;
+            const xpRequired =
+              questionType.bandScoreRequires.find(
+                (bandScore) => bandScore.bandScore === questionType.progress.bandScore
+              )?.requireXP ?? 0;
+
             return (
               <QuestionTypeDetail
                 key={questionType.id}
                 questionTypeId={questionType.id.toString()}
                 exerciseSkill={skill}
-                className="w-full"
+                className="w-full "
               >
-                <Card className="relative flex h-fit w-full flex-row overflow-hidden p-6 transition-all duration-300 hover:cursor-pointer hover:shadow-lg">
+                <Card className="relative flex w-full flex-row items-center justify-center overflow-hidden p-2 transition-all duration-300 hover:cursor-pointer hover:shadow-lg lg:p-2">
                   {questionType.image && (
-                    <img
-                      src={questionType.image.url}
-                      alt={questionType.name}
-                      className="!size-20 rounded-full"
-                    />
+                    <div className="flex !size-24 flex-row items-center overflow-hidden rounded-full lg:!size-36">
+                      <img
+                        src={questionType.image.url}
+                        alt={questionType.name}
+                        className="object-contain"
+                      />
+                    </div>
                   )}
-                  <CardContent className="w-full">
-                    <div className="flex flex-col gap-2">
+                  <CardContent className="grow p-2 pt-0">
+                    <div className="flex h-full flex-col items-start justify-between gap-2">
                       <div className="flex flex-row items-center justify-between">
-                        <div className="flex flex-row items-center justify-start gap-3">
+                        <div className="flex flex-row items-center justify-start gap-1 lg:gap-3">
                           <CardTitle className="text-heading-6 font-semibold text-black">
                             {questionType.name}
                           </CardTitle>
@@ -69,9 +74,9 @@ const QuestionTypeList = ({ skill }: QuestionTypeListPageProps) => {
 
                         {/* TODO */}
                         <Progress
-                          value={questionType.progress.totalLearningXP}
+                          value={(questionType.progress.totalLearningXP / xpRequired) * 100}
                           label={`${questionType.progress.totalLearningXP}/${xpRequired}`}
-                          className="h-3 w-full"
+                          className={cn("h-3 w-full")}
                         />
                       </div>
                     </div>

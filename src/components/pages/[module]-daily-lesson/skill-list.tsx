@@ -33,7 +33,7 @@ const SkillListPage = () => {
   const { t } = useTranslation("dailyLesson");
   const [currentSkill, setCurrentSkill] = useState<EnumSkill>(EnumSkill.reading);
   return (
-    <main className="flex size-full flex-col gap-4">
+    <main className="flex size-full flex-col space-y-8">
       <p className="text-left text-heading-4 font-semibold">{t("title")}</p>
       <SkillGrid currentSkill={currentSkill} setCurrentSkill={setCurrentSkill} />
       <QuestionTypeList skill={currentSkill} />
@@ -50,25 +50,27 @@ const SkillGrid = ({
 }) => {
   return (
     <div className="flex items-center justify-center">
-      <div className="grid size-fit grid-cols-2 gap-4">
+      <div className="grid w-full grid-cols-4 gap-2 md:gap-4">
         {Object.keys(EnumSkill).map((skill) => (
           <div
             key={skill}
             className={cn(
-              "w-full h-fit flex flex-col sm:flex-row justify-around items-center rounded-2xl overflow-hidden",
+              "w-full col-span-2 grid grid-cols-subgrid justify-around items-center rounded-2xl overflow-hidden",
               dailyLessonSkillMapping[skill as EnumSkill].color,
               currentSkill === skill ? "opacity-100" : "opacity-60"
             )}
             onMouseDown={() => setCurrentSkill(skill as EnumSkill)}
           >
-            <div className="w-fit basis-1/2 px-4 sm:px-11">
-              <p className="text-heading-3 font-bold capitalize text-white">{skill}</p>
+            <div className="flex w-full flex-row items-center justify-center">
+              <p className="text-base font-bold capitalize text-white md:text-heading-5 lg:text-heading-3">
+                {skill}
+              </p>
             </div>
-            <div className="static h-48 w-full basis-1/2 bg-blue-500">
+            <div className="h-full">
               <img
                 src={dailyLessonSkillMapping[skill as EnumSkill].image}
                 alt={skill}
-                className="size-full object-top md:hidden"
+                className="size-full object-contain md:hidden"
                 onLoad={(e) => (e.currentTarget.style.display = "block")}
                 onError={(e) => (e.currentTarget.style.display = "none")}
                 style={{ display: "none" }}

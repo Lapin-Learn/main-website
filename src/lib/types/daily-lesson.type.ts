@@ -13,6 +13,8 @@ export type DailyLesson = {
   name: string;
   order: number;
   bandScore: EnumBandScore;
+  isCurrent: boolean;
+  xp: number;
 };
 
 export type QuestionType = {
