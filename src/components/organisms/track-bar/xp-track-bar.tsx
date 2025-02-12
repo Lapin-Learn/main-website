@@ -21,7 +21,7 @@ const XpTrackBar = ({
   const { t } = useTranslation("tooltip");
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 overflow-hidden">
       <TooltipWrapper
         triggerNode={
           <div className="cursor-pointer">
