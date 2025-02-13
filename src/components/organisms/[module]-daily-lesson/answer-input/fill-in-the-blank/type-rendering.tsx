@@ -62,7 +62,7 @@ const FillInTheBlankContentRenderer = ({
   const blankCounter = { current: 0 };
 
   return (
-    <div className="flex flex-row flex-wrap items-center gap-1">
+    <div className="flex flex-row flex-wrap items-center gap-1 px-4 md:px-56">
       {content.map((element, index) => {
         switch (element.type) {
           case "paragraph":

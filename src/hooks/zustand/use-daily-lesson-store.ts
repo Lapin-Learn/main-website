@@ -24,6 +24,7 @@ type State = {
     } | null;
     isCompleted: boolean;
     isStarted: boolean;
+    isAudioPlaying: boolean;
     startTime: number;
     result: LessonResult | null;
   };
@@ -49,6 +50,7 @@ const initialValue: State = {
     currentQuestion: null,
     isCompleted: false,
     isStarted: false,
+    isAudioPlaying: false,
     startTime: 0,
     result: null,
   },
@@ -69,6 +71,7 @@ const useDailyLessonStore = create<State & Action>((set, get) => ({
         ...state.lessonState,
         currentQuestion: questions.length > 0 ? { index: 0, question: questions[0] } : null,
         isStarted: true,
+        isAudioPlaying: true,
         startTime: Date.now(),
       },
     })),
@@ -88,6 +91,7 @@ const useDailyLessonStore = create<State & Action>((set, get) => ({
       set({
         lessonState: {
           ...lessonState,
+          isAudioPlaying: true,
           currentQuestion: {
             index: currentQuestion.index + 1,
             question: questions[currentQuestion.index + 1],
@@ -106,13 +110,10 @@ const useDailyLessonStore = create<State & Action>((set, get) => ({
     }
   },
   answerQuestion: (newAnswer) => {
-    const {
-      learnerAnswers,
-      lessonState: { currentQuestion },
-    } = get();
-    if (!currentQuestion) return;
-    learnerAnswers[currentQuestion.index] = newAnswer;
-    set({ learnerAnswers });
+    const { learnerAnswers, lessonState } = get();
+    if (!lessonState.currentQuestion) return;
+    learnerAnswers[lessonState.currentQuestion.index] = newAnswer;
+    set({ learnerAnswers, lessonState: { ...lessonState, isAudioPlaying: false } });
   },
   setResult: (result) => {
     set((state) => ({
