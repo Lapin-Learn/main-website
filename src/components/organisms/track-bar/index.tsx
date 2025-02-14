@@ -26,52 +26,49 @@ const TrackBar = ({ data }: TrackBarProps) => {
   };
 
   return (
-    <div className="flex flex-row items-center justify-center space-x-4 rounded-2xl bg-white px-2 py-4">
-      <div className="flex shrink-0 items-center justify-center overflow-hidden">
-        <TooltipWrapper
-          triggerNode={
-            <button onClick={() => {}}>
-              <Streak className="hover:opacity-80" streak={data.streak} />
-            </button>
-          }
-          contentNode={<Trans i18nKey="tooltip:gamification.streak" />}
-          asChild
-          className="max-w-60"
-        />
-      </div>
-      <div className="flex shrink-0 items-center justify-center overflow-hidden">
-        <TooltipWrapper
-          triggerNode={
-            <button onClick={handleNavigateToShop}>
-              <Carrots
-                className="hover:opacity-80"
-                carrots={data.carrots}
-                size="base"
-                textStyle="text-orange-400"
-              />
-            </button>
-          }
-          contentNode={
-            <>
-              <Trans i18nKey="tooltip:gamification.carrot.description" />
-              <ul className="list-disc pl-4">
-                {Array.from({ length: 3 }).map((_, index) => (
-                  <li key={index} className="pb-1">
-                    {t(`gamification.carrot.ways.${index}`)}
-                  </li>
-                ))}
-              </ul>
-            </>
-          }
-          className="flex max-w-80 flex-col gap-1"
-          asChild
-        />
-      </div>
+    <div className="flex w-full flex-row items-center justify-around gap-2 rounded-2xl bg-white p-4">
+      <TooltipWrapper
+        triggerNode={
+          <button onClick={() => {}}>
+            <Streak className="hover:opacity-80" streak={data.streak} />
+          </button>
+        }
+        contentNode={<Trans i18nKey="tooltip:gamification.streak" />}
+        asChild
+        className=""
+      />
+      <TooltipWrapper
+        triggerNode={
+          <button onClick={handleNavigateToShop}>
+            <Carrots
+              className="cursor-pointer hover:opacity-80"
+              carrots={data.carrots}
+              size="base"
+              textStyle="text-orange-400"
+            />
+          </button>
+        }
+        contentNode={
+          <>
+            <Trans i18nKey="tooltip:gamification.carrot.description" />
+            <ul className="list-disc pl-4">
+              {Array.from({ length: 3 }).map((_, index) => (
+                <li key={index} className="pb-1">
+                  {t(`gamification.carrot.ways.${index}`)}
+                </li>
+              ))}
+            </ul>
+          </>
+        }
+        className="flex flex-col gap-1"
+        asChild
+      />
       <XpTrackBar
         level={data.level.id}
         currentXp={data.xp}
         levelXp={data.level.xp}
         rank={data.rank}
+        className=""
       />
     </div>
   );

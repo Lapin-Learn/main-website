@@ -41,7 +41,8 @@
     "noLessonFound": "No lesson found",
     "practiceBtn": "Start now",
     "jumpNextBtn": "Jump to next band",
-    "comingSoon": "Coming soon..."
+    "comingSoon": "Coming soon...",
+    "unavailable": "This lesson is not available yet"
   },
   "questionTypes": {
     "experience": "Progress",

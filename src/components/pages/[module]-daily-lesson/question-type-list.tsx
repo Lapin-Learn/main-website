@@ -1,3 +1,4 @@
+import { useLocation, useNavigate } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 
 import { Card, CardContent, CardTitle } from "@/components/ui";
@@ -15,6 +16,17 @@ type QuestionTypeListPageProps = {
 const QuestionTypeList = ({ skill }: QuestionTypeListPageProps) => {
   const { data: questionTypes, isSuccess, isLoading } = useGetQuestionTypes(skill);
   const { t } = useTranslation("dailyLesson");
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const handleChooseLesson = (bandScore: EnumBandScore, skill: EnumSkill) => {
+    navigate({
+      to: pathname,
+      search: {
+        skill: skill,
+        bandScore: bandScore,
+      },
+    });
+  };
   return (
     <main className="h-fit w-full">
       {isLoading && <SkeletonQuestionTypeList />}
@@ -30,21 +42,23 @@ const QuestionTypeList = ({ skill }: QuestionTypeListPageProps) => {
               <QuestionTypeDetail
                 key={questionType.id}
                 questionTypeId={questionType.id.toString()}
-                exerciseSkill={skill}
                 className="w-full "
               >
-                <Card className="relative flex w-full flex-row items-center justify-center overflow-hidden p-2 transition-all duration-300 hover:cursor-pointer hover:shadow-lg lg:p-2">
-                  {questionType.image && (
-                    <div className="flex !size-24 flex-row items-center overflow-hidden rounded-full lg:!size-36">
-                      <img
-                        src={questionType.image.url}
-                        alt={questionType.name}
-                        className="object-contain"
-                      />
-                    </div>
-                  )}
-                  <CardContent className="grow p-2 pt-0">
-                    <div className="flex h-full flex-col items-start justify-between gap-2">
+                <Card className="relative w-full transition-all duration-300 hover:cursor-pointer hover:shadow-lg lg:p-2">
+                  <CardContent
+                    className="flex w-full grow flex-row items-center justify-center space-x-5 p-5"
+                    onClick={() => handleChooseLesson(questionType.progress.bandScore, skill)}
+                  >
+                    {questionType.image && (
+                      <div className="flex size-20 flex-row items-center overflow-hidden rounded-full ">
+                        <img
+                          src={questionType.image.url}
+                          alt={questionType.name}
+                          className="h-full object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="flex h-full grow flex-col items-start justify-between gap-2">
                       <div className="flex flex-row items-center justify-between">
                         <div className="flex flex-row items-center justify-start gap-1 lg:gap-3">
                           <CardTitle className="text-heading-6 font-semibold text-black">
@@ -71,7 +85,6 @@ const QuestionTypeList = ({ skill }: QuestionTypeListPageProps) => {
                         <p className="text-left text-small font-medium text-[#929292]">
                           {t("progress")}
                         </p>
-
                         {/* TODO */}
                         <Progress
                           value={(questionType.progress.totalLearningXP / xpRequired) * 100}
@@ -92,25 +105,9 @@ const QuestionTypeList = ({ skill }: QuestionTypeListPageProps) => {
 };
 
 const SkeletonQuestionTypeList = () => {
-  return [1, 2, 3, 4].map((_, index) => <Skeleton key={index} className="h-20 w-full" />);
+  return [1, 2, 3, 4].map((_, index) => (
+    <Skeleton key={index} className="my-4 h-32 w-full rounded-2xl" />
+  ));
 };
 
-// type QuestionTypeDrawerWrapperProps = {
-//   children: React.ReactNode;
-//   isOpen: boolean;
-//   setIsOpen: (isOpen: boolean) => void;
-// };
-
-// const QuestionTypeDrawerWrapper = ({
-//   children,
-//   isOpen,
-//   setIsOpen,
-// }: QuestionTypeDrawerWrapperProps) => {
-//   return (
-//     <Drawer open={isOpen} onClose={() => setIsOpen(false)}>
-//       <DrawerTrigger className="w-full">{children}</DrawerTrigger>
-//       <DrawerContent></DrawerContent>
-//     </Drawer>
-//   );
-// };
 export default QuestionTypeList;

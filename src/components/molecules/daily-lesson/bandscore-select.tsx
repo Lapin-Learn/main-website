@@ -1,3 +1,4 @@
+import { useNavigate } from "@tanstack/react-router";
 import { BookOpenText } from "lucide-react";
 
 import {
@@ -8,22 +9,28 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 import { BAND_SCORES } from "@/lib/consts";
+import { EnumBandScore } from "@/lib/enums";
+import { Route } from "@/routes/_authenticated/_dashboard/daily-lesson";
 
 type BandScoreSelectProps = {
-  value: keyof typeof BAND_SCORES;
-  setValue: (value: keyof typeof BAND_SCORES) => void;
+  value: EnumBandScore;
 };
 
-const BandScoreSelect = ({ value, setValue }: BandScoreSelectProps) => {
+const BandScoreSelect = ({ value }: BandScoreSelectProps) => {
+  const { skill } = Route.useSearch();
+  const navigate = useNavigate();
+
+  const handleChangeBandScore = (value: string) => {
+    navigate({
+      to: "",
+      search: {
+        skill: skill,
+        bandScore: value,
+      },
+    });
+  };
   return (
-    <Select
-      defaultValue={value}
-      //   value={{
-      //     label: BAND_SCORES[value as keyof typeof BAND_SCORES],
-      //     value,
-      //   }}
-      onValueChange={(value) => setValue(value as keyof typeof BAND_SCORES)}
-    >
+    <Select defaultValue={value} onValueChange={(value) => handleChangeBandScore(value)}>
       <SelectTrigger className="size-fit border-0 shadow-none" isArrow={false}>
         <BookOpenText size={24} className="text-neutral-300" />
       </SelectTrigger>
