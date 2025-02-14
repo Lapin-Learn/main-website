@@ -74,6 +74,7 @@ const QuestionTypeDetail = ({ questionTypeId, className, children }: QuestionTyp
       <DialogTrigger className={className}>{children}</DialogTrigger>
       <DialogContent
         showClose={false}
+        onPointerDownOutside={handleCloseDetailDialog}
         className="m-0 flex h-[95%] flex-col items-center justify-between md:left-[98%] md:w-[50vw] md:-translate-x-full md:overflow-y-scroll lg:w-[30vw]"
       >
         <div className="flex w-full flex-col">
