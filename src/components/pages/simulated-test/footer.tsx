@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import QuestionNavigator from "@/components/molecules/question-navigator-button";
 import { Button } from "@/components/ui";
-import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
+import useSimulatedTestState, { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { DEFAULT_QUESTION_NO_BY_SKILL } from "@/lib/consts";
 import { EnumSkill } from "@/lib/enums";
 import { PartDetail } from "@/lib/types/simulated-test.type";
@@ -21,6 +21,7 @@ type FooterProps = {
 const Footer = ({ partDetails, skill, answerStatus }: FooterProps) => {
   const { navigateToPart, position } = useSimulatedTestState();
   const { t } = useTranslation("simulatedTest");
+  const { setCurrentQuestion } = useAnswerStore();
 
   const nextPart = DEFAULT_QUESTION_NO_BY_SKILL[skill]
     ? DEFAULT_QUESTION_NO_BY_SKILL[skill][position.part + 1]?.startQuestionNo
@@ -33,18 +34,15 @@ const Footer = ({ partDetails, skill, answerStatus }: FooterProps) => {
     if (!nextPart) return;
     if (skill !== EnumSkill.speaking) {
       navigateToPart(nextPart, position.part + 1);
+      setCurrentQuestion(nextPart);
     }
   };
 
   const moveToPrevPart = () => {
     if (!prevPart) return;
     if (skill !== EnumSkill.speaking) {
-      navigateToPart(
-        DEFAULT_QUESTION_NO_BY_SKILL[skill]
-          ? DEFAULT_QUESTION_NO_BY_SKILL[skill][position.part - 1].startQuestionNo
-          : 0,
-        position.part - 1
-      );
+      navigateToPart(prevPart, position.part - 1);
+      setCurrentQuestion(prevPart);
     }
   };
 
