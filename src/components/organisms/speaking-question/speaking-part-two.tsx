@@ -1,4 +1,3 @@
-import { ArrowRight } from "lucide-react";
 import { useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -81,6 +80,7 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
       }
     }
   }, [isEndPreparation]);
+
   useEffect(() => {
     if (session.mode === EnumMode.FULL_TEST && testTime === 0) {
       handleNextPart();
@@ -92,16 +92,15 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
       }
     }
   }, [testTime]);
+
   if (!content) return null;
+
   return (
     <div className="grid w-[880px] grid-cols-12 gap-6">
       <div className="col-span-8 flex flex-col justify-center gap-6 overflow-visible rounded-lg border border-blue-200 bg-white p-12">
         <h5 className="text-center text-heading-5 font-semibold">{content.heading}</h5>
-        <ul className="list-inside list-disc">
-          <p>You should say:</p>
-          {content.content.map((detail, index) => (
-            <li key={index}>{detail}</li>
-          ))}
+        <ul className="prose list-inside list-disc">
+          <div dangerouslySetInnerHTML={{ __html: content.content }} />
         </ul>
       </div>
       <div className="col-span-4 flex flex-col items-center justify-center gap-8 overflow-visible rounded-lg border border-blue-200 bg-white p-10">
@@ -119,9 +118,12 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
         />
         <Button
           type="button"
+          variant="ghost"
           className="flex w-full flex-1 items-center gap-2 sm:w-fit"
           disabled={isRunning}
-          onClick={() => handleNextPart()}
+          onClick={() => {
+            recordingButtonRef.current?.click();
+          }}
         >
           {t(
             getNextButtonText(
@@ -131,7 +133,6 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
             ),
             { time: timeLeft }
           )}
-          <ArrowRight className="size-4" />
         </Button>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 import { useSubmitSimulatedTest } from "@/hooks/react-query/use-simulated-test";
 import { useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
@@ -32,15 +32,15 @@ const SpeakingEndTest = () => {
   };
 
   return (
-    <div className="flex w-[800px] flex-col items-center gap-10 overflow-visible rounded-lg border border-blue-200 bg-white p-12">
-      <div className="flex flex-col items-center gap-3">
-        <p className="text-center">{t("speaking.endTestMessage")}</p>
-        <p className="text-center"> {t("speaking.endTestPlayBack")}</p>
+    <div className="flex w-[800px] flex-col items-center gap-4 overflow-visible rounded-lg border border-blue-200 bg-white p-12">
+      <div className="flex flex-col items-center gap-3 text-center">
+        <Trans
+          i18nKey="simulatedTest:speaking.endTestMessage"
+          components={{
+            br: <br />,
+          }}
+        />
       </div>
-      {/* <AudioPlayer
-        className="w-full rounded-md border p-4 shadow-background"
-        src={speakingSources[0].url}
-      /> */}
       <Button onClick={handleSubmitSpeaking}>{t("submitBtn")}</Button>
     </div>
   );

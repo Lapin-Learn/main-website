@@ -1,5 +1,4 @@
-import { ArrowRight } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
 import RecordingButton from "@/components/molecules/recording-button";
@@ -23,6 +22,7 @@ const SpeakingPartOneAndThree = ({ content, session }: SpeakingQuestionProps) =>
   } = useSpeakingTestState();
   const { timeLeft, restart, isRunning, isEnd } = useCountdown(NEXT_QUESTION_COUNT_DOWN);
   const { getTimer } = useGlobalTimerStore();
+  const recordingButtonRef = useRef<HTMLButtonElement | null>(null);
   const { t } = useTranslation("simulatedTest");
 
   const testTime = getTimer(timerKeys.testDetail(session.id))?.time;
@@ -83,13 +83,16 @@ const SpeakingPartOneAndThree = ({ content, session }: SpeakingQuestionProps) =>
         onStop={handleNextQuestion}
         duration={SPEAKING_PART_ONE_AND_THREE_DURATION}
         disabled={isRunning}
+        ref={recordingButtonRef}
       />
       <Button
         type="button"
-        variant={question === content?.content.length ? "default" : "ghost"}
+        variant="ghost"
         className="flex w-full flex-1 items-center gap-2 sm:w-fit"
         disabled={isRunning}
-        onClick={() => handleNextQuestion()}
+        onClick={() => {
+          recordingButtonRef.current?.click();
+        }}
       >
         {t(
           getNextButtonText(
@@ -99,7 +102,6 @@ const SpeakingPartOneAndThree = ({ content, session }: SpeakingQuestionProps) =>
           ),
           { time: timeLeft }
         )}
-        <ArrowRight className="size-4" />
       </Button>
     </div>
   );

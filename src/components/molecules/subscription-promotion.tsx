@@ -49,6 +49,7 @@ export function SubscriptionPromotion({ results, id, status }: PromotionProps) {
                 {t(`shop.use_modal.amount`, { ns: "shop", amount: profile?.carrots, name: "" })}
               </Typography>
               <PulsatingButton
+                pulseColor="#F4926F"
                 onClick={() => evaluateMutation.mutate(id)}
                 disabled={status == EnumSimulatedTestSessionStatus.IN_EVALUATING}
               >

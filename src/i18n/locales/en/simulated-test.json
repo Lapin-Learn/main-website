@@ -125,8 +125,9 @@
     "endTestInSeconds": "Test ends in {{ time }}s",
     "endTest": "End the Test",
     "endTestTitle": "That's the end of the Speaking test",
-    "endTestMessage": "You have completed the test. Please wait for us to evaluate your speaking test.",
-    "endTestPlayBack": "You can listen to your speaking test below:"
+    "endTestMessage": "You have completed the Speaking test.<br />Please click submit to finish the test and review your answers.",
+    "endTestPlayBack": "You can listen to your speaking test below:",
+    "answerQuestion": "Answer the question"
   },
   "startTest": "Start the Test",
   "start": "Start",
