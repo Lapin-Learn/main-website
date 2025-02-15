@@ -52,14 +52,14 @@ const SkillGrid = ({
     <div className="flex items-center justify-center">
       <div className="grid w-full grid-cols-4 gap-2 md:gap-4">
         {Object.keys(EnumSkill).map((skill) => (
-          <div
+          <button
             key={skill}
             className={cn(
-              "w-full col-span-2 grid grid-cols-subgrid justify-around items-center rounded-2xl overflow-hidden",
+              "w-full col-span-2 grid grid-cols-subgrid justify-around items-center rounded-2xl overflow-hidden hover:opacity-100 transition-opacity duration-200",
               dailyLessonSkillMapping[skill as EnumSkill].color,
               currentSkill === skill ? "opacity-100" : "opacity-60"
             )}
-            onMouseDown={() => setCurrentSkill(skill as EnumSkill)}
+            onClick={() => setCurrentSkill(skill as EnumSkill)}
           >
             <div className="flex w-full flex-row items-center justify-center">
               <p className="text-base font-bold capitalize text-white md:text-heading-5 lg:text-heading-3">
@@ -76,7 +76,7 @@ const SkillGrid = ({
                 style={{ display: "none" }}
               />
             </div>
-          </div>
+          </button>
         ))}
       </div>
     </div>

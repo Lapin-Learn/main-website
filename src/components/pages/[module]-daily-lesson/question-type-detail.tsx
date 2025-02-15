@@ -75,7 +75,7 @@ const QuestionTypeDetail = ({ questionTypeId, className, children }: QuestionTyp
       <DialogContent
         showClose={false}
         onPointerDownOutside={handleCloseDetailDialog}
-        className="m-0 flex h-[95%] flex-col items-center justify-between md:left-[98%] md:w-[50vw] md:-translate-x-full md:overflow-y-scroll lg:w-[30vw]"
+        className="m-0 flex h-[95%] flex-col items-center justify-between md:left-[99%] md:w-[50vw] md:-translate-x-full md:overflow-y-scroll lg:w-[30vw]"
       >
         <div className="flex w-full flex-col">
           <div className="flex w-full flex-row items-center justify-between">
@@ -112,7 +112,7 @@ const QuestionTypeDetail = ({ questionTypeId, className, children }: QuestionTyp
               title={currentQuestionType?.name}
               instruction={currentQuestionType?.instructions[0]}
             >
-              <Button className="flex w-fit flex-row space-x-1 bg-[#EFEFEF] px-7 py-3 focus:bg-neutral-300">
+              <Button className="flex w-fit flex-row space-x-1 bg-[#EFEFEF] transition-colors duration-200 hover:bg-neutral-100 focus:bg-neutral-100">
                 <div className="flex size-4 items-center justify-center md:size-5 lg:size-6">
                   <Triangle className="size-2/3 rotate-90 text-black" fill="black" />
                 </div>
@@ -143,7 +143,7 @@ const QuestionTypeDetail = ({ questionTypeId, className, children }: QuestionTyp
         </div>
 
         <Button
-          size="lg"
+          size="2xl"
           className="w-full rounded-md px-4 py-2.5"
           disabled={!isAvailable || isComingSoon}
           onClick={() => {
