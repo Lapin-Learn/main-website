@@ -34,8 +34,8 @@ const TrackBar = ({ data }: TrackBarProps) => {
           </button>
         }
         contentNode={<Trans i18nKey="tooltip:gamification.streak" />}
+        className="flex flex-col gap-1"
         asChild
-        className=""
       />
       <TooltipWrapper
         triggerNode={
@@ -68,7 +68,6 @@ const TrackBar = ({ data }: TrackBarProps) => {
         currentXp={data.xp}
         levelXp={data.level.xp}
         rank={data.rank}
-        className=""
       />
     </div>
   );

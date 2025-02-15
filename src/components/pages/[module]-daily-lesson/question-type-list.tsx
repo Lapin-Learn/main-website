@@ -71,11 +71,9 @@ const QuestionTypeList = ({ skill }: QuestionTypeListPageProps) => {
                         </div>
                         <div className="clip-custom absolute right-0 bg-[#FCE3B4] p-2 pl-7 pr-3.5">
                           <span className="text-nowrap text-sm text-[#A9421C]">
-                            {t("collection-list.numberOfTest", {
-                              ns: "practice",
-                              number: 0,
-                              total: questionType.lessons,
-                              context: "public",
+                            {t("questionTypes.numberOfLessons", {
+                              number: questionType.lessons,
+                              context: questionType.lessons > 1 ? "plural" : "singular",
                             })}
                           </span>
                         </div>

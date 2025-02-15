@@ -1,6 +1,6 @@
 import { QueryFunctionContext } from "@tanstack/react-query";
 
-import { EnumBandScore, EnumSkill } from "@/lib/enums";
+import { EnumSkill } from "@/lib/enums";
 import { DLQuestion, FetchingData } from "@/lib/types";
 import {
   DailyLesson,
@@ -16,17 +16,9 @@ import api from "./kyInstance";
 export const getQuestionTypes = async (skill: EnumSkill) => {
   const searchParams = generateSearchParams({ skill });
   return (
-    await api.get("daily-lessons/question-types", { searchParams }).json<
-      FetchingData<
-        (QuestionType & { progress: QuestionTypeProgress } & {
-          instructions: Instruction[];
-          bandScoreRequires: {
-            bandScore: EnumBandScore;
-            requireXP: number;
-          }[];
-        })[]
-      >
-    >()
+    await api
+      .get("daily-lessons/question-types", { searchParams })
+      .json<FetchingData<(QuestionType & { progress: QuestionTypeProgress })[]>>()
   ).data;
 };
 

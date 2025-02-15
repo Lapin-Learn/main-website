@@ -25,6 +25,11 @@ export type QuestionType = {
   image: Image | null; // The image URL
   updatedAt: string;
   lessons: number;
+  instructions: Instruction[];
+  bandScoreRequires: {
+    bandScore: EnumBandScore;
+    requireXP: number;
+  }[];
 };
 
 export type LessonResult = {

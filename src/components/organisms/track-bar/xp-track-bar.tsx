@@ -3,14 +3,13 @@ import { Trans, useTranslation } from "react-i18next";
 import RankIcon from "@/components/molecules/rank-icon";
 import TooltipWrapper from "@/components/molecules/tooltip-wrapper";
 import { EnumRank } from "@/lib/enums";
-import { cn, formatNumber } from "@/lib/utils";
+import { formatNumber } from "@/lib/utils";
 
 type XpTrackBarProps = {
   level?: number;
   currentXp?: number;
   levelXp?: number;
   rank?: EnumRank;
-  className?: string;
 };
 
 const XpTrackBar = ({
@@ -18,17 +17,11 @@ const XpTrackBar = ({
   currentXp = 0,
   levelXp = 100,
   rank = EnumRank.bronze,
-  className,
 }: XpTrackBarProps) => {
   const { t } = useTranslation("tooltip");
 
   return (
-    <div
-      className={cn(
-        "flex flex-row justify-center items-center overflow-hidden space-x-2",
-        className
-      )}
-    >
+    <div className="flex flex-row items-center justify-center space-x-2 overflow-hidden">
       <TooltipWrapper
         triggerNode={
           <div className="size-fit cursor-pointer">

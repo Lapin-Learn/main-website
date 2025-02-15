@@ -47,9 +47,9 @@ const ResultDetail = ({ setResultDetail }: ResultDetailProps) => {
                 }
               >
                 <div className="relative mt-2 flex size-full flex-col justify-center rounded-lg">
-                  <div className="relative max-w-xs rounded-lg bg-[#D9D9D9] p-4 text-white">
-                    <div className="absolute -top-2 left-1/2 size-0 -translate-x-1/2 border-x-8 border-b-8 border-transparent border-b-[#D9D9D9]"></div>
-                    <div className="flex flex-col space-y-4">
+                  <div className="relative rounded-lg border border-neutral-100 bg-white p-4">
+                    <div className="absolute -top-2 left-1/2 size-4 -translate-x-1/2 rotate-45 border border-b-0 border-r-0 border-neutral-100 bg-white" />
+                    <div className="flex w-full flex-col space-y-4">
                       <div className="flex h-fit w-full flex-col">
                         <p className="text-body font-semibold text-black">
                           {t("result.yourAnswer")}
@@ -83,7 +83,7 @@ const ResultDetailTooltip = ({ triggerNode, children }: ResultDetailTooltipProps
       triggerNode={triggerNode}
       contentNode={children}
       sideOffset={0}
-      className="m-0 flex w-full min-w-80 bg-transparent p-0 backdrop-blur-none"
+      className="m-0 flex w-full min-w-[430px] bg-transparent p-0 backdrop-blur-none"
     />
   );
 };
@@ -93,7 +93,7 @@ const ResultDetailCard = ({ title, correct }: { title: string; correct: boolean 
   return (
     <Card
       className={cn(
-        "h-full w-full flex flex-row items-center justify-start p-4 rounded-md space-x-2 cursor-pointer",
+        "h-full w-full flex flex-row items-center justify-start p-4 rounded-md space-x-2 cursor-pointer shadow-none",
         correct ? "bg-green-surface" : "bg-red-surface"
       )}
     >

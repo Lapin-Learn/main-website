@@ -39,7 +39,6 @@ const checkAvailable = (bandScore: EnumBandScore, currentBandScore: EnumBandScor
 const QuestionTypeDetail = ({ questionTypeId, className, children }: QuestionTypeDetailProps) => {
   const { skill: exerciseSkill, bandScore } = Route.useSearch();
   const { data: questionTypes } = useGetQuestionTypes(exerciseSkill);
-  const [bandSelected, _] = useState(EnumBandScore.PRE_IELTS);
 
   const currentQuestionType = questionTypes?.find(
     (questionType) => questionType.id === Number(questionTypeId)
@@ -101,7 +100,7 @@ const QuestionTypeDetail = ({ questionTypeId, className, children }: QuestionTyp
                 </DialogTitle>
                 <DialogDescription className="text-body font-normal text-supporting-text">
                   {BAND_SCORES[bandScore as EnumBandScore]} &nbsp;&nbsp;|&nbsp;&nbsp;
-                  {t("questionType.totalLearnedTime")}
+                  {t("questionType.totalLearnedTime")}&nbsp;
                   {formatLearningDuration(data?.totalLearningDuration || 0)}
                 </DialogDescription>
               </div>

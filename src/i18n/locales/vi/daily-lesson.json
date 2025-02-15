@@ -52,6 +52,8 @@
   },
   "questionTypes": {
     "experience": "Tiến độ",
-    "xp": "KN"
+    "xp": "KN",
+    "numberOfLessons_singular": "{{number}} bài",
+    "numberOfLessons_plural": "{{number}} bài"
   }
 }

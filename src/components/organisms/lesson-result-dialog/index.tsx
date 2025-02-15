@@ -1,7 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
-import { Route } from "@/routes/_authenticated/_dashboard/daily-lesson/$dailyLessonId";
+import { Route } from "@/routes/_authenticated/daily-lesson/$dailyLessonId";
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../ui/dialog";
 import LevelRankStep from "./level-rank-step";
