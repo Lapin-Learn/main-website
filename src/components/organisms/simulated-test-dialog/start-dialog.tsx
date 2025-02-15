@@ -43,7 +43,12 @@ const StartDialog = ({
               i18nKey="simulatedTest:startDialog:description"
               values={{
                 parts,
-                minutes: mode === EnumMode.PRACTICE ? timeLimit : DEFAULT_TIME_LIMIT[skill],
+                minutes:
+                  mode === EnumMode.PRACTICE
+                    ? timeLimit === 0
+                      ? "unlimited"
+                      : timeLimit
+                    : DEFAULT_TIME_LIMIT[skill],
                 context: mode === EnumMode.PRACTICE && timeLimit == 0 ? "unlimited" : "default",
               }}
             >

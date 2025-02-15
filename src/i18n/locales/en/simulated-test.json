@@ -20,6 +20,7 @@
   "submitDialog": {
     "title": "Are you sure you want to submit?",
     "descriptionUnanswered": "You still have <bold>{{ remainingQuestions }} questions</bold> to complete and there is still time left",
+    "descriptionAllAnswered": "You have completed all the questions in the test! You still have some time to review your answers",
     "description": "You have not completed all the questions in the test and there is still time left",
     "submitBtn": "Submit",
     "cancelBtn": "Cancel"
