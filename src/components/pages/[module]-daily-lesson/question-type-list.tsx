@@ -5,6 +5,7 @@ import { Card, CardContent, CardTitle } from "@/components/ui";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetQuestionTypes } from "@/hooks/react-query/use-daily-lesson";
+import { BAND_SCORES } from "@/lib/consts";
 import { EnumBandScore, EnumSkill } from "@/lib/enums";
 import { cn } from "@/lib/utils";
 
@@ -65,9 +66,7 @@ const QuestionTypeList = ({ skill }: QuestionTypeListPageProps) => {
                             {questionType.name}
                           </CardTitle>
                           <span className="h-fit text-nowrap rounded-md bg-blue-50 px-2.5 py-0.5 text-center text-[12px] font-medium capitalize text-blue-500">
-                            {questionType.progress.bandScore === EnumBandScore.PRE_IELTS
-                              ? questionType.progress.bandScore
-                              : `band ${questionType.progress.bandScore}`}
+                            {BAND_SCORES[questionType.progress.bandScore]}
                           </span>
                         </div>
                         <div className="clip-custom absolute right-0 bg-[#FCE3B4] p-2 pl-7 pr-3.5">
@@ -76,7 +75,7 @@ const QuestionTypeList = ({ skill }: QuestionTypeListPageProps) => {
                               ns: "practice",
                               number: 0,
                               total: questionType.lessons,
-                              context: questionType.id === 1 ? "private" : "public",
+                              context: "public",
                             })}
                           </span>
                         </div>
@@ -85,7 +84,6 @@ const QuestionTypeList = ({ skill }: QuestionTypeListPageProps) => {
                         <p className="text-left text-small font-medium text-[#929292]">
                           {t("progress")}
                         </p>
-                        {/* TODO */}
                         <Progress
                           value={(questionType.progress.totalLearningXP / xpRequired) * 100}
                           label={`${questionType.progress.totalLearningXP}/${xpRequired}`}

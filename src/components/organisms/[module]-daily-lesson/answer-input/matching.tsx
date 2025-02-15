@@ -6,33 +6,34 @@ import { useState } from "react";
 import DraggableItem from "@/components/molecules/draggable-item";
 import DroppableZone from "@/components/molecules/droppable-matching-zone";
 import MatchingButton from "@/components/molecules/matching-button";
-import { DLAnswer } from "@/hooks/zustand/use-daily-lesson-store";
+import useDailyLessonStore, { DLAnswer } from "@/hooks/zustand/use-daily-lesson-store";
 import { MatchingContent } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 import { BaseAnswerInputProps } from ".";
 
-type MatchingAnswer = {
-  [key: string]: string;
-};
+export type MatchingAnswer = Record<string, string>;
 
 type MatchingProps = MatchingContent & BaseAnswerInputProps;
 const Matching = (props: MatchingProps) => {
   const { columnA, columnB, renderCheckButton, isAnswered, answer } = props;
+  const { saveHistory } = useDailyLessonStore();
   const [selected, setSelected] = useState<MatchingAnswer>({});
 
   const [activeId, setActiveId] = useState<string | null>(null);
   const canShowCheckButton = Object.keys(selected).length == columnA.options.length;
 
-  const answerRecord = answer.reduce<Record<string, string>>((acc, pair) => {
+  const answerRecord = answer.reduce<MatchingAnswer>((acc, pair) => {
     acc[pair.columnA[0]] = pair.columnB[0];
     return acc;
   }, {});
 
   const getCorrectAnswers = (): DLAnswer => {
-    const numberOfCorrect = Object.keys(selected).filter(
-      (key) => selected[key] === answerRecord[key]
-    ).length;
+    saveHistory(selected, answerRecord);
+    const numberOfCorrect = Object.keys(selected).filter((key) => {
+      // console.log(selected, answerRecord);
+      return selected[key] === answerRecord[key];
+    }).length;
     return {
       numberOfCorrect,
       totalOfQuestions: columnA.options.length,

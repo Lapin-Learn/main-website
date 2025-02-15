@@ -1,5 +1,7 @@
 import { create } from "zustand";
 
+import { MatchingAnswer } from "@/components/organisms/[module]-daily-lesson/answer-input/matching";
+import { MultipleChoiceAnswer } from "@/components/organisms/[module]-daily-lesson/answer-input/multiple-choice";
 import { DLQuestion } from "@/lib/types";
 import { LessonResult } from "@/lib/types/daily-lesson.type";
 
@@ -11,6 +13,13 @@ export type DLAnswer = {
   numberOfCorrect: number;
   totalOfQuestions: number;
 } & SpeakingAnswer;
+
+type DLHistoryAnswer = MatchingAnswer | MultipleChoiceAnswer;
+
+type DLHistory<T = DLHistoryAnswer> = {
+  answer: T;
+  result: T;
+};
 
 type State = {
   lessonInformation: {
@@ -30,6 +39,7 @@ type State = {
   };
   learnerAnswers: DLAnswer[];
   showExplanation: boolean;
+  history: DLHistory[];
 };
 
 type Action = {
@@ -39,6 +49,8 @@ type Action = {
   answerQuestion: (newAnswer: DLAnswer) => void;
   setResult: (result: LessonResult) => void;
   setShowExplanation: (show: boolean) => void;
+  saveHistory: (answer: DLHistoryAnswer, result: DLHistoryAnswer) => void;
+  clearHistory: () => void;
 };
 
 const initialValue: State = {
@@ -56,6 +68,11 @@ const initialValue: State = {
   },
   learnerAnswers: [],
   showExplanation: false,
+  history: [],
+};
+
+const initialHistoryValue: Pick<State, "history"> = {
+  history: [],
 };
 
 const useDailyLessonStore = create<State & Action>((set, get) => ({
@@ -127,6 +144,14 @@ const useDailyLessonStore = create<State & Action>((set, get) => ({
     set(() => ({
       showExplanation: show,
     }));
+  },
+  saveHistory: (answer, result) => {
+    set((state) => ({
+      history: [...state.history, { answer, result }],
+    }));
+  },
+  clearHistory: () => {
+    set(initialHistoryValue);
   },
 }));
 

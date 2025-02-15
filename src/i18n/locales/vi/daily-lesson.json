@@ -9,6 +9,12 @@
       "Thực hành viết các đoạn văn ngắn để cải thiện khả năng viết"
     ]
   },
+  "result": {
+    "detail": "Chi tiết kết quả",
+    "noDetail": "Không có chi tiết kết quả",
+    "yourAnswer": "Câu trả lời của bạn: ",
+    "result": "Đáp án: "
+  },
   "after": {
     "encourages": [
       "Tuyệt vời",
@@ -18,7 +24,7 @@
       "Bạn đang làm rất tốt",
       "Bạn đang đi đúng hướng"
     ],
-    "receive-reward": "Nhận thưởng",
+    "receiveReward": "Nhận thưởng",
     "Experience": "Kinh nghiệm",
     "Timer": "Thời gian",
     "Carrot": "Cà rốt"

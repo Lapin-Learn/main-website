@@ -15,6 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useGetLessonList, useGetQuestionTypes } from "@/hooks/react-query/use-daily-lesson";
+import { BAND_SCORES } from "@/lib/consts";
 import { EnumBandScore } from "@/lib/enums";
 import { formatLearningDuration } from "@/lib/utils";
 import { Route } from "@/routes/_authenticated/_dashboard/daily-lesson/";
@@ -98,11 +99,8 @@ const QuestionTypeDetail = ({ questionTypeId, className, children }: QuestionTyp
                   {currentQuestionType?.name}
                 </DialogTitle>
                 <DialogDescription className="text-body font-normal text-supporting-text">
-                  {bandScore === EnumBandScore.PRE_IELTS
-                    ? EnumBandScore.PRE_IELTS.toUpperCase()
-                    : `Band ${bandScore}`}
-                  &nbsp;&nbsp;|&nbsp;&nbsp;
-                  {t("questionType.totalLearnedTime")}{" "}
+                  {BAND_SCORES[bandScore as EnumBandScore]} &nbsp;&nbsp;|&nbsp;&nbsp;
+                  {t("questionType.totalLearnedTime")}
                   {formatLearningDuration(data?.totalLearningDuration || 0)}
                 </DialogDescription>
               </div>

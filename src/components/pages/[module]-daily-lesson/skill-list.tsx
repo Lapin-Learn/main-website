@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import Listening from "@/assets/images/daily-lesson/listening.jpg";
-import Reading from "@/assets/images/daily-lesson/reading.jpg";
-import Speaking from "@/assets/images/daily-lesson/speaking.jpg";
-import Writing from "@/assets/images/daily-lesson/writing.jpg";
+import Listening from "@/assets/images/daily-lesson/listening.webp";
+import Reading from "@/assets/images/daily-lesson/reading.webp";
+import Speaking from "@/assets/images/daily-lesson/speaking.webp";
+import Writing from "@/assets/images/daily-lesson/writing.webp";
 import { EnumSkill } from "@/lib/enums";
 import { cn } from "@/lib/utils";
 
@@ -55,9 +55,9 @@ const SkillGrid = ({
           <button
             key={skill}
             className={cn(
-              "w-full col-span-2 grid grid-cols-subgrid justify-around items-center rounded-2xl overflow-hidden hover:opacity-100 transition-opacity duration-200",
+              "w-full col-span-2 grid grid-cols-subgrid justify-around items-center rounded-2xl overflow-hidden transition-opacity duration-200",
               dailyLessonSkillMapping[skill as EnumSkill].color,
-              currentSkill === skill ? "opacity-100" : "opacity-60"
+              currentSkill === skill ? "opacity-100" : "hover:opacity-100 opacity-60"
             )}
             onClick={() => setCurrentSkill(skill as EnumSkill)}
           >

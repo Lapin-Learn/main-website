@@ -46,14 +46,15 @@ const FillInTheBlank = ({
     setIsChecking(false);
   }, [currentQuestionIndex, reset, blankContent.length]);
 
-  const getCorrectAnswers = () =>
-    field.value.reduce(
+  const getCorrectAnswers = () => {
+    return field.value.reduce(
       (acc, value, index) => ({
         numberOfCorrect: acc.numberOfCorrect + (value === blankContent[index] ? 1 : 0),
         totalOfQuestions: acc.totalOfQuestions,
       }),
       { numberOfCorrect: 0, totalOfQuestions: blankContent.length }
     );
+  };
 
   const handleTextChange = (text: string, index: number) => {
     const newAnswer = [...field.value];

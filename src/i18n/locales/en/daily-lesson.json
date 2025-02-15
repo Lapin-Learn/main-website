@@ -9,6 +9,12 @@
       "Practice writing short paragraphs to improve your writing skill"
     ]
   },
+  "result": {
+    "detail": "Result detail",
+    "noDetail": "No result detail",
+    "yourAnswer": "Your answer: ",
+    "result": "Answer: "
+  },
   "after": {
     "encourages": [
       "Great",
@@ -18,7 +24,7 @@
       "You're doing great",
       "You're on the right track"
     ],
-    "receive-reward": "Receive reward",
+    "receiveReward": "Receive reward",
     "Experience": "Experience",
     "Timer": "Timer",
     "Carrot": "Carrot"
