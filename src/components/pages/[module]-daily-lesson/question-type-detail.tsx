@@ -3,6 +3,7 @@ import { Triangle, X } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import UnlockLesson from "@/assets/icons/daily-lesson/unlock-lesson.svg";
 import BandScoreSelect from "@/components/molecules/daily-lesson/bandscore-select";
 import LessonCarousel from "@/components/molecules/daily-lesson/lesson-carousel";
 import { Button, Card, CardContent, CardTitle } from "@/components/ui";
@@ -78,14 +79,14 @@ const QuestionTypeDetail = ({ questionTypeId, className, children }: QuestionTyp
         onPointerDownOutside={handleCloseDetailDialog}
         className="m-0 flex h-[95%] flex-col items-center justify-between md:left-[99%] md:w-[50vw] md:-translate-x-full md:overflow-y-scroll lg:w-[30vw]"
       >
-        <div className="flex w-full flex-col">
+        <div className="flex size-full flex-col">
           <div className="flex w-full flex-row items-center justify-between">
-            <BandScoreSelect value={bandSelected} />
+            <BandScoreSelect />
             <DialogClose onClick={handleCloseDetailDialog}>
               <X className="text-black" />
             </DialogClose>
           </div>
-          <div className="flex w-full flex-col items-center justify-center space-y-2 md:space-y-4 lg:space-y-6">
+          <div className="flex size-full flex-col items-center justify-center space-y-2 md:space-y-4 lg:space-y-6">
             <div className="flex flex-col items-center justify-center space-y-4">
               <div className="flex !size-24 flex-row items-center overflow-hidden rounded-full lg:!size-36">
                 <img
@@ -120,7 +121,7 @@ const QuestionTypeDetail = ({ questionTypeId, className, children }: QuestionTyp
               </Button>
             </QuestionTypeDetailInstruction>
 
-            <div className="w-full">
+            <div className="size-full">
               {isComingSoon ? (
                 <Card>
                   <CardContent className="flex h-40 flex-1 items-center justify-center p-0 opacity-50">
@@ -128,11 +129,16 @@ const QuestionTypeDetail = ({ questionTypeId, className, children }: QuestionTyp
                   </CardContent>
                 </Card>
               ) : !isAvailable ? (
-                <Card>
-                  <CardContent className="flex h-40 flex-1 items-center justify-center p-0 opacity-50">
-                    <CardTitle>{t("questionType.unavailable")}</CardTitle>
-                  </CardContent>
-                </Card>
+                <div className="flex h-full flex-col items-center justify-evenly space-y-4 p-8">
+                  <img
+                    src={UnlockLesson}
+                    alt="Unlock Lesson"
+                    className="size-12 md:size-16 lg:size-20"
+                  />
+                  <p className="text-center text-body font-normal">
+                    {t("questionType.unavailable")}
+                  </p>
+                </div>
               ) : (
                 <LessonCarousel lessons={data?.lessons || []} setCurrent={setCurrent} />
               )}
@@ -142,7 +148,7 @@ const QuestionTypeDetail = ({ questionTypeId, className, children }: QuestionTyp
 
         <Button
           size="2xl"
-          className="w-full rounded-md px-4 py-2.5"
+          className="w-full shrink-0 rounded-md px-4 py-2.5"
           disabled={!isAvailable || isComingSoon}
           onClick={() => {
             navigate({

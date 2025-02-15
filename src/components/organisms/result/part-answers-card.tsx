@@ -20,7 +20,7 @@ export function PartAnswersCard({
   answers,
   guidances,
 }: PartAnswersCardProps) {
-  const { startQuestionNo, questionTypes, endQuestionNo } = partDetail;
+  const { startQuestionNo, questionTypesIndices, endQuestionNo } = partDetail;
 
   return (
     <div className="flex flex-col gap-4 rounded-2xl border bg-white p-4">
@@ -28,7 +28,7 @@ export function PartAnswersCard({
         <p className="text-lg font-bold">
           Part {part}: Question {startQuestionNo}-{endQuestionNo}
         </p>
-        <TagsList tags={questionTypes} />
+        <TagsList tags={questionTypesIndices.map((index) => index.name)} />
       </div>
       <div className="grid grid-flow-col grid-cols-2 grid-rows-7 gap-4 md:grid-cols-3 md:grid-rows-5">
         {answers?.slice(startQuestionNo - 1, endQuestionNo).map((answer, i) => {

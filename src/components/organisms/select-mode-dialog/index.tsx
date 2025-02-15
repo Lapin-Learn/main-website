@@ -39,10 +39,11 @@ const SelectModeDialog = () => {
   function generateParts(skill: EnumSkill, skillTests: SimulatedTest["skillTests"]) {
     const partsDetail = skillTests.find((item) => item.skill === skill)?.partsDetail ?? [];
     const parts = partsDetail.map((part, index) => {
+      const questionTypes = part.questionTypesIndices.map((index) => index.name);
       return {
         value: (index + 1).toString(),
         label: t(`skills.part`, { number: index + 1, context: skill.toString() }),
-        description: part.questionTypes.join(", "),
+        description: questionTypes.join(", "),
       };
     });
     return parts;

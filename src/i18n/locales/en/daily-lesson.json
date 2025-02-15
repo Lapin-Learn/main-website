@@ -48,7 +48,7 @@
     "practiceBtn": "Start now",
     "jumpNextBtn": "Jump to next band",
     "comingSoon": "Coming soon...",
-    "unavailable": "This lesson is not available yet"
+    "unavailable": "Complete the previous Band lessons to unlock this lesson"
   },
   "questionTypes": {
     "experience": "Progress",

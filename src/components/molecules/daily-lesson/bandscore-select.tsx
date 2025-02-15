@@ -9,14 +9,9 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 import { BAND_SCORES } from "@/lib/consts";
-import { EnumBandScore } from "@/lib/enums";
 import { Route } from "@/routes/_authenticated/_dashboard/daily-lesson";
 
-type BandScoreSelectProps = {
-  value: EnumBandScore;
-};
-
-const BandScoreSelect = ({ value }: BandScoreSelectProps) => {
+const BandScoreSelect = () => {
   const { skill } = Route.useSearch();
   const navigate = useNavigate();
 
@@ -30,7 +25,11 @@ const BandScoreSelect = ({ value }: BandScoreSelectProps) => {
     });
   };
   return (
-    <Select defaultValue={value} onValueChange={(value) => handleChangeBandScore(value)}>
+    <Select
+      defaultValue={skill}
+      value={skill}
+      onValueChange={(value) => handleChangeBandScore(value)}
+    >
       <SelectTrigger className="size-fit border-0 shadow-none" isArrow={false}>
         <BookOpenText size={24} className="text-neutral-300" />
       </SelectTrigger>
