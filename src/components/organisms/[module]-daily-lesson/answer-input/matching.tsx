@@ -75,8 +75,8 @@ const Matching = (props: MatchingProps) => {
         exit={{ x: -100, opacity: 0 }}
         transition={{ duration: 0.5 }}
         className={cn(
-          "grid w-3/4 gap-8",
-          isAnswered ? "grid-cols-1 place-items-center" : "grid-cols-2"
+          "flex w-3/4 gap-8 items-center justify-center",
+          isAnswered ? "flex-col place-items-center" : "flex-row"
         )}
       >
         <div className="flex flex-col gap-4">
@@ -84,7 +84,7 @@ const Matching = (props: MatchingProps) => {
           {columnA.options.map((option, index) => {
             return (
               <div key={index} className="flex items-center gap-4">
-                <div className="flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-900">
+                <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-900">
                   {index + 1}
                 </div>
                 <div>{option}</div>
@@ -128,7 +128,7 @@ const Matching = (props: MatchingProps) => {
           })}
         </div>
         {!isAnswered && (
-          <div className="flex flex-col gap-4">
+          <div className="flex h-full flex-col gap-4">
             <div className="font-semibold">{columnB.title}</div>
             {unselectedB.map((option) => (
               <DraggableItem

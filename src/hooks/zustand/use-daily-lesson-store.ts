@@ -24,10 +24,12 @@ type State = {
     } | null;
     isCompleted: boolean;
     isStarted: boolean;
+    isAudioPlaying: boolean;
     startTime: number;
     result: LessonResult | null;
   };
   learnerAnswers: DLAnswer[];
+  showExplanation: boolean;
 };
 
 type Action = {
@@ -36,6 +38,7 @@ type Action = {
   clear: VoidFunction;
   answerQuestion: (newAnswer: DLAnswer) => void;
   setResult: (result: LessonResult) => void;
+  setShowExplanation: (show: boolean) => void;
 };
 
 const initialValue: State = {
@@ -47,10 +50,12 @@ const initialValue: State = {
     currentQuestion: null,
     isCompleted: false,
     isStarted: false,
+    isAudioPlaying: false,
     startTime: 0,
     result: null,
   },
   learnerAnswers: [],
+  showExplanation: false,
 };
 
 const useDailyLessonStore = create<State & Action>((set, get) => ({
@@ -66,6 +71,7 @@ const useDailyLessonStore = create<State & Action>((set, get) => ({
         ...state.lessonState,
         currentQuestion: questions.length > 0 ? { index: 0, question: questions[0] } : null,
         isStarted: true,
+        isAudioPlaying: true,
         startTime: Date.now(),
       },
     })),
@@ -85,6 +91,7 @@ const useDailyLessonStore = create<State & Action>((set, get) => ({
       set({
         lessonState: {
           ...lessonState,
+          isAudioPlaying: true,
           currentQuestion: {
             index: currentQuestion.index + 1,
             question: questions[currentQuestion.index + 1],
@@ -103,13 +110,10 @@ const useDailyLessonStore = create<State & Action>((set, get) => ({
     }
   },
   answerQuestion: (newAnswer) => {
-    const {
-      learnerAnswers,
-      lessonState: { currentQuestion },
-    } = get();
-    if (!currentQuestion) return;
-    learnerAnswers[currentQuestion.index] = newAnswer;
-    set({ learnerAnswers });
+    const { learnerAnswers, lessonState } = get();
+    if (!lessonState.currentQuestion) return;
+    learnerAnswers[lessonState.currentQuestion.index] = newAnswer;
+    set({ learnerAnswers, lessonState: { ...lessonState, isAudioPlaying: false } });
   },
   setResult: (result) => {
     set((state) => ({
@@ -117,6 +121,11 @@ const useDailyLessonStore = create<State & Action>((set, get) => ({
         ...state.lessonState,
         result,
       },
+    }));
+  },
+  setShowExplanation: (show) => {
+    set(() => ({
+      showExplanation: show,
     }));
   },
 }));

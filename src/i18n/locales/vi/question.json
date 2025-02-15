@@ -7,7 +7,8 @@
       "correctAnswer": "Câu trả lời đúng là:",
       "continue": "Tiếp tục",
       "noQuestionFound": "Không có câu hỏi",
-      "unsupportedQuestionType": "Loại câu hỏi không được hỗ trợ"
+      "unsupportedQuestionType": "Loại câu hỏi không được hỗ trợ",
+      "viewExplanation": "Xem giải thích"
     },
     "explanation": {
       "title": "Giải thích",
@@ -29,6 +30,12 @@
     },
     "speaking": {
       "result": "Bạn nói giống {{percentage}}% người bản xứ!"
+    },
+    "exitDialog": {
+      "title": "Bài học chưa hoàn thành",
+      "message": "Bạn chưa hoàn thành bài làm. Bạn có chắc chắn muốn thoát không?",
+      "exitBtn": "Thoát",
+      "continueBtn": "Tiếp tục làm bài"
     }
   }
   

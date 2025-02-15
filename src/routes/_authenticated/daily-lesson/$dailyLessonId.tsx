@@ -7,7 +7,7 @@ const searchSchema = z.object({
   questionTypeId: z.string().optional(),
 });
 
-export const Route = createFileRoute("/_authenticated/_dashboard/daily-lesson/$dailyLessonId")({
+export const Route = createFileRoute("/_authenticated/daily-lesson/$dailyLessonId")({
   component: DailyLessonContent,
   beforeLoad: async ({ params, search }) => {
     const { dailyLessonId } = params;

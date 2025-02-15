@@ -15,7 +15,8 @@
       "correctAnswer": "The correct answer is:",
       "continue": "Continue",
       "noQuestionFound": "No question found",
-      "unsupportedQuestionType": "Unsupported question type"
+      "unsupportedQuestionType": "Unsupported question type",
+      "viewExplanation": "View explanation"
     },
     "explanation": {
       "title": "Explanation",
@@ -37,5 +38,11 @@
     },
     "speaking": {
       "result": "You said {{percentage}}% like a native speaker!"
+    },
+    "exitDialog": {
+      "title": "Lesson not completed",
+      "message": "You have not completed the lesson. Are you sure you want to exit?",
+      "exitBtn": "Exit",
+      "continueBtn": "Continue the lesson"
     }
   }

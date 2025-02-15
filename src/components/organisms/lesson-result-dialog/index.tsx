@@ -1,7 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
-import { Route } from "@/routes/_authenticated/_dashboard/daily-lesson/$dailyLessonId";
+import { Route } from "@/routes/_authenticated/daily-lesson/$dailyLessonId";
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../ui/dialog";
 import LevelRankStep from "./level-rank-step";
@@ -30,7 +30,7 @@ const LessonResultDialog = ({ defaultOpen = false }: { defaultOpen?: boolean }) 
   return (
     <Dialog open={open}>
       <DialogContent
-        className="h-[768px] max-w-3xl overflow-hidden rounded-3xl border-none p-0"
+        className="h-[400px] max-w-3xl overflow-hidden rounded-3xl border-none p-0 md:h-[768px]"
         showClose={false}
       >
         <DialogHeader className="hidden">
