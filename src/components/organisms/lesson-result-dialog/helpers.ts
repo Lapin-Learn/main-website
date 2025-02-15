@@ -1,6 +1,9 @@
+import { getFreezeDays } from "@components/organisms/streak/utils.ts";
+
 import { EnumMileStone, EnumRank } from "@/lib/enums";
 import { Level } from "@/lib/types";
 import { LessonResult, MissionMilestone } from "@/lib/types/daily-lesson.type";
+import { StreakHistory } from "@/lib/types/gamification.type.ts";
 import { formatTime } from "@/lib/utils";
 import { parseMission } from "@/services/gamification";
 
@@ -10,14 +13,16 @@ const formatDate = (date: Date) => {
   return `${date.getFullYear()}/${date.getMonth()}/${date.getDate()}`;
 };
 
-const getCurrentWeekBooleanObject = (doneRecords: string[], dayNames: string[]) => {
+const getCurrentWeekBooleanObject = (dayNames: string[], doneRecords?: StreakHistory[]) => {
   const currentDate = new Date();
   const currentDay = currentDate.getDay(); // 0 (Sunday) to 6 (Saturday)
   const startOfWeek = new Date(currentDate);
   startOfWeek.setDate(currentDate.getDate() - currentDay); // Set to the start of the week (Sunday)
 
-  const weekBooleanObject: Record<string, boolean | undefined> = {};
-  const doneRecordsSet = new Set(doneRecords.map((record) => formatDate(new Date(record))));
+  const weekBooleanObject: Record<string, boolean | "freeze" | undefined> = {};
+  if (!doneRecords) return weekBooleanObject;
+  const freezeDays = getFreezeDays(doneRecords);
+  const doneRecordsSet = new Set(doneRecords.map((record) => formatDate(new Date(record.date))));
 
   for (let i = 0; i < 7; i++) {
     const weekDate = new Date(startOfWeek);
@@ -26,44 +31,14 @@ const getCurrentWeekBooleanObject = (doneRecords: string[], dayNames: string[]) 
     if (weekDate > currentDate) {
       weekBooleanObject[dayNames[i]] = undefined;
     } else {
-      weekBooleanObject[dayNames[i]] = doneRecordsSet.has(formattedDate);
+      weekBooleanObject[dayNames[i]] = freezeDays.includes(weekDate.toDateString())
+        ? "freeze"
+        : doneRecordsSet.has(formattedDate);
     }
   }
 
   return weekBooleanObject;
 };
-
-export const mockNewValue = [
-  {
-    id: "8e8c5466-d03c-4846-8904-06b81516d2ea",
-    profileId: "2c5d34b7-de0a-45ab-974f-310b664c1a8f",
-    missionId: "3eae3a99-3c53-4365-a3d5-54bcf2830dcb",
-    status: "assigned",
-    current: 2,
-    createdAt: "2025-01-29T17:42:40.734Z",
-    updatedAt: "2025-01-30T04:59:45.992Z",
-    mission: {
-      id: "3eae3a99-3c53-4365-a3d5-54bcf2830dcb",
-      type: "daily",
-      questId: "c386f523-bcde-44ce-a753-7d8df9461934",
-      quantity: 3,
-      createdAt: "2025-01-29T17:00:00.093Z",
-      updatedAt: "2025-01-29T17:00:00.093Z",
-      quest: {
-        id: "c386f523-bcde-44ce-a753-7d8df9461934",
-        name: "complete lesson with percentage score 80%",
-        description: "Hoàn thành bài học với số điểm 80%",
-        actionId: 2,
-        requirements: 80,
-        rewards: 6,
-        type: "daily",
-        category: "COMPLETE_LESSON_WITH_PERCENTAGE_SCORE",
-        createdAt: "2024-10-19T03:34:10.837Z",
-        updatedAt: "2024-10-19T03:34:10.837Z",
-      },
-    },
-  },
-];
 
 /**
  * This function is used to transform the milestone data to the stepper data.
