@@ -30,7 +30,7 @@ const LessonResultDialog = ({ defaultOpen = false }: { defaultOpen?: boolean }) 
   return (
     <Dialog open={open}>
       <DialogContent
-        className="h-[400px] max-w-3xl overflow-hidden rounded-3xl border-none p-0 md:h-[680px]"
+        className="h-[400px] max-w-3xl overflow-hidden rounded-3xl border-none p-0 md:h-[768px]"
         showClose={false}
       >
         <DialogHeader className="hidden">

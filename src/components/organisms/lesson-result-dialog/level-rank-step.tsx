@@ -70,8 +70,6 @@ const LevelRankStep = ({ value: { level, rank } }: LevelRankProps) => {
         key: "exp2",
         value: `${learner?.xp ?? 0}/${learner?.level.xp ?? 0} ${t("level.exp", { ns: "gamification" })}`,
       },
-      { key: "textBtn", value: t("button.next"), path: "main button" },
-      { key: "textBtn", value: t("button.share"), path: "share button" },
     ],
     [learner, isFetching]
   );
@@ -92,21 +90,15 @@ const LevelRankStep = ({ value: { level, rank } }: LevelRankProps) => {
           key: "exp",
           value: `${learner.xp ?? 0}/${learner.level.xp} ${t("level.exp", { ns: "gamification" })}`,
         },
-        { key: "textBtn", value: t("button.next"), path: "main button" },
-        { key: "textBtn", value: t("button.share"), path: "share button" },
       ];
-      textValues.forEach(({ key, value, path }) => {
-        if (path) {
-          rive.setTextRunValueAtPath(key, value, path);
-        } else {
-          rive.setTextRunValue(key, value);
-        }
-      });
       stateMachineInputs.forEach(({ name, value }) => {
         const input = rive.stateMachineInputs("main")?.find((input) => input.name === name);
         if (input) {
           input.value = value;
         }
+      });
+      textValues.forEach(({ key, value }) => {
+        rive.setTextRunValue(key, value);
       });
     }
   }, [learner, isFetching, rive, learner]);
@@ -114,12 +106,8 @@ const LevelRankStep = ({ value: { level, rank } }: LevelRankProps) => {
   useEffect(() => {
     if (rive && !isFetching) {
       rive.play();
-      textValues.forEach(({ key, value, path }) => {
-        if (path) {
-          rive.setTextRunValueAtPath(key, value, path);
-        } else {
-          rive.setTextRunValue(key, value);
-        }
+      textValues.forEach(({ key, value }) => {
+        rive.setTextRunValue(key, value);
       });
     }
   }, [rive, isFetching]);
