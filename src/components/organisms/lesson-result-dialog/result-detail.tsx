@@ -93,7 +93,7 @@ const ResultDetailCard = ({ title, correct }: { title: string; correct: boolean 
   return (
     <Card
       className={cn(
-        "h-full w-full flex flex-row items-center justify-start p-4 rounded-md space-x-2",
+        "h-full w-full flex flex-row items-center justify-start p-4 rounded-md space-x-2 cursor-pointer",
         correct ? "bg-green-surface" : "bg-red-surface"
       )}
     >

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui";
 import { useLessonCompletion } from "@/hooks/react-query/use-daily-lesson";
 import useDailyLessonStore, { DLAnswer } from "@/hooks/zustand/use-daily-lesson-store";
 import { cn, getDuration } from "@/lib/utils";
-import { Route } from "@/routes/_authenticated/daily-lesson/$dailyLessonId";
+import { Route } from "@/routes/_authenticated/_dashboard/daily-lesson/$dailyLessonId";
 
 type QuestionActionButtonsProps = {
   getCorrectAnswers: () => DLAnswer;

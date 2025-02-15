@@ -31,7 +31,6 @@ const Matching = (props: MatchingProps) => {
   const getCorrectAnswers = (): DLAnswer => {
     saveHistory(selected, answerRecord);
     const numberOfCorrect = Object.keys(selected).filter((key) => {
-      // console.log(selected, answerRecord);
       return selected[key] === answerRecord[key];
     }).length;
     return {

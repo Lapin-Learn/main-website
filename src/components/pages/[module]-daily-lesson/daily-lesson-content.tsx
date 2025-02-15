@@ -13,7 +13,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useLessonQuestions } from "@/hooks/react-query/use-daily-lesson";
 import useDailyLessonStore from "@/hooks/zustand/use-daily-lesson-store";
 import { cn } from "@/lib/utils";
-import { Route } from "@/routes/_authenticated/daily-lesson/$dailyLessonId";
+import { Route } from "@/routes/_authenticated/_dashboard/daily-lesson/$dailyLessonId";
 
 import QuestionActionButtons from "../../organisms/question-action-buttons";
 

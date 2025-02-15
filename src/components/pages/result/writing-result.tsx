@@ -33,7 +33,6 @@ function WritingResult({ session }: WritingResultProps) {
     stData?.skillTests
       .find((skill) => skill.skill === EnumSkill.writing)
       ?.partsDetail.map((item) => {
-        console.log(item);
         return item.questionTypesIndices.map((index) => index.name);
       }) ?? [];
 

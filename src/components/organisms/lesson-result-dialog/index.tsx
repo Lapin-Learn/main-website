@@ -1,7 +1,6 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
-import useDailyLessonStore from "@/hooks/zustand/use-daily-lesson-store";
 import { Route } from "@/routes/_authenticated/_dashboard/daily-lesson/$dailyLessonId";
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../ui/dialog";
@@ -19,13 +18,13 @@ const LessonResultDialog = ({ defaultOpen = false }: { defaultOpen?: boolean }) 
   const { questionTypeId } = Route.useSearch();
   const navigate = useNavigate();
   const { currentStep, currentStepValue } = useResultStepperContext();
-  const { clearHistory } = useDailyLessonStore();
+  // const { clearHistory } = useDailyLessonStore();
   const [showResultDetail, setShowResultDetail] = useState(false);
 
   useEffect(() => {
     if (currentStep === EnumResultStepper.END) {
       setOpen(false);
-      clearHistory();
+      // clearHistory();
       navigate({
         to: `/daily-lesson/question-types/${questionTypeId}`,
       });

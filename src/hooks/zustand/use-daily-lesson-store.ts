@@ -50,7 +50,6 @@ type Action = {
   setResult: (result: LessonResult) => void;
   setShowExplanation: (show: boolean) => void;
   saveHistory: (answer: DLHistoryAnswer, result: DLHistoryAnswer) => void;
-  clearHistory: () => void;
 };
 
 const initialValue: State = {
@@ -68,10 +67,6 @@ const initialValue: State = {
   },
   learnerAnswers: [],
   showExplanation: false,
-  history: [],
-};
-
-const initialHistoryValue: Pick<State, "history"> = {
   history: [],
 };
 
@@ -96,6 +91,7 @@ const useDailyLessonStore = create<State & Action>((set, get) => ({
     set({
       ...initialValue,
       learnerAnswers: [],
+      history: [],
     });
   },
   nextQuestion: () => {
@@ -149,9 +145,6 @@ const useDailyLessonStore = create<State & Action>((set, get) => ({
     set((state) => ({
       history: [...state.history, { answer, result }],
     }));
-  },
-  clearHistory: () => {
-    set(initialHistoryValue);
   },
 }));
 
