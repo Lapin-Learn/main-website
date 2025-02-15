@@ -84,7 +84,6 @@ export default SimulatedTestPage;
 function renderFooter(session: SimulatedTestSession) {
   return (
     <Footer
-      sessionId={session.id}
       partDetails={
         session.skillTest.partsDetail.map((part, index) => ({
           ...part,

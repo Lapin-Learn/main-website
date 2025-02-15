@@ -19,7 +19,8 @@
   },
   "submitDialog": {
     "title": "Are you sure you want to submit?",
-    "description": "You have not completed all the questions in the test and there is still time left.",
+    "descriptionUnanswered": "You still have <bold>{{ remainingQuestions }} questions</bold> to complete and there is still time left",
+    "description": "You have not completed all the questions in the test and there is still time left",
     "submitBtn": "Submit",
     "cancelBtn": "Cancel"
   },

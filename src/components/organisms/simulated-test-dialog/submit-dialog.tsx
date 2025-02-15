@@ -82,7 +82,19 @@ const SubmitDialog = ({ triggerButton, sessionId }: SubmitDialogProps) => {
         <AlertDialogHeader>
           <AlertDialogTitle>{t("title")}</AlertDialogTitle>
           <AlertDialogDescription className="text-center">
-            <Trans i18nKey="simulatedTest:submitDialog:description"></Trans>
+            {session ? (
+              <Trans
+                i18nKey="simulatedTest:submitDialog:descriptionUnanswered"
+                values={{
+                  remainingQuestions:
+                    session.skillTest.partsDetail.slice(-1)[0]?.endQuestionNo -
+                    Object.keys(answerSheet).length,
+                }}
+                components={{ bold: <strong /> }}
+              />
+            ) : (
+              <Trans i18nKey="simulatedTest:submitDialog:description" />
+            )}{" "}
             &nbsp;
             <strong>{formatTime((timer?.time ?? 0) / 1000)}</strong>.
           </AlertDialogDescription>
