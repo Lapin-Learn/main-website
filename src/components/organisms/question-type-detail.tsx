@@ -1,5 +1,5 @@
 import { Loader2, Triangle, X } from "lucide-react";
-import { useState } from "react";
+import { PropsWithChildren, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import UnlockLesson from "@/assets/icons/daily-lesson/unlock-lesson.svg";
@@ -22,11 +22,9 @@ import { Route } from "@/routes/_authenticated/_dashboard/daily-lesson/";
 
 import QuestionTypeDetailInstruction from "./instruction";
 
-type QuestionTypeDetailProps = {
-  questionTypeId: string;
+type QuestionTypeDetailProps = PropsWithChildren<{
   className?: string;
-  children: React.ReactNode;
-};
+}>;
 
 const checkAvailable = (bandScore: EnumBandScore, currentBandScore: EnumBandScore) => {
   const bandScoreList = Object.values(EnumBandScore);
@@ -35,8 +33,8 @@ const checkAvailable = (bandScore: EnumBandScore, currentBandScore: EnumBandScor
   return currentIndex >= targetIndex;
 };
 
-const QuestionTypeDetail = ({ questionTypeId, className, children }: QuestionTypeDetailProps) => {
-  const { skill: exerciseSkill, bandScore } = Route.useSearch();
+const QuestionTypeDetail = ({ className, children }: QuestionTypeDetailProps) => {
+  const { skill: exerciseSkill, bandScore, questionTypeId } = Route.useSearch();
   const { data: questionTypes } = useGetQuestionTypes(exerciseSkill);
 
   const currentQuestionType = questionTypes?.find(
@@ -74,7 +72,7 @@ const QuestionTypeDetail = ({ questionTypeId, className, children }: QuestionTyp
 
   return (
     <Dialog
-      open={bandScore !== undefined}
+      open={bandScore !== undefined && questionTypeId !== undefined && questionTypeId !== 0}
       onOpenChange={(open) => {
         if (!open) {
           handleCloseDetailDialog();
