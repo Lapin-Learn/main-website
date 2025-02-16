@@ -15,7 +15,7 @@ import { EnumResultStepper } from "./type";
 const LessonResultDialog = ({ defaultOpen = false }: { defaultOpen?: boolean }) => {
   const [open, setOpen] = useState(defaultOpen);
 
-  const { questionTypeId } = Route.useSearch();
+  const search = Route.useSearch();
   const navigate = useNavigate();
   const { currentStep, currentStepValue } = useResultStepperContext();
   // const { clearHistory } = useDailyLessonStore();
@@ -26,7 +26,8 @@ const LessonResultDialog = ({ defaultOpen = false }: { defaultOpen?: boolean }) 
       setOpen(false);
       // clearHistory();
       navigate({
-        to: `/daily-lesson/question-types/${questionTypeId}`,
+        to: "/daily-lesson",
+        search,
       });
     }
   }, [currentStep]);

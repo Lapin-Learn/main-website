@@ -4,7 +4,7 @@ import { z } from "zod";
 import DailyLessonContent from "@/components/pages/[module]-daily-lesson/daily-lesson-content";
 
 const searchSchema = z.object({
-  questionTypeId: z.string().optional(),
+  questionTypeId: z.string().or(z.number()).optional(),
 });
 
 export const Route = createFileRoute("/_authenticated/daily-lesson/$dailyLessonId")({
