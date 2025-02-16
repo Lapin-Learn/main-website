@@ -49,7 +49,7 @@ export const useGetLessonList = ({
   return useQuery({
     queryKey: questionTypeKeys.lessonList(questionTypeId, bandScore).slice(),
     queryFn: getLessons,
-    enabled,
+    enabled: enabled && !!questionTypeId,
   });
 };
 

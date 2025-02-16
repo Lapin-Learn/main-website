@@ -18,7 +18,7 @@ import { useGetLessonList, useGetQuestionTypes } from "@/hooks/react-query/use-d
 import { BAND_SCORES } from "@/lib/consts";
 import { EnumBandScore } from "@/lib/enums";
 import { formatLearningDuration } from "@/lib/utils";
-import { Route } from "@/routes/_authenticated/_dashboard/daily-lesson/";
+import { Route } from "@/routes/_authenticated/_dashboard/daily-lesson";
 
 import QuestionTypeDetailInstruction from "./instruction";
 
@@ -34,7 +34,8 @@ const checkAvailable = (bandScore: EnumBandScore, currentBandScore: EnumBandScor
 };
 
 const QuestionTypeDetail = ({ className, children }: QuestionTypeDetailProps) => {
-  const { skill: exerciseSkill, bandScore, questionTypeId } = Route.useSearch();
+  const searchParams = Route.useSearch();
+  const { skill: exerciseSkill, bandScore, questionTypeId } = searchParams;
   const { data: questionTypes } = useGetQuestionTypes(exerciseSkill);
 
   const currentQuestionType = questionTypes?.find(
@@ -82,7 +83,6 @@ const QuestionTypeDetail = ({ className, children }: QuestionTypeDetailProps) =>
       <DialogTrigger className={className}>{children}</DialogTrigger>
       <DialogContent
         showClose={false}
-        onPointerDownOutside={handleCloseDetailDialog}
         className="m-0 flex h-[95%] flex-col items-center justify-between md:left-[99%] md:w-[50vw] md:-translate-x-full md:overflow-y-scroll lg:w-[30vw]"
       >
         <div className="flex size-full flex-col">
@@ -169,7 +169,7 @@ const QuestionTypeDetail = ({ className, children }: QuestionTypeDetailProps) =>
           onClick={() => {
             navigate({
               to: `/daily-lesson/${data?.lessons[current].id}`,
-              search: { questionTypeId },
+              search: searchParams,
             });
           }}
         >
