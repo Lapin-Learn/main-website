@@ -239,6 +239,7 @@ export function formatVNDCurrency(value: number) {
 export function assertFallback<T>(value: T | undefined, fallback: T): T {
   return value ?? fallback;
 }
+
 export const calculateOverallBandScore = (scores: (number | null)[]) => {
   const validScores = scores.filter((score): score is number => score !== null);
   if (validScores.length !== 4) return undefined;
@@ -250,3 +251,5 @@ export const getDuration = (startTime: number): number => {
   const endTime = new Date().getTime();
   return Math.round(Math.abs(endTime - startTime) / 1000);
 };
+
+export const getYesterday = (date: Date) => new Date(date.setDate(date.getDate() - 1));
