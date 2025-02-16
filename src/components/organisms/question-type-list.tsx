@@ -62,7 +62,7 @@ const QuestionTypeList = ({ skill }: QuestionTypeListPageProps) => {
                     <div className="flex h-full grow flex-col items-start justify-between gap-2">
                       <div className="flex flex-row items-center justify-between">
                         <div className="flex flex-row items-center justify-start gap-1 lg:gap-3">
-                          <CardTitle className="text-heading-6 font-semibold text-black">
+                          <CardTitle className="!text-heading-5 font-semibold text-black">
                             {questionType.name}
                           </CardTitle>
                           <span className="h-fit text-nowrap rounded-md bg-blue-50 px-2.5 py-0.5 text-center text-[12px] font-medium capitalize text-blue-500">
@@ -78,7 +78,7 @@ const QuestionTypeList = ({ skill }: QuestionTypeListPageProps) => {
                           </span>
                         </div>
                       </div>
-                      <div className="flex w-full flex-col gap-1">
+                      <div className="mt-3 flex w-full flex-col gap-1">
                         <p className="text-left text-small font-medium text-[#929292]">
                           {t("progress")}
                         </p>

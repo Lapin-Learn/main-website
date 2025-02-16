@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/dialog";
 import { Instruction } from "@/lib/types";
 
+import { ScrollArea } from "../ui/scroll-area";
+
 type QuestionTypeDetailInstructionProps = {
   title?: string;
   instruction?: Instruction;
@@ -37,10 +39,9 @@ const QuestionTypeDetailInstruction = ({
         <DialogHeader className="flex h-fit flex-col items-center justify-center space-y-4">
           <DialogTitle className="text-heading-4 font-bold">{title ?? ""}</DialogTitle>
         </DialogHeader>
-        <div
-          className="h-full grow overflow-y-scroll"
-          dangerouslySetInnerHTML={{ __html: instruction.content }}
-        />
+        <ScrollArea className="max-h-96">
+          <div dangerouslySetInnerHTML={{ __html: instruction.content }} />
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );

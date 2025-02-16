@@ -12,7 +12,7 @@ import { BAND_SCORES } from "@/lib/consts";
 import { Route } from "@/routes/_authenticated/_dashboard/daily-lesson";
 
 const BandScoreSelect = () => {
-  const { skill } = Route.useSearch();
+  const { skill, bandScore } = Route.useSearch();
   const navigate = useNavigate();
 
   const handleChangeBandScore = (value: string) => {
@@ -26,8 +26,8 @@ const BandScoreSelect = () => {
   };
   return (
     <Select
-      defaultValue={skill}
-      value={skill}
+      defaultValue={bandScore}
+      value={bandScore}
       onValueChange={(value) => handleChangeBandScore(value)}
     >
       <SelectTrigger className="size-fit border-0 shadow-none" isArrow={false}>

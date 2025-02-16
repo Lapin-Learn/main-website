@@ -1,5 +1,4 @@
-import { useNavigate } from "@tanstack/react-router";
-import { Triangle, X } from "lucide-react";
+import { Loader2, Triangle, X } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -53,7 +52,7 @@ const QuestionTypeDetail = ({ questionTypeId, className, children }: QuestionTyp
   );
   const isAvailable = checkAvailable(bandScore, currentBandScore);
 
-  const { data } = useGetLessonList({
+  const { data, isLoading: isLoadingLessons } = useGetLessonList({
     questionTypeId,
     bandScore: bandScore ?? currentBandScore,
     enabled: isAvailable,
@@ -61,17 +60,27 @@ const QuestionTypeDetail = ({ questionTypeId, className, children }: QuestionTyp
 
   const [current, setCurrent] = useState(0);
 
-  const navigate = useNavigate();
+  const navigate = Route.useNavigate();
   const { t } = useTranslation("dailyLesson");
 
   const handleCloseDetailDialog = () => {
     navigate({
-      to: "/daily-lesson",
+      search: {
+        skill: exerciseSkill,
+        bandScore: undefined,
+      },
     });
   };
 
   return (
-    <Dialog>
+    <Dialog
+      open={bandScore !== undefined}
+      onOpenChange={(open) => {
+        if (!open) {
+          handleCloseDetailDialog();
+        }
+      }}
+    >
       <DialogTrigger className={className}>{children}</DialogTrigger>
       <DialogContent
         showClose={false}
@@ -87,7 +96,7 @@ const QuestionTypeDetail = ({ questionTypeId, className, children }: QuestionTyp
           </div>
           <div className="flex size-full flex-col items-center justify-center space-y-2 md:space-y-4 lg:space-y-6">
             <div className="flex flex-col items-center justify-center space-y-4">
-              <div className="flex !size-24 flex-row items-center overflow-hidden rounded-full lg:!size-36">
+              <div className="flex !size-32 flex-row items-center overflow-hidden rounded-full lg:!size-40">
                 <img
                   src={currentQuestionType?.image?.url}
                   alt={currentQuestionType?.name}
@@ -101,26 +110,28 @@ const QuestionTypeDetail = ({ questionTypeId, className, children }: QuestionTyp
                 <DialogDescription className="text-body font-normal text-supporting-text">
                   {BAND_SCORES[bandScore as EnumBandScore]} &nbsp;&nbsp;|&nbsp;&nbsp;
                   {t("questionType.totalLearnedTime")}&nbsp;
-                  {formatLearningDuration(data?.totalLearningDuration || 0)}
+                  {formatLearningDuration(data?.totalLearningDuration ?? 0)}
                 </DialogDescription>
               </div>
             </div>
 
-            <QuestionTypeDetailInstruction
-              title={currentQuestionType?.name}
-              instruction={currentQuestionType?.instructions[0]}
-            >
-              <Button className="flex w-fit flex-row space-x-1 bg-[#EFEFEF] transition-colors duration-200 hover:bg-neutral-100 focus:bg-neutral-100">
-                <div className="flex size-4 items-center justify-center md:size-5 lg:size-6">
-                  <Triangle className="size-2/3 rotate-90 text-black" fill="black" />
-                </div>
-                <p className="text-[10px] font-semibold text-black md:text-[12px] lg:text-[15px]">
-                  {t("questionType.theoryPractice")}
-                </p>
-              </Button>
-            </QuestionTypeDetailInstruction>
+            {!isComingSoon && isAvailable && (
+              <QuestionTypeDetailInstruction
+                title={currentQuestionType?.name}
+                instruction={currentQuestionType?.instructions[0]}
+              >
+                <Button className="flex w-fit flex-row space-x-1 bg-[#EFEFEF] transition-colors duration-200 hover:bg-neutral-100 focus:bg-neutral-100">
+                  <div className="flex size-4 items-center justify-center md:size-5 lg:size-6">
+                    <Triangle className="size-2/3 rotate-90 text-black" fill="black" />
+                  </div>
+                  <p className="text-[10px] font-semibold text-black md:text-[12px] lg:text-[15px]">
+                    {t("questionType.theoryPractice")}
+                  </p>
+                </Button>
+              </QuestionTypeDetailInstruction>
+            )}
 
-            <div className="size-full">
+            <div className="size-full pt-7">
               {isComingSoon ? (
                 <Card>
                   <CardContent className="flex h-40 flex-1 items-center justify-center p-0 opacity-50">
@@ -128,18 +139,26 @@ const QuestionTypeDetail = ({ questionTypeId, className, children }: QuestionTyp
                   </CardContent>
                 </Card>
               ) : !isAvailable ? (
-                <div className="flex h-full flex-col items-center justify-evenly space-y-4 p-8">
+                <div className="grid h-full place-items-center content-center space-y-8 p-8">
                   <img
                     src={UnlockLesson}
                     alt="Unlock Lesson"
-                    className="size-12 md:size-16 lg:size-20"
+                    className="size-16 md:size-24 lg:size-28"
                   />
                   <p className="text-center text-body font-normal">
                     {t("questionType.unavailable")}
                   </p>
                 </div>
+              ) : isLoadingLessons ? (
+                <div className="grid h-56 place-items-center">
+                  <Loader2 className="size-12 animate-spin text-supporting-text" />
+                </div>
               ) : (
-                <LessonCarousel lessons={data?.lessons || []} setCurrent={setCurrent} />
+                <LessonCarousel
+                  lessons={data?.lessons ?? []}
+                  setCurrent={setCurrent}
+                  skill={exerciseSkill}
+                />
               )}
             </div>
           </div>

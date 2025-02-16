@@ -1,8 +1,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { createElement, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import PracticeIcon from "@/assets/icons/practice";
 import {
   Carousel,
   type CarouselApi,
@@ -12,14 +11,17 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Progress } from "@/components/ui/progress";
+import { MAPPED_SKILL_ICON_FILLED } from "@/lib/consts";
+import { EnumSkill } from "@/lib/enums";
 import { DailyLesson } from "@/lib/types";
 
 type LessonCarouselProps = {
   lessons: DailyLesson[];
   setCurrent: (current: number) => void;
+  skill: EnumSkill;
 };
 
-const LessonCarousel = ({ lessons, setCurrent }: LessonCarouselProps) => {
+const LessonCarousel = ({ lessons, setCurrent, skill }: LessonCarouselProps) => {
   const [api, setApi] = useState<CarouselApi>();
   const { t } = useTranslation("dailyLesson");
   useEffect(() => {
@@ -40,7 +42,7 @@ const LessonCarousel = ({ lessons, setCurrent }: LessonCarouselProps) => {
         {lessons.map((lesson, index) => {
           return (
             <CarouselItem className="px-2" key={lesson.id}>
-              <div className="flex-col items-center space-y-2 rounded-md bg-neutral-50 px-5 py-4">
+              <div className="flex-col items-center space-y-2 rounded-md bg-neutral-50 px-5 py-4 md:space-y-4">
                 <div className="relative flex w-full flex-row items-center justify-between">
                   <CarouselPrevious
                     className="relative left-0 top-0 size-6 translate-y-0 border-none bg-transparent shadow-none"
@@ -55,9 +57,13 @@ const LessonCarousel = ({ lessons, setCurrent }: LessonCarouselProps) => {
                     icon={<ChevronRight className="size-6" color="#000" />}
                   />
                 </div>
-                <div className="flex w-full flex-col items-start justify-start space-y-2">
-                  <div className="flex size-12 items-center justify-center rounded-full bg-white">
-                    <PracticeIcon width={20} height={20} fill="" />
+                <div className="flex w-full flex-col items-start justify-start space-y-2 md:space-y-6">
+                  <div className="flex size-14 items-center justify-center rounded-full bg-white">
+                    {createElement(MAPPED_SKILL_ICON_FILLED[skill], {
+                      fill: "#545454",
+                      height: 20,
+                      width: 20,
+                    })}
                   </div>
                   <p className="text-left text-heading-6 font-bold text-neutral-900 md:text-heading-5 lg:text-heading-4">
                     {lesson.name}
