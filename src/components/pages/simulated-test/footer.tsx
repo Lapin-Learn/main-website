@@ -23,17 +23,21 @@ const Footer = ({ partDetails, skill, answerStatus }: FooterProps) => {
   const { t } = useTranslation("simulatedTest");
   const { setCurrentQuestion } = useAnswerStore();
 
-  const nextPart = DEFAULT_QUESTION_NO_BY_SKILL[skill]
-    ? DEFAULT_QUESTION_NO_BY_SKILL[skill][position.part + 1]?.startQuestionNo
-    : 0;
-  const prevPart = DEFAULT_QUESTION_NO_BY_SKILL[skill]
-    ? DEFAULT_QUESTION_NO_BY_SKILL[skill][position.part - 1]?.startQuestionNo
-    : 0;
+  const currentPartId = partDetails.findIndex((detail) => detail.part === position.part);
+
+  const nextPart =
+    DEFAULT_QUESTION_NO_BY_SKILL[skill] && currentPartId !== partDetails.length - 1
+      ? partDetails[currentPartId + 1].startQuestionNo
+      : 0;
+  const prevPart =
+    DEFAULT_QUESTION_NO_BY_SKILL[skill] && currentPartId !== 0
+      ? partDetails[currentPartId - 1].startQuestionNo
+      : 0;
 
   const moveToNextPart = () => {
     if (!nextPart) return;
     if (skill !== EnumSkill.speaking) {
-      navigateToPart(nextPart, position.part + 1);
+      navigateToPart(nextPart, partDetails[currentPartId + 1].part);
       setCurrentQuestion(nextPart);
     }
   };
@@ -41,7 +45,7 @@ const Footer = ({ partDetails, skill, answerStatus }: FooterProps) => {
   const moveToPrevPart = () => {
     if (!prevPart) return;
     if (skill !== EnumSkill.speaking) {
-      navigateToPart(prevPart, position.part - 1);
+      navigateToPart(prevPart, partDetails[currentPartId - 1].part);
       setCurrentQuestion(prevPart);
     }
   };

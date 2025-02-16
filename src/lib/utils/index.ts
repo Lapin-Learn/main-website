@@ -85,10 +85,14 @@ export const searchSchema = z.object({
 
 export const isDevEnv = () => process.env.NODE_ENV === "development";
 
-export const scrollToElementById = (id: string) => {
+export const scrollToElementById = (id: string, offset = 80) => {
   const element = document.getElementById(id);
   if (element) {
-    element.scrollIntoView({ behavior: "smooth" });
+    const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+    const container = element.closest("[data-radix-scroll-area-viewport]");
+    if (container) {
+      container.scrollBy({ top: elementPosition - offset, behavior: "smooth" });
+    }
   }
 };
 

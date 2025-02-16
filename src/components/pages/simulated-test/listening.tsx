@@ -20,7 +20,7 @@ const ListeningPage = ({ skillTestId, sessionId }: STSkillPageProps) => {
 
   useEffect(() => {
     if (!isLoading) {
-      scrollToElementById(genQuestionId(question));
+      scrollToElementById(genQuestionId(question), 140);
     }
   }, [isLoading, question]);
 
