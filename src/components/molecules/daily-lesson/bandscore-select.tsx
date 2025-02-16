@@ -12,14 +12,15 @@ import { BAND_SCORES } from "@/lib/consts";
 import { Route } from "@/routes/_authenticated/_dashboard/daily-lesson";
 
 const BandScoreSelect = () => {
-  const { skill, bandScore } = Route.useSearch();
+  const search = Route.useSearch();
+  const { bandScore } = search;
   const navigate = useNavigate();
 
   const handleChangeBandScore = (value: string) => {
     navigate({
       to: "",
       search: {
-        skill: skill,
+        ...search,
         bandScore: value,
       },
     });

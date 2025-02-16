@@ -7,6 +7,7 @@ import { EnumBandScore, EnumSkill } from "@/lib/enums";
 const searchSchema = z.object({
   skill: z.nativeEnum(EnumSkill).catch(EnumSkill.reading),
   bandScore: z.nativeEnum(EnumBandScore).optional().catch(undefined),
+  questionTypeId: z.number().optional().catch(undefined),
 });
 
 export const Route = createFileRoute("/_authenticated/_dashboard/daily-lesson/")({
