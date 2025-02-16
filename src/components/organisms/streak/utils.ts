@@ -102,10 +102,14 @@ const parseActiveDays = (originalDays: DayProps[], activeDays: Date[] = []) => {
   return newDays;
 };
 
-const getFreezeDays = (days: StreakHistory[]) => {
-  return days
+const getFreezeDays = (days: StreakHistory[]) =>
+  days
     .filter((day) => day.actionName === "freeze_streak")
-    .map((day) => new Date(day.date).toDateString());
-};
+    .map((day) => {
+      const date = new Date(day.date);
+      date.setDate(date.getDate() - 1);
+
+      return date.toDateString();
+    });
 
 export { generateCalendar, getFreezeDays, parseActiveDays };
