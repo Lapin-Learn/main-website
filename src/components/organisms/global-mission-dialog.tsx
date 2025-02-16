@@ -72,7 +72,7 @@ const GlobalMissionDialog = () => {
               className="w-full"
               onClick={handleReceive}
             >
-              {t("after.receive-reward", { ns: "dailyLesson" })}
+              {t("after.receiveReward", { ns: "dailyLesson" })}
             </Button>
           </motion.div>
         </div>

@@ -2,16 +2,22 @@ import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 import ChoiceButton from "@/components/molecules/choice-button";
-import { DLAnswer } from "@/hooks/zustand/use-daily-lesson-store";
+import useDailyLessonStore, { DLAnswer } from "@/hooks/zustand/use-daily-lesson-store";
 import { MultipleChoiceContent } from "@/lib/types";
 
 import { BaseAnswerInputProps } from ".";
 
 type MultipleChoiceProps = MultipleChoiceContent & BaseAnswerInputProps;
 
+export type MultipleChoiceAnswer = Record<string, string[]>;
+
 const MultipleChoice = (props: MultipleChoiceProps) => {
   const { answer, options, renderCheckButton, isAnswered, currentQuestionIndex } = props;
   const [selected, setSelected] = useState<number[]>([]);
+  const {
+    lessonState: { currentQuestion },
+    saveHistory,
+  } = useDailyLessonStore();
   const isSingleSelect = answer.length === 1;
   const canShowCheckButton = selected.length > (isSingleSelect ? 0 : 1);
 
@@ -21,6 +27,15 @@ const MultipleChoice = (props: MultipleChoiceProps) => {
 
   const getCorrectAnswers = (): DLAnswer => {
     const numberOfCorrect = selected.filter((s) => answer.includes(s)).length;
+    saveHistory(
+      {
+        [currentQuestion?.question.content.question ?? "unknown"]: selected.map((s) => options[s]),
+      },
+      {
+        [currentQuestion?.question.content.question ?? "unknown"]: answer.map((a) => options[a]),
+      }
+    );
+
     return {
       numberOfCorrect,
       totalOfQuestions: answer.length,

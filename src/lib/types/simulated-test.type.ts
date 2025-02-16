@@ -110,7 +110,6 @@ export type SpeakingContent = {
 };
 
 export type PartDetail = {
-  questionTypes: string[];
   startQuestionNo: number;
   endQuestionNo: number;
   questionTypesIndices: {

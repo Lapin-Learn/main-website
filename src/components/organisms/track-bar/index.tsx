@@ -26,7 +26,7 @@ const TrackBar = ({ data }: TrackBarProps) => {
   };
 
   return (
-    <div className="flex flex-row items-center justify-center gap-4 rounded-2xl bg-white py-4 md:gap-6">
+    <div className="flex w-full flex-row items-center justify-around gap-2 rounded-2xl bg-white p-4">
       <TooltipWrapper
         triggerNode={
           <button onClick={() => {}}>
@@ -34,14 +34,14 @@ const TrackBar = ({ data }: TrackBarProps) => {
           </button>
         }
         contentNode={<Trans i18nKey="tooltip:gamification.streak" />}
+        className="flex flex-col gap-1"
         asChild
-        className="max-w-60"
       />
       <TooltipWrapper
         triggerNode={
           <button onClick={handleNavigateToShop}>
             <Carrots
-              className="hover:opacity-80"
+              className="cursor-pointer hover:opacity-80"
               carrots={data.carrots}
               size="base"
               textStyle="text-orange-400"
@@ -60,7 +60,7 @@ const TrackBar = ({ data }: TrackBarProps) => {
             </ul>
           </>
         }
-        className="flex max-w-80 flex-col gap-1"
+        className="flex flex-col gap-1"
         asChild
       />
       <XpTrackBar

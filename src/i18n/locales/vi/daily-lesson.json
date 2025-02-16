@@ -1,37 +1,59 @@
 {
-    "loading": {
-      "tips": [
-        "Bạn có thể làm bài tập nâng band mà không cần tích lũy đủ điểm kinh nghiệm",
-        "Hãy tập trung vào việc nghe hiểu thay vì chỉ làm đúng câu hỏi",
-        "Thời gian ôn luyện đều đặn mỗi ngày sẽ giúp bạn cải thiện nhanh chóng",
-        "Thực hành viết các đoạn văn ngắn để cải thiện khả năng viết"
-      ]
-    },
-    "after": {
-      "encourages": [
-        "Tuyệt vời",
-        "Làm tốt lắm",
-        "Rất tốt",
-        "Tiếp tục giữ vững",
-        "Bạn đang làm rất tốt",
-        "Bạn đang đi đúng hướng"
-      ],
-      "receive-reward": "Nhận thưởng",
-      "Experience": "Kinh nghiệm",
-      "Timer": "Thời gian",
-      "Carrot": "Cà rốt"
-    },
-    "explanation": {
-      "title": "Giải thích",
-      "evidence": "Dẫn chứng nằm ở đoạn",
-      "answer": "Vậy đáp án cho câu hỏi:",
-      "understood": "Đã hiểu"
-    },
-    "quit_lesson": {
-      "title": "Bài học chưa hoàn thành",
-      "description": "Bạn chưa làm xong bài học này. Bạn có chắc chắn muốn thoát không?",
-      "continue": "Tiếp tục làm bài",
-      "quit": "Thoát"
-    }
+  "title": "Bài học hàng ngày",
+  "progress": "Kinh nghiệm",
+  "loading": {
+    "tips": [
+      "Bạn có thể làm bài tập nâng band mà không cần tích lũy đủ điểm kinh nghiệm",
+      "Hãy tập trung vào việc nghe hiểu thay vì chỉ làm đúng câu hỏi",
+      "Thời gian ôn luyện đều đặn mỗi ngày sẽ giúp bạn cải thiện nhanh chóng",
+      "Thực hành viết các đoạn văn ngắn để cải thiện khả năng viết"
+    ]
+  },
+  "result": {
+    "detail": "Chi tiết kết quả",
+    "noDetail": "Không có chi tiết kết quả",
+    "yourAnswer": "Câu trả lời của bạn: ",
+    "result": "Đáp án: "
+  },
+  "after": {
+    "encourages": [
+      "Tuyệt vời",
+      "Làm tốt lắm",
+      "Rất tốt",
+      "Tiếp tục giữ vững",
+      "Bạn đang làm rất tốt",
+      "Bạn đang đi đúng hướng"
+    ],
+    "receiveReward": "Nhận thưởng",
+    "Experience": "Kinh nghiệm",
+    "Timer": "Thời gian",
+    "Carrot": "Cà rốt"
+  },
+  "explanation": {
+    "title": "Giải thích",
+    "evidence": "Dẫn chứng nằm ở đoạn",
+    "answer": "Vậy đáp án cho câu hỏi:",
+    "understood": "Đã hiểu"
+  },
+  "quit_lesson": {
+    "title": "Bài học chưa hoàn thành",
+    "description": "Bạn chưa làm xong bài học này. Bạn có chắc chắn muốn thoát không?",
+    "continue": "Tiếp tục làm bài",
+    "quit": "Thoát"
+  },
+  "questionType": {
+    "totalLearnedTime": "Đã học",
+    "theoryPractice": "Ôn lý thuyết",
+    "noLessonFound": "Không tìm thấy bài học",
+    "practiceBtn": "Luyện tập",
+    "jumpNextBtn": "Thử thách nâng band",
+    "comingSoon": "Sắp ra mắt...",
+    "unavailable": "Hoàn thành các bài học Band trước để mở khóa bài học này"
+  },
+  "questionTypes": {
+    "experience": "Tiến độ",
+    "xp": "KN",
+    "numberOfLessons_singular": "{{number}} bài",
+    "numberOfLessons_plural": "{{number}} bài"
   }
-  
+}

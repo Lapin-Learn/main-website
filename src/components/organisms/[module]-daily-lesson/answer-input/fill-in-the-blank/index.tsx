@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useController, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { DLAnswer } from "@/hooks/zustand/use-daily-lesson-store";
 import { FillInTheBlankContent, FillInTheBlankContentType } from "@/lib/types";
 
 import { BaseAnswerInputProps } from "..";
@@ -46,7 +47,7 @@ const FillInTheBlank = ({
     setIsChecking(false);
   }, [currentQuestionIndex, reset, blankContent.length]);
 
-  const getCorrectAnswers = () =>
+  const getCorrectAnswers = (): DLAnswer =>
     field.value.reduce(
       (acc, value, index) => ({
         numberOfCorrect: acc.numberOfCorrect + (value === blankContent[index] ? 1 : 0),

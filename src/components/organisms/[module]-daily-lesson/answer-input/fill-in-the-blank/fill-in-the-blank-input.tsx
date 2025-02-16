@@ -87,6 +87,7 @@ const FillInTheBlankInput = ({
           onBlur={() => setIsFocused(false)}
           placeholder={t("fillInTheBlank.enterTheAnswer")}
           autoCapitalize="none"
+          autoComplete="off"
           value={field.value[index]}
           onChange={(e) => onChange(e.target.value, index, field)}
         />

@@ -13,6 +13,8 @@ export type DailyLesson = {
   name: string;
   order: number;
   bandScore: EnumBandScore;
+  isCurrent: boolean;
+  xp: number;
 };
 
 export type QuestionType = {
@@ -23,6 +25,11 @@ export type QuestionType = {
   image: Image | null; // The image URL
   updatedAt: string;
   lessons: number;
+  instructions: Instruction[];
+  bandScoreRequires: {
+    bandScore: EnumBandScore;
+    requireXP: number;
+  }[];
 };
 
 export type LessonResult = {

@@ -1,3 +1,5 @@
+import { QueryFunctionContext } from "@tanstack/react-query";
+
 import { EnumSkill } from "@/lib/enums";
 import { DLQuestion, FetchingData } from "@/lib/types";
 import {
@@ -24,10 +26,14 @@ export type LessonList = {
   lessons: DailyLesson[];
   totalLearningDuration: number;
 };
-export const getLessons = async (questionTypeId: string) => {
+export const getLessons = async ({ queryKey }: QueryFunctionContext<string[]>) => {
+  const [, questionTypeId, bandScore] = queryKey;
+
   return (
     await api
-      .get(`daily-lessons/question-types/${questionTypeId}/lessons`)
+      .get(`daily-lessons/question-types/${questionTypeId}/lessons`, {
+        searchParams: { band: bandScore },
+      })
       .json<FetchingData<LessonList>>()
   ).data;
 };
