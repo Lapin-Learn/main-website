@@ -9,10 +9,10 @@ type CarrotsProps = {
 };
 
 const sizeClasses = {
-  sm: "w-4 h-4",
-  base: "md:size-6 size-5",
-  md: "w-8 h-8",
-  lg: "w-10 h-10",
+  sm: "w-4 h-4 shrink-0",
+  base: "md:size-6 size-5 shrink-0",
+  md: "w-8 h-8 shrink-0",
+  lg: "w-10 h-10 shrink-0",
 };
 
 const Carrots = ({ carrots, size = "md", textStyle, className }: CarrotsProps) => {

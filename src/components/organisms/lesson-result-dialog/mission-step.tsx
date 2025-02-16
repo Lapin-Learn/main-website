@@ -66,7 +66,7 @@ const MissionStep = () => {
       >
         <Button size="3xl" className="min-w-96 max-w-full" onClick={handleNext}>
           {isAvailableReceiveReward
-            ? t("after.receive-reward", { ns: "dailyLesson" })
+            ? t("after.receiveReward", { ns: "dailyLesson" })
             : t("button.next")}
         </Button>
       </motion.div>

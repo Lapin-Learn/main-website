@@ -6,13 +6,19 @@ import { cn } from "@/lib/utils";
 
 const QuestionCard = () => {
   const {
-    lessonState: { currentQuestion },
+    lessonState: { currentQuestion, isAudioPlaying },
   } = useDailyLessonStore();
   if (!currentQuestion?.question) return null;
   const { content, audioId, audio } = currentQuestion.question as DLQuestion;
   return (
-    <div>
-      {audioId && audio?.url && <AudioPlayer src={audio.url} className="h-12 w-96 rounded-xl" />}
+    <div className="w-full px-4 md:px-56">
+      {audioId && audio?.url && (
+        <AudioPlayer
+          src={audio.url}
+          isAudioPlaying={isAudioPlaying}
+          className="h-12 w-full rounded-xl"
+        />
+      )}
       {content.paragraph && (
         <ScrollArea className="h-60 rounded-xl border bg-white px-4">
           <p className="my-4">{content.paragraph}</p>

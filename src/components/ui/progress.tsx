@@ -21,8 +21,15 @@ const Progress = React.forwardRef<React.ElementRef<typeof ProgressPrimitive.Root
         className={cn("absolute size-full flex-1 bg-primary transition-all", indicatorClassName)}
         style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
       />
-      <div className="absolute-center mix-blend-color-burn">
-        <p className="text-[10px] font-medium text-neutral-700">{label}</p>
+      <div className="absolute-center">
+        <p
+          className={cn(
+            "text-[10px] font-medium",
+            value && value >= 50 ? "text-white" : "text-black"
+          )}
+        >
+          {label}
+        </p>
       </div>
     </ProgressPrimitive.Root>
   )

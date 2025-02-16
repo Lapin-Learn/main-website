@@ -32,7 +32,9 @@ function WritingResult({ session }: WritingResultProps) {
   const partDetails =
     stData?.skillTests
       .find((skill) => skill.skill === EnumSkill.writing)
-      ?.partsDetail.map((item) => item.questionTypes) ?? [];
+      ?.partsDetail.map((item) => {
+        return item.questionTypesIndices.map((index) => index.name);
+      }) ?? [];
 
   return (
     <div className="flex flex-col gap-4">

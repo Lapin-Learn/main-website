@@ -8,8 +8,10 @@ import Confetti, { ConfettiRef } from "@/components/ui/confetti";
 
 import { useResultStepperContext } from "./result-stepper-provider";
 import { EnumResultStepper, ResultProps } from "./type";
-
-const ResultStep = () => {
+type ResultStepProps = {
+  setShowResultDetail: (value: boolean) => void;
+};
+const ResultStep = ({ setShowResultDetail }: ResultStepProps) => {
   const { currentStepValue, nextMilestone } = useResultStepperContext();
   const [circularValue, setCircularValue] = useState(0);
   const { t } = useTranslation("dailyLesson");
@@ -42,6 +44,10 @@ const ResultStep = () => {
     exp: { Component: icons.Flash, label: "after.Experience", value: exp },
     carrot: { Component: icons.Carrot, label: "after.Carrot", value: carrot },
     timer: { Component: icons.Clock, label: "after.Timer", value: timer },
+  };
+
+  const handleShowResultDetail = () => {
+    setShowResultDetail(true);
   };
 
   return (
@@ -79,9 +85,19 @@ const ResultStep = () => {
             </div>
           ))}
         </div>
-        <Button size="3xl" className="w-full rounded-lg" onClick={nextMilestone}>
-          {t("after.receive-reward")}
-        </Button>
+        <div className="flex w-full flex-row space-x-4">
+          <Button
+            variant="ghost"
+            size="3xl"
+            className="w-full rounded-lg text-primary-100"
+            onClick={handleShowResultDetail}
+          >
+            {t("result.detail")}
+          </Button>
+          <Button size="3xl" className="w-full rounded-lg" onClick={nextMilestone}>
+            {t("after.receiveReward")}
+          </Button>
+        </div>
       </div>
     </div>
   );

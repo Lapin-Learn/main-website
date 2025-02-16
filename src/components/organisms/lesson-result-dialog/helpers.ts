@@ -96,7 +96,7 @@ const transformStepper = (result: LessonResult) => {
       steps[EnumResultStepper.LEVEL_RANK] = {
         type: EnumResultStepper.LEVEL_RANK,
         value: {
-          level: levelMilestone.newValue as number,
+          level: (levelMilestone.newValue as Level).id,
           rank: null,
         },
       };

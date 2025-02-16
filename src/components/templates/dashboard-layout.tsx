@@ -11,7 +11,7 @@ import { StreakSection } from "../organisms/streak";
 import TrackBar from "../organisms/track-bar";
 
 type DashboardLayoutProps = {
-  banner: ReactNode;
+  banner?: ReactNode;
   children: ReactNode;
 };
 

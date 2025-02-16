@@ -36,6 +36,7 @@ module.exports = {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          "100": "#111928",
           "300": "#F4926F",
           "700": "#A9421C",
           "900": "#642711",
@@ -109,6 +110,16 @@ module.exports = {
           "700": "#B5A035",
           "800": "#8C7C29",
           "900": "#6B5F20",
+        },
+        green: {
+          DEFAULT: "#24AE26",
+          surface: "#E9F7E9",
+          onSurface: "#0F4910",
+        },
+        red: {
+          DEFAULT: "#EA2121",
+          surface: "#FDE9E9",
+          onSurface: "#620E0E",
         },
       },
       borderRadius: {

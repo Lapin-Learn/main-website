@@ -6,33 +6,33 @@ import { useState } from "react";
 import DraggableItem from "@/components/molecules/draggable-item";
 import DroppableZone from "@/components/molecules/droppable-matching-zone";
 import MatchingButton from "@/components/molecules/matching-button";
-import { DLAnswer } from "@/hooks/zustand/use-daily-lesson-store";
+import useDailyLessonStore, { DLAnswer } from "@/hooks/zustand/use-daily-lesson-store";
 import { MatchingContent } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 import { BaseAnswerInputProps } from ".";
 
-type MatchingAnswer = {
-  [key: string]: string;
-};
+export type MatchingAnswer = Record<string, string>;
 
 type MatchingProps = MatchingContent & BaseAnswerInputProps;
 const Matching = (props: MatchingProps) => {
   const { columnA, columnB, renderCheckButton, isAnswered, answer } = props;
+  const { saveHistory } = useDailyLessonStore();
   const [selected, setSelected] = useState<MatchingAnswer>({});
 
   const [activeId, setActiveId] = useState<string | null>(null);
   const canShowCheckButton = Object.keys(selected).length == columnA.options.length;
 
-  const answerRecord = answer.reduce<Record<string, string>>((acc, pair) => {
+  const answerRecord = answer.reduce<MatchingAnswer>((acc, pair) => {
     acc[pair.columnA[0]] = pair.columnB[0];
     return acc;
   }, {});
 
   const getCorrectAnswers = (): DLAnswer => {
-    const numberOfCorrect = Object.keys(selected).filter(
-      (key) => selected[key] === answerRecord[key]
-    ).length;
+    saveHistory(selected, answerRecord);
+    const numberOfCorrect = Object.keys(selected).filter((key) => {
+      return selected[key] === answerRecord[key];
+    }).length;
     return {
       numberOfCorrect,
       totalOfQuestions: columnA.options.length,
@@ -75,8 +75,8 @@ const Matching = (props: MatchingProps) => {
         exit={{ x: -100, opacity: 0 }}
         transition={{ duration: 0.5 }}
         className={cn(
-          "grid w-3/4 gap-8",
-          isAnswered ? "grid-cols-1 place-items-center" : "grid-cols-2"
+          "flex w-3/4 gap-8 items-center justify-center",
+          isAnswered ? "flex-col place-items-center" : "flex-row"
         )}
       >
         <div className="flex flex-col gap-4">
@@ -84,7 +84,7 @@ const Matching = (props: MatchingProps) => {
           {columnA.options.map((option, index) => {
             return (
               <div key={index} className="flex items-center gap-4">
-                <div className="flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-900">
+                <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-900">
                   {index + 1}
                 </div>
                 <div>{option}</div>
@@ -128,7 +128,7 @@ const Matching = (props: MatchingProps) => {
           })}
         </div>
         {!isAnswered && (
-          <div className="flex flex-col gap-4">
+          <div className="flex h-full flex-col gap-4">
             <div className="font-semibold">{columnB.title}</div>
             {unselectedB.map((option) => (
               <DraggableItem

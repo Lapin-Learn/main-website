@@ -20,7 +20,7 @@ export default function FillInBlanksQuestionGroup({
   return (
     <div>
       <h6 className="font-bold">{questionCard}</h6>
-      <EditorContent editor={editor} />
+      <EditorContent editor={editor} autoComplete="off" />
     </div>
   );
 }

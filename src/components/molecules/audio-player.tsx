@@ -25,6 +25,7 @@ type AudioPlayerProps = {
    * The audio source URL
    */
   src: string;
+  isAudioPlaying?: boolean;
 };
 
 const AudioPlayer = ({
@@ -32,6 +33,7 @@ const AudioPlayer = ({
   pausable = true,
   autoplay = true,
   seekable = true,
+  isAudioPlaying,
   src,
 }: AudioPlayerProps) => {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -98,6 +100,12 @@ const AudioPlayer = ({
   }, [currentTime, duration]);
 
   useEffect(() => {}, [audioRef.current?.duration]);
+
+  useEffect(() => {
+    if (!isAudioPlaying) {
+      pauseAudio();
+    }
+  }, [isAudioPlaying]);
 
   return (
     <div className={cn("flex w-full items-center space-x-3 bg-white p-8", className)}>
