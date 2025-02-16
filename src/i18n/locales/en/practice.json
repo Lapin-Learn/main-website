@@ -41,18 +41,18 @@
     },
     "alerts": {
       "practice": {
-        "title": "Practice Mode",
-        "description_speaking": "In this mode, you can choose the parts of the Speaking test you want to practice, adjust the time according to your ability, and listen to the recording again.",
-        "description_reading": "In this mode, you can choose the parts of the Reading test you want to practice, adjust the time according to your ability, and review the questions as needed.",
-        "description_listening": "In this mode, you can choose the parts of the Listening test you want to practice, adjust the time according to your ability, and listen to the recording again.",
-        "description_writing": "In this mode, you can choose the parts of the Writing test you want to practice, adjust the time according to your ability, and review your responses as needed."
+      "title": "Practice Mode",
+      "description_speaking": "In this mode, you can <bold>choose the parts</bold> of the Speaking test you want to practice, <bold>adjust the time</bold> according to your ability, and <bold>listen to the recording again</bold>.",
+      "description_reading": "In this mode, you can <bold>choose the parts</bold> of the Reading test you want to practice, <bold>adjust the time</bold> according to your ability, and <bold>review the questions</bold> as needed.",
+      "description_listening": "In this mode, you can <bold>choose the parts</bold> of the Listening test you want to practice, <bold>adjust the time</bold> according to your ability, and <bold>listen to the recording again</bold>.",
+      "description_writing": "In this mode, you can <bold>choose the parts</bold> of the Writing test you want to practice, <bold>adjust the time</bold> according to your ability, and <bold>review your responses</bold> as needed."
       },
       "full_test": {
-        "title": "Warning",
-        "description_speaking": "During the Speaking test, to ensure an accurate assessment of your abilities, please maintain focus throughout the session.",
-        "description_reading": "In the Reading test, to ensure an accurate evaluation of your skills, please avoid exiting the test environment.",
-        "description_listening": "In the Listening test, you will not be able to replay the audio. To achieve an accurate assessment, please stay within the test environment and avoid any interruptions.",
-        "description_writing": "In the Writing test, to receive an accurate evaluation of your skills, please stay focused and do not exit the test environment."
+      "title": "Warning",
+      "description_speaking": "During the Speaking test, to ensure an <bold>accurate assessment of your abilities</bold>, please <bold>maintain focus</bold> throughout the session.",
+      "description_reading": "In the Reading test, to ensure an <bold>accurate evaluation of your skills</bold>, please <bold>avoid exiting</bold> the test environment.",
+      "description_listening": "In the Listening test, you will <bold>not be able to replay the audio</bold>. To achieve an <bold>accurate assessment</bold>, please <bold>stay within</bold> the test environment and avoid any interruptions.",
+      "description_writing": "In the Writing test, to receive an <bold>accurate evaluation of your skills</bold>, please <bold>stay focused and do not exit</bold> the test environment."
       }
     },
     "buttons": {

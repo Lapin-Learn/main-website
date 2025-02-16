@@ -162,7 +162,6 @@ function renderDialogFooter(session: SimulatedTestSession, answerStatus?: boolea
   return (
     <DialogFooter>
       <Footer
-        sessionId={session.id}
         partDetails={partDetails}
         skill={session.skillTest.skill}
         answerStatus={answerStatus}

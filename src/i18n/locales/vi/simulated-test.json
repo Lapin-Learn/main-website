@@ -20,6 +20,8 @@
   },
   "submitDialog": {
     "title": "Bạn chắc chắn nộp bài không?",
+    "descriptionUnanswered": "Bạn còn <bold>{{ remainingQuestions }} câu</bold> chưa trả lời và vẫn còn thời gian làm bài",
+    "descriptionAllAnswered": "Bạn đã hoàn thành tất cả câu hỏi trong phần thi! Bạn vẫn còn thời gian để xem lại bài của mình",
     "description": "Bạn chưa hoàn thành tất cả câu hỏi trong bài thi và còn",
     "submitBtn": "Nộp bài",
     "cancelBtn": "Hủy"

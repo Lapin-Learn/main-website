@@ -82,7 +82,26 @@ const SubmitDialog = ({ triggerButton, sessionId }: SubmitDialogProps) => {
         <AlertDialogHeader>
           <AlertDialogTitle>{t("title")}</AlertDialogTitle>
           <AlertDialogDescription className="text-center">
-            <Trans i18nKey="simulatedTest:submitDialog:description"></Trans>
+            {session ? (
+              (() => {
+                const totalQuestions = session.skillTest.partsDetail.reduce(
+                  (total, part) => total + (part.endQuestionNo - part.startQuestionNo + 1),
+                  0
+                );
+                const remainingQuestions = totalQuestions - Object.keys(answerSheet).length;
+                return remainingQuestions === 0 ? (
+                  <Trans i18nKey="simulatedTest:submitDialog:descriptionAllAnswered" />
+                ) : (
+                  <Trans
+                    i18nKey="simulatedTest:submitDialog:descriptionUnanswered"
+                    values={{ remainingQuestions }}
+                    components={{ bold: <strong /> }}
+                  />
+                );
+              })()
+            ) : (
+              <Trans i18nKey="simulatedTest:submitDialog:description" />
+            )}
             &nbsp;
             <strong>{formatTime((timer?.time ?? 0) / 1000)}</strong>.
           </AlertDialogDescription>

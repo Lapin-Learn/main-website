@@ -3,7 +3,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import QuestionNavigator from "@/components/molecules/question-navigator-button";
-import SubmitDialog from "@/components/organisms/simulated-test-dialog/submit-dialog";
 import { Button } from "@/components/ui";
 import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
 import { DEFAULT_QUESTION_NO_BY_SKILL } from "@/lib/consts";
@@ -12,7 +11,6 @@ import { PartDetail } from "@/lib/types/simulated-test.type";
 import { cn } from "@/lib/utils";
 
 type FooterProps = {
-  sessionId: number;
   partDetails: (PartDetail & {
     part: number;
   })[];
@@ -20,7 +18,7 @@ type FooterProps = {
   answerStatus?: boolean[];
 };
 
-const Footer = ({ sessionId, partDetails, skill, answerStatus }: FooterProps) => {
+const Footer = ({ partDetails, skill, answerStatus }: FooterProps) => {
   const { navigateToPart, position } = useSimulatedTestState();
   const { t } = useTranslation("simulatedTest");
 
@@ -88,12 +86,6 @@ const Footer = ({ sessionId, partDetails, skill, answerStatus }: FooterProps) =>
             <ArrowRight size={20} className="lg:ml-2" />
           </Button>
         </div>
-        {!answerStatus && (
-          <SubmitDialog
-            triggerButton={<Button className="submit">{t("submitBtn")}</Button>}
-            sessionId={sessionId}
-          />
-        )}
       </div>
     </div>
   );
