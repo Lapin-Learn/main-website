@@ -101,7 +101,7 @@ const SubmitDialog = ({ triggerButton, sessionId }: SubmitDialogProps) => {
               })()
             ) : (
               <Trans i18nKey="simulatedTest:submitDialog:description" />
-            )}{" "}
+            )}
             &nbsp;
             <strong>{formatTime((timer?.time ?? 0) / 1000)}</strong>.
           </AlertDialogDescription>
