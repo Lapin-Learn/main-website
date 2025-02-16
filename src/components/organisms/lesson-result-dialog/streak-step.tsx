@@ -1,6 +1,7 @@
+import { Skeleton } from "@components/ui/skeleton.tsx";
 import { useQueryClient } from "@tanstack/react-query";
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Lottie from "react-lottie";
 
@@ -13,12 +14,16 @@ import { getCurrentWeekBooleanObject } from "./helpers";
 import { useResultStepperContext } from "./result-stepper-provider";
 import { EnumResultStepper } from "./type";
 
-const WeekRecord = ({ streakRecords }: { streakRecords: string[] }) => {
+const WeekRecord = () => {
+  const { data, isLoading } = useGetStreakHistory({});
   const { t, i18n } = useTranslation();
 
   const DAYS_OF_WEEK: string[] =
     (t("calendar.days_of_week", { returnObjects: true }) as string[]) ?? [];
-  const weekMap = getCurrentWeekBooleanObject(streakRecords, DAYS_OF_WEEK);
+
+  if (isLoading) return <Skeleton className="h-20 w-96" />;
+
+  const weekMap = getCurrentWeekBooleanObject(DAYS_OF_WEEK, data);
 
   return (
     <div className="flex flex-row items-center justify-center gap-4">
@@ -27,7 +32,11 @@ const WeekRecord = ({ streakRecords }: { streakRecords: string[] }) => {
           <div key={index} className="flex flex-col items-center gap-2">
             <div className="text-muted-foreground">{i18n.language === "en" ? date[0] : date}</div>
             {weekMap[date] ? (
-              <StreakIcon variant="done" />
+              weekMap[date] === "freeze" ? (
+                <StreakIcon variant="freeze" />
+              ) : (
+                <StreakIcon variant="done" />
+              )
             ) : weekMap[date] === false ? (
               <StreakIcon variant="miss" />
             ) : (
@@ -39,17 +48,12 @@ const WeekRecord = ({ streakRecords }: { streakRecords: string[] }) => {
     </div>
   );
 };
+
 const StreakStep = () => {
   const { t } = useTranslation("milestone");
-  const { data } = useGetStreakHistory({});
   const { nextMilestone, currentStepValue } = useResultStepperContext();
 
-  const [streakRecords, setStreakRecords] = useState<string[]>([]);
   const queryClient = useQueryClient();
-
-  useEffect(() => {
-    setStreakRecords(data?.map((d) => d.date) ?? []);
-  }, [data]);
 
   useEffect(() => {
     return () => {
@@ -97,7 +101,7 @@ const StreakStep = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.8 }}
         >
-          <WeekRecord streakRecords={streakRecords} />
+          <WeekRecord />
           <Typography variant="h5" className="mt-4 max-w-96 text-center font-medium">
             {t("streak.congratulation")}
           </Typography>

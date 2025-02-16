@@ -6,7 +6,7 @@ import { useGetStreakHistory } from "@/hooks/react-query/useGamification";
 import { cn } from "@/lib/utils";
 
 import DayItem from "./day-item";
-import { DayProps, generateCalendar, parseActiveDays } from "./utils";
+import { DayProps, generateCalendar, getFreezeDays, parseActiveDays } from "./utils";
 import WeekHeader from "./week-header";
 
 const CustomCalendar = () => {
@@ -23,20 +23,16 @@ const CustomCalendar = () => {
     startDate: format(subMonths(startOfMonth(startDay), 1), "yyyy-MM-dd"),
   });
 
-  const getCurrentWeekDays = (days: DayProps[]) => {
-    const startOfWeekDate = startOfWeek(new Date());
-    const endOfWeekDate = endOfWeek(new Date());
-    return days.filter((day) => day.day >= startOfWeekDate && day.day <= endOfWeekDate);
-  };
-
   const daysToShow = isCollapsed ? getCurrentWeekDays(originalDays) : originalDays;
 
-  const parsedActiveDays = useMemo(
-    () =>
-      parseActiveDays(
+  const { parsedActiveDays, freezeDays } = useMemo(
+    () => ({
+      parsedActiveDays: parseActiveDays(
         daysToShow,
         isSuccess && activeDays ? activeDays.map((day) => new Date(day.date)) : []
       ),
+      freezeDays: getFreezeDays(activeDays || []),
+    }),
     [activeDays, daysToShow, isSuccess]
   );
 
@@ -81,6 +77,7 @@ const CustomCalendar = () => {
             position={day.outside ? "outside" : "default"}
             active={day.active}
             today={day.day.toDateString() === new Date().toDateString()}
+            freeze={freezeDays.includes(day.day.toDateString())}
           />
         ))}
       </div>
@@ -88,3 +85,9 @@ const CustomCalendar = () => {
   );
 };
 export default CustomCalendar;
+
+const getCurrentWeekDays = (days: DayProps[]) => {
+  const startOfWeekDate = startOfWeek(new Date());
+  const endOfWeekDate = endOfWeek(new Date());
+  return days.filter((day) => day.day >= startOfWeekDate && day.day <= endOfWeekDate);
+};

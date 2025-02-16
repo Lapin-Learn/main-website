@@ -32,20 +32,26 @@ const dayItemVariants = cva("", {
       true: "bg-primary/80 text-white rounded-full",
       false: "",
     },
+    freeze: {
+      true: "bg-blue-200 text-blue-700 rounded-full",
+      false: "",
+    },
   },
   defaultVariants: {
     position: "default",
     active: "default",
     today: false,
     isActiveToday: false,
+    freeze: false,
   },
 });
 type DayItemProps = React.HTMLAttributes<HTMLDivElement> &
   Omit<VariantProps<typeof dayItemVariants>, "container" | "isActiveToday"> & {
     dayNumber: number;
+    freeze: boolean;
   };
 const DayItem = React.forwardRef<HTMLDivElement, DayItemProps>(
-  ({ className, dayNumber, position, active, today, ...props }, ref) => {
+  ({ className, dayNumber, position, active, today, freeze, ...props }, ref) => {
     return (
       <div
         className={cn(
@@ -58,7 +64,13 @@ const DayItem = React.forwardRef<HTMLDivElement, DayItemProps>(
       >
         <span
           className={cn(
-            dayItemVariants({ position, active, today, isActiveToday: active && today }),
+            dayItemVariants({
+              position,
+              active,
+              today,
+              isActiveToday: active && today,
+              freeze,
+            }),
             "grid size-8 place-items-center z-10"
           )}
         >

@@ -2,7 +2,7 @@ import { EnumMissionCategory } from "@/lib/enums";
 import { FetchingData } from "@/lib/types";
 import { GamificationProfile, StreakHistory } from "@/lib/types/gamification.type";
 import { Mission } from "@/lib/types/mission.type";
-import { generateSearchParams } from "@/lib/utils";
+import { generateSearchParams, getYesterday } from "@/lib/utils";
 
 import api from "./kyInstance";
 
@@ -19,7 +19,13 @@ export const getStreak = async (startDate: string) => {
         searchParams,
       })
       .json<FetchingData<StreakHistory[]>>()
-  ).data;
+  ).data.map((streakHistory) => ({
+    ...streakHistory,
+    date:
+      streakHistory.actionName === "freeze_streak"
+        ? getYesterday(new Date(streakHistory.date)).toISOString()
+        : streakHistory.date,
+  }));
 };
 
 export const parseMission = (mission: Mission) => {
