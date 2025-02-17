@@ -66,6 +66,8 @@ export enum EnumQuestionGroup {
   matchingHeadings = "matching_headings",
   matchingInformation = "matching_information",
   fillInBlanks = "fill_in_blanks",
+  TFNG = "true_false_not_given",
+  YNNG = "yes_no_not_given",
 }
 
 export enum EnumQuestionGroupLabel {

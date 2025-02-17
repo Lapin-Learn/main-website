@@ -51,14 +51,13 @@ export type QuestionGroup =
   | QuestionGroupMatchingInformation;
 
 type BaseQuestionGroup = {
-  part: number;
   questionCard: string;
   startQuestionNo: number;
   endQuestionNo: number;
 };
 
 export type QuestionGroupMultipleChoice = BaseQuestionGroup & {
-  questionType: EnumQuestionGroup.multipleChoice;
+  questionType: EnumQuestionGroup.multipleChoice | EnumQuestionGroup.TFNG | EnumQuestionGroup.YNNG;
   questions: MultipleChoiceQuestion[];
 };
 

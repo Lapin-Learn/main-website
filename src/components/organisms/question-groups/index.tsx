@@ -17,6 +17,8 @@ const QuestionGroupFactory = ({ questionGroup }: QuestionGroupFactoryProps) => {
     case EnumQuestionGroup.matchingHeadings:
       return <MatchingHeadingsQuestionGroup {...questionGroup} />;
     case EnumQuestionGroup.multipleChoice:
+    case EnumQuestionGroup.TFNG:
+    case EnumQuestionGroup.YNNG:
       return <MultipleChoiceQuestionGroup {...questionGroup} />;
     case EnumQuestionGroup.matchingInformation:
       return <MatchingInformationQuestionGroup {...questionGroup} />;

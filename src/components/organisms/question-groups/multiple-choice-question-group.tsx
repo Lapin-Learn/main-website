@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Checkbox, Label, RadioGroup, RadioGroupItem } from "@/components/ui";
 import { useResult } from "@/hooks/zustand/use-result";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
+import { EnumQuestionGroup } from "@/lib/enums";
 import { Option } from "@/lib/types";
 import { QuestionGroupMultipleChoice } from "@/lib/types/simulated-test.type";
 import { genQuestionId } from "@/lib/utils";
@@ -74,6 +75,7 @@ function MultipleSelect({ question, disabled, questionStatus }: MultipleSelectPr
 export default function MultipleChoiceQuestionGroup({
   questionCard,
   questions,
+  questionType,
 }: QuestionGroupMultipleChoice) {
   const { answer, answerSheet } = useAnswerStore();
   const { t } = useTranslation("collection");
@@ -82,12 +84,32 @@ export default function MultipleChoiceQuestionGroup({
   return (
     <div>
       <h6 className="font-bold">{questionCard}</h6>
-      {/* TODO DISCUSSION: hard code here base on type or store in dtb, there may be a difference YES NO NG */}
-      {/* <ul className="pl-4 pt-2">
-        <li>TRUE - if the statement agrees with the information</li>
-        <li>FALSE - if the statement contradicts the information </li>
-        <li>NOT GIVEN - if there is no information on this</li>
-      </ul> */}
+      {questionType === EnumQuestionGroup.TFNG && (
+        <ul className="pl-4 pt-2">
+          <li>
+            <strong>TRUE</strong> - if the statement agrees with the information
+          </li>
+          <li>
+            <strong>FALSE</strong> - if the statement contradicts the information
+          </li>
+          <li>
+            <strong>NOT GIVEN</strong> - if there is no information on this
+          </li>
+        </ul>
+      )}
+      {questionType === EnumQuestionGroup.YNNG && (
+        <ul className="pl-4 pt-2">
+          <li>
+            <strong>YES</strong> - if the statement agrees with the information
+          </li>
+          <li>
+            <strong>NO</strong> - if the statement contradicts the information
+          </li>
+          <li>
+            <strong>NOT GIVEN</strong> - if there is no information on this
+          </li>
+        </ul>
+      )}
       {questions.map((question) => {
         const id = question.questionNo[0] - 1;
         const questionStatus =
