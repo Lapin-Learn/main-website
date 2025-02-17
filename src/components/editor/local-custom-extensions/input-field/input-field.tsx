@@ -36,14 +36,13 @@ const CustomInput = ({ questionNo }: CustomInputProps) => {
           <BubbleQuestionIndex index={parseInt(questionNo)} />
           <Input
             className="my-1 h-8 w-36 rounded-sm px-1.5 focus-visible:border-primary"
-            id={genQuestionId(questionNo)}
             placeholder={`Question ${questionNo}`}
             onChange={(e) => {
               answer(parseInt(questionNo), e.target.value);
               setValue(e.target.value);
             }}
             autoComplete="off"
-            value={value || ""}
+            value={value ?? ""}
           />
         </span>
       )}

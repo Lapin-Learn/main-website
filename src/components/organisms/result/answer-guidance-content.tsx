@@ -34,7 +34,7 @@ export default function AnswerGuidanceContent({
             {userAnswer && ` : ${userAnswer}`}
           </div>
           {status ? (
-            <Check className="text-green-500" size={16} />
+            <Check className="text-green-600" size={16} />
           ) : (
             <X className="text-red-500" size={16} />
           )}

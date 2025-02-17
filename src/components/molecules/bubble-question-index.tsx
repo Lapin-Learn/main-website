@@ -1,3 +1,4 @@
+import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { cn, genQuestionId } from "@/lib/utils";
 
 type BubbleQuestionIndexProps = {
@@ -6,10 +7,12 @@ type BubbleQuestionIndexProps = {
 };
 
 const BubbleQuestionIndex = ({ index, className }: BubbleQuestionIndexProps) => {
+  const { currentQuestion } = useAnswerStore();
   return (
     <span
       className={cn(
-        "inline-flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-900",
+        "inline-flex size-7 items-center justify-center rounded-full  text-sm font-semibold",
+        currentQuestion == index ? "bg-blue-500 text-white" : "text-blue-900 bg-blue-100",
         className
       )}
       key={genQuestionId(index)}
