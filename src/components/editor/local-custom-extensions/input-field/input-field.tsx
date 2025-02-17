@@ -2,6 +2,7 @@ import { mergeAttributes, Node } from "@tiptap/core";
 import { Attribute, NodeViewWrapper, ReactNodeViewRenderer } from "@tiptap/react";
 import { useState } from "react";
 
+import BubbleQuestionIndex from "@/components/molecules/bubble-question-index";
 import { AnswerContent } from "@/components/organisms/result/part-answers-card";
 import { Input } from "@/components/ui";
 import { useResult } from "@/hooks/zustand/use-result";
@@ -32,9 +33,7 @@ const CustomInput = ({ questionNo }: CustomInputProps) => {
         />
       ) : (
         <span className="inline-flex items-center gap-2">
-          <span className="inline-flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-900">
-            {questionNo}
-          </span>
+          <BubbleQuestionIndex index={parseInt(questionNo)} />
           <Input
             className="my-1 h-8 w-36 rounded-sm px-1.5 focus-visible:border-primary"
             id={genQuestionId(questionNo)}

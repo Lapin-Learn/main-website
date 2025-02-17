@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import BubbleQuestionIndex from "@/components/molecules/bubble-question-index";
 import { Checkbox, Label, RadioGroup, RadioGroupItem } from "@/components/ui";
 import { useResult } from "@/hooks/zustand/use-result";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
@@ -85,7 +86,7 @@ export default function MultipleChoiceQuestionGroup({
     <div>
       <h6 className="font-bold">{questionCard}</h6>
       {questionType === EnumQuestionGroup.TFNG && (
-        <ul className="pl-4 pt-2">
+        <ul className="pl-4 pt-2 italic">
           <li>
             <strong>TRUE</strong> - if the statement agrees with the information
           </li>
@@ -98,7 +99,7 @@ export default function MultipleChoiceQuestionGroup({
         </ul>
       )}
       {questionType === EnumQuestionGroup.YNNG && (
-        <ul className="pl-4 pt-2">
+        <ul className="pl-4 pt-2 italic">
           <li>
             <strong>YES</strong> - if the statement agrees with the information
           </li>
@@ -121,11 +122,16 @@ export default function MultipleChoiceQuestionGroup({
 
         return (
           <div key={question.questionNo[0]} className="mt-4">
+            {question.questionNo.length > 1 && (
+              <div className="inline-flex">
+                {question.questionNo.map((no) => (
+                  <BubbleQuestionIndex index={no} key={no} className="mr-2" />
+                ))}
+              </div>
+            )}
             {question.questionNo.length == 1 ? (
               <p>
-                <strong className="mr-2" id={genQuestionId(question.questionNo[0])}>
-                  {question.questionNo[0]}.
-                </strong>
+                <BubbleQuestionIndex index={question.questionNo[0]} className="mr-2" />
                 {question.question}
               </p>
             ) : (
