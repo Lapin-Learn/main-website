@@ -1,10 +1,10 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import QuestionNavigator from "@/components/molecules/question-navigator-button";
 import { Button } from "@/components/ui";
-import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
+import useSimulatedTestState, { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { DEFAULT_QUESTION_NO_BY_SKILL } from "@/lib/consts";
 import { EnumSkill } from "@/lib/enums";
 import { PartDetail } from "@/lib/types/simulated-test.type";
@@ -21,30 +21,42 @@ type FooterProps = {
 const Footer = ({ partDetails, skill, answerStatus }: FooterProps) => {
   const { navigateToPart, position } = useSimulatedTestState();
   const { t } = useTranslation("simulatedTest");
+  const { setCurrentQuestion } = useAnswerStore();
+  const [isInitialized, setIsInitialized] = useState(false);
 
-  const nextPart = DEFAULT_QUESTION_NO_BY_SKILL[skill]
-    ? DEFAULT_QUESTION_NO_BY_SKILL[skill][position.part + 1]?.startQuestionNo
-    : 0;
-  const prevPart = DEFAULT_QUESTION_NO_BY_SKILL[skill]
-    ? DEFAULT_QUESTION_NO_BY_SKILL[skill][position.part - 1]?.startQuestionNo
-    : 0;
+  useEffect(() => {
+    if (position.part !== partDetails[0].part) {
+      navigateToPart(partDetails[0].startQuestionNo, partDetails[0].part);
+    }
+    setIsInitialized(true);
+  }, []);
+
+  if (!isInitialized) return null;
+
+  const currentPartId = partDetails.findIndex((detail) => detail.part === position.part);
+
+  const nextPart =
+    DEFAULT_QUESTION_NO_BY_SKILL[skill] && currentPartId !== partDetails.length - 1
+      ? partDetails[currentPartId + 1].startQuestionNo
+      : 0;
+  const prevPart =
+    DEFAULT_QUESTION_NO_BY_SKILL[skill] && currentPartId !== 0
+      ? partDetails[currentPartId - 1].startQuestionNo
+      : 0;
 
   const moveToNextPart = () => {
     if (!nextPart) return;
     if (skill !== EnumSkill.speaking) {
-      navigateToPart(nextPart, position.part + 1);
+      navigateToPart(nextPart, partDetails[currentPartId + 1].part);
+      setCurrentQuestion(nextPart);
     }
   };
 
   const moveToPrevPart = () => {
     if (!prevPart) return;
     if (skill !== EnumSkill.speaking) {
-      navigateToPart(
-        DEFAULT_QUESTION_NO_BY_SKILL[skill]
-          ? DEFAULT_QUESTION_NO_BY_SKILL[skill][position.part - 1].startQuestionNo
-          : 0,
-        position.part - 1
-      );
+      navigateToPart(prevPart, partDetails[currentPartId - 1].part);
+      setCurrentQuestion(prevPart);
     }
   };
 
