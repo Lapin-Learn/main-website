@@ -12,6 +12,7 @@ import AnswerGuidanceContent from "../result/answer-guidance-content";
 export default function MatchingHeadingsQuestionGroup({
   questionCard,
   questions,
+  imageSrc,
 }: QuestionGroupMatchingHeadings) {
   const { answer, answerSheet } = useAnswerStore();
   const { t } = useTranslation("collection");
@@ -20,6 +21,7 @@ export default function MatchingHeadingsQuestionGroup({
   return (
     <div>
       <h6 className="font-bold">{questionCard}</h6>
+      {imageSrc ? <img src={imageSrc} alt="Matching headings" className="w-1/2" /> : null}
       {questions.map((question) => (
         <div key={question.questionNo} className="mt-4" id={genQuestionId(question.questionNo)}>
           <p>
