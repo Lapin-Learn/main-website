@@ -14,6 +14,7 @@ export default function MatchingInformationQuestionGroup({
   questions,
   options,
   questionDescription,
+  imageSrc,
 }: QuestionGroupMatchingInformation) {
   const { answer, answerSheet } = useAnswerStore();
   const { t } = useTranslation("collection");
@@ -22,6 +23,7 @@ export default function MatchingInformationQuestionGroup({
   return (
     <div>
       <h6 className="font-bold">{questionCard}</h6>
+      {imageSrc ? <img src={imageSrc} alt="Matching headings" className="w-1/2" /> : null}
       {questionDescription && typeof questionDescription == "string" && (
         <p className="my-2">{questionDescription}</p>
       )}

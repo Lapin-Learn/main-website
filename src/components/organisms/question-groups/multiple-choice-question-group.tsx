@@ -167,7 +167,7 @@ export default function MultipleChoiceQuestionGroup({
                         className="ml-2 text-base font-normal"
                         htmlFor={`${question.questionNo}-${option.value}`}
                       >
-                        {option.label}
+                        <span className="capitalize">{option.value}</span>. {option.label}
                       </Label>
                     </div>
                   ))}
