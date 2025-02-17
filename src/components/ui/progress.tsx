@@ -19,13 +19,13 @@ const Progress = React.forwardRef<React.ElementRef<typeof ProgressPrimitive.Root
     >
       <ProgressPrimitive.Indicator
         className={cn("absolute size-full flex-1 bg-primary transition-all", indicatorClassName)}
-        style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
+        style={{ transform: `translateX(-${100 - (value ?? 0)}%)` }}
       />
       <div className="absolute-center">
         <p
           className={cn(
             "text-[10px] font-medium",
-            value && value >= 50 ? "text-white" : "text-black"
+            value && value >= 50 ? "text-white" : "text-neutral-300"
           )}
         >
           {label}

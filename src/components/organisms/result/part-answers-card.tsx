@@ -1,3 +1,4 @@
+import BubbleQuestionIndex from "@/components/molecules/bubble-question-index";
 import TagsList from "@/components/molecules/tags-list";
 import { PartDetail, SkillTestGuidance, STSkillTestAnswer } from "@/lib/types/simulated-test.type";
 
@@ -67,14 +68,13 @@ export function AnswerContent({
 }) {
   return (
     <div className="flex items-center gap-2" id={id}>
-      <div className="flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-900">
-        {questionNo}
-      </div>
+      <BubbleQuestionIndex index={questionNo} isCurrent={false} />
       <AnswerGuidanceContent
         answer={answer}
         userAnswer={userAnswer}
         status={status}
         guidance={guidance}
+        questionNo={questionNo}
       />
     </div>
   );

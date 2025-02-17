@@ -145,7 +145,8 @@
     "accuracy": "Accuracy",
     "questions": "Questions",
     "unanswered": "Skipped",
-    "yourAnswer": "Your answer"
+    "yourAnswer": "Your answer",
+    "explanation": "Explanation question {{questionNo}}"
   },
   "noteBtn": {
     "title": "Take note",

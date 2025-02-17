@@ -58,6 +58,7 @@ export const columns: ColumnDef<AnalysisData>[] = [
                 </div>
               }
               guidance={question.guidance}
+              questionNo={question.questionNo}
             />
           ))}
         </div>
