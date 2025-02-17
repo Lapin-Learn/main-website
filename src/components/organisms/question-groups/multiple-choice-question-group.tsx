@@ -184,6 +184,7 @@ export default function MultipleChoiceQuestionGroup({
                   answer={answerKeys[id]}
                   status={answerStatus}
                   guidance={guidances ? guidances[id] : null}
+                  questionNo={question.questionNo[0]}
                 />
               </div>
             ) : null}

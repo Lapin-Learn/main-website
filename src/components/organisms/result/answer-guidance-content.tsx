@@ -13,7 +13,7 @@ type AnswerGuidanceContentProps = {
   userAnswer?: string;
   status: boolean;
   guidance: SkillTestGuidance | null;
-  questionNo: number;
+  questionNo?: number;
 };
 
 export default function AnswerGuidanceContent({

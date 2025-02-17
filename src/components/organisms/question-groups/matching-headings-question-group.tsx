@@ -58,6 +58,7 @@ export default function MatchingHeadingsQuestionGroup({
                 answer={answerKeys[question.questionNo - 1]}
                 status={status[question.questionNo - 1]}
                 guidance={guidances ? guidances[question.questionNo - 1] : null}
+                questionNo={question.questionNo}
               />
             </div>
           ) : null}
