@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn, genQuestionId } from "@/lib/utils";
 
 type BubbleQuestionIndexProps = {
   index: number;
@@ -12,6 +12,8 @@ const BubbleQuestionIndex = ({ index, className }: BubbleQuestionIndexProps) => 
         "inline-flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-900",
         className
       )}
+      key={genQuestionId(index)}
+      id={genQuestionId(index)}
     >
       {index}
     </span>
