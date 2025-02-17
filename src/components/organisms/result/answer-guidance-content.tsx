@@ -65,13 +65,15 @@ export function BaseGuidance({
     <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       {guidance && (
-        <DialogContent className="max-w-3xl">
+        <DialogContent className="md:max-h-3/4 h-screen max-w-3xl overflow-hidden md:h-1/2">
           <DialogHeader className="self-center">
             <DialogTitle className="mb-2 text-center text-2xl font-semibold">
               {t("result.explanation", { questionNo })}
             </DialogTitle>
           </DialogHeader>
-          <ScrollArea className="h-80">{parse(guidance.explanationInText)}</ScrollArea>
+          <ScrollArea className="h-full overflow-y-scroll">
+            {parse(guidance.explanationInText)}
+          </ScrollArea>
         </DialogContent>
       )}
     </Dialog>
