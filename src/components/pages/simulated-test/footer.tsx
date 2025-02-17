@@ -1,5 +1,5 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import QuestionNavigator from "@/components/molecules/question-navigator-button";
@@ -22,6 +22,16 @@ const Footer = ({ partDetails, skill, answerStatus }: FooterProps) => {
   const { navigateToPart, position } = useSimulatedTestState();
   const { t } = useTranslation("simulatedTest");
   const { setCurrentQuestion } = useAnswerStore();
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  useEffect(() => {
+    if (position.part !== partDetails[0].part) {
+      navigateToPart(partDetails[0].startQuestionNo, partDetails[0].part);
+    }
+    setIsInitialized(true);
+  }, []);
+
+  if (!isInitialized) return null;
 
   const currentPartId = partDetails.findIndex((detail) => detail.part === position.part);
 
