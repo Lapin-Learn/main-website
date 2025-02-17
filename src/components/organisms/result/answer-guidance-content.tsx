@@ -1,4 +1,8 @@
+import { DialogTitle } from "@radix-ui/react-dialog";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
+import parse from "html-react-parser";
 import { Check, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import { SkillTestGuidance, STSkillTestAnswer } from "@/lib/types/simulated-test.type";
@@ -9,6 +13,7 @@ type AnswerGuidanceContentProps = {
   userAnswer?: string;
   status: boolean;
   guidance: SkillTestGuidance | null;
+  questionNo: number;
 };
 
 export default function AnswerGuidanceContent({
@@ -16,6 +21,7 @@ export default function AnswerGuidanceContent({
   userAnswer,
   status,
   guidance,
+  questionNo,
 }: AnswerGuidanceContentProps) {
   return (
     <BaseGuidance
@@ -40,6 +46,7 @@ export default function AnswerGuidanceContent({
           )}
         </button>
       }
+      questionNo={questionNo}
     />
   );
 }
@@ -47,17 +54,24 @@ export default function AnswerGuidanceContent({
 export function BaseGuidance({
   guidance,
   trigger,
+  questionNo,
 }: {
   guidance: SkillTestGuidance | null;
   trigger: React.ReactNode;
+  questionNo?: number;
 }) {
+  const { t } = useTranslation("simulatedTest");
   return (
     <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       {guidance && (
         <DialogContent className="max-w-3xl">
-          <DialogHeader />
-          <div dangerouslySetInnerHTML={{ __html: guidance.explanationInText }} />
+          <DialogHeader className="self-center">
+            <DialogTitle className="mb-2 text-center text-2xl font-semibold">
+              {t("result.explanation", { questionNo })}
+            </DialogTitle>
+          </DialogHeader>
+          <ScrollArea className="h-80">{parse(guidance.explanationInText)}</ScrollArea>
         </DialogContent>
       )}
     </Dialog>

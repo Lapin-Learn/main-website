@@ -146,7 +146,8 @@
     "accuracy": "Độ chính xác",
     "questions": "Danh sách câu hỏi",
     "unanswered": "Chưa trả lời",
-    "yourAnswer": "Câu trả lời của bạn"
+    "yourAnswer": "Câu trả lời của bạn",
+    "explanation": "Giải thích câu {{questionNo}}"
   },
   "noteBtn": {
     "title": "Ghi chú",

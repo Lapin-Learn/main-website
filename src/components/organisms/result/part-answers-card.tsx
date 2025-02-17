@@ -68,12 +68,13 @@ export function AnswerContent({
 }) {
   return (
     <div className="flex items-center gap-2" id={id}>
-      <BubbleQuestionIndex index={questionNo} />
+      <BubbleQuestionIndex index={questionNo} isCurrent={false} />
       <AnswerGuidanceContent
         answer={answer}
         userAnswer={userAnswer}
         status={status}
         guidance={guidance}
+        questionNo={questionNo}
       />
     </div>
   );

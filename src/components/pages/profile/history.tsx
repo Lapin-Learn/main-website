@@ -166,7 +166,7 @@ export default function HistoryPage() {
                   <div key={questionType.evaluationtype} className="mb-2 flex justify-between">
                     <Typography variant="body1">{questionType.evaluationtype}</Typography>
                     <Typography variant="body1" className="font-bold">
-                      {questionType.accuracy}
+                      {questionType.accuracy ?? 0}
                       {SkillUnitMap[selected]}
                     </Typography>
                   </div>
