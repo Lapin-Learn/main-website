@@ -1,10 +1,11 @@
 import { Editor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
+import { Table, TableCell, TableHeader, TableRow, TextStyle } from "@/components/editor/extensions";
 import { InputField } from "@/components/editor/local-custom-extensions";
 import { QuestionGroupFillInBlanks } from "@/lib/types/simulated-test.type";
 
-const extensions = [StarterKit, InputField];
+const extensions = [StarterKit, InputField, TextStyle, Table, TableCell, TableHeader, TableRow];
 
 export default function FillInBlanksQuestionGroup({
   questions,

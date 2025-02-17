@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 
+import BubbleQuestionIndex from "@/components/molecules/bubble-question-index";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui";
 import { useResult } from "@/hooks/zustand/use-result";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
@@ -22,7 +23,7 @@ export default function MatchingHeadingsQuestionGroup({
       {questions.map((question) => (
         <div key={question.questionNo} className="mt-4" id={genQuestionId(question.questionNo)}>
           <p>
-            <strong className="mr-2">{question.questionNo}.</strong>
+            <BubbleQuestionIndex index={question.questionNo} className="mb-2 mr-2" />
             {question.question}
             <span className="ml-2 inline-block">
               <Select

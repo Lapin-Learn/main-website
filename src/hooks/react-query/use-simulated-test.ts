@@ -227,6 +227,7 @@ export const useGetSTSessionDetail = (sessionId: number) => {
     queryKey: simulatedTestKeys.sessionDetail(sessionId),
     queryFn: () => getSimulatedTestSessionDetail(sessionId),
     retry: false,
+    staleTime: 0,
   });
   const session = result.data;
 
