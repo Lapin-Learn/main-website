@@ -31,16 +31,22 @@ const CustomInput = ({ questionNo }: CustomInputProps) => {
           status={isCorrect}
         />
       ) : (
-        <Input
-          className="my-1 h-8 w-36 rounded-sm px-1.5 focus-visible:border-primary"
-          id={genQuestionId(questionNo)}
-          placeholder={`Question ${questionNo}`}
-          onChange={(e) => {
-            answer(parseInt(questionNo), e.target.value);
-            setValue(e.target.value);
-          }}
-          value={value || ""}
-        />
+        <span className="inline-flex items-center gap-2">
+          <span className="inline-flex size-7 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-900">
+            {questionNo}
+          </span>
+          <Input
+            className="my-1 h-8 w-36 rounded-sm px-1.5 focus-visible:border-primary"
+            id={genQuestionId(questionNo)}
+            placeholder={`Question ${questionNo}`}
+            onChange={(e) => {
+              answer(parseInt(questionNo), e.target.value);
+              setValue(e.target.value);
+            }}
+            autoComplete="off"
+            value={value || ""}
+          />
+        </span>
       )}
     </NodeViewWrapper>
   );
