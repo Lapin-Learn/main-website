@@ -1,13 +1,9 @@
-import { addDays, isBefore, isSameDay, startOfWeek, subDays } from "date-fns";
+import { addDays, isBefore, isSameDay, subDays } from "date-fns";
+
+import { StreakHistory } from "@/lib/types/gamification.type.ts";
 
 const getDaysInMonth = (month: number, year: number) => {
   return new Date(year, month + 1, 0).getDate();
-};
-
-const getDaysInWeek = (date: Date): Date[] => {
-  const start = startOfWeek(date, { weekStartsOn: 1 }); // Monday as the first day of the week
-  const days = Array.from({ length: 7 }).map((_, i) => addDays(start, i));
-  return days;
 };
 
 export type DayProps = {
@@ -106,4 +102,9 @@ const parseActiveDays = (originalDays: DayProps[], activeDays: Date[] = []) => {
   return newDays;
 };
 
-export { generateCalendar, getDaysInWeek, parseActiveDays };
+const getFreezeDays = (days: StreakHistory[]) =>
+  days
+    .filter((day) => day.actionName === "freeze_streak")
+    .map((day) => new Date(day.date).toDateString());
+
+export { generateCalendar, getFreezeDays, parseActiveDays };

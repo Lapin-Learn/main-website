@@ -9,7 +9,6 @@ import LessonResultDialog from "@/components/organisms/lesson-result-dialog";
 import ResultStepperProvider from "@/components/organisms/lesson-result-dialog/result-stepper-provider";
 import { Button } from "@/components/ui";
 import { Progress } from "@/components/ui/progress";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { useLessonQuestions } from "@/hooks/react-query/use-daily-lesson";
 import useDailyLessonStore from "@/hooks/zustand/use-daily-lesson-store";
 import { cn } from "@/lib/utils";
@@ -48,7 +47,7 @@ const DailyLessonContent = () => {
     const currentProgress = Math.max(1, (currentQuestion / numberOfQuestions) * 100);
 
     return (
-      <div className="mx-auto flex h-screen flex-col items-center bg-[#F8F8F8]">
+      <div className="mx-auto flex h-screen w-full flex-col items-center bg-[#F8F8F8]">
         <div className="sticky top-0 z-10 flex w-full flex-row items-center gap-4 border-b bg-white md:px-48">
           <DailyLessonExitDialog
             triggerButton={
@@ -71,16 +70,15 @@ const DailyLessonContent = () => {
           />
           <div>{`${currentQuestion}/${numberOfQuestions}`}</div>
         </div>
-        <ScrollArea className="h-screen flex-1">
-          <div className="mt-4 flex h-screen w-full flex-1 flex-col items-center justify-between gap-4 ">
-            <QuestionCard />
-            <AnswerInput
-              renderCheckButton={(getCorrectAnswers, disabled) => (
-                <QuestionActionButtons getCorrectAnswers={getCorrectAnswers} disabled={disabled} />
-              )}
-            />
-          </div>
-        </ScrollArea>
+        <div className="relative flex h-full w-screen flex-1 flex-col overflow-x-hidden overflow-y-scroll">
+          <QuestionCard />
+          <AnswerInput
+            className="h-full flex-1"
+            renderCheckButton={(getCorrectAnswers, disabled) => (
+              <QuestionActionButtons getCorrectAnswers={getCorrectAnswers} disabled={disabled} />
+            )}
+          />
+        </div>
         <ExplanationDialog />
         <ResultStepperProvider result={result}>
           <LessonResultDialog defaultOpen={result !== null} />

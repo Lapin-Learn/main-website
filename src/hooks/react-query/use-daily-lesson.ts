@@ -3,11 +3,11 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { EnumBandScore, EnumSkill } from "@/lib/enums";
 import {
   confirmLessonCompletion,
+  evaluateSpeaking,
   getLessonQuestions,
   getLessons,
   getQuestionTypes,
 } from "@/services/daily-lesson";
-import { evaluateSpeaking } from "@/services/speaking";
 
 import { useMilestoneStore } from "../zustand/use-milestone-store";
 import { gamificationKeys } from "./useGamification";

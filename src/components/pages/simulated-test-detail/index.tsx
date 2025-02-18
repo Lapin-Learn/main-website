@@ -9,12 +9,12 @@ import { SimulatedTestHistoryTable } from "../../organisms/simulated-test-table/
 import { SimulatedTestDetailHeader } from "./simulated-test-detail-header";
 
 export default function SimulatedTestDetailPage() {
-  const { collectionId, simulatedTestId } = Route.useParams();
+  const { simulatedTestId } = Route.useParams();
   const { skill } = useSearch({
     strict: false,
   });
 
-  const { data: simulatedTest } = useGetSimulatedTestDetail(collectionId, !!collectionId);
+  const { data: simulatedTest } = useGetSimulatedTestDetail(simulatedTestId, !!simulatedTestId);
 
   return (
     <div className="flex flex-col gap-6 p-4 pt-8">

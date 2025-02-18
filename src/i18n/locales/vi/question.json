@@ -29,7 +29,10 @@
       "cancel": "Hủy"
     },
     "speaking": {
-      "result": "Bạn nói giống {{percentage}}% người bản xứ!"
+      "result": "Bạn nói giống {{percentage}}% người bản xứ!",
+      "resultTitle_correct": "Phát âm chính xác, tuyệt vời!",
+      "resultTitle_incorrect": "Phát âm chưa chính xác, cố lên bạn nhé!",
+      "resultTitle_almost": "Gần chính xác rồi, cố lên bạn nhé!"
     },
     "exitDialog": {
       "title": "Bài học chưa hoàn thành",

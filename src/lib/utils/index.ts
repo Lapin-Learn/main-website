@@ -85,10 +85,14 @@ export const searchSchema = z.object({
 
 export const isDevEnv = () => process.env.NODE_ENV === "development";
 
-export const scrollToElementById = (id: string) => {
+export const scrollToElementById = (id: string, offset = 80) => {
   const element = document.getElementById(id);
   if (element) {
-    element.scrollIntoView({ behavior: "smooth" });
+    const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+    const container = element.closest("[data-radix-scroll-area-viewport]");
+    if (container) {
+      container.scrollBy({ top: elementPosition - offset, behavior: "smooth" });
+    }
   }
 };
 
@@ -239,6 +243,7 @@ export function formatVNDCurrency(value: number) {
 export function assertFallback<T>(value: T | undefined, fallback: T): T {
   return value ?? fallback;
 }
+
 export const calculateOverallBandScore = (scores: (number | null)[]) => {
   const validScores = scores.filter((score): score is number => score !== null);
   if (validScores.length !== 4) return undefined;
@@ -250,3 +255,5 @@ export const getDuration = (startTime: number): number => {
   const endTime = new Date().getTime();
   return Math.round(Math.abs(endTime - startTime) / 1000);
 };
+
+export const getYesterday = (date: Date) => new Date(date.setDate(date.getDate() - 1));

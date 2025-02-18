@@ -42,17 +42,17 @@
         "alerts": {
             "practice": {
                 "title": "Chế độ luyện tập",
-                "description_speaking": "Trong chế độ này, bạn có thể chọn các phần của bài thi Speaking bạn muốn luyện tập, điều chỉnh thời gian theo khả năng của mình và nghe lại bản ghi âm.",
-                "description_reading": "Trong chế độ này, bạn có thể chọn các phần của bài thi Reading bạn muốn luyện tập, điều chỉnh thời gian theo khả năng của mình và xem lại câu hỏi khi cần.",
-                "description_listening": "Trong chế độ này, bạn có thể chọn các phần của bài thi Listening bạn muốn luyện tập, điều chỉnh thời gian theo khả năng của mình và nghe lại bản ghi âm.",
-                "description_writing": "Trong chế độ này, bạn có thể chọn các phần của bài thi Writing bạn muốn luyện tập, điều chỉnh thời gian theo khả năng của mình và xem lại câu trả lời của mình khi cần."
+                "description_speaking": "Trong chế độ này, bạn có thể <bold>chọn các phần</bold> của bài thi Speaking bạn muốn luyện tập, <bold>điều chỉnh thời gian</bold> theo khả năng của mình và <bold>nghe lại bản ghi âm</bold>.",
+                "description_reading": "Trong chế độ này, bạn có thể <bold>chọn các phần</bold> của bài thi Reading bạn muốn luyện tập, <bold>điều chỉnh thời gian</bold> theo khả năng của mình và <bold>xem lại câu hỏi</bold> khi cần.",
+                "description_listening": "Trong chế độ này, bạn có thể <bold>chọn các phần</bold> của bài thi Listening bạn muốn luyện tập, <bold>điều chỉnh thời gian</bold> theo khả năng của mình và <bold>nghe lại bản ghi âm</bold>.",
+                "description_writing": "Trong chế độ này, bạn có thể <bold>chọn các phần</bold> của bài thi Writing bạn muốn luyện tập, <bold>điều chỉnh thời gian</bold> theo khả năng của mình và <bold>xem lại câu trả lời</bold> của mình khi cần."
             },
             "full_test": {
                 "title": "Lưu ý",
-                "description_speaking": "Trong quá trình làm bài Speaking, để đảm bảo việc đánh giá chính xác khả năng của bạn, hãy duy trì sự tập trung suốt buổi thi.",
-                "description_reading": "Trong bài thi Reading, để đảm bảo kết quả đánh giá chính xác khả năng của bạn, xin đừng thoát khỏi môi trường thi.",
-                "description_listening": "Trong bài thi Listening, bạn sẽ không thể nghe lại phần audio. Để đạt được kết quả đánh giá chính xác, vui lòng không thoát khỏi môi trường thi và tránh bất kỳ sự gián đoạn nào.",
-                "description_writing": "Trong bài thi Writing, để có kết quả đánh giá chính xác kỹ năng của bạn, xin hãy tập trung và không thoát khỏi môi trường thi."
+                "description_speaking": "Trong quá trình làm bài Speaking, để đảm bảo việc <bold>đánh giá chính xác khả năng</bold> của bạn, hãy <bold>duy trì sự tập trung</bold> suốt buổi thi.",
+                "description_reading": "Trong bài thi Reading, để đảm bảo <bold>kết quả đánh giá chính xác</bold> khả năng của bạn, xin <bold>đừng thoát khỏi</bold> môi trường thi.",
+                "description_listening": "Trong bài thi Listening, bạn sẽ <bold>không thể nghe lại phần audio</bold>. Để đạt được <bold>kết quả đánh giá chính xác</bold>, vui lòng <bold>không thoát khỏi</bold> môi trường thi và tránh bất kỳ sự gián đoạn nào.",
+                "description_writing": "Trong bài thi Writing, để có <bold>kết quả đánh giá chính xác</bold> kỹ năng của bạn, xin hãy <bold>tập trung và không thoát khỏi</bold> môi trường thi."
             }
         },
         "buttons": {

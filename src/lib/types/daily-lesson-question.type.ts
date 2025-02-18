@@ -62,7 +62,7 @@ type FillInTheBlankQuestion = BaseQuestion & {
 };
 
 type PronunciationQuestion = BaseQuestion & {
-  contentType: EnumDLContentType.PRONUNCIATION;
+  contentType: EnumDLContentType.PRONOUNCIATION;
   content: QuestionCard;
 };
 

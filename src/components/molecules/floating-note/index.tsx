@@ -35,12 +35,12 @@ export function FloatingNote() {
             e.stopPropagation();
             setIsOpen((prev) => !prev);
           }}
-          className="group flex size-full items-center justify-center overflow-hidden rounded-full px-4 py-3 shadow-lg hover:gap-2"
+          className="group flex h-16 w-full min-w-16 items-center justify-center overflow-hidden rounded-full p-5 shadow-lg hover:gap-2"
         >
-          <span className="w-0 translate-x-0 transition-all duration-200 ease-in-out group-hover:w-fit md:translate-x-full md:opacity-0 md:group-hover:translate-x-0 md:group-hover:opacity-100">
+          <span className="w-0 translate-x-0 text-body transition-all duration-300 group-hover:w-20 md:translate-x-full md:opacity-0 md:group-hover:translate-x-0 md:group-hover:opacity-100">
             {t("noteBtn.title")}
           </span>
-          <NotebookPenIcon size={16} />
+          <NotebookPenIcon />
         </Button>
       </div>
 

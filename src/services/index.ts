@@ -6,5 +6,4 @@ export * from "./item";
 export * from "./payment";
 export * from "./public";
 export * from "./simulated-test";
-export * from "./speaking";
 export * from "./user";

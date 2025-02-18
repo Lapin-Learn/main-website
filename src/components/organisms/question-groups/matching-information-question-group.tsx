@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 
+import BubbleQuestionIndex from "@/components/molecules/bubble-question-index";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui";
 import { useResult } from "@/hooks/zustand/use-result";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
@@ -13,6 +14,7 @@ export default function MatchingInformationQuestionGroup({
   questions,
   options,
   questionDescription,
+  imageSrc,
 }: QuestionGroupMatchingInformation) {
   const { answer, answerSheet } = useAnswerStore();
   const { t } = useTranslation("collection");
@@ -21,6 +23,7 @@ export default function MatchingInformationQuestionGroup({
   return (
     <div>
       <h6 className="font-bold">{questionCard}</h6>
+      {imageSrc ? <img src={imageSrc} alt="Matching headings" className="w-1/2" /> : null}
       {questionDescription && typeof questionDescription == "string" && (
         <p className="my-2">{questionDescription}</p>
       )}
@@ -34,7 +37,7 @@ export default function MatchingInformationQuestionGroup({
       {questions.map((question) => (
         <div key={question.questionNo} className="mt-4" id={genQuestionId(question.questionNo)}>
           <p>
-            <strong className="mr-2">{question.questionNo}.</strong>
+            <BubbleQuestionIndex index={question.questionNo} className="mr-2" />
             {question.question}
             <span className="ml-2 inline-block">
               <Select
@@ -42,7 +45,7 @@ export default function MatchingInformationQuestionGroup({
                 onValueChange={(value: string) => answer(question.questionNo, value)}
                 disabled={!!answerKeys.length}
               >
-                <SelectTrigger className="w-40">
+                <SelectTrigger className="w-full min-w-40 max-w-80">
                   <SelectValue
                     placeholder={
                       <span className="text-[#6B7280]">Question {question.questionNo}</span>
@@ -69,6 +72,7 @@ export default function MatchingInformationQuestionGroup({
                 answer={answerKeys[question.questionNo - 1]}
                 status={status[question.questionNo - 1]}
                 guidance={guidances ? guidances[question.questionNo - 1] : null}
+                questionNo={question.questionNo}
               />
             </div>
           ) : null}

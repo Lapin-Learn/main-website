@@ -66,6 +66,8 @@ export enum EnumQuestionGroup {
   matchingHeadings = "matching_headings",
   matchingInformation = "matching_information",
   fillInBlanks = "fill_in_blanks",
+  TFNG = "true_false_not_given",
+  YNNG = "yes_no_not_given",
 }
 
 export enum EnumQuestionGroupLabel {
@@ -175,7 +177,7 @@ export enum EnumDLContentType {
   MULTIPLE_CHOICE = "multiple_choice",
   FILL_IN_THE_BLANK = "fill_in_the_blank",
   MATCHING = "matching",
-  PRONUNCIATION = "pronunciation",
+  PRONOUNCIATION = "pronunciation",
 }
 
 export enum EnumMileStone {

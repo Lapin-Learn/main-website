@@ -1,14 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import BubbleQuestionIndex from "@/components/molecules/bubble-question-index";
 import { Checkbox, Label, RadioGroup, RadioGroupItem } from "@/components/ui";
 import { useResult } from "@/hooks/zustand/use-result";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
+import { EnumQuestionGroup } from "@/lib/enums";
 import { Option } from "@/lib/types";
 import { QuestionGroupMultipleChoice } from "@/lib/types/simulated-test.type";
 import { genQuestionId } from "@/lib/utils";
 
 import AnswerGuidanceContent from "../result/answer-guidance-content";
+import { getQuestions } from "./helpers";
 
 type MultipleSelectProps = {
   question: {
@@ -74,21 +77,46 @@ function MultipleSelect({ question, disabled, questionStatus }: MultipleSelectPr
 export default function MultipleChoiceQuestionGroup({
   questionCard,
   questions,
+  questionType,
 }: QuestionGroupMultipleChoice) {
   const { answer, answerSheet } = useAnswerStore();
   const { t } = useTranslation("collection");
   const { answerKeys, status, guidances } = useResult();
 
+  const generatedQuestions = useMemo(() => {
+    return getQuestions(questionType, questions) ?? [];
+  }, [questionType, questions]);
+
   return (
     <div>
       <h6 className="font-bold">{questionCard}</h6>
-      {/* TODO DISCUSSION: hard code here base on type or store in dtb, there may be a difference YES NO NG */}
-      {/* <ul className="pl-4 pt-2">
-        <li>TRUE - if the statement agrees with the information</li>
-        <li>FALSE - if the statement contradicts the information </li>
-        <li>NOT GIVEN - if there is no information on this</li>
-      </ul> */}
-      {questions.map((question) => {
+      {questionType === EnumQuestionGroup.TFNG && (
+        <ul className="pl-4 pt-2 italic">
+          <li>
+            <strong>TRUE</strong> - if the statement agrees with the information
+          </li>
+          <li>
+            <strong>FALSE</strong> - if the statement contradicts the information
+          </li>
+          <li>
+            <strong>NOT GIVEN</strong> - if there is no information on this
+          </li>
+        </ul>
+      )}
+      {questionType === EnumQuestionGroup.YNNG && (
+        <ul className="pl-4 pt-2 italic">
+          <li>
+            <strong>YES</strong> - if the statement agrees with the information
+          </li>
+          <li>
+            <strong>NO</strong> - if the statement contradicts the information
+          </li>
+          <li>
+            <strong>NOT GIVEN</strong> - if there is no information on this
+          </li>
+        </ul>
+      )}
+      {generatedQuestions.map((question) => {
         const id = question.questionNo[0] - 1;
         const questionStatus =
           question.questionNo.length > 1
@@ -99,11 +127,16 @@ export default function MultipleChoiceQuestionGroup({
 
         return (
           <div key={question.questionNo[0]} className="mt-4">
+            {question.questionNo.length > 1 && (
+              <div className="inline-flex">
+                {question.questionNo.map((no) => (
+                  <BubbleQuestionIndex index={no} key={no} className="mr-2" />
+                ))}
+              </div>
+            )}
             {question.questionNo.length == 1 ? (
               <p>
-                <strong className="mr-2" id={genQuestionId(question.questionNo[0])}>
-                  {question.questionNo[0]}.
-                </strong>
+                <BubbleQuestionIndex index={question.questionNo[0]} className="mr-2" />
                 {question.question}
               </p>
             ) : (
@@ -129,7 +162,7 @@ export default function MultipleChoiceQuestionGroup({
                   value={answerSheet[question.questionNo[0]] ?? ""}
                   disabled={!!answerKeys.length}
                 >
-                  {question.options.map((option, index) => (
+                  {question.options?.map((option, index) => (
                     <div key={index} className="flex items-center">
                       <RadioGroupItem
                         value={option.value}
@@ -139,6 +172,11 @@ export default function MultipleChoiceQuestionGroup({
                         className="ml-2 text-base font-normal"
                         htmlFor={`${question.questionNo}-${option.value}`}
                       >
+                        {![EnumQuestionGroup.TFNG, EnumQuestionGroup.YNNG].includes(
+                          questionType
+                        ) ? (
+                          <span className="capitalize">{option.value}.</span>
+                        ) : null}{" "}
                         {option.label}
                       </Label>
                     </div>
@@ -156,6 +194,7 @@ export default function MultipleChoiceQuestionGroup({
                   answer={answerKeys[id]}
                   status={answerStatus}
                   guidance={guidances ? guidances[id] : null}
+                  questionNo={question.questionNo[0]}
                 />
               </div>
             ) : null}

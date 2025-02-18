@@ -1,9 +1,10 @@
-import { ChevronLeft } from "lucide-react";
+import { ArrowRightIcon, ChevronLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import ExitDialog from "@/components/organisms/simulated-test-dialog/exit-dialog";
 import StartDialog from "@/components/organisms/simulated-test-dialog/start-dialog";
+import SubmitDialog from "@/components/organisms/simulated-test-dialog/submit-dialog";
 import { SimulatedTestTourFactory } from "@/components/organisms/simulated-test-tour";
 import { Button } from "@/components/ui";
 import useGlobalTimerStore, { timerKeys } from "@/hooks/zustand/use-global-timer";
@@ -85,7 +86,7 @@ export default function Header({ currentPart, session }: HeaderProps) {
       />
       <SimulatedTestTourFactory skill={skill} run={run} onEndTour={onEndTour} />
       <div className="grid w-full place-items-center border-b bg-white px-4 shadow-sm sm:h-16 sm:px-8">
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center py-1">
           <h6 className="text-base font-bold uppercase sm:text-lg">
             {[skill.toString(), getPartName(session.skillTest.skill), currentPart].join(" ")}
           </h6>
@@ -101,7 +102,18 @@ export default function Header({ currentPart, session }: HeaderProps) {
             </Button>
           }
         />
-        <Timer sessionId={session.id} />
+        <div className="absolute right-4 flex items-center gap-2">
+          <Timer sessionId={session.id} />
+          <SubmitDialog
+            triggerButton={
+              <Button size="xl" className="submit flex gap-2 px-4">
+                {t("submitBtn")}
+                <ArrowRightIcon strokeWidth={3} size={16} />
+              </Button>
+            }
+            sessionId={session.id}
+          />
+        </div>
       </div>
     </>
   );

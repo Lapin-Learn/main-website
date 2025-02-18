@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SquarePen, TriangleAlert, Zap } from "lucide-react";
 import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { z } from "zod";
 
 import CustomAlert from "@/components/molecules/alert";
@@ -151,18 +151,26 @@ const SelectModeDialog = () => {
             <CustomAlert
               theme="success"
               title={t("exam-mode-config.alerts.practice.title")}
-              description={t("exam-mode-config.alerts.practice.description", {
-                context: skillTest.skill.toString(),
-              })}
+              description={
+                <Trans
+                  i18nKey="practice:exam-mode-config.alerts.practice.description"
+                  values={{ context: skillTest.skill.toString() }}
+                  components={{ bold: <strong /> }}
+                />
+              }
               icon={<SquarePen className="size-5" color="#166534" />}
             />
           ) : (
             <CustomAlert
               theme="warning"
               title={t("exam-mode-config.alerts.full_test.title")}
-              description={t("exam-mode-config.alerts.full_test.description", {
-                context: skillTest.skill.toString(),
-              })}
+              description={
+                <Trans
+                  i18nKey="practice:exam-mode-config.alerts.full_test.description"
+                  values={{ context: skillTest.skill.toString() }}
+                  components={{ bold: <strong /> }}
+                />
+              }
               icon={<TriangleAlert className="size-5" color="#854D0E" />}
             />
           )}

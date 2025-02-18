@@ -1,4 +1,5 @@
 import { gamificationKeys } from "@hooks/react-query/useGamification.ts";
+import { useAnswerStore } from "@hooks/zustand/use-simulated-test.ts";
 import {
   keepPreviousData,
   useInfiniteQuery,
@@ -185,9 +186,11 @@ export const useSubmitSimulatedTest = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { resetAnswers } = useAnswerStore();
   return useMutation({
     mutationFn: submitSimulatedTest,
     onSuccess: (_, variables) => {
+      resetAnswers();
       if (variables.status == EnumSimulatedTestSessionStatus.FINISHED) {
         navigate({
           to: "/practice/simulated-test/result",
@@ -227,6 +230,7 @@ export const useGetSTSessionDetail = (sessionId: number) => {
     queryKey: simulatedTestKeys.sessionDetail(sessionId),
     queryFn: () => getSimulatedTestSessionDetail(sessionId),
     retry: false,
+    staleTime: 0,
   });
   const session = result.data;
 

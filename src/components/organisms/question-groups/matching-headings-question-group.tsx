@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 
+import BubbleQuestionIndex from "@/components/molecules/bubble-question-index";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui";
 import { useResult } from "@/hooks/zustand/use-result";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
@@ -11,6 +12,7 @@ import AnswerGuidanceContent from "../result/answer-guidance-content";
 export default function MatchingHeadingsQuestionGroup({
   questionCard,
   questions,
+  imageSrc,
 }: QuestionGroupMatchingHeadings) {
   const { answer, answerSheet } = useAnswerStore();
   const { t } = useTranslation("collection");
@@ -19,10 +21,11 @@ export default function MatchingHeadingsQuestionGroup({
   return (
     <div>
       <h6 className="font-bold">{questionCard}</h6>
+      {imageSrc ? <img src={imageSrc} alt="Matching headings" className="w-1/2" /> : null}
       {questions.map((question) => (
         <div key={question.questionNo} className="mt-4" id={genQuestionId(question.questionNo)}>
           <p>
-            <strong className="mr-2">{question.questionNo}.</strong>
+            <BubbleQuestionIndex index={question.questionNo} className="mb-2 mr-2" />
             {question.question}
             <span className="ml-2 inline-block">
               <Select
@@ -57,6 +60,7 @@ export default function MatchingHeadingsQuestionGroup({
                 answer={answerKeys[question.questionNo - 1]}
                 status={status[question.questionNo - 1]}
                 guidance={guidances ? guidances[question.questionNo - 1] : null}
+                questionNo={question.questionNo}
               />
             </div>
           ) : null}
