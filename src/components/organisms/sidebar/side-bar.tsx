@@ -1,5 +1,5 @@
 import { useNavigate } from "@tanstack/react-router";
-import { ChevronLeft, Edit, Menu } from "lucide-react";
+import { ChevronLeft, Menu, Pencil } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import Icons from "@/assets/icons";
@@ -40,8 +40,8 @@ const features: SideBarFeatureProps[] = [
 const adminFeatures: SideBarFeatureProps[] = [
   {
     to: "/content-editor",
-    icon: <Edit fillOpacity={0} fill="#929292" color="#929292" />,
-    activeIcon: <Edit fill="#c2410c" color="#c2410c" />,
+    icon: <Pencil fillOpacity={0} fill="#929292" color="#929292" />,
+    activeIcon: <Pencil color="#c2410c" />,
     label: "contentEditor",
   },
 ];

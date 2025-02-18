@@ -93,7 +93,6 @@ const QuestionTypeList = ({ skill }: QuestionTypeListPageProps) => {
                         value={(questionType.progress.totalLearningXP / xpRequired) * 100}
                         label={`${questionType.progress.totalLearningXP}/${xpRequired}`}
                         className="mt-1 h-4 w-full"
-                        indicatorClassName="bg-gradient-to-r duration-500 from-primary-300 to-primary"
                       />
                     </div>
                   </div>

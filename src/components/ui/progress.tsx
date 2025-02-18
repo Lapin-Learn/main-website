@@ -18,7 +18,11 @@ const Progress = React.forwardRef<React.ElementRef<typeof ProgressPrimitive.Root
       {...props}
     >
       <ProgressPrimitive.Indicator
-        className={cn("absolute size-full flex-1 bg-primary transition-all", indicatorClassName)}
+        className={cn(
+          "absolute size-full flex-1 bg-primary transition-all",
+          value && value >= 50 ? "bg-primary" : "bg-primary-300",
+          indicatorClassName
+        )}
         style={{ transform: `translateX(-${100 - (value ?? 0)}%)` }}
       />
       <div className="absolute-center">
