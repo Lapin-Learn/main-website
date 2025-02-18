@@ -1,5 +1,6 @@
 import { useNavigate } from "@tanstack/react-router";
 import { ChevronLeft, Menu, Pencil } from "lucide-react";
+import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 import Icons from "@/assets/icons";
@@ -64,6 +65,7 @@ export default function SideBar() {
 
   return (
     <>
+      {/* MOBILE */}
       <div className="sticky top-0 flex w-full items-center justify-between bg-white p-4 md:hidden md:pt-8">
         <img
           src={Logo}
@@ -76,10 +78,11 @@ export default function SideBar() {
         </button>
       </div>
 
+      {/* DESKTOP */}
       <aside
         className={cn(
-          "fixed h-full border-r bg-white transition-all duration-500 ease-in-out md:flex md:static top-0",
-          isSidebarOpen ? "right-0 w-[280px] sm:left-0" : "right-[-280px] w-0 sm:left-0 sm:w-fit"
+          "fixed h-full border-r bg-white transition-all sm:left-0 duration-300 md:flex md:static top-0",
+          isSidebarOpen ? "right-0 w-[280px]" : "right-[-280px] w-0 sm:w-[80px]"
         )}
       >
         <div className="relative flex size-full flex-col px-3 pb-4 pt-9">
@@ -92,26 +95,37 @@ export default function SideBar() {
                 )}
               >
                 <img
-                  src={isSidebarOpen ? Logo : AppIcon}
+                  src={Logo}
                   className={cn(
-                    "hidden h-6 transition-transform duration-300 ease-in-out sm:flex cursor-pointer",
+                    "h-6 transition-transform duration-300 sm:flex cursor-pointer",
+                    isSidebarOpen ? "pl-4" : "h-0"
+                  )}
+                  alt="App Logo"
+                  onClick={handleNavigateHome}
+                />
+                <img
+                  src={AppIcon}
+                  className={cn(
+                    "h-0 transition-transform duration-300 sm:flex cursor-pointer",
                     isSidebarOpen ? "pl-4" : "h-10 rounded-md"
                   )}
                   alt="App Logo"
                   onClick={handleNavigateHome}
                 />
 
-                <button
-                  className={cn(
-                    "grid size-9 cursor-pointer place-items-center rounded-full border bg-white text-neutral-400 shadow-md transition-transform duration-300 ease-in-out hover:text-neutral-700",
-                    isSidebarOpen
-                      ? "left-0 [&_svg]:rotate-180 [&_svg]:sm:rotate-0"
-                      : "absolute right-0 hidden translate-x-1/2 sm:grid sm:place-items-center [&_svg]:rotate-180"
-                  )}
-                  onClick={() => setSidebarOpen((prev) => !prev)}
-                >
-                  <ChevronLeft size={20} />
-                </button>
+                <motion.div>
+                  <button
+                    className={cn(
+                      "grid size-9 cursor-pointer place-items-center rounded-full border bg-white text-neutral-400 shadow-md transition-all duration-300 hover:text-neutral-700",
+                      isSidebarOpen
+                        ? "left-0 [&_svg]:rotate-180 [&_svg]:sm:rotate-0"
+                        : "absolute right-0 hidden translate-x-1/2 sm:grid sm:place-items-center [&_svg]:rotate-180"
+                    )}
+                    onClick={() => setSidebarOpen((prev) => !prev)}
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                </motion.div>
               </div>
               <Separator className="mt-6" />
               <ul className="flex w-full flex-col space-y-2 overflow-hidden pt-3">
