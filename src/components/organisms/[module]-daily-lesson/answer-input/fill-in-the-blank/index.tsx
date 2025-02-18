@@ -5,6 +5,7 @@ import { z } from "zod";
 
 import { DLAnswer } from "@/hooks/zustand/use-daily-lesson-store";
 import { FillInTheBlankContent, FillInTheBlankContentType } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 import { BaseAnswerInputProps } from "..";
 import FillInTheBlankContentRenderer from "./type-rendering";
@@ -25,6 +26,7 @@ const FillInTheBlank = ({
   renderCheckButton,
   isAnswered,
   currentQuestionIndex,
+  className,
 }: FillInTheBlankProps) => {
   const blankContent = extractBlankAnswers(content);
   const schema = z.object({ answer: z.array(z.string()).length(blankContent.length) });
@@ -64,7 +66,7 @@ const FillInTheBlank = ({
 
   return (
     <>
-      <div className="flex">
+      <div className={cn("", className)}>
         <FillInTheBlankContentRenderer
           content={content}
           fieldState={field}

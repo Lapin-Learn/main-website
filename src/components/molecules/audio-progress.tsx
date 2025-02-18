@@ -9,6 +9,7 @@ interface Props {
   className?: string;
   icon?: React.FC<React.SVGProps<SVGSVGElement>>;
   children?: React.ReactNode;
+  hideProgress?: boolean;
 }
 
 export function AudioProgress({
@@ -19,6 +20,7 @@ export function AudioProgress({
   gaugeSecondaryColor = "#EFEFEF",
   className,
   children,
+  hideProgress = false,
 }: Props) {
   const circumference = 2 * Math.PI * 45;
   const percentPx = circumference / 100;
@@ -42,28 +44,8 @@ export function AudioProgress({
         } as React.CSSProperties
       }
     >
-      <svg fill="none" className="size-full" strokeWidth="2" viewBox="0 0 100 100">
-        <circle
-          cx="50"
-          cy="50"
-          r="45"
-          strokeWidth="10"
-          strokeDashoffset="0"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="overflow-v opacity-100"
-          style={
-            {
-              stroke: gaugeSecondaryColor,
-              strokeDasharray: `${circumference} ${circumference}`,
-              transform:
-                "rotate(calc(1turn - 90deg - (var(--gap-percent) * var(--percent-to-deg) * var(--offset-factor)))) scaleY(-1)",
-              transition: "all var(--transition-length) ease var(--delay)",
-              transformOrigin: "calc(var(--circle-size) / 2) calc(var(--circle-size) / 2)",
-            } as React.CSSProperties
-          }
-        />
-        {currentPercent > 0 && (
+      {!hideProgress && (
+        <svg fill="none" className="size-full" strokeWidth="2" viewBox="0 0 100 100">
           <circle
             cx="50"
             cy="50"
@@ -72,24 +54,46 @@ export function AudioProgress({
             strokeDashoffset="0"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="opacity-100"
+            className="overflow-v opacity-100"
             style={
               {
-                stroke: gaugePrimaryColor,
-                "--stroke-percent": currentPercent,
-                strokeDasharray:
-                  "calc(var(--stroke-percent) * var(--percent-to-px)) var(--circumference)",
-                transition:
-                  "var(--transition-length) ease var(--delay),stroke var(--transition-length) ease var(--delay)",
-                transitionProperty: "stroke-dasharray,transform",
+                stroke: gaugeSecondaryColor,
+                strokeDasharray: `${circumference} ${circumference}`,
                 transform:
-                  "rotate(calc(-90deg + var(--gap-percent) * var(--offset-factor) * var(--percent-to-deg)))",
+                  "rotate(calc(1turn - 90deg - (var(--gap-percent) * var(--percent-to-deg) * var(--offset-factor)))) scaleY(-1)",
+                transition: "all var(--transition-length) ease var(--delay)",
                 transformOrigin: "calc(var(--circle-size) / 2) calc(var(--circle-size) / 2)",
               } as React.CSSProperties
             }
           />
-        )}
-      </svg>
+          {currentPercent > 0 && (
+            <circle
+              cx="50"
+              cy="50"
+              r="45"
+              strokeWidth="10"
+              strokeDashoffset="0"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="opacity-100"
+              style={
+                {
+                  stroke: gaugePrimaryColor,
+                  "--stroke-percent": currentPercent,
+                  strokeDasharray:
+                    "calc(var(--stroke-percent) * var(--percent-to-px)) var(--circumference)",
+                  transition:
+                    "var(--transition-length) ease var(--delay),stroke var(--transition-length) ease var(--delay)",
+                  transitionProperty: "stroke-dasharray,transform",
+                  transform:
+                    "rotate(calc(-90deg + var(--gap-percent) * var(--offset-factor) * var(--percent-to-deg)))",
+                  transformOrigin: "calc(var(--circle-size) / 2) calc(var(--circle-size) / 2)",
+                } as React.CSSProperties
+              }
+            />
+          )}
+        </svg>
+      )}
       {children}
     </div>
   );

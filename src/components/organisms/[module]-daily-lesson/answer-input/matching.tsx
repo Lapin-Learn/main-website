@@ -16,7 +16,7 @@ export type MatchingAnswer = Record<string, string>;
 
 type MatchingProps = MatchingContent & BaseAnswerInputProps;
 const Matching = (props: MatchingProps) => {
-  const { columnA, columnB, renderCheckButton, isAnswered, answer } = props;
+  const { columnA, columnB, renderCheckButton, isAnswered, answer, className } = props;
   const { saveHistory } = useDailyLessonStore();
   const [selected, setSelected] = useState<MatchingAnswer>({});
 
@@ -75,8 +75,9 @@ const Matching = (props: MatchingProps) => {
         exit={{ x: -100, opacity: 0 }}
         transition={{ duration: 0.5 }}
         className={cn(
-          "flex w-3/4 gap-8 items-center justify-center",
-          isAnswered ? "flex-col place-items-center" : "flex-row"
+          "flex w-full gap-8 justify-center",
+          isAnswered ? "flex-col" : "flex-row",
+          className
         )}
       >
         <div className="flex flex-col gap-4">

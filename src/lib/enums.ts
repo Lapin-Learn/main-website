@@ -177,7 +177,7 @@ export enum EnumDLContentType {
   MULTIPLE_CHOICE = "multiple_choice",
   FILL_IN_THE_BLANK = "fill_in_the_blank",
   MATCHING = "matching",
-  PRONUNCIATION = "pronunciation",
+  PRONOUNCIATION = "pronunciation",
 }
 
 export enum EnumMileStone {

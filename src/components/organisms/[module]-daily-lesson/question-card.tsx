@@ -1,6 +1,7 @@
 import AudioPlayer from "@/components/molecules/audio-player";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import useDailyLessonStore from "@/hooks/zustand/use-daily-lesson-store";
+import { EnumDLContentType } from "@/lib/enums";
 import { DLQuestion } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -10,8 +11,11 @@ const QuestionCard = () => {
   } = useDailyLessonStore();
   if (!currentQuestion?.question) return null;
   const { content, audioId, audio } = currentQuestion.question as DLQuestion;
+
+  if (currentQuestion.question.contentType === EnumDLContentType.PRONOUNCIATION) return null;
+
   return (
-    <div className="w-full px-4 md:px-56">
+    <div className="mt-4 w-full px-4 md:px-56">
       {audioId && audio?.url && (
         <AudioPlayer
           src={audio.url}
