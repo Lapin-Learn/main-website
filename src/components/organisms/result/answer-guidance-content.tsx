@@ -1,7 +1,7 @@
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import parse from "html-react-parser";
-import { Check, X } from "lucide-react";
+import { BookOpen, Check, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
@@ -65,13 +65,14 @@ export function BaseGuidance({
     <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       {guidance && (
-        <DialogContent className="md:max-h-3/4 h-screen max-w-3xl overflow-hidden md:h-1/2">
+        <DialogContent className="md:max-h-3/4 flex h-screen max-w-3xl flex-col gap-4 overflow-hidden align-top md:h-1/2">
           <DialogHeader className="self-center">
             <DialogTitle className="mb-2 text-center text-2xl font-semibold">
+              <BookOpen className="mr-2 inline-block" size={24} />
               {t("result.explanation", { questionNo })}
             </DialogTitle>
           </DialogHeader>
-          <ScrollArea className="h-full overflow-y-scroll">
+          <ScrollArea className="h-full overflow-y-scroll [&_p]:mt-4">
             {parse(guidance.explanationInText)}
           </ScrollArea>
         </DialogContent>
