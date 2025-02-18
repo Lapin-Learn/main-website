@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import BubbleQuestionIndex from "@/components/molecules/bubble-question-index";
@@ -11,6 +11,7 @@ import { QuestionGroupMultipleChoice } from "@/lib/types/simulated-test.type";
 import { genQuestionId } from "@/lib/utils";
 
 import AnswerGuidanceContent from "../result/answer-guidance-content";
+import { getQuestions } from "./helpers";
 
 type MultipleSelectProps = {
   question: {
@@ -82,6 +83,10 @@ export default function MultipleChoiceQuestionGroup({
   const { t } = useTranslation("collection");
   const { answerKeys, status, guidances } = useResult();
 
+  const generatedQuestions = useMemo(() => {
+    return getQuestions(questionType, questions) ?? [];
+  }, [questionType, questions]);
+
   return (
     <div>
       <h6 className="font-bold">{questionCard}</h6>
@@ -111,7 +116,7 @@ export default function MultipleChoiceQuestionGroup({
           </li>
         </ul>
       )}
-      {questions.map((question) => {
+      {generatedQuestions.map((question) => {
         const id = question.questionNo[0] - 1;
         const questionStatus =
           question.questionNo.length > 1
@@ -157,7 +162,7 @@ export default function MultipleChoiceQuestionGroup({
                   value={answerSheet[question.questionNo[0]] ?? ""}
                   disabled={!!answerKeys.length}
                 >
-                  {question.options.map((option, index) => (
+                  {question.options?.map((option, index) => (
                     <div key={index} className="flex items-center">
                       <RadioGroupItem
                         value={option.value}
@@ -167,7 +172,12 @@ export default function MultipleChoiceQuestionGroup({
                         className="ml-2 text-base font-normal"
                         htmlFor={`${question.questionNo}-${option.value}`}
                       >
-                        <span className="capitalize">{option.value}</span>. {option.label}
+                        {![EnumQuestionGroup.TFNG, EnumQuestionGroup.YNNG].includes(
+                          questionType
+                        ) ? (
+                          <span className="capitalize">{option.value}.</span>
+                        ) : null}{" "}
+                        {option.label}
                       </Label>
                     </div>
                   ))}

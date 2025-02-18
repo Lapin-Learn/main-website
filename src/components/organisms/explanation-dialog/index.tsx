@@ -1,3 +1,4 @@
+import parse from "html-react-parser";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui";
@@ -32,10 +33,7 @@ export const ExplanationDialog = () => {
           </DialogTitle>
         </DialogHeader>
         <div className="max-h-[380px] overflow-y-auto">
-          <div
-            className="prose max-w-none"
-            dangerouslySetInnerHTML={{ __html: currentQuestion?.question?.explanation as string }}
-          />
+          {parse(currentQuestion?.question?.explanation ?? "")}
         </div>
         <DialogFooter className="items-end md:w-full md:justify-center">
           <Button
