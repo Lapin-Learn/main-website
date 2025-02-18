@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ChoiceButton from "@/components/molecules/choice-button";
 import useDailyLessonStore, { DLAnswer } from "@/hooks/zustand/use-daily-lesson-store";
 import { MultipleChoiceContent } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 import { BaseAnswerInputProps } from ".";
 
@@ -12,7 +13,7 @@ type MultipleChoiceProps = MultipleChoiceContent & BaseAnswerInputProps;
 export type MultipleChoiceAnswer = Record<string, string[]>;
 
 const MultipleChoice = (props: MultipleChoiceProps) => {
-  const { answer, options, renderCheckButton, isAnswered, currentQuestionIndex } = props;
+  const { answer, options, renderCheckButton, isAnswered, currentQuestionIndex, className } = props;
   const [selected, setSelected] = useState<number[]>([]);
   const {
     lessonState: { currentQuestion },
@@ -78,7 +79,7 @@ const MultipleChoice = (props: MultipleChoiceProps) => {
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: -100, opacity: 0 }}
         transition={{ duration: 1 }}
-        className="flex flex-col items-center gap-4"
+        className={cn("flex flex-col items-center gap-4", className)}
         key={currentQuestionIndex}
       >
         {options.map((option, index) => (

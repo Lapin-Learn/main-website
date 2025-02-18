@@ -9,7 +9,6 @@ import LessonResultDialog from "@/components/organisms/lesson-result-dialog";
 import ResultStepperProvider from "@/components/organisms/lesson-result-dialog/result-stepper-provider";
 import { Button } from "@/components/ui";
 import { Progress } from "@/components/ui/progress";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { useLessonQuestions } from "@/hooks/react-query/use-daily-lesson";
 import useDailyLessonStore from "@/hooks/zustand/use-daily-lesson-store";
 import { cn } from "@/lib/utils";
@@ -71,16 +70,15 @@ const DailyLessonContent = () => {
           />
           <div>{`${currentQuestion}/${numberOfQuestions}`}</div>
         </div>
-        <ScrollArea className="size-screen flex-1">
-          <div className="mt-4 flex h-screen w-screen flex-1 flex-col items-center justify-between gap-4 ">
-            <QuestionCard />
-            <AnswerInput
-              renderCheckButton={(getCorrectAnswers, disabled) => (
-                <QuestionActionButtons getCorrectAnswers={getCorrectAnswers} disabled={disabled} />
-              )}
-            />
-          </div>
-        </ScrollArea>
+        <div className="relative flex h-full w-screen flex-1 flex-col overflow-x-hidden overflow-y-scroll">
+          <QuestionCard />
+          <AnswerInput
+            className="h-full flex-1"
+            renderCheckButton={(getCorrectAnswers, disabled) => (
+              <QuestionActionButtons getCorrectAnswers={getCorrectAnswers} disabled={disabled} />
+            )}
+          />
+        </div>
         <ExplanationDialog />
         <ResultStepperProvider result={result}>
           <LessonResultDialog defaultOpen={result !== null} />

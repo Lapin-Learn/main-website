@@ -15,7 +15,7 @@ const QuestionCard = () => {
   if (currentQuestion.question.contentType === EnumDLContentType.PRONOUNCIATION) return null;
 
   return (
-    <div className="w-full px-4 md:px-56">
+    <div className="mt-4 w-full px-4 md:px-56">
       {audioId && audio?.url && (
         <AudioPlayer
           src={audio.url}
