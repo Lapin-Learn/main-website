@@ -1,4 +1,3 @@
-import { RiveSound } from "@/components/molecules/rive/sound";
 import { Typography } from "@/components/ui";
 
 const Transcript = ({
@@ -27,9 +26,10 @@ const Transcript = ({
 
   return (
     <div className="md:max-w-1/2 flex flex-col items-center justify-center gap-2">
-      <div className="size-24">
+      {/* TODO: handle audio source */}
+      {/* <div className="size-24">
         <RiveSound />
-      </div>
+      </div> */}
       <Typography variant="h2" className="text-center font-medium">
         {splitText.map((word, index) => {
           return (

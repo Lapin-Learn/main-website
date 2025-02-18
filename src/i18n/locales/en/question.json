@@ -37,7 +37,10 @@
       "cancel": "Cancel"
     },
     "speaking": {
-      "result": "You said {{percentage}}% like a native speaker!"
+      "result": "You said {{percentage}}% like a native speaker!",
+      "resultTitle_correct": "Excellent, good pronounciation!",
+      "resultTitle_incorrect": "Incorrect pronounciation, keep trying!",
+      "resultTitle_almost": "Almost there, keep trying!"
     },
     "exitDialog": {
       "title": "Lesson not completed",
