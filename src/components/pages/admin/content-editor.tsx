@@ -1,8 +1,5 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { EditorContent, useEditor } from "@tiptap/react";
 import { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 
 import InputFieldButton from "@/components/editor/components/input-field-button";
 import ExtensionKit from "@/components/editor/extensions/extension-kit";
@@ -11,41 +8,11 @@ import { TableColumnMenu, TableRowMenu } from "@/components/editor/extensions/Ta
 import { TextMenu } from "@/components/editor/menus";
 import JsonDisplayWithCopy from "@/components/molecules/json-display-with-copy";
 import { Button } from "@/components/ui";
-import { EnumQuestionGroup, EnumSkill } from "@/lib/enums";
-
-const formSchema = z
-  .object({
-    skill: z.nativeEnum(EnumSkill).default(EnumSkill.reading),
-    part: z.number().int().positive().default(1),
-    startQuestionNo: z.number().int().positive(),
-    endQuestionNo: z.number().int().positive(),
-    questionType: z.nativeEnum(EnumQuestionGroup),
-    questionCard: z.string(),
-  })
-  .superRefine((data, ctx) => {
-    if (data.endQuestionNo < data.startQuestionNo) {
-      return ctx.addIssue({
-        message: "End question number must be greater than start question number",
-        path: ["endQuestionNo"],
-        code: "custom",
-      });
-    }
-    return true;
-  });
-type FormSchema = z.infer<typeof formSchema>;
 
 // eslint-disable-next-line react-refresh/only-export-components
 export default () => {
   const menuContainerRef = useRef(null);
 
-  const methods = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      skill: EnumSkill.reading,
-      part: 1,
-      questionType: EnumQuestionGroup.fillInBlanks,
-    },
-  });
   const editor = useEditor({
     extensions: ExtensionKit(),
     editorProps: {
