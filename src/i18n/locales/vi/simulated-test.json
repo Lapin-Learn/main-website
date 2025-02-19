@@ -126,8 +126,9 @@
     "endTestInSeconds": "Kết thúc trong {{ time }}s",
     "endTest": "Kết thúc bài làm",
     "endTestTitle": "Kết thúc bài thi Speaking",
-    "endTestMessage": "Bạn đã hoàn thành bài thi Speaking. Vui lòng chờ kết quả từ chúng tôi.",
-    "endTestPlayBack": "Bạn có thể nghe lại phần bài nói của mình ở đây:"
+    "endTestMessage": "Bạn đã hoàn thành bài thi Speaking.<br />Hãy bấm nộp bài để hoàn thành phần thi và xem lại câu trả lời của bạn.",
+    "endTestPlayBack": "Bạn có thể nghe lại phần bài nói của mình ở đây:",
+    "answerQuestion": "Trả lời câu hỏi"
   },
   "startTest": "Bắt đầu làm bài",
   "start": "Bắt đầu",
