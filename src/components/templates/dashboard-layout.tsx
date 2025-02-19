@@ -19,11 +19,11 @@ export default function DashboardLayout({ banner, children }: DashboardLayoutPro
 
   return (
     <div className="flex flex-col-reverse px-4 md:grid md:grid-cols-12 md:gap-6 md:px-8">
-      <div className="col-span-8 flex h-screen w-full flex-col justify-start gap-9 pt-8">
+      <div className="col-span-8 flex h-screen w-full flex-col justify-start gap-4 pt-8 md:gap-9">
         {banner}
         {children}
       </div>
-      <div className="col-span-4 flex flex-col gap-6 pt-4 md:sticky md:top-8 md:pt-8">
+      <div className="col-span-4 flex flex-col gap-4 pt-4 md:sticky md:top-8 md:gap-6 md:pt-8">
         <TrackBar data={gamificationProfile} />
         <StreakSection />
         <LatestTestSection />

@@ -14,7 +14,7 @@ function Banner() {
   const { t } = useTranslation("practice");
 
   return (
-    <div className="relative flex w-full items-end rounded-2xl bg-[#e2f2ff] px-4 py-2 md:px-6">
+    <div className="relative flex w-full items-end rounded-lg bg-[#e2f2ff] px-4 py-2 md:rounded-2xl md:px-6">
       <div className="absolute z-20 flex w-2/3 flex-col gap-1 md:pb-4">
         <div className="font-manrope text-lg font-extrabold capitalize text-blue-800 md:text-2xl">
           {t(`banner.title.${getTime(new Date().getHours())}`, { name: profile?.fullName })}

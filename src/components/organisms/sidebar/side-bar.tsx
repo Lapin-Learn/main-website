@@ -66,7 +66,7 @@ export default function SideBar() {
   return (
     <>
       {/* MOBILE */}
-      <div className="sticky top-0 flex w-full items-center justify-between bg-white p-4 md:hidden md:pt-8">
+      <div className="sticky top-0 flex w-full items-center justify-between bg-white p-4 shadow-md md:hidden md:pt-8">
         <img
           src={Logo}
           alt="App Logo"

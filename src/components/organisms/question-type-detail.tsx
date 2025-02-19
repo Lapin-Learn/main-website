@@ -11,6 +11,7 @@ import {
   DialogClose,
   DialogContent,
   DialogDescription,
+  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
@@ -83,88 +84,83 @@ const QuestionTypeDetail = ({ className, children }: QuestionTypeDetailProps) =>
       <DialogTrigger className={className}>{children}</DialogTrigger>
       <DialogContent
         showClose={false}
-        className="m-0 flex h-[95%] flex-col items-center justify-between md:left-[99%] md:w-[50vw] md:-translate-x-full md:overflow-y-scroll lg:w-[30vw]"
+        className="m-0 flex h-[95%] flex-col items-center justify-between gap-0 md:left-[99%] md:w-[50vw] md:-translate-x-full lg:w-[30vw]"
       >
-        <div className="flex size-full flex-col">
-          <div className="flex w-full flex-row items-center justify-between">
+        <DialogHeader className="sticky top-0 w-full">
+          <div className="flex w-full flex-row items-start justify-between">
             <BandScoreSelect />
+            <div className="flex !size-28 flex-row items-center overflow-hidden rounded-full lg:!size-40">
+              <img
+                src={currentQuestionType?.image?.url}
+                alt={currentQuestionType?.name}
+                className="h-full object-cover"
+              />
+            </div>
             <DialogClose onClick={handleCloseDetailDialog}>
               <X className="text-black" />
             </DialogClose>
           </div>
-          <div className="flex size-full flex-col items-center justify-center space-y-2 md:space-y-4 lg:space-y-6">
-            <div className="flex flex-col items-center justify-center space-y-4">
-              <div className="flex !size-32 flex-row items-center overflow-hidden rounded-full lg:!size-40">
+          <div className="flex flex-col items-center justify-center">
+            <DialogTitle className="font-bold text-neutral-900 md:text-xl lg:text-2xl">
+              {currentQuestionType?.name}
+            </DialogTitle>
+            <DialogDescription className="text-body font-normal text-supporting-text">
+              {BAND_SCORES[bandScore as EnumBandScore]} &nbsp;&nbsp;|&nbsp;&nbsp;
+              {t("questionType.totalLearnedTime")}&nbsp;
+              {formatLearningDuration(data?.totalLearningDuration ?? 0)}
+            </DialogDescription>
+          </div>
+        </DialogHeader>
+        <div className="mt-4 flex size-full flex-col items-center justify-start space-y-2 md:space-y-6">
+          {!isComingSoon && isAvailable && (
+            <QuestionTypeDetailInstruction
+              title={currentQuestionType?.name}
+              instruction={currentQuestionType?.instructions[0]}
+            >
+              <Button className="flex w-fit flex-row space-x-1 bg-[#EFEFEF] transition-colors duration-200 hover:bg-neutral-100 focus:bg-neutral-100">
+                <div className="flex size-4 items-center justify-center md:size-5 lg:size-6">
+                  <Triangle className="size-2/3 rotate-90 text-black" fill="black" />
+                </div>
+                <p className="text-[10px] font-semibold text-black md:text-[12px] lg:text-[15px]">
+                  {t("questionType.theoryPractice")}
+                </p>
+              </Button>
+            </QuestionTypeDetailInstruction>
+          )}
+
+          <div className="w-full">
+            {isComingSoon ? (
+              <Card>
+                <CardContent className="flex h-40 flex-1 items-center justify-center p-0 opacity-50">
+                  <CardTitle>{t("questionType.comingSoon")}</CardTitle>
+                </CardContent>
+              </Card>
+            ) : !isAvailable ? (
+              <div className="grid h-full place-items-center content-center space-y-8 p-8">
                 <img
-                  src={currentQuestionType?.image?.url}
-                  alt={currentQuestionType?.name}
-                  className="h-full object-cover"
+                  src={UnlockLesson}
+                  alt="Unlock Lesson"
+                  className="size-16 md:size-24 lg:size-28"
                 />
+                <p className="text-center text-body font-normal">{t("questionType.unavailable")}</p>
               </div>
-              <div className="flex size-fit flex-col items-center justify-center">
-                <DialogTitle className="font-bold text-neutral-900 md:text-xl lg:text-2xl">
-                  {currentQuestionType?.name}
-                </DialogTitle>
-                <DialogDescription className="text-body font-normal text-supporting-text">
-                  {BAND_SCORES[bandScore as EnumBandScore]} &nbsp;&nbsp;|&nbsp;&nbsp;
-                  {t("questionType.totalLearnedTime")}&nbsp;
-                  {formatLearningDuration(data?.totalLearningDuration ?? 0)}
-                </DialogDescription>
+            ) : isLoadingLessons ? (
+              <div className="grid h-56 place-items-center">
+                <Loader2 className="size-12 animate-spin text-supporting-text" />
               </div>
-            </div>
-
-            {!isComingSoon && isAvailable && (
-              <QuestionTypeDetailInstruction
-                title={currentQuestionType?.name}
-                instruction={currentQuestionType?.instructions[0]}
-              >
-                <Button className="flex w-fit flex-row space-x-1 bg-[#EFEFEF] transition-colors duration-200 hover:bg-neutral-100 focus:bg-neutral-100">
-                  <div className="flex size-4 items-center justify-center md:size-5 lg:size-6">
-                    <Triangle className="size-2/3 rotate-90 text-black" fill="black" />
-                  </div>
-                  <p className="text-[10px] font-semibold text-black md:text-[12px] lg:text-[15px]">
-                    {t("questionType.theoryPractice")}
-                  </p>
-                </Button>
-              </QuestionTypeDetailInstruction>
+            ) : (
+              <LessonCarousel
+                lessons={data?.lessons ?? []}
+                setCurrent={setCurrent}
+                skill={exerciseSkill}
+              />
             )}
-
-            <div className="size-full pt-7">
-              {isComingSoon ? (
-                <Card>
-                  <CardContent className="flex h-40 flex-1 items-center justify-center p-0 opacity-50">
-                    <CardTitle>{t("questionType.comingSoon")}</CardTitle>
-                  </CardContent>
-                </Card>
-              ) : !isAvailable ? (
-                <div className="grid h-full place-items-center content-center space-y-8 p-8">
-                  <img
-                    src={UnlockLesson}
-                    alt="Unlock Lesson"
-                    className="size-16 md:size-24 lg:size-28"
-                  />
-                  <p className="text-center text-body font-normal">
-                    {t("questionType.unavailable")}
-                  </p>
-                </div>
-              ) : isLoadingLessons ? (
-                <div className="grid h-56 place-items-center">
-                  <Loader2 className="size-12 animate-spin text-supporting-text" />
-                </div>
-              ) : (
-                <LessonCarousel
-                  lessons={data?.lessons ?? []}
-                  setCurrent={setCurrent}
-                  skill={exerciseSkill}
-                />
-              )}
-            </div>
           </div>
         </div>
 
         <Button
           size="2xl"
-          className="w-full shrink-0 rounded-md px-4 py-2.5"
+          className="absolute inset-x-6 bottom-6 shrink-0 rounded-md px-4 py-2.5"
           disabled={!isAvailable || isComingSoon || data?.lessons[current].id === undefined}
           onClick={() => {
             navigate({

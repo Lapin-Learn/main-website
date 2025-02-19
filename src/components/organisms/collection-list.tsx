@@ -112,7 +112,7 @@ export const CollectionList = () => {
         </Form>
       </div>
 
-      <div className="mb-8 flex w-full flex-col gap-4 md:gap-8">
+      <div className="mb-8 mt-4 flex w-full flex-col gap-4 md:mt-0 md:gap-8">
         {list && !isLoading ? (
           list.length > 0 ? (
             list.map((collection) => (

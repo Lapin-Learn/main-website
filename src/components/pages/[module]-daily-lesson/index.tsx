@@ -22,9 +22,9 @@ export default function DailyLessonPage() {
 
   return (
     <DashboardLayout>
-      <main className="flex flex-col space-y-4">
-        <p className="inline-flex items-center gap-4 text-left text-heading-4 font-semibold capitalize">
-          {t("title")} - {skill}
+      <main className="flex flex-col space-y-2 md:space-y-4">
+        <p className="inline-flex items-center text-left text-heading-5 font-semibold md:text-heading-4">
+          {t("title")} -&nbsp;<span className="capitalize">{skill}</span>
         </p>
         <SkillGrid currentSkill={skill} setCurrentSkill={handleSetCurrentSkill} />
         <QuestionTypeList skill={skill} />
