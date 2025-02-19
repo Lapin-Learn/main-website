@@ -46,7 +46,7 @@ const SkillGrid = ({ currentSkill, setCurrentSkill }: SkillGridProps) => {
   return (
     <div className="-m-3 grid w-full grid-cols-2 gap-2">
       {Object.keys(EnumSkill).map((skill, idx) => (
-        <div className="relative p-3">
+        <div className="relative p-3" key={skill}>
           <button
             key={skill}
             className={cn("relative group w-full col-span-1 transition-all duration-200")}
@@ -75,10 +75,7 @@ const SkillGrid = ({ currentSkill, setCurrentSkill }: SkillGridProps) => {
                 <img
                   src={dailyLessonSkillMapping[skill as EnumSkill].image}
                   alt={skill}
-                  className="object-cover md:hidden"
-                  onLoad={(e) => (e.currentTarget.style.display = "block")}
-                  onError={(e) => (e.currentTarget.style.display = "none")}
-                  style={{ display: "none" }}
+                  className="block object-cover"
                 />
               </div>
             </div>

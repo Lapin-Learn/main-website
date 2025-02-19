@@ -1,4 +1,4 @@
-import { CheckCircle } from "lucide-react";
+import { CheckIcon } from "lucide-react";
 
 import CarrotIcon from "@/assets/icons/carrot";
 import DailyTestIcon from "@/assets/icons/daily-test";
@@ -46,10 +46,12 @@ export const MissionList = ({ data = [], className }: MissionListProps) => {
                 {item.status !== EnumMissionStatus.RECEIVED ? (
                   <>
                     <p className="text-dark text-sm font-medium">+{item.rewards}</p>
-                    <CarrotIcon className="size-5" />
+                    <CarrotIcon className="size-8" />
                   </>
                 ) : (
-                  <CheckCircle className="size-5 text-green-500" />
+                  <div className="relative size-6 shrink-0 rounded-full bg-[#91d992]">
+                    <CheckIcon strokeWidth={4} className="absolute-center size-4 text-white" />
+                  </div>
                 )}
               </div>
             </Section.Item>

@@ -22,7 +22,7 @@ export function SubscriptionRedirectDialog({
 
   return (
     <Dialog defaultOpen={!!orderCode}>
-      <DialogContent className="overflow-hidden p-0">
+      <DialogContent className="max-w-xl overflow-hidden p-0">
         <div
           className={cn(
             "relative flex md:h-[576px] h-screen max-w-xl items-center justify-center",
@@ -33,7 +33,7 @@ export function SubscriptionRedirectDialog({
             className={cn(
               "bg-center absolute animate-[spin_6s_linear_infinite]",
               status?.toLowerCase() === EnumTransactionStatus.PAID && "bg-rewards size-[800px]",
-              status?.toLowerCase() === EnumTransactionStatus.CANCELLED && "saturate-50"
+              status?.toLowerCase() === EnumTransactionStatus.CANCELLED && "bg-background"
             )}
           />
           <div className="absolute w-full px-6">

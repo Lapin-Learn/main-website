@@ -51,7 +51,7 @@ export const MissionSection = ({
             />
           }
         >
-          <div className="flex items-center gap-1 text-sm font-medium text-orange-400">
+          <div className="flex items-center gap-1 text-sm font-medium text-orange-500">
             <Clock size={16} color="#F17D53" />
             {t("mission.time_remaining", { time: formatRemainingToDateTime(timeRemaining) })}
           </div>

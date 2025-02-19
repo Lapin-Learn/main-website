@@ -34,19 +34,25 @@ const QuestionTypeList = ({ skill }: QuestionTypeListPageProps) => {
       },
     });
   };
+
+  const sortedQuestionTypes = questionTypes?.sort((a, b) => a.id - b.id);
+
   return (
     <main className="h-fit w-full">
       {isLoading && <SkeletonQuestionTypeList />}
       {isSuccess && (
         <div className="flex w-full flex-col items-center gap-5">
-          {questionTypes?.map((questionType) => {
+          {sortedQuestionTypes?.map((questionType) => {
             const xpRequired =
               questionType.bandScoreRequires.find(
                 (bandScore) => bandScore.bandScore === questionType.progress.bandScore
               )?.requireXP ?? 0;
 
             return (
-              <Card className="relative w-full transition-all duration-300 hover:cursor-pointer hover:shadow-lg lg:p-2">
+              <Card
+                className="relative w-full transition-all duration-300 hover:cursor-pointer hover:shadow-lg lg:p-2"
+                key={questionType.id}
+              >
                 <CardContent
                   className="flex w-full grow flex-row items-center justify-center space-x-5 p-3"
                   onClick={() =>

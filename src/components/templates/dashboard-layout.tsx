@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { useGetGamificationProfile, useMissions } from "@/hooks/react-query/useGamification";
 import useCountdown from "@/hooks/use-countdown";
 
-import GlobalMissionDialog from "../organisms/global-mission-dialog";
 import { LatestTestSection } from "../organisms/latest-test-section";
 import { MissionSection } from "../organisms/mission-section";
 import { StreakSection } from "../organisms/streak";
@@ -29,7 +28,6 @@ export default function DashboardLayout({ banner, children }: DashboardLayoutPro
         <StreakSection />
         <LatestTestSection />
         <MissionLayout />
-        <GlobalMissionDialog />
       </div>
     </div>
   );
@@ -38,7 +36,7 @@ export default function DashboardLayout({ banner, children }: DashboardLayoutPro
 export const MissionLayout = ({ border = false }: { border?: boolean }) => {
   const { t } = useTranslation("practice");
 
-  const { data: missionData, isFetching: isFetchingMissionData } = useMissions();
+  const { data: missionData } = useMissions();
 
   const monthIndex = new Date().getMonth();
   const NewDate = new Date().setHours(24, 0, 0, 0);
@@ -50,7 +48,6 @@ export const MissionLayout = ({ border = false }: { border?: boolean }) => {
   const dailyMissions = missionData?.filter((item) => item.interval === "daily") || [];
   const monthlyMissions = missionData?.filter((item) => item.interval === "monthly") || [];
 
-  if (isFetchingMissionData) return null;
   return (
     <div className="flex flex-col gap-2 md:gap-4">
       {dailyMissions?.length > 0 && (

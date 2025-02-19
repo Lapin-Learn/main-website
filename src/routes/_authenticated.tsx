@@ -1,6 +1,7 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 import ErrorFallback from "@/components/ErrorFallback";
+import GlobalMissionDialog from "@/components/organisms/global-mission-dialog";
 import { userKeys } from "@/hooks/react-query/useUsers";
 import { FALLBACK_ROUTE } from "@/lib/route-permission";
 import { AccountIdentifier } from "@/lib/types";
@@ -8,7 +9,12 @@ import { checkRoutePermission } from "@/lib/utils";
 import { getAccountIdentifier, getAuthValueFromStorage, signOut } from "@/services";
 
 const AuthenticatedPage = () => {
-  return <Outlet />;
+  return (
+    <>
+      <GlobalMissionDialog />
+      <Outlet />
+    </>
+  );
 };
 
 export const Route = createFileRoute("/_authenticated")({

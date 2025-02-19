@@ -165,7 +165,7 @@ const QuestionTypeDetail = ({ className, children }: QuestionTypeDetailProps) =>
         <Button
           size="2xl"
           className="w-full shrink-0 rounded-md px-4 py-2.5"
-          disabled={!isAvailable || isComingSoon}
+          disabled={!isAvailable || isComingSoon || data?.lessons[current].id === undefined}
           onClick={() => {
             navigate({
               to: `/daily-lesson/${data?.lessons[current].id}`,
