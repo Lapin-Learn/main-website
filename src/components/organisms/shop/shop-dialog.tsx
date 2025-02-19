@@ -7,7 +7,6 @@ import carrot from "@/assets/carrot.svg";
 import { Button, Card, CardContent } from "@/components/ui";
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@/components/ui/dialog";
 import { useUseInventoryItem } from "@/hooks/react-query/useItem";
-import { useToast } from "@/hooks/use-toast";
 import { EnumRandomGiftType } from "@/lib/enums";
 import { Inventory, Shop } from "@/lib/types/shop.type";
 import { cn } from "@/lib/utils";
@@ -22,7 +21,6 @@ type ItemDialogProps = {
 
 const ShopDialog = ({ item, triggerContent, dialogContentClassName }: ItemDialogProps) => {
   const { t } = useTranslation("shop");
-  const { toast } = useToast();
   const useItem = useUseInventoryItem();
   const [open, setOpen] = useState(false);
   const { setOpen: setUseItemDialogOpen } = useItemDialog();
