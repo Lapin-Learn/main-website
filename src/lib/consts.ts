@@ -233,7 +233,7 @@ export const ALL_SKILLS_LIST = [
 const carrotSubscription: Shop = {
   id: "subscription",
   name: EnumItemShop.SUBSCRIPTION,
-  price: { 500: 10000, 2500: 45000, 5000: 90000 },
+  price: { 500: 500 * 20, 2500: 2500 * 20, 5000: 5000 * 20 },
   image: {
     url: CarrotBasket,
   },
