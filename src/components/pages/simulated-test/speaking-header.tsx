@@ -70,7 +70,9 @@ export default function SpeakingHeader({ currentPart, session }: HeaderProps) {
           }
         />
         {testState === EnumSimulatedTestSessionStatus.IN_PROGRESS && (
-          <Timer sessionId={session.id} />
+          <div className="absolute right-4">
+            <Timer sessionId={session.id} />
+          </div>
         )}
       </div>
     </>
