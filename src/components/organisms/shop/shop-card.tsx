@@ -18,7 +18,9 @@ const ShopCard = ({ item, type }: ItemCardProps) => {
 
   return (
     <ShopDialog
-      dialogContentClassName={type === "shop" ? "md:max-w-2xl w-2xl h-96" : "md:max-w-lg"}
+      dialogContentClassName={
+        type === "shop" ? "md:max-w-2xl w-2xl h-fit min-h-96 md:h-96" : "md:max-w-lg"
+      }
       triggerContent={
         <Card className="flex min-h-56 flex-col hover:shadow-lg" key={item.id}>
           <CardContent
@@ -29,7 +31,7 @@ const ShopCard = ({ item, type }: ItemCardProps) => {
               <img
                 src={item.image.url}
                 alt={item.name}
-                className="max-h-20 w-full object-contain"
+                className="max-h-28 w-full object-contain md:max-h-20"
               />
             </div>
             <div className="flex w-full flex-col space-y-1 text-center">
@@ -51,7 +53,7 @@ const ShopCard = ({ item, type }: ItemCardProps) => {
               </div>
             )}
             {"quantity" in item && (
-              <div className="absolute right-4 top-0 md:right-3 md:top-3">
+              <div className="absolute right-4 top-4 md:right-3 md:top-3">
                 <p className="text-heading-5 font-bold text-blue-500">{"x" + item.quantity}</p>
               </div>
             )}

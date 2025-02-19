@@ -61,7 +61,7 @@ export function PricingPlanItemList({
   return Object.entries(item.price).map(([key, value]) => (
     <Card
       className={cn(
-        "group flex size-48 flex-col overflow-hidden shadow-none transition-all duration-150 ",
+        "group flex size-40 md:size-48 flex-col overflow-hidden shadow-none transition-all duration-150 ",
         buyItem.isPending || createPaymentLink.isPending
           ? "pointer-events-none opacity-50 "
           : "hover:cursor-pointer hover:bg-neutral-50/50"
@@ -79,7 +79,7 @@ export function PricingPlanItemList({
       <CardContent className="relative flex h-fit w-full flex-col items-center justify-center gap-2 pt-4 ">
         {String(key) === item.popular && <PopularTag />}
 
-        <div className="hidden size-24 md:flex">
+        <div className="size-20 md:flex md:size-24">
           <img src={item.image.url} alt={item.name} className="size-full object-scale-down" />
         </div>
         <div className="flex w-full flex-col text-center">

@@ -4,8 +4,6 @@ import { Dialog, DialogClose, DialogContent } from "@components/ui/dialog.tsx";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 
-import { cn } from "@/lib/utils";
-
 import { useItemDialog } from "./provider";
 
 const UseItemDialog = () => {
@@ -22,8 +20,11 @@ const UseItemDialog = () => {
         }
       }}
     >
-      <DialogContent className="flex h-[672px] max-w-xl items-center justify-center overflow-hidden rounded-lg bg-blue-radial p-0">
-        <div className="absolute flex size-full flex-col justify-between px-6 py-8">
+      <DialogContent
+        className="flex h-screen max-w-xl items-center justify-center overflow-hidden rounded-none bg-blue-radial p-0 md:h-[672px] md:rounded-3xl"
+        showClose={false}
+      >
+        <div className="absolute flex size-full flex-col justify-between px-4 py-8 md:px-6">
           <div className="relative flex h-full flex-col content-center items-center justify-center gap-4">
             <div className="rounded-full bg-white p-10 shadow-md">
               <img src={item?.imageSource} alt="Carrot Basket" className="size-40" />
@@ -36,11 +37,7 @@ const UseItemDialog = () => {
                 {item?.itemName}
               </Typography>
             </div>
-            <div
-              className={cn(
-                "bg-center -z-10 absolute animate-[spin_6s_linear_infinite] bg-rewards size-[900px]"
-              )}
-            />
+            <div className="absolute -z-10 -mt-20 size-[900px] animate-[spin_6s_linear_infinite] bg-rewards bg-center" />
           </div>
           <div className="w-full">
             <DialogClose asChild>

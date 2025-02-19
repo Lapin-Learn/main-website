@@ -62,10 +62,9 @@ const ShopDialog = ({ item, triggerContent, dialogContentClassName }: ItemDialog
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{triggerContent}</DialogTrigger>
-
       <DialogContent
         className={cn(
-          "md:w-full w-fit rounded-md md:max-w-2xl flex flex-col gap-4",
+          "md:w-full w-screen rounded-md md:max-w-2xl flex flex-col gap-4",
           dialogContentClassName
         )}
       >
@@ -78,14 +77,18 @@ const ShopDialog = ({ item, triggerContent, dialogContentClassName }: ItemDialog
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex size-full items-center justify-center gap-4">
+        <div className="flex size-full flex-wrap justify-center gap-4 md:items-center ">
           {"quantity" in item ? (
             <Card className="flex w-fit flex-col border-0 shadow-none" key={item.id}>
               <CardContent
                 key={item.id}
                 className="flex size-full flex-col items-center justify-between space-y-2 p-4 pb-3 hover:cursor-pointer"
               >
-                <img src={item.image.url} alt={item.name} className="mb-4 size-40 object-contain" />
+                <img
+                  src={item.image.url}
+                  alt={item.name}
+                  className="mb-4 size-24 object-contain md:size-40"
+                />
                 <p className="text-body font-normal">
                   {t(`shop.use_modal.amount`, { amount: item.quantity, name: "" })}
                 </p>
@@ -96,8 +99,13 @@ const ShopDialog = ({ item, triggerContent, dialogContentClassName }: ItemDialog
           )}
         </div>
         {"quantity" in item && (
-          <DialogFooter className="place-self-end">
-            <Button onClick={handleUseItem} disabled={useItem.isPending} size="lg">
+          <DialogFooter className="md:place-self-end">
+            <Button
+              onClick={handleUseItem}
+              disabled={useItem.isPending}
+              size="lg"
+              className="w-full"
+            >
               {t("shop.use_modal.use_now")}
             </Button>
           </DialogFooter>
