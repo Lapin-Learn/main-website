@@ -36,6 +36,7 @@ export const useMissions = () => {
     queryKey: gamificationKeys.missions(),
     queryFn: getMissions,
     staleTime: Infinity,
+    placeholderData: keepPreviousData,
   });
 };
 

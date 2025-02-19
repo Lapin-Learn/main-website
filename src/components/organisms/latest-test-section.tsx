@@ -28,7 +28,9 @@ export const LatestTestSection = ({ collectionId }: { collectionId?: number }) =
         </div>
       </div>
       <Button
-        className="w-full bg-blue-400 hover:bg-blue-500"
+        className="w-full"
+        variant="blue"
+        size="xl"
         onClick={() =>
           navigate({
             to: "/practice/simulated-test",
