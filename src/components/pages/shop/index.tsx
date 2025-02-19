@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 
 import Illus from "@/assets/shop-banner-illus.svg";
 import { ShopList } from "@/components/organisms/shop/shop-list";
+import { ActivateItemDialogProvider } from "@/components/organisms/use-item-dialog";
+import { UseItemDialog } from "@/components/organisms/use-item-dialog/dialog";
 import DashboardLayout from "@/components/templates/dashboard-layout";
 import { Route } from "@/routes/_authenticated/_dashboard/shop";
 
@@ -26,8 +28,11 @@ export default function ShopPage() {
 
   return (
     <DashboardLayout banner={<Banner />}>
-      <ShopList />
-      <SubscriptionRedirectDialog status={status} orderCode={orderCode} />
+      <ActivateItemDialogProvider>
+        <ShopList />
+        <UseItemDialog />
+        <SubscriptionRedirectDialog status={status} orderCode={orderCode} />
+      </ActivateItemDialogProvider>
     </DashboardLayout>
   );
 }

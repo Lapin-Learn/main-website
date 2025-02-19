@@ -16,7 +16,7 @@ export const LatestTestSection = ({ collectionId }: { collectionId?: number }) =
   if (isLoading || !data) return null;
 
   return (
-    <div className="flex h-fit min-w-72 flex-col gap-6 rounded-2xl bg-white p-6">
+    <div className="hidden h-fit min-w-72 flex-col gap-6 rounded-2xl bg-white p-6 md:flex">
       <div className="flex flex-col gap-1">
         <p className="text-small font-semibold text-blue-400">{t("latest-test.continue")}</p>
         <h5 className="text-heading-5 font-semibold">{data.testCollectionName}</h5>
@@ -28,7 +28,9 @@ export const LatestTestSection = ({ collectionId }: { collectionId?: number }) =
         </div>
       </div>
       <Button
-        className="w-full bg-blue-400 hover:bg-blue-500"
+        className="w-full"
+        variant="blue"
+        size="xl"
         onClick={() =>
           navigate({
             to: "/practice/simulated-test",

@@ -5,14 +5,14 @@
     "items": {
       "STREAK_FREEZE": {
         "name": "Streak Freeze",
-        "description": "Keep your streak alive up to 3 days"
+        "description": "Keep your streak alive!"
       },
       "RANDOM_GIFT": {
         "name": "Blind Box",
         "description": "Receive prizes with surprising gifts"
       },
       "ULTIMATE_TIME": {
-        "name": "Ultimate Time",
+        "name": "Golden Time",
         "description": "Double the XP points in 15 minutes"
       },
       "IDENTIFICATION": {
@@ -21,7 +21,7 @@
       },
       "SUBSCRIPTION": {
         "name": "Carrot Basket",
-        "description": "Add carrots to receive feedback when grading"
+        "description": "With every 100 carrots, you will get 1 Writing or Speaking AI grading"
       }
     },
     "price": {

@@ -51,7 +51,7 @@ export const useInventory = () => {
 export const useUseInventoryItem = () => {
   const client = useQueryClient();
   const { toast } = useToast();
-  const { t } = useTranslation("shop");
+  const { t } = useTranslation();
 
   return useMutation({
     mutationFn: useItem,
@@ -61,9 +61,10 @@ export const useUseInventoryItem = () => {
     onError: (response) => {
       toast({
         title: t("error", { ns: "common" }),
-        description: t(response.message),
+        description: t(response.message, { ns: "error" }),
         variant: "destructive",
       });
     },
+    retry: 1,
   });
 };

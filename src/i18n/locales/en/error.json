@@ -4,5 +4,6 @@
     "INVALID_PASSWORD": "The password is invalid.",
     "VERIFY_EMAIL": "Please verify your email address.",
     "VERIFY_OTP": "OTP verification failed.",
-    "SIGN_UP_PROVIDER": "An error occurred, please try again later."
+    "SIGN_UP_PROVIDER": "An error occurred, please try again later.",
+    "ALREADY_EXTENDED_STREAK": "You cannot extend your streak today"
 }

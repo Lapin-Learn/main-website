@@ -4,5 +4,6 @@
     "INVALID_PASSWORD": "Mật khẩu không đúng.",
     "VERIFY_EMAIL": "Vui lòng xác thực địa chỉ email",
     "VERIFY_OTP": "Xác thực OTP thất bại",
-    "SIGN_UP_PROVIDER": "Đã có lỗi xảy ra, vui lòng thử lại sau"
+    "SIGN_UP_PROVIDER": "Đã có lỗi xảy ra, vui lòng thử lại sau",
+    "ALREADY_EXTENDED_STREAK": "Bạn không thể gia hạn streak hôm nay"
 }

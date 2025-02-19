@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import {
   getGamificationProfile,
@@ -18,6 +18,7 @@ export const useGetGamificationProfile = () => {
     queryKey: gamificationKeys.gamificationProfile,
     queryFn: getGamificationProfile,
     staleTime: Infinity,
+    placeholderData: keepPreviousData,
   });
 };
 
@@ -35,6 +36,7 @@ export const useMissions = () => {
     queryKey: gamificationKeys.missions(),
     queryFn: getMissions,
     staleTime: Infinity,
+    placeholderData: keepPreviousData,
   });
 };
 
