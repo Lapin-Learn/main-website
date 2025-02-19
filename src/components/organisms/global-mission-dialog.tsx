@@ -1,5 +1,6 @@
+import { useChildMatches } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useMissions, useReceiveMissionReward } from "@/hooks/react-query/useGamification";
@@ -9,7 +10,15 @@ import { MissionLayout } from "../templates/dashboard-layout";
 import { Button, Typography } from "../ui";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 
+const BLACKLISTED_ROUTES = ["/daily-lesson/$dailyLessonId"];
+
 const GlobalMissionDialog = () => {
+  const matches = useChildMatches();
+
+  const isAvailable = useMemo(() => {
+    return matches.every((match) => !BLACKLISTED_ROUTES.includes(match.fullPath));
+  }, [matches]);
+
   const { t } = useTranslation("milestone");
   const [open, setOpen] = useState(false);
   const { data: missions, isLoading, isRefetching } = useMissions();
@@ -32,15 +41,15 @@ const GlobalMissionDialog = () => {
   };
 
   return (
-    <Dialog open={open && !isError && !isRefetching && !isLoading}>
-      <DialogHeader>
-        <DialogTitle />
-      </DialogHeader>
+    <Dialog open={open && !isError && !isRefetching && !isLoading && !isPending && isAvailable}>
       <DialogContent
         showClose={false}
         autoFocus={false}
-        className="flex max-w-2xl flex-col items-center justify-center p-12"
+        className="flex max-w-2xl flex-col items-center justify-center rounded-3xl p-12"
       >
+        <DialogHeader>
+          <DialogTitle />
+        </DialogHeader>
         <div className="flex h-full flex-col items-center justify-center gap-8">
           <motion.div
             initial={{ y: 100, opacity: 0 }}
@@ -68,7 +77,7 @@ const GlobalMissionDialog = () => {
             <Button
               isLoading={isPending}
               disabled={isPending}
-              size="xl"
+              size="3xl"
               className="w-full"
               onClick={handleReceive}
             >
