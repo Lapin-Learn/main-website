@@ -11,7 +11,7 @@ import {
 import { PulsatingButton } from "@components/ui/pulsating-button.tsx";
 import { useEvaluateSimulatedTest } from "@hooks/react-query/use-simulated-test.ts";
 import { useGetGamificationProfile } from "@hooks/react-query/useGamification.ts";
-import { CheckIcon } from "lucide-react";
+import { CheckIcon, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import CarrotBasket from "@/assets/carrot-basket.svg";
@@ -52,8 +52,20 @@ export function SubscriptionPromotion({ results, id, status }: PromotionProps) {
                 pulseColor="#F4926F"
                 onClick={() => evaluateMutation.mutate(id)}
                 disabled={status == EnumSimulatedTestSessionStatus.IN_EVALUATING}
+                className="min-w-[200px]"
               >
-                {t(`evaluate.${status}`, { ns: "subscription" })}
+                {evaluateMutation.isPending ? (
+                  <Loader2 className="animate-spin text-white" size={24} />
+                ) : (
+                  <div className="flex items-center gap-2">
+                    {t(`evaluate.${status}`, { ns: "subscription" })}
+                    {status === EnumSimulatedTestSessionStatus.IN_EVALUATING ? (
+                      <Loader2 className="animate-spin text-white" size={24} />
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                )}
               </PulsatingButton>
             </div>
           ) : (
