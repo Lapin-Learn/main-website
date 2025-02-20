@@ -70,7 +70,7 @@ export default function SideBar() {
         <img
           src={Logo}
           alt="App Logo"
-          className="h-6 cursor-pointer"
+          className="h-5 cursor-pointer"
           onClick={handleNavigateHome}
         />
         <button onClick={() => setSidebarOpen((prev) => !prev)} aria-label="Open Sidebar">

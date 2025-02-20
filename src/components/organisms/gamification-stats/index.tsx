@@ -31,7 +31,7 @@ export const GamificationStats = ({ data }: GamificationProps) => {
         triggerNode={
           <div className="flex flex-col items-center gap-2 hover:opacity-80">
             <p className="text-xs text-neutral-300">{t("level.label", { ns: "gamification" })}</p>
-            <p className="font-semibold">{formatNumber(data.levelId)}</p>
+            <p className="text-sm font-semibold md:text-base">{formatNumber(data.levelId)}</p>
           </div>
         }
         contentNode={
@@ -47,7 +47,9 @@ export const GamificationStats = ({ data }: GamificationProps) => {
           <div className="flex flex-col items-center gap-2 hover:opacity-80">
             <p className="text-xs text-neutral-300">{t("streak.record", { ns: "gamification" })}</p>
             <div className="flex items-center gap-1">
-              <p className="font-semibold">{formatNumber(data.streak.current)}</p>
+              <p className="text-sm font-semibold md:text-base">
+                {formatNumber(data.streak.current)}
+              </p>
               <StreakIcon className="size-6" />
             </div>
           </div>
@@ -63,7 +65,7 @@ export const GamificationStats = ({ data }: GamificationProps) => {
               {t("rank.current_rank", { ns: "gamification" })}
             </p>
             <div className="flex items-center gap-1">
-              <p className="font-semibold">
+              <p className="text-sm font-semibold md:text-base">
                 {t(rankTranslations[data.rank] || "", { ns: "gamification" })}
               </p>
               <RankIcon name={data.rank} className="size-6" />
