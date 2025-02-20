@@ -5,6 +5,7 @@ import RankIcon from "@/components/molecules/rank-icon";
 import TooltipWrapper from "@/components/molecules/tooltip-wrapper";
 import { Separator } from "@/components/ui";
 import { useGetGamificationProfile } from "@/hooks/react-query/useGamification";
+import useGlobalStreakDialog from "@/hooks/zustand/use-global-streak-dialog";
 import { EnumRank } from "@/lib/enums";
 import { formatNumber } from "@/lib/utils";
 
@@ -14,6 +15,7 @@ type GamificationProps = {
 
 export const GamificationStats = ({ data }: GamificationProps) => {
   const { t } = useTranslation(["tooltip", "gamification"]);
+  const { setOpenDialog } = useGlobalStreakDialog();
   if (!data) return null;
 
   const rankTranslations = {
@@ -42,21 +44,25 @@ export const GamificationStats = ({ data }: GamificationProps) => {
         className="flex max-w-80 flex-col gap-1"
       />
       <Separator orientation="vertical" className="flex h-full min-h-10" />
-      <TooltipWrapper
-        triggerNode={
-          <div className="flex flex-col items-center gap-2 hover:opacity-80">
-            <p className="text-xs text-neutral-300">{t("streak.record", { ns: "gamification" })}</p>
-            <div className="flex items-center gap-1">
-              <p className="text-sm font-semibold md:text-base">
-                {formatNumber(data.streak.current)}
+      <button onClick={() => setOpenDialog()}>
+        <TooltipWrapper
+          triggerNode={
+            <div className="flex flex-col items-center gap-2 hover:opacity-80">
+              <p className="text-xs text-neutral-300">
+                {t("streak.record", { ns: "gamification" })}
               </p>
-              <StreakIcon className="size-6" />
+              <div className="flex items-center gap-1">
+                <p className="text-sm font-semibold md:text-base">
+                  {formatNumber(data.streak.current)}
+                </p>
+                <StreakIcon className="size-6" />
+              </div>
             </div>
-          </div>
-        }
-        contentNode={<Trans i18nKey="tooltip:gamification.streak_record" />}
-        className="flex max-w-80 flex-col gap-1"
-      />
+          }
+          contentNode={<Trans i18nKey="tooltip:gamification.streak_record" />}
+          className="flex max-w-80 flex-col gap-1"
+        />
+      </button>
       <Separator orientation="vertical" className="flex h-full min-h-10" />
       <TooltipWrapper
         triggerNode={

@@ -13,11 +13,14 @@ import { cn } from "@/lib/utils";
 import { Separator } from "../../ui";
 import ChangeLanguageSwitch from "./change-language-switch";
 import { adminFeatures, features } from "./features";
+import MissionButton from "./mission-button";
 import { SideBarFeature } from "./side-bar-feature";
 import { SideBarProfile } from "./side-bar-profile";
+import StreakButton from "./streak-button";
 
 export default function SideBar() {
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const breakpoint = useBreakPoint();
+  const [isSidebarOpen, setSidebarOpen] = useState(breakpoint !== "xs");
   const { checkRole } = useAccountIdentifier();
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
@@ -26,16 +29,16 @@ export default function SideBar() {
     navigate({ to: "/" });
   };
 
-  const breakpoint = useBreakPoint();
-
   useEffect(() => {
     const upperBreakpoints = ["2xl", "xl", "lg", "md"];
     if (!upperBreakpoints.includes(breakpoint)) setSidebarOpen(false);
   }, [breakpoint]);
 
   useEffect(() => {
-    setSidebarOpen(false);
-  }, [pathname]);
+    if (breakpoint === "xs" && isSidebarOpen) {
+      setSidebarOpen(false);
+    }
+  }, [pathname, breakpoint]);
 
   return (
     <>
@@ -60,7 +63,7 @@ export default function SideBar() {
           isSidebarOpen ? "right-0 w-[280px]" : "right-[-280px] w-0 sm:w-[80px]"
         )}
       >
-        <div className="relative flex size-full flex-col px-3 pb-4 pt-9">
+        <div className="relative flex size-full flex-col px-3 py-4 md:pt-9">
           <nav className="flex h-screen w-full flex-col justify-between">
             <div>
               <div
@@ -72,7 +75,7 @@ export default function SideBar() {
                 <img
                   src={Logo}
                   className={cn(
-                    "h-6 transition-transform duration-300 sm:flex cursor-pointer",
+                    "h-4 md:h-6 transition-transform duration-300 sm:flex cursor-pointer",
                     isSidebarOpen ? "pl-4" : "h-0"
                   )}
                   alt="App Logo"
@@ -102,8 +105,8 @@ export default function SideBar() {
                   </button>
                 </motion.div>
               </div>
-              <Separator className="mt-6" />
-              <ul className="flex w-full flex-col space-y-2 overflow-hidden pt-3">
+              <Separator className="mt-3 md:mt-6" />
+              <ul className="flex w-full flex-col overflow-hidden">
                 {(checkRole(EnumRole.learner) ? features : adminFeatures).map((feat, idx) => {
                   if (typeof feat === "object")
                     return (
@@ -116,8 +119,11 @@ export default function SideBar() {
                     );
                   return <div key={idx} className="h-px w-full bg-border" />;
                 })}
+                <MissionButton />
+                <StreakButton />
               </ul>
             </div>
+
             <div>
               <ChangeLanguageSwitch className={!isSidebarOpen ? "hidden" : ""} />
               <SideBarProfile isSidebarOpen={isSidebarOpen} />

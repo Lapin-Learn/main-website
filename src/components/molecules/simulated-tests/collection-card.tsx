@@ -46,11 +46,11 @@ export const CollectionCard = ({
                 />
               </div>
 
-              <p className="line-clamp-3 truncate text-wrap text-sm font-normal text-neutral-400">
+              <p className="line-clamp-3 truncate text-wrap text-sm font-normal text-neutral-400 max-md:hidden">
                 {description}
               </p>
             </div>
-            <div className="clip-custom bg-[#FCE3B4] p-1 pl-5 pr-3.5 md:p-2 md:pl-7">
+            <div className="clip-custom bg-[#FCE3B4] p-1 pl-5 pr-3 md:p-2 md:pl-7">
               <span className="text-nowrap text-xs text-[#A9421C] md:text-sm">
                 {t("collection-list.numberOfTest", {
                   ns: "practice",
@@ -61,6 +61,9 @@ export const CollectionCard = ({
               </span>
             </div>
           </div>
+          <p className="line-clamp-3 truncate text-wrap pr-2 text-sm font-normal text-neutral-400 md:hidden">
+            {description}
+          </p>
           <TestList tests={simulatedIeltsTests} className="hidden md:grid" />
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { Pencil, User } from "lucide-react";
+import { Pencil, UserRound } from "lucide-react";
 
 import Icons from "@/assets/icons";
 import PracticeIcon from "@/assets/icons/practice";
@@ -26,8 +26,8 @@ const features: SideBarFeatureProps[] = [
   },
   {
     to: "/profile",
-    icon: <User fill="#b4b4b4" color="#b4b4b4" />,
-    activeIcon: <User fill="#c2410c" color="#c2410c" />,
+    icon: <UserRound fill="#b4b4b4" color="#b4b4b4" />,
+    activeIcon: <UserRound fill="#c2410c" color="#c2410c" />,
     label: "settings",
     className: "md:hidden",
     child: [

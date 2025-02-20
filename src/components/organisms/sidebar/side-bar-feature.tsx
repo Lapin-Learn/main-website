@@ -38,18 +38,18 @@ export const SideBarFeature = (props: {
 
   const Content = () => {
     return (
-      <li>
+      <li className={cn("mt-0 md:mt-2", className)}>
         <Link
           draggable={false}
           to={to}
           disabled={!!feature.child || (!isExpanded && isChild)}
-          className={cn("cursor-pointer", className)}
+          className="cursor-pointer"
           {...(feature.child ? { onClick: toggleShow } : {})}
         >
           <div
             className={cn(
               "flex min-h-10 h-fit items-center rounded-lg p-3 transition-all duration-300",
-              isExpanded && "mx-1 gap-2.5",
+              isExpanded && "gap-2.5",
               isActive
                 ? "bg-[#FCE3B4] hover:bg-[#FCE3B4]/80"
                 : "bg-transparent hover:bg-neutral-50",
@@ -57,23 +57,21 @@ export const SideBarFeature = (props: {
               !isExpanded && isSelectChild && "bg-neutral-100"
             )}
           >
-            <div className="relative h-full w-8 items-center justify-center">
-              <div className="flex h-full flex-1 items-center justify-center">
-                {activeIcon &&
-                  icon &&
-                  React.cloneElement((isActive ? activeIcon : icon) as React.ReactElement)}
-              </div>
+            <div className="mx-2 h-full w-6 items-center justify-center">
+              {activeIcon &&
+                icon &&
+                React.cloneElement((isActive ? activeIcon : icon) as React.ReactElement)}
             </div>
 
             <div
               className={cn(
-                "relative flex h-full flex-1 flex-col items-end justify-center",
+                "flex h-full flex-1 flex-row items-start justify-between",
                 isExpanded ? "opacity-100" : "opacity-0"
               )}
             >
               <span
                 className={cn(
-                  "absolute bottom-0 left-0 right-0 top-0 flex flex-1 select-none items-center text-nowrap text-small font-medium duration-300",
+                  "flex flex-1 select-none items-center text-nowrap text-small font-medium duration-300",
                   isActive ? "text-primary-700" : "text-supporting-text"
                 )}
               >

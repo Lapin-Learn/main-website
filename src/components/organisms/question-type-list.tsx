@@ -54,7 +54,7 @@ const QuestionTypeList = ({ skill }: QuestionTypeListPageProps) => {
                 key={questionType.id}
               >
                 <CardContent
-                  className="flex w-full grow flex-row items-center justify-center space-x-5 p-3"
+                  className="flex w-full grow flex-row items-center justify-center space-x-5 p-3 !pt-3"
                   onClick={() =>
                     handleChooseLesson(questionType.progress.bandScore, skill, questionType.id)
                   }

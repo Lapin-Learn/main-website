@@ -59,7 +59,7 @@ const Title = () => {
 
 const ContentWrapper = ({ children }: PropsWithChildren) => {
   useTestHeaderLayoutContext();
-  return <div className="mb-2 flex h-fit flex-row gap-5 md:h-60">{children}</div>;
+  return <div className="mb-2 flex h-fit flex-row gap-3 md:h-60 md:gap-5">{children}</div>;
 };
 
 const TagList = ({ format }: Pick<TagsListProps, "format">) => {
@@ -71,7 +71,7 @@ const TagList = ({ format }: Pick<TagsListProps, "format">) => {
 const Description = () => {
   const { description } = useTestHeaderLayoutContext();
   return (
-    <p className="line-clamp-1 truncate text-wrap text-sm font-normal text-neutral-300 sm:line-clamp-2 md:line-clamp-3">
+    <p className="text-wrap text-sm font-normal text-neutral-300 sm:line-clamp-2 md:line-clamp-3">
       {description}
     </p>
   );
@@ -84,9 +84,9 @@ type AchievementProps = {
 };
 const Achievement = ({ title, description, align }: AchievementProps) => (
   <div className="flex flex-col gap-2">
-    <span className="text-sm font-medium text-neutral-300">{title}</span>
+    <span className="text-left text-sm font-medium text-neutral-300">{title}</span>
     <div
-      className="flex flex-row items-center gap-2 text-2xl font-semibold"
+      className="flex flex-row items-center gap-2 text-lg font-semibold md:text-2xl"
       style={{ alignItems: align ?? "center" }}
     >
       {description}
@@ -97,7 +97,7 @@ const AchievementList = ({ children }: PropsWithChildren) => {
   const {} = useTestHeaderLayoutContext();
   const childrenArray = React.Children.toArray(children);
   return (
-    <div className="flex w-full flex-row items-center justify-evenly gap-5 pt-3 sm:w-fit sm:justify-normal">
+    <div className="flex w-full flex-row items-center justify-evenly gap-2 pt-3 sm:w-fit sm:justify-normal md:gap-5">
       {childrenArray.map((child, index) => (
         <Fragment key={index}>
           {child}

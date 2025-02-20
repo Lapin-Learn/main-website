@@ -11,6 +11,7 @@ import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
 import { SimulatedTestSession } from "@/lib/types/simulated-test.type";
 import { Route } from "@/routes/_authenticated/practice/simulated-test";
 
+import WarningScreenSizeDialog from "@/components/organisms/warning-screen-size-dialog";
 import Footer from "./footer";
 import Header from "./header";
 import SpeakingHeader from "./speaking-header";
@@ -63,6 +64,7 @@ const SimulatedTestPage = () => {
 
   return (
     <>
+      <WarningScreenSizeDialog />
       <PageLayout
         header={
           session.skillTest.skill === EnumSkill.speaking ? (
