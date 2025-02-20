@@ -57,7 +57,7 @@ export default function HistoryPage() {
           <Loader2 className="animate-spin text-primary-900" size={32} />
         </div>
       ) : (
-        <div className="mb-6 grid grid-cols-2 gap-4 md:mb-12 md:grid-cols-3 md:grid-rows-2">
+        <div className="mb-6 grid grid-cols-2 gap-2 md:mb-12 md:grid-cols-3 md:grid-rows-2 md:gap-4">
           <OverallBandScoreChart
             className="col-span-2 row-span-1 shadow-none md:col-span-1 md:row-span-2"
             data={data}

@@ -33,13 +33,13 @@ const ProfileLayout = () => {
   const { data: gamificationData } = useGetGamificationProfile();
   const { t } = useTranslation("profile");
   return (
-    <div className="col-span-3 p-4 md:p-8">
+    <div className="col-span-3 p-0 md:p-8">
       <h1 className="mb-4 hidden text-heading-5 font-semibold md:mb-6 md:block md:text-2xl">
         {t("pageTitle")}
       </h1>
-      <div className="overflow-hidden rounded-lg bg-white pb-8 max-md:relative md:rounded-3xl">
+      <div className="min-h-screen overflow-hidden bg-white pb-8 max-md:relative md:min-h-[80vh] md:rounded-3xl">
         <img
-          className="h-20 w-full rounded-t-lg object-cover  max-md:absolute md:h-40"
+          className="h-20 w-full object-cover max-md:absolute md:h-40"
           src="https://images.unsplash.com/photo-1513077202514-c511b41bd4c7?q=80&w=1769&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         />
         <div className="grid gap-4 px-4 pt-2 md:grid-cols-4 md:gap-8 md:px-8 md:pt-4 ">

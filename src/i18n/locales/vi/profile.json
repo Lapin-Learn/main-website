@@ -1,9 +1,5 @@
 {
     "pageTitle": "Quản lý tài khoản",
-    "tab_profile": "Thông tin cá nhân",
-    "tab_changePassword": "Đổi mật khẩu",
-    "tab_history": "Lịch sử học tập",
-    "tab_transactions": "Lịch sử giao dịch",
     "saveBtn": "Lưu thay đổi",
     "formProfile": {
         "username": {

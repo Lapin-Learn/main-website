@@ -27,7 +27,12 @@
         "simulatedTest": "Simulated test",
         "result": "Result",
         "contentEditor": "Tiptap exporter",
-        "dailyLesson": "Daily lesson"
+        "settings": "Settings",
+        "dailyLesson": "Daily lesson",
+        "profile": "Personal information",
+        "changePassword": "Change password",
+        "history": "Learning history",
+        "transactions": "Transaction history"
     },
     "allSkills": "All skills",
     "reading": "reading",

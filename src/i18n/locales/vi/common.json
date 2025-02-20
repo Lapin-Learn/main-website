@@ -27,7 +27,12 @@
         "simulatedTest": "Bài thi mô phỏng",
         "result": "Kết quả",
         "contentEditor": "Xuất định dạng tiptap",
-        "dailyLesson": "Bài học hàng ngày"
+        "dailyLesson": "Bài học hàng ngày",
+        "settings": "Cài đặt",
+        "profile": "Thông tin cá nhân",
+        "changePassword": "Đổi mật khẩu",
+        "history": "Lịch sử học tập",
+        "transactions": "Lịch sử giao dịch"
     },
     "allSkills": "Tất cả kỹ năng",
     "reading": "reading",
