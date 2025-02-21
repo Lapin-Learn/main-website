@@ -152,9 +152,12 @@ export const WRITING_INSTRUCTIONS = [
 
 export const MIC_TEST_DURATION = 10;
 export const NEXT_QUESTION_COUNT_DOWN = 3;
-export const SPEAKING_PART_ONE_AND_THREE_DURATION = 30 * 1000; //5 * 60 * 1000
-export const SPEAKING_PART_TWO_PREPARE_DURATION = 10; //1 * 60
-export const SPEAKING_PART_TWO_DURATION = 20 * 1000; //2 * 60 * 1000
+export const SPEAKING_PART_ONE_AND_THREE_DURATION_DEV = 30 * 1000;
+export const SPEAKING_PART_TWO_PREPARE_DURATION_DEV = 10;
+export const SPEAKING_PART_TWO_DURATION_DEV = 20 * 1000;
+export const SPEAKING_PART_ONE_AND_THREE_DURATION_PROD = 5 * 60 * 1000;
+export const SPEAKING_PART_TWO_PREPARE_DURATION_PROD = 1 * 60;
+export const SPEAKING_PART_TWO_DURATION_PROD = 2 * 60 * 1000;
 
 export const PART_TITLES: { [key: number]: string } = {
   1: "PART 1: INSTRUCTION AND INTERVIEW",
@@ -233,7 +236,7 @@ export const ALL_SKILLS_LIST = [
 const carrotSubscription: Shop = {
   id: "subscription",
   name: EnumItemShop.SUBSCRIPTION,
-  price: { 500: 10000, 2500: 45000, 5000: 90000 },
+  price: { 500: 500 * 20, 2500: 2500 * 20, 5000: 5000 * 20 },
   image: {
     url: CarrotBasket,
   },

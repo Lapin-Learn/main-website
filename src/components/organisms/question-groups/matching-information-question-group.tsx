@@ -10,11 +10,8 @@ import { genQuestionId } from "@/lib/utils";
 import AnswerGuidanceContent from "../result/answer-guidance-content";
 
 export default function MatchingInformationQuestionGroup({
-  questionCard,
   questions,
   options,
-  questionDescription,
-  imageSrc,
 }: QuestionGroupMatchingInformation) {
   const { answer, answerSheet } = useAnswerStore();
   const { t } = useTranslation("collection");
@@ -22,11 +19,6 @@ export default function MatchingInformationQuestionGroup({
 
   return (
     <div>
-      <h6 className="font-bold">{questionCard}</h6>
-      {imageSrc ? <img src={imageSrc} alt="Matching headings" className="w-1/2" /> : null}
-      {questionDescription && typeof questionDescription == "string" && (
-        <p className="my-2">{questionDescription}</p>
-      )}
       <ul className="ml-4 flex flex-col gap-2">
         {options.map((option) => (
           <li key={option.value}>

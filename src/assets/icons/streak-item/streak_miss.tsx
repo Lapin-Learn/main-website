@@ -8,7 +8,7 @@ const StreakMiss = (props: SVGProps<SVGSVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <circle cx="18" cy="18" r="18" fill="#B4B4B4" />
+    <circle cx="18" cy="18" r="18" fill="#CCCCCC" />
     <path
       d="M24 12L12 24M12 12L24 24"
       stroke="white"

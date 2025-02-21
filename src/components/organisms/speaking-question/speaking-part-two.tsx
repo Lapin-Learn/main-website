@@ -1,4 +1,3 @@
-import { ArrowRight } from "lucide-react";
 import { useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -9,11 +8,14 @@ import useGlobalTimerStore, { timerKeys } from "@/hooks/zustand/use-global-timer
 import { useRecordingStore, useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
 import {
   NEXT_QUESTION_COUNT_DOWN,
-  SPEAKING_PART_TWO_DURATION,
-  SPEAKING_PART_TWO_PREPARE_DURATION,
+  SPEAKING_PART_TWO_DURATION_DEV,
+  SPEAKING_PART_TWO_DURATION_PROD,
+  SPEAKING_PART_TWO_PREPARE_DURATION_DEV,
+  SPEAKING_PART_TWO_PREPARE_DURATION_PROD,
 } from "@/lib/consts";
 import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
 import { AudioSource } from "@/lib/types";
+import { isDevEnv } from "@/lib/utils";
 
 import { SpeakingQuestionProps } from ".";
 import { getNextButtonText } from "./helpers";
@@ -32,7 +34,9 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
     resume: resumePreparation,
     stop: stopPreparation,
     isEnd: isEndPreparation,
-  } = useCountdown(SPEAKING_PART_TWO_PREPARE_DURATION);
+  } = useCountdown(
+    isDevEnv() ? SPEAKING_PART_TWO_PREPARE_DURATION_DEV : SPEAKING_PART_TWO_PREPARE_DURATION_PROD
+  );
   const { startTimer, getTimer } = useGlobalTimerStore();
   const recordingButtonRef = useRef<HTMLButtonElement | null>(null);
   const { t } = useTranslation("simulatedTest");
@@ -81,6 +85,7 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
       }
     }
   }, [isEndPreparation]);
+
   useEffect(() => {
     if (session.mode === EnumMode.FULL_TEST && testTime === 0) {
       handleNextPart();
@@ -92,16 +97,15 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
       }
     }
   }, [testTime]);
+
   if (!content) return null;
+
   return (
     <div className="grid w-[880px] grid-cols-12 gap-6">
       <div className="col-span-8 flex flex-col justify-center gap-6 overflow-visible rounded-lg border border-blue-200 bg-white p-12">
         <h5 className="text-center text-heading-5 font-semibold">{content.heading}</h5>
-        <ul className="list-inside list-disc">
-          <p>You should say:</p>
-          {content.content.map((detail, index) => (
-            <li key={index}>{detail}</li>
-          ))}
+        <ul className="prose list-inside list-disc">
+          <div dangerouslySetInnerHTML={{ __html: content.content }} />
         </ul>
       </div>
       <div className="col-span-4 flex flex-col items-center justify-center gap-8 overflow-visible rounded-lg border border-blue-200 bg-white p-10">
@@ -113,15 +117,18 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
         <RecordingButton
           onStart={handleStart}
           onStop={handleNextPart}
-          duration={SPEAKING_PART_TWO_DURATION}
+          duration={isDevEnv() ? SPEAKING_PART_TWO_DURATION_DEV : SPEAKING_PART_TWO_DURATION_PROD}
           disabled={isRunning}
           ref={recordingButtonRef}
         />
         <Button
           type="button"
+          variant="ghost"
           className="flex w-full flex-1 items-center gap-2 sm:w-fit"
           disabled={isRunning}
-          onClick={() => handleNextPart()}
+          onClick={() => {
+            recordingButtonRef.current?.click();
+          }}
         >
           {t(
             getNextButtonText(
@@ -131,7 +138,6 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
             ),
             { time: timeLeft }
           )}
-          <ArrowRight className="size-4" />
         </Button>
       </div>
     </div>

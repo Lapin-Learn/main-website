@@ -13,13 +13,5 @@ export const getNextButtonText = (
     }
   }
 
-  if (isLastQuestion) {
-    if (isLastPart) {
-      return "speaking.endTest";
-    } else {
-      return "speaking.nextPart";
-    }
-  } else {
-    return "nextQuestion";
-  }
+  return "speaking.answerQuestion";
 };

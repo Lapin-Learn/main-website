@@ -16,7 +16,7 @@ import { Route } from "@/routes/_authenticated/daily-lesson/$dailyLessonId";
 
 import QuestionActionButtons from "../../organisms/question-action-buttons";
 
-const DailyLessonContent = () => {
+const DailyLessonContentPage = () => {
   const { dailyLessonId } = Route.useParams();
   const { data, isLoading, isSuccess } = useLessonQuestions(dailyLessonId);
 
@@ -88,4 +88,4 @@ const DailyLessonContent = () => {
   }
 };
 
-export default DailyLessonContent;
+export default DailyLessonContentPage;

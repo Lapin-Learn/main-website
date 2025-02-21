@@ -1,7 +1,7 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { z } from "zod";
 
-import DailyLessonContent from "@/components/pages/[module]-daily-lesson/daily-lesson-content";
+import DailyLessonContent from "@/components/pages/[module]-daily-lesson/daily-lesson-content-page";
 
 const searchSchema = z.object({
   questionTypeId: z.string().or(z.number()).optional(),

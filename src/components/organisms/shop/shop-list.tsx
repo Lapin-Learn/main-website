@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import Icons from "@/assets/icons";
@@ -7,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useInventory, useShop } from "@/hooks/react-query/useItem";
 import { carrotSubscription } from "@/lib/consts";
 import { cn } from "@/lib/utils";
+import { Route } from "@/routes/_authenticated/_dashboard/shop";
 
 import { ShopCard } from "./shop-card";
 
@@ -25,7 +25,8 @@ const ItemListMapping = {
 
 const ShopList = () => {
   const { t } = useTranslation("shop");
-  const [activeTab, setActiveTab] = useState<"shop" | "inventory">("shop");
+  const { tab } = Route.useSearch();
+  const navigate = Route.useNavigate();
   const { data, isFetching } = useShop();
   const { data: inventory } = useInventory();
 
@@ -40,9 +41,14 @@ const ShopList = () => {
 
   return (
     <Tabs
-      defaultValue={activeTab}
+      defaultValue={tab}
       onValueChange={(value) => {
-        setActiveTab(value as "shop" | "inventory");
+        navigate({
+          to: "",
+          search: {
+            tab: value,
+          },
+        });
       }}
       className="w-full items-center justify-center space-y-6"
     >
@@ -53,12 +59,12 @@ const ShopList = () => {
             value={key}
             className={cn(
               "text-base font-medium gap-3 border-b",
-              activeTab === key
+              tab === key
                 ? "text-primary-700 border-b-primary-700"
                 : "text-neutral-200 border-b-neutral-200"
             )}
           >
-            {activeTab === key ? ActiveIcon : Icon}
+            {tab === key ? ActiveIcon : Icon}
             {t(title)}
           </TabsTrigger>
         ))}

@@ -1,4 +1,4 @@
-import { Button, Card } from "@components/ui";
+import { Card, CardContent } from "@components/ui";
 import { useBuyShopItem } from "@hooks/react-query/useItem.ts";
 import { useCreateLink } from "@hooks/react-query/usePayment.ts";
 import { useToast } from "@hooks/use-toast.ts";
@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import Carrot from "@/assets/icons/carrot.tsx";
 import { EnumItemShop } from "@/lib/enums.ts";
 import { Shop } from "@/lib/types/shop.type.ts";
-import { formatVNDCurrency } from "@/lib/utils";
+import { cn, formatVNDCurrency } from "@/lib/utils";
 import { PaymentTypeEnum } from "@/services/payment.ts";
 
 export function PricingPlanItemList({
@@ -59,20 +59,27 @@ export function PricingPlanItemList({
   };
 
   return Object.entries(item.price).map(([key, value]) => (
-    <Card className="flex aspect-square size-36 flex-col" key={key}>
-      <Button
-        variant="ghost"
-        className="relative flex h-fit w-full flex-col items-center justify-center gap-2 pt-4 hover:cursor-pointer md:justify-between"
-        onClick={() =>
-          item.name === EnumItemShop.SUBSCRIPTION
-            ? handlePurchase({ quantity: parseInt(key) })
-            : handleBuyItem({ quantity: parseInt(key) })
+    <Card
+      className={cn(
+        "group flex size-40 md:size-48 flex-col overflow-hidden shadow-none transition-all duration-150 ",
+        buyItem.isPending || createPaymentLink.isPending
+          ? "pointer-events-none opacity-50 "
+          : "hover:cursor-pointer hover:bg-neutral-50/50"
+      )}
+      key={key}
+      onClick={() => {
+        if (buyItem.isPending || createPaymentLink.isPending) return;
+        if (item.name === EnumItemShop.SUBSCRIPTION) {
+          handlePurchase({ quantity: parseInt(key) });
+        } else {
+          handleBuyItem({ quantity: parseInt(key) });
         }
-        disabled={buyItem.isPending || createPaymentLink.isPending}
-      >
+      }}
+    >
+      <CardContent className="relative flex h-fit w-full flex-col items-center justify-center gap-2 pt-4 ">
         {String(key) === item.popular && <PopularTag />}
 
-        <div className="hidden size-[60px] md:flex">
+        <div className="size-20 md:flex md:size-24">
           <img src={item.image.url} alt={item.name} className="size-full object-scale-down" />
         </div>
         <div className="flex w-full flex-col text-center">
@@ -97,7 +104,7 @@ export function PricingPlanItemList({
             </>
           )}
         </div>
-      </Button>
+      </CardContent>
     </Card>
   ));
 }
@@ -106,7 +113,7 @@ const PopularTag = () => {
   const { t } = useTranslation("shop");
 
   return (
-    <div className="absolute right-0 top-0 rounded-bl-sm rounded-tr-sm bg-orange-600 p-1 text-white">
+    <div className="absolute right-0 top-0 rounded-bl-sm rounded-tr-sm bg-secondary p-1 text-primary-700 md:p-2">
       <p className="text-xs font-normal">{t("shop.price.popular")}</p>
     </div>
   );

@@ -76,7 +76,7 @@ const Matching = (props: MatchingProps) => {
         transition={{ duration: 0.5 }}
         className={cn(
           "flex w-full gap-8 justify-center",
-          isAnswered ? "flex-col" : "flex-row",
+          isAnswered ? "grid place-items-center" : "flex-row",
           className
         )}
       >
@@ -88,7 +88,7 @@ const Matching = (props: MatchingProps) => {
                 <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-900">
                   {index + 1}
                 </div>
-                <div>{option}</div>
+                <div className="text-center">{option}</div>
                 <DroppableZone
                   id={option}
                   accepts={["matching"]}

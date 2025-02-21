@@ -75,7 +75,6 @@ function MultipleSelect({ question, disabled, questionStatus }: MultipleSelectPr
 }
 
 export default function MultipleChoiceQuestionGroup({
-  questionCard,
   questions,
   questionType,
 }: QuestionGroupMultipleChoice) {
@@ -89,7 +88,6 @@ export default function MultipleChoiceQuestionGroup({
 
   return (
     <div>
-      <h6 className="font-bold">{questionCard}</h6>
       {questionType === EnumQuestionGroup.TFNG && (
         <ul className="pl-4 pt-2 italic">
           <li>

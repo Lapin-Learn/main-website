@@ -194,10 +194,14 @@ const SelectModeDialog = () => {
                   name="timeLimit"
                   label={t("exam-mode-config.time_limit.label")}
                   placeholder={t("exam-mode-config.time_limit.placeholder")}
-                  options={Object.values(timeLimits).map((item) => ({
-                    label: item.label,
-                    value: item.value,
-                  }))}
+                  options={
+                    skillTest.skill === EnumSkill.speaking
+                      ? timeLimits.slice(0, 1)
+                      : Object.values(timeLimits).map((item) => ({
+                          label: item.label,
+                          value: item.value,
+                        }))
+                  }
                 />
                 <FormSelect
                   name="parts"
