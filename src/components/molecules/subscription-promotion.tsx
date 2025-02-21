@@ -15,10 +15,14 @@ import { CheckIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import CarrotBasket from "@/assets/carrot-basket.svg";
+import EvaluateFail from "@/assets/evaluate_failed.svg";
+import Evaluating from "@/assets/evaluating.svg";
 import { carrotSubscription } from "@/lib/consts.ts";
 import { EnumSimulatedTestSessionStatus } from "@/lib/enums.ts";
 import { BaseSTSession } from "@/lib/types/simulated-test-session.type.ts";
 import { STCriteriaEvaluation } from "@/lib/types/simulated-test.type.ts";
+
+import { BorderBeam } from "../magicui/border-beam";
 
 type PromotionProps = {
   results: STCriteriaEvaluation[];
@@ -27,34 +31,62 @@ type PromotionProps = {
 export function SubscriptionPromotion({ results, id, status }: PromotionProps) {
   const { data: profile, isLoading } = useGetGamificationProfile();
   const isAffordable = (profile?.carrots || 0) >= 100;
-
   const evaluateMutation = useEvaluateSimulatedTest();
-
   const { t } = useTranslation(["subscription", "shop"]);
+
+  const isNotEvaluated =
+    evaluateMutation.isIdle && status === EnumSimulatedTestSessionStatus.NOT_EVALUATED;
+  const isEvaluating =
+    evaluateMutation.isPending || status === EnumSimulatedTestSessionStatus.IN_EVALUATING;
+  const isEvaluationFailed =
+    evaluateMutation.isError || status === EnumSimulatedTestSessionStatus.EVALUATION_FAILED;
 
   return (
     !results.length &&
     !isLoading && (
-      <Card className="col-span-2 h-fit border-none bg-gradient-to-b from-[#FCE3B4] px-6 shadow-none">
-        <CardHeader className="px-0">
-          <CardTitle className="text-primary-700">{t("evaluation")}</CardTitle>
-          <CardDescription>{t("description", { ns: "subscription" })}</CardDescription>
+      <Card className="relative col-span-2 h-fit border-[#FFCB66] bg-white px-6 shadow-none">
+        <CardHeader className="mt-6 p-0">
+          <CardTitle>
+            <div
+              className={`text-heading-5 text-primary-700 ${isNotEvaluated ? "text-left" : "text-center"}`}
+            >
+              {isNotEvaluated && t("evaluation")}
+              {isEvaluating && t("evaluate.in_evaluating")}
+              {isEvaluationFailed && t("evaluate.evaluation_failed_title")}
+            </div>
+          </CardTitle>
+          {isNotEvaluated && (
+            <CardDescription>{t("description", { ns: "subscription" })}</CardDescription>
+          )}
         </CardHeader>
-        <Separator />
-        <CardContent className="mt-6 px-0">
+        {isNotEvaluated && <Separator />}
+        <CardContent className="mt-6 rounded-xl px-0">
           {isAffordable ? (
             <div className="flex flex-col items-center justify-center gap-4">
-              <img src={CarrotBasket} alt="carrot-basket" />
-              <Typography variant="body2">
-                {t(`shop.use_modal.amount`, { ns: "shop", amount: profile?.carrots, name: "" })}
+              {isNotEvaluated && <img src={CarrotBasket} alt="carrot-basket" />}
+              {isEvaluating && <img src={Evaluating} alt="evaluating" />}
+              {isEvaluationFailed && <img src={EvaluateFail} alt="evaluate-failed" />}
+
+              <Typography className="text-center" variant="body2">
+                {isNotEvaluated &&
+                  t(`shop.use_modal.amount`, { ns: "shop", amount: profile?.carrots, name: "" })}
+                {isEvaluating && t("evaluate.in_evaluating_message")}
+                {isEvaluationFailed && t("evaluate.evaluation_failed_message")}
               </Typography>
-              <PulsatingButton
-                pulseColor="#F4926F"
-                onClick={() => evaluateMutation.mutate(id)}
-                disabled={status == EnumSimulatedTestSessionStatus.IN_EVALUATING}
-              >
-                {t(`evaluate.${status}`, { ns: "subscription" })}
-              </PulsatingButton>
+
+              {!isEvaluating && (
+                <PulsatingButton
+                  pulseColor="#F4926F"
+                  onClick={() => evaluateMutation.mutate(id)}
+                  className="min-w-[200px]"
+                >
+                  <div className="flex items-center gap-2">
+                    {evaluateMutation.isError
+                      ? t(`evaluate.evaluation_failed`, { ns: "subscription" })
+                      : t(`evaluate.${status}`, { ns: "subscription" })}
+                  </div>
+                </PulsatingButton>
+              )}
             </div>
           ) : (
             <div className="flex flex-col gap-4">
@@ -71,6 +103,7 @@ export function SubscriptionPromotion({ results, id, status }: PromotionProps) {
               </div>
             </div>
           )}
+          <BorderBeam duration={8} size={200} colorFrom="#FFCB66" colorTo="#FE8D0C" />
         </CardContent>
       </Card>
     )

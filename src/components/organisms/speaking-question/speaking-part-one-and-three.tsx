@@ -6,9 +6,14 @@ import { Button } from "@/components/ui";
 import useCountdown from "@/hooks/use-countdown";
 import useGlobalTimerStore, { timerKeys } from "@/hooks/zustand/use-global-timer";
 import { useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
-import { NEXT_QUESTION_COUNT_DOWN, SPEAKING_PART_ONE_AND_THREE_DURATION } from "@/lib/consts";
+import {
+  NEXT_QUESTION_COUNT_DOWN,
+  SPEAKING_PART_ONE_AND_THREE_DURATION_DEV,
+  SPEAKING_PART_ONE_AND_THREE_DURATION_PROD,
+} from "@/lib/consts";
 import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
 import { AudioSource } from "@/lib/types";
+import { isDevEnv } from "@/lib/utils";
 
 import { SpeakingQuestionProps } from ".";
 import { getNextButtonText } from "./helpers";
@@ -81,7 +86,11 @@ const SpeakingPartOneAndThree = ({ content, session }: SpeakingQuestionProps) =>
       </div>
       <RecordingButton
         onStop={handleNextQuestion}
-        duration={SPEAKING_PART_ONE_AND_THREE_DURATION}
+        duration={
+          isDevEnv()
+            ? SPEAKING_PART_ONE_AND_THREE_DURATION_DEV
+            : SPEAKING_PART_ONE_AND_THREE_DURATION_PROD
+        }
         disabled={isRunning}
         ref={recordingButtonRef}
       />

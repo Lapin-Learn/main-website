@@ -6,9 +6,14 @@ import ExitDialog from "@/components/organisms/simulated-test-dialog/exit-dialog
 import { Button } from "@/components/ui";
 import useGlobalTimerStore, { timerKeys } from "@/hooks/zustand/use-global-timer";
 import { useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
-import { SPEAKING_PART_ONE_AND_THREE_DURATION, SPEAKING_PART_TWO_DURATION } from "@/lib/consts";
+import {
+  SPEAKING_PART_ONE_AND_THREE_DURATION_DEV,
+  SPEAKING_PART_ONE_AND_THREE_DURATION_PROD,
+  SPEAKING_PART_TWO_DURATION_DEV,
+  SPEAKING_PART_TWO_DURATION_PROD,
+} from "@/lib/consts";
 import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
-import { getPartName } from "@/lib/utils";
+import { getPartName, isDevEnv } from "@/lib/utils";
 
 import { HeaderProps } from "./header";
 import Timer from "./timer";
@@ -35,8 +40,12 @@ export default function SpeakingHeader({ currentPart, session }: HeaderProps) {
     if (isSuccess && session) {
       const partTimeLimit =
         currentPart === 1 || currentPart === 3
-          ? SPEAKING_PART_ONE_AND_THREE_DURATION
-          : SPEAKING_PART_TWO_DURATION;
+          ? isDevEnv()
+            ? SPEAKING_PART_ONE_AND_THREE_DURATION_DEV
+            : SPEAKING_PART_ONE_AND_THREE_DURATION_PROD
+          : isDevEnv()
+            ? SPEAKING_PART_TWO_DURATION_DEV
+            : SPEAKING_PART_TWO_DURATION_PROD;
 
       if (session.mode == EnumMode.FULL_TEST) {
         createTimer(timerKeys.testDetail(session.id), "countdown", partTimeLimit);

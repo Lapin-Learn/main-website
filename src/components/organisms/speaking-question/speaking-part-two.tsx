@@ -8,11 +8,14 @@ import useGlobalTimerStore, { timerKeys } from "@/hooks/zustand/use-global-timer
 import { useRecordingStore, useSpeakingTestState } from "@/hooks/zustand/use-speaking-test";
 import {
   NEXT_QUESTION_COUNT_DOWN,
-  SPEAKING_PART_TWO_DURATION,
-  SPEAKING_PART_TWO_PREPARE_DURATION,
+  SPEAKING_PART_TWO_DURATION_DEV,
+  SPEAKING_PART_TWO_DURATION_PROD,
+  SPEAKING_PART_TWO_PREPARE_DURATION_DEV,
+  SPEAKING_PART_TWO_PREPARE_DURATION_PROD,
 } from "@/lib/consts";
 import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
 import { AudioSource } from "@/lib/types";
+import { isDevEnv } from "@/lib/utils";
 
 import { SpeakingQuestionProps } from ".";
 import { getNextButtonText } from "./helpers";
@@ -31,7 +34,9 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
     resume: resumePreparation,
     stop: stopPreparation,
     isEnd: isEndPreparation,
-  } = useCountdown(SPEAKING_PART_TWO_PREPARE_DURATION);
+  } = useCountdown(
+    isDevEnv() ? SPEAKING_PART_TWO_PREPARE_DURATION_DEV : SPEAKING_PART_TWO_PREPARE_DURATION_PROD
+  );
   const { startTimer, getTimer } = useGlobalTimerStore();
   const recordingButtonRef = useRef<HTMLButtonElement | null>(null);
   const { t } = useTranslation("simulatedTest");
@@ -112,7 +117,7 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
         <RecordingButton
           onStart={handleStart}
           onStop={handleNextPart}
-          duration={SPEAKING_PART_TWO_DURATION}
+          duration={isDevEnv() ? SPEAKING_PART_TWO_DURATION_DEV : SPEAKING_PART_TWO_DURATION_PROD}
           disabled={isRunning}
           ref={recordingButtonRef}
         />
