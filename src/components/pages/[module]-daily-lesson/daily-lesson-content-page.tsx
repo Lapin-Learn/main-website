@@ -54,7 +54,7 @@ const DailyLessonContentPage = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="size-12 rounded-full hover:text-neutral-500 md:size-8"
+                className="size-8 rounded-full hover:text-neutral-500 md:size-12"
               >
                 <MoveLeft size={24} />
               </Button>

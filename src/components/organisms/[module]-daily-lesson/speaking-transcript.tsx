@@ -1,4 +1,6 @@
 import { Typography } from "@/components/ui";
+import useBreakPoint from "@/hooks/use-screen-size";
+import { cn } from "@/lib/utils";
 
 const Transcript = ({
   orginalQuestion,
@@ -9,6 +11,7 @@ const Transcript = ({
   correctLetters?: number[];
   orginalIPATranscript: string;
 }) => {
+  const isMobile = useBreakPoint() === "xs";
   const splitText = orginalQuestion.split(" ");
   const splitIPA = orginalIPATranscript.split(" ");
   const getColor = (index: number) => {
@@ -30,11 +33,11 @@ const Transcript = ({
       {/* <div className="size-24">
         <RiveSound />
       </div> */}
-      <Typography variant="h2" className="text-center font-medium">
+      <Typography variant={isMobile ? "h3" : "h2"} className="text-center font-medium">
         {splitText.map((word, index) => {
           return (
             <>
-              <span key={index} className={getColor(index)}>
+              <span key={index} className={cn("inline-block", getColor(index))}>
                 {word}
               </span>
               &nbsp;
@@ -43,11 +46,11 @@ const Transcript = ({
         })}
       </Typography>
       {orginalIPATranscript && (
-        <Typography variant="h4" className="text-center font-normal opacity-80">
+        <Typography variant={isMobile ? "h5" : "h4"} className="text-center font-normal opacity-80">
           {splitIPA.map((word, index) => {
             return (
               <>
-                <span key={index} className={getColor(index)}>
+                <span key={index} className={cn("inline-block", getColor(index))}>
                   {word}
                 </span>
                 &nbsp;

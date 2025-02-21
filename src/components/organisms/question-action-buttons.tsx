@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui";
 import { useLessonCompletion } from "@/hooks/react-query/use-daily-lesson";
 import useAnswerDailyLesson from "@/hooks/use-answer-daily-lesson";
+import useBreakPoint from "@/hooks/use-screen-size";
 import useDailyLessonStore, { DLAnswer } from "@/hooks/zustand/use-daily-lesson-store";
 import { cn } from "@/lib/utils";
 
@@ -15,6 +16,7 @@ type QuestionActionButtonsProps = {
 };
 const QuestionActionButtons = ({ getCorrectAnswers, disabled }: QuestionActionButtonsProps) => {
   const [randomEncourage, setRandomEncourage] = useState<number>(0);
+  const isMobile = useBreakPoint() === "xs";
   const {
     answerQuestion,
     nextQuestion,
@@ -90,14 +92,24 @@ const QuestionActionButtons = ({ getCorrectAnswers, disabled }: QuestionActionBu
         <div className="flex gap-2">
           <div
             className={cn(
-              "size-8 relative rounded-full",
+              "size-4 md:size-8 relative rounded-full",
               isCorrectAll ? "bg-green-500" : "bg-red-500"
             )}
           >
             {isCorrectAll ? (
-              <CheckIcon className="absolute-center" strokeWidth={4} size={20} color="white" />
+              <CheckIcon
+                className="absolute-center"
+                strokeWidth={4}
+                size={isMobile ? 12 : 20}
+                color="white"
+              />
             ) : (
-              <XIcon className="absolute-center" strokeWidth={4} size={20} color="white" />
+              <XIcon
+                className="absolute-center"
+                strokeWidth={4}
+                size={isMobile ? 12 : 20}
+                color="white"
+              />
             )}
           </div>
           <div className="flex flex-col justify-start gap-1">
@@ -121,7 +133,7 @@ const QuestionActionButtons = ({ getCorrectAnswers, disabled }: QuestionActionBu
           onClick={nextQuestion}
           variant={isCorrectAll ? "green" : "red"}
           size="lg"
-          className="bottom-8 my-6 h-12 w-48 max-w-full rounded-xl"
+          className="bottom-8 my-4 w-48 max-w-full rounded-lg md:my-6 md:h-12 md:rounded-xl"
           disabled={lessonCompletionMutation.isPending || isCompleted}
         >
           {t("general.continue")}
@@ -136,7 +148,7 @@ const QuestionActionButtons = ({ getCorrectAnswers, disabled }: QuestionActionBu
         onClick={handleOnClick}
         variant="black"
         size="lg"
-        className="my-3 w-full max-w-full rounded-lg md:my-6 md:h-12 md:w-48 md:rounded-xl"
+        className="my-4 w-full max-w-full rounded-lg md:my-6 md:h-12 md:w-48 md:rounded-xl"
         disabled={disabled}
       >
         {t("general.check")}

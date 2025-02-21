@@ -69,7 +69,9 @@ const GlobalMissionDialog = () => {
             transition={{ duration: 0.8 }}
           >
             <Typography variant="h3" className="mb-4 text-center text-primary">
-              {t("mission.title")}
+              {t("mission.title", {
+                context: isReceivable ? "" : "short",
+              })}
             </Typography>
           </motion.div>
           <motion.div
