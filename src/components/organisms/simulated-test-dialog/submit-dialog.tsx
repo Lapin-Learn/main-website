@@ -1,7 +1,8 @@
-import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
+import SubmitQuestionLeft from "@/assets/images/simulated-test/submit-question-left.svg";
+import SubmitTimeLeft from "@/assets/images/simulated-test/submit-time-left.svg";
 import { Button } from "@/components/ui";
 import {
   AlertDialog,
@@ -11,6 +12,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
+  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import {
   useGetSTSessionDetail,
@@ -75,20 +77,33 @@ const SubmitDialog = ({ triggerButton, sessionId }: SubmitDialogProps) => {
     }
   };
 
+  const remainingQuestions = useMemo(() => {
+    if (session) {
+      const totalQuestions = session.skillTest.partsDetail.reduce(
+        (total, part) => total + (part.endQuestionNo - part.startQuestionNo + 1),
+        0
+      );
+      return totalQuestions - Object.keys(answerSheet).length;
+    }
+    return 0;
+  }, [session, answerSheet]);
+
   return (
     <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <AlertDialogTrigger asChild>{triggerButton}</AlertDialogTrigger>
-      <AlertDialogContent className="max-w-sm">
+      <AlertDialogContent className="max-w-md">
         <AlertDialogHeader>
           <AlertDialogTitle>{t("title")}</AlertDialogTitle>
+          <AlertDialogDescription>
+            <img
+              src={remainingQuestions > 0 ? SubmitQuestionLeft : SubmitTimeLeft}
+              alt="submit-question-left"
+              className="mx-auto my-6 max-h-40"
+            />
+          </AlertDialogDescription>
           <AlertDialogDescription className="text-center">
             {session ? (
               (() => {
-                const totalQuestions = session.skillTest.partsDetail.reduce(
-                  (total, part) => total + (part.endQuestionNo - part.startQuestionNo + 1),
-                  0
-                );
-                const remainingQuestions = totalQuestions - Object.keys(answerSheet).length;
                 return remainingQuestions === 0 ? (
                   <Trans i18nKey="simulatedTest:submitDialog:descriptionAllAnswered" />
                 ) : (
