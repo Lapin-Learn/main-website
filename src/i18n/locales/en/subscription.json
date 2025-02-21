@@ -5,7 +5,8 @@
     "not_evaluated": "Evaluate now with 100 carrots",
     "in_evaluating": "Evaluating",
     "evaluation_failed": "Evaluate again with 100 carrots",
-    "finished": "Evaluate now with 100 carrots"
+    "finished": "Evaluate now with 100 carrots",
+    "in_evaluating_message": "Your submission is being evaluated, please wait a moment"
   },
   "features": {
     "criteria": "Detailed feedback will include evaluations based on specific criteria of the skill along with the expected band score",
