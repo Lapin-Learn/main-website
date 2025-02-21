@@ -76,7 +76,7 @@ const Matching = (props: MatchingProps) => {
         transition={{ duration: 0.5 }}
         className={cn(
           "flex w-full gap-8 justify-center",
-          isAnswered ? "grid place-items-center" : "flex-row",
+          isAnswered ? "grid place-items-center" : "flex-col md:flex-row",
           className
         )}
       >

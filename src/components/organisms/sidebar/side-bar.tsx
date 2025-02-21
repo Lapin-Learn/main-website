@@ -75,7 +75,7 @@ export default function SideBar() {
                 <img
                   src={Logo}
                   className={cn(
-                    "h-4 md:h-6 transition-transform duration-300 sm:flex cursor-pointer",
+                    "h-6 transition-transform duration-300 sm:flex cursor-pointer",
                     isSidebarOpen ? "pl-4" : "h-0"
                   )}
                   alt="App Logo"

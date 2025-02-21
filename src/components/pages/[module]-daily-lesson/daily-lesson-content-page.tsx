@@ -48,13 +48,13 @@ const DailyLessonContentPage = () => {
 
     return (
       <div className="mx-auto flex h-screen w-full flex-col items-center bg-[#F8F8F8]">
-        <div className="sticky top-0 z-10 flex w-full flex-row items-center gap-4 border-b bg-white md:px-48">
+        <div className="sticky top-0 z-10 flex w-full flex-row items-center gap-2 border-b bg-white px-4 md:gap-4 md:px-48">
           <DailyLessonExitDialog
             triggerButton={
               <Button
                 variant="ghost"
                 size="icon"
-                className="size-12 rounded-full hover:text-neutral-500"
+                className="size-12 rounded-full hover:text-neutral-500 md:size-8"
               >
                 <MoveLeft size={24} />
               </Button>

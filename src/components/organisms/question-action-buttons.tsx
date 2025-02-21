@@ -81,7 +81,7 @@ const QuestionActionButtons = ({ getCorrectAnswers, disabled }: QuestionActionBu
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
         className={cn(
-          "sticky bottom-0 mt-4 flex w-full items-center justify-between border-t-2 md:px-56 md:py-2",
+          "sticky bottom-0 mt-2 md:mt-4 flex w-full items-center justify-between border-t-2 px-4 md:px-56 md:py-2",
           isCorrectAll
             ? "bg-green-50 border-t-2 border-green-200"
             : "bg-red-50 border-t-2 border-red-100"
@@ -131,12 +131,12 @@ const QuestionActionButtons = ({ getCorrectAnswers, disabled }: QuestionActionBu
   }
 
   return (
-    <div className="sticky bottom-0 mt-4 flex w-full items-center justify-end border-t bg-white md:px-56 md:py-2">
+    <div className="sticky bottom-0 mt-2 flex w-full items-center justify-end border-t bg-white px-4 md:mt-4 md:px-56 md:py-2">
       <Button
         onClick={handleOnClick}
         variant="black"
         size="lg"
-        className="bottom-8 my-6 h-12 w-48 max-w-full rounded-xl"
+        className="my-3 w-full max-w-full rounded-lg md:my-6 md:h-12 md:w-48 md:rounded-xl"
         disabled={disabled}
       >
         {t("general.check")}

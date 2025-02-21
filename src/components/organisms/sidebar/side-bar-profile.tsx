@@ -6,17 +6,19 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSignOut } from "@/hooks/react-query/useAuth";
 import { useAccountIdentifier, useUserAvatar, useUserProfile } from "@/hooks/react-query/useUsers";
+import useBreakPoint from "@/hooks/use-screen-size";
 import { EnumRole } from "@/lib/enums";
 import { cn } from "@/lib/utils";
 
 export const SideBarProfile = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
   const { avatar } = useUserAvatar();
+  const isMobile = useBreakPoint() === "xs";
   return (
     <div className="flex flex-col gap-4 p-2">
       <Separator />
       <HoverCard>
         <HoverCardTrigger asChild>
-          <Link to="/profile/history">
+          <Link to={isMobile ? "/profile" : "/profile/history"}>
             <div
               className={cn(
                 "flex flex-row items-center justify-center",

@@ -22,7 +22,7 @@ export const SideBarFeature = (props: {
   isExpanded: boolean;
   isChild?: boolean;
 }) => {
-  const { feature, isExpanded, isChild = false } = props;
+  const { feature, isExpanded } = props;
   const { to, icon = null, activeIcon = null, label, className } = feature;
   const { t } = useTranslation();
   const location = useLocation();
@@ -42,7 +42,7 @@ export const SideBarFeature = (props: {
         <Link
           draggable={false}
           to={to}
-          disabled={!!feature.child || (!isExpanded && isChild)}
+          disabled={!!feature.child}
           className="cursor-pointer"
           {...(feature.child ? { onClick: toggleShow } : {})}
         >
@@ -53,11 +53,15 @@ export const SideBarFeature = (props: {
               isActive
                 ? "bg-[#FCE3B4] hover:bg-[#FCE3B4]/80"
                 : "bg-transparent hover:bg-neutral-50",
-              isChild && !isExpanded && "bg-transparent hover:bg-transparent",
               !isExpanded && isSelectChild && "bg-neutral-100"
             )}
           >
-            <div className="mx-2 h-full w-6 items-center justify-center">
+            <div
+              className={cn(
+                "mx-2 h-full w-6 items-center justify-center inline-flex flex-col",
+                isExpanded ? "w-6" : "w-full mx-1"
+              )}
+            >
               {activeIcon &&
                 icon &&
                 React.cloneElement((isActive ? activeIcon : icon) as React.ReactElement)}

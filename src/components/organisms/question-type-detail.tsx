@@ -96,7 +96,7 @@ const QuestionTypeDetail = ({ className, children }: QuestionTypeDetailProps) =>
                 className="h-full object-cover"
               />
             </div>
-            <DialogClose onClick={handleCloseDetailDialog}>
+            <DialogClose onClick={handleCloseDetailDialog} className="ml-6">
               <X className="text-black" />
             </DialogClose>
           </div>
