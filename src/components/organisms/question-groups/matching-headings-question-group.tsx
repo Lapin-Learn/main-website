@@ -4,25 +4,30 @@ import BubbleQuestionIndex from "@/components/molecules/bubble-question-index";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui";
 import { useResult } from "@/hooks/zustand/use-result";
 import { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
+import { EnumQuestionGroup } from "@/lib/enums";
 import { QuestionGroupMatchingHeadings } from "@/lib/types/simulated-test.type";
 import { genQuestionId } from "@/lib/utils";
 
 import AnswerGuidanceContent from "../result/answer-guidance-content";
+import { getMatchingInformationToParagraphQuestions } from "./helpers";
 
 export default function MatchingHeadingsQuestionGroup({
-  questionCard,
   questions,
-  imageSrc,
+  questionType,
+  numberOfParagraphs,
 }: QuestionGroupMatchingHeadings) {
   const { answer, answerSheet } = useAnswerStore();
   const { t } = useTranslation("collection");
   const { answerKeys, status, guidances } = useResult();
 
+  const modifiedQuestions =
+    questionType === EnumQuestionGroup.matchingInformationToParagraph
+      ? getMatchingInformationToParagraphQuestions(questions, numberOfParagraphs)
+      : questions;
+
   return (
     <div>
-      <h6 className="font-bold">{questionCard}</h6>
-      {imageSrc ? <img src={imageSrc} alt="Matching headings" className="w-1/2" /> : null}
-      {questions.map((question) => (
+      {modifiedQuestions.map((question) => (
         <div key={question.questionNo} className="mt-4" id={genQuestionId(question.questionNo)}>
           <p>
             <BubbleQuestionIndex index={question.questionNo} className="mb-2 mr-2" />

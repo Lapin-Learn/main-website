@@ -1,5 +1,5 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import QuestionNavigator from "@/components/molecules/question-navigator-button";
@@ -70,7 +70,7 @@ const Footer = ({ partDetails, skill, answerStatus }: FooterProps) => {
       {skill !== EnumSkill.writing && (
         <div className="question-navigator flex h-fit w-full flex-1 flex-wrap items-center gap-1">
           {partDetails.map((group) => (
-            <React.Fragment key={group.part}>
+            <div key={group.part} className="flex flex-row items-center gap-1">
               <p className="w-[60px] text-center text-xs font-medium">Part {group.part}</p>
               {Array.from(
                 { length: group.endQuestionNo - group.startQuestionNo + 1 },
@@ -83,7 +83,7 @@ const Footer = ({ partDetails, skill, answerStatus }: FooterProps) => {
                   status={Array.isArray(answerStatus) ? answerStatus[number - 1] : answerStatus}
                 />
               ))}
-            </React.Fragment>
+            </div>
           ))}
         </div>
       )}

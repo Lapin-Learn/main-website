@@ -65,6 +65,7 @@ export enum EnumQuestionGroup {
   multipleChoice = "multiple_choice",
   matchingHeadings = "matching_headings",
   matchingInformation = "matching_information",
+  matchingInformationToParagraph = "matching_information_to_paragraph",
   fillInBlanks = "fill_in_blanks",
   TFNG = "true_false_not_given",
   YNNG = "yes_no_not_given",
@@ -73,18 +74,8 @@ export enum EnumQuestionGroup {
 export enum EnumQuestionGroupLabel {
   // Multiple choice group
   // Output: A, B, C, D, E, F, G,... or True, False, Not Given or Yes, No, Not Given
-  multipleChoice = "multiple_choice",
-  TFNG = "true_false_not_given",
-  YNNG = "yes_no_not_given",
   listOfOptions = "list_of_options",
 
-  // Fill in the blanks group
-  // Output: short text
-  summaryFlowChartCompletion = "summary_flow_chart_completion",
-  noteFormCompletion = "note_form_completion",
-  tableCompletion = "table_completion",
-  mapPlanDiagramLabelling = "map_plan_diagram_labelling",
-  tableNoteFlowChartCompletion = "table_note_flow_chart_completion",
   shortAnswer = "short_answer",
   diagramLabelCompletion = "diagram_label_completion",
   summaryCompletion = "summary_completion",
@@ -95,7 +86,6 @@ export enum EnumQuestionGroupLabel {
   matchingInformation = "matching_information",
   matchingFeatures = "matching_features",
   matchingHeadings = "matching_headings",
-  matchingInformationToParagraph = "matching_information_to_paragraph",
   matchingSentenceEndings = "matching_sentence_endings",
 }
 

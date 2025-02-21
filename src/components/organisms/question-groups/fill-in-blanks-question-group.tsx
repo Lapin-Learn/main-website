@@ -25,12 +25,9 @@ const extensions = [
   TableRow,
 ];
 
-export default function FillInBlanksQuestionGroup({
-  questions,
-  questionCard,
-}: QuestionGroupFillInBlanks) {
+export default function FillInBlanksQuestionGroup({ questions }: QuestionGroupFillInBlanks) {
   const editor = new Editor({
-    extensions: extensions,
+    extensions,
     content: questions,
     editable: false,
     injectCSS: false,
@@ -38,7 +35,6 @@ export default function FillInBlanksQuestionGroup({
 
   return (
     <div>
-      <h6 className="mb-4 font-bold">{questionCard}</h6>
       <EditorContent editor={editor} autoComplete="off" />
     </div>
   );
