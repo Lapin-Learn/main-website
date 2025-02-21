@@ -55,6 +55,7 @@ type BaseQuestionGroup = {
   startQuestionNo: number;
   endQuestionNo: number;
   imageSrc?: string;
+  questionDescription?: string;
 };
 
 export type QuestionGroupMultipleChoice = BaseQuestionGroup & {
@@ -80,13 +81,15 @@ type MatchingHeadingsQuestion = {
 };
 
 export type QuestionGroupMatchingHeadings = BaseQuestionGroup & {
-  questionType: EnumQuestionGroup.matchingHeadings;
+  questionType:
+    | EnumQuestionGroup.matchingHeadings
+    | EnumQuestionGroup.matchingInformationToParagraph;
   questions: MatchingHeadingsQuestion[];
+  numberOfParagraphs?: number;
 };
 
 export type QuestionGroupMatchingInformation = BaseQuestionGroup & {
   questionType: EnumQuestionGroup.matchingInformation;
-  questionDescription: string | JSONContent | object;
   options: Option[];
   questions: {
     questionNo: number;
