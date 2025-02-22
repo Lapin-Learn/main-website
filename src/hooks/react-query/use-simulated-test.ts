@@ -225,12 +225,13 @@ export const useSubmitSimulatedTest = () => {
   });
 };
 
-export const useGetSTSessionDetail = (sessionId: number) => {
+export const useGetSTSessionDetail = (sessionId: number, enabled: boolean = true) => {
   const result = useQuery({
     queryKey: simulatedTestKeys.sessionDetail(sessionId),
     queryFn: () => getSimulatedTestSessionDetail(sessionId),
     retry: false,
     staleTime: 0,
+    enabled,
   });
   const session = result.data;
 
