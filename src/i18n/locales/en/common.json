@@ -92,5 +92,7 @@
       "November",
       "December"
     ]
-  }
+  },
+  "warning": "Warning",
+  "screen_size_warning": "This app is best viewed on a larger screen. Please consider using a larger screen for a better experience."
 }

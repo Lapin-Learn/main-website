@@ -7,6 +7,7 @@ import StartDialog from "@/components/organisms/simulated-test-dialog/start-dial
 import SubmitDialog from "@/components/organisms/simulated-test-dialog/submit-dialog";
 import { SimulatedTestTourFactory } from "@/components/organisms/simulated-test-tour";
 import { Button } from "@/components/ui";
+import useBreakPoint from "@/hooks/use-screen-size";
 import useGlobalTimerStore, { timerKeys } from "@/hooks/zustand/use-global-timer";
 import { EnumMode } from "@/lib/enums";
 import { SimulatedTestSession } from "@/lib/types/simulated-test.type";
@@ -27,6 +28,7 @@ export default function Header({ currentPart, session }: HeaderProps) {
   // const { isSuccess } = useGetSkillTestData(session.skillTest.id, currentPart);
   const isSuccess = true;
   const { createTimer, startTimer, deleteTimer } = useGlobalTimerStore();
+  const isMobile = useBreakPoint() === "xs";
 
   useEffect(() => {
     const isFirstTime = localStorage.getItem("simulatedTestFirstTime") !== "false";
@@ -85,7 +87,15 @@ export default function Header({ currentPart, session }: HeaderProps) {
         skill={skill}
       />
       <SimulatedTestTourFactory skill={skill} run={run} onEndTour={onEndTour} />
-      <div className="grid w-full place-items-center border-b bg-white px-4 shadow-sm sm:h-16 sm:px-8">
+      <div className="flex w-full items-center justify-between border-b bg-white px-4 shadow-sm sm:h-16 sm:px-8 md:justify-center">
+        <ExitDialog
+          triggerButton={
+            <Button className="quit max-sm:p-0 sm:absolute sm:left-8" variant="ghost">
+              <ChevronLeft size={20} />
+              {!isMobile && t("exitDialog.exitBtn")}
+            </Button>
+          }
+        />
         <div className="flex flex-col items-center py-1">
           <h6 className="text-base font-bold uppercase sm:text-lg">
             {[skill.toString(), getPartName(session.skillTest.skill), currentPart].join(" ")}
@@ -94,19 +104,11 @@ export default function Header({ currentPart, session }: HeaderProps) {
             {session.skillTest.simulatedIeltsTest.testName}
           </div>
         </div>
-        <ExitDialog
-          triggerButton={
-            <Button className="quit absolute left-4 sm:left-8" variant="ghost">
-              <ChevronLeft size={20} />
-              {t("exitDialog.exitBtn")}
-            </Button>
-          }
-        />
-        <div className="absolute right-4 flex items-center gap-2">
+        <div className="right-4 flex items-center gap-2 md:absolute">
           <Timer sessionId={session.id} />
           <SubmitDialog
             triggerButton={
-              <Button size="xl" className="submit flex gap-2 px-4">
+              <Button size={isMobile ? "default" : "xl"} className="submit flex gap-2 px-2 sm:px-4">
                 {t("submitBtn")}
                 <ArrowRightIcon strokeWidth={3} size={16} />
               </Button>

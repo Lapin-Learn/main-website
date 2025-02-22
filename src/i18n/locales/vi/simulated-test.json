@@ -155,5 +155,7 @@
     "title": "Ghi chú",
     "placeholder": "Viết ghi chú của bạn ở đây...",
     "guide": "Nhấn phím Esc để đóng ghi chú này, và bạn có thể di chuyển ghi chú xung quanh dựa trên nhu cầu của mình."
-  }
+  },
+  "showQuestionNavigator_true": "Ẩn câu hỏi",
+  "showQuestionNavigator_false": "Hiện câu hỏi"
 }
