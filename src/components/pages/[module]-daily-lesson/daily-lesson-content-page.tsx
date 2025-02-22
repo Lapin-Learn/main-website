@@ -7,6 +7,7 @@ import QuestionCard from "@/components/organisms/[module]-daily-lesson/question-
 import { ExplanationDialog } from "@/components/organisms/explanation-dialog";
 import LessonResultDialog from "@/components/organisms/lesson-result-dialog";
 import ResultStepperProvider from "@/components/organisms/lesson-result-dialog/result-stepper-provider";
+import WarningScreenSizeDialog from "@/components/organisms/warning-screen-size-dialog";
 import { Button } from "@/components/ui";
 import { Progress } from "@/components/ui/progress";
 import { useLessonQuestions } from "@/hooks/react-query/use-daily-lesson";
@@ -49,6 +50,7 @@ const DailyLessonContentPage = () => {
     return (
       <div className="mx-auto flex h-screen w-full flex-col items-center bg-[#F8F8F8]">
         <div className="sticky top-0 z-10 flex w-full flex-row items-center gap-2 border-b bg-white px-4 md:gap-4 md:px-48">
+          <WarningScreenSizeDialog />
           <DailyLessonExitDialog
             triggerButton={
               <Button

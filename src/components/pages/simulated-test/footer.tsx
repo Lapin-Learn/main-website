@@ -24,8 +24,8 @@ const Footer = ({ partDetails, skill, answerStatus }: FooterProps) => {
   const { t } = useTranslation("simulatedTest");
   const { setCurrentQuestion } = useAnswerStore();
   const [isInitialized, setIsInitialized] = useState(false);
-  const [showQuestionNavigator, setShowQuestionNavigator] = useState(false);
   const isMobile = useBreakPoint() === "xs";
+  const [showQuestionNavigator, setShowQuestionNavigator] = useState(!isMobile);
 
   useEffect(() => {
     if (position.part !== partDetails[0].part) {
@@ -92,7 +92,7 @@ const Footer = ({ partDetails, skill, answerStatus }: FooterProps) => {
                 ))}
               </>
             ) : (
-              <div key={group.part} className="flex-row items-center gap-1">
+              <div key={group.part} className="flex flex-row items-center gap-1">
                 <p className="w-[60px] text-center text-xs font-medium">Part {group.part}</p>
                 {Array.from(
                   { length: group.endQuestionNo - group.startQuestionNo + 1 },
@@ -111,7 +111,7 @@ const Footer = ({ partDetails, skill, answerStatus }: FooterProps) => {
         </div>
       )}
       <div className="flex flex-row gap-2 xl:gap-4">
-        <Button variant="outline" onClick={handleToggleNavigator}>
+        <Button variant="outline" onClick={handleToggleNavigator} className="md:hidden">
           {t("showQuestionNavigator", {
             context: String(showQuestionNavigator),
           })}

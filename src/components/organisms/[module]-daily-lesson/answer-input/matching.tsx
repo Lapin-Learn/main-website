@@ -1,7 +1,7 @@
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
 import { MoveRight } from "lucide-react";
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import DraggableItem from "@/components/molecules/draggable-item";
 import DroppableZone from "@/components/molecules/droppable-matching-zone";
@@ -22,6 +22,12 @@ const Matching = (props: MatchingProps) => {
 
   const [activeId, setActiveId] = useState<string | null>(null);
   const canShowCheckButton = Object.keys(selected).length == columnA.options.length;
+
+  useEffect(() => {
+    return () => {
+      setSelected({});
+    };
+  }, [columnA.options]);
 
   const answerRecord = answer.reduce<MatchingAnswer>((acc, pair) => {
     acc[pair.columnA[0]] = pair.columnB[0];
@@ -76,11 +82,13 @@ const Matching = (props: MatchingProps) => {
         transition={{ duration: 0.5 }}
         className={cn(
           "flex w-full gap-8 justify-center",
-          isAnswered ? "grid place-items-center" : "flex-col md:flex-row",
+          isAnswered
+            ? "grid place-items-center"
+            : "flex-col md:flex-row items-center justify-center",
           className
         )}
       >
-        <div className="flex flex-col gap-4">
+        <div className="flex h-full flex-col justify-center gap-4">
           <div className="font-semibold">{columnA.title}</div>
           {columnA.options.map((option, index) => {
             return (
@@ -129,7 +137,7 @@ const Matching = (props: MatchingProps) => {
           })}
         </div>
         {!isAnswered && (
-          <div className="flex h-full flex-col gap-4">
+          <div className="flex h-full flex-col justify-center gap-4">
             <div className="font-semibold">{columnB.title}</div>
             {unselectedB.map((option) => (
               <DraggableItem
@@ -145,9 +153,7 @@ const Matching = (props: MatchingProps) => {
               />
             ))}
             {unselectedB.length === 0 && (
-              <div className="inline-flex h-full items-center text-sm text-neutral-400">
-                All options are matched
-              </div>
+              <div className="text-sm text-neutral-400">All options are matched</div>
             )}
           </div>
         )}
