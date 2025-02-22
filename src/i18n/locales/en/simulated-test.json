@@ -147,7 +147,8 @@
     "questions": "Questions",
     "unanswered": "Skipped",
     "yourAnswer": "Your answer",
-    "explanation": "Explanation question {{questionNo}}"
+    "explanation": "Explanation question {{questionNo}}",
+    "noAnswer": "You didn't answer this question"
   },
   "noteBtn": {
     "title": "Take note",
