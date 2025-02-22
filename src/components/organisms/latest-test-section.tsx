@@ -3,7 +3,10 @@ import { ArrowRightIcon } from "lucide-react";
 import { createElement } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useGetLatestInprogressSTSession } from "@/hooks/react-query/use-simulated-test";
+import {
+  useGetLatestInprogressSTSession,
+  useGetSTSessionDetail,
+} from "@/hooks/react-query/use-simulated-test";
 import { MAPPED_SKILL_ICON_FILLED } from "@/lib/consts";
 
 import { Button } from "../ui";
@@ -11,9 +14,10 @@ import { Button } from "../ui";
 export const LatestTestSection = ({ collectionId }: { collectionId?: number }) => {
   const navigate = useNavigate();
   const { data, isLoading } = useGetLatestInprogressSTSession(collectionId);
+  const { data: sessionData } = useGetSTSessionDetail(data?.sessionId ?? 0, !!data?.sessionId);
   const { t } = useTranslation("practice");
 
-  if (isLoading || !data) return null;
+  if (isLoading || !data || !sessionData) return null;
 
   return (
     <div className="hidden h-fit min-w-72 flex-col gap-6 rounded-2xl bg-white p-6 md:flex">
@@ -35,7 +39,8 @@ export const LatestTestSection = ({ collectionId }: { collectionId?: number }) =
           navigate({
             to: "/practice/simulated-test",
             search: {
-              sessionId: data.sessionId,
+              skillTestId: sessionData?.skillTest.id,
+              sessionId: sessionData?.id,
             },
           })
         }
