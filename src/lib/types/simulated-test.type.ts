@@ -54,8 +54,9 @@ type BaseQuestionGroup = {
   questionCard: string;
   startQuestionNo: number;
   endQuestionNo: number;
-  imageSrc?: string;
-  questionDescription?: string;
+  imageSrc?: string; // Additonal image
+  questionDescription?: string; // HTML string
+  options?: Option[];
 };
 
 export type QuestionGroupMultipleChoice = BaseQuestionGroup & {
