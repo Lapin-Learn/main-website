@@ -8,10 +8,17 @@ import {
   useGetSTSessionDetail,
 } from "@/hooks/react-query/use-simulated-test";
 import { MAPPED_SKILL_ICON_FILLED } from "@/lib/consts";
+import { cn } from "@/lib/utils";
 
 import { Button } from "../ui";
 
-export const LatestTestSection = ({ collectionId }: { collectionId?: number }) => {
+export const LatestTestSection = ({
+  collectionId,
+  className,
+}: {
+  collectionId?: number;
+  className?: string;
+}) => {
   const navigate = useNavigate();
   const { data, isLoading } = useGetLatestInprogressSTSession(collectionId);
   const { data: sessionData } = useGetSTSessionDetail(data?.sessionId ?? 0, !!data?.sessionId);
@@ -20,7 +27,12 @@ export const LatestTestSection = ({ collectionId }: { collectionId?: number }) =
   if (isLoading || !data || !sessionData) return null;
 
   return (
-    <div className="hidden h-fit flex-col gap-3 rounded-lg bg-white p-2 md:flex md:gap-6 md:rounded-2xl md:p-3 lg:p-4">
+    <div
+      className={cn(
+        "hidden h-fit flex-col gap-3 rounded-lg bg-white p-2 md:flex md:gap-6 md:rounded-2xl md:p-3 lg:p-4",
+        className
+      )}
+    >
       <div className="flex flex-row justify-between">
         <div className="flex flex-col gap-1">
           <h5 className="text-wrap text-heading-6 font-semibold md:text-heading-5">

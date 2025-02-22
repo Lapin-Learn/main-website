@@ -70,7 +70,7 @@ const Footer = ({ partDetails, skill, answerStatus }: FooterProps) => {
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-between gap-2 border-t bg-white px-4 py-2 sm:min-h-24 sm:flex-row sm:px-8 sm:py-0 sm:gap-12",
+        "flex flex-col items-center justify-between gap-2 border-t bg-white px-4 py-2 sm:min-h-24 sm:flex-row sm:px-8 sm:py-0 sm:gap-12 w-full",
         skill == EnumSkill.writing && "justify-end py-0 sm:min-h-20"
       )}
     >

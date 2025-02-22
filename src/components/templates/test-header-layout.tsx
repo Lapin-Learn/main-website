@@ -47,7 +47,7 @@ const Image = () => {
     <img
       src={imageSrc}
       alt={imageAlt}
-      className="h-40 w-60 overflow-hidden rounded-lg object-cover md:h-60 md:w-72"
+      className="flex-0 h-40 w-60 overflow-hidden rounded-lg object-cover md:h-60 md:w-72"
     />
   );
 };
@@ -59,7 +59,7 @@ const Title = () => {
 
 const ContentWrapper = ({ children }: PropsWithChildren) => {
   useTestHeaderLayoutContext();
-  return <div className="mb-2 flex h-fit flex-row gap-3 md:h-60 md:gap-5">{children}</div>;
+  return <div className="mb-2 flex h-fit flex-1 flex-row gap-3 md:h-60 md:gap-5">{children}</div>;
 };
 
 const TagList = ({ format }: Pick<TagsListProps, "format">) => {

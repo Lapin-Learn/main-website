@@ -31,6 +31,7 @@ export function CollectionDetailHeader({ collectionId }: CollectionDetailHeaderP
         tags={tags}
         description={description}
         imageSrc={thumbnail ?? undefined}
+        className="flex flex-row gap-4"
       >
         {isMobile && (
           <div className="mb-3 flex flex-row flex-wrap gap-2">
@@ -63,8 +64,8 @@ export function CollectionDetailHeader({ collectionId }: CollectionDetailHeaderP
               <TestHeaderLayout.Description />
             </div>
           </div>
-          <LatestTestSection collectionId={collectionId} />
         </TestHeaderLayout.ContentWrapper>
+        <LatestTestSection collectionId={collectionId} className="w-72" />
       </TestHeaderLayout>
     </>
   );

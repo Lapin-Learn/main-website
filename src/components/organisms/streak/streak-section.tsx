@@ -64,8 +64,8 @@ const StreakSection = ({ collapsible = true }: StreakSectionProps) => {
         )}
         <Lottie
           options={defaultOptions}
-          height={breakpoint == "sm" ? 100 : 80}
-          width={breakpoint == "sm" ? 76 : 50}
+          height={breakpoint !== "sm" ? 100 : 80}
+          width={breakpoint !== "sm" ? 76 : 50}
         />
       </div>
       <CustomCalendar collapsible={collapsible} />

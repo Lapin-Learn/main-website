@@ -75,7 +75,7 @@ const SkillGrid = ({ currentSkill, setCurrentSkill }: SkillGridProps) => {
                 <img
                   src={dailyLessonSkillMapping[skill as EnumSkill].image}
                   alt={skill}
-                  className="block object-cover"
+                  className="block min-h-28 min-w-28 object-cover"
                 />
               </div>
             </div>
