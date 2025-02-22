@@ -17,11 +17,7 @@ export interface SideBarFeatureProps {
   className?: string;
 }
 
-export const SideBarFeature = (props: {
-  feature: SideBarFeatureProps;
-  isExpanded: boolean;
-  isChild?: boolean;
-}) => {
+export const SideBarFeature = (props: { feature: SideBarFeatureProps; isExpanded: boolean }) => {
   const { feature, isExpanded } = props;
   const { to, icon = null, activeIcon = null, label, className } = feature;
   const { t } = useTranslation();
@@ -98,7 +94,7 @@ export const SideBarFeature = (props: {
         {isShowChild && feature.child && feature.child.length && (
           <ul className="mt-[2px] divide-y-2 divide-transparent duration-300">
             {feature.child.map((x) => (
-              <SideBarFeature feature={x} isExpanded={isExpanded} isChild key={x.to} />
+              <SideBarFeature feature={x} isExpanded={isExpanded} key={x.to} />
             ))}
           </ul>
         )}

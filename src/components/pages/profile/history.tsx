@@ -188,9 +188,7 @@ export default function HistoryPage() {
       <Typography variant="h5" className="mb-4">
         {t("learning_history.simulated_test_history")}
       </Typography>
-      <div>
-        <SimulatedTestHistoryTable />
-      </div>
+      <SimulatedTestHistoryTable />
     </div>
   );
 }

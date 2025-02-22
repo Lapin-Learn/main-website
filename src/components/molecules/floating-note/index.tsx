@@ -66,7 +66,7 @@ export function FloatingNote() {
                 placeholder={t("noteBtn.placeholder")}
                 className="scrollbar z-50 size-full h-52 resize-none border-none shadow-none focus-visible:ring-0"
               />
-              <Typography variant="caption" className="text-gray-500n">
+              <Typography variant="caption" className="text-gray-500">
                 {t("noteBtn.guide")}
               </Typography>
             </Card>
