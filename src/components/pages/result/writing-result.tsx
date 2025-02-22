@@ -32,9 +32,20 @@ function WritingResult({ session }: WritingResultProps) {
   const partDetails =
     stData?.skillTests
       .find((skill) => skill.skill === EnumSkill.writing)
-      ?.partsDetail.map((item) => {
+      ?.partsDetail.filter((_, index) => session.parts.includes(index + 1))
+      .map((item) => {
         return item.questionTypesIndices.map((index) => index.name);
       }) ?? [];
+
+  const submissions = session.parts.map((partNo) => {
+    const submission = session.responses.find((response) => response.questionNo === partNo) ?? {
+      questionNo: partNo,
+      answer: "",
+    };
+    return {
+      ...submission,
+    };
+  });
 
   return (
     <div className="flex flex-col gap-4">
@@ -52,7 +63,7 @@ function WritingResult({ session }: WritingResultProps) {
           )}
         >
           <WritingSubmission
-            userSubmissions={session.responses}
+            userSubmissions={submissions}
             skillTestId={session.skillTest.id}
             partDetails={partDetails}
             evaluationResults={session.results}

@@ -41,11 +41,8 @@ function WritingSubmission(props: WritingSubmissionProps) {
   if (rootComponent === "card") {
     return (
       <div className="flex flex-col gap-4">
-        {userSubmissions.map((submission) => {
-          const partDetail =
-            submission.questionNo <= partDetails.length
-              ? partDetails[submission.questionNo - 1]
-              : [""];
+        {userSubmissions.map((submission, index) => {
+          const partDetail = partDetails[index];
           return (
             <div className="flex flex-col gap-4 rounded-xl border-none bg-white p-5">
               <div className="flex flex-row items-center gap-4">
@@ -63,10 +60,10 @@ function WritingSubmission(props: WritingSubmissionProps) {
                 </div>
               </div>
               <SubmissionContent
-                submission={userSubmissions[0]}
+                submission={submission}
                 skillTestId={skillTestId}
-                partDetail={partDetails[0]}
-                evaluationResult={evaluationResults && evaluationResults[0]}
+                partDetail={partDetail}
+                evaluationResult={evaluationResults && evaluationResults[submission.questionNo - 1]}
               />
             </div>
           );
@@ -83,10 +80,7 @@ function WritingSubmission(props: WritingSubmissionProps) {
       defaultValue={!evaluationResults?.length ? "0" : undefined}
     >
       {userSubmissions.map((submission, index) => {
-        const partDetail =
-          submission.questionNo <= partDetails.length
-            ? partDetails[submission.questionNo - 1]
-            : [""];
+        const partDetail = partDetails[index];
         return (
           <AccordionItem
             value={index.toString()}
@@ -146,11 +140,15 @@ function SubmissionContent(props: SubmissionContentProps) {
           </Typography>
           <Separator className="flex-1" />
         </div>
-        {submission.answer && (
+        {submission.answer ? (
           <div
             dangerouslySetInnerHTML={{ __html: submission.answer }}
             className="text-justify [&_p]:mb-2"
           />
+        ) : (
+          <Typography className="text-justify text-supporting-text">
+            {t("result.noAnswer")}
+          </Typography>
         )}
       </div>
       {evaluationResult && (
