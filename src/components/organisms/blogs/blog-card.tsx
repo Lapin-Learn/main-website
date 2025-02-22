@@ -9,9 +9,9 @@ export const BlogCard = () => {
       <img
         src="https://picsum.photos/200"
         alt="Blog Cover"
-        className="aspect-[4/3] h-40 w-64 rounded-md object-cover "
+        className="aspect-[4/3] h-40 w-64 rounded-md object-cover"
       />
-      <Link to="/practice" className="flex flex-col gap-2">
+      <Link to="/blogs/1" className="flex flex-col gap-2">
         <h3 className="text-heading-5 font-bold">Tổng quan về IELTS</h3>
         <p className="line-clamp-3 text-small">
           IELTS là một trong những bài thi quan trọng nhất mà bạn cần phải đối mặt khi muốn du học

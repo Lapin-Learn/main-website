@@ -25,6 +25,7 @@ import { Route as AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulat
 import { Route as AuthenticatedDashboardPracticeIndexImport } from "./routes/_authenticated/_dashboard/practice/index";
 import { Route as AuthenticatedDashboardPracticeSimulatedTestResultImport } from "./routes/_authenticated/_dashboard/practice/simulated-test/result";
 import { Route as AuthenticatedDashboardShopIndexImport } from "./routes/_authenticated/_dashboard/shop/index";
+import { Route as AuthenticatedBlogsBlogIdImport } from "./routes/_authenticated/blogs/$blogId";
 import { Route as AuthenticatedBlogsIndexImport } from "./routes/_authenticated/blogs/index";
 import { Route as AuthenticatedDailyLessonDailyLessonIdImport } from "./routes/_authenticated/daily-lesson/$dailyLessonId";
 import { Route as AuthenticatedPracticeSimulatedTestIndexImport } from "./routes/_authenticated/practice/simulated-test/index";
@@ -101,6 +102,12 @@ const AuthenticatedDailyLessonDailyLessonIdRoute =
     path: "/daily-lesson/$dailyLessonId",
     getParentRoute: () => AuthenticatedRoute,
   } as any);
+
+const AuthenticatedBlogsBlogIdRoute = AuthenticatedBlogsBlogIdImport.update({
+  id: "/blogs/$blogId",
+  path: "/blogs/$blogId",
+  getParentRoute: () => AuthenticatedRoute,
+} as any);
 
 const AuthenticatedDashboardContentEditorRoute = AuthenticatedDashboardContentEditorImport.update({
   id: "/content-editor",
@@ -269,6 +276,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AuthenticatedDashboardContentEditorImport;
       parentRoute: typeof AuthenticatedDashboardImport;
     };
+    "/_authenticated/blogs/$blogId": {
+      id: "/_authenticated/blogs/$blogId";
+      path: "/blogs/$blogId";
+      fullPath: "/blogs/$blogId";
+      preLoaderRoute: typeof AuthenticatedBlogsBlogIdImport;
+      parentRoute: typeof AuthenticatedImport;
+    };
     "/_authenticated/daily-lesson/$dailyLessonId": {
       id: "/_authenticated/daily-lesson/$dailyLessonId";
       path: "/daily-lesson/$dailyLessonId";
@@ -416,6 +430,7 @@ const AuthenticatedDashboardRouteWithChildren = AuthenticatedDashboardRoute._add
 
 interface AuthenticatedRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRouteWithChildren;
+  AuthenticatedBlogsBlogIdRoute: typeof AuthenticatedBlogsBlogIdRoute;
   AuthenticatedDailyLessonDailyLessonIdRoute: typeof AuthenticatedDailyLessonDailyLessonIdRoute;
   AuthenticatedBlogsIndexRoute: typeof AuthenticatedBlogsIndexRoute;
   AuthenticatedPracticeSimulatedTestIndexRoute: typeof AuthenticatedPracticeSimulatedTestIndexRoute;
@@ -423,6 +438,7 @@ interface AuthenticatedRouteChildren {
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRouteWithChildren,
+  AuthenticatedBlogsBlogIdRoute: AuthenticatedBlogsBlogIdRoute,
   AuthenticatedDailyLessonDailyLessonIdRoute: AuthenticatedDailyLessonDailyLessonIdRoute,
   AuthenticatedBlogsIndexRoute: AuthenticatedBlogsIndexRoute,
   AuthenticatedPracticeSimulatedTestIndexRoute: AuthenticatedPracticeSimulatedTestIndexRoute,
@@ -461,6 +477,7 @@ export interface FileRoutesByFullPath {
   "/sign-up": typeof AuthenticationSignUpRoute;
   "/verify-otp": typeof AuthenticationVerifyOtpRoute;
   "/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
+  "/blogs/$blogId": typeof AuthenticatedBlogsBlogIdRoute;
   "/daily-lesson/$dailyLessonId": typeof AuthenticatedDailyLessonDailyLessonIdRoute;
   "/blogs": typeof AuthenticatedBlogsIndexRoute;
   "/daily-lesson": typeof AuthenticatedDashboardDailyLessonIndexRoute;
@@ -485,6 +502,7 @@ export interface FileRoutesByTo {
   "/sign-up": typeof AuthenticationSignUpRoute;
   "/verify-otp": typeof AuthenticationVerifyOtpRoute;
   "/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
+  "/blogs/$blogId": typeof AuthenticatedBlogsBlogIdRoute;
   "/daily-lesson/$dailyLessonId": typeof AuthenticatedDailyLessonDailyLessonIdRoute;
   "/blogs": typeof AuthenticatedBlogsIndexRoute;
   "/daily-lesson": typeof AuthenticatedDashboardDailyLessonIndexRoute;
@@ -513,6 +531,7 @@ export interface FileRoutesById {
   "/_authentication/verify-otp": typeof AuthenticationVerifyOtpRoute;
   "/_authenticated/_dashboard/_profile": typeof AuthenticatedDashboardProfileRouteWithChildren;
   "/_authenticated/_dashboard/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
+  "/_authenticated/blogs/$blogId": typeof AuthenticatedBlogsBlogIdRoute;
   "/_authenticated/daily-lesson/$dailyLessonId": typeof AuthenticatedDailyLessonDailyLessonIdRoute;
   "/_authenticated/blogs/": typeof AuthenticatedBlogsIndexRoute;
   "/_authenticated/_dashboard/daily-lesson/": typeof AuthenticatedDashboardDailyLessonIndexRoute;
@@ -539,6 +558,7 @@ export interface FileRouteTypes {
     | "/sign-up"
     | "/verify-otp"
     | "/content-editor"
+    | "/blogs/$blogId"
     | "/daily-lesson/$dailyLessonId"
     | "/blogs"
     | "/daily-lesson"
@@ -562,6 +582,7 @@ export interface FileRouteTypes {
     | "/sign-up"
     | "/verify-otp"
     | "/content-editor"
+    | "/blogs/$blogId"
     | "/daily-lesson/$dailyLessonId"
     | "/blogs"
     | "/daily-lesson"
@@ -588,6 +609,7 @@ export interface FileRouteTypes {
     | "/_authentication/verify-otp"
     | "/_authenticated/_dashboard/_profile"
     | "/_authenticated/_dashboard/content-editor"
+    | "/_authenticated/blogs/$blogId"
     | "/_authenticated/daily-lesson/$dailyLessonId"
     | "/_authenticated/blogs/"
     | "/_authenticated/_dashboard/daily-lesson/"
@@ -638,6 +660,7 @@ export const routeTree = rootRoute
       "filePath": "_authenticated.tsx",
       "children": [
         "/_authenticated/_dashboard",
+        "/_authenticated/blogs/$blogId",
         "/_authenticated/daily-lesson/$dailyLessonId",
         "/_authenticated/blogs/",
         "/_authenticated/practice/simulated-test/"
@@ -700,6 +723,10 @@ export const routeTree = rootRoute
     "/_authenticated/_dashboard/content-editor": {
       "filePath": "_authenticated/_dashboard/content-editor.tsx",
       "parent": "/_authenticated/_dashboard"
+    },
+    "/_authenticated/blogs/$blogId": {
+      "filePath": "_authenticated/blogs/$blogId.tsx",
+      "parent": "/_authenticated"
     },
     "/_authenticated/daily-lesson/$dailyLessonId": {
       "filePath": "_authenticated/daily-lesson/$dailyLessonId.tsx",

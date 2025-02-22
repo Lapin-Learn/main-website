@@ -28,7 +28,7 @@ export default function BlogsPage() {
     <div className="relative w-screen overflow-hidden">
       <TopNavigationBar isScrolled={isScrolled} isLoggedIn={isLoggedIn} />
       <BlogsHeroBanner />
-      <div className="flex flex-col gap-8 px-40 py-16 md:px-80">
+      <div className="flex flex-col gap-8 px-8 py-16 md:px-40 lg:px-80">
         <BlogCard />
         <BlogCard />
         <BlogCard />
