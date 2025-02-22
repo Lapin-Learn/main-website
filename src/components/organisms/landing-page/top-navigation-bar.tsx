@@ -31,6 +31,7 @@ const TopNavigationBar = ({ isScrolled = false, isLoggedIn = false }: TopNavigat
       visible: isLoggedIn,
     },
     { label: t("navigation.practice", { ns: "common" }), to: "/practice", visible: isLoggedIn },
+    { label: "Blogs", to: "/blogs", visible: true },
   ];
 
   return (
