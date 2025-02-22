@@ -71,24 +71,6 @@ export enum EnumQuestionGroup {
   YNNG = "yes_no_not_given",
 }
 
-export enum EnumQuestionGroupLabel {
-  // Multiple choice group
-  // Output: A, B, C, D, E, F, G,... or True, False, Not Given or Yes, No, Not Given
-  listOfOptions = "list_of_options",
-
-  shortAnswer = "short_answer",
-  diagramLabelCompletion = "diagram_label_completion",
-  summaryCompletion = "summary_completion",
-
-  // Matching group
-  // Output: A, B, C, D, E, F, G,...
-  matching = "matching",
-  matchingInformation = "matching_information",
-  matchingFeatures = "matching_features",
-  matchingHeadings = "matching_headings",
-  matchingSentenceEndings = "matching_sentence_endings",
-}
-
 export enum EnumMode {
   PRACTICE = "practice",
   FULL_TEST = "full_test",
