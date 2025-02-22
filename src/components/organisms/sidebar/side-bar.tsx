@@ -109,14 +109,7 @@ export default function SideBar() {
               <ul className="flex w-full flex-col overflow-hidden">
                 {(checkRole(EnumRole.learner) ? features : adminFeatures).map((feat, idx) => {
                   if (typeof feat === "object")
-                    return (
-                      <SideBarFeature
-                        key={idx}
-                        feature={feat}
-                        isExpanded={isSidebarOpen}
-                        isChild={Boolean(!feat.child)}
-                      />
-                    );
+                    return <SideBarFeature key={idx} feature={feat} isExpanded={isSidebarOpen} />;
                   return <div key={idx} className="h-px w-full bg-border" />;
                 })}
                 <MissionButton />
