@@ -90,12 +90,12 @@ const Pronounciation = () => {
             theme.backgroundClassName
           )}
         >
-          <div className="flex flex-row items-center gap-4">
+          <div className="flex flex-row items-center gap-2 md:gap-4">
             <AnimatedCircularProgressBar
               value={parseInt(evaluateResult?.pronunciation_accuracy ?? "0")}
               min={0}
               max={100}
-              className="size-28"
+              className="size-20 md:size-28"
               gaugePrimaryColor={theme.gaugePrimaryColor}
               gaugeSecondaryColor={theme.gaugeSecondaryColor}
             />

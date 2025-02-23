@@ -45,7 +45,7 @@ export function SubscriptionPromotion({ results, id, status }: PromotionProps) {
     !results.length &&
     !isLoading && (
       <Card className="relative col-span-2 h-fit border-[#FFCB66] bg-white px-6 shadow-none">
-        <CardHeader className="mt-6 p-0">
+        <CardHeader className="!pb-0">
           <CardTitle>
             <div
               className={`text-heading-5 text-primary-700 ${isNotEvaluated ? "text-left" : "text-center"}`}
@@ -67,7 +67,7 @@ export function SubscriptionPromotion({ results, id, status }: PromotionProps) {
               {isEvaluating && <img src={Evaluating} alt="evaluating" />}
               {isEvaluationFailed && <img src={EvaluateFail} alt="evaluate-failed" />}
 
-              <Typography className="text-center" variant="body2">
+              <Typography className="my-4 max-w-72 text-center" variant="body2">
                 {isNotEvaluated &&
                   t(`shop.use_modal.amount`, { ns: "shop", amount: profile?.carrots, name: "" })}
                 {isEvaluating && t("evaluate.in_evaluating_message")}

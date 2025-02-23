@@ -5,7 +5,7 @@ import { PropsWithChildren } from "react";
 import { cn } from "@/lib/utils";
 
 const matchingButtonVariants = cva(
-  "inline-flex h-12 w-fit items-center gap-2 border-[1.5px] rounded-lg p-2 pr-4",
+  "inline-flex min-h-12 w-fit items-center gap-2 border-[1.5px] rounded-lg p-2 pr-4 max-w-96",
   {
     variants: {
       isDragging: {
@@ -52,7 +52,7 @@ const MatchingButton = ({
         className="text-neutral-200 hover:cursor-move hover:text-neutral-600"
         size={16}
       />
-      {children}
+      <div className="flex-1">{children}</div>
     </button>
   );
 };

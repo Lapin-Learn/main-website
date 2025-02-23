@@ -54,6 +54,7 @@
     "experience": "Progress",
     "xp": "XP",
     "numberOfLessons_singular": "{{number}} lesson",
-    "numberOfLessons_plural": "{{number}} lessons"
+    "numberOfLessons_plural": "{{number}} lessons",
+    "toUpgradeYourBand": "to upgrade"
   }
 }

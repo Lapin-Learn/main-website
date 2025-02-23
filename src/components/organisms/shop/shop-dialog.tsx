@@ -82,7 +82,7 @@ const ShopDialog = ({ item, triggerContent, dialogContentClassName }: ItemDialog
             <Card className="flex w-fit flex-col border-0 shadow-none" key={item.id}>
               <CardContent
                 key={item.id}
-                className="flex size-full flex-col items-center justify-between space-y-2 p-4 pb-3 hover:cursor-pointer"
+                className="flex size-full flex-col items-center justify-between space-y-2 p-4 !py-3 hover:cursor-pointer"
               >
                 <img
                   src={item.image.url}

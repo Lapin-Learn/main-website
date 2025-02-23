@@ -1,9 +1,11 @@
 import { useChildMatches } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useMissions, useReceiveMissionReward } from "@/hooks/react-query/useGamification";
+import useBreakPoint from "@/hooks/use-screen-size";
+import useGlobalMissionDialog from "@/hooks/zustand/use-global-mission-dialog";
 import { EnumMissionStatus } from "@/lib/enums";
 
 import { MissionLayout } from "../templates/dashboard-layout";
@@ -20,32 +22,42 @@ const GlobalMissionDialog = () => {
   }, [matches]);
 
   const { t } = useTranslation("milestone");
-  const [open, setOpen] = useState(false);
+  const { open, setOpenDialog, setCloseDialog } = useGlobalMissionDialog();
   const { data: missions, isLoading, isRefetching } = useMissions();
-  const { mutate: receiveMissionReward, isPending, isError } = useReceiveMissionReward();
+  const { mutate: receiveMissionReward, isPending } = useReceiveMissionReward();
+  const isMobile = useBreakPoint() === "xs";
 
-  useEffect(() => {
+  const isReceivable = useMemo(() => {
     if (missions && missions.length > 0 && !isLoading && !isRefetching) {
-      if (missions.find((mission) => mission.status === EnumMissionStatus.COMPLETED)) {
-        setOpen(true);
-      }
+      return missions.find((mission) => mission.status === EnumMissionStatus.COMPLETED);
     }
+    return false;
   }, [missions, isLoading, isRefetching]);
 
+  useEffect(() => {
+    if (isReceivable) {
+      setOpenDialog();
+    }
+  }, [missions, isReceivable, setOpenDialog]);
+
   const handleReceive = () => {
-    receiveMissionReward(undefined, {
-      onSuccess: () => {
-        setOpen(false);
-      },
-    });
+    if (isReceivable) {
+      receiveMissionReward(undefined, {
+        onSettled: () => {
+          setCloseDialog();
+        },
+      });
+    } else {
+      setCloseDialog();
+    }
   };
 
   return (
-    <Dialog open={open && !isError && !isRefetching && !isLoading && !isPending && isAvailable}>
+    <Dialog open={open && !isRefetching && !isLoading && isAvailable}>
       <DialogContent
         showClose={false}
         autoFocus={false}
-        className="flex max-w-2xl flex-col items-center justify-center rounded-3xl p-12"
+        className="flex max-w-2xl flex-col items-center justify-center rounded-none p-4 max-md:h-screen md:rounded-3xl md:p-12"
       >
         <DialogHeader>
           <DialogTitle />
@@ -57,7 +69,9 @@ const GlobalMissionDialog = () => {
             transition={{ duration: 0.8 }}
           >
             <Typography variant="h3" className="mb-4 text-center text-primary">
-              {t("mission.title")}
+              {t("mission.title", {
+                context: isReceivable ? "" : "short",
+              })}
             </Typography>
           </motion.div>
           <motion.div
@@ -77,11 +91,13 @@ const GlobalMissionDialog = () => {
             <Button
               isLoading={isPending}
               disabled={isPending}
-              size="3xl"
+              size={isMobile ? "2xl" : "3xl"}
               className="w-full"
               onClick={handleReceive}
             >
-              {t("after.receiveReward", { ns: "dailyLesson" })}
+              {isReceivable
+                ? t("after.receiveReward", { ns: "dailyLesson" })
+                : t("close", { ns: "common" })}
             </Button>
           </motion.div>
         </div>

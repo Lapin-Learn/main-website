@@ -27,7 +27,12 @@
         "simulatedTest": "Bài thi mô phỏng",
         "result": "Kết quả",
         "contentEditor": "Xuất định dạng tiptap",
-        "dailyLesson": "Bài học hàng ngày"
+        "dailyLesson": "Bài học hàng ngày",
+        "settings": "Cài đặt",
+        "profile": "Thông tin cá nhân",
+        "changePassword": "Đổi mật khẩu",
+        "history": "Lịch sử học tập",
+        "transactions": "Lịch sử giao dịch"
     },
     "allSkills": "Tất cả kỹ năng",
     "reading": "reading",
@@ -87,5 +92,7 @@
       "Tháng Mười Một",
       "Tháng Mười Hai"
     ]
-  }
+  },
+  "warning": "Lưu ý",
+  "screen_size_warning": "Ứng dụng này được xem tốt nhất trên máy tính, bạn hãy sử dụng máy tính để có trải nghiệm tốt nhất."
 }

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 import ErrorFallback from "@/components/ErrorFallback";
 import { FloatingNote } from "@/components/molecules/floating-note";
+import WarningScreenSizeDialog from "@/components/organisms/warning-screen-size-dialog";
 import PageLayout from "@/components/templates/simulated-test-detail-layout";
 import { useGetSTSessionDetail } from "@/hooks/react-query/use-simulated-test";
 import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
@@ -63,6 +64,7 @@ const SimulatedTestPage = () => {
 
   return (
     <>
+      <WarningScreenSizeDialog closable />
       <PageLayout
         header={
           session.skillTest.skill === EnumSkill.speaking ? (

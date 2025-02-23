@@ -55,37 +55,37 @@ export function FilteredSkillCard({ test, skillTest, isSupport }: FilteredSkillC
 
   return (
     <button
-      className="flex flex-col justify-between gap-4 rounded-2xl border bg-white p-3 md:p-5"
+      className="flex flex-col justify-between gap-2 rounded-lg border bg-white p-3 md:gap-4 md:rounded-2xl md:p-5"
       onClick={() => {
         if (isSupport) {
           setData({ skillTest, test, open: true });
         }
       }}
     >
-      <p className="w-full truncate text-start text-lg font-bold">{test.testName}</p>
+      <p className="line-clamp-2 w-full text-start text-base font-semibold md:line-clamp-1 md:text-lg md:font-bold">
+        {test.testName}
+      </p>
       <div className={cn(`flex w-full flex-row justify-between ${!isSupport && "items-center"}`)}>
-        <div className="flex max-w-64 flex-col gap-4">
+        <div className="flex max-w-64 flex-col gap-2 md:gap-4">
           <div className="flex flex-col gap-2">
             {isSupport ? (
               <>
-                <div className="flex flex-col items-start gap-2">
-                  <div className="flex flex-col items-start">
-                    <div className="text-sm text-neutral-200">
-                      {t([
-                        `correctAnswer_${skillTest?.skill}_${skillTest?.status}`,
-                        `correctAnswer_${skillTest?.skill}`,
-                      ])}
-                      :{" "}
-                      <span className="text-sm font-semibold text-neutral-950">
-                        {score}/{numberOfQuestions}
-                      </span>
-                    </div>
-                    <div className="text-sm text-neutral-200">
-                      {t("timeSpent")}:{" "}
-                      <span className="text-sm font-semibold text-neutral-950">
-                        {formatTime(totalTimeSpent)}
-                      </span>
-                    </div>
+                <div className="flex flex-col items-start text-left">
+                  <div className="text-sm text-neutral-200">
+                    {t([
+                      `correctAnswer_${skillTest?.skill}_${skillTest?.status}`,
+                      `correctAnswer_${skillTest?.skill}`,
+                    ])}
+                    :{" "}
+                    <span className="text-sm font-semibold text-neutral-950">
+                      {score}/{numberOfQuestions}
+                    </span>
+                  </div>
+                  <div className="text-sm text-neutral-200">
+                    {t("timeSpent")}:{" "}
+                    <span className="text-sm font-semibold text-neutral-950">
+                      {formatTime(totalTimeSpent)}
+                    </span>
                   </div>
                 </div>
                 <Link

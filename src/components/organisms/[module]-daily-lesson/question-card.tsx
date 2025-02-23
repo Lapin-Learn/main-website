@@ -24,12 +24,12 @@ const QuestionCard = () => {
         />
       )}
       {content.paragraph && (
-        <ScrollArea className="h-60 rounded-xl border bg-white px-4">
-          <p className="my-4">{content.paragraph}</p>
+        <ScrollArea className="h-60 rounded-lg border bg-white px-2 md:rounded-xl md:px-4">
+          <p className="my-2 md:my-4">{content.paragraph}</p>
         </ScrollArea>
       )}
       {content.question && (
-        <p className={cn("my-4 font-semibold text-center")}>{content.question}</p>
+        <p className={cn("my-2 md:my-4 font-semibold text-center")}>{content.question}</p>
       )}
     </div>
   );
