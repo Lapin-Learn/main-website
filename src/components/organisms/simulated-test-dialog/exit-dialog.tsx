@@ -28,11 +28,11 @@ type ExitDialogProps = {
 };
 const ExitDialog = ({ triggerButton }: ExitDialogProps) => {
   const navigate = useNavigate();
-  const { sessionId } = Route.useSearch();
+  const { sessionId, collectionId } = Route.useSearch();
   const { answerSheet } = useAnswerStore();
   const { data: session } = useGetSTSessionDetail(sessionId);
   const { getTimer } = useGlobalTimerStore();
-  const { mutate: submitTest } = useSubmitSimulatedTest();
+  const { mutate: submitTest } = useSubmitSimulatedTest(collectionId);
 
   const onClose = () => {
     const responses = formatAnswerSheetToResponses(answerSheet);
@@ -53,7 +53,11 @@ const ExitDialog = ({ triggerButton }: ExitDialogProps) => {
         });
       }
     }
-    navigate({ to: "/practice" });
+    if (collectionId) {
+      navigate({ to: `/practice/${collectionId}` });
+    } else {
+      navigate({ to: "/practice" });
+    }
   };
   const { t } = useTranslation("simulatedTest", {
     keyPrefix: "exitDialog",

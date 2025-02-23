@@ -2,6 +2,7 @@ import { createFileRoute, Link, Outlet, redirect } from "@tanstack/react-router"
 
 import AppLogo from "@/assets/icons/AppLogo";
 import Auth from "@/assets/images/auth-bg.jpg";
+import LoadingPage from "@/components/pages/loading-page";
 import { getAuthValueFromStorage } from "@/services";
 
 export const Route = createFileRoute("/_authentication")({
@@ -15,6 +16,9 @@ export const Route = createFileRoute("/_authentication")({
       console.error(e);
       return redirect({ to: "/log-in" });
     }
+  },
+  pendingComponent: () => {
+    return <LoadingPage />;
   },
   component: AuthLayout,
 });

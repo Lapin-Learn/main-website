@@ -29,7 +29,7 @@ export const LatestTestSection = ({
   return (
     <div
       className={cn(
-        "hidden h-fit flex-col gap-3 rounded-lg bg-white p-2 md:flex md:gap-6 md:rounded-2xl md:p-3 lg:p-4",
+        "hidden h-fit flex-col gap-3 rounded-lg bg-white p-2 md:flex md:gap-6 md:rounded-2xl md:p-3 lg:p-4 relative",
         className
       )}
     >
