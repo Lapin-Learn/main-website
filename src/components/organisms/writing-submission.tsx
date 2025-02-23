@@ -42,7 +42,7 @@ function WritingSubmission(props: WritingSubmissionProps) {
     return (
       <div className="flex flex-col gap-4">
         {userSubmissions.map((submission, index) => {
-          const partDetail = partDetails[index];
+          const partDetail = partDetails[index] ?? [];
           return (
             <div className="flex flex-col gap-4 rounded-xl border-none bg-white p-5">
               <div className="flex flex-row items-center gap-4">

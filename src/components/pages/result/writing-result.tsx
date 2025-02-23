@@ -1,13 +1,12 @@
-import { SubscriptionPromotion } from "@components/molecules/subscription-promotion.tsx";
 import { SubscriptionRedirectDialog } from "@components/molecules/subscription-redirect-dialog.tsx";
 import { useTranslation } from "react-i18next";
 
 import icons from "@/assets/icons";
 import CriteriaScoreCard from "@/components/molecules/criteria-score-card";
+import { EvaluationSection } from "@/components/molecules/evaluation-section";
 import { SkillEvaluationChart } from "@/components/organisms/skill-evaluation-chart";
 import WritingSubmission from "@/components/organisms/writing-submission";
 import { Typography } from "@/components/ui";
-import { useGetSimulatedTestDetail } from "@/hooks/react-query/use-simulated-test";
 import { MAPPED_WRITING_CRITERIA_TITLES } from "@/lib/consts";
 import {
   EnumSimulatedTestSessionStatus,
@@ -25,36 +24,28 @@ type WritingResultProps = {
 
 function WritingResult({ session }: WritingResultProps) {
   const { status, orderCode } = Route.useSearch();
-  const { data: stData } = useGetSimulatedTestDetail(session.skillTest.simulatedIeltsTest.id);
-  const isFullParts = session.responses.length == 2;
+  const isFullParts = session.parts.length == 2;
 
   // Get part types: Line graph, Pie chart, etc.
-  const partDetails =
-    stData?.skillTests
-      .find((skill) => skill.skill === EnumSkill.writing)
-      ?.partsDetail.filter((_, index) => session.parts.includes(index + 1))
-      .map((item) => {
-        return item.questionTypesIndices.map((index) => index.name);
-      }) ?? [];
+  const fullPartDetails = session.skillTest.partsDetail;
+  const selectedPartDetails = fullPartDetails.filter((_, partNo) =>
+    session.parts.includes(partNo + 1)
+  );
+  const partDetails = selectedPartDetails.map((part) =>
+    part.questionTypesIndices.map((qt) => qt.name)
+  );
 
   const submissions = session.parts.map((partNo) => {
     const submission = session.responses.find((response) => response.questionNo === partNo) ?? {
       questionNo: partNo,
       answer: "",
     };
-    return {
-      ...submission,
-    };
+    return submission;
   });
 
   return (
     <div className="flex flex-col gap-4">
-      {session.status == EnumSimulatedTestSessionStatus.IN_EVALUATING ? (
-        // TODO: Redesign in evaluating state
-        <div />
-      ) : (
-        <EvaluationSection session={session} />
-      )}
+      <OverviewEvaluationSection session={session} />
       <div className="grid grid-cols-1 gap-2 md:grid-cols-6 md:gap-4">
         <div
           className={cn(
@@ -72,14 +63,16 @@ function WritingResult({ session }: WritingResultProps) {
             timeSpent={formatTime(session.elapsedTime)}
           />
         </div>
-        <SubscriptionPromotion results={session.results} id={session.id} status={session.status} />
+        {session.results.length == 0 && (
+          <EvaluationSection id={session.id} status={session.status} />
+        )}
       </div>
       <SubscriptionRedirectDialog status={status} orderCode={orderCode} />
     </div>
   );
 }
 
-function EvaluationSection({ session }: WritingResultProps) {
+function OverviewEvaluationSection({ session }: WritingResultProps) {
   const { t } = useTranslation(["practice", "collection"]);
 
   const isFullParts = session.responses.length == 2;

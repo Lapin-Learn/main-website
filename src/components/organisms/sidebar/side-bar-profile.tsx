@@ -42,7 +42,7 @@ export const SideBarProfile = ({ isSidebarOpen }: { isSidebarOpen: boolean }) =>
                 {isSidebarOpen && <ProfileTooltip />}
               </div>
             </Link>
-            <LogoutAlert />
+            {isSidebarOpen && <LogoutAlert />}
           </div>
         </HoverCardTrigger>
         {!isSidebarOpen && (
