@@ -44,9 +44,9 @@ const SkillGrid = ({ currentSkill, setCurrentSkill }: SkillGridProps) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <div className="-m-3 grid w-full grid-cols-2 gap-2">
+    <div className="!mb-2 grid w-full grid-cols-2 gap-3 md:-m-3 md:mb-0 md:gap-2">
       {Object.keys(EnumSkill).map((skill, idx) => (
-        <div className="relative p-3" key={skill}>
+        <div className="relative md:p-3" key={skill}>
           <button
             key={skill}
             className={cn("relative group w-full col-span-1 transition-all duration-200")}
@@ -56,7 +56,7 @@ const SkillGrid = ({ currentSkill, setCurrentSkill }: SkillGridProps) => {
           >
             <div
               className={cn(
-                "grid grid-cols-2 place-content-stretch place-items-stretch z-20 overflow-hidden rounded-2xl hover:opacity-100 hover:saturate-100",
+                "grid grid-cols-2 place-content-stretch place-items-stretch z-20 overflow-hidden rounded-lg md:rounded-2xl hover:opacity-100 hover:saturate-100",
                 dailyLessonSkillMapping[skill as EnumSkill].color,
                 currentSkill !== skill && "saturate-[0.6] opacity-60"
               )}
@@ -75,7 +75,7 @@ const SkillGrid = ({ currentSkill, setCurrentSkill }: SkillGridProps) => {
                 <img
                   src={dailyLessonSkillMapping[skill as EnumSkill].image}
                   alt={skill}
-                  className="block object-cover"
+                  className="block min-h-28 min-w-28 object-cover"
                 />
               </div>
             </div>
@@ -84,7 +84,7 @@ const SkillGrid = ({ currentSkill, setCurrentSkill }: SkillGridProps) => {
             {hoveredIndex === idx && (
               <motion.span
                 className={cn(
-                  "absolute inset-0 h-full w-full dark:bg-slate-800/[0.8] block rounded-2xl -z-10",
+                  "absolute inset-0 h-full w-full dark:bg-slate-800/[0.8] block rounded-lg md:rounded-2xl -z-10",
                   `${dailyLessonSkillMapping[skill as EnumSkill].hoverColor}`
                 )}
                 layoutId="hoverBackground"

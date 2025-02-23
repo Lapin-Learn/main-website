@@ -4,18 +4,20 @@ interface AnimatedCircularProgressBarProps {
   max: number;
   value: number;
   min: number;
-  gaugePrimaryColor: string;
-  gaugeSecondaryColor: string;
+  gaugePrimaryColor?: string;
+  gaugeSecondaryColor?: string;
   className?: string;
+  innerChild?: React.ReactNode;
 }
 
 export function AnimatedCircularProgressBar({
   max = 100,
   min = 0,
   value = 0,
-  gaugePrimaryColor,
-  gaugeSecondaryColor,
+  gaugePrimaryColor = "#FCE3B4",
+  gaugeSecondaryColor = "#EFEFEF",
   className,
+  innerChild,
 }: AnimatedCircularProgressBarProps) {
   const circumference = 2 * Math.PI * 45;
   const percentPx = circumference / 100;
@@ -94,7 +96,7 @@ export function AnimatedCircularProgressBar({
         data-current-value={currentPercent}
         className="duration-[var(--transition-length)] delay-[var(--delay)] absolute inset-0 m-auto size-fit ease-linear animate-in fade-in"
       >
-        {currentPercent}%
+        {innerChild ? innerChild : `${currentPercent}%`}
       </span>
     </div>
   );

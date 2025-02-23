@@ -53,7 +53,8 @@
   "questionTypes": {
     "experience": "Tiến độ",
     "xp": "KN",
-    "numberOfLessons_singular": "{{number}} bài",
-    "numberOfLessons_plural": "{{number}} bài"
+    "numberOfLessons_singular": "{{number}} bài học",
+    "numberOfLessons_plural": "{{number}} bài học",
+    "toUpgradeYourBand": "để nâng band"
   }
 }

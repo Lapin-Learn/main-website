@@ -76,7 +76,7 @@ export function PricingPlanItemList({
         }
       }}
     >
-      <CardContent className="relative flex h-fit w-full flex-col items-center justify-center gap-2 pt-4 ">
+      <CardContent className="relative flex h-fit w-full flex-col items-center justify-center gap-2 !pt-4">
         {String(key) === item.popular && <PopularTag />}
 
         <div className="size-20 md:flex md:size-24">

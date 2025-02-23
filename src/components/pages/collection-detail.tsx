@@ -28,13 +28,13 @@ export default function CollectionDetailPage() {
   }
 
   return (
-    <div className="flex flex-col gap-6 p-4 pt-8">
+    <div className="flex flex-col gap-3 p-4 pt-8 md:gap-6">
       <CollectionDetailHeader collectionId={Number(collectionId)} />
       <SelectModeDialog />
       {search.skill ? (
         list && !isLoading ? (
           list.length > 0 ? (
-            <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-2 md:gap-4 lg:grid-cols-3">
               {list.map((simulatedTest) => {
                 const skillTest = simulatedTest.skillTests.find((st) => st.skill === search.skill);
                 if (!skillTest) return null;

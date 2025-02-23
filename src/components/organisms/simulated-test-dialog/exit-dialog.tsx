@@ -68,13 +68,13 @@ const ExitDialog = ({ triggerButton }: ExitDialogProps) => {
             {t("description")}
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
+        <AlertDialogFooter className="w-full gap-2 max-md:flex-row">
           <AlertDialogAction asChild>
             <Button onClick={onClose} variant="outline" size="xl">
               {t("exitBtn")}
             </Button>
           </AlertDialogAction>
-          <AlertDialogCancel asChild className="w-full">
+          <AlertDialogCancel asChild className="mt-0 w-full">
             <Button size="xl" className="w-full">
               {t("continueBtn")}
             </Button>

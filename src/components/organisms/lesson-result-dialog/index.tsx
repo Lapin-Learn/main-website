@@ -35,7 +35,7 @@ const LessonResultDialog = ({ defaultOpen = false }: { defaultOpen?: boolean }) 
   return (
     <Dialog open={open}>
       <DialogContent
-        className="h-[400px] max-w-3xl overflow-hidden rounded-3xl border-none p-0 md:h-[768px]"
+        className="h-[600px] max-w-3xl overflow-hidden rounded-lg border-none p-0 md:h-[768px] md:max-h-screen md:rounded-3xl"
         showClose={false}
       >
         {showResultDetail ? (

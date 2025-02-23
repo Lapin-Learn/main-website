@@ -26,7 +26,7 @@ export const MissionSection = ({
   const { t } = useTranslation("practice");
 
   return (
-    <Section className={cn("rounded-2xl bg-white p-4", className)}>
+    <Section className={cn("rounded-lg md:rounded-2xl bg-white p-4", className)}>
       {title && timeRemaining && (
         <Section.Title
           label={title}

@@ -160,7 +160,7 @@ function renderDialogFooter(session: SimulatedTestSession, answerStatus?: boolea
     part: session.parts[index],
   }));
   return (
-    <DialogFooter>
+    <DialogFooter className="sm:w-full sm:justify-between">
       <Footer
         partDetails={partDetails}
         skill={session.skillTest.skill}
