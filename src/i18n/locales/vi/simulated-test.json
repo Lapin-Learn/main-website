@@ -149,7 +149,8 @@
     "unanswered": "Chưa trả lời",
     "yourAnswer": "Câu trả lời của bạn",
     "explanation": "Giải thích câu {{questionNo}}",
-    "noAnswer": "Bạn chưa trả lời câu hỏi này"
+    "noAnswer": "Bạn chưa trả lời câu hỏi này",
+    "warning": "Bài chấm này chỉ để bạn tự đánh giá và cải thiện kĩ năng của mình, nên có thể có chút chênh lệch (0.5 - 1 điểm) so với thực tế. Nếu những gì bạn đã học khác với kết quả bài test, hãy tập trung vào kiến thức đã học nhé!"
   },
   "noteBtn": {
     "title": "Ghi chú",

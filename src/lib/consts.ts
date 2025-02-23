@@ -203,11 +203,25 @@ export const MAPPED_SPEAKING_CRITERIA_TITLES: Record<string, string> = {
   [EnumSpeakingCriteria.GrammaticalRangeAndAccuracy]: "Grammatical Range and Accuracy",
 };
 
+export const MAPPED_SPEAKING_CRITERIA_SHORT_TITLES: Record<string, string> = {
+  [EnumSpeakingCriteria.FluencyAndCoherence]: "FC",
+  [EnumSpeakingCriteria.Pronunciation]: "P",
+  [EnumSpeakingCriteria.LexicalResource]: "LR",
+  [EnumSpeakingCriteria.GrammaticalRangeAndAccuracy]: "GRA",
+};
+
 export const MAPPED_WRITING_CRITERIA_TITLES: Record<string, string> = {
-  [EnumWritingCriteria.TaskAchievement]: "Task Achievement",
+  [EnumWritingCriteria.TaskAchievement]: "Task Response",
   [EnumWritingCriteria.CoherenceAndCohesion]: "Coherence and Cohesion",
   [EnumWritingCriteria.LexicalResource]: "Lexical Resource",
   [EnumWritingCriteria.GrammaticalRangeAndAccuracy]: "Grammatical Range and Accuracy",
+};
+
+export const MAPPED_WRITING_CRITERIA_SHORT_TITLES: Record<string, string> = {
+  [EnumWritingCriteria.TaskAchievement]: "TR",
+  [EnumWritingCriteria.CoherenceAndCohesion]: "CC",
+  [EnumWritingCriteria.LexicalResource]: "LR",
+  [EnumWritingCriteria.GrammaticalRangeAndAccuracy]: "GRA",
 };
 
 export const FIREBASE_ANALYTICS_EVENTS = {
