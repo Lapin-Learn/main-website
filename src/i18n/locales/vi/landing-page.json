@@ -40,5 +40,11 @@
       "Chi phí tiết kiệm gấp 10 lần."
     ],
     "registerNow": "Đăng ký miễn phí ngay"
+  },
+  "blogs":{
+    "title": "Tổng quan về IELTS",
+    "description": "IELTS là một trong những bài thi quan trọng nhất mà bạn cần phải đối mặt khi muốn du học hoặc làm việc ở nước ngoài. Để đạt điểm số cao, bạn cần phải chuẩn bị kỹ lưỡng và kiên trì luyện tập.",
+    "createdAt": "Ngày tạo",
+    "readMore": "Xem thêm"
   }
 }
