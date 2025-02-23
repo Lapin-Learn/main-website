@@ -1,7 +1,6 @@
 import { SubscriptionRedirectDialog } from "@components/molecules/subscription-redirect-dialog.tsx";
 import { useTranslation } from "react-i18next";
 
-import icons from "@/assets/icons";
 import CriteriaScoreCard from "@/components/molecules/criteria-score-card";
 import { EvaluationSection } from "@/components/molecules/evaluation-section";
 import { SkillEvaluationChart } from "@/components/organisms/skill-evaluation-chart";
@@ -84,10 +83,8 @@ function OverviewEvaluationSection({ session }: SpeakingResultProps) {
             key={key}
             criteria={MAPPED_SPEAKING_CRITERIA_TITLES[key] ?? key}
             criteriaKey={key as EnumSpeakingCriteria}
-            evaluate={value.evaluate ?? ""}
             score={value.score}
             skill={EnumSkill.speaking}
-            Icon={icons.WritingFilled}
           />
         ))}
       </div>
