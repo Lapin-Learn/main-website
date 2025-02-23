@@ -10,450 +10,454 @@
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root";
-import { Route as AuthenticatedImport } from "./routes/_authenticated";
-import { Route as AuthenticatedDashboardImport } from "./routes/_authenticated/_dashboard";
-import { Route as AuthenticatedDashboardProfileImport } from "./routes/_authenticated/_dashboard/_profile";
-import { Route as AuthenticatedDashboardProfileProfileChangePasswordImport } from "./routes/_authenticated/_dashboard/_profile/profile/change-password";
-import { Route as AuthenticatedDashboardProfileProfileHistoryImport } from "./routes/_authenticated/_dashboard/_profile/profile/history";
-import { Route as AuthenticatedDashboardProfileProfileIndexImport } from "./routes/_authenticated/_dashboard/_profile/profile/index";
-import { Route as AuthenticatedDashboardProfileProfileTransactionsImport } from "./routes/_authenticated/_dashboard/_profile/profile/transactions";
-import { Route as AuthenticatedDashboardContentEditorImport } from "./routes/_authenticated/_dashboard/content-editor";
-import { Route as AuthenticatedDashboardDailyLessonIndexImport } from "./routes/_authenticated/_dashboard/daily-lesson/index";
-import { Route as AuthenticatedDashboardPracticeCollectionIdIndexImport } from "./routes/_authenticated/_dashboard/practice/$collectionId/index";
-import { Route as AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdImport } from "./routes/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId";
-import { Route as AuthenticatedDashboardPracticeIndexImport } from "./routes/_authenticated/_dashboard/practice/index";
-import { Route as AuthenticatedDashboardPracticeSimulatedTestResultImport } from "./routes/_authenticated/_dashboard/practice/simulated-test/result";
-import { Route as AuthenticatedDashboardShopIndexImport } from "./routes/_authenticated/_dashboard/shop/index";
-import { Route as AuthenticatedBlogsBlogIdImport } from "./routes/_authenticated/blogs/$blogId";
-import { Route as AuthenticatedBlogsIndexImport } from "./routes/_authenticated/blogs/index";
-import { Route as AuthenticatedDailyLessonDailyLessonIdImport } from "./routes/_authenticated/daily-lesson/$dailyLessonId";
-import { Route as AuthenticatedPracticeSimulatedTestIndexImport } from "./routes/_authenticated/practice/simulated-test/index";
-import { Route as AuthenticationImport } from "./routes/_authentication";
-import { Route as AuthenticationForgotPasswordImport } from "./routes/_authentication/forgot-password";
-import { Route as AuthenticationLogInImport } from "./routes/_authentication/log-in";
-import { Route as AuthenticationResetPasswordImport } from "./routes/_authentication/reset-password";
-import { Route as AuthenticationSignUpImport } from "./routes/_authentication/sign-up";
-import { Route as AuthenticationVerifyOtpImport } from "./routes/_authentication/verify-otp";
-import { Route as IndexImport } from "./routes/index";
+import { Route as rootRoute } from './routes/__root'
+import { Route as AuthenticationImport } from './routes/_authentication'
+import { Route as AuthenticatedImport } from './routes/_authenticated'
+import { Route as IndexImport } from './routes/index'
+import { Route as AuthenticationVerifyOtpImport } from './routes/_authentication/verify-otp'
+import { Route as AuthenticationSignUpImport } from './routes/_authentication/sign-up'
+import { Route as AuthenticationResetPasswordImport } from './routes/_authentication/reset-password'
+import { Route as AuthenticationLogInImport } from './routes/_authentication/log-in'
+import { Route as AuthenticationForgotPasswordImport } from './routes/_authentication/forgot-password'
+import { Route as AuthenticatedDashboardImport } from './routes/_authenticated/_dashboard'
+import { Route as AuthenticatedBlogsIndexImport } from './routes/_authenticated/blogs/index'
+import { Route as AuthenticatedDailyLessonDailyLessonIdImport } from './routes/_authenticated/daily-lesson/$dailyLessonId'
+import { Route as AuthenticatedDashboardContentEditorImport } from './routes/_authenticated/_dashboard/content-editor'
+import { Route as AuthenticatedDashboardProfileImport } from './routes/_authenticated/_dashboard/_profile'
+import { Route as AuthenticatedPracticeSimulatedTestIndexImport } from './routes/_authenticated/practice/simulated-test/index'
+import { Route as AuthenticatedDashboardShopIndexImport } from './routes/_authenticated/_dashboard/shop/index'
+import { Route as AuthenticatedDashboardPracticeIndexImport } from './routes/_authenticated/_dashboard/practice/index'
+import { Route as AuthenticatedDashboardDailyLessonIndexImport } from './routes/_authenticated/_dashboard/daily-lesson/index'
+import { Route as AuthenticatedDashboardPracticeCollectionIdIndexImport } from './routes/_authenticated/_dashboard/practice/$collectionId/index'
+import { Route as AuthenticatedDashboardProfileProfileIndexImport } from './routes/_authenticated/_dashboard/_profile/profile/index'
+import { Route as AuthenticatedDashboardPracticeSimulatedTestResultImport } from './routes/_authenticated/_dashboard/practice/simulated-test/result'
+import { Route as AuthenticatedDashboardProfileProfileTransactionsImport } from './routes/_authenticated/_dashboard/_profile/profile/transactions'
+import { Route as AuthenticatedDashboardProfileProfileHistoryImport } from './routes/_authenticated/_dashboard/_profile/profile/history'
+import { Route as AuthenticatedDashboardProfileProfileChangePasswordImport } from './routes/_authenticated/_dashboard/_profile/profile/change-password'
+import { Route as AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdImport } from './routes/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId'
 
 // Create/Update Routes
 
 const AuthenticationRoute = AuthenticationImport.update({
-  id: "/_authentication",
+  id: '/_authentication',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const AuthenticatedRoute = AuthenticatedImport.update({
-  id: "/_authenticated",
+  id: '/_authenticated',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const IndexRoute = IndexImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const AuthenticationVerifyOtpRoute = AuthenticationVerifyOtpImport.update({
-  id: "/verify-otp",
-  path: "/verify-otp",
+  id: '/verify-otp',
+  path: '/verify-otp',
   getParentRoute: () => AuthenticationRoute,
-} as any);
+} as any)
 
 const AuthenticationSignUpRoute = AuthenticationSignUpImport.update({
-  id: "/sign-up",
-  path: "/sign-up",
+  id: '/sign-up',
+  path: '/sign-up',
   getParentRoute: () => AuthenticationRoute,
-} as any);
+} as any)
 
-const AuthenticationResetPasswordRoute = AuthenticationResetPasswordImport.update({
-  id: "/reset-password",
-  path: "/reset-password",
-  getParentRoute: () => AuthenticationRoute,
-} as any);
+const AuthenticationResetPasswordRoute =
+  AuthenticationResetPasswordImport.update({
+    id: '/reset-password',
+    path: '/reset-password',
+    getParentRoute: () => AuthenticationRoute,
+  } as any)
 
 const AuthenticationLogInRoute = AuthenticationLogInImport.update({
-  id: "/log-in",
-  path: "/log-in",
+  id: '/log-in',
+  path: '/log-in',
   getParentRoute: () => AuthenticationRoute,
-} as any);
+} as any)
 
-const AuthenticationForgotPasswordRoute = AuthenticationForgotPasswordImport.update({
-  id: "/forgot-password",
-  path: "/forgot-password",
-  getParentRoute: () => AuthenticationRoute,
-} as any);
+const AuthenticationForgotPasswordRoute =
+  AuthenticationForgotPasswordImport.update({
+    id: '/forgot-password',
+    path: '/forgot-password',
+    getParentRoute: () => AuthenticationRoute,
+  } as any)
 
 const AuthenticatedDashboardRoute = AuthenticatedDashboardImport.update({
-  id: "/_dashboard",
+  id: '/_dashboard',
   getParentRoute: () => AuthenticatedRoute,
-} as any);
+} as any)
 
 const AuthenticatedBlogsIndexRoute = AuthenticatedBlogsIndexImport.update({
-  id: "/blogs/",
-  path: "/blogs/",
+  id: '/blogs/',
+  path: '/blogs/',
   getParentRoute: () => AuthenticatedRoute,
-} as any);
+} as any)
 
 const AuthenticatedDailyLessonDailyLessonIdRoute =
   AuthenticatedDailyLessonDailyLessonIdImport.update({
-    id: "/daily-lesson/$dailyLessonId",
-    path: "/daily-lesson/$dailyLessonId",
+    id: '/daily-lesson/$dailyLessonId',
+    path: '/daily-lesson/$dailyLessonId',
     getParentRoute: () => AuthenticatedRoute,
-  } as any);
+  } as any)
 
-const AuthenticatedBlogsBlogIdRoute = AuthenticatedBlogsBlogIdImport.update({
-  id: "/blogs/$blogId",
-  path: "/blogs/$blogId",
-  getParentRoute: () => AuthenticatedRoute,
-} as any);
+const AuthenticatedDashboardContentEditorRoute =
+  AuthenticatedDashboardContentEditorImport.update({
+    id: '/content-editor',
+    path: '/content-editor',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 
-const AuthenticatedDashboardContentEditorRoute = AuthenticatedDashboardContentEditorImport.update({
-  id: "/content-editor",
-  path: "/content-editor",
-  getParentRoute: () => AuthenticatedDashboardRoute,
-} as any);
-
-const AuthenticatedDashboardProfileRoute = AuthenticatedDashboardProfileImport.update({
-  id: "/_profile",
-  getParentRoute: () => AuthenticatedDashboardRoute,
-} as any);
+const AuthenticatedDashboardProfileRoute =
+  AuthenticatedDashboardProfileImport.update({
+    id: '/_profile',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 
 const AuthenticatedPracticeSimulatedTestIndexRoute =
   AuthenticatedPracticeSimulatedTestIndexImport.update({
-    id: "/practice/simulated-test/",
-    path: "/practice/simulated-test/",
+    id: '/practice/simulated-test/',
+    path: '/practice/simulated-test/',
     getParentRoute: () => AuthenticatedRoute,
-  } as any);
+  } as any)
 
-const AuthenticatedDashboardShopIndexRoute = AuthenticatedDashboardShopIndexImport.update({
-  id: "/shop/",
-  path: "/shop/",
-  getParentRoute: () => AuthenticatedDashboardRoute,
-} as any);
+const AuthenticatedDashboardShopIndexRoute =
+  AuthenticatedDashboardShopIndexImport.update({
+    id: '/shop/',
+    path: '/shop/',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 
-const AuthenticatedDashboardPracticeIndexRoute = AuthenticatedDashboardPracticeIndexImport.update({
-  id: "/practice/",
-  path: "/practice/",
-  getParentRoute: () => AuthenticatedDashboardRoute,
-} as any);
+const AuthenticatedDashboardPracticeIndexRoute =
+  AuthenticatedDashboardPracticeIndexImport.update({
+    id: '/practice/',
+    path: '/practice/',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 
 const AuthenticatedDashboardDailyLessonIndexRoute =
   AuthenticatedDashboardDailyLessonIndexImport.update({
-    id: "/daily-lesson/",
-    path: "/daily-lesson/",
+    id: '/daily-lesson/',
+    path: '/daily-lesson/',
     getParentRoute: () => AuthenticatedDashboardRoute,
-  } as any);
+  } as any)
 
 const AuthenticatedDashboardPracticeCollectionIdIndexRoute =
   AuthenticatedDashboardPracticeCollectionIdIndexImport.update({
-    id: "/practice/$collectionId/",
-    path: "/practice/$collectionId/",
+    id: '/practice/$collectionId/',
+    path: '/practice/$collectionId/',
     getParentRoute: () => AuthenticatedDashboardRoute,
-  } as any);
+  } as any)
 
 const AuthenticatedDashboardProfileProfileIndexRoute =
   AuthenticatedDashboardProfileProfileIndexImport.update({
-    id: "/profile/",
-    path: "/profile/",
+    id: '/profile/',
+    path: '/profile/',
     getParentRoute: () => AuthenticatedDashboardProfileRoute,
-  } as any);
+  } as any)
 
 const AuthenticatedDashboardPracticeSimulatedTestResultRoute =
   AuthenticatedDashboardPracticeSimulatedTestResultImport.update({
-    id: "/practice/simulated-test/result",
-    path: "/practice/simulated-test/result",
+    id: '/practice/simulated-test/result',
+    path: '/practice/simulated-test/result',
     getParentRoute: () => AuthenticatedDashboardRoute,
-  } as any);
+  } as any)
 
 const AuthenticatedDashboardProfileProfileTransactionsRoute =
   AuthenticatedDashboardProfileProfileTransactionsImport.update({
-    id: "/profile/transactions",
-    path: "/profile/transactions",
+    id: '/profile/transactions',
+    path: '/profile/transactions',
     getParentRoute: () => AuthenticatedDashboardProfileRoute,
-  } as any);
+  } as any)
 
 const AuthenticatedDashboardProfileProfileHistoryRoute =
   AuthenticatedDashboardProfileProfileHistoryImport.update({
-    id: "/profile/history",
-    path: "/profile/history",
+    id: '/profile/history',
+    path: '/profile/history',
     getParentRoute: () => AuthenticatedDashboardProfileRoute,
-  } as any);
+  } as any)
 
 const AuthenticatedDashboardProfileProfileChangePasswordRoute =
   AuthenticatedDashboardProfileProfileChangePasswordImport.update({
-    id: "/profile/change-password",
-    path: "/profile/change-password",
+    id: '/profile/change-password',
+    path: '/profile/change-password',
     getParentRoute: () => AuthenticatedDashboardProfileRoute,
-  } as any);
+  } as any)
 
 const AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute =
-  AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdImport.update({
-    id: "/practice/$collectionId/simulated-test/$simulatedTestId",
-    path: "/practice/$collectionId/simulated-test/$simulatedTestId",
-    getParentRoute: () => AuthenticatedDashboardRoute,
-  } as any);
+  AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdImport.update(
+    {
+      id: '/practice/$collectionId/simulated-test/$simulatedTestId',
+      path: '/practice/$collectionId/simulated-test/$simulatedTestId',
+      getParentRoute: () => AuthenticatedDashboardRoute,
+    } as any,
+  )
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/_authenticated": {
-      id: "/_authenticated";
-      path: "";
-      fullPath: "";
-      preLoaderRoute: typeof AuthenticatedImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/_authentication": {
-      id: "/_authentication";
-      path: "";
-      fullPath: "";
-      preLoaderRoute: typeof AuthenticationImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/_authenticated/_dashboard": {
-      id: "/_authenticated/_dashboard";
-      path: "";
-      fullPath: "";
-      preLoaderRoute: typeof AuthenticatedDashboardImport;
-      parentRoute: typeof AuthenticatedImport;
-    };
-    "/_authentication/forgot-password": {
-      id: "/_authentication/forgot-password";
-      path: "/forgot-password";
-      fullPath: "/forgot-password";
-      preLoaderRoute: typeof AuthenticationForgotPasswordImport;
-      parentRoute: typeof AuthenticationImport;
-    };
-    "/_authentication/log-in": {
-      id: "/_authentication/log-in";
-      path: "/log-in";
-      fullPath: "/log-in";
-      preLoaderRoute: typeof AuthenticationLogInImport;
-      parentRoute: typeof AuthenticationImport;
-    };
-    "/_authentication/reset-password": {
-      id: "/_authentication/reset-password";
-      path: "/reset-password";
-      fullPath: "/reset-password";
-      preLoaderRoute: typeof AuthenticationResetPasswordImport;
-      parentRoute: typeof AuthenticationImport;
-    };
-    "/_authentication/sign-up": {
-      id: "/_authentication/sign-up";
-      path: "/sign-up";
-      fullPath: "/sign-up";
-      preLoaderRoute: typeof AuthenticationSignUpImport;
-      parentRoute: typeof AuthenticationImport;
-    };
-    "/_authentication/verify-otp": {
-      id: "/_authentication/verify-otp";
-      path: "/verify-otp";
-      fullPath: "/verify-otp";
-      preLoaderRoute: typeof AuthenticationVerifyOtpImport;
-      parentRoute: typeof AuthenticationImport;
-    };
-    "/_authenticated/_dashboard/_profile": {
-      id: "/_authenticated/_dashboard/_profile";
-      path: "";
-      fullPath: "";
-      preLoaderRoute: typeof AuthenticatedDashboardProfileImport;
-      parentRoute: typeof AuthenticatedDashboardImport;
-    };
-    "/_authenticated/_dashboard/content-editor": {
-      id: "/_authenticated/_dashboard/content-editor";
-      path: "/content-editor";
-      fullPath: "/content-editor";
-      preLoaderRoute: typeof AuthenticatedDashboardContentEditorImport;
-      parentRoute: typeof AuthenticatedDashboardImport;
-    };
-    "/_authenticated/blogs/$blogId": {
-      id: "/_authenticated/blogs/$blogId";
-      path: "/blogs/$blogId";
-      fullPath: "/blogs/$blogId";
-      preLoaderRoute: typeof AuthenticatedBlogsBlogIdImport;
-      parentRoute: typeof AuthenticatedImport;
-    };
-    "/_authenticated/daily-lesson/$dailyLessonId": {
-      id: "/_authenticated/daily-lesson/$dailyLessonId";
-      path: "/daily-lesson/$dailyLessonId";
-      fullPath: "/daily-lesson/$dailyLessonId";
-      preLoaderRoute: typeof AuthenticatedDailyLessonDailyLessonIdImport;
-      parentRoute: typeof AuthenticatedImport;
-    };
-    "/_authenticated/blogs/": {
-      id: "/_authenticated/blogs/";
-      path: "/blogs";
-      fullPath: "/blogs";
-      preLoaderRoute: typeof AuthenticatedBlogsIndexImport;
-      parentRoute: typeof AuthenticatedImport;
-    };
-    "/_authenticated/_dashboard/daily-lesson/": {
-      id: "/_authenticated/_dashboard/daily-lesson/";
-      path: "/daily-lesson";
-      fullPath: "/daily-lesson";
-      preLoaderRoute: typeof AuthenticatedDashboardDailyLessonIndexImport;
-      parentRoute: typeof AuthenticatedDashboardImport;
-    };
-    "/_authenticated/_dashboard/practice/": {
-      id: "/_authenticated/_dashboard/practice/";
-      path: "/practice";
-      fullPath: "/practice";
-      preLoaderRoute: typeof AuthenticatedDashboardPracticeIndexImport;
-      parentRoute: typeof AuthenticatedDashboardImport;
-    };
-    "/_authenticated/_dashboard/shop/": {
-      id: "/_authenticated/_dashboard/shop/";
-      path: "/shop";
-      fullPath: "/shop";
-      preLoaderRoute: typeof AuthenticatedDashboardShopIndexImport;
-      parentRoute: typeof AuthenticatedDashboardImport;
-    };
-    "/_authenticated/practice/simulated-test/": {
-      id: "/_authenticated/practice/simulated-test/";
-      path: "/practice/simulated-test";
-      fullPath: "/practice/simulated-test";
-      preLoaderRoute: typeof AuthenticatedPracticeSimulatedTestIndexImport;
-      parentRoute: typeof AuthenticatedImport;
-    };
-    "/_authenticated/_dashboard/_profile/profile/change-password": {
-      id: "/_authenticated/_dashboard/_profile/profile/change-password";
-      path: "/profile/change-password";
-      fullPath: "/profile/change-password";
-      preLoaderRoute: typeof AuthenticatedDashboardProfileProfileChangePasswordImport;
-      parentRoute: typeof AuthenticatedDashboardProfileImport;
-    };
-    "/_authenticated/_dashboard/_profile/profile/history": {
-      id: "/_authenticated/_dashboard/_profile/profile/history";
-      path: "/profile/history";
-      fullPath: "/profile/history";
-      preLoaderRoute: typeof AuthenticatedDashboardProfileProfileHistoryImport;
-      parentRoute: typeof AuthenticatedDashboardProfileImport;
-    };
-    "/_authenticated/_dashboard/_profile/profile/transactions": {
-      id: "/_authenticated/_dashboard/_profile/profile/transactions";
-      path: "/profile/transactions";
-      fullPath: "/profile/transactions";
-      preLoaderRoute: typeof AuthenticatedDashboardProfileProfileTransactionsImport;
-      parentRoute: typeof AuthenticatedDashboardProfileImport;
-    };
-    "/_authenticated/_dashboard/practice/simulated-test/result": {
-      id: "/_authenticated/_dashboard/practice/simulated-test/result";
-      path: "/practice/simulated-test/result";
-      fullPath: "/practice/simulated-test/result";
-      preLoaderRoute: typeof AuthenticatedDashboardPracticeSimulatedTestResultImport;
-      parentRoute: typeof AuthenticatedDashboardImport;
-    };
-    "/_authenticated/_dashboard/_profile/profile/": {
-      id: "/_authenticated/_dashboard/_profile/profile/";
-      path: "/profile";
-      fullPath: "/profile";
-      preLoaderRoute: typeof AuthenticatedDashboardProfileProfileIndexImport;
-      parentRoute: typeof AuthenticatedDashboardProfileImport;
-    };
-    "/_authenticated/_dashboard/practice/$collectionId/": {
-      id: "/_authenticated/_dashboard/practice/$collectionId/";
-      path: "/practice/$collectionId";
-      fullPath: "/practice/$collectionId";
-      preLoaderRoute: typeof AuthenticatedDashboardPracticeCollectionIdIndexImport;
-      parentRoute: typeof AuthenticatedDashboardImport;
-    };
-    "/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId": {
-      id: "/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId";
-      path: "/practice/$collectionId/simulated-test/$simulatedTestId";
-      fullPath: "/practice/$collectionId/simulated-test/$simulatedTestId";
-      preLoaderRoute: typeof AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdImport;
-      parentRoute: typeof AuthenticatedDashboardImport;
-    };
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthenticatedImport
+      parentRoute: typeof rootRoute
+    }
+    '/_authentication': {
+      id: '/_authentication'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthenticationImport
+      parentRoute: typeof rootRoute
+    }
+    '/_authenticated/_dashboard': {
+      id: '/_authenticated/_dashboard'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthenticatedDashboardImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authentication/forgot-password': {
+      id: '/_authentication/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof AuthenticationForgotPasswordImport
+      parentRoute: typeof AuthenticationImport
+    }
+    '/_authentication/log-in': {
+      id: '/_authentication/log-in'
+      path: '/log-in'
+      fullPath: '/log-in'
+      preLoaderRoute: typeof AuthenticationLogInImport
+      parentRoute: typeof AuthenticationImport
+    }
+    '/_authentication/reset-password': {
+      id: '/_authentication/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof AuthenticationResetPasswordImport
+      parentRoute: typeof AuthenticationImport
+    }
+    '/_authentication/sign-up': {
+      id: '/_authentication/sign-up'
+      path: '/sign-up'
+      fullPath: '/sign-up'
+      preLoaderRoute: typeof AuthenticationSignUpImport
+      parentRoute: typeof AuthenticationImport
+    }
+    '/_authentication/verify-otp': {
+      id: '/_authentication/verify-otp'
+      path: '/verify-otp'
+      fullPath: '/verify-otp'
+      preLoaderRoute: typeof AuthenticationVerifyOtpImport
+      parentRoute: typeof AuthenticationImport
+    }
+    '/_authenticated/_dashboard/_profile': {
+      id: '/_authenticated/_dashboard/_profile'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthenticatedDashboardProfileImport
+      parentRoute: typeof AuthenticatedDashboardImport
+    }
+    '/_authenticated/_dashboard/content-editor': {
+      id: '/_authenticated/_dashboard/content-editor'
+      path: '/content-editor'
+      fullPath: '/content-editor'
+      preLoaderRoute: typeof AuthenticatedDashboardContentEditorImport
+      parentRoute: typeof AuthenticatedDashboardImport
+    }
+    '/_authenticated/daily-lesson/$dailyLessonId': {
+      id: '/_authenticated/daily-lesson/$dailyLessonId'
+      path: '/daily-lesson/$dailyLessonId'
+      fullPath: '/daily-lesson/$dailyLessonId'
+      preLoaderRoute: typeof AuthenticatedDailyLessonDailyLessonIdImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/blogs/': {
+      id: '/_authenticated/blogs/'
+      path: '/blogs'
+      fullPath: '/blogs'
+      preLoaderRoute: typeof AuthenticatedBlogsIndexImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/_dashboard/daily-lesson/': {
+      id: '/_authenticated/_dashboard/daily-lesson/'
+      path: '/daily-lesson'
+      fullPath: '/daily-lesson'
+      preLoaderRoute: typeof AuthenticatedDashboardDailyLessonIndexImport
+      parentRoute: typeof AuthenticatedDashboardImport
+    }
+    '/_authenticated/_dashboard/practice/': {
+      id: '/_authenticated/_dashboard/practice/'
+      path: '/practice'
+      fullPath: '/practice'
+      preLoaderRoute: typeof AuthenticatedDashboardPracticeIndexImport
+      parentRoute: typeof AuthenticatedDashboardImport
+    }
+    '/_authenticated/_dashboard/shop/': {
+      id: '/_authenticated/_dashboard/shop/'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof AuthenticatedDashboardShopIndexImport
+      parentRoute: typeof AuthenticatedDashboardImport
+    }
+    '/_authenticated/practice/simulated-test/': {
+      id: '/_authenticated/practice/simulated-test/'
+      path: '/practice/simulated-test'
+      fullPath: '/practice/simulated-test'
+      preLoaderRoute: typeof AuthenticatedPracticeSimulatedTestIndexImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/_dashboard/_profile/profile/change-password': {
+      id: '/_authenticated/_dashboard/_profile/profile/change-password'
+      path: '/profile/change-password'
+      fullPath: '/profile/change-password'
+      preLoaderRoute: typeof AuthenticatedDashboardProfileProfileChangePasswordImport
+      parentRoute: typeof AuthenticatedDashboardProfileImport
+    }
+    '/_authenticated/_dashboard/_profile/profile/history': {
+      id: '/_authenticated/_dashboard/_profile/profile/history'
+      path: '/profile/history'
+      fullPath: '/profile/history'
+      preLoaderRoute: typeof AuthenticatedDashboardProfileProfileHistoryImport
+      parentRoute: typeof AuthenticatedDashboardProfileImport
+    }
+    '/_authenticated/_dashboard/_profile/profile/transactions': {
+      id: '/_authenticated/_dashboard/_profile/profile/transactions'
+      path: '/profile/transactions'
+      fullPath: '/profile/transactions'
+      preLoaderRoute: typeof AuthenticatedDashboardProfileProfileTransactionsImport
+      parentRoute: typeof AuthenticatedDashboardProfileImport
+    }
+    '/_authenticated/_dashboard/practice/simulated-test/result': {
+      id: '/_authenticated/_dashboard/practice/simulated-test/result'
+      path: '/practice/simulated-test/result'
+      fullPath: '/practice/simulated-test/result'
+      preLoaderRoute: typeof AuthenticatedDashboardPracticeSimulatedTestResultImport
+      parentRoute: typeof AuthenticatedDashboardImport
+    }
+    '/_authenticated/_dashboard/_profile/profile/': {
+      id: '/_authenticated/_dashboard/_profile/profile/'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedDashboardProfileProfileIndexImport
+      parentRoute: typeof AuthenticatedDashboardProfileImport
+    }
+    '/_authenticated/_dashboard/practice/$collectionId/': {
+      id: '/_authenticated/_dashboard/practice/$collectionId/'
+      path: '/practice/$collectionId'
+      fullPath: '/practice/$collectionId'
+      preLoaderRoute: typeof AuthenticatedDashboardPracticeCollectionIdIndexImport
+      parentRoute: typeof AuthenticatedDashboardImport
+    }
+    '/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId': {
+      id: '/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId'
+      path: '/practice/$collectionId/simulated-test/$simulatedTestId'
+      fullPath: '/practice/$collectionId/simulated-test/$simulatedTestId'
+      preLoaderRoute: typeof AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdImport
+      parentRoute: typeof AuthenticatedDashboardImport
+    }
   }
 }
 
 // Create and export the route tree
 
 interface AuthenticatedDashboardProfileRouteChildren {
-  AuthenticatedDashboardProfileProfileChangePasswordRoute: typeof AuthenticatedDashboardProfileProfileChangePasswordRoute;
-  AuthenticatedDashboardProfileProfileHistoryRoute: typeof AuthenticatedDashboardProfileProfileHistoryRoute;
-  AuthenticatedDashboardProfileProfileTransactionsRoute: typeof AuthenticatedDashboardProfileProfileTransactionsRoute;
-  AuthenticatedDashboardProfileProfileIndexRoute: typeof AuthenticatedDashboardProfileProfileIndexRoute;
+  AuthenticatedDashboardProfileProfileChangePasswordRoute: typeof AuthenticatedDashboardProfileProfileChangePasswordRoute
+  AuthenticatedDashboardProfileProfileHistoryRoute: typeof AuthenticatedDashboardProfileProfileHistoryRoute
+  AuthenticatedDashboardProfileProfileTransactionsRoute: typeof AuthenticatedDashboardProfileProfileTransactionsRoute
+  AuthenticatedDashboardProfileProfileIndexRoute: typeof AuthenticatedDashboardProfileProfileIndexRoute
 }
 
-const AuthenticatedDashboardProfileRouteChildren: AuthenticatedDashboardProfileRouteChildren = {
-  AuthenticatedDashboardProfileProfileChangePasswordRoute:
-    AuthenticatedDashboardProfileProfileChangePasswordRoute,
-  AuthenticatedDashboardProfileProfileHistoryRoute:
-    AuthenticatedDashboardProfileProfileHistoryRoute,
-  AuthenticatedDashboardProfileProfileTransactionsRoute:
-    AuthenticatedDashboardProfileProfileTransactionsRoute,
-  AuthenticatedDashboardProfileProfileIndexRoute: AuthenticatedDashboardProfileProfileIndexRoute,
-};
+const AuthenticatedDashboardProfileRouteChildren: AuthenticatedDashboardProfileRouteChildren =
+  {
+    AuthenticatedDashboardProfileProfileChangePasswordRoute:
+      AuthenticatedDashboardProfileProfileChangePasswordRoute,
+    AuthenticatedDashboardProfileProfileHistoryRoute:
+      AuthenticatedDashboardProfileProfileHistoryRoute,
+    AuthenticatedDashboardProfileProfileTransactionsRoute:
+      AuthenticatedDashboardProfileProfileTransactionsRoute,
+    AuthenticatedDashboardProfileProfileIndexRoute:
+      AuthenticatedDashboardProfileProfileIndexRoute,
+  }
 
 const AuthenticatedDashboardProfileRouteWithChildren =
-  AuthenticatedDashboardProfileRoute._addFileChildren(AuthenticatedDashboardProfileRouteChildren);
+  AuthenticatedDashboardProfileRoute._addFileChildren(
+    AuthenticatedDashboardProfileRouteChildren,
+  )
 
 interface AuthenticatedDashboardRouteChildren {
-  AuthenticatedDashboardProfileRoute: typeof AuthenticatedDashboardProfileRouteWithChildren;
-  AuthenticatedDashboardContentEditorRoute: typeof AuthenticatedDashboardContentEditorRoute;
-  AuthenticatedDashboardDailyLessonIndexRoute: typeof AuthenticatedDashboardDailyLessonIndexRoute;
-  AuthenticatedDashboardPracticeIndexRoute: typeof AuthenticatedDashboardPracticeIndexRoute;
-  AuthenticatedDashboardShopIndexRoute: typeof AuthenticatedDashboardShopIndexRoute;
-  AuthenticatedDashboardPracticeSimulatedTestResultRoute: typeof AuthenticatedDashboardPracticeSimulatedTestResultRoute;
-  AuthenticatedDashboardPracticeCollectionIdIndexRoute: typeof AuthenticatedDashboardPracticeCollectionIdIndexRoute;
-  AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute: typeof AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute;
+  AuthenticatedDashboardProfileRoute: typeof AuthenticatedDashboardProfileRouteWithChildren
+  AuthenticatedDashboardContentEditorRoute: typeof AuthenticatedDashboardContentEditorRoute
+  AuthenticatedDashboardDailyLessonIndexRoute: typeof AuthenticatedDashboardDailyLessonIndexRoute
+  AuthenticatedDashboardPracticeIndexRoute: typeof AuthenticatedDashboardPracticeIndexRoute
+  AuthenticatedDashboardShopIndexRoute: typeof AuthenticatedDashboardShopIndexRoute
+  AuthenticatedDashboardPracticeSimulatedTestResultRoute: typeof AuthenticatedDashboardPracticeSimulatedTestResultRoute
+  AuthenticatedDashboardPracticeCollectionIdIndexRoute: typeof AuthenticatedDashboardPracticeCollectionIdIndexRoute
+  AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute: typeof AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute
 }
 
-const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren = {
-  AuthenticatedDashboardProfileRoute: AuthenticatedDashboardProfileRouteWithChildren,
-  AuthenticatedDashboardContentEditorRoute: AuthenticatedDashboardContentEditorRoute,
-  AuthenticatedDashboardDailyLessonIndexRoute: AuthenticatedDashboardDailyLessonIndexRoute,
-  AuthenticatedDashboardPracticeIndexRoute: AuthenticatedDashboardPracticeIndexRoute,
-  AuthenticatedDashboardShopIndexRoute: AuthenticatedDashboardShopIndexRoute,
-  AuthenticatedDashboardPracticeSimulatedTestResultRoute:
-    AuthenticatedDashboardPracticeSimulatedTestResultRoute,
-  AuthenticatedDashboardPracticeCollectionIdIndexRoute:
-    AuthenticatedDashboardPracticeCollectionIdIndexRoute,
-  AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute:
-    AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute,
-};
+const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
+  {
+    AuthenticatedDashboardProfileRoute:
+      AuthenticatedDashboardProfileRouteWithChildren,
+    AuthenticatedDashboardContentEditorRoute:
+      AuthenticatedDashboardContentEditorRoute,
+    AuthenticatedDashboardDailyLessonIndexRoute:
+      AuthenticatedDashboardDailyLessonIndexRoute,
+    AuthenticatedDashboardPracticeIndexRoute:
+      AuthenticatedDashboardPracticeIndexRoute,
+    AuthenticatedDashboardShopIndexRoute: AuthenticatedDashboardShopIndexRoute,
+    AuthenticatedDashboardPracticeSimulatedTestResultRoute:
+      AuthenticatedDashboardPracticeSimulatedTestResultRoute,
+    AuthenticatedDashboardPracticeCollectionIdIndexRoute:
+      AuthenticatedDashboardPracticeCollectionIdIndexRoute,
+    AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute:
+      AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute,
+  }
 
-const AuthenticatedDashboardRouteWithChildren = AuthenticatedDashboardRoute._addFileChildren(
-  AuthenticatedDashboardRouteChildren
-);
+const AuthenticatedDashboardRouteWithChildren =
+  AuthenticatedDashboardRoute._addFileChildren(
+    AuthenticatedDashboardRouteChildren,
+  )
 
 interface AuthenticatedRouteChildren {
-  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRouteWithChildren;
-  AuthenticatedBlogsBlogIdRoute: typeof AuthenticatedBlogsBlogIdRoute;
-  AuthenticatedDailyLessonDailyLessonIdRoute: typeof AuthenticatedDailyLessonDailyLessonIdRoute;
-  AuthenticatedBlogsIndexRoute: typeof AuthenticatedBlogsIndexRoute;
-  AuthenticatedPracticeSimulatedTestIndexRoute: typeof AuthenticatedPracticeSimulatedTestIndexRoute;
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRouteWithChildren
+  AuthenticatedDailyLessonDailyLessonIdRoute: typeof AuthenticatedDailyLessonDailyLessonIdRoute
+  AuthenticatedBlogsIndexRoute: typeof AuthenticatedBlogsIndexRoute
+  AuthenticatedPracticeSimulatedTestIndexRoute: typeof AuthenticatedPracticeSimulatedTestIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRouteWithChildren,
-  AuthenticatedBlogsBlogIdRoute: AuthenticatedBlogsBlogIdRoute,
-  AuthenticatedDailyLessonDailyLessonIdRoute: AuthenticatedDailyLessonDailyLessonIdRoute,
+  AuthenticatedDailyLessonDailyLessonIdRoute:
+    AuthenticatedDailyLessonDailyLessonIdRoute,
   AuthenticatedBlogsIndexRoute: AuthenticatedBlogsIndexRoute,
-  AuthenticatedPracticeSimulatedTestIndexRoute: AuthenticatedPracticeSimulatedTestIndexRoute,
-};
+  AuthenticatedPracticeSimulatedTestIndexRoute:
+    AuthenticatedPracticeSimulatedTestIndexRoute,
+}
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
-  AuthenticatedRouteChildren
-);
+  AuthenticatedRouteChildren,
+)
 
 interface AuthenticationRouteChildren {
-  AuthenticationForgotPasswordRoute: typeof AuthenticationForgotPasswordRoute;
-  AuthenticationLogInRoute: typeof AuthenticationLogInRoute;
-  AuthenticationResetPasswordRoute: typeof AuthenticationResetPasswordRoute;
-  AuthenticationSignUpRoute: typeof AuthenticationSignUpRoute;
-  AuthenticationVerifyOtpRoute: typeof AuthenticationVerifyOtpRoute;
+  AuthenticationForgotPasswordRoute: typeof AuthenticationForgotPasswordRoute
+  AuthenticationLogInRoute: typeof AuthenticationLogInRoute
+  AuthenticationResetPasswordRoute: typeof AuthenticationResetPasswordRoute
+  AuthenticationSignUpRoute: typeof AuthenticationSignUpRoute
+  AuthenticationVerifyOtpRoute: typeof AuthenticationVerifyOtpRoute
 }
 
 const AuthenticationRouteChildren: AuthenticationRouteChildren = {
@@ -462,185 +466,179 @@ const AuthenticationRouteChildren: AuthenticationRouteChildren = {
   AuthenticationResetPasswordRoute: AuthenticationResetPasswordRoute,
   AuthenticationSignUpRoute: AuthenticationSignUpRoute,
   AuthenticationVerifyOtpRoute: AuthenticationVerifyOtpRoute,
-};
+}
 
 const AuthenticationRouteWithChildren = AuthenticationRoute._addFileChildren(
-  AuthenticationRouteChildren
-);
+  AuthenticationRouteChildren,
+)
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "": typeof AuthenticatedDashboardProfileRouteWithChildren;
-  "/forgot-password": typeof AuthenticationForgotPasswordRoute;
-  "/log-in": typeof AuthenticationLogInRoute;
-  "/reset-password": typeof AuthenticationResetPasswordRoute;
-  "/sign-up": typeof AuthenticationSignUpRoute;
-  "/verify-otp": typeof AuthenticationVerifyOtpRoute;
-  "/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
-  "/blogs/$blogId": typeof AuthenticatedBlogsBlogIdRoute;
-  "/daily-lesson/$dailyLessonId": typeof AuthenticatedDailyLessonDailyLessonIdRoute;
-  "/blogs": typeof AuthenticatedBlogsIndexRoute;
-  "/daily-lesson": typeof AuthenticatedDashboardDailyLessonIndexRoute;
-  "/practice": typeof AuthenticatedDashboardPracticeIndexRoute;
-  "/shop": typeof AuthenticatedDashboardShopIndexRoute;
-  "/practice/simulated-test": typeof AuthenticatedPracticeSimulatedTestIndexRoute;
-  "/profile/change-password": typeof AuthenticatedDashboardProfileProfileChangePasswordRoute;
-  "/profile/history": typeof AuthenticatedDashboardProfileProfileHistoryRoute;
-  "/profile/transactions": typeof AuthenticatedDashboardProfileProfileTransactionsRoute;
-  "/practice/simulated-test/result": typeof AuthenticatedDashboardPracticeSimulatedTestResultRoute;
-  "/profile": typeof AuthenticatedDashboardProfileProfileIndexRoute;
-  "/practice/$collectionId": typeof AuthenticatedDashboardPracticeCollectionIdIndexRoute;
-  "/practice/$collectionId/simulated-test/$simulatedTestId": typeof AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute;
+  '/': typeof IndexRoute
+  '': typeof AuthenticatedDashboardProfileRouteWithChildren
+  '/forgot-password': typeof AuthenticationForgotPasswordRoute
+  '/log-in': typeof AuthenticationLogInRoute
+  '/reset-password': typeof AuthenticationResetPasswordRoute
+  '/sign-up': typeof AuthenticationSignUpRoute
+  '/verify-otp': typeof AuthenticationVerifyOtpRoute
+  '/content-editor': typeof AuthenticatedDashboardContentEditorRoute
+  '/daily-lesson/$dailyLessonId': typeof AuthenticatedDailyLessonDailyLessonIdRoute
+  '/blogs': typeof AuthenticatedBlogsIndexRoute
+  '/daily-lesson': typeof AuthenticatedDashboardDailyLessonIndexRoute
+  '/practice': typeof AuthenticatedDashboardPracticeIndexRoute
+  '/shop': typeof AuthenticatedDashboardShopIndexRoute
+  '/practice/simulated-test': typeof AuthenticatedPracticeSimulatedTestIndexRoute
+  '/profile/change-password': typeof AuthenticatedDashboardProfileProfileChangePasswordRoute
+  '/profile/history': typeof AuthenticatedDashboardProfileProfileHistoryRoute
+  '/profile/transactions': typeof AuthenticatedDashboardProfileProfileTransactionsRoute
+  '/practice/simulated-test/result': typeof AuthenticatedDashboardPracticeSimulatedTestResultRoute
+  '/profile': typeof AuthenticatedDashboardProfileProfileIndexRoute
+  '/practice/$collectionId': typeof AuthenticatedDashboardPracticeCollectionIdIndexRoute
+  '/practice/$collectionId/simulated-test/$simulatedTestId': typeof AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute
 }
 
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "": typeof AuthenticatedDashboardProfileRouteWithChildren;
-  "/forgot-password": typeof AuthenticationForgotPasswordRoute;
-  "/log-in": typeof AuthenticationLogInRoute;
-  "/reset-password": typeof AuthenticationResetPasswordRoute;
-  "/sign-up": typeof AuthenticationSignUpRoute;
-  "/verify-otp": typeof AuthenticationVerifyOtpRoute;
-  "/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
-  "/blogs/$blogId": typeof AuthenticatedBlogsBlogIdRoute;
-  "/daily-lesson/$dailyLessonId": typeof AuthenticatedDailyLessonDailyLessonIdRoute;
-  "/blogs": typeof AuthenticatedBlogsIndexRoute;
-  "/daily-lesson": typeof AuthenticatedDashboardDailyLessonIndexRoute;
-  "/practice": typeof AuthenticatedDashboardPracticeIndexRoute;
-  "/shop": typeof AuthenticatedDashboardShopIndexRoute;
-  "/practice/simulated-test": typeof AuthenticatedPracticeSimulatedTestIndexRoute;
-  "/profile/change-password": typeof AuthenticatedDashboardProfileProfileChangePasswordRoute;
-  "/profile/history": typeof AuthenticatedDashboardProfileProfileHistoryRoute;
-  "/profile/transactions": typeof AuthenticatedDashboardProfileProfileTransactionsRoute;
-  "/practice/simulated-test/result": typeof AuthenticatedDashboardPracticeSimulatedTestResultRoute;
-  "/profile": typeof AuthenticatedDashboardProfileProfileIndexRoute;
-  "/practice/$collectionId": typeof AuthenticatedDashboardPracticeCollectionIdIndexRoute;
-  "/practice/$collectionId/simulated-test/$simulatedTestId": typeof AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute;
+  '/': typeof IndexRoute
+  '': typeof AuthenticatedDashboardProfileRouteWithChildren
+  '/forgot-password': typeof AuthenticationForgotPasswordRoute
+  '/log-in': typeof AuthenticationLogInRoute
+  '/reset-password': typeof AuthenticationResetPasswordRoute
+  '/sign-up': typeof AuthenticationSignUpRoute
+  '/verify-otp': typeof AuthenticationVerifyOtpRoute
+  '/content-editor': typeof AuthenticatedDashboardContentEditorRoute
+  '/daily-lesson/$dailyLessonId': typeof AuthenticatedDailyLessonDailyLessonIdRoute
+  '/blogs': typeof AuthenticatedBlogsIndexRoute
+  '/daily-lesson': typeof AuthenticatedDashboardDailyLessonIndexRoute
+  '/practice': typeof AuthenticatedDashboardPracticeIndexRoute
+  '/shop': typeof AuthenticatedDashboardShopIndexRoute
+  '/practice/simulated-test': typeof AuthenticatedPracticeSimulatedTestIndexRoute
+  '/profile/change-password': typeof AuthenticatedDashboardProfileProfileChangePasswordRoute
+  '/profile/history': typeof AuthenticatedDashboardProfileProfileHistoryRoute
+  '/profile/transactions': typeof AuthenticatedDashboardProfileProfileTransactionsRoute
+  '/practice/simulated-test/result': typeof AuthenticatedDashboardPracticeSimulatedTestResultRoute
+  '/profile': typeof AuthenticatedDashboardProfileProfileIndexRoute
+  '/practice/$collectionId': typeof AuthenticatedDashboardPracticeCollectionIdIndexRoute
+  '/practice/$collectionId/simulated-test/$simulatedTestId': typeof AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  "/": typeof IndexRoute;
-  "/_authenticated": typeof AuthenticatedRouteWithChildren;
-  "/_authentication": typeof AuthenticationRouteWithChildren;
-  "/_authenticated/_dashboard": typeof AuthenticatedDashboardRouteWithChildren;
-  "/_authentication/forgot-password": typeof AuthenticationForgotPasswordRoute;
-  "/_authentication/log-in": typeof AuthenticationLogInRoute;
-  "/_authentication/reset-password": typeof AuthenticationResetPasswordRoute;
-  "/_authentication/sign-up": typeof AuthenticationSignUpRoute;
-  "/_authentication/verify-otp": typeof AuthenticationVerifyOtpRoute;
-  "/_authenticated/_dashboard/_profile": typeof AuthenticatedDashboardProfileRouteWithChildren;
-  "/_authenticated/_dashboard/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
-  "/_authenticated/blogs/$blogId": typeof AuthenticatedBlogsBlogIdRoute;
-  "/_authenticated/daily-lesson/$dailyLessonId": typeof AuthenticatedDailyLessonDailyLessonIdRoute;
-  "/_authenticated/blogs/": typeof AuthenticatedBlogsIndexRoute;
-  "/_authenticated/_dashboard/daily-lesson/": typeof AuthenticatedDashboardDailyLessonIndexRoute;
-  "/_authenticated/_dashboard/practice/": typeof AuthenticatedDashboardPracticeIndexRoute;
-  "/_authenticated/_dashboard/shop/": typeof AuthenticatedDashboardShopIndexRoute;
-  "/_authenticated/practice/simulated-test/": typeof AuthenticatedPracticeSimulatedTestIndexRoute;
-  "/_authenticated/_dashboard/_profile/profile/change-password": typeof AuthenticatedDashboardProfileProfileChangePasswordRoute;
-  "/_authenticated/_dashboard/_profile/profile/history": typeof AuthenticatedDashboardProfileProfileHistoryRoute;
-  "/_authenticated/_dashboard/_profile/profile/transactions": typeof AuthenticatedDashboardProfileProfileTransactionsRoute;
-  "/_authenticated/_dashboard/practice/simulated-test/result": typeof AuthenticatedDashboardPracticeSimulatedTestResultRoute;
-  "/_authenticated/_dashboard/_profile/profile/": typeof AuthenticatedDashboardProfileProfileIndexRoute;
-  "/_authenticated/_dashboard/practice/$collectionId/": typeof AuthenticatedDashboardPracticeCollectionIdIndexRoute;
-  "/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId": typeof AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute;
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/_authentication': typeof AuthenticationRouteWithChildren
+  '/_authenticated/_dashboard': typeof AuthenticatedDashboardRouteWithChildren
+  '/_authentication/forgot-password': typeof AuthenticationForgotPasswordRoute
+  '/_authentication/log-in': typeof AuthenticationLogInRoute
+  '/_authentication/reset-password': typeof AuthenticationResetPasswordRoute
+  '/_authentication/sign-up': typeof AuthenticationSignUpRoute
+  '/_authentication/verify-otp': typeof AuthenticationVerifyOtpRoute
+  '/_authenticated/_dashboard/_profile': typeof AuthenticatedDashboardProfileRouteWithChildren
+  '/_authenticated/_dashboard/content-editor': typeof AuthenticatedDashboardContentEditorRoute
+  '/_authenticated/daily-lesson/$dailyLessonId': typeof AuthenticatedDailyLessonDailyLessonIdRoute
+  '/_authenticated/blogs/': typeof AuthenticatedBlogsIndexRoute
+  '/_authenticated/_dashboard/daily-lesson/': typeof AuthenticatedDashboardDailyLessonIndexRoute
+  '/_authenticated/_dashboard/practice/': typeof AuthenticatedDashboardPracticeIndexRoute
+  '/_authenticated/_dashboard/shop/': typeof AuthenticatedDashboardShopIndexRoute
+  '/_authenticated/practice/simulated-test/': typeof AuthenticatedPracticeSimulatedTestIndexRoute
+  '/_authenticated/_dashboard/_profile/profile/change-password': typeof AuthenticatedDashboardProfileProfileChangePasswordRoute
+  '/_authenticated/_dashboard/_profile/profile/history': typeof AuthenticatedDashboardProfileProfileHistoryRoute
+  '/_authenticated/_dashboard/_profile/profile/transactions': typeof AuthenticatedDashboardProfileProfileTransactionsRoute
+  '/_authenticated/_dashboard/practice/simulated-test/result': typeof AuthenticatedDashboardPracticeSimulatedTestResultRoute
+  '/_authenticated/_dashboard/_profile/profile/': typeof AuthenticatedDashboardProfileProfileIndexRoute
+  '/_authenticated/_dashboard/practice/$collectionId/': typeof AuthenticatedDashboardPracticeCollectionIdIndexRoute
+  '/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId': typeof AuthenticatedDashboardPracticeCollectionIdSimulatedTestSimulatedTestIdRoute
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | "/"
-    | ""
-    | "/forgot-password"
-    | "/log-in"
-    | "/reset-password"
-    | "/sign-up"
-    | "/verify-otp"
-    | "/content-editor"
-    | "/blogs/$blogId"
-    | "/daily-lesson/$dailyLessonId"
-    | "/blogs"
-    | "/daily-lesson"
-    | "/practice"
-    | "/shop"
-    | "/practice/simulated-test"
-    | "/profile/change-password"
-    | "/profile/history"
-    | "/profile/transactions"
-    | "/practice/simulated-test/result"
-    | "/profile"
-    | "/practice/$collectionId"
-    | "/practice/$collectionId/simulated-test/$simulatedTestId";
-  fileRoutesByTo: FileRoutesByTo;
+    | '/'
+    | ''
+    | '/forgot-password'
+    | '/log-in'
+    | '/reset-password'
+    | '/sign-up'
+    | '/verify-otp'
+    | '/content-editor'
+    | '/daily-lesson/$dailyLessonId'
+    | '/blogs'
+    | '/daily-lesson'
+    | '/practice'
+    | '/shop'
+    | '/practice/simulated-test'
+    | '/profile/change-password'
+    | '/profile/history'
+    | '/profile/transactions'
+    | '/practice/simulated-test/result'
+    | '/profile'
+    | '/practice/$collectionId'
+    | '/practice/$collectionId/simulated-test/$simulatedTestId'
+  fileRoutesByTo: FileRoutesByTo
   to:
-    | "/"
-    | ""
-    | "/forgot-password"
-    | "/log-in"
-    | "/reset-password"
-    | "/sign-up"
-    | "/verify-otp"
-    | "/content-editor"
-    | "/blogs/$blogId"
-    | "/daily-lesson/$dailyLessonId"
-    | "/blogs"
-    | "/daily-lesson"
-    | "/practice"
-    | "/shop"
-    | "/practice/simulated-test"
-    | "/profile/change-password"
-    | "/profile/history"
-    | "/profile/transactions"
-    | "/practice/simulated-test/result"
-    | "/profile"
-    | "/practice/$collectionId"
-    | "/practice/$collectionId/simulated-test/$simulatedTestId";
+    | '/'
+    | ''
+    | '/forgot-password'
+    | '/log-in'
+    | '/reset-password'
+    | '/sign-up'
+    | '/verify-otp'
+    | '/content-editor'
+    | '/daily-lesson/$dailyLessonId'
+    | '/blogs'
+    | '/daily-lesson'
+    | '/practice'
+    | '/shop'
+    | '/practice/simulated-test'
+    | '/profile/change-password'
+    | '/profile/history'
+    | '/profile/transactions'
+    | '/practice/simulated-test/result'
+    | '/profile'
+    | '/practice/$collectionId'
+    | '/practice/$collectionId/simulated-test/$simulatedTestId'
   id:
-    | "__root__"
-    | "/"
-    | "/_authenticated"
-    | "/_authentication"
-    | "/_authenticated/_dashboard"
-    | "/_authentication/forgot-password"
-    | "/_authentication/log-in"
-    | "/_authentication/reset-password"
-    | "/_authentication/sign-up"
-    | "/_authentication/verify-otp"
-    | "/_authenticated/_dashboard/_profile"
-    | "/_authenticated/_dashboard/content-editor"
-    | "/_authenticated/blogs/$blogId"
-    | "/_authenticated/daily-lesson/$dailyLessonId"
-    | "/_authenticated/blogs/"
-    | "/_authenticated/_dashboard/daily-lesson/"
-    | "/_authenticated/_dashboard/practice/"
-    | "/_authenticated/_dashboard/shop/"
-    | "/_authenticated/practice/simulated-test/"
-    | "/_authenticated/_dashboard/_profile/profile/change-password"
-    | "/_authenticated/_dashboard/_profile/profile/history"
-    | "/_authenticated/_dashboard/_profile/profile/transactions"
-    | "/_authenticated/_dashboard/practice/simulated-test/result"
-    | "/_authenticated/_dashboard/_profile/profile/"
-    | "/_authenticated/_dashboard/practice/$collectionId/"
-    | "/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId";
-  fileRoutesById: FileRoutesById;
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/_authentication'
+    | '/_authenticated/_dashboard'
+    | '/_authentication/forgot-password'
+    | '/_authentication/log-in'
+    | '/_authentication/reset-password'
+    | '/_authentication/sign-up'
+    | '/_authentication/verify-otp'
+    | '/_authenticated/_dashboard/_profile'
+    | '/_authenticated/_dashboard/content-editor'
+    | '/_authenticated/daily-lesson/$dailyLessonId'
+    | '/_authenticated/blogs/'
+    | '/_authenticated/_dashboard/daily-lesson/'
+    | '/_authenticated/_dashboard/practice/'
+    | '/_authenticated/_dashboard/shop/'
+    | '/_authenticated/practice/simulated-test/'
+    | '/_authenticated/_dashboard/_profile/profile/change-password'
+    | '/_authenticated/_dashboard/_profile/profile/history'
+    | '/_authenticated/_dashboard/_profile/profile/transactions'
+    | '/_authenticated/_dashboard/practice/simulated-test/result'
+    | '/_authenticated/_dashboard/_profile/profile/'
+    | '/_authenticated/_dashboard/practice/$collectionId/'
+    | '/_authenticated/_dashboard/practice/$collectionId/simulated-test/$simulatedTestId'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren;
-  AuthenticationRoute: typeof AuthenticationRouteWithChildren;
+  IndexRoute: typeof IndexRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  AuthenticationRoute: typeof AuthenticationRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AuthenticationRoute: AuthenticationRouteWithChildren,
-};
+}
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {
@@ -660,7 +658,6 @@ export const routeTree = rootRoute
       "filePath": "_authenticated.tsx",
       "children": [
         "/_authenticated/_dashboard",
-        "/_authenticated/blogs/$blogId",
         "/_authenticated/daily-lesson/$dailyLessonId",
         "/_authenticated/blogs/",
         "/_authenticated/practice/simulated-test/"
@@ -723,10 +720,6 @@ export const routeTree = rootRoute
     "/_authenticated/_dashboard/content-editor": {
       "filePath": "_authenticated/_dashboard/content-editor.tsx",
       "parent": "/_authenticated/_dashboard"
-    },
-    "/_authenticated/blogs/$blogId": {
-      "filePath": "_authenticated/blogs/$blogId.tsx",
-      "parent": "/_authenticated"
     },
     "/_authenticated/daily-lesson/$dailyLessonId": {
       "filePath": "_authenticated/daily-lesson/$dailyLessonId.tsx",

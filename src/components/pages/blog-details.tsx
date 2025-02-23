@@ -12,7 +12,7 @@ export const BlogDetailsPage = () => {
   const { data, isLoading } = useGetBlog(blogId);
   const { t } = useTranslation("landingPage");
 
-  if (!data || isLoading) return <div>Loading...</div>;
+  if (!data || isLoading) return null;
 
   return (
     <LandingPageLayout>
