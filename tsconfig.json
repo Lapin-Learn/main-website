@@ -13,7 +13,15 @@
       "@components/*": ["./src/components/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@utils/*": ["./src/lib/utils/*"],
-    }
+    },
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx"
   },
   "exclude": ["node_modules", "**/*.stories.tsx", "src/stories/*"]
 }

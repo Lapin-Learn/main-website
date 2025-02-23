@@ -1,6 +1,6 @@
 import { Switch } from "@components/ui/locale-switch";
 import { t } from "i18next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import i18n from "@/i18n/i18n";
 import { cn } from "@/lib/utils";
@@ -12,11 +12,24 @@ type ChangeLanguageSwitchProps = {
 
 function ChangeLanguageSwitch(props: ChangeLanguageSwitchProps) {
   const { className, hideLabel = false } = props;
-  const [language, setLanguage] = useState(localStorage.getItem("i18nextLng") || "en");
+
+  const [language, setLanguage] = useState("en");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedLang = localStorage.getItem("i18nextLng") || "en";
+      setLanguage(storedLang);
+    }
+  }, []);
 
   const toggleLanguage = () => {
-    setLanguage(language === "en" ? "vi" : "en");
-    i18n.changeLanguage(language === "en" ? "vi" : "en");
+    const newLang = language === "en" ? "vi" : "en";
+    setLanguage(newLang);
+    i18n.changeLanguage(newLang);
+
+    if (typeof window !== "undefined") {
+      localStorage.setItem("i18nextLng", newLang);
+    }
   };
 
   return (

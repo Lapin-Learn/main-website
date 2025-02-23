@@ -124,7 +124,7 @@ const RecordingBar = (props: RecordingBarProps) => {
 
   return (
     <div className="fixed bottom-0 grid w-full place-items-center border-t bg-white">
-      <div className="grid h-40 w-fit grid-cols-3 place-items-center content-center items-center gap-x-4 gap-y-3 md:h-56 md:gap-x-10 md:gap-y-6">
+      <div className="grid h-40 w-fit grid-cols-3 place-items-center content-center gap-x-4 gap-y-3 md:h-56 md:gap-x-10 md:gap-y-6">
         <Button
           variant="outline"
           size="icon"

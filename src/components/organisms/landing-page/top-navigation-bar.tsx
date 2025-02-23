@@ -1,11 +1,10 @@
-// eslint-disable-next-line simple-import-sort/imports
 import { Link } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 
 import Logo from "@/assets/logo.svg";
 import { Button, Separator } from "@/components/ui";
 import { cn } from "@/lib/utils";
 
-import { useTranslation } from "react-i18next";
 import ChangeLanguageSwitch from "../sidebar/change-language-switch";
 
 type TopNavigationBarProps = {
@@ -40,7 +39,7 @@ const TopNavigationBar = ({ isScrolled = false, isLoggedIn = false }: TopNavigat
         isScrolled ? "bg-white shadow" : "bg-transparent"
       )}
     >
-      <Link href="/" className="flex items-center" onClick={handleLogoClick}>
+      <Link to="/" className="flex items-center" onClick={handleLogoClick}>
         <img src={Logo} alt="App Logo" className="h-4 cursor-pointer md:h-6" />
       </Link>
       <div className="flex items-center gap-2 md:gap-4">

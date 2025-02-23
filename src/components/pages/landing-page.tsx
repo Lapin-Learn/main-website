@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { getAuthValueFromStorage } from "@/services";
 
@@ -12,7 +12,8 @@ import TopNavigationBar from "../organisms/landing-page/top-navigation-bar";
 
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const id = useId();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const id = useMemo(() => `hero-banner-${Math.random().toString(36).substr(2, 9)}`, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,7 +27,9 @@ export default function LandingPage() {
     };
   }, []);
 
-  const isLoggedIn = getAuthValueFromStorage() !== null;
+  useEffect(() => {
+    setIsLoggedIn(typeof window !== "undefined" && getAuthValueFromStorage() !== null);
+  }, []);
 
   return (
     <div className="relative w-screen overflow-hidden">

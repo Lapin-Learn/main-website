@@ -25,7 +25,7 @@ const UseItemDialog = () => {
         showClose={false}
       >
         <div className="absolute flex size-full flex-col justify-between px-4 py-8 md:px-6">
-          <div className="relative flex h-full flex-col content-center items-center justify-center gap-4">
+          <div className="relative flex h-full flex-col place-content-center items-center gap-4">
             <div className="rounded-full bg-white p-10 shadow-md">
               <img src={item?.imageSource} alt="Carrot Basket" className="size-40" />
             </div>
