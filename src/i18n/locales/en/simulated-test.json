@@ -148,7 +148,9 @@
     "unanswered": "Skipped",
     "yourAnswer": "Your answer",
     "explanation": "Explanation question {{questionNo}}",
-    "noAnswer": "You didn't answer this question"
+    "noAnswer": "You didn't answer this question",
+    "warning": "This article is only for you to self-evaluate and improve your skills, so there may be a slight difference (0.5 - 1 point) in reality. If you have learned something different from the test results, focus on the knowledge you have learned!"
+
   },
   "noteBtn": {
     "title": "Take note",
