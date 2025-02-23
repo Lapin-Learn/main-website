@@ -74,7 +74,7 @@ const Footer = ({ partDetails, skill, answerStatus }: FooterProps) => {
         skill == EnumSkill.writing && "justify-end py-0 sm:min-h-20"
       )}
     >
-      {skill !== EnumSkill.writing && showQuestionNavigator && (
+      {skill !== EnumSkill.writing && (showQuestionNavigator || !isMobile) && (
         <div className="question-navigator flex h-fit w-full flex-1 flex-wrap items-center gap-1">
           {partDetails.map((group) =>
             isMobile ? (
