@@ -79,7 +79,7 @@ export function EvaluationSection({ id, status }: EvaluationSectionProps) {
   const isAffordable = profile.carrots >= 100;
 
   return (
-    <Card className="relative col-span-2 h-fit border-2 border-[#FFCB66] bg-white shadow-none">
+    <Card className="relative col-span-2 h-fit overflow-hidden border-2 border-none bg-white shadow-none">
       <CardHeader className="!pb-0">
         <CardTitle>
           <div className={`text-heading-5 text-primary-700 ${childrenByStatus.titleStyle}`}>
@@ -156,8 +156,14 @@ export function EvaluationSection({ id, status }: EvaluationSectionProps) {
             )
           ) : null}
         </div>
-        <BorderBeam duration={8} size={200} colorFrom="#FFCB66" colorTo="#FE8D0C" />
       </CardContent>
+      <BorderBeam
+        duration={8}
+        size={200}
+        colorFrom="#FFCB66"
+        colorTo="#FE8D0C"
+        borderColor="border-[#FFCB66] border-2"
+      />
     </Card>
   );
 }
