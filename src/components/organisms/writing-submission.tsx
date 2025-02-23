@@ -51,7 +51,7 @@ function WritingSubmission(props: WritingSubmissionProps) {
                 </Typography>
                 <div className="flex flex-row items-center gap-2 text-muted-foreground">
                   <Typography variant="body2">
-                    {t("finished-on")}: {new Date(finishedOn || "").toLocaleString()}
+                    {t("finished-on")}: {new Date(finishedOn ?? "").toLocaleString()}
                   </Typography>
                   <Separator className="h-4" orientation="vertical" />
                   <Typography variant="body2">
@@ -80,7 +80,7 @@ function WritingSubmission(props: WritingSubmissionProps) {
       defaultValue={!evaluationResults?.length ? "0" : undefined}
     >
       {userSubmissions.map((submission, index) => {
-        const partDetail = partDetails[index];
+        const partDetail = partDetails[index] ?? [];
         return (
           <AccordionItem
             value={index.toString()}

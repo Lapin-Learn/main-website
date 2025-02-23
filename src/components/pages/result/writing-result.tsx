@@ -16,10 +16,8 @@ function WritingResult({ session }: WritingResultProps) {
   const isFullParts = session.parts.length == 2;
 
   // Get part types: Line graph, Pie chart, etc.
-  const fullPartDetails = session.skillTest.partsDetail;
-  const selectedPartDetails = fullPartDetails.filter((_, partNo) =>
-    session.parts.includes(partNo + 1)
-  );
+  const selectedPartDetails = session.skillTest.partsDetail;
+
   const partDetails = selectedPartDetails.map((part) =>
     part.questionTypesIndices.map((qt) => qt.name)
   );
