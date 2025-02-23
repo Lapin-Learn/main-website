@@ -31,13 +31,13 @@ export const useGetCollectionIntroduction = () => {
 export const useGetBlogs = () => {
   return useQuery({
     queryKey: publicKeys.blogs,
-    queryFn: async () => getBlogs(),
+    queryFn: getBlogs,
   });
 };
 
 export const useGetBlog = (id: string) => {
   return useQuery({
     queryKey: publicKeys.blog(id),
-    queryFn: async () => getBlog(id),
+    queryFn: () => getBlog(id),
   });
 };

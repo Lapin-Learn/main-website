@@ -32,7 +32,8 @@
         "profile": "Personal information",
         "changePassword": "Change password",
         "history": "Learning history",
-        "transactions": "Transaction history"
+        "transactions": "Transaction history",
+        "blogs": "About IELTS"
     },
     "allSkills": "All skills",
     "reading": "reading",

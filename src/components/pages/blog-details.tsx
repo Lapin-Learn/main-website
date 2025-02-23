@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 
 import { useGetBlog } from "@/hooks/react-query/use-public";
-import { Route } from "@/routes/_authenticated/blogs/$blogId";
+import { Route } from "@/routes/blogs/$blogId";
 
 import LandingPageLayout from "../templates/landing-page-layout";
 import { Separator, Typography } from "../ui";
@@ -29,7 +29,7 @@ export const BlogDetailsPage = () => {
           </Typography>
         </div>
         <Separator />
-        <div className="prose" dangerouslySetInnerHTML={{ __html: data.content }} />
+        <div className="prose max-w-full" dangerouslySetInnerHTML={{ __html: data.content }} />
       </div>
     </LandingPageLayout>
   );

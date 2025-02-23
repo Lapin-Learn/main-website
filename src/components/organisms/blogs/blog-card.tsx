@@ -10,19 +10,19 @@ export const BlogCard = ({ blogContent }: { blogContent: Blog }) => {
   const { t } = useTranslation("landingPage");
 
   return (
-    <div className="flex flex-row gap-4 ">
+    <div className="flex w-full flex-row gap-4">
       <img
         src={blogContent.thumbnail.url}
         alt={blogContent.thumbnail.name}
         className="aspect-[4/3] h-40 w-64 rounded-md object-cover"
       />
-      <Link to={`/blogs/${blogContent.id}`} className="flex flex-col gap-2">
+      <Link to={`/blogs/${blogContent.id}`} className="flex w-full flex-col gap-2">
         <p className="text-small text-supporting-text">
           {t("blogs.createdAt")}: {format(blogContent.createdAt, "dd/MM/yyyy")}
         </p>
         <h3 className="text-heading-5 font-bold">{blogContent.title}</h3>
         <div
-          className="prose line-clamp-3 text-small"
+          className="line-clamp-3 w-full text-small"
           dangerouslySetInnerHTML={{ __html: blogContent.content }}
         />
         <Button variant="link" className="w-fit gap-2 p-0">
