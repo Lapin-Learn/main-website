@@ -1,4 +1,10 @@
+[build]
+  command = "pnpm build"
+  publish = "dist"
+  functions = "netlify/functions"
+  environment = { NODE_VERSION = "18" }
+
 [[redirects]]
   from = "/*"
-  to = "/index.html"
-  status = 200  
+  to = "/.netlify/functions/server"
+  status = 200

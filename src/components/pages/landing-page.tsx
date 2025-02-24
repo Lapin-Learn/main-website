@@ -15,7 +15,7 @@ export default function LandingPage() {
   const isLoggedIn = typeof window !== "undefined" && getAuthValueFromStorage() !== null;
 
   return (
-    <LandingPageLayout>
+    <LandingPageLayout id={id} isLoggedIn={isLoggedIn}>
       <HeroBanner id={id} isLoggedIn={isLoggedIn} />
       <Gamification />
       <SimulatedTest />
