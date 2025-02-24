@@ -215,3 +215,28 @@ export type LatestInprogressSession = {
   testName: string;
   testCollectionName: string;
 };
+
+export type BlogResponse = {
+  items: Blog[];
+  page: number;
+  total: number;
+};
+
+export type Blog = {
+  id: string;
+  title: string;
+  content: string;
+  thumbnailId: string;
+  createdAt: string;
+  updatedAt: string;
+  thumbnail: {
+    id: string;
+    name: string;
+    owner: string;
+    permission: string;
+    createdAt: string;
+    updatedAt: string;
+    uploadStatus: string;
+    url: string;
+  };
+};
