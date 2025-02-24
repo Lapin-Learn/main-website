@@ -7,9 +7,10 @@ import { FIREBASE_ANALYTICS_EVENTS } from "./lib/consts";
 import { queryClient } from "./queryClient";
 import { routeTree } from "./routeTree.gen";
 
-let getAnalytics: any, isSupported: any, logEvent: any;
-if (typeof window !== "undefined") {
-  ({ getAnalytics, isSupported, logEvent } = await import("firebase/analytics"));
+async function loadFirebaseAnalytics() {
+  if (typeof window === "undefined") return null;
+  const { getAnalytics, isSupported, logEvent } = await import("firebase/analytics");
+  return { getAnalytics, isSupported, logEvent };
 }
 
 export function createRouter(history?: any) {
@@ -21,8 +22,12 @@ export function createRouter(history?: any) {
     history,
   });
 
-  if (typeof window !== "undefined" && getAnalytics && isSupported) {
-    router.history.subscribe(() => {
+  if (typeof window !== "undefined") {
+    router.history.subscribe(async () => {
+      const firebaseAnalytics = await loadFirebaseAnalytics();
+      if (!firebaseAnalytics) return;
+
+      const { getAnalytics, isSupported, logEvent } = firebaseAnalytics;
       isSupported()
         .then((supported: boolean) => {
           if (supported) {

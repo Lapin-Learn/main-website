@@ -1,13 +1,23 @@
+import url from "@rollup/plugin-url";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
 import reactRefresh from "@vitejs/plugin-react-refresh";
 import path from "path";
 import { defineConfig } from "vite";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [TanStackRouterVite(), react(), tsconfigPaths(), reactRefresh()],
+  plugins: [
+    TanStackRouterVite(),
+    react(),
+    tsconfigPaths(),
+    reactRefresh(),
+    viteStaticCopy({
+      targets: [{ src: "src/assets", dest: "dist/assets" }],
+    }),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -20,6 +30,12 @@ export default defineConfig({
         main: path.resolve(__dirname, "index.html"),
         ssr: path.resolve(__dirname, "src/entry-server.tsx"),
       },
+      plugins: [
+        url({
+          include: ["**/*.svg", "**/*.jpg"],
+          limit: 0, // Forces files to be copied
+        }),
+      ],
     },
     target: "esnext",
   },
