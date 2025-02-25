@@ -1,28 +1,23 @@
 import express from "express";
-import serverless from "serverless-http"; // Wrap Express app for Netlify
-import fs from "fs";
-import path from "path";
+import { createServer } from "http";
+
+import { render } from "../../dist-ssr/ssr.js";
 
 const app = express();
+app.use(express.static("dist-csr"));
 
-// Serve static assets from dist-csr (CSR files)
-app.use(express.static(path.resolve("dist-csr")));
-
-// SSR only for "/"
 app.get("/", async (req, res) => {
   try {
-    const template = fs.readFileSync("dist-ssr/index.html", "utf-8");
-    const { render } = await import("../../dist-ssr/ssr.js"); // Import SSR bundle
-    const appHtml = await render(req.url);
-    const html = template.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
-
-    res.setHeader("Content-Type", "text/html");
-    res.send(html);
-  } catch (error) {
-    console.error("❌ SSR Error:", error);
-    res.status(500).send("Internal Server Error");
+    const html = await render(req.url);
+    res.status(200).set({ "Content-Type": "text/html" }).end(html);
+  } catch (err) {
+    console.error("SSR Error:", err);
+    res.status(500).end("Internal Server Error");
   }
 });
 
-// ✅ Export the handler correctly for Netlify Functions
-export const handler = serverless(app);
+const server = createServer(app);
+
+export default async function handler(req: Request, res: Response) {
+  server.emit("request", req, res);
+}
