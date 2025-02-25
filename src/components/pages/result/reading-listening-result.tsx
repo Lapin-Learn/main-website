@@ -10,8 +10,8 @@ import {
 import { useResult } from "@/hooks/zustand/use-result";
 import useSimulatedTestState, { useAnswerStore } from "@/hooks/zustand/use-simulated-test";
 import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
-import { ReadingListeningSession } from "@/lib/types/simulated-test-session.type";
 import { SimulatedTestSession } from "@/lib/types/simulated-test.type";
+import { ReadingListeningSession } from "@/lib/types/simulated-test-session.type";
 import { Route } from "@/routes/_authenticated/_dashboard/practice/simulated-test/result";
 
 import { PartAnswersCard, SkeletonPartAnswersCard } from "../../organisms/result/part-answers-card";
