@@ -59,11 +59,14 @@ export async function render(url: string) {
 </head>
 <body>
   <script type="module">
-    import RefreshRuntime from 'http://localhost:3000/@react-refresh'
-    RefreshRuntime.injectIntoGlobalHook(window)
-    window.$RefreshReg$ = () => {}
-    window.$RefreshSig$ = () => (type) => type
-    window.__vite_plugin_react_preamble_installed__ = true
+    if (location.hostname === "localhost") {
+      import("http://localhost:3000/@react-refresh").then((RefreshRuntime) => {
+        RefreshRuntime.injectIntoGlobalHook(window);
+        window.$RefreshReg$ = () => {};
+        window.$RefreshSig$ = () => (type) => type;
+        window.__vite_plugin_react_preamble_installed__ = true;
+      });
+    }
   </script>
   <div id="root">${appHtml}</div>
   <script type="module" src="/src/main.tsx"></script>

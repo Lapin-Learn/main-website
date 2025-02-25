@@ -9,6 +9,9 @@ import tsconfigPaths from "vite-tsconfig-paths";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [TanStackRouterVite(), react(), tsconfigPaths(), reactRefresh()],
+  define: {
+    "import.meta.env.DEV": JSON.stringify(process.env.NODE_ENV !== "production"),
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
