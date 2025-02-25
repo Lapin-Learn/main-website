@@ -43,7 +43,7 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ["react", "react-dom", "react/jsx-runtime"],
+    include: ["react", "react-dom", "react/jsx-runtime", "lightningcss"],
   },
   esbuild: {
     jsx: "automatic",

@@ -1,6 +1,7 @@
 import express from "express";
 import fs from "fs";
 import path from "path";
+import serverless from "serverless-http";
 import { createServer as createViteServer } from "vite";
 
 const app = express();
@@ -49,3 +50,5 @@ async function createServer() {
 createServer().catch((err) => {
   console.error("❌ Failed to start server:", err);
 });
+
+export const handler = serverless(app);

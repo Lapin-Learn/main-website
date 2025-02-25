@@ -1,12 +1,19 @@
 [functions]
   node_bundler = "esbuild"
-  external_node_modules = ["react", "react-dom"]
+  external_node_modules = ["react", "react-dom", "react/jsx-runtime", "lightningcss"]
+  included_files = ["dist-ssr/**"]
 
 [build]
   command = "pnpm run build"
-  publish = "dist-csr"  
-  functions = "dist-ssr"  
+  publish = "dist-csr"
+  functions = "netlify/functions"
   environment = { NODE_VERSION = "18" }
+
+[[redirects]]
+  from = "/"
+  to = "/.netlify/functions/server"
+  status = 200
+  force = true
 
 [[redirects]]
   from = "/*"
