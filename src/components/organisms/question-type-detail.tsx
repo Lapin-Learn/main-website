@@ -2,7 +2,6 @@ import { Loader2, Triangle, X } from "lucide-react";
 import { PropsWithChildren, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import UnlockLesson from "@/assets/icons/daily-lesson/unlock-lesson.svg";
 import BandScoreSelect from "@/components/molecules/daily-lesson/bandscore-select";
 import LessonCarousel from "@/components/molecules/daily-lesson/lesson-carousel";
 import { Button, Card, CardContent, CardTitle } from "@/components/ui";
@@ -151,7 +150,7 @@ const QuestionTypeDetail = ({ className, children }: QuestionTypeDetailProps) =>
             ) : !isAvailable ? (
               <div className="grid h-full place-items-center content-center space-y-8 p-8">
                 <img
-                  src={UnlockLesson}
+                  src="/assets/icons/daily-lesson/unlock-lesson.svg"
                   alt="Unlock Lesson"
                   className="size-16 md:size-24 lg:size-28"
                 />

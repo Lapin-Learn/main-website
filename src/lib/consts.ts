@@ -1,4 +1,3 @@
-import CarrotBasket from "@/assets/carrot-basket.svg";
 import icons from "@/assets/icons";
 import AllSkillsIcon from "@/assets/icons/skills/all";
 import ListeningIcon from "@/assets/icons/skills/listening";
@@ -252,7 +251,7 @@ const carrotSubscription: Shop = {
   name: EnumItemShop.SUBSCRIPTION,
   price: { 500: 500 * 20, 2500: 2500 * 20, 5000: 5000 * 20 },
   image: {
-    url: CarrotBasket,
+    url: "/assets/carrot-basket.svg",
   },
   imageId: "",
   description: "Buy bill to get more time",

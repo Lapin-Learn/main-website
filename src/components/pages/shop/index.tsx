@@ -1,7 +1,6 @@
 import { SubscriptionRedirectDialog } from "@components/molecules/subscription-redirect-dialog.tsx";
 import { useTranslation } from "react-i18next";
 
-import Illus from "@/assets/shop-banner-illus.svg";
 import { ShopList } from "@/components/organisms/shop/shop-list";
 import { ActivateItemDialogProvider } from "@/components/organisms/use-item-dialog";
 import { UseItemDialog } from "@/components/organisms/use-item-dialog/dialog";
@@ -18,7 +17,11 @@ function Banner() {
         </div>
         <div className="text-xs font-normal text-blue-700 md:text-small">{t("shop.greetings")}</div>
       </div>
-      <img src={Illus} alt="shop-banner-illus" className="h-28 pl-2 md:h-40 md:pl-10" />
+      <img
+        src="/assets/shop-banner-illus.svg"
+        alt="shop-banner-illus"
+        className="h-28 pl-2 md:h-40 md:pl-10"
+      />
     </div>
   );
 }
