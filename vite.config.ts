@@ -1,4 +1,3 @@
-import url from "@rollup/plugin-url";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
 import reactRefresh from "@vitejs/plugin-react-refresh";
@@ -24,12 +23,6 @@ export default defineConfig({
         main: path.resolve(__dirname, "index.html"),
         ssr: path.resolve(__dirname, "src/entry-server.tsx"),
       },
-      plugins: [
-        url({
-          include: ["**/*.svg", "**/*.jpg"],
-          limit: 0, // Forces files to be copied
-        }),
-      ],
     },
     target: "esnext",
   },
@@ -43,7 +36,7 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ["react", "react-dom", "react/jsx-runtime", "lightningcss"],
+    include: ["react", "react-dom", "react/jsx-runtime"],
   },
   esbuild: {
     jsx: "automatic",
