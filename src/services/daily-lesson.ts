@@ -103,14 +103,13 @@ export const evaluateSpeaking = async (params: SpeakingEvaluation) => {
     formData.append("file", params.blob);
     formData.append("original", params.originalQuestion);
 
-    const response = (
+    return (
       await api
         .post<FetchingData<SpeakingServiceResponse>>("ai/speaking/speech-evaluation", {
           body: formData,
         })
         .json()
     ).data;
-    return response;
   } catch (error) {
     console.error("Error evaluating speaking:", error);
     throw error;

@@ -1,7 +1,6 @@
-import { useNavigate } from "@tanstack/react-router";
+import BandScoreStep from "@components/organisms/lesson-result-dialog/band-score-step.tsx";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-
-import { Route } from "@/routes/_authenticated/daily-lesson/$dailyLessonId";
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../ui/dialog";
 import LevelRankStep from "./level-rank-step";
@@ -15,7 +14,9 @@ import { EnumResultStepper } from "./type";
 const LessonResultDialog = ({ defaultOpen = false }: { defaultOpen?: boolean }) => {
   const [open, setOpen] = useState(defaultOpen);
 
-  const search = Route.useSearch();
+  const search = useSearch({
+    strict: false,
+  });
   const navigate = useNavigate();
   const { currentStep, currentStepValue } = useResultStepperContext();
   // const { clearHistory } = useDailyLessonStore();
@@ -48,6 +49,7 @@ const LessonResultDialog = ({ defaultOpen = false }: { defaultOpen?: boolean }) 
             {currentStepValue && (
               <>
                 <ResultStep setShowResultDetail={setShowResultDetail} />
+                <BandScoreStep />
                 <StreakStep />
                 {currentStepValue.type === EnumResultStepper.LEVEL_RANK && (
                   <LevelRankStep {...currentStepValue} />
