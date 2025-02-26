@@ -6,7 +6,7 @@
   "scripts": {
     "dev:vite": "vite",
     "dev:server": "node --loader ts-node/esm netlify/function/server.ts",
-    "build:csr": "vite build --outDir dist-csr",
+    "build:csr": "vite build --outDir dist",
     "build:ssr": "vite build --ssr --outDir dist-ssr",
     "build": "pnpm run build:csr && pnpm run build:ssr",
     "deploy": "pnpm run build && netlify deploy --prod",

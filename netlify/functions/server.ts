@@ -4,7 +4,7 @@ import { createServer } from "http";
 import { render } from "../../dist-ssr/ssr.js";
 
 const app = express();
-app.use(express.static("dist-csr"));
+app.use(express.static("dist"));
 
 app.get("/", async (req, res) => {
   try {
