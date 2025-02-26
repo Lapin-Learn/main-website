@@ -1,3 +1,4 @@
+import { BaseAnswerInputProps } from "@components/organisms/[module]-daily-lesson/answer-input/index.tsx";
 import { motion } from "motion/react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -13,7 +14,7 @@ import { cn } from "@/lib/utils";
 import Transcript from "../speaking-transcript";
 import RecordingBar from "./recording-bar";
 
-const Pronounciation = () => {
+const Pronounciation = ({ lessonId }: BaseAnswerInputProps) => {
   const [evaluateResult, setEvaluateResult] = useState<SpeakingServiceResponse>();
 
   const {
@@ -59,7 +60,9 @@ const Pronounciation = () => {
     }
   };
 
-  useAnswerDailyLesson();
+  useAnswerDailyLesson({
+    lessonId,
+  });
 
   return (
     <>

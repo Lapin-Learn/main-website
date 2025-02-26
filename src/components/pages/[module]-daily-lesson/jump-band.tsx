@@ -89,6 +89,7 @@ const JumpBandPage = () => {
           <QuestionCard />
           <AnswerInput
             className="h-full flex-1"
+            lessonId={data.lastLessonId}
             renderCheckButton={(getCorrectAnswers, disabled) => (
               <QuestionActionButtons
                 getCorrectAnswers={getCorrectAnswers}
