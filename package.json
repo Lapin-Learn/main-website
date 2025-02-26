@@ -10,7 +10,7 @@
     "build:ssr": "vite build --ssr --outDir dist-ssr",
     "build": "pnpm run build:csr && pnpm run build:ssr",
     "deploy": "pnpm run build && netlify deploy --prod",
-    "serve": "cross-env NODE_ENV=production node --loader ts-node/esm dist-ssr/ssr.js",
+    "serve": "cross-env NODE_ENV=production node --loader ts-node/esm server.ts",
     "format": "prettier ./src --write",
     "format:check": "prettier ./src --check",
     "lint": "eslint .",

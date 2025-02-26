@@ -1,7 +1,14 @@
 [functions]
   node_bundler = "esbuild"
   external_node_modules = ["react", "react-dom", "react/jsx-runtime", "scheduler"]
-  included_files = ["dist-ssr/**", "node_modules/react/**", "node_modules/react-dom/**", "node_modules/scheduler/**"]
+  included_files = [
+    "dist-ssr/**", 
+    "node_modules/react/**", 
+    "node_modules/react-dom/**", 
+    "node_modules/scheduler/**", 
+    "dist/index.html", 
+    "dist/assets/**"
+  ]
 
 [build]
   command = "pnpm run build"
