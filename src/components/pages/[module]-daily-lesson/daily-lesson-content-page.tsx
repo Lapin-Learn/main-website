@@ -77,7 +77,11 @@ const DailyLessonContentPage = () => {
           <AnswerInput
             className="h-full flex-1"
             renderCheckButton={(getCorrectAnswers, disabled) => (
-              <QuestionActionButtons getCorrectAnswers={getCorrectAnswers} disabled={disabled} />
+              <QuestionActionButtons
+                getCorrectAnswers={getCorrectAnswers}
+                disabled={disabled}
+                lessonId={dailyLessonId}
+              />
             )}
           />
         </div>
