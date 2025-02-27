@@ -1,75 +1,77 @@
 {
-    "email": "Email",
-    "password": "Password",
-    "confirmPassword": "Confirm password",
-    "cancel": "Cancel",
-    "submit": "Submit",
-    "clear": "Clear",
-    "close": "Close",
-    "save": "Save",
-    "update": "Update",
-    "more": "more",
-    "select_all": "Select all",
-    "search": {
-        "placeholder": "Search",
-        "noResults": "No results found"
-    },
-    "toast": {
-        "update": {
-            "success": "Update {{item, lowercase}} successfully",
-            "error": "Update {{item, lowercase}} failed"
-        }
-    },
-    "navigation": {
-        "practice": "Practice",
-        "mission": "Mission",
-        "shop": "Shop",
-        "simulatedTest": "Simulated test",
-        "result": "Result",
-        "contentEditor": "Tiptap exporter",
-        "settings": "Settings",
-        "dailyLesson": "Daily lesson",
-        "profile": "Personal information",
-        "changePassword": "Change password",
-        "history": "Learning history",
-        "transactions": "Transaction history",
-        "blogs": "About IELTS"
-    },
-    "allSkills": "All skills",
-    "reading": "reading",
-    "speaking": "speaking",
-    "listening": "listening",
-    "writing": "writing",
-    "next": "Next",
-    "prev": "Prev",
-    "total": "Total: {{number}} {{unit}}",
-    "home": "Go to home",
-    "question": "Question",
-    "microphone": {
-        "permission": "To use the Microphone, you need to grant permission for the Microphone on your device",
-        "deniedTitle": "Microphone permission denied",
-        "deniedDescription": "Please allow microphone permission to record audio.",
-        "browserNotSupportTitle": "Browser not supported",
-        "browserNotSupportDescription": "This browser does not support audio recording."
-    },
-    "time_units": {
-        "second": "second",
-        "minute": "minute",
-        "hour": "hour",
-        "day": "day",
-        "week": "week",
-        "month": "month",
-        "year": "year"
-    },
-    "crashMessage": "An error occurred, contact the administrator for support",
-    "success": "Success",
-    "error": "Failed",
-    "language": {
-        "title": "Language",
-        "vi": "Vietnamese",
-        "en": "English"
-    },
-    "calendar": {
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Confirm password",
+  "cancel": "Cancel",
+  "submit": "Submit",
+  "clear": "Clear",
+  "close": "Close",
+  "save": "Save",
+  "update": "Update",
+  "more": "more",
+  "get_started": "Get started",
+  "go_back": "Go back",
+  "select_all": "Select all",
+  "search": {
+    "placeholder": "Search",
+    "noResults": "No results found"
+  },
+  "toast": {
+    "update": {
+      "success": "Update {{item, lowercase}} successfully",
+      "error": "Update {{item, lowercase}} failed"
+    }
+  },
+  "navigation": {
+    "practice": "Practice",
+    "mission": "Mission",
+    "shop": "Shop",
+    "simulatedTest": "Simulated test",
+    "result": "Result",
+    "contentEditor": "Tiptap exporter",
+    "settings": "Settings",
+    "dailyLesson": "Daily lesson",
+    "profile": "Personal information",
+    "changePassword": "Change password",
+    "history": "Learning history",
+    "transactions": "Transaction history",
+    "blogs": "About IELTS"
+  },
+  "allSkills": "All skills",
+  "reading": "reading",
+  "speaking": "speaking",
+  "listening": "listening",
+  "writing": "writing",
+  "next": "Next",
+  "prev": "Prev",
+  "total": "Total: {{number}} {{unit}}",
+  "home": "Go to home",
+  "question": "Question",
+  "microphone": {
+    "permission": "To use the Microphone, you need to grant permission for the Microphone on your device",
+    "deniedTitle": "Microphone permission denied",
+    "deniedDescription": "Please allow microphone permission to record audio.",
+    "browserNotSupportTitle": "Browser not supported",
+    "browserNotSupportDescription": "This browser does not support audio recording."
+  },
+  "time_units": {
+    "second": "second",
+    "minute": "minute",
+    "hour": "hour",
+    "day": "day",
+    "week": "week",
+    "month": "month",
+    "year": "year"
+  },
+  "crashMessage": "An error occurred, contact the administrator for support",
+  "success": "Success",
+  "error": "Failed",
+  "language": {
+    "title": "Language",
+    "vi": "Vietnamese",
+    "en": "English"
+  },
+  "calendar": {
     "days_of_week": [
       "SU",
       "MO",
