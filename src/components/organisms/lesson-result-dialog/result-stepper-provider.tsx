@@ -6,11 +6,11 @@ import { transformStepper } from "./helpers";
 import { EnumResultStepper, ResultStepperContextType } from "./type";
 
 const nextStepMapper: Record<string, EnumResultStepper> = {
-  [EnumResultStepper.RESULT]: EnumResultStepper.DAILY_STREAK,
+  [EnumResultStepper.RESULT]: EnumResultStepper.BAND_SCORE_UP,
+  [EnumResultStepper.BAND_SCORE_UP]: EnumResultStepper.DAILY_STREAK,
   [EnumResultStepper.DAILY_STREAK]: EnumResultStepper.LEVEL_RANK,
   [EnumResultStepper.LEVEL_RANK]: EnumResultStepper.MISSION_COMPLETED,
-  [EnumResultStepper.MISSION_COMPLETED]: EnumResultStepper.BAND_SCORE_UP,
-  [EnumResultStepper.BAND_SCORE_UP]: EnumResultStepper.END,
+  [EnumResultStepper.MISSION_COMPLETED]: EnumResultStepper.END,
 };
 
 export const useResultStepperContext = () => {

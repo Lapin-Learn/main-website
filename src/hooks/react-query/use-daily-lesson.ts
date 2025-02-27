@@ -4,6 +4,7 @@ import { EnumBandScore, EnumSkill } from "@/lib/enums";
 import {
   confirmLessonCompletion,
   evaluateSpeaking,
+  getJumpBandQuestions,
   getLessonQuestions,
   getLessons,
   getQuestionTypes,
@@ -21,6 +22,8 @@ const questionTypeKeys = {
     [...questionTypeKeys.detail(questionTypeId, bandScore), "lessons"] as const,
   instruction: (questionTypeId: string, bandScore: string) =>
     [...questionTypeKeys.detail(questionTypeId, bandScore), "instruction"] as const,
+  jumpBand: (questionTypeId: string | number) =>
+    [...questionTypeKeys.key, questionTypeId, "jump-band"] as const,
 };
 
 const lessonKeys = {
@@ -57,6 +60,15 @@ export const useLessonQuestions = (lessonId: string) => {
   return useQuery({
     queryKey: lessonKeys.detail(lessonId),
     queryFn: () => getLessonQuestions(lessonId),
+  });
+};
+
+export const useJumpBandQuestions = ({ questionTypeId }: { questionTypeId: string | number }) => {
+  return useQuery({
+    queryKey: questionTypeKeys.jumpBand(questionTypeId),
+    queryFn: () => getJumpBandQuestions(questionTypeId),
+    staleTime: 0,
+    enabled: !!questionTypeId,
   });
 };
 

@@ -58,11 +58,25 @@ export const getLessonQuestions = async (lessonId: string) => {
   ).data;
 };
 
+type JumpBandQuestionsResponse = {
+  lastLessonId: number;
+  questions: DLQuestion[];
+};
+
+export const getJumpBandQuestions = async (questionTypeId: string | number) => {
+  return (
+    await api
+      .get(`daily-lessons/question-types/${questionTypeId}/band-upgrade-questions`)
+      .json<FetchingData<JumpBandQuestionsResponse>>()
+  ).data;
+};
+
 type LessonCompletionPayload = {
   lessonId: number;
   correctAnswers: number;
   wrongAnswers: number;
   duration: number;
+  isJumpBand?: boolean;
 };
 export const confirmLessonCompletion = async (payload: LessonCompletionPayload) => {
   return (
@@ -89,14 +103,13 @@ export const evaluateSpeaking = async (params: SpeakingEvaluation) => {
     formData.append("file", params.blob);
     formData.append("original", params.originalQuestion);
 
-    const response = (
+    return (
       await api
         .post<FetchingData<SpeakingServiceResponse>>("ai/speaking/speech-evaluation", {
           body: formData,
         })
         .json()
     ).data;
-    return response;
   } catch (error) {
     console.error("Error evaluating speaking:", error);
     throw error;

@@ -13,8 +13,15 @@ import { cn } from "@/lib/utils";
 type QuestionActionButtonsProps = {
   getCorrectAnswers: () => DLAnswer;
   disabled: boolean;
+  isJumpBand?: boolean;
+  lessonId: number | string;
 };
-const QuestionActionButtons = ({ getCorrectAnswers, disabled }: QuestionActionButtonsProps) => {
+const QuestionActionButtons = ({
+  getCorrectAnswers,
+  disabled,
+  isJumpBand = false,
+  lessonId,
+}: QuestionActionButtonsProps) => {
   const [randomEncourage, setRandomEncourage] = useState<number>(0);
   const isMobile = useBreakPoint() === "xs";
   const {
@@ -55,7 +62,10 @@ const QuestionActionButtons = ({ getCorrectAnswers, disabled }: QuestionActionBu
     };
   }, [isAnswered, currentQuestion, disabled, lessonCompletionMutation.isPending, isCompleted]);
 
-  useAnswerDailyLesson();
+  useAnswerDailyLesson({
+    isJumpBand,
+    lessonId,
+  });
 
   useEffect(() => {
     if (isAnswered) {

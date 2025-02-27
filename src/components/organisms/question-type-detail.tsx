@@ -34,6 +34,13 @@ const checkAvailable = (bandScore: EnumBandScore, currentBandScore: EnumBandScor
   return currentIndex >= targetIndex;
 };
 
+const checkAvailableJumpBand = (bandScore: EnumBandScore, currentBandScore: EnumBandScore) => {
+  const bandScoreList = Object.values(EnumBandScore);
+  const currentIndex = bandScoreList.indexOf(currentBandScore);
+  const targetIndex = bandScoreList.indexOf(bandScore);
+  return currentIndex + 1 == targetIndex;
+};
+
 const QuestionTypeDetail = ({ className, children }: QuestionTypeDetailProps) => {
   const searchParams = Route.useSearch();
   const { skill: exerciseSkill, bandScore, questionTypeId } = searchParams;
@@ -51,6 +58,7 @@ const QuestionTypeDetail = ({ className, children }: QuestionTypeDetailProps) =>
     bandScore
   );
   const isAvailable = checkAvailable(bandScore, currentBandScore);
+  const isAvailableJumpBand = checkAvailableJumpBand(bandScore, currentBandScore);
 
   const { data, isLoading: isLoadingLessons } = useGetLessonList({
     questionTypeId,
@@ -158,19 +166,35 @@ const QuestionTypeDetail = ({ className, children }: QuestionTypeDetailProps) =>
           </div>
         </div>
 
-        <Button
-          size="2xl"
-          className="absolute inset-x-6 bottom-6 shrink-0 rounded-md px-4 py-2.5"
-          disabled={!isAvailable || isComingSoon || data?.lessons[current]?.id === undefined}
-          onClick={() => {
-            navigate({
-              to: `/daily-lesson/${data?.lessons[current].id}`,
-              search: searchParams,
-            });
-          }}
-        >
-          <p className="text-body font-medium text-white">{t("questionType.practiceBtn")}</p>
-        </Button>
+        {isAvailableJumpBand ? (
+          <Button
+            size="3xl"
+            variant="black"
+            className="absolute inset-x-6 bottom-6 shrink-0 rounded-md px-4 py-2.5"
+            onClick={() => {
+              navigate({
+                to: `/daily-lesson/jump-band`,
+                search: searchParams,
+              });
+            }}
+          >
+            <p className="text-body font-medium text-white">{t("questionType.practiceBtn")}</p>
+          </Button>
+        ) : (
+          <Button
+            size="3xl"
+            className="absolute inset-x-6 bottom-6 shrink-0 rounded-md px-4 py-2.5"
+            disabled={!isAvailable || isComingSoon || data?.lessons[current]?.id === undefined}
+            onClick={() => {
+              navigate({
+                to: `/daily-lesson/${data?.lessons[current].id}`,
+                search: searchParams,
+              });
+            }}
+          >
+            <p className="text-body font-medium text-white">{t("questionType.practiceBtn")}</p>
+          </Button>
+        )}
       </DialogContent>
     </Dialog>
   );
