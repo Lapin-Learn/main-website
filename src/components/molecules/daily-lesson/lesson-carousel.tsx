@@ -44,7 +44,7 @@ const LessonCarousel = ({ lessons, setCurrent, skill, defaultIndex = 0 }: Lesson
   }, [defaultIndex, api]);
 
   return (
-    <Carousel className="" setApi={setApi} opts={{}}>
+    <Carousel className="" setApi={setApi}>
       <CarouselContent className="m-0 -mx-2 space-x-0">
         {lessons.map((lesson, index) => {
           return (
