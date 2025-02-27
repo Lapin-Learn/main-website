@@ -1,16 +1,19 @@
-import { ReactNode, useEffect, useId, useState } from "react";
-
-import { getAuthValueFromStorage } from "@/services";
+import { ReactNode, useEffect, useState } from "react";
 
 import TopNavigationBar from "../organisms/landing-page/top-navigation-bar";
 
 type LandingPageLayoutProps = {
   children: ReactNode;
+  id?: string;
+  isLoggedIn?: boolean;
 };
 
-export default function LandingPageLayout({ children }: LandingPageLayoutProps) {
+export default function LandingPageLayout({
+  children,
+  id = "",
+  isLoggedIn = false,
+}: LandingPageLayoutProps) {
   const [isScrolled, setIsScrolled] = useState(false);
-  const id = useId();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,8 +26,6 @@ export default function LandingPageLayout({ children }: LandingPageLayoutProps) 
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  const isLoggedIn = getAuthValueFromStorage() !== null;
 
   return (
     <div className="relative w-screen overflow-hidden">

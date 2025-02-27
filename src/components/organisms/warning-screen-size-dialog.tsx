@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import WarningScreenSize from "@/assets/images/simulated-test/warning-screen-size.svg";
 import useBreakPoint from "@/hooks/use-screen-size";
 
 import {
@@ -35,7 +34,11 @@ const WarningScreenSizeDialog = ({ closable = false }: WarningScreenSizeDialogPr
         <AlertDialogHeader>
           <AlertDialogTitle>{t("warning")}</AlertDialogTitle>
         </AlertDialogHeader>
-        <img src={WarningScreenSize} alt="Warning" className="mx-auto my-8 size-40" />
+        <img
+          src="/assets/images/simulated-test/warning-screen-size.svg"
+          alt="Warning"
+          className="mx-auto my-8 size-40"
+        />
         <p className="text-center">{t("screen_size_warning")}</p>
         {closable && (
           <AlertDialogFooter className="items-end">

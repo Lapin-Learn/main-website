@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { toNumber } from "lodash";
+import pkg from "lodash";
 import { MailIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -9,6 +9,8 @@ import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/com
 import { useGetPaymentLink, useGetUserTransactionDetail } from "@/hooks/react-query/usePayment";
 import { EnumTransactionStatus } from "@/lib/enums";
 import { formatVNDCurrency } from "@/lib/utils";
+
+const { toNumber } = pkg;
 
 type TransactionDetailSheetProps = {
   open?: boolean;

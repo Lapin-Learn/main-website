@@ -3,8 +3,6 @@ import { ChevronLeft, Menu } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 
-import AppIcon from "@/assets/images/app.jpg";
-import Logo from "@/assets/logo.svg";
 import { useAccountIdentifier } from "@/hooks/react-query/useUsers";
 import useBreakPoint from "@/hooks/use-screen-size";
 import { EnumRole } from "@/lib/enums";
@@ -45,7 +43,7 @@ export default function SideBar() {
       {/* MOBILE */}
       <div className="sticky top-0 flex w-full items-center justify-between bg-white p-4 shadow-md md:hidden md:pt-8">
         <img
-          src={Logo}
+          src="/assets/logo.svg"
           alt="App Logo"
           className="h-5 cursor-pointer"
           onClick={handleNavigateHome}
@@ -73,7 +71,7 @@ export default function SideBar() {
                 )}
               >
                 <img
-                  src={Logo}
+                  src="/assets/logo.svg"
                   className={cn(
                     "h-6 transition-transform duration-300 sm:flex cursor-pointer",
                     isSidebarOpen ? "pl-4" : "h-0"
@@ -82,7 +80,7 @@ export default function SideBar() {
                   onClick={handleNavigateHome}
                 />
                 <img
-                  src={AppIcon}
+                  src="/assets/images/app.webp"
                   className={cn(
                     "h-0 transition-transform duration-300 sm:flex cursor-pointer",
                     isSidebarOpen ? "pl-4" : "h-10 rounded-md"

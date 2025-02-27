@@ -1,34 +1,30 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
-import Listening from "@/assets/images/daily-lesson/listening.svg";
-import Reading from "@/assets/images/daily-lesson/reading.svg";
-import Speaking from "@/assets/images/daily-lesson/speaking.svg";
-import Writing from "@/assets/images/daily-lesson/writing.svg";
 import { EnumSkill } from "@/lib/enums";
 import { cn } from "@/lib/utils";
 
 const dailyLessonSkillMapping = {
   [EnumSkill.reading]: {
-    image: Reading,
+    image: "/assets/images/daily-lesson/reading.svg",
     color: "bg-[#BAE0BA]",
     hoverColor: "bg-[#BAE0BA70]",
     text: "text-[#326032]",
   },
   [EnumSkill.listening]: {
-    image: Listening,
+    image: "/assets/images/daily-lesson/listening.svg",
     color: "bg-[#DCDAEF]",
     hoverColor: "bg-[#DCDAEF70]",
     text: "text-[#424296]",
   },
   [EnumSkill.writing]: {
-    image: Writing,
+    image: "/assets/images/daily-lesson/writing.svg",
     color: "bg-[#F9F1D7]",
     hoverColor: "bg-[#F9F1D770]",
     text: "text-[#8E5F20]",
   },
   [EnumSkill.speaking]: {
-    image: Speaking,
+    image: "/assets/images/daily-lesson/speaking.svg",
     color: "bg-[#CCF1FF]",
     hoverColor: "bg-[#CCF1FF70]",
     text: "text-[#05AEE2]",

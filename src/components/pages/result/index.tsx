@@ -9,8 +9,8 @@ import {
   useGetSTSessionDetail,
 } from "@/hooks/react-query/use-simulated-test";
 import { EnumSimulatedTestSessionStatus, EnumSkill } from "@/lib/enums";
-import { SpeakingSession, WritingSession } from "@/lib/types/simulated-test-session.type";
 import { SimulatedTestSession } from "@/lib/types/simulated-test.type";
+import { SpeakingSession, WritingSession } from "@/lib/types/simulated-test-session.type";
 import { Route } from "@/routes/_authenticated/_dashboard/practice/simulated-test/result";
 
 import ReadingListeningResult from "./reading-listening-result";

@@ -1,4 +1,5 @@
-import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas-lite";
+/* eslint-disable */
+import * as Rive from "@rive-app/react-canvas-lite"; // ✅ Fixes CommonJS import
 import { useEffect } from "react";
 
 import { BaseRiveProps } from "./type";
@@ -9,13 +10,15 @@ type RiveAboutUsIntroduceProps = BaseRiveProps & {
 };
 
 const RiveAboutUsIntroduce = ({ variant, fallback, className }: RiveAboutUsIntroduceProps) => {
-  const { rive, RiveComponent } = useRive({
+  if (typeof window === "undefined") return <>{fallback}</>;
+
+  const { rive, RiveComponent } = Rive.useRive({
     src: "https://firebasestorage.googleapis.com/v0/b/lapin-learn.appspot.com/o/rive%2Fwhat_abous_us.riv?alt=media&token=8da2e33c-28b8-4c9c-b1dc-46d0c6c3d021",
     stateMachines: "main",
     autoplay: false,
-    layout: new Layout({
-      fit: Fit.Contain,
-      alignment: Alignment.Center,
+    layout: new Rive.Layout({
+      fit: Rive.Fit.Contain,
+      alignment: Rive.Alignment.Center,
     }),
   });
 
@@ -23,7 +26,9 @@ const RiveAboutUsIntroduce = ({ variant, fallback, className }: RiveAboutUsIntro
 
   useEffect(() => {
     if (rive) {
-      const variantInput = rive.stateMachineInputs("main").find((input) => input.name === "Step");
+      const variantInput = rive
+        .stateMachineInputs("main")
+        .find((input: any) => input.name === "Step");
       if (variantInput) {
         variantInput.value = variant;
       }
