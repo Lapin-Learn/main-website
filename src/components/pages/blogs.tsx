@@ -1,11 +1,12 @@
 import { useGetBlogs } from "@/hooks/react-query/use-public";
 
+import { BlogResponse } from "@/lib/types";
 import { BlogCard } from "../organisms/blogs/blog-card";
 import { BlogsHeroBanner } from "../organisms/blogs/hero-banner";
 import LandingPageLayout from "../templates/landing-page-layout";
 
-export default function BlogsPage() {
-  const { data, isLoading } = useGetBlogs();
+export default function BlogsPage({ initialData }: { initialData?: BlogResponse }) {
+  const { data, isLoading } = useGetBlogs(initialData);
 
   if (!data || isLoading) return null;
 

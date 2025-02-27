@@ -1,4 +1,4 @@
-import { useId } from "react";
+import { useMemo } from "react";
 
 import { getAuthValueFromStorage } from "@/services";
 
@@ -11,11 +11,11 @@ import { SimulatedTest } from "../organisms/landing-page/simulated-test";
 import LandingPageLayout from "../templates/landing-page-layout";
 
 export default function LandingPage() {
-  const id = useId();
-  const isLoggedIn = getAuthValueFromStorage() !== null;
+  const id = useMemo(() => `hero-banner-${Math.random().toString(36).substr(2, 9)}`, []);
+  const isLoggedIn = typeof window !== "undefined" && getAuthValueFromStorage() !== null;
 
   return (
-    <LandingPageLayout>
+    <LandingPageLayout id={id} isLoggedIn={isLoggedIn}>
       <HeroBanner id={id} isLoggedIn={isLoggedIn} />
       <Gamification />
       <SimulatedTest />

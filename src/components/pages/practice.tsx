@@ -1,7 +1,5 @@
 import { useTranslation } from "react-i18next";
 
-import Book from "@/assets/practice-banner-book.svg";
-import DashLine from "@/assets/practice-banner-dash-line.svg";
 import { useUserProfile } from "@/hooks/react-query/useUsers";
 
 import { CollectionList } from "../organisms/collection-list";
@@ -24,13 +22,13 @@ function Banner() {
         </div>
       </div>
       <img
-        src={DashLine}
-        alt="practice-banner-illus"
+        src="/assets/practice-banner-dash-line.svg"
+        alt="practice-banner-dash-line"
         className="absolute right-0 top-0 h-14 md:h-28"
       />
       <img
-        src={Book}
-        alt="practice-banner-illus"
+        src="/assets/practice-banner-book.svg"
+        alt="practice-banner-book"
         className="z-10 -mr-8 ml-auto h-24 md:-mr-6 md:h-40"
       />
     </div>

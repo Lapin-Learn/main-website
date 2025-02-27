@@ -16,9 +16,6 @@ import { CheckIcon } from "lucide-react";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import CarrotBasket from "@/assets/carrot-basket.svg";
-import EvaluateFail from "@/assets/evaluate_failed.svg";
-import Evaluating from "@/assets/evaluating.svg";
 import CarrotIcon from "@/assets/icons/carrot";
 import { carrotSubscription } from "@/lib/consts.ts";
 import { EnumSimulatedTestSessionStatus } from "@/lib/enums.ts";
@@ -47,7 +44,7 @@ export function EvaluationSection({ id, status }: EvaluationSectionProps) {
         titleStyle: "text-left",
         description: "description",
         buttonText: "evaluate.not_evaluated",
-        image: CarrotBasket,
+        image: "/assets/carrot-basket.svg",
         altImage: "carrot-basket",
       };
     }
@@ -57,7 +54,7 @@ export function EvaluationSection({ id, status }: EvaluationSectionProps) {
         titleStyle: "text-center",
         description: "evaluate.in_evaluating_message",
         buttonText: "evaluate.in_evaluating",
-        image: Evaluating,
+        image: "/assets/evaluating.svg",
         altImage: "evaluating",
       };
     }
@@ -67,7 +64,7 @@ export function EvaluationSection({ id, status }: EvaluationSectionProps) {
         titleStyle: "text-center",
         description: "evaluate.evaluation_failed_message",
         buttonText: "evaluate.evaluation_failed",
-        image: EvaluateFail,
+        image: "/assets/evaluate_failed.svg",
         altImage: "evaluate-failed",
       };
     }

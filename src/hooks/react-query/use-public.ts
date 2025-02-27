@@ -2,9 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getBlog, getBlogs, getCollectionIntroduction, searchCollections } from "@/services";
 
+import { Blog, BlogResponse } from "@/lib/types";
 import { useSearch } from "./use-simulated-test";
 
-const publicKeys = {
+export const publicKeys = {
   searchCollectionKey: ["searchCollection"] as const,
   searchCollection: (params: Partial<{ keyword?: string }>) =>
     [...publicKeys.searchCollectionKey, params] as const,
@@ -28,16 +29,18 @@ export const useGetCollectionIntroduction = () => {
   });
 };
 
-export const useGetBlogs = () => {
+export const useGetBlogs = (initialData?: BlogResponse) => {
   return useQuery({
     queryKey: publicKeys.blogs,
     queryFn: getBlogs,
+    initialData,
   });
 };
 
-export const useGetBlog = (id: string) => {
+export const useGetBlog = (id: string, initialData?: Blog) => {
   return useQuery({
     queryKey: publicKeys.blog(id),
     queryFn: () => getBlog(id),
+    initialData,
   });
 };
