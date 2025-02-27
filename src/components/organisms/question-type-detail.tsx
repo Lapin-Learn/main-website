@@ -1,5 +1,5 @@
 import { Loader2, Triangle, X } from "lucide-react";
-import { PropsWithChildren, useState } from "react";
+import { PropsWithChildren, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import UnlockLesson from "@/assets/icons/daily-lesson/unlock-lesson.svg";
@@ -66,7 +66,12 @@ const QuestionTypeDetail = ({ className, children }: QuestionTypeDetailProps) =>
     enabled: isAvailable,
   });
 
-  const [current, setCurrent] = useState(0);
+  const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
+
+  const defaultLessonIndex = useMemo(() => {
+    if (!data) return 0;
+    return data.lessons.findIndex((lesson) => lesson.isCurrent) ?? 0;
+  }, [data]);
 
   const navigate = Route.useNavigate();
   const { t } = useTranslation("dailyLesson");
@@ -159,8 +164,9 @@ const QuestionTypeDetail = ({ className, children }: QuestionTypeDetailProps) =>
             ) : (
               <LessonCarousel
                 lessons={data?.lessons ?? []}
-                setCurrent={setCurrent}
+                setCurrent={setCurrentLessonIndex}
                 skill={exerciseSkill}
+                defaultIndex={defaultLessonIndex}
               />
             )}
           </div>
@@ -184,10 +190,12 @@ const QuestionTypeDetail = ({ className, children }: QuestionTypeDetailProps) =>
           <Button
             size="3xl"
             className="absolute inset-x-6 bottom-6 shrink-0 rounded-md px-4 py-2.5"
-            disabled={!isAvailable || isComingSoon || data?.lessons[current]?.id === undefined}
+            disabled={
+              !isAvailable || isComingSoon || data?.lessons[currentLessonIndex]?.id === undefined
+            }
             onClick={() => {
               navigate({
-                to: `/daily-lesson/${data?.lessons[current].id}`,
+                to: `/daily-lesson/${data?.lessons[currentLessonIndex].id}`,
                 search: searchParams,
               });
             }}
