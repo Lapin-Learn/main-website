@@ -23,6 +23,19 @@
   force = true
 
 [[redirects]]
+  from = "/blogs"
+  to = "/.netlify/functions/server"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blogs/:id"
+  to = "/.netlify/functions/server"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+  conditions = { Cookie = ["_netlify_preview=true"] }

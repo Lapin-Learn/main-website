@@ -1,6 +1,6 @@
 import "regenerator-runtime/runtime";
 
-import { QueryClientProvider } from "@tanstack/react-query";
+import { HydrationBoundary, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { RouterProvider } from "@tanstack/react-router";
 import { useEffect } from "react";
@@ -17,7 +17,7 @@ import { createRouter } from "./router";
 
 const router = createRouter();
 
-function App() {
+function App({ dehydratedState }: { dehydratedState: unknown }) {
   const { t } = useTranslation("metadata");
 
   useEffect(() => {
@@ -29,7 +29,9 @@ function App() {
       <MetaTags language={i18n.language} />
       <ErrorBoundary fallback={<ErrorFallback />}>
         <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
+          <HydrationBoundary state={dehydratedState}>
+            <RouterProvider router={router} />
+          </HydrationBoundary>
           <ReactQueryDevtools />
           <Toaster />
         </QueryClientProvider>

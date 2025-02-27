@@ -20,7 +20,8 @@ async function createServer() {
     const url = req.originalUrl;
 
     try {
-      if (url === "/") {
+      if (url === '/' || url.startsWith("/blogs")) {
+        console.log("🚀 [SSR] Rendering for URL:", url);
         const { render } = await vite.ssrLoadModule("/src/entry-server.tsx");
         const appHtml = await render(url);
         res.status(200).set({ "Content-Type": "text/html" }).end(appHtml);

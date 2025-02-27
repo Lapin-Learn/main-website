@@ -4,12 +4,13 @@ import { useTranslation } from "react-i18next";
 import { useGetBlog } from "@/hooks/react-query/use-public";
 import { Route } from "@/routes/blogs/$blogId";
 
+import { Blog } from "@/lib/types";
 import LandingPageLayout from "../templates/landing-page-layout";
 import { Separator, Typography } from "../ui";
 
-export const BlogDetailsPage = () => {
+export const BlogDetailsPage = ({ initialData }: { initialData?: Blog }) => {
   const { blogId } = Route.useParams();
-  const { data, isLoading } = useGetBlog(blogId);
+  const { data, isLoading } = useGetBlog(blogId, initialData);
   const { t } = useTranslation("landingPage");
 
   if (!data || isLoading) return null;

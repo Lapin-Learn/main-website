@@ -14,7 +14,6 @@ import { MoveLeft } from "lucide-react";
 import { useEffect } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
-import UnlockLesson from "@/assets/icons/daily-lesson/unlock-lesson.svg";
 import useDailyLessonStore from "@/hooks/zustand/use-daily-lesson-store";
 import { cn } from "@/lib/utils";
 import { Route } from "@/routes/_authenticated/daily-lesson/jump-band";
@@ -41,7 +40,6 @@ const JumpBandPage = () => {
   }, [clear]);
 
   const handleStartJumpBand = () => {
-    console.log(data);
     if (!data) return;
     startLesson(data.questions);
   };
@@ -109,8 +107,8 @@ const JumpBandPage = () => {
   }
 
   return (
-    <div className="grid h-screen w-screen place-items-center content-center justify-center gap-8">
-      <img src={UnlockLesson} alt="Unlock Lesson" className="size-40" />
+    <div className="grid h-screen w-screen place-content-center place-items-center gap-8">
+      <img src='/assets/icons/daily-lesson/unlock-lesson.svg' alt="Unlock Lesson" className="size-40" />
       <div className="flex flex-col items-center gap-2">
         <Typography variant="h3" className="font-normal">
           <Trans

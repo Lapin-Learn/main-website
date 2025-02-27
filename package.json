@@ -4,7 +4,7 @@
   "version": "1.1.0",
   "type": "module",
   "scripts": {
-    "dev:vite": "vite",
+    "dev": "vite",
     "dev:server": "node --loader ts-node/esm dist-ssr/ssr.js",
     "build:csr": "vite build --outDir dist",
     "build:ssr": "vite build --ssr --outDir dist-ssr",
