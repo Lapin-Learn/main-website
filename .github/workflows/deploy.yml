@@ -20,6 +20,7 @@ jobs:
         with:
           working-directory: "./infra"
           apply: "yes"
+          do_token: ${{ secrets.DIGITALOCEAN_TOKEN }}
 
       - name: Save Droplet IP as Artifact
         run: echo "$(terraform output -raw droplet_ip)" > droplet_ip.txt
