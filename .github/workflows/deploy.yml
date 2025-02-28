@@ -8,82 +8,69 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  deploy-infra:
+    name: Deploy infra
     runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Terraform Environment Action
+        uses: ./.github/actions/terraform-env-action
+        with:
+          working-directory: "./infra"
+          apply: "yes"
+
+      - name: Save Droplet IP as Artifact
+        run: echo "$(terraform output -raw droplet_ip)" > droplet_ip.txt
+        working-directory: "./infra"
+
+      - name: Upload Droplet IP
+        uses: actions/upload-artifact@v4
+        with:
+          name: droplet-ip
+          path: droplet_ip.txt
+
+  configure-nginx:
+    name: Configure Nginx
+    runs-on: ubuntu-latest
+    needs: deploy-infra
+    steps:
+      - uses: actions/checkout@v4
+
+      # 🔵 Download Droplet IP from artifact
+      - name: Download Droplet IP
+        uses: actions/download-artifact@v4
+        with:
+          name: droplet-ip
+
+      # 🔵 Setup SSH Key
+      - name: Configure SSH
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
+
+      - name: Update Nginx Configuration
+        run: |
+          DROPLET_IP=$(cat droplet_ip.txt)  # Read IP dynamically
+          ssh -o StrictHostKeyChecking=no -i private_key.pem root@$DROPLET_IP << 'EOF'
+            sudo sed -i 's/YOUR_DOMAIN_OR_IP/'"$DROPLET_IP"'/g' /etc/nginx/sites-available/default
+            sudo systemctl restart nginx
+          EOF
+
+  deploy-app:
+    name: Deploy app
+    runs-on: ubuntu-latest
+    needs: configure-nginx
 
     environment: production
 
     steps:
-      # Step 1: Checkout repository
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      # Step 2: Set up Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-dependencies
+      - name: Download Droplet IP
+        uses: actions/download-artifact@v4
         with:
-          node-version: 20
-
-      # Step 3: Install dependencies using pnpm
-      - name: Install dependencies
-        run: |
-          npm install -g pnpm
-          pnpm install
-
-      - name: Setup .env file
-        env:
-          VITE_PUBLIC_API_ENDPOINT: ${{ secrets.VITE_PUBLIC_API_ENDPOINT }}
-          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
-          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
-          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
-          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
-        run: |
-          echo "VITE_PUBLIC_API_ENDPOINT=${VITE_PUBLIC_API_ENDPOINT}" >> .env
-          echo "VITE_FIREBASE_API_KEY=${VITE_FIREBASE_API_KEY}" >> .env
-          echo "VITE_FIREBASE_AUTH_DOMAIN=${VITE_FIREBASE_AUTH_DOMAIN}" >> .env
-          echo "VITE_FIREBASE_PROJECT_ID=${VITE_FIREBASE_PROJECT_ID}" >> .env
-          echo "VITE_FIREBASE_APP_ID=${VITE_FIREBASE_APP_ID}" >> .env
-
-      # Step 4: Build the React app
-      - name: Build React app
-        run: pnpm run build
-
-      # Step 5: Check if the build was successful
-      - name: Check if build was successful
-        run: |
-          if [ ! -d "dist" ]; then
-            echo "Build failed"
-            exit 1
-          fi
-
-      # Step 6: Deploy to DigitalOcean
-      - name: Deploy React app
-        env:
-          DROPLET_IP: ${{ secrets.DROPLET_IP }}
-          SSH_KEY: ${{ secrets.SSH_KEY }}
-        run: |
-          # Create an archive of the build directory
-          tar -czf build.tar.gz dist
-          
-          # Save the SSH key to a file
-          echo "${SSH_KEY}" > ssh_key
-          chmod 600 ssh_key
-          
-          # Step 1: Ensure the target directory exists on the remote server
-          ssh -i ssh_key -o StrictHostKeyChecking=no root@${DROPLET_IP} "mkdir -p /var/www/lapinlearn-webapp"
-
-          # Step 2: Remove the old build directory on the remote server
-          ssh -i ssh_key -o StrictHostKeyChecking=no root@${DROPLET_IP} "rm -rf /var/www/lapinlearn-webapp/*"
-
-          # Step 3: Copy the build archive to the remote server
-          scp -i ssh_key -o StrictHostKeyChecking=no -v build.tar.gz root@${DROPLET_IP}:/var/www/lapinlearn-webapp
-
-          # Step 4: SSH into the server to unpack and serve the app
-          ssh -i ssh_key -o StrictHostKeyChecking=no -v root@${DROPLET_IP} <<EOF
-            # Unpack the build archive in the correct directory
-            tar -xzf /var/www/lapinlearn-webapp/build.tar.gz -C /var/www/lapinlearn-webapp
-            rm /var/www/lapinlearn-webapp/build.tar.gz
-            # Restart nginx to serve the updated app
-            systemctl restart nginx
-          EOF
-
+          name: droplet-ip
+      - name: Deploy Files to DigitalOcean
+        uses: ./.github/actions/do-sync-action
