@@ -12,6 +12,8 @@ jobs:
     name: Deploy infra
     runs-on: ubuntu-latest
 
+    environment: production
+
     steps:
       - uses: actions/checkout@v4
 
@@ -23,19 +25,24 @@ jobs:
           do_token: ${{ secrets.DIGITALOCEAN_TOKEN }}
 
       - name: Save Droplet IP as Artifact
-        run: echo "$(terraform output -raw droplet_ip)" > droplet_ip.txt
+        run: |
+          echo "$(terraform output -raw droplet_ip)" > ./droplet_ip.txt  
+          cat ./droplet_ip.txt
         working-directory: "./infra"
 
       - name: Upload Droplet IP
         uses: actions/upload-artifact@v4
         with:
           name: droplet-ip
-          path: droplet_ip.txt
+          path: ./infra/droplet_ip.txt 
 
   configure-nginx:
     name: Configure Nginx
     runs-on: ubuntu-latest
     needs: deploy-infra
+
+    environment: production
+
     steps:
       - uses: actions/checkout@v4
 
