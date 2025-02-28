@@ -1,7 +1,3 @@
-provider "digitalocean" {
-  token = var.do_token
-}
-
 # Create Droplet
 resource "digitalocean_droplet" "app" {
   name   = "lapinlearn-ssr"
