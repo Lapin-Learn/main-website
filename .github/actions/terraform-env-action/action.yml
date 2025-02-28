@@ -26,12 +26,16 @@ runs:
 
     - name: Terraform Plan
       if: ${{ inputs.apply == 'no' }}
-      run: terraform plan -var="do_token=${{ inputs.do_token }}"
+      run: terraform plan
       shell: bash
       working-directory: ${{ inputs.working-directory }}
+      env:
+        TF_VAR_do_token: ${{ inputs.do_token }}
 
     - name: Terraform Apply
       if: ${{ inputs.apply == 'yes' }}
-      run: terraform apply -var="do_token=${{ inputs.do_token }}" -auto-approve
+      run: terraform apply -auto-approve
       shell: bash
       working-directory: ${{ inputs.working-directory }}
+      env:
+        TF_VAR_do_token: ${{ inputs.do_token }}
