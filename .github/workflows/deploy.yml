@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: droplet-ip
-          path: ./infra/droplet_ip.txt 
+          path: ./infra/droplet_ip.txt
 
   configure-nginx:
     name: Configure Nginx

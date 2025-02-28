@@ -20,7 +20,7 @@ runs:
         terraform_version: 1.9.6
 
     - name: Terraform Init
-      run: terraform init
+      run: terraform init -backend-config="backend-s3.hcl"
       shell: bash
       working-directory: ${{ inputs.working-directory }}
 
