@@ -55,7 +55,7 @@ jobs:
       # 🔵 Setup SSH Key
       - name: Configure SSH
         run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
+          echo "${{ secrets.SSH_KEY }}" > private_key.pem
           chmod 600 private_key.pem
 
       - name: Update Nginx Configuration
