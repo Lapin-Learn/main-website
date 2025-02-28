@@ -1,0 +1,34 @@
+name: "Terraform by Environment"
+description: "A composite action to handle Terraform init, format, plan, and optionally apply based on the environment."
+inputs:
+  apply:
+    description: "Whether to run terraform apply (yes or no)"
+    required: false
+    default: "no" # Default is no to avoid automatic apply
+  working-directory:
+    description: "Where the terraform working directory is"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.9.6
+
+    - name: Terraform Init
+      run: terraform init
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Terraform Plan
+      if: ${{ inputs.apply == 'no' }}
+      run: terraform plan -var="do_token=${{ secrets.DIGITALOCEAN_TOKEN }}"
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Terraform Apply
+      if: ${{ inputs.apply == 'yes' }}
+      run: terraform apply -var="do_token=${{ secrets.DIGITALOCEAN_TOKEN }}" -auto-approve
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}

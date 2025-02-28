@@ -1,0 +1,33 @@
+name: Install dependencies
+description: "A composite action for installing dependencies"
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+
+    - name: Setup .env file
+      env:
+        VITE_PUBLIC_API_ENDPOINT: ${{ secrets.VITE_PUBLIC_API_ENDPOINT }}
+        VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+        VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+        VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+        VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+      shell: bash
+      run: |
+        echo "VITE_PUBLIC_API_ENDPOINT=${VITE_PUBLIC_API_ENDPOINT}" >> .env
+        echo "VITE_FIREBASE_API_KEY=${VITE_FIREBASE_API_KEY}" >> .env
+        echo "VITE_FIREBASE_AUTH_DOMAIN=${VITE_FIREBASE_AUTH_DOMAIN}" >> .env
+        echo "VITE_FIREBASE_PROJECT_ID=${VITE_FIREBASE_PROJECT_ID}" >> .env
+        echo "VITE_FIREBASE_APP_ID=${VITE_FIREBASE_APP_ID}" >> .env
+
+    - name: Download Droplet IP
+      uses: actions/download-artifact@v4
+      with:
+        name: droplet-ip
+
+    - name: Load Droplet IP
+      shell: bash
+      run: echo "DROPLET_IP=$(cat droplet_ip.txt)" >> $GITHUB_ENV
