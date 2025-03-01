@@ -138,7 +138,7 @@ export function EvaluationSection({ id, status }: EvaluationSectionProps) {
                 pulseColor="#F4926F"
                 onClick={() => evaluateMutation.mutate(id)}
                 className="min-w-[200px]"
-                disabled={isAffordable}
+                disabled={!isAffordable}
               >
                 {t(childrenByStatus.buttonText, { ns: "subscription" })}
               </PulsatingButton>
