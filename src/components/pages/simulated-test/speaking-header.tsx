@@ -15,8 +15,8 @@ import {
 import { EnumMode, EnumSimulatedTestSessionStatus } from "@/lib/enums";
 import { getPartName, isDevEnv } from "@/lib/utils";
 
+import Timer from "../../molecules/timer";
 import { HeaderProps } from "./header";
-import Timer from "./timer";
 
 export default function SpeakingHeader({ currentPart, session }: HeaderProps) {
   const { t } = useTranslation("simulatedTest");

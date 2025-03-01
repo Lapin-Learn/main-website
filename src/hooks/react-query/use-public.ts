@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
+import { Blog, BlogResponse } from "@/lib/types";
 import { getBlog, getBlogs, getCollectionIntroduction, searchCollections } from "@/services";
 
-import { Blog, BlogResponse } from "@/lib/types";
 import { useSearch } from "./use-simulated-test";
 
 export const publicKeys = {

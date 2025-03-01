@@ -8,8 +8,11 @@
   },
   "exitDialog": {
     "title": "Bạn chắc chắn muốn thoát không?",
-    "description": " Bạn chưa hoàn thành bài thi. Tất cả câu trả lời của bạn sẽ được lưu thành bản nháp.",
+    "description_full_test": "Bạn chưa hoàn thành bài thi. Ở chế độ <strong>thi thử</strong>, tất cả câu trả lời sẽ <strong>không được lưu lại.</strong>",
+    "description_practice": " Bạn chưa hoàn thành bài thi. Ở chế độ <strong>luyện tập</strong>, tất cả câu trả lời của bạn sẽ được lưu thành <strong>bản nháp.</strong>",
+    "description": "Bạn chưa hoàn thành bài thi. Tất cả câu trả lời sẽ <strong>không được lưu lại.</strong>",
     "exitBtn": "Thoát",
+    "saveAndExitBtn": "Lưu nháp và thoát",
     "continueBtn": "Tiếp tục làm bài"
   },
   "startDialog": {

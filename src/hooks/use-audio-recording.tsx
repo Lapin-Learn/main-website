@@ -69,7 +69,7 @@ function useAudioRecording({
   }, [listening, setAudio, setAudioChunks, setRecordingStatus, stream]);
 
   const stopRecording = useCallback(() => {
-    SpeechRecognition.stopListening();
+    if (SpeechRecognition) SpeechRecognition.stopListening();
     setAudioLevel(0);
     setRecordingStatus("inactive");
     setProgressValue(0);

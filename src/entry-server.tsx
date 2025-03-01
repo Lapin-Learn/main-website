@@ -2,6 +2,7 @@ import { dehydrate, QueryClientProvider } from "@tanstack/react-query";
 import { createMemoryHistory, RouterProvider } from "@tanstack/react-router";
 import fs from "fs";
 import path from "path";
+
 import { publicKeys } from "./hooks/react-query/use-public";
 import { queryClient } from "./queryClient";
 import { createRouter } from "./router";
