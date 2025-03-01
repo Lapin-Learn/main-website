@@ -243,7 +243,7 @@ importers:
         specifier: ^12.0.6
         version: 12.4.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       html-react-parser:
-        specifier: ^5.1.16
+        specifier: ^5.2.2
         version: 5.2.2(@types/react@18.3.18)(react@18.3.1)
       i18next:
         specifier: ^24.0.2
