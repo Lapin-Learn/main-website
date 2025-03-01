@@ -9,6 +9,7 @@ import StreakIcon from "@/assets/icons/streak-icon";
 import flame from "@/assets/lotties/streak-flame.json";
 import { Button, Typography } from "@/components/ui";
 import { gamificationKeys, useGetStreakHistory } from "@/hooks/react-query/useGamification";
+import useBreakPoint from "@/hooks/use-screen-size";
 
 import { getCurrentWeekBooleanObject } from "./helpers";
 import { useResultStepperContext } from "./result-stepper-provider";
@@ -52,6 +53,7 @@ const WeekRecord = () => {
 const StreakStep = () => {
   const { t } = useTranslation("milestone");
   const { nextMilestone, currentStepValue } = useResultStepperContext();
+  const isMobile = useBreakPoint() === "xs";
 
   const queryClient = useQueryClient();
 
@@ -75,26 +77,26 @@ const StreakStep = () => {
   if (currentStepValue.type !== EnumResultStepper.DAILY_STREAK) return null;
 
   return (
-    <div className="flex h-full flex-col items-center justify-around p-8">
-      <div className="flex flex-col items-center justify-center space-y-4">
+    <div className="flex h-full flex-col items-center justify-around p-4 md:p-8">
+      <div className="flex flex-col items-center justify-center space-y-2 md:space-y-4">
         <motion.div
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          <Lottie options={defaultOptions} height={150} width="auto" />
+          <Lottie options={defaultOptions} height={isMobile ? 120 : 150} width="auto" />
         </motion.div>
 
         <motion.div
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.8 }}
-          className="flex flex-col items-center gap-4"
+          className="flex flex-col items-center gap-2 md:gap-4"
         >
-          <Typography variant="h1" className="text-5xl font-bold">
+          <Typography variant={isMobile ? "h2" : "h1"} className="font-bold md:text-5xl">
             {currentStepValue.value}
           </Typography>
-          <Typography variant="h2">{t("streak.day")}</Typography>
+          <Typography variant={isMobile ? "h3" : "h2"}>{t("streak.day")}</Typography>
         </motion.div>
         <motion.div
           initial={{ y: 100, opacity: 0 }}
@@ -102,7 +104,10 @@ const StreakStep = () => {
           transition={{ delay: 0.8, duration: 0.8 }}
         >
           <WeekRecord />
-          <Typography variant="h5" className="mt-4 max-w-96 text-center font-medium">
+          <Typography
+            variant={isMobile ? "h6" : "h5"}
+            className="max-w-screen mt-2 text-center font-medium md:mt-4 md:max-w-96"
+          >
             {t("streak.congratulation")}
           </Typography>
         </motion.div>
@@ -112,7 +117,11 @@ const StreakStep = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 1.2, duration: 0.8 }}
       >
-        <Button size="3xl" className="min-w-96 max-w-full" onClick={nextMilestone}>
+        <Button
+          size={isMobile ? "2xl" : "3xl"}
+          className="min-w-96 max-w-full"
+          onClick={nextMilestone}
+        >
           {t("button.next")}
         </Button>
       </motion.div>

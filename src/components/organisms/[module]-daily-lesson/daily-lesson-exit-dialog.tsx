@@ -30,13 +30,13 @@ const DailyLessonExitDialog = ({ triggerButton }: ExitDialogProps) => {
             {t("exitDialog.message")}
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
+        <AlertDialogFooter className="!flex-row gap-2">
           <AlertDialogAction asChild>
             <Button onClick={() => navigate({ to: "/daily-lesson" })} variant="outline" size="xl">
               {t("exitDialog.exitBtn")}
             </Button>
           </AlertDialogAction>
-          <AlertDialogCancel asChild className="w-full">
+          <AlertDialogCancel asChild className="mt-0 w-full">
             <Button size="xl" className="w-full">
               {t("exitDialog.continueBtn")}
             </Button>

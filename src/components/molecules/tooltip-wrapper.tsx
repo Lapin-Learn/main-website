@@ -22,12 +22,12 @@ const TooltipWrapper: React.FC<TooltipWrapperProps> = ({
 }) => {
   return (
     <TooltipProvider>
-      <Tooltip delayDuration={200}>
+      <Tooltip delayDuration={100}>
         <TooltipTrigger asChild={asChild} autoFocus={false}>
           {triggerNode}
         </TooltipTrigger>
         <TooltipContent
-          className={cn("bg-neutral-400/60 shadow-xl backdrop-blur-md", className)}
+          className={cn("bg-neutral-400/70 shadow-xl backdrop-blur-md max-w-60", className)}
           sideOffset={sideOffset}
           side={side}
           {...props}

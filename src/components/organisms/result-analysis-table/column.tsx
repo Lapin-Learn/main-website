@@ -37,22 +37,25 @@ export const columns: ColumnDef<AnalysisData>[] = [
       const questions = row.original.questions;
 
       return (
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex min-w-72 flex-wrap items-center gap-2">
           {questions.map((question) => (
             <BaseGuidance
               key={question.questionNo}
               trigger={
                 <div
                   key={question.questionNo}
-                  className={cn("rounded-full size-8 flex items-center justify-center", {
-                    "border border-green-500 text-green-500": question.status,
-                    "hover:bg-green-100": question.status && question.guidance,
-                    "border border-red-500 text-red-500": question.status === false,
-                    "hover:bg-red-50": question.status === false && question.guidance,
-                    "border border-neutral-300 text-neutral-300": question.status === null,
-                    "hover:bg-neutral-50": question.status === null && question.guidance,
-                    "hover:cursor-pointer": question.guidance,
-                  })}
+                  className={cn(
+                    "rounded-full size-6 md:size-8 flex items-center justify-center max-md:text-xs",
+                    {
+                      "border border-green-500 text-green-500": question.status,
+                      "hover:bg-green-100": question.status && question.guidance,
+                      "border border-red-500 text-red-500": question.status === false,
+                      "hover:bg-red-50": question.status === false && question.guidance,
+                      "border border-neutral-300 text-neutral-300": question.status === null,
+                      "hover:bg-neutral-50": question.status === null && question.guidance,
+                      "hover:cursor-pointer": question.guidance,
+                    }
+                  )}
                 >
                   {question.questionNo}
                 </div>

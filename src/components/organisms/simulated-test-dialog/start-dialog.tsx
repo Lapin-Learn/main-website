@@ -21,6 +21,7 @@ type StartDialogProps = {
   mode: EnumMode;
   skill: EnumSkill;
 };
+
 const StartDialog = ({
   onClose,
   open,
@@ -52,9 +53,9 @@ const StartDialog = ({
                 context: mode === EnumMode.PRACTICE && timeLimit == 0 ? "unlimited" : "default",
               }}
             >
-              <strong></strong>
-              <strong></strong>
-              <strong></strong>
+              <strong />
+              <strong />
+              <strong />
             </Trans>
           </AlertDialogDescription>
         </AlertDialogHeader>

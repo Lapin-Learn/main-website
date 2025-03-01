@@ -8,8 +8,8 @@ import {
 } from "@/components/ui/accordion";
 import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
 import { EnumSkill, EnumWritingCriteria } from "@/lib/enums";
-import { SpeakingSession } from "@/lib/types/simulated-test-session.type";
 import type { STCriteriaEvaluation } from "@/lib/types/simulated-test.type";
+import { SpeakingSession } from "@/lib/types/simulated-test-session.type";
 import { cn } from "@/lib/utils";
 
 import SpeakingSingleQuestionSubmission from "../../molecules/speaking-single-question-submission";

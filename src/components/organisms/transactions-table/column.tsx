@@ -2,12 +2,14 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import i18next from "i18next";
-import { toNumber } from "lodash";
+import pkg from "lodash";
 
 import TransactionStatusBadge from "@/components/molecules/transaction-status-badge";
 import { EnumTransactionStatus } from "@/lib/enums";
 import { TransactionHistory } from "@/lib/types";
 import { formatVNDCurrency } from "@/lib/utils";
+
+const { toNumber } = pkg;
 
 export const columns = (
   onViewDetailClick: (id: number, status: EnumTransactionStatus) => void

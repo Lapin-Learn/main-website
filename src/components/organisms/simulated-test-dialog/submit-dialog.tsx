@@ -1,8 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
-import SubmitQuestionLeft from "@/assets/images/simulated-test/submit-question-left.svg";
-import SubmitTimeLeft from "@/assets/images/simulated-test/submit-time-left.svg";
 import { Button } from "@/components/ui";
 import {
   AlertDialog,
@@ -96,7 +94,11 @@ const SubmitDialog = ({ triggerButton, sessionId }: SubmitDialogProps) => {
           <AlertDialogTitle>{t("title")}</AlertDialogTitle>
           <AlertDialogDescription>
             <img
-              src={remainingQuestions > 0 ? SubmitQuestionLeft : SubmitTimeLeft}
+              src={
+                remainingQuestions > 0
+                  ? "/assets/images/simulated-test/submit-question-left.svg"
+                  : "/assets/images/simulated-test/submit-time-left.svg"
+              }
               alt="submit-question-left"
               className="mx-auto my-6 max-h-40"
             />

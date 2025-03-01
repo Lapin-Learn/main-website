@@ -6,7 +6,7 @@ const ProfileTab = ({ items }: { items: ProfileTabItemProps[] }) => {
   const location = useLocation();
 
   return (
-    <nav className="flex flex-col gap-4 border-r py-8">
+    <nav className="hidden flex-col gap-4 border-r py-8 md:flex">
       {items.map((item) => (
         <ProfileTabItem key={item.to} {...item} active={location.href == item.to} />
       ))}

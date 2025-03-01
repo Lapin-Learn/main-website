@@ -59,7 +59,7 @@ export default function ChangePasswordPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-2">
+    <div className="mt-4 flex flex-col items-center justify-center gap-2 md:mt-0">
       <div className="w-full">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 gap-4">

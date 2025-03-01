@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
 import { getDuration } from "@/lib/utils";
-import { Route } from "@/routes/_authenticated/daily-lesson/$dailyLessonId";
 
 import { useLessonCompletion } from "./react-query/use-daily-lesson";
 import useDailyLessonStore from "./zustand/use-daily-lesson-store";
@@ -12,14 +11,19 @@ import useDailyLessonStore from "./zustand/use-daily-lesson-store";
  * @NganTrucLe
  * I separated the logic to reuse it in different components.
  */
-const useAnswerDailyLesson = () => {
+const useAnswerDailyLesson = ({
+  isJumpBand = false,
+  lessonId,
+}: {
+  isJumpBand?: boolean;
+  lessonId?: number | string;
+}) => {
   const {
     lessonState: { isCompleted, startTime },
     learnerAnswers,
     setResult,
   } = useDailyLessonStore();
   const lessonCompletionMutation = useLessonCompletion();
-  const { dailyLessonId } = Route.useParams();
 
   useEffect(() => {
     if (isCompleted) {
@@ -44,10 +48,11 @@ const useAnswerDailyLesson = () => {
 
       lessonCompletionMutation.mutate(
         {
-          lessonId: Number(dailyLessonId),
+          lessonId: Number(lessonId),
           correctAnswers: statistic.numberOfCorrect,
           wrongAnswers: statistic.totalOfQuestions - statistic.numberOfCorrect,
           duration: getDuration(startTime),
+          isJumpBand,
         },
         {
           onSuccess: (returnData) => {

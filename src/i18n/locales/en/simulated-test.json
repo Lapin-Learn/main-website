@@ -8,9 +8,12 @@
   },
   "exitDialog": {
     "title": "Are you sure you want to exit?",
-    "description": "You have not completed the test. All your answers will be saved as a draft.",
-    "exitBtn": "Back",
-    "continueBtn": "Continue"
+    "description_full_test": "You have not completed the test. In <strong>full test mode</strong>, all your answers <strong>will not be saved.</strong>",
+    "description_practice": "You have not completed the test. In <strong>practice mode</strong>, all your answers will be saved as <strong>a draft.</strong>",
+    "description": "You have not completed the test. All your answers <strong>will not be saved.</strong>",
+    "exitBtn": "Exit",
+    "saveAndExitBtn": "Save and exit",
+    "continueBtn": "Continue your test"
   },
   "startDialog": {
     "title": "Start the test",
@@ -147,11 +150,15 @@
     "questions": "Questions",
     "unanswered": "Skipped",
     "yourAnswer": "Your answer",
-    "explanation": "Explanation question {{questionNo}}"
+    "explanation": "Explanation question {{questionNo}}",
+    "noAnswer": "You didn't answer this question",
+    "warning": "This article is only for you to self-evaluate and improve your skills, so there may be a slight difference (0.5 - 1 point) in reality. If you have learned something different from the test results, focus on the knowledge you have learned!"
   },
   "noteBtn": {
     "title": "Take note",
     "placeholder": "Write your note here...",
     "guide": "Use Esc to quickly close this note, and you can drag it around based on your needs."
-  }
+  },
+  "showQuestionNavigator_true": "Hide questions",
+  "showQuestionNavigator_false": "Show questions"
 }

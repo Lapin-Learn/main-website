@@ -2,14 +2,13 @@ import { useLocation, useNavigate } from "@tanstack/react-router";
 import { createElement } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Card, CardContent, CardTitle } from "@/components/ui";
-import { Progress } from "@/components/ui/progress";
+import { Card, CardContent, CardTitle, Separator } from "@/components/ui";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetQuestionTypes } from "@/hooks/react-query/use-daily-lesson";
-import { BAND_SCORES } from "@/lib/consts";
+import { BAND_SCORES, MAPPED_SKILL_ICON, MAPPED_SKILL_ICON_FILLED } from "@/lib/consts";
 import { EnumBandScore, EnumSkill } from "@/lib/enums";
 
-import { MAPPED_SKILL_ICON_FILLED } from "../../lib/consts";
+import { AnimatedCircularProgressBar } from "../ui/animated-circular-progress-bar";
 import QuestionTypeDetail from "./question-type-detail";
 type QuestionTypeListPageProps = {
   skill: EnumSkill;
@@ -41,7 +40,7 @@ const QuestionTypeList = ({ skill }: QuestionTypeListPageProps) => {
     <main className="h-fit w-full">
       {isLoading && <SkeletonQuestionTypeList />}
       {isSuccess && (
-        <div className="flex w-full flex-col items-center gap-5">
+        <div className="flex w-full flex-col items-center gap-3 md:gap-5">
           {sortedQuestionTypes?.map((questionType) => {
             const xpRequired =
               questionType.bandScoreRequires.find(
@@ -50,17 +49,17 @@ const QuestionTypeList = ({ skill }: QuestionTypeListPageProps) => {
 
             return (
               <Card
-                className="relative w-full transition-all duration-300 hover:cursor-pointer hover:shadow-lg lg:p-2"
+                className="relative w-full rounded-2xl transition-all duration-300 hover:cursor-pointer hover:shadow-lg"
                 key={questionType.id}
               >
                 <CardContent
-                  className="flex w-full grow flex-row items-center justify-center space-x-5 p-3"
+                  className="flex w-full grow flex-row items-center justify-center space-x-3 py-3 !pl-3 pr-3 md:space-x-5 md:!py-4 md:!pr-6"
                   onClick={() =>
                     handleChooseLesson(questionType.progress.bandScore, skill, questionType.id)
                   }
                 >
                   {questionType.image && (
-                    <div className="flex size-20 flex-row items-center overflow-hidden rounded-full md:size-28 ">
+                    <div className="flex size-20 flex-row items-center overflow-hidden rounded-xl md:size-28 ">
                       <img
                         src={questionType.image.url}
                         alt={questionType.name}
@@ -70,10 +69,10 @@ const QuestionTypeList = ({ skill }: QuestionTypeListPageProps) => {
                   )}
                   <div className="flex h-full grow flex-col items-start justify-between gap-4">
                     <div className="flex flex-row items-center justify-between">
-                      <div className="flex flex-row items-center justify-start gap-1 lg:gap-3">
-                        <CardTitle className="inline-flex items-center gap-2 !text-heading-5 font-semibold">
+                      <div className="flex flex-row flex-wrap items-center justify-start gap-1 lg:gap-3">
+                        <CardTitle className="items-center !text-heading-5 font-semibold">
                           {createElement(MAPPED_SKILL_ICON_FILLED[questionType.skill], {
-                            className: "size-4 inline-block fill-neutral-100",
+                            className: "md:hidden size-4 inline-block mr-2 fill-neutral-100",
                             fill: "#acacac",
                           })}
                           {questionType.name}
@@ -82,26 +81,29 @@ const QuestionTypeList = ({ skill }: QuestionTypeListPageProps) => {
                           {BAND_SCORES[questionType.progress.bandScore]}
                         </span>
                       </div>
-                      <div className="clip-custom absolute right-0 bg-[#FCE3B4] p-2 pl-7 pr-3.5">
-                        <span className="text-nowrap text-sm text-[#A9421C]">
-                          {t("questionTypes.numberOfLessons", {
-                            number: questionType.lessons,
-                            context: questionType.lessons > 1 ? "plural" : "singular",
-                          })}
-                        </span>
-                      </div>
                     </div>
-                    <div className="mt-3 flex w-full flex-col gap-1">
-                      <p className="text-left text-small font-medium text-[#929292]">
-                        {t("progress")}
+                    <div className="flex flex-row items-center gap-1 text-supporting-text max-md:text-sm md:gap-3">
+                      <p className="text-nowrap">
+                        {t("questionTypes.numberOfLessons", {
+                          number: questionType.lessons,
+                          context: questionType.lessons > 1 ? "plural" : "singular",
+                        })}
                       </p>
-                      <Progress
-                        value={(questionType.progress.totalLearningXP / xpRequired) * 100}
-                        label={`${questionType.progress.totalLearningXP}/${xpRequired}`}
-                        className="mt-1 h-4 w-full"
-                      />
+                      <Separator orientation="vertical" className="h-4" />
+                      <p className="text-nowrap">
+                        {`${questionType.progress.totalLearningXP}/${xpRequired} ${t("questionTypes.xp")} ${t("questionTypes.toUpgradeYourBand")}`}
+                      </p>
                     </div>
                   </div>
+                  <AnimatedCircularProgressBar
+                    value={questionType.progress.totalLearningXP}
+                    max={xpRequired}
+                    min={0}
+                    className="size-16 max-md:hidden"
+                    innerChild={createElement(MAPPED_SKILL_ICON[questionType.skill], {
+                      className: "size-5 fill-neutral-200",
+                    })}
+                  />
                 </CardContent>
               </Card>
             );

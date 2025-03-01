@@ -19,9 +19,10 @@ type LessonCarouselProps = {
   lessons: DailyLesson[];
   setCurrent: (current: number) => void;
   skill: EnumSkill;
+  defaultIndex?: number;
 };
 
-const LessonCarousel = ({ lessons, setCurrent, skill }: LessonCarouselProps) => {
+const LessonCarousel = ({ lessons, setCurrent, skill, defaultIndex = 0 }: LessonCarouselProps) => {
   const [api, setApi] = useState<CarouselApi>();
   const { t } = useTranslation("dailyLesson");
   useEffect(() => {
@@ -35,6 +36,12 @@ const LessonCarousel = ({ lessons, setCurrent, skill }: LessonCarouselProps) => 
       setCurrent(api.selectedScrollSnap());
     });
   }, [api]);
+
+  useEffect(() => {
+    if (api) {
+      api.scrollTo(defaultIndex);
+    }
+  }, [defaultIndex, api]);
 
   return (
     <Carousel className="" setApi={setApi}>

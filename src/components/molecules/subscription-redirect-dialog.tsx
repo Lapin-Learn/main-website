@@ -4,7 +4,6 @@ import { Dialog, DialogContent } from "@components/ui/dialog.tsx";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 
-import CarrotBasket from "@/assets/carrot-basket.svg";
 import { useGetUserTransactionDetail } from "@/hooks/react-query/usePayment";
 import { EnumTransactionStatus } from "@/lib/enums.ts";
 import { cn } from "@/lib/utils";
@@ -40,7 +39,7 @@ export function SubscriptionRedirectDialog({
             <div className="flex flex-col items-center justify-center gap-4">
               <div className="rounded-full bg-white p-10 shadow-md">
                 <img
-                  src={CarrotBasket}
+                  src="/assets/carrot-basket.svg"
                   alt="Carrot Basket"
                   className={cn(
                     "size-40",

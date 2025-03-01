@@ -108,7 +108,7 @@ const languageDetectorOptions = {
   cookieDomain: "ielts.lapinlearn.edu.vn",
 
   // optional htmlTag with lang attribute, the default is:
-  htmlTag: document.documentElement,
+  htmlTag: typeof document !== "undefined" ? document.documentElement : null,
 
   // only detect languages that are in the whitelist
   checkWhitelist: true,

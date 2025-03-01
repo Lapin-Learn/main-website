@@ -48,7 +48,7 @@ export default function HistoryPage() {
   const breakpoint = useBreakPoint();
 
   return (
-    <div>
+    <div className="w-full">
       <Typography variant="h5" className="my-4">
         {t("learning_history.learning_result")}
       </Typography>
@@ -57,9 +57,9 @@ export default function HistoryPage() {
           <Loader2 className="animate-spin text-primary-900" size={32} />
         </div>
       ) : (
-        <div className="mb-12 grid grid-cols-2 gap-4 md:grid-cols-3 md:grid-rows-2">
+        <div className="mb-6 grid grid-cols-2 gap-2 md:mb-12 md:grid-cols-3 md:grid-rows-2 md:gap-4">
           <OverallBandScoreChart
-            className="col-span-2 row-span-1 md:col-span-1 md:row-span-2"
+            className="col-span-2 row-span-1 shadow-none md:col-span-1 md:row-span-2"
             data={data}
           />
           {Object.values(EnumSkill).map((skill) => {
@@ -69,18 +69,18 @@ export default function HistoryPage() {
             const formattedBandScore =
               typeof bandScore === "number" ? formatBandScore(bandScore) : "--";
             return (
-              <Card className="h-fit md:h-full" key={skill}>
+              <Card className="h-fit shadow-none md:h-full" key={skill}>
                 <CardContent className="flex h-fit items-center justify-between gap-4 p-3 md:h-full md:px-6 md:py-4">
                   <div>
                     <Typography
-                      variant={breakpoint === "sm" ? "h3" : "h2"}
+                      variant={breakpoint === "xs" ? "h3" : "h2"}
                       className="mb-2 text-left capitalize"
                     >
                       {formattedBandScore}
                     </Typography>
                     <div className="flex items-center gap-1">
                       <Typography
-                        variant={breakpoint === "sm" ? "body2" : "body1"}
+                        variant={breakpoint === "xs" ? "body2" : "body1"}
                         className="text-left capitalize text-supporting-text"
                       >
                         {skill}
@@ -123,8 +123,8 @@ export default function HistoryPage() {
                     </div>
                   </div>
                   {createElement(MAPPED_SKILL_ICON_FILLED[skill], {
-                    width: breakpoint === "sm" ? 28 : 36,
-                    height: breakpoint === "sm" ? 28 : 36,
+                    width: breakpoint === "xs" ? 28 : 36,
+                    height: breakpoint === "xs" ? 28 : 36,
                     fill: formattedBandScore === "--" ? "#BDBDBD" : "#F4926F",
                   })}
                 </CardContent>
@@ -142,7 +142,7 @@ export default function HistoryPage() {
       ) : (
         <div className="mb-12 mt-5 grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
-            <Typography variant="h5" className="mb-4">
+            <Typography variant="h5" className="mb-2 md:mb-4">
               {t("learning_history.evaluation.chart")}
             </Typography>
             <SkillEvaluationLineChart data={formattedData} />
@@ -163,9 +163,17 @@ export default function HistoryPage() {
                 </div>
               ) : (
                 questionTypeAccuracy?.map((questionType) => (
-                  <div key={questionType.evaluationtype} className="mb-2 flex justify-between">
-                    <Typography variant="body1">{questionType.evaluationtype}</Typography>
-                    <Typography variant="body1" className="font-bold">
+                  <div
+                    key={questionType.evaluationtype}
+                    className="mb-1 flex justify-between md:mb-2"
+                  >
+                    <Typography variant={breakpoint == "xs" ? "body2" : "body1"}>
+                      {questionType.evaluationtype}
+                    </Typography>
+                    <Typography
+                      variant={breakpoint == "xs" ? "body2" : "body1"}
+                      className="font-bold"
+                    >
                       {questionType.accuracy ?? 0}
                       {SkillUnitMap[selected]}
                     </Typography>

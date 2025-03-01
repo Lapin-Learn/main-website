@@ -13,6 +13,7 @@ type TestSkillCardProps = {
   numberOfQuestions?: number;
   skillTest?: SkillTest;
 };
+
 export default function TestSkillCard({
   isComingSoon,
   onClick,
@@ -43,7 +44,7 @@ export default function TestSkillCard({
     <Button
       variant="ghost"
       key={skillTest?.skill}
-      className="flex h-28 w-full cursor-pointer flex-row items-center justify-between rounded-lg border border-neutral-100 p-3"
+      className="flex h-24 w-full cursor-pointer flex-row items-center justify-between rounded-lg border border-neutral-100 p-2 md:h-28 md:p-3"
       disabled={isComingSoon}
       onClick={onClick}
     >
