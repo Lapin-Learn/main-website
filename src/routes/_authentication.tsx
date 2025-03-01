@@ -5,8 +5,9 @@ import LoadingPage from "@/components/pages/loading-page";
 import { getAuthValueFromStorage } from "@/services";
 
 export const Route = createFileRoute("/_authentication")({
-  beforeLoad: async () => {
+  beforeLoad: async ({ context: { queryClient } }) => {
     try {
+      queryClient.clear();
       if (getAuthValueFromStorage()) {
         return redirect({ to: "/" });
       }
@@ -28,6 +29,7 @@ export default function AuthLayout() {
       <img
         src="/assets/images/auth-bg.webp"
         className="h-40 w-full rounded-none object-cover sm:h-full sm:flex-1 md:rounded-3xl"
+        alt="Auth background"
       />
       <div className="relative flex h-full flex-col items-center justify-between md:flex-1">
         <Link to="/">
