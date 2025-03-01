@@ -11,10 +11,11 @@ import { EnumSkill } from "@/lib/enums";
 import type { SimulatedTestAnswer, STCriteriaEvaluation } from "@/lib/types/simulated-test.type";
 import { cn } from "@/lib/utils";
 
-import WritingQuestionCard from "../molecules/writing-question-card";
-import { Separator, Typography } from "../ui";
-import { Skeleton } from "../ui/skeleton";
-import CriteriaScoreList from "./criteria-score-list";
+import WritingQuestionCard from "../../molecules/writing-question-card";
+import { Separator, Typography } from "../../ui";
+import { Skeleton } from "../../ui/skeleton";
+import CriteriaScoreList from "../criteria-score-list";
+import SubmissionContentAnswered from "./answered";
 
 type WritingSubmissionProps = {
   evaluationResults?: STCriteriaEvaluation[];
@@ -124,32 +125,26 @@ function SubmissionContent(props: SubmissionContentProps) {
     <div className="grid grid-cols-1 gap-2 md:grid-cols-6 md:gap-8">
       <div
         className={cn(
-          "flex flex-col gap-4 pb-0",
+          "flex flex-row gap-4 pb-0",
           evaluationResult ? "col-span-4" : "col-span-full"
         )}
       >
-        {isLoading || !data ? (
-          <Skeleton className="h-40 w-full" />
-        ) : (
-          <WritingQuestionCard content={data?.content} imageClassName="!w-1/3 mx-auto" />
-        )}
-        <div className="my-2 flex flex-row items-center gap-5">
-          <Separator className="flex-1" />
-          <Typography className="text-center uppercase text-neutral-500">
-            {t("result.yourAnswer")}
+        <div className="flex flex-col">
+          <Typography className="font-bold capitalize text-neutral-500">
+            {t("result.taskDescription")}
           </Typography>
-          <Separator className="flex-1" />
+          {isLoading || !data ? (
+            <Skeleton className="h-40 w-full" />
+          ) : (
+            <WritingQuestionCard content={data?.content} imageClassName="!w-1/3 mx-auto" />
+          )}
         </div>
-        {submission.answer ? (
-          <div
-            dangerouslySetInnerHTML={{ __html: submission.answer }}
-            className="text-justify [&_p]:mb-2"
-          />
-        ) : (
-          <Typography className="text-justify text-supporting-text">
-            {t("result.noAnswer")}
-          </Typography>
-        )}
+        <Separator className="w-0.5" orientation="vertical" />
+        <SubmissionContentAnswered
+          answer={submission.answer}
+          evaluationResult={evaluationResult}
+          skill={EnumSkill.writing}
+        />
       </div>
       {evaluationResult && (
         <CriteriaScoreList evaluationResult={evaluationResult} skill={EnumSkill.writing} />

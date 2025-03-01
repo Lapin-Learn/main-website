@@ -37,7 +37,6 @@ import { Route as AuthenticationVerifyOtpImport } from "./routes/_authentication
 import { Route as BlogsBlogIdImport } from "./routes/blogs/$blogId";
 import { Route as BlogsIndexImport } from "./routes/blogs/index";
 import { Route as IndexImport } from "./routes/index";
-import { Route as PrivacyPolicyImport } from "./routes/privacy-policy";
 
 // Create/Update Routes
 
@@ -232,13 +231,6 @@ declare module "@tanstack/react-router" {
       path: "";
       fullPath: "";
       preLoaderRoute: typeof AuthenticationImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/privacy-policy": {
-      id: "/privacy-policy";
-      path: "/privacy-policy";
-      fullPath: "/privacy-policy";
-      preLoaderRoute: typeof PrivacyPolicyImport;
       parentRoute: typeof rootRoute;
     };
     "/_authenticated/_dashboard": {
@@ -497,7 +489,6 @@ const AuthenticationRouteWithChildren = AuthenticationRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
   "": typeof AuthenticatedDashboardProfileRouteWithChildren;
-  "/privacy-policy": typeof PrivacyPolicyRoute;
   "/forgot-password": typeof AuthenticationForgotPasswordRoute;
   "/log-in": typeof AuthenticationLogInRoute;
   "/reset-password": typeof AuthenticationResetPasswordRoute;
@@ -524,7 +515,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
   "": typeof AuthenticatedDashboardProfileRouteWithChildren;
-  "/privacy-policy": typeof PrivacyPolicyRoute;
   "/forgot-password": typeof AuthenticationForgotPasswordRoute;
   "/log-in": typeof AuthenticationLogInRoute;
   "/reset-password": typeof AuthenticationResetPasswordRoute;
@@ -553,7 +543,6 @@ export interface FileRoutesById {
   "/": typeof IndexRoute;
   "/_authenticated": typeof AuthenticatedRouteWithChildren;
   "/_authentication": typeof AuthenticationRouteWithChildren;
-  "/privacy-policy": typeof PrivacyPolicyRoute;
   "/_authenticated/_dashboard": typeof AuthenticatedDashboardRouteWithChildren;
   "/_authentication/forgot-password": typeof AuthenticationForgotPasswordRoute;
   "/_authentication/log-in": typeof AuthenticationLogInRoute;
@@ -584,7 +573,6 @@ export interface FileRouteTypes {
   fullPaths:
     | "/"
     | ""
-    | "/privacy-policy"
     | "/forgot-password"
     | "/log-in"
     | "/reset-password"
@@ -610,7 +598,6 @@ export interface FileRouteTypes {
   to:
     | "/"
     | ""
-    | "/privacy-policy"
     | "/forgot-password"
     | "/log-in"
     | "/reset-password"
@@ -637,7 +624,6 @@ export interface FileRouteTypes {
     | "/"
     | "/_authenticated"
     | "/_authentication"
-    | "/privacy-policy"
     | "/_authenticated/_dashboard"
     | "/_authentication/forgot-password"
     | "/_authentication/log-in"
@@ -668,7 +654,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren;
   AuthenticationRoute: typeof AuthenticationRouteWithChildren;
-  PrivacyPolicyRoute: typeof PrivacyPolicyRoute;
   BlogsBlogIdRoute: typeof BlogsBlogIdRoute;
   BlogsIndexRoute: typeof BlogsIndexRoute;
 }

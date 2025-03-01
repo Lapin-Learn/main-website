@@ -1,7 +1,6 @@
-import { MAPPED_SPEAKING_CRITERIA_TITLES, MAPPED_WRITING_CRITERIA_TITLES } from "@/lib/consts";
 import { EnumSkill } from "@/lib/enums";
 import { STCriteriaEvaluation } from "@/lib/types/simulated-test.type";
-import { calculateOverallBandScore, cn } from "@/lib/utils";
+import { calculateOverallBandScore, cn, getCriterias } from "@/lib/utils";
 
 import CriteriaScoreCardSimple from "../molecules/criteria-score-card-simple";
 import { Typography } from "../ui";
@@ -15,8 +14,7 @@ function CriteriaScoreList({ evaluationResult, skill }: CriteriaScoreListProps) 
   const overall = calculateOverallBandScore(
     Object.values(evaluationResult.criterias).map((item) => item.score)
   );
-  const MAPPED_TITLES =
-    skill == EnumSkill.writing ? MAPPED_WRITING_CRITERIA_TITLES : MAPPED_SPEAKING_CRITERIA_TITLES;
+  const MAPPED_TITLES = getCriterias(skill, true);
 
   return (
     <div

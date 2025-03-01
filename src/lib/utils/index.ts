@@ -8,7 +8,11 @@ import { TimerType } from "@/hooks/zustand/use-global-timer";
 import { Mission } from "@/lib/types/mission.type";
 import { PagedData, PagingSchema } from "@/lib/types/pagination.type";
 
-import { DEFAULT_TIME_LIMIT } from "../consts";
+import {
+  DEFAULT_TIME_LIMIT,
+  MAPPED_SPEAKING_CRITERIA_TITLES,
+  MAPPED_WRITING_CRITERIA_TITLES,
+} from "../consts";
 import { EnumMissionCategory, EnumMode, EnumRole, EnumSkill } from "../enums";
 import { ROUTE_PERMISSION } from "../route-permission";
 
@@ -257,3 +261,17 @@ export const getDuration = (startTime: number): number => {
 };
 
 export const getYesterday = (date: Date) => new Date(date.setDate(date.getDate() - 1));
+
+export const getCriterias = (skill: EnumSkill, isBrief: boolean = false) => {
+  const criterias =
+    skill === EnumSkill.writing ? MAPPED_WRITING_CRITERIA_TITLES : MAPPED_SPEAKING_CRITERIA_TITLES;
+
+  if (isBrief) return criterias;
+  return Object.entries(criterias).reduce(
+    (acc, [key, value]) => {
+      acc[key] = `${value} (${key})`;
+      return acc;
+    },
+    {} as Record<string, string>
+  );
+};
