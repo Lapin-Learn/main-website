@@ -6,17 +6,13 @@ import { BlogsHeroBanner } from "../organisms/blogs/hero-banner";
 import LandingPageLayout from "../templates/landing-page-layout";
 
 export default function BlogsPage({ initialData }: { initialData?: BlogResponse }) {
-  const { data, isLoading } = useGetBlogs(initialData);
-
-  if (!data || isLoading) return null;
+  const { data } = useGetBlogs(initialData);
 
   return (
     <LandingPageLayout>
       <BlogsHeroBanner />
       <div className="flex flex-col gap-8 px-8 py-16 md:px-40 lg:px-80">
-        {data.items.map((blog) => (
-          <BlogCard key={blog.id} blogContent={blog} />
-        ))}
+        {data && data.items.map((blog) => <BlogCard key={blog.id} blogContent={blog} />)}
       </div>
     </LandingPageLayout>
   );
