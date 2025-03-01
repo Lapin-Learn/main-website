@@ -9,10 +9,9 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { MAPPED_SPEAKING_CRITERIA_TITLES, MAPPED_WRITING_CRITERIA_TITLES } from "@/lib/consts";
 import { EnumSkill, EnumSpeakingCriteria } from "@/lib/enums";
 import { STCriteriaEvaluation } from "@/lib/types/simulated-test.type";
-import { calculateOverallBandScore } from "@/lib/utils";
+import { calculateOverallBandScore, getCriterias } from "@/lib/utils";
 
 const chartConfig = {
   bandScore: {
@@ -66,10 +65,7 @@ export function SkillEvaluationChart({
             tick={({ x, y, textAnchor, index, ...props }) => {
               const label = adaptedData[index];
               if (label.criteria === EnumSpeakingCriteria.Overall) return <></>;
-              const criteria =
-                (skill == EnumSkill.speaking
-                  ? MAPPED_SPEAKING_CRITERIA_TITLES[label.criteria]
-                  : MAPPED_WRITING_CRITERIA_TITLES[label.criteria]) ?? label.criteria;
+              const criteria = getCriterias(skill, true)[label.criteria] ?? label.criteria;
               return (
                 <text
                   x={x}

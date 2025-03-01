@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import CriteriaScoreCard from "@/components/molecules/criteria-score-card";
 import { SkillEvaluationChart } from "@/components/organisms/skill-evaluation-chart";
 import { Typography } from "@/components/ui";
-import { MAPPED_WRITING_CRITERIA_SHORT_TITLES, MAPPED_WRITING_CRITERIA_TITLES } from "@/lib/consts";
 import {
   EnumSimulatedTestSessionStatus,
   EnumSkill,
@@ -12,7 +11,7 @@ import {
   EnumWritingCriteria,
 } from "@/lib/enums";
 import { WritingSession } from "@/lib/types/simulated-test-session.type";
-import { formatTime } from "@/lib/utils";
+import { formatTime, getCriterias } from "@/lib/utils";
 
 import CustomAlert from "../molecules/alert";
 
@@ -71,7 +70,7 @@ function OverviewEvaluationSection({ session }: OverviewEvaluationSectionProps) 
             {Object.entries(overalScore.criterias).map(([key, value]) => (
               <CriteriaScoreCard
                 key={key}
-                criteria={`${MAPPED_WRITING_CRITERIA_TITLES[key] ?? key} (${MAPPED_WRITING_CRITERIA_SHORT_TITLES[key] ?? ""})`}
+                criteria={getCriterias(EnumSkill.writing)[key]}
                 criteriaKey={key as EnumWritingCriteria}
                 score={value.score}
                 skill={EnumSkill.writing}
