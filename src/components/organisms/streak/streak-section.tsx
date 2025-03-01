@@ -50,8 +50,8 @@ const StreakSection = ({ collapsible = true }: StreakSectionProps) => {
             </h2>
             <p className="mb-3 text-sm font-medium md:mb-6 md:mt-1 md:text-base">
               {t("streak.record", {
-                context: String(data.streak.current === data.streak.record),
-                record: data.streak.record,
+                context: String(data.streak.current >= data.streak.record),
+                record: Math.max(data.streak.record, data.streak.current),
               })}
             </p>
           </div>

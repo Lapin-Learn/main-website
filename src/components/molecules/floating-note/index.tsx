@@ -28,7 +28,7 @@ export function FloatingNote() {
 
   return (
     <DndContext>
-      <div className="absolute bottom-5 right-5 md:bottom-28">
+      <div className="absolute bottom-5 right-5 z-10 md:bottom-28">
         <Button
           variant="secondary"
           onClick={(e) => {

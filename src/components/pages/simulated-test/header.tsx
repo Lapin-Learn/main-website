@@ -13,7 +13,7 @@ import { EnumMode } from "@/lib/enums";
 import { SimulatedTestSession } from "@/lib/types/simulated-test.type";
 import { getInitialTime, getPartName, getTimerMode } from "@/lib/utils";
 
-import Timer from "./timer";
+import Timer from "../../molecules/timer";
 
 export type HeaderProps = {
   currentPart: number;
@@ -95,6 +95,7 @@ export default function Header({ currentPart, session }: HeaderProps) {
               {!isMobile && t("exitDialog.exitBtn")}
             </Button>
           }
+          mode={session.mode}
         />
         <div className="flex flex-col items-center py-1">
           <h6 className="text-base font-bold uppercase sm:text-lg">

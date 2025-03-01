@@ -4,21 +4,18 @@ import TopNavigationBar from "../organisms/landing-page/top-navigation-bar";
 
 type LandingPageLayoutProps = {
   children: ReactNode;
-  id?: string;
   isLoggedIn?: boolean;
 };
 
 export default function LandingPageLayout({
   children,
-  id = "",
   isLoggedIn = false,
 }: LandingPageLayoutProps) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const heroBannerHeight = document.getElementById(id)?.offsetHeight || 0;
-      setIsScrolled(window.scrollY > heroBannerHeight);
+      setIsScrolled(window.scrollY > 0);
     };
 
     window.addEventListener("scroll", handleScroll);

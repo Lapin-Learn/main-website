@@ -2,9 +2,9 @@ import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 
 import { useGetBlog } from "@/hooks/react-query/use-public";
+import { Blog } from "@/lib/types";
 import { Route } from "@/routes/blogs/$blogId";
 
-import { Blog } from "@/lib/types";
 import LandingPageLayout from "../templates/landing-page-layout";
 import { Separator, Typography } from "../ui";
 
