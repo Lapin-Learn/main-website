@@ -1,4 +1,5 @@
-import useGlobalTimerStore, { timerKeys } from "@/hooks/zustand/use-global-timer";
+import useGlobalTimerStore, { timerKeys } from "@hooks/zustand/use-global-timer.ts";
+
 import { formatTime } from "@/lib/utils";
 
 type TimerProps = {

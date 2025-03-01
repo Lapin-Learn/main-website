@@ -33,12 +33,14 @@ const MicrophonePermissionProvider = ({ children }: PropsWithChildren) => {
       } catch {
         setPermission("denied");
         toast({
+          variant: "destructive",
           title: t("microphone.deniedTitle"),
           description: t("microphone.deniedDescription"),
         });
       }
     } else {
       toast({
+        variant: "destructive",
         title: t("microphone.browserNotSupportTitle"),
         description: t("microphone.browserNotSupportDescription"),
       });

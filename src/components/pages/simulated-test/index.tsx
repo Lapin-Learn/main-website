@@ -1,3 +1,4 @@
+import LoadingPage from "@components/pages/loading-page.tsx";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 
@@ -18,7 +19,7 @@ import SpeakingHeader from "./speaking-header";
 
 /**
  * Render the simulated test page layout
- * The layout should decide which component should be render, escape checking condition in every component, as many stateless component as possible
+ * The layout should decide which component should be rendered, escape checking condition in every component, as many stateless component as possible
  */
 const SimulatedTestPage = () => {
   const { sessionId } = Route.useSearch();
@@ -57,9 +58,8 @@ const SimulatedTestPage = () => {
     return <ErrorFallback />;
   }
 
-  // TODO: enhance UI loading here
   if (isLoading || !session) {
-    return <div className="size-screen grid place-items-center">Loading...</div>;
+    return <LoadingPage />;
   }
 
   return (

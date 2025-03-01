@@ -1,6 +1,6 @@
 import { useGetBlogs } from "@/hooks/react-query/use-public";
-
 import { BlogResponse } from "@/lib/types";
+
 import { BlogCard } from "../organisms/blogs/blog-card";
 import { BlogsHeroBanner } from "../organisms/blogs/hero-banner";
 import LandingPageLayout from "../templates/landing-page-layout";
