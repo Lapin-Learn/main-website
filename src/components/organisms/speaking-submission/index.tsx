@@ -7,9 +7,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
-import { EnumSkill, EnumWritingCriteria } from "@/lib/enums";
-import type { STCriteriaEvaluation } from "@/lib/types/simulated-test.type";
+import { EnumSkill, EnumSpeakingCriteria } from "@/lib/enums";
 import { SpeakingSession } from "@/lib/types/simulated-test-session.type";
+import type { STCriteriaEvaluation } from "@/lib/types/simulated-test.type";
 import { cn } from "@/lib/utils";
 
 import SpeakingSingleQuestionSubmission from "../../molecules/speaking-single-question-submission";
@@ -32,7 +32,7 @@ function SpeakingSubmission(props: SpeakingSubmissionProps) {
   const formattedUserSubmissions = parseTimestampsToStartEnd(userSubmissions);
 
   const filteredEvaluationResults =
-    evaluationResults?.filter((evaluation) => evaluation.part !== EnumWritingCriteria.Overall) ??
+    evaluationResults?.filter((evaluation) => evaluation.part !== EnumSpeakingCriteria.Overall) ??
     [];
 
   const groupedSubmissions = _.groupBy(formattedUserSubmissions, "partNo") ?? [];

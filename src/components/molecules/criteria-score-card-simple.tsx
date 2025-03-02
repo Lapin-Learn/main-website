@@ -1,8 +1,9 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui";
+import { Card, CardHeader, CardTitle } from "@/components/ui";
+import { STCriteriaEvaluationResponse } from "@/lib/types";
 
 type CriteriaScoreCardSimpleProps = {
   criteria: string;
-  evaluate: string;
+  evaluate: STCriteriaEvaluationResponse[];
   score: number;
 };
 
@@ -13,9 +14,9 @@ function CriteriaScoreCardSimple({ criteria, evaluate, score }: CriteriaScoreCar
         <CardTitle className="inline-flex items-center">{criteria}</CardTitle>
         <CardTitle>{score}</CardTitle>
       </CardHeader>
-      <CardContent className="px-4 pb-4 text-justify text-sm font-normal text-muted-foreground">
+      {/* <CardContent className="px-4 pb-4 text-justify text-sm font-normal text-muted-foreground">
         {evaluate}
-      </CardContent>
+      </CardContent> */}
     </Card>
   );
 }
