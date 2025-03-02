@@ -53,7 +53,7 @@ function SubmissionContentAnswered(props: SubmissionContentAnsweredProps) {
   }, [evaluationResult]);
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex-0 flex flex-col gap-8">
       <Typography variant="h6" className="font-semibold capitalize ">
         {t("result.yourAnswer")}
       </Typography>
