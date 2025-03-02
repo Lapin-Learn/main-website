@@ -21,7 +21,7 @@ export default function Avatar() {
   const queryClient = useQueryClient();
 
   if (isLoading) {
-    return <Skeleton className="size-32 rounded-full border-4 border-white" />;
+    return <Skeleton className="size-24 rounded-full border-4 border-white md:size-32" />;
   }
   const handleChangeImage = (files: File[]) => {
     const file: File = files[0];
@@ -53,20 +53,20 @@ export default function Avatar() {
     <ChangeImageDialog onSubmit={handleChangeImage}>
       <div
         className={cn(
-          "relative box-content grid size-32 place-items-center overflow-hidden rounded-full border-4 border-white bg-neutral-200 transition-all duration-200 hover:cursor-pointer",
+          "relative box-content grid size-24 md:size-32 place-items-center overflow-hidden rounded-full border-4 border-white bg-neutral-200 transition-all duration-200 hover:cursor-pointer",
           updateBucket.isPending || createBucket.isPending || isLoading
             ? ""
             : "[&_div]:invisible [&_div]:hover:visible"
         )}
       >
         {updateBucket.isPending || createBucket.isPending || isLoading ? (
-          <Skeleton className="size-32" />
+          <Skeleton className="size-24 md:size-32" />
         ) : (
           <>
             {avatar?.url ? (
               <img
                 key={avatar.id}
-                className="absolute left-0 top-0 size-32 rounded-full bg-white object-cover"
+                className="absolute left-0 top-0 size-24 rounded-full bg-white object-cover md:size-32"
                 src={avatar.url}
                 loading="lazy"
                 alt={user?.fullName ?? "Avatar"}
@@ -76,7 +76,7 @@ export default function Avatar() {
                 {user?.fullName?.charAt(0) || "--"}
               </span>
             )}
-            <div className="absolute left-0 top-0 grid size-32 place-items-center bg-black/40">
+            <div className="absolute left-0 top-0 grid size-24 place-items-center bg-black/40 md:size-32">
               <Camera size={32} className="text-white" />
             </div>
           </>

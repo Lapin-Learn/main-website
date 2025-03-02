@@ -1,4 +1,41 @@
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["react", "react-dom", "react/jsx-runtime", "scheduler"]
+  included_files = [
+    "dist-ssr/**", 
+    "node_modules/react/**", 
+    "node_modules/react-dom/**", 
+    "node_modules/scheduler/**", 
+    "dist/index.html", 
+    "dist/assets/**"
+  ]
+
+[build]
+  command = "pnpm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+  environment = { NODE_VERSION = "18" }
+
+[[redirects]]
+  from = "/"
+  to = "/.netlify/functions/server"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blogs"
+  to = "/.netlify/functions/server"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blogs/:id"
+  to = "/.netlify/functions/server"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200  
+  status = 200
+  conditions = { Cookie = ["_netlify_preview=true"] }

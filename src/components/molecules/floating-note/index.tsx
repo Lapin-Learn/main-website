@@ -28,7 +28,7 @@ export function FloatingNote() {
 
   return (
     <DndContext>
-      <div className="absolute bottom-28 right-5">
+      <div className="absolute bottom-5 right-5 z-10 md:bottom-28">
         <Button
           variant="secondary"
           onClick={(e) => {
@@ -37,7 +37,7 @@ export function FloatingNote() {
           }}
           className="group flex h-16 w-full min-w-16 items-center justify-center overflow-hidden rounded-full p-5 shadow-lg hover:gap-2"
         >
-          <span className="w-0 translate-x-0 text-body transition-all duration-300 group-hover:w-20 md:translate-x-full md:opacity-0 md:group-hover:translate-x-0 md:group-hover:opacity-100">
+          <span className="w-0 translate-x-0 text-body transition-all duration-300 group-hover:w-20 max-md:hidden md:translate-x-full md:opacity-0 md:group-hover:translate-x-0 md:group-hover:opacity-100">
             {t("noteBtn.title")}
           </span>
           <NotebookPenIcon />
@@ -66,7 +66,7 @@ export function FloatingNote() {
                 placeholder={t("noteBtn.placeholder")}
                 className="scrollbar z-50 size-full h-52 resize-none border-none shadow-none focus-visible:ring-0"
               />
-              <Typography variant="caption" className=" text-gray-500">
+              <Typography variant="caption" className="text-gray-500">
                 {t("noteBtn.guide")}
               </Typography>
             </Card>

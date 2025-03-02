@@ -36,7 +36,7 @@ const MissionStep = () => {
     (mission) => mission.status === EnumMissionStatus.COMPLETED
   );
   return (
-    <div className="flex h-full flex-col items-center justify-between p-12">
+    <div className="flex h-full flex-col items-center justify-between p-4 md:p-12">
       <div className="flex h-full flex-col items-center justify-center gap-4">
         <motion.div
           initial={{ y: 100, opacity: 0 }}

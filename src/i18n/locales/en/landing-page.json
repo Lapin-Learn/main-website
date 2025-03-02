@@ -40,5 +40,11 @@
       "Cost savings up to 10 times."
     ],
     "registerNow": "Register for free now"
+  },
+  "blogs":{
+    "title": "Overview of IELTS",
+    "description": "IELTS is one of the most important exams you need to face when you want to study abroad or work overseas. To achieve a high score, you need to prepare carefully and practice diligently.",
+    "createdAt": "Created at",
+    "readMore": "Read more"
   }
 }

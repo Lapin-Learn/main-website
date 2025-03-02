@@ -1,6 +1,6 @@
 import { getFreezeDays } from "@components/organisms/streak/utils.ts";
 
-import { EnumMileStone, EnumRank } from "@/lib/enums";
+import { EnumBandScore, EnumMileStone, EnumRank } from "@/lib/enums";
 import { Level } from "@/lib/types";
 import { LessonResult, MissionMilestone } from "@/lib/types/daily-lesson.type";
 import { StreakHistory } from "@/lib/types/gamification.type.ts";
@@ -56,6 +56,15 @@ const transformStepper = (result: LessonResult) => {
       timer: formatTime(result.duration),
     },
   };
+  const bandScoreMilestone = milestones.find(
+    (milestone) => milestone.type === EnumMileStone.BAND_SCORE_UP
+  );
+  if (bandScoreMilestone) {
+    steps[EnumResultStepper.BAND_SCORE_UP] = {
+      type: EnumResultStepper.BAND_SCORE_UP,
+      value: bandScoreMilestone.newValue as EnumBandScore,
+    };
+  }
   const levelMilestone = milestones.find((milestone) => milestone.type === EnumMileStone.LEVEL_UP);
   const rankMilestone = milestones.find((milestone) => milestone.type === EnumMileStone.RANK_UP);
   if (levelMilestone) {

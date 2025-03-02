@@ -1,4 +1,4 @@
-import { EnumMileStone, EnumRank } from "@/lib/enums";
+import { EnumBandScore, EnumMileStone, EnumRank } from "@/lib/enums";
 import { Mission } from "@/lib/types/mission.type";
 
 type LevelRankProps = {
@@ -29,6 +29,11 @@ type StreakProps = {
   value: number;
 };
 
+type BandScoreProps = {
+  type: EnumResultStepper.BAND_SCORE_UP;
+  value: EnumBandScore;
+};
+
 enum EnumResultStepper {
   RESULT = "result",
   LEVEL_RANK = "level_rank",
@@ -38,7 +43,7 @@ enum EnumResultStepper {
   END = "end",
 }
 
-type StepperProps = ResultProps | LevelRankProps | MissionProps | StreakProps;
+type StepperProps = ResultProps | LevelRankProps | MissionProps | StreakProps | BandScoreProps;
 
 type ResultStepperContextType = {
   currentStep: EnumResultStepper;

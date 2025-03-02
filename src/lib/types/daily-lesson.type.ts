@@ -55,7 +55,7 @@ export type Instruction = {
 
 export type Milestone = {
   type: EnumMileStone;
-  newValue: Level | EnumRank | number | MissionMilestone[];
+  newValue: Level | EnumRank | number | MissionMilestone[] | EnumBandScore;
 };
 
 export type MissionMilestone = {

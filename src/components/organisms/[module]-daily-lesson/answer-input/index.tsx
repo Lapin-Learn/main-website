@@ -16,6 +16,7 @@ type AnswerInputProps = {
   className?: string;
   result?: DLAnswer;
   renderCheckButton: (getCorrectAnswers: () => DLAnswer, disabled: boolean) => JSX.Element;
+  lessonId: string | number;
 };
 
 const AnswerInput = (props: AnswerInputProps) => {
@@ -45,7 +46,12 @@ const AnswerInput = (props: AnswerInputProps) => {
     case EnumDLContentType.PRONOUNCIATION:
       return (
         <MicrophonePermissionProvider>
-          <Pronounciation key={index} />
+          <Pronounciation
+            key={index}
+            currentQuestionIndex={index}
+            isAnswered={isAnswered}
+            {...props}
+          />
         </MicrophonePermissionProvider>
       );
     case EnumDLContentType.FILL_IN_THE_BLANK:

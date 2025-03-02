@@ -24,7 +24,7 @@ export function SimulatedTestCard(
   );
 
   return (
-    <div className="rounded-2xl border bg-white p-5">
+    <div className="rounded-lg border bg-white p-4 md:rounded-2xl md:p-5">
       <p className="mb-4 truncate text-lg font-bold">{testName}</p>
       <div className="flex flex-col gap-3 md:flex-row md:items-start md:gap-8 lg:items-center">
         <div className="flex min-w-36 flex-col justify-between gap-4">

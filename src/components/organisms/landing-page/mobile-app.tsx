@@ -6,8 +6,6 @@ import Donut from "@/assets/icons/landing-page/donut";
 import Flower from "@/assets/icons/landing-page/flower";
 import Star1 from "@/assets/icons/landing-page/star-1";
 import Star2 from "@/assets/icons/landing-page/star-2";
-import MobileAppImage1 from "@/assets/images/mobile-app-1.webp";
-import MobileAppImage2 from "@/assets/images/mobile-app-2.webp";
 
 export const MobileApp = () => {
   const { t } = useTranslation("landingPage");
@@ -44,12 +42,12 @@ export const MobileApp = () => {
         <div className="hidden md:col-span-1 md:block" />
         <div className="relative col-span-1 flex h-[440px] items-center justify-center gap-24 md:col-span-5">
           <img
-            src={MobileAppImage1}
+            src="/assets/images/mobile-app-1.webp"
             alt="Mobile App 1"
             className="absolute bottom-28 left-9 w-36 md:bottom-16 md:left-6 md:w-60"
           />
           <img
-            src={MobileAppImage2}
+            src="/assets/images/mobile-app-2.webp"
             alt="Mobile App 2"
             className="absolute right-9 top-28 w-36 md:right-8 md:top-16 md:w-60"
           />

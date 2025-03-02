@@ -10,22 +10,18 @@ export type ProfileTabItemProps = {
 };
 
 const ProfileTabItem = ({ label, to, active = false }: ProfileTabItemProps) => {
-  const { t } = useTranslation("profile");
+  const { t } = useTranslation("common");
   return (
     <Link
       to={to}
       className={cn(
-        "flex h-9 items-center border-l-2 border-l-primary-700 pl-4 font-semibold transition-colors duration-200",
+        "flex h-9 items-center border-l-2 border-l-primary-700 pl-4 font-medium transition-colors duration-200",
         active
           ? "text-primary-700 hover:border-l-primary hover:text-primary"
-          : "border-l-transparent text-neutral-300 hover:border-l-neutral-400 hover:text-neutral-400"
+          : "border-l-transparent text-supporting-text hover:border-l-neutral-400 hover:text-neutral-400"
       )}
     >
-      <button>
-        {t("tab", {
-          context: label,
-        })}
-      </button>
+      <button>{t(`navigation.${label}`)}</button>
     </Link>
   );
 };

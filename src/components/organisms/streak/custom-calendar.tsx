@@ -9,7 +9,11 @@ import DayItem from "./day-item";
 import { DayProps, generateCalendar, getFreezeDays, parseActiveDays } from "./utils";
 import WeekHeader from "./week-header";
 
-const CustomCalendar = () => {
+type CustomCalendarProps = {
+  collapsible?: boolean;
+};
+
+const CustomCalendar = ({ collapsible = true }: CustomCalendarProps) => {
   const [startDay, setStartDay] = useState(new Date());
   const [isCollapsed, setIsCollapsed] = useState(true);
 
@@ -23,7 +27,7 @@ const CustomCalendar = () => {
     startDate: format(subMonths(startOfMonth(startDay), 1), "yyyy-MM-dd"),
   });
 
-  const daysToShow = isCollapsed ? getCurrentWeekDays(originalDays) : originalDays;
+  const daysToShow = isCollapsed && collapsible ? getCurrentWeekDays(originalDays) : originalDays;
 
   const { parsedActiveDays, freezeDays } = useMemo(
     () => ({
@@ -38,17 +42,19 @@ const CustomCalendar = () => {
 
   return (
     <div
-      className="flex flex-col gap-2 rounded-lg bg-white p-3 transition-all duration-500"
+      className="flex flex-col gap-2 rounded-lg bg-white p-2 transition-all duration-500 md:p-3"
       onMouseEnter={() => setIsCollapsed(false)}
       onMouseLeave={() => {
-        setIsCollapsed(true);
-        setStartDay(new Date());
+        if (collapsible) {
+          setIsCollapsed(true);
+          setStartDay(new Date());
+        }
       }}
     >
       <div
         className={cn(
           "flex items-center justify-between overflow-hidden transition-all duration-100",
-          isCollapsed ? "max-h-0" : "max-h-8"
+          isCollapsed && collapsible ? "max-h-0" : "max-h-8"
         )}
       >
         <button
@@ -57,7 +63,7 @@ const CustomCalendar = () => {
         >
           <ChevronLeft size={20} />
         </button>
-        <span className="text-md font-semibold">
+        <span className="font-semibold max-md:text-sm">
           {startOfMonth(startDay).toLocaleString("default", { month: "long" })}{" "}
           {startDay.getFullYear()}
         </span>
@@ -69,7 +75,7 @@ const CustomCalendar = () => {
         </button>
       </div>
       <WeekHeader />
-      <div className="grid grid-cols-7 justify-between text-center text-sm font-semibold">
+      <div className="grid grid-cols-7 justify-between gap-y-2 text-center text-sm font-semibold">
         {parsedActiveDays.map((day) => (
           <DayItem
             key={day.key}
