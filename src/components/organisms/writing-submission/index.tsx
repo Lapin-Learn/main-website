@@ -1,13 +1,17 @@
+import { ChevronDown } from "lucide-react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
 import { EnumSkill } from "@/lib/enums";
 import type { SimulatedTestAnswer, STCriteriaEvaluation } from "@/lib/types/simulated-test.type";
+import { cn } from "@/lib/utils";
 
 import WritingQuestionCard from "../../molecules/writing-question-card";
-import { Typography } from "../../ui";
+import { Button, Typography } from "../../ui";
 import { Skeleton } from "../../ui/skeleton";
 import SubmissionContentAnswered from "./answered";
+import SummaryBandScore from "./summary-bandscore";
 
 type WritingSubmissionProps = {
   evaluationResults?: STCriteriaEvaluation[];
@@ -54,24 +58,50 @@ function SubmissionContent(props: SubmissionContentProps) {
   const { submission, skillTestId, evaluationResult } = props;
   const { data, isLoading } = useGetSkillTestData(skillTestId, submission.questionNo);
   const { t } = useTranslation("simulatedTest");
+  const [expanded, setExpanded] = useState(false);
+
+  const extractParagraphs = (htmlString: string): string[] => {
+    return [...new DOMParser().parseFromString(htmlString, "text/html").querySelectorAll("p")].map(
+      (p) => p.textContent?.trim() || ""
+    );
+  };
 
   return (
-    <div className="grid grid-cols-[2fr_3fr] gap-4 pb-0">
-      <div className="flex flex-col gap-8 border-r pr-4">
-        <Typography variant="h6" className="font-semibold capitalize">
-          {t("result.taskDescription")}
-        </Typography>
-        {isLoading || !data ? (
-          <Skeleton className="h-40 w-full" />
-        ) : (
-          <WritingQuestionCard content={data?.content} imageClassName="mx-auto" />
+    <div className="relative transition-all duration-300 ease-in-out">
+      <div className={cn("grid grid-cols-[2fr_3fr] gap-4", expanded && "flex flex-col gap-8")}>
+        {expanded && (
+          <SummaryBandScore
+            paragraphs={extractParagraphs(submission.answer ?? "")}
+            criterias={evaluationResult?.criterias}
+          />
         )}
+        <div className="flex flex-col gap-5">
+          <Typography variant="h6" className="font-semibold capitalize">
+            {t("result.taskDescription")}
+          </Typography>
+          {isLoading || !data ? (
+            <Skeleton className="h-40 w-full" />
+          ) : (
+            <WritingQuestionCard content={data.content} imageClassName="mx-auto" />
+          )}
+        </div>
+        <SubmissionContentAnswered
+          paragraphs={extractParagraphs(submission.answer ?? "")}
+          evaluationResult={evaluationResult}
+          skill={EnumSkill.writing}
+        />
       </div>
-      <SubmissionContentAnswered
-        answer={submission.answer}
-        evaluationResult={evaluationResult}
-        skill={EnumSkill.writing}
-      />
+      {!expanded && (
+        <div className="absolute inset-0 flex items-end justify-center bg-white bg-opacity-75">
+          <Button
+            onClick={() => setExpanded(true)}
+            className="gap-1 rounded-lg px-5 py-2 text-white"
+          >
+            <Typography className="text-small font-medium">{t("result.viewDetail")}</Typography>
+            <ChevronDown size={16} />
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

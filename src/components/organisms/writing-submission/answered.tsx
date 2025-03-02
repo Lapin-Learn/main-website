@@ -16,13 +16,13 @@ import { cn } from "@/lib/utils";
 import { Typography } from "../../ui";
 
 type SubmissionContentAnsweredProps = {
-  answer: string | null;
+  paragraphs: string[];
   evaluationResult?: STCriteriaEvaluation;
   skill?: EnumSkill;
 };
 
 function SubmissionContentAnswered(props: SubmissionContentAnsweredProps) {
-  const { answer, evaluationResult } = props;
+  const { paragraphs, evaluationResult } = props;
   const { t } = useTranslation("simulatedTest");
   const [highlightedAnswer, setHighlightedAnswer] = useState<React.ReactNode | null>(null);
 
@@ -42,66 +42,15 @@ function SubmissionContentAnswered(props: SubmissionContentAnsweredProps) {
         });
       });
 
-      const highlightedElements = extractParagraphs(answer ?? "").map((p, paragraphIndex) => {
-        const regex = new RegExp(
-          `(${Object.keys(highlights)
-            .sort((a, b) => b.length - a.length)
-            .join("|")})`,
-          "gi"
-        );
-
-        const splitContent = p.split(regex).map((text, index) => {
-          return {
-            type: highlights[text] || null,
-            text,
-            key: `paragraph-${paragraphIndex}-${index}`,
-          };
-        });
-
-        return (
-          <Typography key={`paragraph-${paragraphIndex}`} className="mb-2">
-            {splitContent.map(({ type, text, key }) =>
-              type ? (
-                <TooltipWrapper
-                  key={`tooltip-${key}`}
-                  triggerNode={type.reduce(
-                    (acc, curr) => (
-                      <span
-                        key={key}
-                        className={`${MAPPED_CRITERIA_COLOR[curr]} bg-opacity-50 hover:cursor-pointer hover:bg-opacity-30`}
-                      >
-                        {acc}
-                      </span>
-                    ),
-                    <>{text}</>
-                  )}
-                  contentNode={
-                    <SubmissionContentAnsweredPopup
-                      title={text}
-                      criterias={type}
-                      criteriasEvaluated={criteriasEvaluated as STCriteriaEvaluation["criterias"]}
-                    />
-                  }
-                  className="w-full max-w-screen-sm rounded-2xl bg-white shadow-[0px_4px_40px_0px_rgba(0,0,0,0.20);]"
-                  asChild
-                />
-              ) : (
-                <span key={key}>{text}</span>
-              )
-            )}
-          </Typography>
-        );
-      });
+      const highlightedElements = createHighlightedElements(
+        paragraphs,
+        highlights,
+        criteriasEvaluated
+      );
 
       setHighlightedAnswer(<div>{highlightedElements}</div>);
     }
   }, [evaluationResult]);
-
-  const extractParagraphs = (htmlString: string): string[] => {
-    return [...new DOMParser().parseFromString(htmlString, "text/html").querySelectorAll("p")].map(
-      (p) => p.textContent?.trim() || ""
-    );
-  };
 
   return (
     <div className="flex flex-col gap-8">
@@ -131,12 +80,12 @@ function SubmissionContentAnswered(props: SubmissionContentAnsweredProps) {
         </Typography>
       </div>
 
-      {answer ? (
+      {paragraphs ? (
         <div>
           {highlightedAnswer ? (
             <div className="text-justify">{highlightedAnswer}</div>
           ) : (
-            <div className="text-justify">{answer}</div>
+            <div className="text-justify">{paragraphs}</div>
           )}
         </div>
       ) : (
@@ -147,5 +96,60 @@ function SubmissionContentAnswered(props: SubmissionContentAnsweredProps) {
     </div>
   );
 }
+
+const createHighlightedElements = (
+  paragraphs: string[],
+  highlights: Record<string, string[]>,
+  criteriasEvaluated: STCriteriaEvaluation["criterias"]
+) => {
+  const regex = new RegExp(
+    `(${Object.keys(highlights)
+      .sort((a, b) => b.length - a.length)
+      .join("|")})`,
+    "gi"
+  );
+
+  return paragraphs.map((paragraph, paragraphIndex) => {
+    const splitContent = paragraph.split(regex).map((text, index) => ({
+      type: highlights[text] || null,
+      text,
+      key: `p-${paragraphIndex}-${index}`,
+    }));
+
+    return (
+      <Typography key={`paragraph-${paragraphIndex}`} className="mb-2">
+        {splitContent.map(({ type, text, key }) =>
+          type ? (
+            <TooltipWrapper
+              key={`tooltip-${key}`}
+              triggerNode={type.reduce(
+                (acc, curr) => (
+                  <span
+                    key={key}
+                    className={`${MAPPED_CRITERIA_COLOR[curr]} bg-opacity-50 hover:cursor-pointer hover:bg-opacity-30`}
+                  >
+                    {acc}
+                  </span>
+                ),
+                <>{text}</>
+              )}
+              contentNode={
+                <SubmissionContentAnsweredPopup
+                  title={text}
+                  criterias={type}
+                  criteriasEvaluated={criteriasEvaluated as STCriteriaEvaluation["criterias"]}
+                />
+              }
+              className="w-full max-w-screen-sm rounded-2xl bg-white shadow-lg"
+              asChild
+            />
+          ) : (
+            <span key={key}>{text}</span>
+          )
+        )}
+      </Typography>
+    );
+  });
+};
 
 export default SubmissionContentAnswered;
