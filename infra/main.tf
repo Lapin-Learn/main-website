@@ -1,4 +1,3 @@
-# Create Droplet
 resource "digitalocean_droplet" "app" {
   name   = "lapinlearn-ssr"
   region = "sgp1"

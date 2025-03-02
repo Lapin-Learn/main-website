@@ -46,17 +46,46 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # 🔵 Download Droplet IP from artifact
       - name: Download Droplet IP
         uses: actions/download-artifact@v4
         with:
           name: droplet-ip
 
-      # 🔵 Setup SSH Key
       - name: Configure SSH
         run: |
           echo "${{ secrets.SSH_KEY }}" > private_key.pem
           chmod 600 private_key.pem
+
+      - name: Install and Configure Nginx
+        run: |
+          if ! command -v nginx &> /dev/null; then
+            sudo apt update && sudo apt install -y nginx
+          fi
+      
+          # Ensure Nginx configuration file exists
+          CONFIG_PATH="/etc/nginx/sites-available/default"
+          if [ ! -f "$CONFIG_PATH" ]; then
+            sudo bash -c 'cat <<EOF > "$CONFIG_PATH"
+            server {
+                listen 80;
+                server_name YOUR_DOMAIN_OR_IP;
+      
+                location / {
+                    proxy_pass http://localhost:3000;
+                    proxy_http_version 1.1;
+                    proxy_set_header Upgrade \$http_upgrade;
+                    proxy_set_header Connection "upgrade";
+                    proxy_set_header Host \$host;
+                    proxy_cache_bypass \$http_upgrade;
+                }
+      
+                error_page 404 /index.html;
+            }
+            EOF'
+          fi
+      
+          sudo systemctl enable --now nginx
+          sudo systemctl restart nginx
 
       - name: Update Nginx Configuration
         run: |
