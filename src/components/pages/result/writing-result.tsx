@@ -4,7 +4,7 @@ import { EvaluationSection } from "@/components/molecules/evaluation-section";
 import OverviewEvaluationSection from "@/components/organisms/overview-evaluation-section";
 import WritingSubmission from "@/components/organisms/writing-submission";
 import { WritingSession } from "@/lib/types/simulated-test-session.type";
-import { cn, formatTime } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { Route } from "@/routes/_authenticated/_dashboard/practice/simulated-test/result";
 
 type WritingResultProps = {
@@ -13,7 +13,6 @@ type WritingResultProps = {
 
 function WritingResult({ session }: WritingResultProps) {
   const { status, orderCode } = Route.useSearch();
-  const isFullParts = session.parts.length == 2;
 
   // Get part types: Line graph, Pie chart, etc.
   const selectedPartDetails = session.skillTest.partsDetail;
@@ -45,9 +44,6 @@ function WritingResult({ session }: WritingResultProps) {
             skillTestId={session.skillTest.id}
             partDetails={partDetails}
             evaluationResults={session.results}
-            rootComponent={isFullParts ? "accordion" : "card"}
-            finishedOn={session.updatedAt}
-            timeSpent={formatTime(session.elapsedTime)}
           />
         </div>
         {session.results.length == 0 && (

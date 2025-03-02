@@ -22,7 +22,7 @@ type OverviewEvaluationSectionProps = {
 function OverviewEvaluationSection({ session }: OverviewEvaluationSectionProps) {
   const { t } = useTranslation(["practice", "collection"]);
 
-  const isFullParts = session.responses.length == 2;
+  const isFullParts = session.parts.length === 2;
 
   if (!isFullParts) return null;
 

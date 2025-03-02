@@ -17,6 +17,7 @@ export enum ExtendEnumSkill {
   speaking = "speaking",
   allSkills = "allSkills",
 }
+
 export enum EnumBandScore {
   PRE_IELTS = "pre_ielts",
   BAND_45 = "4.5",
@@ -97,7 +98,6 @@ export enum EnumTourElement {
 }
 
 export enum EnumWritingCriteria {
-  Overall = "overall",
   TaskAchievement = "TR",
   CoherenceAndCohesion = "CC",
   LexicalResource = "LR",
