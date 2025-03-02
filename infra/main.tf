@@ -5,7 +5,7 @@ resource "digitalocean_droplet" "app" {
   size   = "s-1vcpu-1gb"
   image  = "ubuntu-22-04-x64"
 
-  ssh_keys = ["44:f0:35:66:4a:ca:bc:f5:2d:d5:90:ea:f8:6b:48:14"]
+  ssh_keys = ["b9:ae:10:6d:d6:8b:67:35:2a:39:e3:68:08:7d:bd:7b"]
 
   user_data = file("cloud-init.yml") # Cloud-init script
 }
