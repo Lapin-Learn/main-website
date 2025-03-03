@@ -150,10 +150,16 @@
     "accuracy": "Độ chính xác",
     "questions": "Danh sách câu hỏi",
     "unanswered": "Chưa trả lời",
+    "taskDescription": "Mô tả bài làm",
     "yourAnswer": "Câu trả lời của bạn",
     "explanation": "Giải thích câu {{questionNo}}",
     "noAnswer": "Bạn chưa trả lời câu hỏi này",
-    "warning": "Bài chấm này chỉ để bạn tự đánh giá và cải thiện kĩ năng của mình, nên có thể có chút chênh lệch (0.5 - 1 điểm) so với thực tế. Nếu những gì bạn đã học khác với kết quả bài test, hãy tập trung vào kiến thức đã học nhé!"
+    "warning": "Bài chấm này chỉ để bạn tự đánh giá và cải thiện kĩ năng của mình, nên có thể có chút chênh lệch (0.5 - 1 điểm) so với thực tế. Nếu những gì bạn đã học khác với kết quả bài test, hãy tập trung vào kiến thức đã học nhé!",
+    "hoverFeedback": "Di chuột qua văn bản được đánh dấu để xem phản hồi chi tiết và gợi ý. Màu sắc đánh dấu khác nhau cho biết các loại lỗi khác nhau.",
+    "viewDetail": "Xem sửa bài chi tiết",
+    "paragraphs": "Đoạn văn",
+    "words": "Từ",
+    "overallScore": "Điểm tổng"
   },
   "noteBtn": {
     "title": "Ghi chú",

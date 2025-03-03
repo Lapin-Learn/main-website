@@ -149,10 +149,16 @@
     "accuracy": "Accuracy",
     "questions": "Questions",
     "unanswered": "Skipped",
+    "taskDescription": "Task description",
     "yourAnswer": "Your answer",
     "explanation": "Explanation question {{questionNo}}",
     "noAnswer": "You didn't answer this question",
-    "warning": "This article is only for you to self-evaluate and improve your skills, so there may be a slight difference (0.5 - 1 point) in reality. If you have learned something different from the test results, focus on the knowledge you have learned!"
+    "warning": "This article is only for you to self-evaluate and improve your skills, so there may be a slight difference (0.5 - 1 point) in reality. If you have learned something different from the test results, focus on the knowledge you have learned!",
+    "hoverFeedback": "Hover over highlighted text to see detailed feedback and suggestions. Different highlight colors indicate different types of errors.",
+    "viewDetail": "View detailed correction",
+    "paragraphs": "Paragraphs",
+    "words": "Words",
+    "overallScore": "Overall score"
   },
   "noteBtn": {
     "title": "Take note",
