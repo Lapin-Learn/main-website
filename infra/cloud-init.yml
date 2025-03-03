@@ -1,5 +1,6 @@
 #cloud-config
 packages:
+  - curl
   - nginx
   - nodejs
   - npm
@@ -8,6 +9,10 @@ runcmd:
   - curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
   - apt-get install -y nodejs
   - npm install -g pnpm pm2
+
+  # Verify installation
+  - pnpm --version
+  - pm2 --version
 
   # Setup app directory
   - mkdir -p /var/www/lapinlearn-webapp
@@ -20,14 +25,22 @@ runcmd:
       listen 80;
       server_name YOUR_DOMAIN_OR_IP;
     
-      location / {
-        proxy_pass http://localhost:3000;
+      # 🔹 SSR for "/", "/blogs", "/blogs/:id"
+    location ~ ^/(|blogs|blogs/[^/]+)$ {
+        proxy_pass http://localhost:3000;  # Node.js SSR Server
         proxy_http_version 1.1;
-        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
-        proxy_set_header Host \$host;
-        proxy_cache_bypass \$http_upgrade;
-      }
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    # 🔹 CSR for all other routes (SPA Behavior)
+    location / {
+        root /var/www/lapinlearn-webapp/dist;  # Serve built React app
+        index index.html;
+        try_files $uri /index.html;
+    }
     
       error_page 404 /index.html;
     }

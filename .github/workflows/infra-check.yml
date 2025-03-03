@@ -1,7 +1,7 @@
 name: Infra Check
 on:
   pull_request:
-    branches: ["main"]
+    branches: ["main", "develop"]
 
 jobs:
   infra-check:

@@ -46,13 +46,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # 🔵 Download Droplet IP from artifact
       - name: Download Droplet IP
         uses: actions/download-artifact@v4
         with:
           name: droplet-ip
 
-      # 🔵 Setup SSH Key
       - name: Configure SSH
         run: |
           echo "${{ secrets.SSH_KEY }}" > private_key.pem
@@ -60,10 +58,30 @@ jobs:
 
       - name: Update Nginx Configuration
         run: |
-          DROPLET_IP=$(cat droplet_ip.txt)  # Read IP dynamically
-          ssh -o StrictHostKeyChecking=no -i private_key.pem root@$DROPLET_IP << 'EOF'
+          DROPLET_IP=$(cat droplet_ip.txt)
+          echo "✅ DROPLET_IP is: $DROPLET_IP"
+
+          if [[ -z "$DROPLET_IP" ]]; then
+            echo "❌ ERROR: DROPLET_IP is empty!"
+            exit 1
+          fi
+
+          ssh -o StrictHostKeyChecking=no -i private_key.pem root@$DROPLET_IP << EOF
+            # Check if server_name is already set correctly
+            if sudo grep -q "server_name $DROPLET_IP;" /etc/nginx/sites-available/default; then
+              echo "✅ Nginx configuration is already up-to-date. Skipping restart."
+              exit 0
+            fi
+
+            echo "🔄 Updating Nginx configuration..."
             sudo sed -i 's/YOUR_DOMAIN_OR_IP/'"$DROPLET_IP"'/g' /etc/nginx/sites-available/default
-            sudo systemctl restart nginx
+
+            # Verify server_name is updated
+            sudo grep "server_name" /etc/nginx/sites-available/default || echo "server_name $DROPLET_IP;" | sudo tee -a /etc/nginx/sites-available/default
+
+            # Test and restart Nginx only if config changes
+            sudo nginx -t && sudo systemctl restart nginx
+            echo "✅ Nginx restarted successfully."
           EOF
 
   deploy-app:

@@ -18,16 +18,22 @@ runs:
       env:
         SSH_KEY: ${{ inputs.ssh-key }}
       run: |
-        DROPLET_IP=$(cat droplet_ip.txt) 
+        DROPLET_IP=$(cat droplet_ip.txt)
+        echo "✅ DROPLET_IP is: $DROPLET_IP"
+        if [[ -z "$DROPLET_IP" ]]; then
+          echo "❌ ERROR: DROPLET_IP is empty!"
+          exit 1
+        fi
         echo "$SSH_KEY" > ssh_key
         chmod 600 ssh_key
     
-        # Copy project to server
-        ssh -i ssh_key -o StrictHostKeyChecking=no root@$DROPLET_IP "mkdir -p /var/www/lapinlearn-webapp"
-        scp -i ssh_key -o StrictHostKeyChecking=no -r . root@$DROPLET_IP:/var/www/lapinlearn-webapp
-
         # Install dependencies and start app
         ssh -i ssh_key -o StrictHostKeyChecking=no root@$DROPLET_IP <<EOF
+          # Install Node.js and pnpm
+          curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+          sudo apt-get install -y nodejs
+          npm install -g pnpm pm2
+        
           cd /var/www/lapinlearn-webapp
           pnpm install
           pnpm run build
