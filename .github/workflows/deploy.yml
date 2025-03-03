@@ -22,7 +22,7 @@ jobs:
         with:
           working-directory: "./infra"
           apply: "yes"
-          do_token: ${{ secrets.DIGITALOCEAN_TOKEN }}
+          do-token: ${{ secrets.DIGITALOCEAN_TOKEN }}
 
       - name: Save Droplet IP as Artifact
         run: |
@@ -76,9 +76,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-dependencies
-      - name: Download Droplet IP
-        uses: actions/download-artifact@v4
         with:
-          name: droplet-ip
+          api-endpoint: ${{ secrets.VITE_PUBLIC_API_ENDPOINT }}
+          firebase-api-key: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          firebase-auth-domain: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          firebase-project-id: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          firebase-app-id: ${{ secrets.VITE_FIREBASE_APP_ID }}
+
       - name: Deploy Files to DigitalOcean
         uses: ./.github/actions/do-sync-action
+        with:
+          ssh-key: ${{ secrets.SSH_KEY }}

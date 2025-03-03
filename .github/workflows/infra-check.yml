@@ -17,4 +17,4 @@ jobs:
         with:
           working-directory: "./infra"
           apply: "no"
-          do_token: ${{ secrets.DIGITALOCEAN_TOKEN }}
+          do-token: ${{ secrets.DIGITALOCEAN_TOKEN }}
