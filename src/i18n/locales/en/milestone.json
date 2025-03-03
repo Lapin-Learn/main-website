@@ -22,7 +22,8 @@
       "congratulation": "Keep your streak going! Keep learning daily to maintain your streak!"
     },
     "mission": {
-      "title": "Daily Quests update!"
+      "title": "Daily Quests update!",
+      "title_short": "Daily Quests"
     }
   }
   

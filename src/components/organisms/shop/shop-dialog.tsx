@@ -3,7 +3,6 @@ import { DialogDescription, DialogTitle, DialogTrigger } from "@radix-ui/react-d
 import { ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import carrot from "@/assets/carrot.svg";
 import { Button, Card, CardContent } from "@/components/ui";
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@/components/ui/dialog";
 import { useUseInventoryItem } from "@/hooks/react-query/useItem";
@@ -34,7 +33,7 @@ const ShopDialog = ({ item, triggerContent, dialogContentClassName }: ItemDialog
             if (returnData.type === EnumRandomGiftType.CARROTS) {
               setUseItemDialogOpen({
                 itemName: `${returnData.value} ${t("reward.carrot")}`,
-                imageSource: carrot,
+                imageSource: "/assets/carrot.svg",
                 description: t("reward.paid", { ns: "shop" }),
               });
             } else if (typeof returnData.value !== "number") {
@@ -82,7 +81,7 @@ const ShopDialog = ({ item, triggerContent, dialogContentClassName }: ItemDialog
             <Card className="flex w-fit flex-col border-0 shadow-none" key={item.id}>
               <CardContent
                 key={item.id}
-                className="flex size-full flex-col items-center justify-between space-y-2 p-4 pb-3 hover:cursor-pointer"
+                className="flex size-full flex-col items-center justify-between space-y-2 p-4 !py-3 hover:cursor-pointer"
               >
                 <img
                   src={item.image.url}

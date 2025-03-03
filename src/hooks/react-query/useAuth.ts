@@ -103,9 +103,6 @@ export const useSignOut = () => {
     mutationFn: signOut,
     onSuccess: () => {
       navigate({ to: "/log-in" });
-      queryClient.invalidateQueries({
-        queryKey: authKeys.key,
-      });
       queryClient.clear();
     },
     onError: (error) => {

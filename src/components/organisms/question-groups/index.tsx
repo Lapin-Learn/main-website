@@ -1,4 +1,5 @@
 import parser from "html-react-parser";
+import { createContext, useContext } from "react";
 
 import { EnumQuestionGroup } from "@/lib/enums";
 import { QuestionGroup } from "@/lib/types/simulated-test.type";
@@ -33,24 +34,46 @@ const QuestionGroupFactory = ({ questionGroup }: QuestionGroupFactoryProps) => {
   }
 };
 
+type QuestionGroupContext = {
+  questionGroup: QuestionGroup;
+};
+
+const QuestionGroupContext = createContext<QuestionGroupContext | null>(null);
+
+const useQuestionGroupContext = () => {
+  const context = useContext(QuestionGroupContext);
+  if (!context) {
+    throw new Error("useQuestionGroupContext must be used within a QuestionGroupContext");
+  }
+  return context;
+};
+
 const QuestionGroupTemplate = ({ questionGroup }: { questionGroup: QuestionGroup }) => {
   const { imageSrc, startQuestionNo, endQuestionNo, questionCard, questionDescription } =
     questionGroup;
+
   return (
-    <div>
-      <div className="mb-2 font-bold">
-        Question {startQuestionNo} - {endQuestionNo}.
+    <QuestionGroupContext.Provider
+      value={{
+        questionGroup,
+      }}
+    >
+      <div>
+        <div className="mb-2 font-bold">
+          Question {startQuestionNo} - {endQuestionNo}.
+        </div>
+        <h6 className="mb-2 font-bold">{questionCard}</h6>
+        {questionDescription && typeof questionDescription == "string" && (
+          <div className="mb-2">{parser(questionDescription)}</div>
+        )}
+        {imageSrc ? (
+          <img src={imageSrc} alt={`Image ${startQuestionNo}-${endQuestionNo}`} className="w-1/2" />
+        ) : null}
+        <QuestionGroupFactory questionGroup={questionGroup} />
       </div>
-      <h6 className="mb-2 font-bold">{questionCard}</h6>
-      {questionDescription && typeof questionDescription == "string" && (
-        <div className="mb-2">{parser(questionDescription)}</div>
-      )}
-      {imageSrc ? (
-        <img src={imageSrc} alt={`Image ${startQuestionNo}-${endQuestionNo}`} className="w-1/2" />
-      ) : null}
-      <QuestionGroupFactory questionGroup={questionGroup} />
-    </div>
+    </QuestionGroupContext.Provider>
   );
 };
 
 export default QuestionGroupTemplate;
+export { useQuestionGroupContext };

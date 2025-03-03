@@ -19,13 +19,15 @@ import {
 import { useStartSimulatedTest } from "@/hooks/react-query/use-simulated-test";
 import { EnumMode, EnumSkill } from "@/lib/enums";
 import { SimulatedTest } from "@/lib/types/simulated-test.type";
+import { Route } from "@/routes/_authenticated/_dashboard/practice/$collectionId";
 
 import useSelectModeDialog from "./use-select-mode-dialog";
 
 const SelectModeDialog = () => {
+  const { collectionId } = Route.useParams();
   const { t } = useTranslation("practice");
   const { test, skillTest, open, setOpen } = useSelectModeDialog();
-  const startSimulatedTest = useStartSimulatedTest();
+  const startSimulatedTest = useStartSimulatedTest(collectionId);
 
   const parts: {
     value: string;

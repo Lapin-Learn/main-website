@@ -24,15 +24,15 @@ export const CollectionCard = ({
   //   return acc;
   // }, 0);
   return (
-    <div className="overflow-hidden rounded-2xl border bg-white shadow-sm hover:cursor-pointer hover:shadow-[0px_9px_24.1px_0px_rgba(101,105,115,0.1)]">
-      <div className="grid min-h-36 max-w-full grid-cols-[2fr_5fr] gap-5 md:min-h-60">
+    <div className="overflow-hidden rounded-lg border bg-white shadow-sm hover:cursor-pointer hover:shadow-[0px_9px_24.1px_0px_rgba(101,105,115,0.1)] md:rounded-2xl">
+      <div className="grid min-h-36 max-w-full grid-cols-[2fr_5fr] gap-3 md:min-h-60 md:gap-5">
         {thumbnail ? (
           <img src={thumbnail} className="h-36 w-72 object-cover md:h-60" />
         ) : (
           <Skeleton className="rounded-none" />
         )}
-        <div className="flex w-full flex-col justify-between gap-2 py-4 md:gap-6">
-          <div className="flex h-fit w-full flex-row items-start justify-between gap-2 md:gap-8">
+        <div className="flex w-full flex-col justify-between gap-2 py-2 md:gap-6 md:py-4">
+          <div className="flex h-fit w-full flex-row items-start justify-between gap-1 md:gap-8">
             <div className="flex flex-col gap-y-2">
               <div>
                 <span className="mr-2 text-lg font-semibold leading-8">{name}</span>
@@ -46,12 +46,12 @@ export const CollectionCard = ({
                 />
               </div>
 
-              <p className="line-clamp-1 truncate text-wrap text-sm font-normal text-neutral-400 sm:line-clamp-2 md:line-clamp-3">
+              <p className="line-clamp-3 truncate text-wrap text-sm font-normal text-neutral-400 max-md:hidden">
                 {description}
               </p>
             </div>
-            <div className="clip-custom bg-[#FCE3B4] p-2 pl-7 pr-3.5">
-              <span className="text-nowrap text-sm text-[#A9421C]">
+            <div className="clip-custom bg-[#FCE3B4] p-1 pl-5 pr-3 md:p-2 md:pl-7">
+              <span className="text-nowrap text-xs text-[#A9421C] md:text-sm">
                 {t("collection-list.numberOfTest", {
                   ns: "practice",
                   number: 0,
@@ -61,6 +61,9 @@ export const CollectionCard = ({
               </span>
             </div>
           </div>
+          <p className="line-clamp-3 truncate text-wrap pr-2 text-sm font-normal text-neutral-400 md:hidden">
+            {description}
+          </p>
           <TestList tests={simulatedIeltsTests} className="hidden md:grid" />
         </div>
       </div>
@@ -79,7 +82,7 @@ const TestList = ({
   return (
     <div
       className={cn(
-        "grid grid-cols-2 items-center justify-between gap-x-8 gap-y-1.5 pr-10",
+        "grid grid-cols-2 items-center justify-between gap-x-4 md:gap-x-8 gap-y-1.5 pr-10",
         className,
         tests.length % 2 == 0
           ? "[&>*:nth-last-child(-n+2)>span]:hidden"

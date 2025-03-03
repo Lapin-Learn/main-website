@@ -8,17 +8,13 @@ import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
 import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern";
 
 type HeroBannerProps = {
-  id: string;
   isLoggedIn?: boolean;
 };
-export const HeroBanner = ({ id, isLoggedIn = false }: HeroBannerProps) => {
+export const HeroBanner = ({ isLoggedIn = false }: HeroBannerProps) => {
   const { t } = useTranslation("landingPage");
 
   return (
-    <div
-      id={id}
-      className="relative flex h-[800px] w-full flex-col items-center justify-center bg-linear-hero-banner px-4 py-20 md:h-screen md:px-20 md:py-40"
-    >
+    <div className="relative flex h-[800px] w-full flex-col items-center justify-center bg-linear-hero-banner px-4 py-20 md:h-screen md:px-20 md:py-40">
       <div className="flex h-full flex-col items-center gap-6 md:grid md:grid-cols-12 md:gap-6">
         <div className="z-10 col-start-1 flex h-fit flex-col gap-5 md:col-span-5 md:col-start-2 md:gap-10">
           <div className="flex flex-col gap-5">

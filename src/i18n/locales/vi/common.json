@@ -1,69 +1,77 @@
 {
-    "email": "Email",
-    "password": "Mật khẩu",
-    "confirmPassword": "Nhập lại mật khẩu",
-    "cancel": "Hủy",
-    "submit": "Gửi",
-    "clear": "Xóa",
-    "close": "Đóng",
-    "save": "Lưu",
-    "update": "Cập nhật",
-    "more": "thêm",
-    "select_all": "Chọn tất cả",
-    "search": {
-        "placeholder": "Tìm kiếm",
-        "noResults": "Không tìm thấy kết quả"
-    },
-    "toast": {
-        "update": {
-            "success": "Cập nhật {{item, lowercase}} thành công",
-            "error": "Cập nhật {{item, lowercase}} thất bại"
-        }
-    },
-    "navigation": {
-        "practice": "Luyện thi thử",
-        "mission": "Nhiệm vụ",
-        "shop": "Cửa hàng",
-        "simulatedTest": "Bài thi mô phỏng",
-        "result": "Kết quả",
-        "contentEditor": "Xuất định dạng tiptap",
-        "dailyLesson": "Bài học hàng ngày"
-    },
-    "allSkills": "Tất cả kỹ năng",
-    "reading": "reading",
-    "speaking": "speaking",
-    "listening": "listening",
-    "writing": "writing",
-    "next": "Tiếp theo",
-    "prev": "Trước",
-    "total": "Tổng: {{number}} {{unit}}",
-    "home": "Trang chủ",
-    "question": "Câu hỏi",
-    "microphone": {
-        "permission": "Để có thể sử dụng Microphone, bạn cần cấp quyền cho Microphone của máy",
-        "deniedTitle": "Quyền truy cập Microphone bị từ chối",
-        "deniedDescription": "Vui lòng cho phép quyền truy cập Microphone để ghi âm.",
-        "browswerNotSupportTitle": "Trình duyệt không được hỗ trợ",
-        "browswerNotSupportDescription": "Trình duyệt này không hỗ trợ ghi âm."
-    },
-    "time_units": {
-        "second": "giây",
-        "minute": "phút",
-        "hour": "giờ",
-        "day": "ngày",
-        "week": "tuần",
-        "month": "tháng",
-        "year": "năm"
-    },
-    "crashMessage": "Đã có lỗi xảy ra, liên hệ với quản trị viên để được hỗ trợ",
-    "success": "Thành công",
-    "error": "Không thành công",
-    "language": {
-        "title": "Ngôn ngữ",
-        "vi": "Tiếng Việt",
-        "en": "Tiếng Anh"
-    },
-    "calendar": {
+  "email": "Email",
+  "password": "Mật khẩu",
+  "confirmPassword": "Nhập lại mật khẩu",
+  "cancel": "Hủy",
+  "submit": "Gửi",
+  "clear": "Xóa",
+  "close": "Đóng",
+  "save": "Lưu",
+  "update": "Cập nhật",
+  "more": "thêm",
+  "get_started": "Bắt đầu",
+  "go_back": "Quay lại",
+  "select_all": "Chọn tất cả",
+  "search": {
+    "placeholder": "Tìm kiếm",
+    "noResults": "Không tìm thấy kết quả"
+  },
+  "toast": {
+    "update": {
+      "success": "Cập nhật {{item, lowercase}} thành công",
+      "error": "Cập nhật {{item, lowercase}} thất bại"
+    }
+  },
+  "navigation": {
+    "practice": "Luyện thi thử",
+    "mission": "Nhiệm vụ",
+    "shop": "Cửa hàng",
+    "simulatedTest": "Bài thi mô phỏng",
+    "result": "Kết quả",
+    "contentEditor": "Xuất định dạng tiptap",
+    "dailyLesson": "Bài học hàng ngày",
+    "settings": "Cài đặt",
+    "profile": "Thông tin cá nhân",
+    "changePassword": "Đổi mật khẩu",
+    "history": "Lịch sử học tập",
+    "transactions": "Lịch sử giao dịch",
+    "blogs": "Về IELTS"
+  },
+  "allSkills": "Tất cả kỹ năng",
+  "reading": "reading",
+  "speaking": "speaking",
+  "listening": "listening",
+  "writing": "writing",
+  "next": "Tiếp theo",
+  "prev": "Trước",
+  "total": "Tổng: {{number}} {{unit}}",
+  "home": "Trang chủ",
+  "question": "Câu hỏi",
+  "microphone": {
+    "permission": "Để có thể sử dụng Microphone, bạn cần cấp quyền cho Microphone của máy",
+    "deniedTitle": "Quyền truy cập Microphone bị từ chối",
+    "deniedDescription": "Vui lòng cho phép quyền truy cập Microphone để ghi âm.",
+    "browswerNotSupportTitle": "Trình duyệt không được hỗ trợ",
+    "browswerNotSupportDescription": "Trình duyệt này không hỗ trợ ghi âm."
+  },
+  "time_units": {
+    "second": "giây",
+    "minute": "phút",
+    "hour": "giờ",
+    "day": "ngày",
+    "week": "tuần",
+    "month": "tháng",
+    "year": "năm"
+  },
+  "crashMessage": "Đã có lỗi xảy ra, liên hệ với quản trị viên để được hỗ trợ",
+  "success": "Thành công",
+  "error": "Không thành công",
+  "language": {
+    "title": "Ngôn ngữ",
+    "vi": "Tiếng Việt",
+    "en": "Tiếng Anh"
+  },
+  "calendar": {
     "days_of_week": [
       "CN",
       "T2",
@@ -87,5 +95,7 @@
       "Tháng Mười Một",
       "Tháng Mười Hai"
     ]
-  }
+  },
+  "warning": "Lưu ý",
+  "screen_size_warning": "Ứng dụng này được xem tốt nhất trên máy tính, bạn hãy sử dụng máy tính để có trải nghiệm tốt nhất."
 }

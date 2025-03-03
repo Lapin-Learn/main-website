@@ -14,7 +14,7 @@ const Section: FC<SectionProps> & {
 } = ({ children, className, ...props }: SectionProps) => {
   return (
     <SectionContext.Provider value={{}}>
-      <div className={`flex w-full flex-col gap-2 ${className}`} {...props}>
+      <div className={`flex w-full flex-col md:gap-2 ${className}`} {...props}>
         {children}
       </div>
     </SectionContext.Provider>

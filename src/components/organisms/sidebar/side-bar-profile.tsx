@@ -1,43 +1,55 @@
 import { Link } from "@tanstack/react-router";
-import { LogOut, User } from "lucide-react";
+import { User } from "lucide-react";
 
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useSignOut } from "@/hooks/react-query/useAuth";
 import { useAccountIdentifier, useUserAvatar, useUserProfile } from "@/hooks/react-query/useUsers";
+import useBreakPoint from "@/hooks/use-screen-size";
 import { EnumRole } from "@/lib/enums";
 import { cn } from "@/lib/utils";
 
+import LogoutAlert from "./logout-alert";
+
 export const SideBarProfile = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => {
   const { avatar } = useUserAvatar();
+  const isMobile = useBreakPoint() === "xs";
   return (
     <div className="flex flex-col gap-4 p-2">
       <Separator />
       <HoverCard>
         <HoverCardTrigger asChild>
-          <Link to="/profile/history">
-            <div
-              className={cn(
-                "flex flex-row items-center justify-center",
-                isSidebarOpen && "items-center gap-2"
-              )}
-            >
-              {avatar ? (
-                <img src={avatar.url} className="!size-10 rounded-full" />
-              ) : (
-                <div className="grid !size-10 place-items-center rounded-full bg-neutral-100 text-white">
-                  <User size={20} />
-                </div>
-              )}
-              {isSidebarOpen && <ProfileTooltip />}
-            </div>
-          </Link>
+          <div
+            className={cn(
+              "flex flex-row items-center justify-center",
+              isSidebarOpen && "items-center gap-2"
+            )}
+          >
+            <Link to={isMobile ? "/profile" : "/profile/history"}>
+              <div
+                className={cn(
+                  "flex flex-row items-center justify-center",
+                  isSidebarOpen && "items-center gap-2"
+                )}
+              >
+                {avatar ? (
+                  <img src={avatar.url} className="!size-10 rounded-full" />
+                ) : (
+                  <div className="grid !size-10 place-items-center rounded-full bg-neutral-100 text-white">
+                    <User size={20} />
+                  </div>
+                )}
+                {isSidebarOpen && <ProfileTooltip />}
+              </div>
+            </Link>
+            {isSidebarOpen && <LogoutAlert />}
+          </div>
         </HoverCardTrigger>
         {!isSidebarOpen && (
           <HoverCardContent className="size-fit">
             <div className={cn("flex flex-row items-center justify-center gap-2")}>
               <ProfileTooltip />
+              <LogoutAlert />
             </div>
           </HoverCardContent>
         )}
@@ -47,31 +59,24 @@ export const SideBarProfile = ({ isSidebarOpen }: { isSidebarOpen: boolean }) =>
 };
 
 const ProfileTooltip = () => {
-  const signOut = useSignOut();
   const { data: user, isSuccess } = useUserProfile();
   const { checkRole } = useAccountIdentifier();
 
   return (
-    <>
-      <div className="flex h-10 w-full flex-1 flex-col justify-between overflow-hidden">
-        {user && isSuccess ? (
-          <>
-            <p className="text-small font-semibold text-black">
-              {checkRole(EnumRole.learner) ? user.fullName : "Super Admin"}
-            </p>
-            <p className="truncate text-xs text-supporting-text">{user.email}</p>
-          </>
-        ) : (
-          <>
-            <Skeleton className="h-[17px] w-20" />
-            <Skeleton className="w-22 h-[17px]" />
-          </>
-        )}
-      </div>
-
-      <button onClick={() => signOut.mutate()}>
-        <LogOut size={20} />
-      </button>
-    </>
+    <div className="flex h-10 w-full flex-1 flex-col justify-between overflow-hidden">
+      {user && isSuccess ? (
+        <>
+          <p className="text-small font-semibold text-black">
+            {checkRole(EnumRole.learner) ? user.fullName : "Super Admin"}
+          </p>
+          <p className="truncate text-xs text-supporting-text">{user.email}</p>
+        </>
+      ) : (
+        <>
+          <Skeleton className="h-[17px] w-20" />
+          <Skeleton className="w-22 h-[17px]" />
+        </>
+      )}
+    </div>
   );
 };

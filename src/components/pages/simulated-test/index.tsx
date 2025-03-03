@@ -1,8 +1,10 @@
+import LoadingPage from "@components/pages/loading-page.tsx";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 
 import ErrorFallback from "@/components/ErrorFallback";
 import { FloatingNote } from "@/components/molecules/floating-note";
+import WarningScreenSizeDialog from "@/components/organisms/warning-screen-size-dialog";
 import PageLayout from "@/components/templates/simulated-test-detail-layout";
 import { useGetSTSessionDetail } from "@/hooks/react-query/use-simulated-test";
 import useSimulatedTestState from "@/hooks/zustand/use-simulated-test";
@@ -17,7 +19,7 @@ import SpeakingHeader from "./speaking-header";
 
 /**
  * Render the simulated test page layout
- * The layout should decide which component should be render, escape checking condition in every component, as many stateless component as possible
+ * The layout should decide which component should be rendered, escape checking condition in every component, as many stateless component as possible
  */
 const SimulatedTestPage = () => {
   const { sessionId } = Route.useSearch();
@@ -56,13 +58,13 @@ const SimulatedTestPage = () => {
     return <ErrorFallback />;
   }
 
-  // TODO: enhance UI loading here
   if (isLoading || !session) {
-    return <div className="size-screen grid place-items-center">Loading...</div>;
+    return <LoadingPage />;
   }
 
   return (
     <>
+      <WarningScreenSizeDialog closable />
       <PageLayout
         header={
           session.skillTest.skill === EnumSkill.speaking ? (

@@ -28,7 +28,7 @@ const SkillsFilter = ({
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-wrap justify-center gap-4">
+    <div className="flex flex-wrap justify-center gap-2 md:gap-4">
       {skillsList.map(({ label, IconOutlined, IconFilled }) => (
         <Button
           key={label}

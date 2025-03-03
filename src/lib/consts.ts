@@ -1,4 +1,3 @@
-import CarrotBasket from "@/assets/carrot-basket.svg";
 import icons from "@/assets/icons";
 import AllSkillsIcon from "@/assets/icons/skills/all";
 import ListeningIcon from "@/assets/icons/skills/listening";
@@ -203,11 +202,25 @@ export const MAPPED_SPEAKING_CRITERIA_TITLES: Record<string, string> = {
   [EnumSpeakingCriteria.GrammaticalRangeAndAccuracy]: "Grammatical Range and Accuracy",
 };
 
+export const MAPPED_SPEAKING_CRITERIA_SHORT_TITLES: Record<string, string> = {
+  [EnumSpeakingCriteria.FluencyAndCoherence]: "FC",
+  [EnumSpeakingCriteria.Pronunciation]: "P",
+  [EnumSpeakingCriteria.LexicalResource]: "LR",
+  [EnumSpeakingCriteria.GrammaticalRangeAndAccuracy]: "GRA",
+};
+
 export const MAPPED_WRITING_CRITERIA_TITLES: Record<string, string> = {
-  [EnumWritingCriteria.TaskAchievement]: "Task Achievement",
+  [EnumWritingCriteria.TaskAchievement]: "Task Response",
   [EnumWritingCriteria.CoherenceAndCohesion]: "Coherence and Cohesion",
   [EnumWritingCriteria.LexicalResource]: "Lexical Resource",
   [EnumWritingCriteria.GrammaticalRangeAndAccuracy]: "Grammatical Range and Accuracy",
+};
+
+export const MAPPED_WRITING_CRITERIA_SHORT_TITLES: Record<string, string> = {
+  [EnumWritingCriteria.TaskAchievement]: "TR",
+  [EnumWritingCriteria.CoherenceAndCohesion]: "CC",
+  [EnumWritingCriteria.LexicalResource]: "LR",
+  [EnumWritingCriteria.GrammaticalRangeAndAccuracy]: "GRA",
 };
 
 export const FIREBASE_ANALYTICS_EVENTS = {
@@ -238,7 +251,7 @@ const carrotSubscription: Shop = {
   name: EnumItemShop.SUBSCRIPTION,
   price: { 500: 500 * 20, 2500: 2500 * 20, 5000: 5000 * 20 },
   image: {
-    url: CarrotBasket,
+    url: "/assets/carrot-basket.svg",
   },
   imageId: "",
   description: "Buy bill to get more time",

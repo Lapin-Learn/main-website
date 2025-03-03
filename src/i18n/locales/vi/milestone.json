@@ -22,7 +22,8 @@
       "congratulation": "Kéo dài streak thành công! Hãy học hàng ngày để giữ streak nhé!"
     },
     "mission": {
-      "title": "Cập nhật nhiệm vụ hàng ngày!"
+      "title": "Cập nhật nhiệm vụ hàng ngày!",
+      "title_short": "Nhiệm vụ hàng ngày"
     }
   }
   
