@@ -191,9 +191,16 @@ export type STCriteriaEvaluation = {
   criterias: {
     [key in EnumWritingCriteria | EnumSpeakingCriteria]?: {
       score: number;
-      evaluate: string;
+      evaluate: STCriteriaEvaluationResponse[];
     };
   };
+};
+
+export type STCriteriaEvaluationResponse = {
+  correction: string;
+  error: string;
+  explanation: string;
+  highlight: string[];
 };
 
 export type QuestionTypeAccuracy = {
