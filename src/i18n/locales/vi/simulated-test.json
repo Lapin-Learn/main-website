@@ -121,6 +121,9 @@
         }
       ]
     },
+    "part_introduction_1": "<p>Người chấm sẽ hỏi tên và thông tin cá nhân của bạn, sau đó là những câu hỏi tổng quát về bản thân (ví dụ: bạn sống ở đâu, làm việc ở đâu hoặc học ở đâu).</p><p>Sau đó, bạn sẽ trả lời câu hỏi về các chủ đề quen thuộc như âm nhạc, nấu ăn, thời tiết hoặc phim ảnh. Người chấm có thể yêu cầu bạn mở rộng câu trả lời bằng cách hỏi “tại sao?” hoặc “tại sao không?”</p><p>Phần này kiểm tra khả năng truyền đạt ý kiến và thông tin về các chủ đề hàng ngày theo định dạng câu hỏi - câu trả lời.</p>",
+    "part_introduction_2": "<p>Bạn sẽ nhận được một thẻ chủ đề với lời nhắc và các điểm hướng dẫn. Bạn sẽ có 1 phút để chuẩn bị bằng bút chì và giấy trước khi nói trong <strong>1–2 phút</strong>.</p><p>Giám khảo sẽ tính giờ, cho bạn biết khi nào bắt đầu và dừng bạn lại sau 2 phút. Họ có thể hỏi một câu hỏi tiếp theo trước khi chuyển sang phần tiếp theo.</p><p>Phần này đánh giá khả năng nói dài, sắp xếp ý tưởng một cách hợp lý và sử dụng ngôn ngữ phù hợp, dựa trên kinh nghiệm của riêng bạn.</p>",
+    "part_introduction_3": "<p>Giám khảo sẽ hỏi bạn những câu hỏi liên quan đến chủ đề trong Phần 2. Bạn sẽ có 1 phút để chuẩn bị câu trả lời trước khi nói trong <strong>3–4 phút</strong>.</p><p>Giám khảo sẽ tính giờ, cho bạn biết khi nào bắt đầu và dừng bạn lại sau 4 phút. Họ có thể hỏi một câu hỏi tiếp theo trước khi chuyển sang phần tiếp theo.</p><p>Phần này đánh giá khả năng nói dài, diễn đạt ý tưởng rõ ràng và sử dụng nhiều từ vựng và ngữ pháp của bạn.</p>",
     "nextQuestionInSeconds": "Câu tiếp theo sau {{ time }}s",
     "nextPartInSeconds": "Part tiếp theo sau {{ time }}s",
     "nextPart": "Part tiếp theo",

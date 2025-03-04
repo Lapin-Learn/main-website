@@ -1,3 +1,6 @@
 export default {
-  "**/*.{ts,tsx}": (stagedFiles) => [`eslint . --fix`, `prettier --write ${stagedFiles.join(" ")}`],
+  "**/*.{ts,tsx}": (stagedFiles) => [
+    `eslint . --fix --ignore-pattern dist-ssr/`,
+    `prettier --write ${stagedFiles.join(" ")}`,
+  ],
 };

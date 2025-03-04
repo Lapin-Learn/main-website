@@ -120,6 +120,9 @@
         }
       ]
     },
+    "part_introduction_1": "<p>The examiner will ask for your name and identification, followed by general questions about yourself (e.g., where you live, work, or study).</p><p>You will then answer questions on familiar topics like music, cooking, weather, or movies. The examiner may prompt you to extend your responses by asking “why?” or“why not?”</p><p>This section tests your ability to communicate opinions and information on everyday topics in a question-answer format.</p>",
+    "part_introduction_2": "<p>You will receive a topic card with a prompt and guiding points. You’ll have 1 minute to prepare using a pencil and paper before speaking for <strong>1–2 minutes</strong>.</p><p>The examiner will time you, tell you when to start, and stop you after 2 minutes. They may ask a follow-up question before moving to the next section.</p><p>This part assesses your ability to speak at length, organize ideas logically, and use appropriate language, drawing from your own experience.</p>",
+    "part_introduction_3": "<p>The examiner will ask you questions related to the topic in Part 2. You’ll have 1 minute to prepare your response before speaking for <strong>3–4 minutes</strong>.</p><p>The examiner will time you, tell you when to start, and stop you after 4 minutes. They may ask a follow-up question before moving to the next section.</p><p>This part evaluates your ability to speak at length, express ideas clearly, and use a wide range of vocabulary and grammar.</p>",
     "nextQuestionInSeconds": "Next question in {{ time }}s",
     "nextPartInSeconds": "Next part in {{ time }}s",
     "nextPart": "Next part",

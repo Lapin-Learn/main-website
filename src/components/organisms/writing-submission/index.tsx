@@ -56,21 +56,6 @@ function WritingSubmission(props: WritingSubmissionProps) {
   );
 }
 
-//       {userSubmissions.map((submission, index) => {
-//         const partDetail = partDetails[index] ?? [];
-//         return (
-//           <SubmissionContent
-//             submission={submission}
-//             skillTestId={skillTestId}
-//             partDetail={partDetail}
-//             evaluationResult={evaluationResults && evaluationResults[submission.questionNo - 1]}
-//           />
-//         );
-//       })}
-//     </Tabs>
-//   );
-// }
-
 type SubmissionContentProps = {
   submission: SimulatedTestAnswer;
   skillTestId: number;
