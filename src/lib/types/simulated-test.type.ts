@@ -191,7 +191,7 @@ export type STCriteriaEvaluation = {
   criterias: {
     [key in EnumWritingCriteria | EnumSpeakingCriteria]?: {
       score: number;
-      evaluate: STCriteriaEvaluationResponse[];
+      evaluate: STCriteriaEvaluationResponse[] | string;
     };
   };
 };

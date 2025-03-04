@@ -22,11 +22,12 @@ function WritingResult({ session }: WritingResultProps) {
   );
 
   const submissions = session.parts.map((partNo) => {
-    const submission = session.responses.find((response) => response.questionNo === partNo) ?? {
-      questionNo: partNo,
-      answer: "",
-    };
-    return submission;
+    return (
+      session.responses.find((response) => response.questionNo === partNo) ?? {
+        questionNo: partNo,
+        answer: "",
+      }
+    );
   });
 
   return (

@@ -10,19 +10,19 @@ import {
   EnumSpeakingCriteria,
   EnumWritingCriteria,
 } from "@/lib/enums";
-import { WritingSession } from "@/lib/types/simulated-test-session.type";
+import { SpeakingSession, WritingSession } from "@/lib/types/simulated-test-session.type";
 import { formatTime, getCriterias } from "@/lib/utils";
 
 import CustomAlert from "../molecules/alert";
 
 type OverviewEvaluationSectionProps = {
-  session: WritingSession;
+  session: WritingSession | SpeakingSession;
 };
 
 function OverviewEvaluationSection({ session }: OverviewEvaluationSectionProps) {
   const { t } = useTranslation(["practice", "collection"]);
 
-  const isFullParts = session.parts.length === 2;
+  const isFullParts = session.parts.length >= 2;
 
   if (!isFullParts) return null;
 
@@ -66,7 +66,7 @@ function OverviewEvaluationSection({ session }: OverviewEvaluationSectionProps) 
             title={t("warning", { ns: "common" })}
             description={t("result.warning", { ns: "simulatedTest" })}
           />
-          <div className="grid grid-cols-2 gap-3 xl:gap-8 2xl:gap-3">
+          <div className="grid grid-cols-2 gap-3 xl:gap-3 2xl:gap-3">
             {Object.entries(overalScore.criterias).map(([key, value]) => (
               <CriteriaScoreCard
                 key={key}
