@@ -13,6 +13,10 @@ runs:
       with:
         name: droplet-ip
 
+    - name: Build React app
+      shell: bash
+      run: pnpm run build
+
     - name: Deploy React app
       shell: bash
       env:
@@ -27,20 +31,24 @@ runs:
         echo "$SSH_KEY" > ssh_key
         chmod 600 ssh_key
         
-        # Copy project to server
-        scp -i ssh_key -o StrictHostKeyChecking=no -r . root@$DROPLET_IP:/var/www/lapinlearn-webapp        
+        # Create an archive of the build directory
+        tar -czf build.tar.gz dist dist-ssr
         
-        # Install dependencies and start app
-        ssh -i ssh_key -o StrictHostKeyChecking=no root@$DROPLET_IP <<EOF
-          # Install Node.js and pnpm
-          curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-          sudo apt-get install -y nodejs
-          npm install -g pnpm pm2
+        # Step 1: Ensure the target directory exists on the remote server
+        ssh -i ssh_key -o StrictHostKeyChecking=no root@${DROPLET_IP} "mkdir -p /var/www/lapinlearn-webapp"
         
-          cd /var/www/lapinlearn-webapp
-          pnpm install
-          export NODE_OPTIONS="--max-old-space-size=4096"
-          pnpm run build
+        # Step 2: Remove the old build directory on the remote server
+        ssh -i ssh_key -o StrictHostKeyChecking=no root@${DROPLET_IP} "rm -rf /var/www/lapinlearn-webapp/*"
+        
+        # Step 3: Copy the build archive to the remote server
+        scp -i ssh_key -o StrictHostKeyChecking=no -v build.tar.gz root@${DROPLET_IP}:/var/www/lapinlearn-webapp
+        
+        # Step 4: SSH into the server to unpack and serve the app
+        ssh -i ssh_key -o StrictHostKeyChecking=no -v root@${DROPLET_IP} <<EOF
+          # Unpack the build archive in the correct directory
+          tar -xzf /var/www/lapinlearn-webapp/build.tar.gz -C /var/www/lapinlearn-webapp
+          rm /var/www/lapinlearn-webapp/build.tar.gz
           pm2 restart all || pm2 start dist-ssr/ssr.js --name lapinlearn-webapp
+          # Restart nginx to serve the updated app
           systemctl restart nginx
         EOF

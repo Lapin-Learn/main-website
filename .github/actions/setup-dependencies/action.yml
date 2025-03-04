@@ -20,6 +20,12 @@ runs:
       with:
         node-version: 20
 
+    - name: Install dependencies
+      shell: bash
+      run: |
+        npm install -g pnpm
+        pnpm install
+
     - name: Setup .env file
       env:
         VITE_PUBLIC_API_ENDPOINT: ${{ inputs.api-endpoint }}
