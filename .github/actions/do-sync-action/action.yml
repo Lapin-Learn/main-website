@@ -32,7 +32,7 @@ runs:
         chmod 600 ssh_key
         
         # Create an archive
-        tar -czf build.tar.gz dist dist-ssr package.json
+        tar -czf build.tar.gz dist dist-ssr package.json server.js
     
         # Step 1: Ensure the target directory exists on the remote server
         ssh -i ssh_key -o StrictHostKeyChecking=no root@${DROPLET_IP} "mkdir -p /var/www/lapinlearn-webapp"
@@ -51,7 +51,7 @@ runs:
           pm2 delete lapinlearn-webapp
           cd /var/www/lapinlearn-webapp
           pnpm install --shamefully-hoist
-          pm2 restart all || pm2 start dist-ssr/ssr.js --node-args="--import tsx" --name lapinlearn-webapp
+          pm2 restart all || pm2 start server.js --interpreter=node --node-args="--import tsx" --name lapinlearn-webapp
           
           systemctl restart nginx
         EOF
