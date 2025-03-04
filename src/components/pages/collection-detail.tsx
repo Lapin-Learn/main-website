@@ -38,6 +38,7 @@ export default function CollectionDetailPage() {
               {list.map((simulatedTest) => {
                 const skillTest = simulatedTest.skillTests.find((st) => st.skill === search.skill);
                 if (!skillTest) return null;
+
                 return (
                   <FilteredSkillCard
                     test={{

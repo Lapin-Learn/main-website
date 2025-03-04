@@ -1,74 +1,22 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui";
-import _ from "lodash";
 import { useState } from "react";
 
 import { useGetSkillTestData } from "@/hooks/react-query/use-simulated-test";
-import { EnumSpeakingCriteria } from "@/lib/enums";
-import { SpeakingSession } from "@/lib/types/simulated-test-session.type";
 import type { STCriteriaEvaluation } from "@/lib/types/simulated-test.type";
 import { cn } from "@/lib/utils";
 
 import SpeakingSingleQuestionSubmission from "../../molecules/speaking-single-question-submission";
 import EvaluationList from "../evaluation-list.tsx";
-import EmptySubmission from "./EmptySubmission";
-import { ExtendedSpeakingResponse, parseTimestampsToStartEnd } from "./helpers";
-import { SpeakingResourceProvider } from "./SpeakingResource";
+import { ExtendedSpeakingResponse } from "./helpers";
 
 type SpeakingSubmissionProps = {
-  evaluationResults?: STCriteriaEvaluation[];
-  userSubmissions: SpeakingSession["responses"];
-  skillTestId: number;
-  questionTypes: string[][];
-  parts: number[];
-  resource?: string;
-};
-
-function SpeakingSubmission(props: SpeakingSubmissionProps) {
-  const { userSubmissions, skillTestId, questionTypes, evaluationResults, parts, resource } = props;
-  const formattedUserSubmissions = parseTimestampsToStartEnd(userSubmissions);
-
-  const filteredEvaluationResults =
-    evaluationResults?.filter((evaluation) => evaluation.part !== EnumSpeakingCriteria.Overall) ??
-    [];
-
-  const groupedSubmissions = _.groupBy(formattedUserSubmissions, "partNo") ?? [];
-
-  return (
-    <SpeakingResourceProvider resource={resource} audioList={formattedUserSubmissions}>
-      {parts.map((partNo, index) => {
-        if (groupedSubmissions[partNo]) {
-          return (
-            <SubmissionItem
-              key={partNo}
-              partNo={partNo}
-              submission={groupedSubmissions[partNo]}
-              skillTestId={skillTestId}
-              evaluationResult={filteredEvaluationResults.find(
-                (evaluation) => evaluation.part == partNo
-              )}
-            />
-          );
-        }
-        return (
-          <EmptySubmission
-            key={partNo}
-            partNo={partNo}
-            questionTypes={questionTypes[index] ?? []}
-          />
-        );
-      })}
-    </SpeakingResourceProvider>
-  );
-}
-
-type SubmissionItemProps = {
   partNo: number;
   submission: ExtendedSpeakingResponse[];
   skillTestId: number;
   evaluationResult?: STCriteriaEvaluation;
 };
 
-function SubmissionItem(props: SubmissionItemProps) {
+export function SpeakingSubmission(props: SpeakingSubmissionProps) {
   const { submission, skillTestId, evaluationResult, partNo } = props;
   const { data } = useGetSkillTestData(skillTestId, partNo);
   const [activeQuestion, setActiveQuestion] = useState<number>(0);
