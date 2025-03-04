@@ -1,0 +1,20 @@
+name: Infra Check
+on:
+  pull_request:
+    branches: ["main", "develop"]
+
+jobs:
+  infra-check:
+    name: Infra Check
+    runs-on: ubuntu-latest
+
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Terraform Environment Action
+        uses: ./.github/actions/terraform-env-action
+        with:
+          working-directory: "./infra"
+          apply: "no"
+          do-token: ${{ secrets.DIGITALOCEAN_TOKEN }}

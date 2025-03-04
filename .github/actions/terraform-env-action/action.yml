@@ -1,0 +1,41 @@
+name: "Terraform by Environment"
+description: "A composite action to handle Terraform init, format, plan, and optionally apply based on the environment."
+inputs:
+  apply:
+    description: "Whether to run terraform apply (yes or no)"
+    required: false
+    default: "no" # Default is no to avoid automatic apply
+  working-directory:
+    description: "Where the terraform working directory is"
+    required: true
+  do-token:
+    description: "DigitalOcean API token"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.9.6
+
+    - name: Terraform Init
+      run: terraform init -backend-config="backend-s3.hcl"
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Terraform Plan
+      if: ${{ inputs.apply == 'no' }}
+      run: terraform plan
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      env:
+        TF_VAR_do_token: ${{ inputs.do-token }}
+
+    - name: Terraform Apply
+      if: ${{ inputs.apply == 'yes' }}
+      run: terraform apply -auto-approve
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      env:
+        TF_VAR_do_token: ${{ inputs.do-token }}
