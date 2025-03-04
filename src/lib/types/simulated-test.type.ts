@@ -105,6 +105,7 @@ export type ReadingContent = {
   endQuestionNo: number;
   content: JSONContent | string | string[];
   questionGroups: QuestionGroup[];
+  heading?: string;
 };
 
 export type SpeakingContent = {

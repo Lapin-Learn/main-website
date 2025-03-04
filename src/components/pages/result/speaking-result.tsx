@@ -61,7 +61,7 @@ function SpeakingResult({ session }: SpeakingResultProps) {
                     <Trans
                       i18nKey="speaking.part_introduction"
                       ns="simulatedTest"
-                      context="1"
+                      context={value.toString()}
                       components={{
                         strong: <strong />,
                         p: <p />,
@@ -69,18 +69,14 @@ function SpeakingResult({ session }: SpeakingResultProps) {
                     />
                   </div>
 
-                  <div className="gap-2 md:gap-4">
-                    <div className="flex gap-4 pb-0">
-                      <SpeakingSubmission
-                        partNo={value}
-                        submission={groupedSubmissions[value]}
-                        skillTestId={session.skillTest.id}
-                        evaluationResult={session.results.find(
-                          (evaluation) => evaluation.part == value
-                        )}
-                      />
-                    </div>
-                  </div>
+                  <SpeakingSubmission
+                    partNo={value}
+                    submission={groupedSubmissions[value]}
+                    skillTestId={session.skillTest.id}
+                    evaluationResult={session.results.find(
+                      (evaluation) => evaluation.part == value
+                    )}
+                  />
                 </div>
               </TabsContent>
             ))}

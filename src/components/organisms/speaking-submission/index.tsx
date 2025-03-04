@@ -29,30 +29,44 @@ export function SpeakingSubmission(props: SpeakingSubmissionProps) {
             <CardTitle className="text-heading-6">Questions</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-2 md:p-5 md:pt-0">
-            {data && Array.isArray(data.content)
-              ? data?.content.map((question, index) => (
-                  <div className="flex flex-row items-baseline gap-4">
-                    <p
-                      className={cn(
-                        "min-w-6 text-primary-600 font-semibold",
-                        index !== activeQuestion && "text-neutral-500"
-                      )}
-                    >
-                      {index + 1}.
-                    </p>
-                    <button
-                      className={cn(
-                        "rounded-md bg-primary-50 px-3 py-2 text-primary-600 font-semibold text-left hover:bg-primary-100/50 w-full",
-                        index !== activeQuestion &&
-                          "text-neutral-500 bg-[#F7F7F7] hover:bg-neutral-50"
-                      )}
-                      onClick={() => setActiveQuestion(index)}
-                    >
-                      {question}
-                    </button>
-                  </div>
-                ))
-              : null}
+            {partNo == 2 ? (
+              <div>
+                <strong>{data?.heading}</strong>
+                <p>You should say:</p>
+                {data?.content && Array.isArray(data.content) ? (
+                  <ul className="pl-4">
+                    {data?.content.map((question, index) => (
+                      <li key={index} className="list-inside list-disc">
+                        {question}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            ) : data && Array.isArray(data.content) ? (
+              data?.content.map((question, index) => (
+                <div className="flex flex-row items-baseline gap-4">
+                  <p
+                    className={cn(
+                      "min-w-6 text-primary-600 font-semibold",
+                      index !== activeQuestion && "text-neutral-500"
+                    )}
+                  >
+                    {index + 1}.
+                  </p>
+                  <button
+                    className={cn(
+                      "rounded-md bg-primary-50 px-3 py-2 text-primary-600 font-semibold text-left hover:bg-primary-100/50 w-full",
+                      index !== activeQuestion &&
+                        "text-neutral-500 bg-[#F7F7F7] hover:bg-neutral-50"
+                    )}
+                    onClick={() => setActiveQuestion(index)}
+                  >
+                    {question}
+                  </button>
+                </div>
+              ))
+            ) : null}
           </CardContent>
         </Card>
         <Card className="flex flex-col gap-4 rounded-xl border-none bg-white p-5 shadow-none">
