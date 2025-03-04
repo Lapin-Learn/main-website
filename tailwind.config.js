@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-/** @type {import('tailwindcss').Config} */
+/** @type {import("tailwindcss").Config} */
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const colors = require("tailwindcss/colors");
@@ -36,8 +36,10 @@ module.exports = {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
-          "100": "#111928",
+          "50": "#FBF1EE",
+          "100": "#FACDBC",
           "300": "#F4926F",
+          "600": "#D95524",
           "700": "#A9421C",
           "900": "#642711",
         },
