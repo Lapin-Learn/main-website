@@ -1,24 +1,57 @@
 name: "DigitalOcean Sync"
 description: "A composite action to upload files to an DigitalOcean."
+inputs:
+  ssh-key:
+    description: "A private key to connect "
+    required: true
+
 runs:
   using: "composite"
   steps:
+    - name: Download Droplet IP
+      uses: actions/download-artifact@v4
+      with:
+        name: droplet-ip
+
+    - name: Build React app
+      shell: bash
+      run: pnpm run build
+
     - name: Deploy React app
       shell: bash
       env:
-        SSH_KEY: ${{ secrets.SSH_KEY }}
+        SSH_KEY: ${{ inputs.ssh-key }}
       run: |
+        DROPLET_IP=$(cat droplet_ip.txt)
+        echo "✅ DROPLET_IP is: $DROPLET_IP"
+        if [[ -z "$DROPLET_IP" ]]; then
+          echo "❌ ERROR: DROPLET_IP is empty!"
+          exit 1
+        fi
         echo "$SSH_KEY" > ssh_key
         chmod 600 ssh_key
+        
+        # Create an archive
+        tar -czf build.tar.gz dist dist-ssr package.json server.js
     
-        # Copy project to server
-        ssh -i ssh_key -o StrictHostKeyChecking=no root@$DROPLET_IP "mkdir -p /var/www/lapinlearn-webapp"
-        scp -i ssh_key -o StrictHostKeyChecking=no -r . root@$DROPLET_IP:/var/www/lapinlearn-webapp
-
-        # Install dependencies and start app
-        ssh -i ssh_key -o StrictHostKeyChecking=no root@$DROPLET_IP <<EOF
+        # Step 1: Ensure the target directory exists on the remote server
+        ssh -i ssh_key -o StrictHostKeyChecking=no root@${DROPLET_IP} "mkdir -p /var/www/lapinlearn-webapp"
+        
+        # Step 2: Remove the old build directory on the remote server
+        ssh -i ssh_key -o StrictHostKeyChecking=no root@${DROPLET_IP} "rm -rf /var/www/lapinlearn-webapp/*"
+        
+        # Step 3: Copy the build archive to the remote server
+        scp -i ssh_key -o StrictHostKeyChecking=no -v build.tar.gz root@${DROPLET_IP}:/var/www/lapinlearn-webapp
+        
+        ssh -i ssh_key -o StrictHostKeyChecking=no -v root@${DROPLET_IP} <<EOF
+          # Unpack the build archive in the correct directory
+          tar -xzf /var/www/lapinlearn-webapp/build.tar.gz -C /var/www/lapinlearn-webapp
+          rm /var/www/lapinlearn-webapp/build.tar.gz
+          
+          pm2 delete lapinlearn-webapp
           cd /var/www/lapinlearn-webapp
-          pnpm install
-          pnpm run build
-          pm2 restart all || pm2 start dist-ssr/ssr.js --name lapinlearn-webapp
+          pnpm install --shamefully-hoist
+          pm2 restart all || pm2 start server.js --interpreter=node --node-args="--import tsx" --name lapinlearn-webapp
+          
+          systemctl restart nginx
         EOF

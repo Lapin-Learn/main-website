@@ -8,6 +8,9 @@ inputs:
   working-directory:
     description: "Where the terraform working directory is"
     required: true
+  do-token:
+    description: "DigitalOcean API token"
+    required: true
 runs:
   using: "composite"
   steps:
@@ -17,18 +20,22 @@ runs:
         terraform_version: 1.9.6
 
     - name: Terraform Init
-      run: terraform init
+      run: terraform init -backend-config="backend-s3.hcl"
       shell: bash
       working-directory: ${{ inputs.working-directory }}
 
     - name: Terraform Plan
       if: ${{ inputs.apply == 'no' }}
-      run: terraform plan -var="do_token=${{ secrets.DIGITALOCEAN_TOKEN }}"
+      run: terraform plan
       shell: bash
       working-directory: ${{ inputs.working-directory }}
+      env:
+        TF_VAR_do_token: ${{ inputs.do-token }}
 
     - name: Terraform Apply
       if: ${{ inputs.apply == 'yes' }}
-      run: terraform apply -var="do_token=${{ secrets.DIGITALOCEAN_TOKEN }}" -auto-approve
+      run: terraform apply -auto-approve
       shell: bash
       working-directory: ${{ inputs.working-directory }}
+      env:
+        TF_VAR_do_token: ${{ inputs.do-token }}
