@@ -1,21 +1,24 @@
+import TooltipWrapper from "@components/molecules/tooltip-wrapper.tsx";
 import { Info } from "lucide-react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 
-import TooltipWrapper from "@/components/molecules/tooltip-wrapper";
-import { EnumSkill } from "@/lib/enums";
+import { EnumSkill } from "@/lib/enums.ts";
 import { STCriteriaEvaluation } from "@/lib/types";
 import { calculateOverallBandScore, getCriterias } from "@/lib/utils";
 
-import { Separator, Typography } from "../../ui";
+import { Separator, Typography } from "../ui";
 
 type SummaryBandScoreProps = {
-  paragraphs: string[];
+  description?: React.ReactNode;
   criterias?: STCriteriaEvaluation["criterias"];
+  skill?: EnumSkill;
 };
 
 function SummaryBandScore(props: SummaryBandScoreProps) {
-  const { paragraphs, criterias } = props;
+  const { criterias, description, skill = EnumSkill.writing } = props;
   const { t } = useTranslation("simulatedTest");
+
   if (!criterias) return null;
   return (
     <div className="flex flex-col md:flex-row">
@@ -24,18 +27,7 @@ function SummaryBandScore(props: SummaryBandScoreProps) {
           <Typography className="text-heading-6 font-semibold">
             {t("result.overallScore")}
           </Typography>
-          <div className="flex flex-row items-center justify-start gap-2 text-xs">
-            <Typography className="font-regular flex flex-row gap-1 text-xs">
-              {paragraphs.length}
-              <p className="capitalize text-neutral-600">{t("result.paragraphs")}</p>
-            </Typography>
-            <Separator className="bg-neutral-100" orientation="vertical" />
-            <Typography className="font-regular flex flex-row gap-1 text-xs">
-              {/* {sum of words of paragraphs */}
-              {paragraphs.reduce((acc: number, cur: string) => acc + cur.split(" ").length, 0)}
-              <p className="capitalize text-neutral-600">{t("result.words")}</p>
-            </Typography>
-          </div>
+          {description}
         </div>
 
         <div className="flex flex-col items-center">
@@ -60,7 +52,7 @@ function SummaryBandScore(props: SummaryBandScoreProps) {
                 triggerNode={<Info size={12} />}
                 contentNode={
                   <Typography className="text-center text-small font-semibold">
-                    {getCriterias(EnumSkill.writing)[key]}
+                    {getCriterias(skill)[key]}
                   </Typography>
                 }
               />

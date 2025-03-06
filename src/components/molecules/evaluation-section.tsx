@@ -20,12 +20,15 @@ import CarrotIcon from "@/assets/icons/carrot";
 import { carrotSubscription } from "@/lib/consts.ts";
 import { EnumSimulatedTestSessionStatus } from "@/lib/enums.ts";
 import { BaseSTSession } from "@/lib/types/simulated-test-session.type.ts";
+import { cn } from "@/lib/utils";
 
 import { BorderBeam } from "../magicui/border-beam";
 
-type EvaluationSectionProps = Pick<BaseSTSession, "id" | "status">;
+type EvaluationSectionProps = Pick<BaseSTSession, "id" | "status"> & {
+  className?: string;
+};
 
-export function EvaluationSection({ id, status }: EvaluationSectionProps) {
+export function EvaluationSection({ id, status, className }: EvaluationSectionProps) {
   const { data: profile, isLoading } = useGetGamificationProfile();
   const evaluateMutation = useEvaluateSimulatedTest();
   const { t } = useTranslation(["subscription", "shop"]);
@@ -76,7 +79,12 @@ export function EvaluationSection({ id, status }: EvaluationSectionProps) {
   const isAffordable = profile.carrots >= 100;
 
   return (
-    <Card className="relative col-span-2 h-fit overflow-hidden border-2 border-none bg-white shadow-none">
+    <Card
+      className={cn(
+        "relative col-span-2 h-fit overflow-hidden border-2 border-none bg-white shadow-none",
+        className
+      )}
+    >
       <CardHeader className="!pb-0">
         <CardTitle>
           <div className={`text-heading-5 text-primary-700 ${childrenByStatus.titleStyle}`}>

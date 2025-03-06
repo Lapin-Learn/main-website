@@ -105,6 +105,7 @@ export type ReadingContent = {
   endQuestionNo: number;
   content: JSONContent | string | string[];
   questionGroups: QuestionGroup[];
+  heading?: string;
 };
 
 export type SpeakingContent = {
@@ -191,7 +192,7 @@ export type STCriteriaEvaluation = {
   criterias: {
     [key in EnumWritingCriteria | EnumSpeakingCriteria]?: {
       score: number;
-      evaluate: STCriteriaEvaluationResponse[];
+      evaluate: STCriteriaEvaluationResponse[] | string;
     };
   };
 };

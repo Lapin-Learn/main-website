@@ -10,8 +10,8 @@ import { cn } from "@/lib/utils";
 import WritingQuestionCard from "../../molecules/writing-question-card";
 import { Separator, Typography } from "../../ui";
 import { Skeleton } from "../../ui/skeleton";
+import SummaryBandScore from "../summary-bandscore.tsx";
 import SubmissionContentAnswered from "./answered";
-import SummaryBandScore from "./summary-bandscore";
 
 type WritingSubmissionProps = {
   evaluationResults?: STCriteriaEvaluation[];
@@ -55,20 +55,6 @@ function WritingSubmission(props: WritingSubmissionProps) {
     </Tabs>
   );
 }
-//       {userSubmissions.map((submission, index) => {
-//         const partDetail = partDetails[index] ?? [];
-//         return (
-//           <SubmissionContent
-//             submission={submission}
-//             skillTestId={skillTestId}
-//             partDetail={partDetail}
-//             evaluationResult={evaluationResults && evaluationResults[submission.questionNo - 1]}
-//           />
-//         );
-//       })}
-//     </Tabs>
-//   );
-// }
 
 type SubmissionContentProps = {
   submission: SimulatedTestAnswer;
@@ -88,13 +74,28 @@ function SubmissionContent(props: SubmissionContentProps) {
     );
   };
 
+  const paragraphs = extractParagraphs(submission.answer ?? "");
+
   return (
     <div className="flex flex-col gap-8">
       <Typography variant="h3" className="uppercase">
         Part {submission.questionNo}:&nbsp;{partDetail.join(", ")}
       </Typography>
       <SummaryBandScore
-        paragraphs={extractParagraphs(submission.answer ?? "")}
+        description={
+          <div className="flex flex-row items-center justify-start gap-2 text-xs">
+            <Typography className="font-regular flex flex-row gap-1 text-xs">
+              {paragraphs.length}
+              <p className="capitalize text-neutral-600">{t("result.paragraphs")}</p>
+            </Typography>
+            <Separator className="bg-neutral-100" orientation="vertical" />
+            <Typography className="font-regular flex flex-row gap-1 text-xs">
+              {/* {sum of words of paragraphs */}
+              {paragraphs.reduce((acc: number, cur: string) => acc + cur.split(" ").length, 0)}
+              <p className="capitalize text-neutral-600">{t("result.words")}</p>
+            </Typography>
+          </div>
+        }
         criterias={evaluationResult?.criterias}
       />
       <div className="flex flex-row gap-4 rounded-xl border-none bg-white p-5">

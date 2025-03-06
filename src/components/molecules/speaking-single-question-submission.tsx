@@ -1,4 +1,3 @@
-import parse from "html-react-parser";
 import { useTranslation } from "react-i18next";
 
 import { assertFallback } from "@/lib/utils";
@@ -60,22 +59,11 @@ function SpeakingSingleQuestionSubmission(props: SpeakingSingleQuestionSubmissio
   };
 
   return (
-    <div className="flex flex-col gap-4 py-4">
-      {partNo == 2 ? (
-        <>
-          <strong>
-            {t("question", { ns: "common" })} {no}:
-          </strong>
-          <p>{parse(question)}</p>
-        </>
-      ) : (
-        <p>
-          <strong>
-            {t("question", { ns: "common" })} {no}:
-          </strong>
-          &nbsp;{question}
-        </p>
-      )}
+    <div className="flex flex-col gap-4">
+      <div>
+        <p className="mb-4 text-heading-6 font-semibold">{t("result.yourAnswer")}</p>
+        {partNo !== 2 ? <p>{question}</p> : null}
+      </div>
       {submission ? (
         <>
           <FakeAudioPlayer
