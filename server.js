@@ -1,5 +1,5 @@
 import express from "express";
-import path from "path";
+
 import { render } from "./dist-ssr/ssr.js"; // Ensure correct path
 
 const app = express();
