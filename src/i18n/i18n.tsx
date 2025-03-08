@@ -105,7 +105,7 @@ const languageDetectorOptions = {
 
   // optional expire and domain for set cookie
   cookieMinutes: 10,
-  cookieDomain: "ielts.lapinlearn.edu.vn",
+  cookieDomain: "lapinlearn.edu.vn",
 
   // optional htmlTag with lang attribute, the default is:
   htmlTag: typeof document !== "undefined" ? document.documentElement : null,
