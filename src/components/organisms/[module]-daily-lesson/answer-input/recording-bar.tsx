@@ -124,11 +124,11 @@ const RecordingBar = (props: RecordingBarProps) => {
 
   return (
     <div className="fixed bottom-0 grid w-full place-items-center border-t bg-white">
-      <div className="grid h-56 w-fit grid-cols-3 place-items-center content-center items-center gap-x-10 gap-y-6">
+      <div className="grid h-40 w-fit grid-cols-3 place-items-center content-center gap-x-4 gap-y-3 md:h-56 md:gap-x-10 md:gap-y-6">
         <Button
           variant="outline"
           size="icon"
-          className="size-16 rounded-full p-1 disabled:hidden"
+          className="size-14 rounded-full p-1 disabled:hidden md:size-16"
           disabled={!audio || disabled}
           onClick={handleRerecord}
         >
@@ -152,7 +152,7 @@ const RecordingBar = (props: RecordingBarProps) => {
               {audio ? (
                 <Button
                   variant="secondary"
-                  className="absolute-center z-10 size-24 rounded-full shadow-xl"
+                  className="absolute-center z-10 size-20 rounded-full shadow md:size-24 md:shadow-xl"
                   onClick={handleSendAudio}
                   disabled={disabled}
                 >
@@ -170,12 +170,12 @@ const RecordingBar = (props: RecordingBarProps) => {
                         : handleStartRecording
                   }
                   disabled={permission !== "granted" || disabled}
-                  className="absolute-center z-10 size-24 rounded-full bg-white shadow-xl transition-colors hover:bg-neutral-50"
+                  className="absolute-center z-10 size-20 rounded-full bg-white shadow transition-colors hover:bg-neutral-50 md:size-24 md:shadow-xl"
                 >
                   {recordingStatus === "recording" ? (
-                    <Square fill="#A9421C" strokeWidth={0} className="size-8" />
+                    <Square fill="#A9421C" strokeWidth={0} className="size-6 md:size-8" />
                   ) : (
-                    <SpeakingIcon className="size-8" />
+                    <SpeakingIcon className="size-6 md:size-8" />
                   )}
                 </Button>
               )}
@@ -193,7 +193,7 @@ const RecordingBar = (props: RecordingBarProps) => {
         <Button
           variant="outline"
           size="icon"
-          className="size-16 rounded-full p-1 disabled:hidden"
+          className="size-14 rounded-full p-1 disabled:hidden md:size-16"
           disabled={!audio || disabled}
           onClick={handlePlayback}
         >

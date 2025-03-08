@@ -1,3 +1,4 @@
+import { BaseAnswerInputProps } from "@components/organisms/[module]-daily-lesson/answer-input/index.tsx";
 import { motion } from "motion/react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -13,7 +14,7 @@ import { cn } from "@/lib/utils";
 import Transcript from "../speaking-transcript";
 import RecordingBar from "./recording-bar";
 
-const Pronounciation = () => {
+const Pronounciation = ({ lessonId }: BaseAnswerInputProps) => {
   const [evaluateResult, setEvaluateResult] = useState<SpeakingServiceResponse>();
 
   const {
@@ -59,7 +60,9 @@ const Pronounciation = () => {
     }
   };
 
-  useAnswerDailyLesson();
+  useAnswerDailyLesson({
+    lessonId,
+  });
 
   return (
     <>
@@ -90,12 +93,12 @@ const Pronounciation = () => {
             theme.backgroundClassName
           )}
         >
-          <div className="flex flex-row items-center gap-4">
+          <div className="flex flex-row items-center gap-2 md:gap-4">
             <AnimatedCircularProgressBar
               value={parseInt(evaluateResult?.pronunciation_accuracy ?? "0")}
               min={0}
               max={100}
-              className="size-28"
+              className="size-20 md:size-28"
               gaugePrimaryColor={theme.gaugePrimaryColor}
               gaugeSecondaryColor={theme.gaugeSecondaryColor}
             />

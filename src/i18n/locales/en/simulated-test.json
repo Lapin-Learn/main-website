@@ -8,9 +8,12 @@
   },
   "exitDialog": {
     "title": "Are you sure you want to exit?",
-    "description": "You have not completed the test. All your answers will be saved as a draft.",
-    "exitBtn": "Back",
-    "continueBtn": "Continue"
+    "description_full_test": "You have not completed the test. In <strong>full test mode</strong>, all your answers <strong>will not be saved.</strong>",
+    "description_practice": "You have not completed the test. In <strong>practice mode</strong>, all your answers will be saved as <strong>a draft.</strong>",
+    "description": "You have not completed the test. All your answers <strong>will not be saved.</strong>",
+    "exitBtn": "Exit",
+    "saveAndExitBtn": "Save and exit",
+    "continueBtn": "Continue your test"
   },
   "startDialog": {
     "title": "Start the test",
@@ -117,6 +120,9 @@
         }
       ]
     },
+    "part_introduction_1": "<p>The examiner will ask for your name and identification, followed by general questions about yourself (e.g., where you live, work, or study).</p><p>You will then answer questions on familiar topics like music, cooking, weather, or movies. The examiner may prompt you to extend your responses by asking “why?” or“why not?”</p><p>This section tests your ability to communicate opinions and information on everyday topics in a question-answer format.</p>",
+    "part_introduction_2": "<p>You will receive a topic card with a prompt and guiding points. You’ll have 1 minute to prepare using a pencil and paper before speaking for <strong>1–2 minutes</strong>.</p><p>The examiner will time you, tell you when to start, and stop you after 2 minutes. They may ask a follow-up question before moving to the next section.</p><p>This part assesses your ability to speak at length, organize ideas logically, and use appropriate language, drawing from your own experience.</p>",
+    "part_introduction_3": "<p>The examiner will ask you questions related to the topic in Part 2. You’ll have 1 minute to prepare your response before speaking for <strong>3–4 minutes</strong>.</p><p>The examiner will time you, tell you when to start, and stop you after 4 minutes. They may ask a follow-up question before moving to the next section.</p><p>This part evaluates your ability to speak at length, express ideas clearly, and use a wide range of vocabulary and grammar.</p>",
     "nextQuestionInSeconds": "Next question in {{ time }}s",
     "nextPartInSeconds": "Next part in {{ time }}s",
     "nextPart": "Next part",
@@ -146,12 +152,22 @@
     "accuracy": "Accuracy",
     "questions": "Questions",
     "unanswered": "Skipped",
+    "taskDescription": "Task description",
     "yourAnswer": "Your answer",
-    "explanation": "Explanation question {{questionNo}}"
+    "explanation": "Explanation question {{questionNo}}",
+    "noAnswer": "You didn't answer this question",
+    "warning": "This article is only for you to self-evaluate and improve your skills, so there may be a slight difference (0.5 - 1 point) in reality. If you have learned something different from the test results, focus on the knowledge you have learned!",
+    "hoverFeedback": "Hover over highlighted text to see detailed feedback and suggestions. Different highlight colors indicate different types of errors.",
+    "viewDetail": "View detailed correction",
+    "paragraphs": "Paragraphs",
+    "words": "Words",
+    "overallScore": "Overall score"
   },
   "noteBtn": {
     "title": "Take note",
     "placeholder": "Write your note here...",
     "guide": "Use Esc to quickly close this note, and you can drag it around based on your needs."
-  }
+  },
+  "showQuestionNavigator_true": "Hide questions",
+  "showQuestionNavigator_false": "Show questions"
 }

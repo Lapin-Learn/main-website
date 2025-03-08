@@ -13,6 +13,7 @@ type CustomInputProps = Attribute & {
   questionNo: string;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 const CustomInput = ({ questionNo }: CustomInputProps) => {
   const { answer, answerSheet } = useAnswerStore();
   const [value, setValue] = useState<string | null>(answerSheet[parseInt(questionNo)]);
@@ -50,6 +51,7 @@ const CustomInput = ({ questionNo }: CustomInputProps) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export default Node.create({
   name: "custom-input",
 

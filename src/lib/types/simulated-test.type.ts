@@ -54,8 +54,9 @@ type BaseQuestionGroup = {
   questionCard: string;
   startQuestionNo: number;
   endQuestionNo: number;
-  imageSrc?: string;
-  questionDescription?: string;
+  imageSrc?: string; // Additonal image
+  questionDescription?: string; // HTML string
+  options?: Option[];
 };
 
 export type QuestionGroupMultipleChoice = BaseQuestionGroup & {
@@ -104,6 +105,7 @@ export type ReadingContent = {
   endQuestionNo: number;
   content: JSONContent | string | string[];
   questionGroups: QuestionGroup[];
+  heading?: string;
 };
 
 export type SpeakingContent = {
@@ -190,9 +192,16 @@ export type STCriteriaEvaluation = {
   criterias: {
     [key in EnumWritingCriteria | EnumSpeakingCriteria]?: {
       score: number;
-      evaluate: string;
+      evaluate: STCriteriaEvaluationResponse[] | string;
     };
   };
+};
+
+export type STCriteriaEvaluationResponse = {
+  correction: string;
+  error: string;
+  explanation: string;
+  highlight: string[];
 };
 
 export type QuestionTypeAccuracy = {
@@ -213,4 +222,29 @@ export type LatestInprogressSession = {
   skill: EnumSkill;
   testName: string;
   testCollectionName: string;
+};
+
+export type BlogResponse = {
+  items: Blog[];
+  page: number;
+  total: number;
+};
+
+export type Blog = {
+  id: string;
+  title: string;
+  content: string;
+  thumbnailId: string;
+  createdAt: string;
+  updatedAt: string;
+  thumbnail: {
+    id: string;
+    name: string;
+    owner: string;
+    permission: string;
+    createdAt: string;
+    updatedAt: string;
+    uploadStatus: string;
+    url: string;
+  };
 };

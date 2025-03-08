@@ -2,6 +2,8 @@ import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 import ErrorFallback from "@/components/ErrorFallback";
 import GlobalMissionDialog from "@/components/organisms/global-mission-dialog";
+import GlobalStreakDialog from "@/components/organisms/global-streak-dialog";
+import LoadingPage from "@/components/pages/loading-page";
 import { userKeys } from "@/hooks/react-query/useUsers";
 import { FALLBACK_ROUTE } from "@/lib/route-permission";
 import { AccountIdentifier } from "@/lib/types";
@@ -12,6 +14,7 @@ const AuthenticatedPage = () => {
   return (
     <>
       <GlobalMissionDialog />
+      <GlobalStreakDialog />
       <Outlet />
     </>
   );
@@ -43,7 +46,7 @@ export const Route = createFileRoute("/_authenticated")({
     }
   },
   pendingComponent: () => {
-    return <span>Loading Protected</span>;
+    return <LoadingPage />;
   },
   errorComponent: (error) => {
     console.error(error);

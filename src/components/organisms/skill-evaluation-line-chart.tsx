@@ -22,7 +22,7 @@ export function SkillEvaluationLineChart({ data }: { data: SessionProgress[] }) 
   const { t } = useTranslation("profile");
 
   return (
-    <ChartContainer config={chartConfig} className="size-full h-80">
+    <ChartContainer config={chartConfig} className="size-full h-60 md:h-80">
       <LineChart
         accessibilityLayer
         data={data}

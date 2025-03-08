@@ -94,7 +94,7 @@ export const BaseTable = <TData, TValue>(props: BaseTableProps<TData, TValue>) =
                             className="font-semibold text-black"
                             comp="div"
                           >
-                            <div className="flex cursor-pointer items-center justify-between truncate p-4">
+                            <div className="flex cursor-pointer items-center justify-between truncate p-3 md:p-4">
                               {flexRender(header.column.columnDef.header, header.getContext())}
                               {header.column.getCanSort() && (
                                 <SortIcon isSorted={header.column.getIsSorted()} />
@@ -121,7 +121,7 @@ export const BaseTable = <TData, TValue>(props: BaseTableProps<TData, TValue>) =
                       {row.getVisibleCells().map((cell) => {
                         const size = cell.column.getSize();
                         return (
-                          <TableCell key={cell.id} className="p-4" width={size}>
+                          <TableCell key={cell.id} className="p-3 md:p-4" width={size}>
                             <Typography variant="body2" className="truncate" comp="div">
                               {flexRender(cell.column.columnDef.cell, cell.getContext())}
                             </Typography>
@@ -133,7 +133,7 @@ export const BaseTable = <TData, TValue>(props: BaseTableProps<TData, TValue>) =
                 })
               ) : (
                 <TableRow>
-                  <TableCell colSpan={columns.length} className="h-24 text-center">
+                  <TableCell colSpan={columns.length} className="h-18 text-center md:h-24">
                     {notFound ? notFound : "No result"}
                   </TableCell>
                 </TableRow>

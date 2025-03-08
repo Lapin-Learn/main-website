@@ -1,6 +1,6 @@
 import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
 import { useNavigate } from "@tanstack/react-router";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 import {
   AlertDialog,
@@ -25,14 +25,15 @@ import { Route } from "@/routes/_authenticated/practice/simulated-test";
 
 type ExitDialogProps = {
   triggerButton: React.ReactNode;
+  mode?: EnumMode;
 };
-const ExitDialog = ({ triggerButton }: ExitDialogProps) => {
+const ExitDialog = ({ triggerButton, mode }: ExitDialogProps) => {
   const navigate = useNavigate();
-  const { sessionId } = Route.useSearch();
+  const { sessionId, collectionId } = Route.useSearch();
   const { answerSheet } = useAnswerStore();
   const { data: session } = useGetSTSessionDetail(sessionId);
   const { getTimer } = useGlobalTimerStore();
-  const { mutate: submitTest } = useSubmitSimulatedTest();
+  const { mutate: submitTest, isPending } = useSubmitSimulatedTest(collectionId);
 
   const onClose = () => {
     const responses = formatAnswerSheetToResponses(answerSheet);
@@ -42,18 +43,49 @@ const ExitDialog = ({ triggerButton }: ExitDialogProps) => {
       const initialTime = getInitialTime(session.mode, session.timeLimit, session.skillTest.skill);
       const currentTime = getTimer(timerKeys.testDetail(sessionId))?.time ?? 0;
       if (session.skillTest.skill !== EnumSkill.speaking) {
-        submitTest({
-          sessionId,
-          elapsedTime: getElapsedTime(type, initialTime, currentTime),
-          status: EnumSimulatedTestSessionStatus.IN_PROGRESS,
-          response: {
-            skill: session.skillTest.skill,
-            info: responses,
+        submitTest(
+          {
+            sessionId,
+            elapsedTime: getElapsedTime(type, initialTime, currentTime),
+            status: EnumSimulatedTestSessionStatus.IN_PROGRESS,
+            response: {
+              skill: session.skillTest.skill,
+              info: responses,
+            },
           },
-        });
+          {
+            onSettled: () => {
+              if (collectionId) {
+                navigate({ to: `/practice/${collectionId}` });
+              } else {
+                navigate({ to: "/practice" });
+              }
+            },
+          }
+        );
+      } else {
+        submitTest(
+          {
+            sessionId,
+            elapsedTime: getElapsedTime(type, initialTime, currentTime),
+            status: EnumSimulatedTestSessionStatus.CANCELED,
+            response: {
+              skill: session.skillTest.skill,
+              info: [],
+            },
+          },
+          {
+            onSettled: () => {
+              if (collectionId) {
+                navigate({ to: `/practice/${collectionId}` });
+              } else {
+                navigate({ to: "/practice" });
+              }
+            },
+          }
+        );
       }
     }
-    navigate({ to: "/practice" });
   };
   const { t } = useTranslation("simulatedTest", {
     keyPrefix: "exitDialog",
@@ -61,21 +93,33 @@ const ExitDialog = ({ triggerButton }: ExitDialogProps) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{triggerButton}</AlertDialogTrigger>
-      <AlertDialogContent className="max-w-sm">
+      <AlertDialogContent className="max-w-md">
         <AlertDialogHeader>
           <AlertDialogTitle>{t("title")}</AlertDialogTitle>
           <AlertDialogDescription className="text-center">
-            {t("description")}
+            <Trans
+              context={mode}
+              i18nKey="exitDialog.description"
+              prefix="exitDialog"
+              ns="simulatedTest"
+              components={{ strong: <strong /> }}
+            />
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
+        <AlertDialogFooter className="w-full gap-2 max-md:flex-row">
           <AlertDialogAction asChild>
-            <Button onClick={onClose} variant="outline" size="xl">
-              {t("exitBtn")}
+            <Button
+              onClick={onClose}
+              variant="outline"
+              size="xl"
+              isLoading={isPending}
+              disabled={isPending}
+            >
+              {t(mode === EnumMode.PRACTICE ? "saveAndExitBtn" : "exitBtn")}
             </Button>
           </AlertDialogAction>
-          <AlertDialogCancel asChild className="w-full">
-            <Button size="xl" className="w-full">
+          <AlertDialogCancel asChild className="mt-0 w-full">
+            <Button size="xl" className="w-full" isLoading={isPending} disabled={isPending}>
               {t("continueBtn")}
             </Button>
           </AlertDialogCancel>

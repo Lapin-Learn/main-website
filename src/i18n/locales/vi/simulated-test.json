@@ -8,8 +8,11 @@
   },
   "exitDialog": {
     "title": "Bạn chắc chắn muốn thoát không?",
-    "description": " Bạn chưa hoàn thành bài thi. Tất cả câu trả lời của bạn sẽ được lưu thành bản nháp.",
+    "description_full_test": "Bạn chưa hoàn thành bài thi. Ở chế độ <strong>thi thử</strong>, tất cả câu trả lời sẽ <strong>không được lưu lại.</strong>",
+    "description_practice": " Bạn chưa hoàn thành bài thi. Ở chế độ <strong>luyện tập</strong>, tất cả câu trả lời của bạn sẽ được lưu thành <strong>bản nháp.</strong>",
+    "description": "Bạn chưa hoàn thành bài thi. Tất cả câu trả lời sẽ <strong>không được lưu lại.</strong>",
     "exitBtn": "Thoát",
+    "saveAndExitBtn": "Lưu nháp và thoát",
     "continueBtn": "Tiếp tục làm bài"
   },
   "startDialog": {
@@ -118,6 +121,9 @@
         }
       ]
     },
+    "part_introduction_1": "<p>Người chấm sẽ hỏi tên và thông tin cá nhân của bạn, sau đó là những câu hỏi tổng quát về bản thân (ví dụ: bạn sống ở đâu, làm việc ở đâu hoặc học ở đâu).</p><p>Sau đó, bạn sẽ trả lời câu hỏi về các chủ đề quen thuộc như âm nhạc, nấu ăn, thời tiết hoặc phim ảnh. Người chấm có thể yêu cầu bạn mở rộng câu trả lời bằng cách hỏi “tại sao?” hoặc “tại sao không?”</p><p>Phần này kiểm tra khả năng truyền đạt ý kiến và thông tin về các chủ đề hàng ngày theo định dạng câu hỏi - câu trả lời.</p>",
+    "part_introduction_2": "<p>Bạn sẽ nhận được một thẻ chủ đề với lời nhắc và các điểm hướng dẫn. Bạn sẽ có 1 phút để chuẩn bị bằng bút chì và giấy trước khi nói trong <strong>1–2 phút</strong>.</p><p>Giám khảo sẽ tính giờ, cho bạn biết khi nào bắt đầu và dừng bạn lại sau 2 phút. Họ có thể hỏi một câu hỏi tiếp theo trước khi chuyển sang phần tiếp theo.</p><p>Phần này đánh giá khả năng nói dài, sắp xếp ý tưởng một cách hợp lý và sử dụng ngôn ngữ phù hợp, dựa trên kinh nghiệm của riêng bạn.</p>",
+    "part_introduction_3": "<p>Giám khảo sẽ hỏi bạn những câu hỏi liên quan đến chủ đề trong Phần 2. Bạn sẽ có 1 phút để chuẩn bị câu trả lời trước khi nói trong <strong>3–4 phút</strong>.</p><p>Giám khảo sẽ tính giờ, cho bạn biết khi nào bắt đầu và dừng bạn lại sau 4 phút. Họ có thể hỏi một câu hỏi tiếp theo trước khi chuyển sang phần tiếp theo.</p><p>Phần này đánh giá khả năng nói dài, diễn đạt ý tưởng rõ ràng và sử dụng nhiều từ vựng và ngữ pháp của bạn.</p>",
     "nextQuestionInSeconds": "Câu tiếp theo sau {{ time }}s",
     "nextPartInSeconds": "Part tiếp theo sau {{ time }}s",
     "nextPart": "Part tiếp theo",
@@ -147,12 +153,22 @@
     "accuracy": "Độ chính xác",
     "questions": "Danh sách câu hỏi",
     "unanswered": "Chưa trả lời",
+    "taskDescription": "Mô tả bài làm",
     "yourAnswer": "Câu trả lời của bạn",
-    "explanation": "Giải thích câu {{questionNo}}"
+    "explanation": "Giải thích câu {{questionNo}}",
+    "noAnswer": "Bạn chưa trả lời câu hỏi này",
+    "warning": "Bài chấm này chỉ để bạn tự đánh giá và cải thiện kĩ năng của mình, nên có thể có chút chênh lệch (0.5 - 1 điểm) so với thực tế. Nếu những gì bạn đã học khác với kết quả bài test, hãy tập trung vào kiến thức đã học nhé!",
+    "hoverFeedback": "Di chuột qua văn bản được đánh dấu để xem phản hồi chi tiết và gợi ý. Màu sắc đánh dấu khác nhau cho biết các loại lỗi khác nhau.",
+    "viewDetail": "Xem sửa bài chi tiết",
+    "paragraphs": "Đoạn văn",
+    "words": "Từ",
+    "overallScore": "Điểm tổng"
   },
   "noteBtn": {
     "title": "Ghi chú",
     "placeholder": "Viết ghi chú của bạn ở đây...",
     "guide": "Nhấn phím Esc để đóng ghi chú này, và bạn có thể di chuyển ghi chú xung quanh dựa trên nhu cầu của mình."
-  }
+  },
+  "showQuestionNavigator_true": "Ẩn câu hỏi",
+  "showQuestionNavigator_false": "Hiện câu hỏi"
 }

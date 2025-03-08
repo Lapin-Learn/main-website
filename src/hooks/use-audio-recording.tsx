@@ -1,5 +1,5 @@
-import { useCallback, useRef } from "react";
-import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { useMicrophone } from "@/components/providers/microphone-permission-provider";
 
@@ -20,12 +20,23 @@ function useAudioRecording({
     setAudioChunks,
     setAudio,
   } = useRecordingStore();
-  const { listening } = useSpeechRecognition();
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const dataArrayRef = useRef<Uint8Array | null>(null);
   const audioAnimationRef = useRef<number | null>(null);
   const mediaRecorder = useRef<MediaRecorder | null>(null);
+
+  const [SpeechRecognition, setSpeechRecognition] = useState<any>(null);
+  const [listening, setListening] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      import("react-speech-recognition").then((module) => {
+        setSpeechRecognition(module.default);
+        setListening(module.useSpeechRecognition().listening);
+      });
+    }
+  }, []);
 
   const mimeType = "audio/webm";
 
@@ -58,7 +69,7 @@ function useAudioRecording({
   }, [listening, setAudio, setAudioChunks, setRecordingStatus, stream]);
 
   const stopRecording = useCallback(() => {
-    SpeechRecognition.stopListening();
+    if (SpeechRecognition) SpeechRecognition.stopListening();
     setAudioLevel(0);
     setRecordingStatus("inactive");
     setProgressValue(0);

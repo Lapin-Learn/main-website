@@ -6,15 +6,24 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui";
 import { useLessonCompletion } from "@/hooks/react-query/use-daily-lesson";
 import useAnswerDailyLesson from "@/hooks/use-answer-daily-lesson";
+import useBreakPoint from "@/hooks/use-screen-size";
 import useDailyLessonStore, { DLAnswer } from "@/hooks/zustand/use-daily-lesson-store";
 import { cn } from "@/lib/utils";
 
 type QuestionActionButtonsProps = {
   getCorrectAnswers: () => DLAnswer;
   disabled: boolean;
+  isJumpBand?: boolean;
+  lessonId: number | string;
 };
-const QuestionActionButtons = ({ getCorrectAnswers, disabled }: QuestionActionButtonsProps) => {
+const QuestionActionButtons = ({
+  getCorrectAnswers,
+  disabled,
+  isJumpBand = false,
+  lessonId,
+}: QuestionActionButtonsProps) => {
   const [randomEncourage, setRandomEncourage] = useState<number>(0);
+  const isMobile = useBreakPoint() === "xs";
   const {
     answerQuestion,
     nextQuestion,
@@ -53,7 +62,10 @@ const QuestionActionButtons = ({ getCorrectAnswers, disabled }: QuestionActionBu
     };
   }, [isAnswered, currentQuestion, disabled, lessonCompletionMutation.isPending, isCompleted]);
 
-  useAnswerDailyLesson();
+  useAnswerDailyLesson({
+    isJumpBand,
+    lessonId,
+  });
 
   useEffect(() => {
     if (isAnswered) {
@@ -81,7 +93,7 @@ const QuestionActionButtons = ({ getCorrectAnswers, disabled }: QuestionActionBu
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
         className={cn(
-          "sticky bottom-0 mt-4 flex w-full items-center justify-between border-t-2 md:px-56 md:py-2",
+          "sticky bottom-0 mt-2 md:mt-4 flex w-full items-center justify-between border-t-2 px-4 md:px-56 md:py-2",
           isCorrectAll
             ? "bg-green-50 border-t-2 border-green-200"
             : "bg-red-50 border-t-2 border-red-100"
@@ -90,14 +102,24 @@ const QuestionActionButtons = ({ getCorrectAnswers, disabled }: QuestionActionBu
         <div className="flex gap-2">
           <div
             className={cn(
-              "size-8 relative rounded-full",
+              "size-4 md:size-8 relative rounded-full",
               isCorrectAll ? "bg-green-500" : "bg-red-500"
             )}
           >
             {isCorrectAll ? (
-              <CheckIcon className="absolute-center" strokeWidth={4} size={20} color="white" />
+              <CheckIcon
+                className="absolute-center"
+                strokeWidth={4}
+                size={isMobile ? 12 : 20}
+                color="white"
+              />
             ) : (
-              <XIcon className="absolute-center" strokeWidth={4} size={20} color="white" />
+              <XIcon
+                className="absolute-center"
+                strokeWidth={4}
+                size={isMobile ? 12 : 20}
+                color="white"
+              />
             )}
           </div>
           <div className="flex flex-col justify-start gap-1">
@@ -121,7 +143,7 @@ const QuestionActionButtons = ({ getCorrectAnswers, disabled }: QuestionActionBu
           onClick={nextQuestion}
           variant={isCorrectAll ? "green" : "red"}
           size="lg"
-          className="bottom-8 my-6 h-12 w-48 max-w-full rounded-xl"
+          className="bottom-8 my-4 w-48 max-w-full rounded-lg md:my-6 md:h-12 md:rounded-xl"
           disabled={lessonCompletionMutation.isPending || isCompleted}
         >
           {t("general.continue")}
@@ -131,12 +153,12 @@ const QuestionActionButtons = ({ getCorrectAnswers, disabled }: QuestionActionBu
   }
 
   return (
-    <div className="sticky bottom-0 mt-4 flex w-full items-center justify-end border-t bg-white md:px-56 md:py-2">
+    <div className="sticky bottom-0 mt-2 flex w-full items-center justify-end border-t bg-white px-4 md:mt-4 md:px-56 md:py-2">
       <Button
         onClick={handleOnClick}
         variant="black"
         size="lg"
-        className="bottom-8 my-6 h-12 w-48 max-w-full rounded-xl"
+        className="my-4 w-full max-w-full rounded-lg md:my-6 md:h-12 md:w-48 md:rounded-xl"
         disabled={disabled}
       >
         {t("general.check")}

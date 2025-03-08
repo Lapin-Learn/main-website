@@ -40,7 +40,7 @@ export function OverallBandScoreChart({ className, data }: OverallBandScoreChart
       <CardContent className="overflow-visible pb-0 pt-2">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[200px] overflow-visible"
+          className="mx-auto aspect-square max-h-[160px] overflow-visible md:max-h-[200px]"
         >
           <RadarChart
             data={DEFAULT_DATA.map((item) => {

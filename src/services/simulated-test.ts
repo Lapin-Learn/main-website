@@ -129,6 +129,7 @@ export const submitSimulatedTest = async (
 
   if (response.info.length === 0) {
     formData.set("status", EnumSimulatedTestSessionStatus.CANCELED);
+    formData.set("elapsedTime", "0");
   }
 
   return (

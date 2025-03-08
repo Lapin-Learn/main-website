@@ -3,22 +3,29 @@
   <!-- Trang chủ -->
   <url>
     <loc>https://ielts.lapinlearn.edu.vn/</loc>
-    <lastmod>2025-02-05</lastmod>
+    <lastmod>2025-03-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <!-- Trang thông tin IELTS -->
+  <url>
+    <loc>https://ielts.lapinlearn.edu.vn/blogs</loc>
+    <lastmod>2025-03-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <!-- Trang luyện tập -->
   <url>
     <loc>https://ielts.lapinlearn.edu.vn/practice</loc>
-    <lastmod>2025-02-05</lastmod>
+    <lastmod>2025-03-05</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <!-- Trang bài học hàng ngày -->
   <url>
     <loc>https://ielts.lapinlearn.edu.vn/daily-lesson</loc>
-    <lastmod>2025-02-05</lastmod>
+    <lastmod>2025-03-05</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
 </urlset>

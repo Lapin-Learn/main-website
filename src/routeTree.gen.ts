@@ -26,6 +26,7 @@ import { Route as AuthenticatedDashboardPracticeIndexImport } from "./routes/_au
 import { Route as AuthenticatedDashboardPracticeSimulatedTestResultImport } from "./routes/_authenticated/_dashboard/practice/simulated-test/result";
 import { Route as AuthenticatedDashboardShopIndexImport } from "./routes/_authenticated/_dashboard/shop/index";
 import { Route as AuthenticatedDailyLessonDailyLessonIdImport } from "./routes/_authenticated/daily-lesson/$dailyLessonId";
+import { Route as AuthenticatedDailyLessonJumpBandImport } from "./routes/_authenticated/daily-lesson/jump-band";
 import { Route as AuthenticatedPracticeSimulatedTestIndexImport } from "./routes/_authenticated/practice/simulated-test/index";
 import { Route as AuthenticationImport } from "./routes/_authentication";
 import { Route as AuthenticationForgotPasswordImport } from "./routes/_authentication/forgot-password";
@@ -33,9 +34,18 @@ import { Route as AuthenticationLogInImport } from "./routes/_authentication/log
 import { Route as AuthenticationResetPasswordImport } from "./routes/_authentication/reset-password";
 import { Route as AuthenticationSignUpImport } from "./routes/_authentication/sign-up";
 import { Route as AuthenticationVerifyOtpImport } from "./routes/_authentication/verify-otp";
+import { Route as BlogsBlogIdImport } from "./routes/blogs/$blogId";
+import { Route as BlogsIndexImport } from "./routes/blogs/index";
 import { Route as IndexImport } from "./routes/index";
+import { Route as PrivacyPolicyImport } from "./routes/privacy-policy";
 
 // Create/Update Routes
+
+const PrivacyPolicyRoute = PrivacyPolicyImport.update({
+  id: "/privacy-policy",
+  path: "/privacy-policy",
+  getParentRoute: () => rootRoute,
+} as any);
 
 const AuthenticationRoute = AuthenticationImport.update({
   id: "/_authentication",
@@ -50,6 +60,18 @@ const AuthenticatedRoute = AuthenticatedImport.update({
 const IndexRoute = IndexImport.update({
   id: "/",
   path: "/",
+  getParentRoute: () => rootRoute,
+} as any);
+
+const BlogsIndexRoute = BlogsIndexImport.update({
+  id: "/blogs/",
+  path: "/blogs/",
+  getParentRoute: () => rootRoute,
+} as any);
+
+const BlogsBlogIdRoute = BlogsBlogIdImport.update({
+  id: "/blogs/$blogId",
+  path: "/blogs/$blogId",
   getParentRoute: () => rootRoute,
 } as any);
 
@@ -85,6 +107,12 @@ const AuthenticationForgotPasswordRoute = AuthenticationForgotPasswordImport.upd
 
 const AuthenticatedDashboardRoute = AuthenticatedDashboardImport.update({
   id: "/_dashboard",
+  getParentRoute: () => AuthenticatedRoute,
+} as any);
+
+const AuthenticatedDailyLessonJumpBandRoute = AuthenticatedDailyLessonJumpBandImport.update({
+  id: "/daily-lesson/jump-band",
+  path: "/daily-lesson/jump-band",
   getParentRoute: () => AuthenticatedRoute,
 } as any);
 
@@ -206,6 +234,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AuthenticationImport;
       parentRoute: typeof rootRoute;
     };
+    "/privacy-policy": {
+      id: "/privacy-policy";
+      path: "/privacy-policy";
+      fullPath: "/privacy-policy";
+      preLoaderRoute: typeof PrivacyPolicyImport;
+      parentRoute: typeof rootRoute;
+    };
     "/_authenticated/_dashboard": {
       id: "/_authenticated/_dashboard";
       path: "";
@@ -248,6 +283,20 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AuthenticationVerifyOtpImport;
       parentRoute: typeof AuthenticationImport;
     };
+    "/blogs/$blogId": {
+      id: "/blogs/$blogId";
+      path: "/blogs/$blogId";
+      fullPath: "/blogs/$blogId";
+      preLoaderRoute: typeof BlogsBlogIdImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/blogs/": {
+      id: "/blogs/";
+      path: "/blogs";
+      fullPath: "/blogs";
+      preLoaderRoute: typeof BlogsIndexImport;
+      parentRoute: typeof rootRoute;
+    };
     "/_authenticated/_dashboard/_profile": {
       id: "/_authenticated/_dashboard/_profile";
       path: "";
@@ -267,6 +316,13 @@ declare module "@tanstack/react-router" {
       path: "/daily-lesson/$dailyLessonId";
       fullPath: "/daily-lesson/$dailyLessonId";
       preLoaderRoute: typeof AuthenticatedDailyLessonDailyLessonIdImport;
+      parentRoute: typeof AuthenticatedImport;
+    };
+    "/_authenticated/daily-lesson/jump-band": {
+      id: "/_authenticated/daily-lesson/jump-band";
+      path: "/daily-lesson/jump-band";
+      fullPath: "/daily-lesson/jump-band";
+      preLoaderRoute: typeof AuthenticatedDailyLessonJumpBandImport;
       parentRoute: typeof AuthenticatedImport;
     };
     "/_authenticated/_dashboard/daily-lesson/": {
@@ -403,12 +459,14 @@ const AuthenticatedDashboardRouteWithChildren = AuthenticatedDashboardRoute._add
 interface AuthenticatedRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRouteWithChildren;
   AuthenticatedDailyLessonDailyLessonIdRoute: typeof AuthenticatedDailyLessonDailyLessonIdRoute;
+  AuthenticatedDailyLessonJumpBandRoute: typeof AuthenticatedDailyLessonJumpBandRoute;
   AuthenticatedPracticeSimulatedTestIndexRoute: typeof AuthenticatedPracticeSimulatedTestIndexRoute;
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRouteWithChildren,
   AuthenticatedDailyLessonDailyLessonIdRoute: AuthenticatedDailyLessonDailyLessonIdRoute,
+  AuthenticatedDailyLessonJumpBandRoute: AuthenticatedDailyLessonJumpBandRoute,
   AuthenticatedPracticeSimulatedTestIndexRoute: AuthenticatedPracticeSimulatedTestIndexRoute,
 };
 
@@ -439,13 +497,17 @@ const AuthenticationRouteWithChildren = AuthenticationRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
   "": typeof AuthenticatedDashboardProfileRouteWithChildren;
+  "/privacy-policy": typeof PrivacyPolicyRoute;
   "/forgot-password": typeof AuthenticationForgotPasswordRoute;
   "/log-in": typeof AuthenticationLogInRoute;
   "/reset-password": typeof AuthenticationResetPasswordRoute;
   "/sign-up": typeof AuthenticationSignUpRoute;
   "/verify-otp": typeof AuthenticationVerifyOtpRoute;
+  "/blogs/$blogId": typeof BlogsBlogIdRoute;
+  "/blogs": typeof BlogsIndexRoute;
   "/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
   "/daily-lesson/$dailyLessonId": typeof AuthenticatedDailyLessonDailyLessonIdRoute;
+  "/daily-lesson/jump-band": typeof AuthenticatedDailyLessonJumpBandRoute;
   "/daily-lesson": typeof AuthenticatedDashboardDailyLessonIndexRoute;
   "/practice": typeof AuthenticatedDashboardPracticeIndexRoute;
   "/shop": typeof AuthenticatedDashboardShopIndexRoute;
@@ -462,13 +524,17 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
   "": typeof AuthenticatedDashboardProfileRouteWithChildren;
+  "/privacy-policy": typeof PrivacyPolicyRoute;
   "/forgot-password": typeof AuthenticationForgotPasswordRoute;
   "/log-in": typeof AuthenticationLogInRoute;
   "/reset-password": typeof AuthenticationResetPasswordRoute;
   "/sign-up": typeof AuthenticationSignUpRoute;
   "/verify-otp": typeof AuthenticationVerifyOtpRoute;
+  "/blogs/$blogId": typeof BlogsBlogIdRoute;
+  "/blogs": typeof BlogsIndexRoute;
   "/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
   "/daily-lesson/$dailyLessonId": typeof AuthenticatedDailyLessonDailyLessonIdRoute;
+  "/daily-lesson/jump-band": typeof AuthenticatedDailyLessonJumpBandRoute;
   "/daily-lesson": typeof AuthenticatedDashboardDailyLessonIndexRoute;
   "/practice": typeof AuthenticatedDashboardPracticeIndexRoute;
   "/shop": typeof AuthenticatedDashboardShopIndexRoute;
@@ -487,15 +553,19 @@ export interface FileRoutesById {
   "/": typeof IndexRoute;
   "/_authenticated": typeof AuthenticatedRouteWithChildren;
   "/_authentication": typeof AuthenticationRouteWithChildren;
+  "/privacy-policy": typeof PrivacyPolicyRoute;
   "/_authenticated/_dashboard": typeof AuthenticatedDashboardRouteWithChildren;
   "/_authentication/forgot-password": typeof AuthenticationForgotPasswordRoute;
   "/_authentication/log-in": typeof AuthenticationLogInRoute;
   "/_authentication/reset-password": typeof AuthenticationResetPasswordRoute;
   "/_authentication/sign-up": typeof AuthenticationSignUpRoute;
   "/_authentication/verify-otp": typeof AuthenticationVerifyOtpRoute;
+  "/blogs/$blogId": typeof BlogsBlogIdRoute;
+  "/blogs/": typeof BlogsIndexRoute;
   "/_authenticated/_dashboard/_profile": typeof AuthenticatedDashboardProfileRouteWithChildren;
   "/_authenticated/_dashboard/content-editor": typeof AuthenticatedDashboardContentEditorRoute;
   "/_authenticated/daily-lesson/$dailyLessonId": typeof AuthenticatedDailyLessonDailyLessonIdRoute;
+  "/_authenticated/daily-lesson/jump-band": typeof AuthenticatedDailyLessonJumpBandRoute;
   "/_authenticated/_dashboard/daily-lesson/": typeof AuthenticatedDashboardDailyLessonIndexRoute;
   "/_authenticated/_dashboard/practice/": typeof AuthenticatedDashboardPracticeIndexRoute;
   "/_authenticated/_dashboard/shop/": typeof AuthenticatedDashboardShopIndexRoute;
@@ -514,13 +584,17 @@ export interface FileRouteTypes {
   fullPaths:
     | "/"
     | ""
+    | "/privacy-policy"
     | "/forgot-password"
     | "/log-in"
     | "/reset-password"
     | "/sign-up"
     | "/verify-otp"
+    | "/blogs/$blogId"
+    | "/blogs"
     | "/content-editor"
     | "/daily-lesson/$dailyLessonId"
+    | "/daily-lesson/jump-band"
     | "/daily-lesson"
     | "/practice"
     | "/shop"
@@ -536,13 +610,17 @@ export interface FileRouteTypes {
   to:
     | "/"
     | ""
+    | "/privacy-policy"
     | "/forgot-password"
     | "/log-in"
     | "/reset-password"
     | "/sign-up"
     | "/verify-otp"
+    | "/blogs/$blogId"
+    | "/blogs"
     | "/content-editor"
     | "/daily-lesson/$dailyLessonId"
+    | "/daily-lesson/jump-band"
     | "/daily-lesson"
     | "/practice"
     | "/shop"
@@ -559,15 +637,19 @@ export interface FileRouteTypes {
     | "/"
     | "/_authenticated"
     | "/_authentication"
+    | "/privacy-policy"
     | "/_authenticated/_dashboard"
     | "/_authentication/forgot-password"
     | "/_authentication/log-in"
     | "/_authentication/reset-password"
     | "/_authentication/sign-up"
     | "/_authentication/verify-otp"
+    | "/blogs/$blogId"
+    | "/blogs/"
     | "/_authenticated/_dashboard/_profile"
     | "/_authenticated/_dashboard/content-editor"
     | "/_authenticated/daily-lesson/$dailyLessonId"
+    | "/_authenticated/daily-lesson/jump-band"
     | "/_authenticated/_dashboard/daily-lesson/"
     | "/_authenticated/_dashboard/practice/"
     | "/_authenticated/_dashboard/shop/"
@@ -586,12 +668,18 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren;
   AuthenticationRoute: typeof AuthenticationRouteWithChildren;
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute;
+  BlogsBlogIdRoute: typeof BlogsBlogIdRoute;
+  BlogsIndexRoute: typeof BlogsIndexRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AuthenticationRoute: AuthenticationRouteWithChildren,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  BlogsBlogIdRoute: BlogsBlogIdRoute,
+  BlogsIndexRoute: BlogsIndexRoute,
 };
 
 export const routeTree = rootRoute
@@ -606,7 +694,10 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/_authenticated",
-        "/_authentication"
+        "/_authentication",
+        "/privacy-policy",
+        "/blogs/$blogId",
+        "/blogs/"
       ]
     },
     "/": {
@@ -617,6 +708,7 @@ export const routeTree = rootRoute
       "children": [
         "/_authenticated/_dashboard",
         "/_authenticated/daily-lesson/$dailyLessonId",
+        "/_authenticated/daily-lesson/jump-band",
         "/_authenticated/practice/simulated-test/"
       ]
     },
@@ -629,6 +721,9 @@ export const routeTree = rootRoute
         "/_authentication/sign-up",
         "/_authentication/verify-otp"
       ]
+    },
+    "/privacy-policy": {
+      "filePath": "privacy-policy.tsx"
     },
     "/_authenticated/_dashboard": {
       "filePath": "_authenticated/_dashboard.tsx",
@@ -664,6 +759,12 @@ export const routeTree = rootRoute
       "filePath": "_authentication/verify-otp.tsx",
       "parent": "/_authentication"
     },
+    "/blogs/$blogId": {
+      "filePath": "blogs/$blogId.tsx"
+    },
+    "/blogs/": {
+      "filePath": "blogs/index.tsx"
+    },
     "/_authenticated/_dashboard/_profile": {
       "filePath": "_authenticated/_dashboard/_profile.tsx",
       "parent": "/_authenticated/_dashboard",
@@ -680,6 +781,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/daily-lesson/$dailyLessonId": {
       "filePath": "_authenticated/daily-lesson/$dailyLessonId.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/daily-lesson/jump-band": {
+      "filePath": "_authenticated/daily-lesson/jump-band.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/_dashboard/daily-lesson/": {

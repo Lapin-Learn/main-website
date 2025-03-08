@@ -16,6 +16,16 @@
     "result": "Answer: "
   },
   "after": {
+    "encourages_negative": [
+      "Try again",
+      "You can do better",
+      "You can do it",
+      "Don't give up",
+      "Keep trying",
+      "You're almost there",
+      "You're getting there",
+      "You're getting closer"
+    ],
     "encourages": [
       "Great",
       "Good job",
@@ -54,6 +64,13 @@
     "experience": "Progress",
     "xp": "XP",
     "numberOfLessons_singular": "{{number}} lesson",
-    "numberOfLessons_plural": "{{number}} lessons"
+    "numberOfLessons_plural": "{{number}} lessons",
+    "toUpgradeYourBand": "to upgrade"
+  },
+  "jump-band": {
+    "title": "Jump band",
+    "guidance": "To jump band, you must score above <bold>90% of the points</bold> in this test.",
+    "numberOfQuestions": "The lesson has <bold>{{questions}} questions.</bold>",
+    "congratulations": "Congratulations on successfully upgrading your band!"
   }
 }

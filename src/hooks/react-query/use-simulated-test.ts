@@ -152,7 +152,7 @@ export const useGetCollectionDetail = (collectionId: number) => {
   };
 };
 
-export const useStartSimulatedTest = () => {
+export const useStartSimulatedTest = (collectionId?: number) => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const analytics = getAnalytics();
@@ -165,6 +165,7 @@ export const useStartSimulatedTest = () => {
           search: {
             skillTestId: returnData.skillTestId,
             sessionId: returnData.id,
+            collectionId,
           },
         });
       }
@@ -182,7 +183,7 @@ export const useStartSimulatedTest = () => {
   });
 };
 
-export const useSubmitSimulatedTest = () => {
+export const useSubmitSimulatedTest = (collectionId?: number) => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -206,7 +207,11 @@ export const useSubmitSimulatedTest = () => {
         if (variables.status == EnumSimulatedTestSessionStatus.IN_PROGRESS) {
           queryClient.invalidateQueries({ queryKey: simulatedTestKeys.latestSession });
         }
-        navigate({ to: "/practice" });
+        if (collectionId) {
+          navigate({ to: `/practice/${collectionId}` });
+        } else {
+          navigate({ to: "/practice" });
+        }
       }
       queryClient.removeQueries({
         queryKey: simulatedTestKeys.session,
@@ -225,12 +230,13 @@ export const useSubmitSimulatedTest = () => {
   });
 };
 
-export const useGetSTSessionDetail = (sessionId: number) => {
+export const useGetSTSessionDetail = (sessionId: number, enabled: boolean = true) => {
   const result = useQuery({
     queryKey: simulatedTestKeys.sessionDetail(sessionId),
     queryFn: () => getSimulatedTestSessionDetail(sessionId),
     retry: false,
     staleTime: 0,
+    enabled,
   });
   const session = result.data;
 

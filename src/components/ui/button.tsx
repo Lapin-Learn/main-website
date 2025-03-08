@@ -1,7 +1,7 @@
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Loader2 } from "lucide-react";
-import * as React from "react";
+import React from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -27,8 +27,8 @@ const buttonVariants = cva(
         sm: "h-8 rounded-md px-3 text-xs",
         lg: "h-10 rounded-md px-8",
         xl: "h-11 rounded-lg px-8",
-        "2xl": "h-12 rounded-2xl px-8",
-        "3xl": "h-14 rounded-2xl px-10",
+        "2xl": "h-12 rounded-lg md:rounded-2xl px-8",
+        "3xl": "h-14 rounded-lg md:rounded-2xl px-10 text-base",
         icon: "h-9 w-9",
       },
     },
