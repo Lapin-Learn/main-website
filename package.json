@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "preview": "vite preview",
     "dev:server": "node --loader ts-node/esm dist-ssr/ssr.js",
     "build:csr": "vite build --outDir dist",
     "build:ssr": "vite build --ssr --outDir dist-ssr",
