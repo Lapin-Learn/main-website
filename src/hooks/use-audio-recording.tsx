@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useRef } from "react";
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
 import { useMicrophone } from "@/components/providers/microphone-permission-provider";
 
+import { useToast } from "./use-toast";
 import { useRecordingStore } from "./zustand/use-speaking-test";
 
 function useAudioRecording({
@@ -12,6 +14,7 @@ function useAudioRecording({
 } = {}) {
   // Make sure this hook only works inside MicrophonePermissionProvider
   const { stream, requestPermission } = useMicrophone();
+  const { listening, browserSupportsSpeechRecognition } = useSpeechRecognition();
   const {
     audioChunks,
     setRecordingStatus,
@@ -25,6 +28,7 @@ function useAudioRecording({
   const dataArrayRef = useRef<Uint8Array | null>(null);
   const audioAnimationRef = useRef<number | null>(null);
   const mediaRecorder = useRef<MediaRecorder | null>(null);
+  const { toast } = useToast();
 
   const mimeType = "audio/webm";
 
@@ -53,6 +57,7 @@ function useAudioRecording({
   }, [setAudio, setAudioChunks, setRecordingStatus, stream]);
 
   const stopRecording = useCallback(() => {
+    if (listening) SpeechRecognition.stopListening();
     setAudioLevel(0);
     setRecordingStatus("inactive");
     setProgressValue(0);
@@ -85,6 +90,13 @@ function useAudioRecording({
     setAudioLevel(average);
     audioAnimationRef.current = requestAnimationFrame(updateAudioLevel);
   }, []);
+
+  if (!browserSupportsSpeechRecognition) {
+    toast({
+      title: "Browser does not support speech recognition",
+      variant: "destructive",
+    });
+  }
 
   return {
     startRecording,
