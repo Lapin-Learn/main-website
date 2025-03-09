@@ -1,10 +1,13 @@
 import { SubscriptionRedirectDialog } from "@components/molecules/subscription-redirect-dialog.tsx";
+import i18next from "i18next";
+import { useState } from "react";
 
 import { EvaluationSection } from "@/components/molecules/evaluation-section";
 import OverviewEvaluationSection from "@/components/organisms/overview-evaluation-section";
 import WritingSubmission from "@/components/organisms/writing-submission";
+import { STCriteriaEvaluation } from "@/lib/types";
 import { WritingSession } from "@/lib/types/simulated-test-session.type";
-import { cn } from "@/lib/utils";
+import { cn, updateResults } from "@/lib/utils";
 import { Route } from "@/routes/_authenticated/_dashboard/practice/simulated-test/result";
 
 type WritingResultProps = {
@@ -12,6 +15,7 @@ type WritingResultProps = {
 };
 
 function WritingResult({ session }: WritingResultProps) {
+  const [results, setResults] = useState<STCriteriaEvaluation[]>(updateResults(session.results));
   const { status, orderCode } = Route.useSearch();
 
   // Get part types: Line graph, Pie chart, etc.
@@ -30,6 +34,10 @@ function WritingResult({ session }: WritingResultProps) {
     );
   });
 
+  i18next.on("languageChanged", () => {
+    setResults(updateResults(session.results));
+  });
+
   return (
     <div className="flex flex-col gap-4">
       <OverviewEvaluationSection session={session} />
@@ -44,12 +52,10 @@ function WritingResult({ session }: WritingResultProps) {
             userSubmissions={submissions}
             skillTestId={session.skillTest.id}
             partDetails={partDetails}
-            evaluationResults={session.results}
+            evaluationResults={results}
           />
         </div>
-        {session.results.length == 0 && (
-          <EvaluationSection id={session.id} status={session.status} />
-        )}
+        {results.length == 0 && <EvaluationSection id={session.id} status={session.status} />}
       </div>
       <SubscriptionRedirectDialog status={status} orderCode={orderCode} />
     </div>
