@@ -98,18 +98,20 @@ function SubmissionContent(props: SubmissionContentProps) {
         }
         criterias={evaluationResult?.criterias}
       />
-      <div className="flex flex-row gap-4 rounded-xl border-none bg-white p-5">
-        <div className="flex flex-col gap-5">
-          <Typography variant="h6" className="font-semibold capitalize">
-            {t("result.taskDescription")}
-          </Typography>
-          {isLoading || !data ? (
-            <Skeleton className="h-40 w-full" />
-          ) : (
-            <WritingQuestionCard content={data.content} imageClassName="mx-auto" />
-          )}
+      <div className="grid grid-cols-3 flex-row gap-4 rounded-xl border-none bg-white p-5">
+        <div className="col-span-1 flex flex-row gap-2">
+          <div className="flex w-full flex-col gap-5">
+            <Typography variant="h6" className="font-semibold capitalize">
+              {t("result.taskDescription")}
+            </Typography>
+            {isLoading || !data ? (
+              <Skeleton className="h-40 w-full" />
+            ) : (
+              <WritingQuestionCard content={data.content} imageClassName="mx-auto" />
+            )}
+          </div>
+          <Separator orientation="vertical" />
         </div>
-        <Separator orientation="vertical" />
         <SubmissionContentAnswered
           paragraphs={extractParagraphs(submission.answer ?? "")}
           evaluationResult={evaluationResult}

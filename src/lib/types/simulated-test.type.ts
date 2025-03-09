@@ -188,6 +188,7 @@ export type AnalysisData = {
 };
 
 export type STCriteriaEvaluation = {
+  lang: "vi" | "en";
   part: number | string;
   criterias: {
     [key in EnumWritingCriteria | EnumSpeakingCriteria]?: {

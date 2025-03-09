@@ -5,6 +5,7 @@ import { twMerge } from "tailwind-merge";
 import { z } from "zod";
 
 import { TimerType } from "@/hooks/zustand/use-global-timer";
+import { STCriteriaEvaluation } from "@/lib/types";
 import { Mission } from "@/lib/types/mission.type";
 import { PagedData, PagingSchema } from "@/lib/types/pagination.type";
 
@@ -274,4 +275,10 @@ export const getCriterias = (skill: EnumSkill, isBrief: boolean = false) => {
     },
     {} as Record<string, string>
   );
+};
+
+export const updateResults = (results: STCriteriaEvaluation[]) => {
+  const currentLang = i18next.language;
+
+  return results.filter((result) => result.lang === currentLang);
 };
