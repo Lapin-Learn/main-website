@@ -56,6 +56,7 @@ type SpeakingSession = BaseSTSession & {
     questionNo: number;
     partNo: number;
     timeStamp?: number;
+    transcript: string;
   }[];
   resource?: string;
 };
