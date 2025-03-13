@@ -20,66 +20,70 @@ export function SubscriptionRedirectDialog({
   const { data } = useGetUserTransactionDetail(orderCode);
 
   return (
-    <Dialog defaultOpen={!!orderCode}>
-      <DialogContent className="max-w-xl overflow-hidden p-0">
-        <div
-          className={cn(
-            "relative flex md:h-[576px] h-screen max-w-xl items-center justify-center",
-            status?.toLowerCase() === EnumTransactionStatus.PAID && "bg-blue-radial"
-          )}
-        >
+    !!orderCode && (
+      <Dialog defaultOpen={!!orderCode}>
+        <DialogContent className="max-w-xl overflow-hidden p-0">
           <div
             className={cn(
-              "bg-center absolute animate-[spin_6s_linear_infinite]",
-              status?.toLowerCase() === EnumTransactionStatus.PAID && "bg-rewards size-[800px]",
-              status?.toLowerCase() === EnumTransactionStatus.CANCELLED && "bg-background"
+              "relative flex md:h-[576px] h-screen max-w-xl items-center justify-center",
+              status?.toLowerCase() === EnumTransactionStatus.PAID && "bg-blue-radial"
             )}
-          />
-          <div className="absolute w-full px-6">
-            <div className="flex flex-col items-center justify-center gap-4">
-              <div className="rounded-full bg-white p-10 shadow-md">
-                <img
-                  src="/assets/carrot-basket.svg"
-                  alt="Carrot Basket"
-                  className={cn(
-                    "size-40",
-                    status?.toLowerCase() === EnumTransactionStatus.CANCELLED && "saturate-50"
-                  )}
-                />
-              </div>
-              <div className="mt-4 flex flex-col items-center gap-4">
-                <Typography
-                  variant="h4"
-                  className={cn(
-                    "text-center font-medium text-blue-800",
-                    status?.toLowerCase() === EnumTransactionStatus.CANCELLED && "text-neutral-300"
-                  )}
-                >
-                  {t(`reward.${status?.toLowerCase()}`, { ns: "shop" })}
-                </Typography>
-                <Typography
-                  variant="h2"
-                  className={cn(
-                    "uppercase text-blue-900",
-                    status?.toLowerCase() === EnumTransactionStatus.CANCELLED && "text-primary-900"
-                  )}
-                >
-                  {data?.items[0].quantity} {t("reward.carrot", { ns: "shop" })}
-                </Typography>
+          >
+            <div
+              className={cn(
+                "bg-center absolute animate-[spin_6s_linear_infinite]",
+                status?.toLowerCase() === EnumTransactionStatus.PAID && "bg-rewards size-[800px]",
+                status?.toLowerCase() === EnumTransactionStatus.CANCELLED && "bg-background"
+              )}
+            />
+            <div className="absolute w-full px-6">
+              <div className="flex flex-col items-center justify-center gap-4">
+                <div className="rounded-full bg-white p-10 shadow-md">
+                  <img
+                    src="/assets/carrot-basket.svg"
+                    alt="Carrot Basket"
+                    className={cn(
+                      "size-40",
+                      status?.toLowerCase() === EnumTransactionStatus.CANCELLED && "saturate-50"
+                    )}
+                  />
+                </div>
+                <div className="mt-4 flex flex-col items-center gap-4">
+                  <Typography
+                    variant="h4"
+                    className={cn(
+                      "text-center font-medium text-blue-800",
+                      status?.toLowerCase() === EnumTransactionStatus.CANCELLED &&
+                        "text-neutral-300"
+                    )}
+                  >
+                    {t(`reward.${status?.toLowerCase()}`, { ns: "shop" })}
+                  </Typography>
+                  <Typography
+                    variant="h2"
+                    className={cn(
+                      "uppercase text-blue-900",
+                      status?.toLowerCase() === EnumTransactionStatus.CANCELLED &&
+                        "text-primary-900"
+                    )}
+                  >
+                    {data?.items[0].quantity} {t("reward.carrot", { ns: "shop" })}
+                  </Typography>
+                </div>
               </div>
             </div>
+            {status?.toLowerCase() === EnumTransactionStatus.PAID && (
+              <Confetti
+                ref={confettiRef}
+                className="absolute left-0 top-0 z-0 size-full"
+                onMouseEnter={() => {
+                  confettiRef.current?.fire({});
+                }}
+              />
+            )}
           </div>
-          {status?.toLowerCase() === EnumTransactionStatus.PAID && (
-            <Confetti
-              ref={confettiRef}
-              className="absolute left-0 top-0 z-0 size-full"
-              onMouseEnter={() => {
-                confettiRef.current?.fire({});
-              }}
-            />
-          )}
-        </div>
-      </DialogContent>
-    </Dialog>
+        </DialogContent>
+      </Dialog>
+    )
   );
 }

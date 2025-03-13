@@ -4,12 +4,7 @@ import { useTranslation } from "react-i18next";
 import CriteriaScoreCard from "@/components/molecules/criteria-score-card";
 import { SkillEvaluationChart } from "@/components/organisms/skill-evaluation-chart";
 import { Typography } from "@/components/ui";
-import {
-  EnumSimulatedTestSessionStatus,
-  EnumSkill,
-  EnumSpeakingCriteria,
-  EnumWritingCriteria,
-} from "@/lib/enums";
+import { EnumSkill, EnumSpeakingCriteria, EnumWritingCriteria } from "@/lib/enums";
 import { SpeakingSession, WritingSession } from "@/lib/types/simulated-test-session.type";
 import { formatTime, getCriterias } from "@/lib/utils";
 
@@ -29,18 +24,6 @@ function OverviewEvaluationSection({ session }: OverviewEvaluationSectionProps) 
   const overalScore = session.results.find(
     (item) => typeof item.part === "string" && item.part === EnumSpeakingCriteria.Overall
   );
-
-  if (!overalScore) {
-    if (session.status !== EnumSimulatedTestSessionStatus.NOT_EVALUATED)
-      return (
-        <div className="rounded-xl bg-white p-4 xl:p-8">
-          {t("crashMessage", {
-            ns: "common",
-          })}
-        </div>
-      );
-    return;
-  }
 
   return (
     <div className="relative rounded-xl bg-white p-4 xl:p-8">
@@ -67,7 +50,7 @@ function OverviewEvaluationSection({ session }: OverviewEvaluationSectionProps) 
             description={t("result.warning", { ns: "simulatedTest" })}
           />
           <div className="grid grid-cols-2 gap-3 xl:gap-3 2xl:gap-3">
-            {Object.entries(overalScore.criterias).map(([key, value]) => (
+            {Object.entries(overalScore?.criterias || []).map(([key, value]) => (
               <CriteriaScoreCard
                 key={key}
                 criteria={getCriterias(EnumSkill.writing)[key]}
