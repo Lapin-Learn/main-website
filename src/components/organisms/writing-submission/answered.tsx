@@ -32,14 +32,15 @@ function SubmissionContentAnswered(props: SubmissionContentAnsweredProps) {
       const highlights: Record<string, string[]> = {};
 
       Object.entries(criteriasEvaluated).forEach(([key, value]) => {
-        value.evaluate.forEach((item) => {
-          item.highlight.forEach((highlight) => {
-            if (!highlights[highlight]) {
-              highlights[highlight] = [];
-            }
-            highlights[highlight].push(key);
+        if (typeof value.evaluate !== "string")
+          value.evaluate.forEach((item) => {
+            item.highlight.forEach((highlight) => {
+              if (!highlights[highlight]) {
+                highlights[highlight] = [];
+              }
+              highlights[highlight].push(key);
+            });
           });
-        });
       });
 
       const highlightedElements = createHighlightedElements(
@@ -53,14 +54,14 @@ function SubmissionContentAnswered(props: SubmissionContentAnsweredProps) {
   }, [evaluationResult]);
 
   return (
-    <div className="flex-0 flex flex-col gap-8">
+    <div className="flex-0 col-span-2 flex flex-col gap-5">
       <Typography variant="h6" className="font-semibold capitalize ">
         {t("result.yourAnswer")}
       </Typography>
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-row flex-wrap gap-x-6 gap-y-3">
-          {evaluationResult &&
-            Object.values(EnumWritingCriteria).map((value) => (
+      {evaluationResult && (
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-row flex-wrap gap-x-6 gap-y-3">
+            {Object.values(EnumWritingCriteria).map((value) => (
               <div key={value} className="flex flex-row items-center justify-center gap-2">
                 <div
                   className={cn(
@@ -71,21 +72,26 @@ function SubmissionContentAnswered(props: SubmissionContentAnsweredProps) {
                 <Typography variant="body2">{`${MAPPED_WRITING_CRITERIA_TITLES[value]} (${MAPPED_WRITING_CRITERIA_SHORT_TITLES[value]})`}</Typography>
               </div>
             ))}
+          </div>
+          <Typography
+            variant="body2"
+            className="text-wrap rounded-lg bg-neutral-50 p-4 text-neutral-500"
+          >
+            {t("result.hoverFeedback")}
+          </Typography>
         </div>
-        <Typography
-          variant="body2"
-          className="text-wrap rounded-lg bg-neutral-50 p-4 text-neutral-500"
-        >
-          {t("result.hoverFeedback")}
-        </Typography>
-      </div>
+      )}
 
       {paragraphs ? (
         <div>
           {highlightedAnswer ? (
             <div className="text-justify">{highlightedAnswer}</div>
           ) : (
-            <div className="text-justify">{paragraphs}</div>
+            <div className="text-justify">
+              {paragraphs.map((p) => (
+                <p>{p}</p>
+              ))}
+            </div>
           )}
         </div>
       ) : (
