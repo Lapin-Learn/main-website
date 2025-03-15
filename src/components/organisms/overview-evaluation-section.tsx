@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import CriteriaScoreCard from "@/components/molecules/criteria-score-card";
 import { SkillEvaluationChart } from "@/components/organisms/skill-evaluation-chart";
 import { Typography } from "@/components/ui";
-import { EnumSkill, EnumSpeakingCriteria, EnumWritingCriteria } from "@/lib/enums";
+import { EnumSpeakingCriteria } from "@/lib/enums";
 import { SpeakingSession, WritingSession } from "@/lib/types/simulated-test-session.type";
 import { formatTime, getCriterias } from "@/lib/utils";
 
@@ -41,7 +41,7 @@ function OverviewEvaluationSection({ session }: OverviewEvaluationSectionProps) 
         </Typography>
       </div>
       <div className="mt-8 gap-8 md:grid md:grid-cols-2">
-        {overalScore && <SkillEvaluationChart data={overalScore} skill={EnumSkill.writing} />}
+        {overalScore && <SkillEvaluationChart data={overalScore} skill={session.skillTest.skill} />}
         <div className="flex flex-col gap-3">
           <CustomAlert
             icon={<Info size={20} />}
@@ -50,15 +50,16 @@ function OverviewEvaluationSection({ session }: OverviewEvaluationSectionProps) 
             description={t("result.warning", { ns: "simulatedTest" })}
           />
           <div className="grid grid-cols-2 gap-3 xl:gap-3 2xl:gap-3">
-            {Object.entries(overalScore?.criterias || []).map(([key, value]) => (
-              <CriteriaScoreCard
-                key={key}
-                criteria={getCriterias(EnumSkill.writing)[key]}
-                criteriaKey={key as EnumWritingCriteria}
-                score={value.score}
-                skill={EnumSkill.writing}
-              />
-            ))}
+            {overalScore &&
+              Object.entries(overalScore?.criterias || []).map(([key, value]) => (
+                <CriteriaScoreCard
+                  key={key}
+                  criteria={getCriterias(session.skillTest.skill)[key as EnumSpeakingCriteria]}
+                  criteriaKey={key as EnumSpeakingCriteria}
+                  score={value.score}
+                  skill={session.skillTest.skill}
+                />
+              ))}
           </div>
         </div>
       </div>

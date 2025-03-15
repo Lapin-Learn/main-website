@@ -20,17 +20,20 @@ function EvaluationList({ evaluationResult, partNo }: CriteriaScoreListProps) {
 
   const evaluatedResults = results.find((result) => result.part == partNo);
 
+  if (!evaluatedResults) {
+    return null;
+  }
+
   return (
     <div className="col-start-2 flex flex-col gap-8 rounded-xl bg-white p-5">
-      {evaluatedResults &&
-        Object.entries(evaluatedResults.criterias).map(([key, value]) => (
-          <div key={key}>
-            <Typography variant="h6" className="h-8 font-bold uppercase">
-              {MAPPED_TITLES[key]}
-            </Typography>
-            <p>{typeof value.evaluate == "string" ? value.evaluate : ""}</p>
-          </div>
-        ))}
+      {Object.entries(evaluatedResults.criterias).map(([key, value]) => (
+        <div key={key}>
+          <Typography variant="h6" className="h-8 font-bold uppercase">
+            {MAPPED_TITLES[key]}
+          </Typography>
+          <p>{typeof value.evaluate == "string" ? value.evaluate : ""}</p>
+        </div>
+      ))}
     </div>
   );
 }
