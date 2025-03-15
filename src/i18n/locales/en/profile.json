@@ -86,6 +86,7 @@
         "cancelReason": {
             "DUPLICATED": "Duplicated transaction",
             "EXPIRED": "Transaction expired"
-        }
+        },
+        "cancelSuccess": "Transaction has been cancelled successfully"
     }
 }

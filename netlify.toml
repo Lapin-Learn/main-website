@@ -38,4 +38,3 @@
   from = "/*"
   to = "/index.html"
   status = 200
-  conditions = { Cookie = ["_netlify_preview=true"] }

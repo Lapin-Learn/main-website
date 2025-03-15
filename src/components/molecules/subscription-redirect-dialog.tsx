@@ -1,10 +1,10 @@
 import { Typography } from "@components/ui";
 import Confetti, { ConfettiRef } from "@components/ui/confetti.tsx";
 import { Dialog, DialogContent } from "@components/ui/dialog.tsx";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useGetUserTransactionDetail } from "@/hooks/react-query/usePayment";
+import { useCancelTransaction, useGetUserTransactionDetail } from "@/hooks/react-query/usePayment";
 import { EnumTransactionStatus } from "@/lib/enums.ts";
 import { cn } from "@/lib/utils";
 
@@ -18,6 +18,13 @@ export function SubscriptionRedirectDialog({
   const confettiRef = useRef<ConfettiRef>(null);
   const { t } = useTranslation(["subscription", "shop"]);
   const { data } = useGetUserTransactionDetail(orderCode);
+  const { mutate } = useCancelTransaction();
+
+  useEffect(() => {
+    if (status?.toLowerCase() === EnumTransactionStatus.CANCELLED) {
+      mutate(orderCode);
+    }
+  }, [status, mutate, orderCode]);
 
   return (
     !!orderCode && (
