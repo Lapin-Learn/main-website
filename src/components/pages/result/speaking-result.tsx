@@ -82,16 +82,14 @@ function SpeakingResult({ session }: SpeakingResultProps) {
                       }}
                     />
                   </div>
-                  {value.data.length > 0 && (
-                    <SpeakingSubmission
-                      partNo={value.partNo}
-                      submission={groupedSubmissions[value.partNo]}
-                      skillTestId={session.skillTest.id}
-                      evaluationResult={session.results.find(
-                        (evaluation) => evaluation.part == value.partNo
-                      )}
-                    />
-                  )}
+                  <SpeakingSubmission
+                    partNo={value.partNo}
+                    submission={groupedSubmissions[value.partNo]}
+                    skillTestId={session.skillTest.id}
+                    evaluationResult={session.results.filter(
+                      (evaluation) => evaluation.part == value.partNo
+                    )}
+                  />
                 </div>
               </TabsContent>
             ))}
