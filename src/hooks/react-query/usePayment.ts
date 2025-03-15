@@ -1,4 +1,4 @@
-import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { OffsetSchema } from "@/lib/types";
 import {
@@ -46,7 +46,12 @@ export const useGetUserTransactionDetail = (transactionId: number) => {
 };
 
 export const useCancelTransaction = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
-    mutationFn: async (transactionId: number) => cancelTransaction(transactionId),
+    mutationFn: cancelTransaction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: transactionKeys.key });
+    },
   });
 };
