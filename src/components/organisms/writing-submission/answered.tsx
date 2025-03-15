@@ -89,7 +89,7 @@ function SubmissionContentAnswered(props: SubmissionContentAnsweredProps) {
           ) : (
             <div className="text-justify">
               {paragraphs.map((p) => (
-                <p>{p}</p>
+                <p key={p}>{p}</p>
               ))}
             </div>
           )}
