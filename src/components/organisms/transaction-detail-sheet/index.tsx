@@ -6,7 +6,12 @@ import { useTranslation } from "react-i18next";
 import TransactionStatusBadge from "@/components/molecules/transaction-status-badge";
 import { Button } from "@/components/ui";
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { useGetPaymentLink, useGetUserTransactionDetail } from "@/hooks/react-query/usePayment";
+import {
+  useCancelTransaction,
+  useGetPaymentLink,
+  useGetUserTransactionDetail,
+} from "@/hooks/react-query/usePayment";
+import { useToast } from "@/hooks/use-toast";
 import { EnumTransactionStatus } from "@/lib/enums";
 import { formatVNDCurrency } from "@/lib/utils";
 
@@ -39,15 +44,35 @@ const TransactionDetailSheet = ({
     transactionId,
     status === EnumTransactionStatus.PENDING || status === EnumTransactionStatus.UNDERPAID
   );
+  const { mutate: cancelMutate, isPending: cancelLoading } = useCancelTransaction();
   const { t } = useTranslation("profile");
+
+  const { toast } = useToast();
   if (!transactionDetail) return null;
   if (!transactionId) return null;
 
   const quantity = transactionDetail?.items.length > 0 ? transactionDetail.items[0].quantity : 0;
 
-  const onClose = () => {
-    if (onOpenChange) {
-      onOpenChange(false);
+  const handleCancel = () => {
+    if (transactionId) {
+      cancelMutate(transactionId, {
+        onSuccess: () => {
+          toast({
+            title: t("success", { ns: "common" }),
+            description: t("transaction.cancelSuccess", { ns: "profile" }),
+          });
+        },
+        onError: (response) => {
+          toast({
+            title: t("error", { ns: "common" }),
+            description: t(response.message, { ns: "error" }),
+            variant: "destructive",
+          });
+        },
+        onSettled: () => {
+          if (onOpenChange) onOpenChange(false);
+        },
+      });
     }
   };
 
@@ -177,7 +202,12 @@ const TransactionDetailSheet = ({
               {(status === EnumTransactionStatus.PENDING ||
                 status === EnumTransactionStatus.UNDERPAID) && (
                 <div className="flex flex-1 gap-6">
-                  <Button onClick={onClose} variant="ghost">
+                  <Button
+                    onClick={handleCancel}
+                    variant="ghost"
+                    disabled={cancelLoading}
+                    isLoading={cancelLoading}
+                  >
                     {t("transaction.cancel")}
                   </Button>
                   <Button

@@ -57,6 +57,7 @@ export const useUseInventoryItem = () => {
     mutationFn: useItem,
     onSuccess: () => {
       client.invalidateQueries({ queryKey: itemKeys.inventory() });
+      client.invalidateQueries({ queryKey: gamificationKeys.gamificationProfile });
     },
     onError: (response) => {
       toast({

@@ -45,3 +45,11 @@ export const getUserTransactionsHistory = async (payload: OffsetSchema) => {
 export const getUserTransactionDetail = async (transactionId: number) => {
   return (await api.get(`payment/transactions/${transactionId}`).json<FetchingData<Order>>()).data;
 };
+
+export const cancelTransaction = async (transactionId: number) => {
+  return (
+    await api.put(`payment/payment-link/${transactionId}`, {
+      json: { cancellationReason: "cancelled" },
+    })
+  ).json<FetchingData<Order>>();
+};
