@@ -104,8 +104,13 @@ const SpeakingPartTwo = ({ content, session }: SpeakingQuestionProps) => {
     <div className="grid w-[880px] grid-cols-12 gap-6">
       <div className="col-span-8 flex flex-col justify-center gap-6 overflow-visible rounded-lg border border-blue-200 bg-white p-12">
         <h5 className="text-center text-heading-5 font-semibold">{content.heading}</h5>
-        <ul className="prose list-inside list-disc">
-          <div dangerouslySetInnerHTML={{ __html: content.content }} />
+        <p>You should say:</p>
+        <ul className="list-inside list-disc">
+          {content.content.map((item, index) => (
+            <li key={index} className="text-paragraph">
+              {item}
+            </li>
+          ))}
         </ul>
       </div>
       <div className="col-span-4 flex flex-col items-center justify-center gap-8 overflow-visible rounded-lg border border-blue-200 bg-white p-10">
