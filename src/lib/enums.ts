@@ -98,6 +98,7 @@ export enum EnumTourElement {
 }
 
 export enum EnumWritingCriteria {
+  Overall = "overall",
   TaskAchievement = "TR",
   CoherenceAndCohesion = "CC",
   LexicalResource = "LR",

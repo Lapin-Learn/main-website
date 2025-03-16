@@ -11,9 +11,9 @@ import { ExtendedSpeakingResponse } from "./helpers";
 
 type SpeakingSubmissionProps = {
   partNo: number;
-  submission: ExtendedSpeakingResponse[];
+  submission?: ExtendedSpeakingResponse[];
   skillTestId: number;
-  evaluationResult?: STCriteriaEvaluation;
+  evaluationResult?: STCriteriaEvaluation[];
 };
 
 export function SpeakingSubmission(props: SpeakingSubmissionProps) {
@@ -80,13 +80,15 @@ export function SpeakingSubmission(props: SpeakingSubmissionProps) {
               question={data && Array.isArray(data.content) ? data.content[activeQuestion] : ""}
               no={activeQuestion + 1}
               partNo={partNo}
-              submission={submission.find((item) => item.questionNo === activeQuestion + 1) ?? null}
+              submission={
+                submission?.find((value) => value.questionNo === activeQuestion + 1) ?? null
+              }
             />
           </div>
         </Card>
       </div>
 
-      {evaluationResult && <EvaluationList evaluationResult={evaluationResult} />}
+      {evaluationResult && <EvaluationList evaluationResult={evaluationResult} partNo={partNo} />}
     </div>
   );
 }
