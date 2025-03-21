@@ -1,92 +1,93 @@
 {
-    "pageTitle": "Account management",
-    "saveBtn": "Save changes",
-    "formProfile": {
-        "username": {
-            "label": "Username",
-            "placeholder": "Enter username"
-        },
-        "email": {
-            "label": "Email",
-            "placeholder": "Enter email"
-        },
-        "fullName": {
-            "label": "Full name",
-            "placeholder": "Enter full name"
-        },
-        "gender": {
-            "label": "Gender",
-            "placeholder": "Select gender",
-            "options": {
-                "female": "Female",
-                "male": "Male"
-            }
-        },
-        "dob": {
-            "label": "Date of birth",
-            "placeholder": "Select date of birth"
-        }
+  "pageTitle": "Account management",
+  "saveBtn": "Save changes",
+  "formProfile": {
+    "username": {
+      "label": "Username",
+      "placeholder": "Enter username"
     },
-    "formUpdatePassword": {
-        "oldPassword": {
-            "label": "Current password",
-            "placeholder": "Enter current password"
-        },
-        "newPassword": {
-            "label": "New password",
-            "placeholder": "Enter new password"
-        },
-        "confirmPassword": {
-            "label": "Confirm password",
-            "placeholder": "Re-enter new password"
-        }
+    "email": {
+      "label": "Email",
+      "placeholder": "Enter email"
     },
-    "learning_history": {
-        "learning_result": "Estimated learning result",
-        "evaluation": {
-            "chart": "Test performance",
-            "accuracy": "Accuracy by Question types"
-        },
-        "simulated_test_history": "Simulated test history"
+    "fullName": {
+      "label": "Full name",
+      "placeholder": "Enter full name"
     },
-    "transaction": {
-        "title": "Transaction history",
-        "list": "Transaction list",
-        "name": "Transaction name",
-        "time": "Time",
-        "amount": "Amount",
-        "status": "Status",
-        "noTransaction": "No transaction found",
-        "statusOptions": {
-            "pending": "Pending",
-            "paid": "Paid",
-            "underpaid": "Underpaid",
-            "cancelled": "Cancelled",
-            "error": "Error"
-        },
-        "transactionName": "BUY {{ quantity }} CARROTS",
-        "viewDetail": "View detail",
-        "transactionDetail": {
-            "title": "Transaction details",
-            "id": "TransactionID",
-            "time": "Time",
-            "amountPaid": "Amount paid",
-            "cancelTime": "Cancelled at",
-            "cancelReason": "Cancelled reason",
-            "status": "Status",
-            "accountNumber": "Account",
-            "bank": "Bank",
-            "amount": "Amount",
-            "description": "Description",
-            "contact": "Contact support"
-        },
-        "cancel": "Cancel",
-        "pay": "Pay",
-        "transferMore": "Transfer more",
-        "cancelReason": {
-            "DUPLICATED": "Duplicated transaction",
-            "EXPIRED": "Transaction expired"
-        },
-        "cancelSuccess": "Transaction has been cancelled successfully"
+    "gender": {
+      "label": "Gender",
+      "placeholder": "Select gender",
+      "options": {
+        "female": "Female",
+        "male": "Male"
+      }
+    },
+    "dob": {
+      "label": "Date of birth",
+      "placeholder": "Select date of birth"
     }
+  },
+  "formUpdatePassword": {
+    "oldPassword": {
+      "label": "Current password",
+      "placeholder": "Enter current password"
+    },
+    "newPassword": {
+      "label": "New password",
+      "placeholder": "Enter new password"
+    },
+    "confirmPassword": {
+      "label": "Confirm password",
+      "placeholder": "Re-enter new password"
+    }
+  },
+  "learning_history": {
+    "learning_result": "Estimated learning result",
+    "evaluation": {
+      "chart": "Test performance",
+      "accuracy": "Accuracy by Question types"
+    },
+    "simulated_test_history": "Simulated test history"
+  },
+  "transaction": {
+    "title": "Transaction history",
+    "list": "Transaction list",
+    "name": "Transaction name",
+    "time": "Time",
+    "amount": "Amount",
+    "status": "Status",
+    "noTransaction": "No transaction found",
+    "statusOptions": {
+      "pending": "Pending",
+      "paid": "Paid",
+      "underpaid": "Underpaid",
+      "cancelled": "Cancelled",
+      "error": "Error"
+    },
+    "transactionName": "BUY {{ quantity }} CARROTS",
+    "viewDetail": "View detail",
+    "transactionDetail": {
+      "title": "Transaction details",
+      "id": "TransactionID",
+      "time": "Time",
+      "amountPaid": "Amount paid",
+      "cancelTime": "Cancelled at",
+      "cancelReason": "Cancelled reason",
+      "status": "Status",
+      "accountNumber": "Account",
+      "bank": "Bank",
+      "amount": "Amount",
+      "description": "Description",
+      "contact": "Contact support"
+    },
+    "cancel": "Cancel",
+    "pay": "Pay",
+    "transferMore": "Transfer more",
+    "cancelReason": {
+      "DUPLICATED": "Duplicated transaction",
+      "EXPIRED": "Transaction expired",
+      "cancelled": "Cancelled by user"
+    },
+    "cancelSuccess": "Transaction has been cancelled successfully"
+  }
 }

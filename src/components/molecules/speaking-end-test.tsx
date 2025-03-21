@@ -10,7 +10,7 @@ import { Button } from "../ui";
 const SpeakingEndTest = () => {
   const { t } = useTranslation("simulatedTest");
   const { speakingSources } = useSpeakingTestState();
-  const { mutate: submitTest } = useSubmitSimulatedTest();
+  const { mutate: submitTest, isPending } = useSubmitSimulatedTest();
   const { sessionId } = Route.useSearch();
 
   const handleSubmitSpeaking = () => {
@@ -41,7 +41,9 @@ const SpeakingEndTest = () => {
           }}
         />
       </div>
-      <Button onClick={handleSubmitSpeaking}>{t("submitBtn")}</Button>
+      <Button onClick={handleSubmitSpeaking} disabled={isPending} isLoading={isPending}>
+        {t("submitBtn")}
+      </Button>
     </div>
   );
 };
