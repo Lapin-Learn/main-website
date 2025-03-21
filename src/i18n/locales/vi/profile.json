@@ -85,7 +85,8 @@
         "transferMore": "Chuyển thêm",
         "cancelReason": {
             "DUPLICATED": "Giao dịch bị trùng",
-            "EXPIRED": "Giao dịch hết hạn"
+            "EXPIRED": "Giao dịch hết hạn",
+            "cancelled": "Bị huỷ bởi người dùng"
         },
         "cancelSuccess": "Giao dịch đã được huỷ thành công"
     }
