@@ -280,5 +280,7 @@ export const getCriterias = (skill: EnumSkill, isBrief: boolean = false) => {
 export const updateResults = (results: STCriteriaEvaluation[]) => {
   const currentLang = i18next.language;
 
-  return results.filter((result) => result.lang === currentLang);
+  const filteredResults = results.filter((result) => result.lang === currentLang);
+
+  return filteredResults.length ? filteredResults : results;
 };
