@@ -61,17 +61,19 @@ function SubmissionContentAnswered(props: SubmissionContentAnsweredProps) {
       {evaluationResult && (
         <div className="flex flex-col gap-4">
           <div className="flex flex-row flex-wrap gap-x-6 gap-y-3">
-            {Object.values(EnumWritingCriteria).map((value) => (
-              <div key={value} className="flex flex-row items-center justify-center gap-2">
-                <div
-                  className={cn(
-                    "shrink-0 w-6 h-6 rounded-sm bg-opacity-50",
-                    MAPPED_CRITERIA_COLOR[value]
-                  )}
-                />
-                <Typography variant="body2">{`${MAPPED_WRITING_CRITERIA_TITLES[value]} (${MAPPED_WRITING_CRITERIA_SHORT_TITLES[value]})`}</Typography>
-              </div>
-            ))}
+            {Object.values(EnumWritingCriteria)
+              .filter((c) => c !== "overall")
+              .map((value) => (
+                <div key={value} className="flex flex-row items-center justify-center gap-2">
+                  <div
+                    className={cn(
+                      "shrink-0 w-6 h-6 rounded-sm bg-opacity-50",
+                      MAPPED_CRITERIA_COLOR[value]
+                    )}
+                  />
+                  <Typography variant="body2">{`${MAPPED_WRITING_CRITERIA_TITLES[value]} (${MAPPED_WRITING_CRITERIA_SHORT_TITLES[value]})`}</Typography>
+                </div>
+              ))}
           </div>
           <Typography
             variant="body2"
